@@ -33,4 +33,4 @@ A telephely táblában vannak a címek rögzítve. Meglevő adatot nem írhatunk
 
 Tipp: használj kurzort a megoldáshoz, amely kurzor a telephely rekordokon menjen végig.
 
-A feladatok megoldása egy-egy PL/SQL szkript (avagy egyetlen szkriptben mindegyik megoldás).
+A feladatok megoldása egy PL/SQL szkript.

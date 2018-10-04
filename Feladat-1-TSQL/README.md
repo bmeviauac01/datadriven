@@ -26,4 +26,6 @@ Biztonsági megfontolásból szeretnénk kötelezővé tenni a jelszó időnkén
 
 1. Készíts triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a JelszoLejarat mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (insert) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (update) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) (2p)
 
-A feladatok megoldása egy-egy T-SQL szkript (avagy egyetlen szkriptben mindkettő megoldás).
+A feladatok megoldása egy T-SQL szkript.
+
+Tipp: A feladatokat megvalósító T-SQL részek között adj ki egy GO utasítást a szkriptben. Így az egész fájl egyben futtatható lesz.
