@@ -1,6 +1,12 @@
 # BME AUT Adatvezérelt rendszerek házi feladatok
 
-A házi feladatok opcionálisak, iMsc pont szerezhető velük. A feladatok leírása ebben a repository-ban található, a megoldások beadása GitHub Classroom segítségével keresztül történik.
+A házi feladatok **opcionálisak, iMsc pont** szerezhető velük. A feladatok leírása ebben a repository-ban található, a megoldások beadása GitHub Classroom segítségével keresztül történik.
+
+## A feladatok
+
+1. [Szerver oldali programozás T-SQL nyelven](./Feladat-1-TSQL)
+1. [Szerver oldali programozás PL/SQL nyelven](./Feladat-2-PLSQL)
+1. [REST API-t megvalósító mini webalkalmazás Entity Framework és Web API technológiákkal](./Feladat-3-EF-WebAPI)
 
 ## A feladatok beadása
 
