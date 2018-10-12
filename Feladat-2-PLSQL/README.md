@@ -6,6 +6,8 @@ A házi feladat opcionális. A teljesítéssel **3 iMsc pont** szerezhető.
 
 A feladat megoldása **1 darab sql kiterjesztésű szöveges fájl**, amely a minta adatbázison közvetlenül futtatható. GitHub Classroom segítségével a <https://classroom.github.com/a/e44RLa2_> linken keresztül hozz létre egy repository-t. Ez tartalmaz egy üres SQL fájlt, ebbe írd a megoldásod, és úgy pushold a repository-t.
 
+Mielőtt nekiállasz a feladat megoldásának, ha még nem tetted meg, ne felejtsd [ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) megadni a neptun kódod és a GitHub account neved.
+
 Határidő: **2018. november 4. vasárnap 23.59**
 
 ## Szükséges eszközök

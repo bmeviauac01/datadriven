@@ -6,6 +6,8 @@ A házi feladat opcionális. A teljesítéssel **4 iMsc pont** szerezhető.
 
 A feladat megoldása a Visual Studio solution és minden szükséges forráskód. GitHub Classroom segítségével a <https://classroom.github.com/a/IDg3UAOR> linken keresztül hozz létre egy repository-t. Ez tartalmazni fogja a kiinduló állapotot. Ezen állapotot módosítsd, és töltsd fel.
 
+Mielőtt nekiállasz a feladat megoldásának, ha még nem tetted meg, ne felejtsd [ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) megadni a neptun kódod és a GitHub account neved.
+
 Határidő: **2018. december 2. vasárnap 23.59**
 
 ## Szükséges eszközök
