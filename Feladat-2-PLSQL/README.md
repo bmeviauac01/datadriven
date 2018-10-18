@@ -33,6 +33,10 @@ A telephely táblában vannak a címek rögzítve. Meglevő adatot nem írhatunk
 
 * Ha van olyan megrendelés, ami még nem "Szállítás alatt" ill. "Kiszállítva" státuszú (Megrendeles.StatuszID), valamint a szállítási cím (Megrendeles.TelephelyID) a régi, 2045-ös irányítószámra mutat, változtasd meg a megrendelésben a hivatkozott telephelyet is. (1p)
 
-Tipp: használj kurzort a megoldáshoz, amely kurzor a telephely rekordokon menjen végig.
+Tippek
+
+* használj kurzort a megoldáshoz, amely kurzor a telephely rekordokon menjen végig;
+* ügyelj rá, hogy az irányítószám szöveg mező, nem számként kezeld;
+* az új telephely rekordok beszúrásához hozz létre egy szekvenciát, ami 1000-től indul.
 
 A feladatok megoldása egy PL/SQL szkript.
