@@ -143,58 +143,58 @@ A feladat összesen **3 iMsc pontot** ér.
 
 * Képezd le a Termek entitás AFA táblára mutató kapcsolatát. (1 pont)
 * Készíts egy termék modell osztályt, ami az adatbázistól függetlenül reprezentálja a terméket az áfa kulcs értékével együtt, és amely osztály közvetlenül JSON sorosítható. (1 pont)
-* Készíts egy API függvényt, amivel keresni lehet a termékek között név alapján és a termékek adatait adja válaszul. Az API függvénynél törekedjen a Web API személet helyes alkalmazására. (1 pont)
+* Készíts egy API függvényt, amivel keresni lehet a termékek között név alapján és a termékek adatait adja válaszul. Az API függvénynél törekedj a Web API személet helyes alkalmazására. (1 pont)
 
 A feladatot az alábbi lépések mentén old meg.
 
 1. Készíts egy _DbAfa_ osztályt az AFA tábla leképzésére a _DbTermek_-hez hasonlóan. Ne felejtsd el felvenni a DbSet-et a CRMDbContext-be.
 
-2. Képezd le a Termek - AFA kapcsolatot.
+1. Képezd le a Termek - AFA kapcsolatot.
 
-A DbTermek osztályba vegyél fel egy DbAFA típusú get-set property-t, ez lesz a navigation property. Használd az alábbi attribútumot a property felett, ami meghatározza a külső kulcs adatbázis mezőjét.
+   A DbTermek osztályba vegyél fel egy DbAFA típusú get-set property-t, ez lesz a navigation property. Használd az alábbi attribútumot a property felett, ami meghatározza a külső kulcs adatbázis mezőjét.
 
-```C#
-[ForeignKey("AFAID")]
-public DbAFA AFA { get; set; }
-```
+    ```C#
+    [ForeignKey("AFAID")]
+    public DbAFA AFA { get; set; }
+    ```
 
-Vedd fel ennek az egy-több kapcsolatnak a másik oldalát a DbAFA osztályba. Mivel POCO proxy-kat használunk, a property ICollection<DbTermek> típusú legyen.
+    Vedd fel ennek az egy-több kapcsolatnak a másik oldalát a DbAFA osztályba. Mivel POCO proxy-kat használunk, a property ICollection<DbTermek> típusú legyen.
 
-```C#
-public ICollection<DbTermek> Termekek { get; set; }
-```
+    ```C#
+    public ICollection<DbTermek> Termekek { get; set; }
+    ```
 
-3. Készíts egy új modell osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcsot is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Valamint ez az osztály JSON sorosítható is lesz (a DbTermek osztály a navigation property miatt nem igazán sorosítható, legalábbis nem praktikus arra is használni).
+1. Készíts egy új modell osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcsot is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Valamint ez az osztály JSON sorosítható is lesz (a DbTermek osztály a navigation property miatt nem igazán sorosítható, legalábbis nem praktikus arra is használni).
 
-Készíts egy _Model_ mappát, és készíts ebbe a mappába egy _TermekAfaval_ nevű osztályt, ami tartalmazza a DbTermek leképzett tulajdonságait, de a DbAfa-ra mutató navigation property helyett az int típusú áfakulcs értékét tartalmazza. (Ennek az osztálynak már nincs köze az adatbázishoz, a CRMDbContext-be nem kell felvenni semmilyen módon.)
+    Készíts egy _Model_ mappát, és készíts ebbe a mappába egy _TermekAfaval_ nevű osztályt, ami tartalmazza a DbTermek leképzett tulajdonságait, de a DbAfa-ra mutató navigation property helyett az int típusú áfakulcs értékét tartalmazza. (Ennek az osztálynak már nincs köze az adatbázishoz, a CRMDbContext-be nem kell felvenni semmilyen módon.)
 
-Készíts egy statikus segédfüggvényt, ami egy DbTermek entitásból készít egy TermekAfaval osztály példányt. A függvényt teheted egy új osztályba is, de az egyszerűség kedvéért lehet a TermekAfaval osztályban is.
+    Készíts egy statikus segédfüggvényt, ami egy DbTermek entitásból készít egy TermekAfaval osztály példányt. A függvényt teheted egy új osztályba is, de az egyszerűség kedvéért lehet a TermekAfaval osztályban is.
 
-```C#
-public static TermekAfaval Convert(DbTermek db) { ... }
-```
+    ```C#
+    public static TermekAfaval Convert(DbTermek db) { ... }
+    ```
 
-Szükségünk lesz olyan segédfüggvényre is, ami nem csupán egy DbTermek, hanem egy egész eredményhalmaz konvertálását megvalósítja. Készíts ehhez is egy segédfüggvényt.
+    Szükségünk lesz olyan segédfüggvényre is, ami nem csupán egy DbTermek, hanem egy egész eredményhalmaz konvertálását megvalósítja. Készíts ehhez is egy segédfüggvényt.
 
-```C#
-using System.Linq;
-...
+    ```C#
+    using System.Linq;
+    ...
 
-public static TermekAfaval[] Convert(IEnumerable<DbTermek> db)
-{
-     return db.Select(Convert).ToArray();
-}
-```
+    public static TermekAfaval[] Convert(IEnumerable<DbTermek> db)
+    {
+        return db.Select(Convert).ToArray();
+    }
+    ```
 
-4. Készíts a TermekContoller-be egy GET kérésre válaszoló, egy darab string bemeneti paraméterrel rendelkező API metódust, ami a kapott string paraméterrel a termékek nevében keresve visszaadja az talált termékeket TermekAfaval típusként. Ha nincs egyezés, üres listát adjon vissza.
+1. Készíts a TermekContoller-be egy GET kérésre válaszoló, egy darab string bemeneti paraméterrel rendelkező API metódust, ami a kapott string paraméterrel a termékek nevében keresve visszaadja az talált termékeket TermekAfaval típusként. Ha nincs egyezés, üres listát adjon vissza.
 
-A metódus az API-n a http://localhost:5000/api/termek/keresettnev URL-en legyen elérhető, ahol a keresett név töredéket a /termek/ utáni részben adjuk meg.
+    A metódus az API-n a http://localhost:5000/api/termek/keresettnev URL-en legyen elérhető, ahol a keresett név töredéket a /termek/ utáni részben adjuk meg.
 
-```C#
-[HttpGet("{keres}")]
-public IEnumerable<Model.TermekAfaval> Search(string keres)
-```
+    ```C#
+    [HttpGet("{keres}")]
+    public IEnumerable<Model.TermekAfaval> Search(string keres)
+    ```
 
-Az így definiált eredmény JSON sorosításról a keretrendszer gondoskodni fog.
+    Az így definiált eredmény JSON sorosításról a keretrendszer gondoskodni fog.
 
-Ne felejtsd a Termek lekérdezésekor az AFA irányú navigation property-n a lazy loadingot kikapcsolni (Include használatával). Az adatbázisból lekérdezett DbTermek példányokat a korábban készített segédfüggvénnyel közvetlenül konvertálhatod.
+    Ne felejtsd a Termek lekérdezésekor az AFA irányú navigation property-n a lazy loadingot kikapcsolni (Include használatával). Az adatbázisból lekérdezett DbTermek példányokat a korábban készített segédfüggvénnyel közvetlenül konvertálhatod.
