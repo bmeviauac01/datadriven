@@ -16,7 +16,7 @@ Minden feladathoz egy-egy link tartozik, amin keresztül a feladathoz tartozó r
 
 A feladat beadásának lépései:
 
-1. [Regisztrálj](https://github.com/join/customize) egy GitHib accountot, ha még nincs.
+1. [Regisztrálj](https://github.com/join/customize) egy GitHub accountot, ha még nincs.
 
 1. [Ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) add meg a neptun kódod és a GitHub account neved.
 

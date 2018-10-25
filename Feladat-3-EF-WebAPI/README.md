@@ -6,7 +6,7 @@ A házi feladat opcionális. A teljesítéssel **4 iMsc pont** szerezhető.
 
 A feladat megoldása a Visual Studio solution és minden szükséges forráskód. GitHub Classroom segítségével a <https://classroom.github.com/a/IDg3UAOR> linken keresztül hozz létre egy repository-t. Ez tartalmazni fogja a kiinduló állapotot. Ezen állapotot módosítsd, és töltsd fel.
 
-Mielőtt nekiállasz a feladat megoldásának, ha még nem tetted meg, ne felejtsd [ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) megadni a neptun kódod és a GitHub account neved.
+Mielőtt nekiállsz a feladat megoldásának, ha még nem tetted meg, ne felejtsd [ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) megadni a neptun kódod és a GitHub account neved.
 
 Határidő: **2018. december 2. vasárnap 23.59**
 
@@ -49,7 +49,7 @@ Az adatbázis modell leképzése **1 iMsc pontot** ér. A további feladatokhoz 
 
 Készítsük el az adatbázisunk Entity Framework leképzését Code First megoldással. Az Entity Framework Core csomag már része a projektünknek, így rögtön kódolhatunk is. Az adatelérési rétegünket a _DAL_ mappában készítjük el.
 
-Az adatelés központi eleme a DbContext. Ez az osztály már lértezik CRMDbContext néven. Nézd meg a tartalmát.
+Az adatelérés központi eleme a DbContext. Ez az osztály már létezik CRMDbContext néven. Nézd meg a tartalmát.
 
 ```C#
 using Microsoft.EntityFrameworkCore;
@@ -87,7 +87,7 @@ namespace HF_EF_WebAPI.DAL
 ```
 A kód inicializálja a kapcsolatot az SQL szerverrel. Ehhez először környezeti változóból próbálja megkeresni a connection stringet, ha nem találja, akkor használja a beégetett értéket. A beégetett értéket módosíthatod, de az előtte levő részt hagyd érintetlenül.
 
-Képezd le a termékeket. Hozz létre egy új osztályt a DAL mappába DbTermek néven az alábbi kóddal. (A _Db_ prefix egyértelművé teszi, hogy az osztály az adatbázis kontextusában értelmezett.)
+Képezd le a termékeket. Hozz létre egy új osztályt a _DAL_ mappában _DbTermek_ néven az alábbi kóddal. (A _Db_ prefix egyértelművé teszi, hogy az osztály az adatbázis kontextusában értelmezett.)
 
 ```C#
 using System.ComponentModel.DataAnnotations.Schema;
@@ -108,7 +108,7 @@ namespace HF_EF_WebAPI.DAL
 
 Menj vissza a DbContext-hez és töröld a kommentet a _Termekek_ property elől.
 
-Adj egy új controllert a projekthez, amely a termékkel kapcsolatos szolgáltatásokat nyújtja. A controllers mappára jobb egérrel kattintva az Add menü alatt válasszuk a Controller-t, majd az _API Controller - Empty_ opciót. Készíts egy olyan metódust, ami minden termék nevét listázza. Ezzel tesztelhetjük, hogy az infrastruktúra rendben működik-e. A TermekController-t az alábbiak szerint implementáljuk.
+Adj egy új controllert a projekthez, amely a termékkel kapcsolatos szolgáltatásokat nyújtja. A _Controllers_ mappára jobb egérrel kattintva az _Add_ menü alatt válasszuk a _Controller_-t, majd az _API Controller - Empty_ opciót. Készíts egy olyan metódust, ami minden termék nevét listázza. Ezzel tesztelhetjük, hogy az infrastruktúra rendben működik-e. A TermekController-t az alábbiak szerint implementáljuk.
 
 ```C#
 using System.Collections.Generic;
@@ -135,7 +135,7 @@ namespace HF_EF_WebAPI.Controllers
 
 Indítsd el a webalkalmazást, és Postman-ben a http://localhost:5000/api/termek címre küldj GET kérést. Válaszul meg kell kapd a termékek neveit.
 
-Megjegyzés: a ToArray()-re azért van szükségünk, mert anélkül a return kulcsszó a lekérdezés leíróját, az IQueryable interfészt adná vissza, ami az eredményeket nem tartalmazza. A tényleges adatbázis elérés abban az esetben az IQueryable iterálásakor kezdődne meg, amit a keretrendszer a JSON sorosítás során végezne; mindez pedig a mi függvényünkből való visszatérés után történne, ami pedig a DbContext lezárása után fut csak.
+Megjegyzés: a ToArray()-re azért van szükségünk, mert anélkül a return kulcsszó a lekérdezés leíróját, az IQueryable interfészt adná vissza, ami az eredményeket nem tartalmazza. A tényleges adatbázis elérés abban az esetben az IQueryable iterálásakor kezdődne meg, amit a keretrendszer a JSON sorosításkor végezne; mindez pedig a mi függvényünkből való visszatérés után történne, ami pedig a DbContext lezárása után fut csak.
 
 ## Feladat: termék keresése
 
@@ -186,7 +186,7 @@ A feladatot az alábbi lépések mentén old meg.
     }
     ```
 
-1. Készíts a TermekContoller-be egy GET kérésre válaszoló, egy darab string bemeneti paraméterrel rendelkező API metódust, ami a kapott string paraméterrel a termékek nevében keresve visszaadja az talált termékeket TermekAfaval típusként. Ha nincs egyezés, üres listát adjon vissza.
+1. Készíts a TermekContoller-be egy GET kérésre válaszoló, egy darab string bemeneti paraméterrel rendelkező API metódust, ami a kapott string paraméterrel a termékek nevében keresve visszaadja a talált termékeket TermekAfaval típusként. Ha nincs egyezés, üres listát adjon vissza.
 
     A metódus az API-n a http://localhost:5000/api/termek/keresettnev URL-en legyen elérhető, ahol a keresett név töredéket a /termek/ utáni részben adjuk meg.
 
