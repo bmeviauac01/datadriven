@@ -8,16 +8,18 @@ A feladat megoldása **1 darab sql kiterjesztésű szöveges fájl**, amely a mi
 
 Mielőtt nekiállasz a feladat megoldásának, ha még nem tetted meg, ne felejtsd [ezen a formon](https://1drv.ms/xs/s!ApHUeZ7ao_2ThuJdorOCXZoah2Rjyw?wdFormId=%7BFE4E4230%2DFBEF%2D435A%2D9363%2DF33D02A19B75%7D) megadni a neptun kódod és a GitHub account neved.
 
-Határidő: **2018. november 4. vasárnap 23.59**
+Határidő: **2018. november 11. vasárnap 23.59**
 
 ## Szükséges eszközök
 
 * Oracle Server
   * Az Express változat ingyenesen beszerezhető.
+  * Használható a [Docker változat](../Docker-hasznalat.md) is.
 * Oracle SQL Developer
   * Ingyenesen beszerezhető szoftver. Más, alternatív szoftver is használható.
 * A tanszéki honlapról letölthető adatbázis létrehozó szkript.
   * A szerver telepítésekor létrejon a "system" felhasználó sémája, lehet ebben dolgozni, avagy [létrehozható egy új, üres séma](  https://docs.oracle.com/cd/E17781_01/admin.112/e18585/toc.htm#XEGSG110) a minta adatbázishoz. Előkészületként futtasd le a táblákat létrehozó szkriptet.
+  * Docker-es változat esetén ezt a lépést hagyd ki.
 
 ## Feladat: Irányítószám változás miatti karbantartás
 

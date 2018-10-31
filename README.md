@@ -8,6 +8,26 @@ A házi feladatok **opcionálisak, iMsc pont** szerezhető velük. A feladatok l
 1. [Szerver oldali programozás PL/SQL nyelven](./Feladat-2-PLSQL)
 1. [REST API-t megvalósító mini webalkalmazás Entity Framework és Web API technológiákkal](./Feladat-3-EF-WebAPI)
 
+## A feladatokhoz szükséges szerver platformok
+
+A feladatok megoldásához szükséges Microsoft SQL Server és Oracle Server futtatása több féle módon történhet.
+
+1. Telepítés
+
+    Mindkét szerverből telepíthető ingyenesen elérhető Express változat.
+
+    Oracle Server: <https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index-083047.html>
+
+    Microsoft SQL Server: <https://www.microsoft.com/en-us/sql-server/sql-server-editions-express>
+
+1. Microsoft SQL Server "localdb"
+
+    Visual Studio-val települ a localdb, a gyakorlatokon megszokott módon tudunk vele dolgozni.
+
+1. Docker
+
+    Ennek használatáról részletesen lásd [itt](./Docker-hasznalat.md).
+
 ## A feladatok beadása
 
 A feladatok beadásához a [GitHub Classroom](https://classroom.github.com)-ot használjuk. Minden feladat beadás egy-egy GitHub repository-ban történik. A megoldásként elkészített fájlokat fel kell tölteni egy repository-ba, aminek elkészítését a GitHub classroom segíti.

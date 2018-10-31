@@ -14,9 +14,11 @@ Határidő: **2018. december 2. vasárnap 23.59**
 
 * Microsoft SQL Server
   * Express változat ingyenesen használható, avagy Visual Studio telepítésével a gyakorlatokon is használt "localdb" változat elérhető
+  * Használható a [Docker változat](../Docker-hasznalat.md) is.
 * Microsoft SQL Server Management Studio
 * A tanszéki honlapról letölthető adatbázis létrehozó szkript.
   * Előkészületként hozz létre egy új adatbázist, és futtasd le a táblákat létrehozó szkriptet.
+  * Docker-es változat esetén ezt a lépést hagyd ki.
 * Microsoft Visual Studio 2017, 15.8-as vagy újabb verzió
   * Community változat is megfelelő.
 * [Postman](https://www.getpostman.com/)
