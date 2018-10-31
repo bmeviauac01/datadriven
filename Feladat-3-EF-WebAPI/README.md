@@ -87,7 +87,8 @@ namespace HF_EF_WebAPI.DAL
     }
 }
 ```
-A kód inicializálja a kapcsolatot az SQL szerverrel. Ehhez először környezeti változóból próbálja megkeresni a connection stringet, ha nem találja, akkor használja a beégetett értéket. A beégetett értéket módosíthatod, de az előtte levő részt hagyd érintetlenül.
+
+A kód inicializálja a kapcsolatot az SQL szerverrel. Ehhez először környezeti változóból próbálja megkeresni a connection stringet, ha nem találja, akkor használja a beégetett értéket. Írd át az else ágban levő connection stringet, _initial catalog_-nak használd az általad adott adatbázis nevet.
 
 Képezd le a termékeket. Hozz létre egy új osztályt a _DAL_ mappában _DbTermek_ néven az alábbi kóddal. (A _Db_ prefix egyértelművé teszi, hogy az osztály az adatbázis kontextusában értelmezett.)
 
