@@ -15,13 +15,13 @@ namespace TodoApi.Controllers
     Megnézi, milyen konstruktor paraméterei vannak a TodoController-nek:
     * TodoContext context: ez a TodoContext->TodoContext regisztrációnak megfelelően TodoContext
       objektumra képződik le (scope-olt, minden API kiszolgálási kérésre más)
-    * INotificationService notificationService: ez a TodoContext->TodoContext regisztrációnak megfelelően
+    * INotificationService notificationService: ez a INotificationService->NotificationService regisztrációnak megfelelően
       NotificationService objektumra képződik le. Ennek van három konstruktor paramétere, ezeket is
       feloldja a DI regisztrációk alapján: 
         * ILogger logger: Logger (singleton)
-        * IEMailSender emailSender: EMailSender (singleton), aminek van egy konctruktor parammétere:
+        * IEMailSender emailSender: EMailSender (transient), aminek van egy konstruktor parammétere:
             * ILogger logger: Logger (singleton)
-        * IContactRepository contactRepository: ContactRepository
+        * IContactRepository contactRepository: ContactRepository (scoped)
     A feloldás végére előáll a teljesen felparaméterezett TodoController "root object", és ki tudja
     szolgálni a kéréseket (pl. MessageToLinkedContact művelet). Ez a folyamat az Autowiring.
      */
@@ -29,9 +29,11 @@ namespace TodoApi.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly TodoContext _context;
+        // A TodoController osztály függőségei
+        private readonly TodoContext _context; // ez egy DbContext
         private readonly INotificationService _notificationService;
         
+        // A függőségeket konstruktor paraméterben kapja meg.
         public TodoController(TodoContext context, INotificationService notificationService)
         {
             _context = context;
@@ -46,20 +48,21 @@ namespace TodoApi.Controllers
             }
         }
 
-        // Ez nem igazán REST szemléletű, kompromisszumos megoldás
-        // PostMan-nal POST (!) kérés erre a címre: http://localhost:58922/api/todo/2/reminder
+        // API kezelőfüggvény e-mail emlékeztető értesítés kiküldésére.
+        // Példa: http post erre a címre (pl. PostMan-nel): http://localhost:58922/api/todo/2/reminder
+        // Ez a 2-es azonosítójú todo item kontakt személyének értesítést küld a todo itemről.
         [HttpPost("{id}/reminder")]
         public IActionResult ReminderMessageToLinkedContact(long id)
         {
-            // Lookup todo item 
+            // Todo item kikeresése, használja a _context DbContext objektumot
             var item = _context.TodoItems.Find(id);
             if (item == null)
                 return NotFound();
 
-            // Send e-mail reminder
+            // Emlékeztető e-mail kiküldése
             _notificationService.SendEmailReminder(item.LinkedContactId, item.Name);
 
-            // Nothing is actually created, we simply return ok
+            // Valójában nem hozunk létre semmit, egyszerű OK a válasz
             return Ok();
         }
 

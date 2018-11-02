@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TodoApi.Models;
 
 namespace TodoApi.Services
 {
@@ -79,7 +80,6 @@ namespace TodoApi.Services
         public void SendMail(string to, string subject, string message)
         {
             _logger.LogInformation($"Sendding e-mail. To: {to} Subject: {subject} Body: {message}");
-
             // ...
         }
     }
@@ -87,14 +87,21 @@ namespace TodoApi.Services
     // Contact-ok perzisztens kezelésére szolgáló osztály
     public class ContactRepository : IContactRepository
     {
+        TodoContext _db;
+
+        // A ContactRepository-nek a konstruktorban be tudjuk injektálni a ContactRepository objektumot.
+        public ContactRepository(TodoContext db) => _db = db;
+
         public string GetContactEMailAddress(int contactId)
         {
             // TODO implement
+            // Szükség esetén fel tudjuk használni a _db DcContext objektumot
             return "name@gmail.com";
-            // throw new NotImplementedException();
         }
-        // ...
+        // ...       
     }
 
     #endregion
+
+ 
 }

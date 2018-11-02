@@ -32,7 +32,7 @@ namespace TodoApi.ProblemStatement2
     // A tovább javított megoldásunk a következő lesz:
     // * Felhasználjuk a .NET Core dependency injection (más néven IoC container) szolgáltatását. 
     //   Ennek keretében:
-    //   * Az alkalmazás indulásakor egyeszer, központlag egy IoC konténerbe beregisztráljuk a
+    //   * Az alkalmazás indulásakor egyszer, központlag egy IoC konténerbe beregisztráljuk a
     //     függőségi leképezéseket (pl.  ILogger->Logger, IMailSender->EMailSender). Ez a REGISTER lépése.
     //   * Amikor szükségünk van egy implementációra, a konténertől az interfészt megadva kérünk egy
     //     implementációt (pl. ILoggert megadjuk, Loggert kapunk). Ez a RESOLVE lépés.
