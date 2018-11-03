@@ -559,48 +559,6 @@ A konténer az általa létrehozott objektumokra `Dispose`-t hív, amennyiben az
 
 ### Irodalom
 
-
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1
 * https://stackify.com/net-core-dependency-injection/amp/ 
 * https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96
-
-
-
-
-
-
-
-# Stash
-
-Megemlítendő:
-* Vannak kivételek, nem mindig történik a regisztráció, feloldás és injektálás interfész alapokon: vagyis van, amikor az osztályt annak konkrét típusával regisztráljuk és oldjuk fel. Példa: MyClass-ként regisztrálás és MyClass-ként feloldás, ahol a MyClass osztály. Mely esetekben fordul elő:
-    * Ilyen pl. a megfelelő Controller leszármazott osztály példányosítása Web API kérések beérkezésekor. Ez nem DI alapokon, hanem az ASP.NET Core routing szabályainak megfelelően történik. Ugyanakkor a Controller leszármazott osztály valamennyi függőségének feloldása már "szabványos" DI IoC Container segítségével történik.
-    * A DbContext leszármazott osztályunk számára soha nem vezetünk be interfészt, hanem az osztályának a típusával kerül beregisztrálásra az IoC konténerbe (vagyis pl. TodoContext->TodoContext leképezés történik). A DbContext önmagában is számos perzisztencial providerrel (pl. MSSQL, Oracle, memóra, stb.) tud együtt működni, így alkalmazásfüggő, mennyire van értelme absztrahálni. Ha absztraháljuk az adathozzáférést, akkor nem a DbContext-hez vezetünk be interfészt, hanem a Repository tervezési mintát használjuk, és az egyes repository implementációkhoz vezetünk be interfészeket, valamint ezek vonatkozásában tölténik az IoC konténerben a leképezés (pl. ITodoRepository->TodoRepository). A repository osztályok pedig vagy maguk példányosítják a DbContext objektumokat, vagy konkruktor paraméterben kerül számukra beinjektálásra).
-
-
-## További témakörök
-* DI .NET Core és ASP.NET Core kapocsolata
-* Nem csak Web API, hanem Asp.Net MVC alapú, felasználói felülettel rendelkező webalkalmazások esetében is.
-* Megfelelő konstruktor kiválasztása
-* ServiceLocator antipattern
-* ServiceProvider elérése
-  * Startup.Configure, IApplicationBuilder paraméter ApplicationServices tulajdonságában. De itt nem vagyunk még kérés kiszolgálásában, a scope-olt szolgáltatások valószínűleg nem működnek.
-  * A Web API kérések kiszolgálása során: HttpContext.RequestServices statikus tulajdonságban.
-* Általánosságába egy alkalmazásban számos konténer lehet (pl. egy adott modul/komponens a kontextusában felépíthet egy konténert, amit a saját specifikus környezete számára elérhetővé tesz, pl. UI Site).
-* Nem csak  ASP.NET Web API, hanem ASP.NET MVC esetén is
-* Saját konténer használata
-* TodoContext context beregisztrálása
-Ha a függőség (konstruktor paraméter) nem egy szolgáltatás, hanem adat 
-Pl: egyszerű szám/string, pl. connection string
-Lehetőségek
-A beregisztrálás során egy lambda kifejezéésel mi magunk hozzuk létre az objektumot
-services.AddTransient<IMyService>(s => new MyService("MyConnectionString"));
-Az adat helyett egy factory osztályt használunk paraméterként (ez lesz a függőség) és ezt regisztráljuk be a konténerbe
-Az osztályunk futás közben tőle kérdezi le az adatokat
-ASP.NET Core-ban használjuk a beépített options pattern szolgáltatást
-Beépített kényelmes lehetőség arra, hogy az adat valamilyen konfigurációból (pl. konfig fájl) jöjjön
-* A szolgáltatás jellegű osztályoknál használjuk, entitásoknál/DTO-knál nem (ott nem is vezetünk be interfészt)
-
-## Kérdések
-
-* Legyen-e a ContactRepository-nak DbContext paramétere
