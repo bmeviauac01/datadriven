@@ -45,7 +45,7 @@ namespace TodoApi.ProblemStatement2
     //     REGISTER lépés regisztrációi alapján).
 
 
-    // Teendők kezeléséle szolgáló osztály
+    // Teendők kezelésére szolgáló osztály
     public class ToDoService
     {
         const string smtpAddress = "smtp.myserver.com";

@@ -23,7 +23,7 @@ namespace TodoApi.ProblemStatement1
     // * Kellemetlen, hogy a NotificationService-nek a függőségei paramétereit is át kell adni (smtpAddress).
 
 
-    // Teendők kezeléséle szolgáló osztály
+    // Teendők kezelésére szolgáló osztály
     public class ToDoService
     {
         const string smtpAddress = "smtp.myserver.com";
@@ -58,7 +58,7 @@ namespace TodoApi.ProblemStatement1
         public string Name { get; set; }
         // Jelzi, hogy a teendő elvégésre került-e
         public bool IsComplete { get; set; }
-        // Egy teendőhöz lehetőség van kontakt személy hozzárendeléséhez:  ha -1, nincs
+        // Egy teendőhöz lehetőség van kontakt személy hozzárendelésére:  ha -1, nincs
         // kontakt személy hozzárendelve, egyébként pedig a kontakt személy azonosítója.
         public int LinkedContactId { get; set; } = -1;
     }
