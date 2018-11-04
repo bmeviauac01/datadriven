@@ -152,7 +152,7 @@ A következő lépésben úgy alakítjuk át a megoldásunkat, hogy a negatívum
 
 ## Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással
 
-A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a** függőségeket absztrakciókra, "interfész alapokra" helyezzük**, és **az osztályok nem maguk példányosítják a függőségeiket**.
+A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a **függőségeket absztrakciókra, "interfész alapokra" helyezzük**, és **az osztályok nem maguk példányosítják a függőségeiket**.
 
 ```csharp
 public class ToDoService
@@ -284,9 +284,9 @@ A korábbi megoldást a következő pontokban fejlesztettük tovább:
 
 Megoldásunkban a `NotificationService` függőségeit az osztály (közvetlen) FELHASZNÁLÓJA példányosítja (`ToDoService` osztály). Elsődlegesen ebből eredően a következő problémák állnak még fent:
 
-1. A `NotificationService` felhasználója, vagyis a `ToDoService.SendReminderIfNeeded` még mindig függ a konkrét típusoktól (hiszen neki szükséges példányosítania a `Logger`, `EMailSender` és `ContactRepository` osztályokat).
+1. A `NotificationService` felhasználója, vagyis a `ToDoService.SendReminderIfNeeded` még mindig függ a konkrét implementációs típusoktól (hiszen neki szükséges példányosítania a `Logger`, `EMailSender` és `ContactRepository` osztályokat).
 2. Ha az alkalmazásunkban több helyen használjuk a `Logger`, `EMailSender` és `ContactRepository` osztályokat, mindenhol külön-külön explicit példányosítani kell őket. Vagyis mindenhol külön meg kell adni, hogy milyen absztrakció  (interfész típus) esetén milyen implementációs típust használunk az alkalmazásban.
-   * Ez A célunk ezzel szemben az lenne, hogy **egyetlen központi helyen** határozzuk meg hogy milyen absztrakció (interfész típus) esetén milyen implementációs típust kell **mindenhol** használni az alkalmazásban (pl. ILogger->Logger, IMailSender->EMailSender).
+   * A célunk ezzel szemben az lenne, hogy **egyetlen központi helyen** határozzuk meg hogy milyen absztrakció (interfész típus) esetén milyen implementációs típust kell **mindenhol** használni az alkalmazásban (pl. ILogger->Logger, IMailSender->EMailSender).
    * Ezáltal egyrészt egy helyen, könnyen át tudnánk tekinteni a leképezéseinket.
    * Másrészt ha meg akarjuk változtatni az egyik leképezést (pl. ILogger esetén Logger helyett AdvancedLogger használata), azt elég egy központi helyen megtenni.
 
@@ -395,7 +395,7 @@ A feloldás (GetService hívás) során a konténernek egy `NotificationService`
 
 A feloldás végére - vagyis amikor visszatér a fenti `GetService<INotificationService>()` hívás - előáll a teljesen felparaméterezett `NotificationService` objektum, valamennyi közvetlen és közvetett függőségével: egy **objektumgráf**ot kapunk.
 
-A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével a beregisztrált absztrakció->implementáció leképezések alapján képes objektumgráfokat előállítani **autowiring**-nek nevezzük.
+A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével a beregisztrált absztrakció->implementáció leképezések alapján képes objektumgráfokat előállítani **autowiring**nek nevezzük.
 
 #### Függőségfeloldás ASP.NET Web API osztályok esetén
 
