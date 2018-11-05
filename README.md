@@ -7,3 +7,5 @@ Jegyzetek, minta anyagok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.
 [Dependency injection](./Dependency-Injection)
 
 [REST és WebAPI](./Rest-WebApi)
+
+[Többrétegű alkalmazás ASP.NET technológiával](./Tobbretegu-AspNet)
