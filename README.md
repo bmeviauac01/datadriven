@@ -1,2 +1,3 @@
-# Data-Driven-BME
-This is the repository for a few lectures for the Data Driven Systems subject at Budapest University of Technology and Economics
+# BME Adatvezérelt rendszerek
+
+Jegyzetek, minta anyagok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Course/adatvezerelt) tárgyhoz.
