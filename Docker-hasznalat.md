@@ -55,7 +55,7 @@ A szervert a konzolban CTRL-C billentyűkombinációval tudod leállítani. Ezze
 
     Foglalt a port, amin az adatbázis szerver elérhető lesz. Az indító parancsban a -p utáni részben használj más portot, pl. `-p 1599:1521`. Csak a kettőspont előtti számot cseréld.
 
-* `sqlservr: This program requires a machine with at least 2000 megabytes of memory.`
+* `This program requires a machine with at least 2000 megabytes of memory.`
 
     Docker-nek nincs elég memória allokálva. A tálcán levő Docker ikonon a Settings-et megnyitva az [Advanced panelen adj több memóriát](https://docs.docker.com/docker-for-windows/#advanced).
 
@@ -64,6 +64,10 @@ A szervert a konzolban CTRL-C billentyűkombinációval tudod leállítani. Ezze
 * `WARNING: You are trying to use the MEMORY_TARGET feature.`
 
     Windows konténer módban próbálod elnidítani az Oracle Server konténerét. Válts át Linux konténer módba.
+
+* `error during connect: Get http://...: The system cannot find the file specified.`
+
+    Nem fut a 'Docker for Windows Service' nevű szolgáltatás. [Indítsd el](https://success.docker.com/article/docker-for-windows-fails-with-a-daemon-not-running-message) a Windows szolgáltatások között.
 
 ## További olvasnivaló
 
