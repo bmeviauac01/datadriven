@@ -1,48 +1,47 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Threading.Tasks;
 using Webshop.BL;
 using Webshop.DAL;
 
 namespace Webshop.Web.Controllers
 {
-    // REST api
-    public class VevoController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class VevoController : ControllerBase
     {
-        // GET api/<controller>
-        public IHttpActionResult Get()
-        {
-            var vm = new VevoManager();
-            return Json(vm.ListVevok());
-        }
+        private readonly VevoManager vm;
 
-        // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
+        public VevoController(VevoManager vm) => this.vm = vm;
+
+        [HttpGet]
+        public async Task<IEnumerable<Vevo>> Get() => await vm.ListVevok();
+
+        [HttpGet("{vevoId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<Vevo>> Get(int vevoId)
         {
-            var vm = new VevoManager();
-            var vevo = vm.GetVevoOrNull(id);
+            var vevo = await vm.GetVevoOrNull(vevoId);
             if (vevo == null)
                 return NotFound();
             else
-                return Json(vevo);
+                return Ok(vevo);
         }
 
-        // DELETE api/vevo/5
-        [HttpDelete]
-        [Route("api/vevo/{vevoId}")]
-        public IHttpActionResult Delete(int vevoId)
+        [HttpDelete("{vevoId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(409)]
+        public async Task<IActionResult> Delete(int vevoId)
         {
-            var vm = new VevoManager();
-            var v = vm.GetVevoOrNull(vevoId);
-            if (v == null)
+            var vevo = await vm.GetVevoOrNull(vevoId);
+            if (vevo == null)
                 return NotFound();
-            else if (vm.TryTorolVevo(vevoId))
+            else if (await vm.TryTorolVevo(vevoId))
                 return Ok();
             else
-                return base.Conflict();
+                return Conflict();
         }
     }
 }

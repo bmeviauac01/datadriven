@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Webshop.BL;
 
 namespace Webshop.Web.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Vevo
-        public ActionResult Index()
-        {
-            var vm = new VevoManager();
-            return View(vm.ListVevok());
-        }
+        private readonly VevoManager vm;
+
+        public HomeController(VevoManager vm) => this.vm = vm;
+
+        public async Task<IActionResult> Index() => View(await vm.ListVevok());
     }
 }

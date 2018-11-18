@@ -1,12 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Webshop.DAL
 {
     public interface IVevoRepository
     {
-        IEnumerable<Vevo> ListVevok(string vevoNev = null);
-        Vevo GetVevoOrNull(int vevoId);
-        IEnumerable<VevoKozpontiTelephellyel> ListVevokTelephellyel(string vevoNev = null);
-        void DeleteVevo(int vevoID);
+        Task<IEnumerable<Vevo>> ListVevok(string vevoNev = null);
+        Task<Vevo> GetVevoOrNull(int vevoId);
+        Task<IEnumerable<VevoKozpontiTelephellyel>> ListVevokTelephellyel(string vevoNev = null);
+        Task DeleteVevo(int vevoID);
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 using Webshop.DAL;
 
@@ -10,52 +10,45 @@ namespace Webshop.BL
     public class VevoManager
     {
         // tetszoleges repository-val tud mukodni, lasd a tesztelesnel
-        // elegansabb lenne: dependency injection, pl. Unity
-        private readonly IVevoRepository repo;
+        private readonly IVevoRepository vevoRepository;
+        private readonly IMegrendelesRepository megrendelesRepository;
 
-        public VevoManager(IVevoRepository repo)
+        public VevoManager(IVevoRepository vevoRepository, IMegrendelesRepository megrendelesRepository)
         {
-            this.repo = repo;
+            this.vevoRepository = vevoRepository;
+            this.megrendelesRepository = megrendelesRepository;
         }
-
-        // default construktor, EF es adatbazis alapu repository
-        public VevoManager()
-            : this(new VevoRepository())
-        { }
 
         // visszateresi ertek nem List vagy tomb, az IEnumerable csak olvashato
         // szemantikailag jobban illik egy lekerdezesre, nem modosithato az eredmenye
-        public IEnumerable<Vevo> ListVevok(string keresettNev = null)
-        {
-            return repo.ListVevok(keresettNev);
-        }
+        public async Task<IEnumerable<Vevo>> ListVevok(string keresettNev = null) => await vevoRepository.ListVevok(keresettNev);
 
-        public Vevo GetVevoOrNull(int vevoId)
-        {
-            return repo.GetVevoOrNull(vevoId);
-        }
+        public async Task<Vevo> GetVevoOrNull(int vevoId) => await vevoRepository.GetVevoOrNull(vevoId);
 
-        public bool TryTorolVevo(int vevoId)
+        public async Task<bool> TryTorolVevo(int vevoId)
         {
             // tranzakcio, hogy ne lehessen uj megrendelest rogziteni kozben
             // tranzakcio nem a DAL szinten, mert itt kell a ket, tranzakcio nelkuli muveletet egyben vegrehajtani
             // (business workflow -> tranzakcio hatar)
-            using (var tran = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.RepeatableRead }))
+            using (var tran = new TransactionScope(
+                TransactionScopeOption.Required,
+                new TransactionOptions() { IsolationLevel = IsolationLevel.RepeatableRead },
+                TransactionScopeAsyncFlowOption.Enabled))
             {
                 // letezik-e a vevo?
                 // plusz: lekerdezes repetable read-en zarolja a vevo rekordot, nem tudja kozben mas is torolni
-                var vevo = repo.GetVevoOrNull(vevoId);
+                var vevo = await vevoRepository.GetVevoOrNull(vevoId);
                 if (vevo == null)
                     return false;
 
                 // van-e megrendelese?
                 // plusz: lekerdezes repetable read-en zarolja a vevo rekordot, nem leeht kozben felvenni uj megrendelest
-                bool vanMegrendelese = new MegrendelesManager().ListVevoMegrendelesei(vevoId).Any();
+                bool vanMegrendelese = (await megrendelesRepository.ListVevoMegrendelesei(vevoId)).Any();
                 if (vanMegrendelese)
                     return false;
 
                 // minden ok, torolheto
-                repo.DeleteVevo(vevoId);
+                await vevoRepository.DeleteVevo(vevoId);
 
                 // tranzakciot explicit zarni kell, mert mi nyitottuk
                 tran.Complete();
