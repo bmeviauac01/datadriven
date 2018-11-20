@@ -42,9 +42,8 @@ namespace Webshop.DAL.EF
                 entity.Property(e => e.VevoId).HasColumnName("VevoID");
 
                 entity.HasOne(d => d.Vevo)
-                    .WithMany(p => p.Telephely)
-                    .HasForeignKey(d => d.VevoId)
-                    .HasConstraintName("FK__Telephely__VevoI__6319B466");
+                    .WithMany(p => p.Telephelyek)
+                    .HasForeignKey(d => d.VevoId);
             });
 
             modelBuilder.Entity<Vevo>(entity =>
@@ -65,10 +64,11 @@ namespace Webshop.DAL.EF
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.KozpontiTelephelyNavigation)
-                    .WithMany(p => p.VevoNavigation)
-                    .HasForeignKey(d => d.KozpontiTelephely)
-                    .HasConstraintName("Vevo_KozpontiTelephely");
+                entity.Property(e => e.KozpontiTelephelyId).HasColumnName("KozpontiTelephely");
+
+                entity.HasOne(d => d.KozpontiTelephely)
+                    .WithOne()
+                    .HasForeignKey<Vevo>(d => d.KozpontiTelephelyId);
             });
         }
     }

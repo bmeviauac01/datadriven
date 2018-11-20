@@ -96,7 +96,7 @@ namespace Webshop.DAL
         }
 
 
-        public static IQueryable<EF.Vevo> Telephellyel(this IQueryable<EF.Vevo> vevok) => vevok.Include(v => v.Telephely);
+        public static IQueryable<EF.Vevo> Telephellyel(this IQueryable<EF.Vevo> vevok) => vevok.Include(v => v.Telephelyek);
 
         public static async Task<IEnumerable<VevoKozpontiTelephellyel>> GetVevokKozpontiTelephellyel(this IQueryable<EF.Vevo> vevok)
         {
@@ -107,7 +107,7 @@ namespace Webshop.DAL
         public static Telephely GetTelephely(EF.Telephely dbTelephely) => new Telephely(dbTelephely.Varos, dbTelephely.Utca);
 
         public static VevoKozpontiTelephellyel GetVevoKozpontiTelephellyel(EF.Vevo dbVevo)
-            => new VevoKozpontiTelephellyel(dbVevo.Nev, dbVevo.Email, GetTelephely(dbVevo.KozpontiTelephelyNavigation));
+            => new VevoKozpontiTelephellyel(dbVevo.Nev, dbVevo.Email, GetTelephely(dbVevo.KozpontiTelephely));
 
         public static Task<EF.Vevo> GetByIdOrNull(this IQueryable<EF.Vevo> vevok, int vevoId) => vevok.FirstOrDefaultAsync(v => v.Id == vevoId);
     }

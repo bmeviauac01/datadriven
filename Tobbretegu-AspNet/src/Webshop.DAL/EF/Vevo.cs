@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Webshop.DAL.EF
 {
@@ -7,7 +6,7 @@ namespace Webshop.DAL.EF
     {
         public Vevo()
         {
-            Telephely = new HashSet<Telephely>();
+            Telephelyek = new HashSet<Telephely>();
         }
 
         public int Id { get; set; }
@@ -16,9 +15,9 @@ namespace Webshop.DAL.EF
         public string Login { get; set; }
         public string Jelszo { get; set; }
         public string Email { get; set; }
-        public int? KozpontiTelephely { get; set; }
+        public int? KozpontiTelephelyId { get; set; }
 
-        public Telephely KozpontiTelephelyNavigation { get; set; }
-        public ICollection<Telephely> Telephely { get; set; }
+        public Telephely KozpontiTelephely { get; set; }
+        public ICollection<Telephely> Telephelyek { get; set; }
     }
 }
