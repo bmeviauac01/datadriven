@@ -8,4 +8,4 @@ Jegyzetek, minta anyagok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.
 
 [REST és WebAPI](./Rest-WebApi)
 
-[Többrétegű alkalmazás ASP.NET technológiával](./Tobbretegu-AspNet)
+[Többrétegű alkalmazás ASP.NET Core technológiával](./Tobbretegu-AspNet)
