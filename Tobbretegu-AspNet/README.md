@@ -140,7 +140,7 @@ services.AddDbContext<WebshopDb>(options => options.UseSqlServer(Configuration.G
 ```
 
 ### 3. Adatelérési réteg – Repository minta
-Alkalmazásunkban nem szeretnénk, hogy az Entity Framework által generált osztályok kiszivárohjanak az alkalmazás további rétegeibe, így megvalósítjuk a Repository tervezési mintát. Ehhez először létrehozunk egy saját `Vevo` entitás osztályt, majd pedig magát a repositoryt.
+Alkalmazásunkban nem szeretnénk, hogy az Entity Framework által generált osztályok kiszivárogjanak az alkalmazás további rétegeibe, így megvalósítjuk a Repository tervezési mintát. Ehhez először létrehozunk egy saját `Vevo` entitás osztályt, majd pedig magát a repositoryt.
 
 ```csharp
 public class Vevo
@@ -195,7 +195,7 @@ internal static class VevoExtensions
 ```
 
 ### 4. Üzleti logikai réteg
-Jelenleg az üzleti logikai rétegünk nem tartalmaz valódi üzleti logikát, csupán közvetlenül továbbhív a repositoryba. Hozzunk létre Viusal Studioban egy újabb "Class Library (.NET Core)" projektet `Webshop.BL` néven, majd adjunk hozzá egy új osztályt: `VevoManager`.
+Jelenleg az üzleti logikai rétegünk nem tartalmaz valódi üzleti logikát, csupán közvetlenül továbbhív a repositoryba. Hozzunk létre Visual Studioban egy újabb "Class Library (.NET Core)" projektet `Webshop.BL` néven, majd adjunk hozzá egy új osztályt: `VevoManager`.
 
 ```csharp
 public class VevoManager
@@ -212,7 +212,7 @@ public class VevoManager
 ```
 
 ### 5. Webalkalmazás
-Az első lépésünk visszatérve a `Webshop.Web` projektbe, hogy a `Startup` osztályban felvesszük a megfelelő dependenciákat.
+Az első lépésünk visszatérve a `Webshop.Web` projektbe, hogy a `Startup` osztályban felvesszük a megfelelő dependenciákat (lásd [dependency injection témakör](../Dependency-Injection/)).
 
 ```csharp
 services.AddTransient<IVevoRepository, VevoRepository>();
