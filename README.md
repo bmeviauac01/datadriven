@@ -1,11 +1,11 @@
 # BME Adatvezérelt rendszerek
 
-Jegyzetek, minta anyagok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Course/adatvezerelt) tárgyhoz.
+Példa kódok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Course/adatvezerelt) tárgyhoz.
 
 ## Anyagrészek
 
-[Dependency injection](./Dependency-Injection)
+[Dependency injection (függőség injektálás)](./Dependency-Injection)
 
 [REST és WebAPI](./Rest-WebApi)
 
-[Többrétegű alkalmazás ASP.NET Core technológiával](./Tobbretegu-AspNet)
+[Többrétegű webalkalmazás ASP.NET Core technológiával](./TobbreteguWebalkalmazas-AspNetCore)
