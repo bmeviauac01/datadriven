@@ -4,6 +4,10 @@ Példa kódok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Cour
 
 ## Anyagrészek
 
+MSSQL platform programozása
+
+- [SQL nyelv](./MSSQL-programozasa/sql-nyelv.md)
+
 [Dependency injection (függőség injektálás)](./Dependency-Injection)
 
 [REST és WebAPI](./Rest-WebApi)
