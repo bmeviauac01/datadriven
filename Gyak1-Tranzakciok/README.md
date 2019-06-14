@@ -15,7 +15,7 @@ A labor elvégzéséhez szükséges eszközök:
 Amit érdemes átnézned:
 
 - Tranzakciók tulajdonságai, izolációs szintek.
-- [Microsoft SQL Server használata segédlet](https://bmeviauac01.github.io/jegyzetek/MSSQL-hasznalata)
+- [Microsoft SQL Server használata segédlet](../MSSQL-hasznalata/README.md)
 
 ## Gyakorlat menete
 
