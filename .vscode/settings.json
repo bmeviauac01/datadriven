@@ -1,0 +1,13 @@
+{
+    "spellright.language": [
+        "hu"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "markdownlint.config": {
+        "MD033": false
+    }
+}
