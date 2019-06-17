@@ -227,9 +227,9 @@ where ID>10
 Sorszámozás egy adott rendezés szerint
 
 ```sql
-select t.*
-       ,rank() over (order by Nev) as r
-       ,dense_rank() over (order by Nev) as dr
+select t.*,
+       rank() over (order by Nev) as r,
+       dense_rank() over (order by Nev) as dr
 from termek t
 ```
 
