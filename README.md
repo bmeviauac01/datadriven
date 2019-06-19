@@ -2,6 +2,8 @@
 
 [Gyakorlat 1 - Tranzakciókezelés](Gyak1-Tranzakciok/README.md)
 
+[Gyakorlat 2 - Microsoft SQL Server programozása](Gyak2-MSSQL/README.md)
+
 [Microsoft SQL Server használata](MSSQL-hasznalata/README.md)
 
 ---
