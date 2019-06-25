@@ -13,6 +13,8 @@ Jegyzetek és példa kódok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.a
 - [SQL nyelv](./MSSQL-programozasa/sql-nyelv.md)
 - [MSSQL szerver oldali programozása: triggerek és tárolt eljárások](./MSSQL-programozasa/mssql-programozasa.md)
 
+[LINQ: Language Integrated Query](./LINQ/README.md)
+
 [Dependency injection (függőség injektálás)](./Dependency-Injection)
 
 [REST és WebAPI](./Rest-WebApi)
