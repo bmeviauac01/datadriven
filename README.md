@@ -4,6 +4,8 @@
 
 [Gyakorlat 2 - Microsoft SQL Server programozása](Gyak2-MSSQL/README.md)
 
+[Gyakorlat 3 - Entity Framework](Gyak3-EF/README.md)
+
 [Microsoft SQL Server használata](MSSQL-hasznalata/README.md)
 
 ---
