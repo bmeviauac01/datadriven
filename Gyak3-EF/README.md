@@ -34,7 +34,7 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
 
 1. Adj a projekthez egy *ADO.NET Entity Data Model*t.
 
-   - Solution Explorer-ben a projektre jobb egér / \_Add / New Item / Data / ADO.NET Entity Data ModelÜ.
+   - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_.
    - A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").
    - A kapcsolatok megadásánál a saját adatbázishoz kapcsolódj. Hozz létre egy új kapcsolatot a varázsló segítségével, és mentsd el a kapcsolódási adatokat a config fájlba.
      - _Data source_: Microsoft SQL Server
@@ -42,7 +42,7 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
      - _Select or enter database name_: adjuk meg az adatbázis nevét
      - _Save connection settings in App.Config_: igen
    - Entity Framework 6.0-as leképzést használj.
-   - Az alábbi táblák leképzését valósítsd meg: `Kategória`, `ÁFA`, `Termék`, `MegrendelésTétel`, `Megrendelés`, `Telephely`, `Vevő`, `Státusz`, `Fizetésmód`.
+   - Az összes táblát képezzük le.
    - Jegyezd meg a választott nevet (_Model namespace_).
 
 1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
@@ -221,7 +221,11 @@ using (AAFEntities db = new AAFEntities())
 
 ## Feladat 4: Tárolt eljárások használata
 
-Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolj eljárás vagy a DbContext függvényeként, vagy entitás módosító műveletére köthető be. A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az *Entity Data Model Browser*ben, az adott függvény *Function Import*jához tartozó tulajdonságainál szerkesztenünk.
+Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolj eljárás vagy a DbContext függvényeként, vagy entitás módosító műveletére köthető be.
+
+A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az *Entity Data Model Browser*ben, az adott függvény *Function Import*jához tartozó tulajdonságainál szerkesztenünk.
+
+![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
 
 1. Készíts egy tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját! Használd ezt a tárolt eljárást új entitás felvételéhez!
 
@@ -243,7 +247,9 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
 
      - Add hozzá a tárolt eljárást az EDM-hez. Az EDM Browser-ben jobb kantitással hozd elő a kontextus menüt, használd az "Update model from database"-t, és importáld (_Add_) az új tárolt eljárást.
      - Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.
-     - Állítsd be ezt a metódust a FizetesiMod entitás _insert_ metódusaként: kiválasztva az EDM-ben a FizetesiMod elemet a Mapping Details ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
+     - Állítsd be ezt a metódust a `FizetesiMod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `FizetesiMod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
+
+       ![Tárolt eljárás mappelése](images/vs-insert-storedproc.png)
 
    - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext FizetesiMod gyűjteményéhez az Add metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
 
