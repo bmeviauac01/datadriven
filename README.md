@@ -6,6 +6,8 @@
 
 [Gyakorlat 3 - Entity Framework](Gyak3-EF/README.md)
 
+[Gyakorlat 5 - JPA](Gyak5-JPA/README.md)
+
 [Microsoft SQL Server használata](MSSQL-hasznalata/README.md)
 
 ---
