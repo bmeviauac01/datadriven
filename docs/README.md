@@ -4,11 +4,11 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 
 ## A feladatok
 
-1. [Szerver oldali programozás T-SQL nyelven](Feladat-TSQL.md)
-1. [Adatelérés ADO.NET-ben](Feladat-ADONET.md)
-1. [Entity Framework](Feladat-EF.md)
-1. [MongoDB](Feladat-MongoDB.md)
-1. [REST API Web API technológiával](Feladat-WebAPI.md)
+1. [Szerver oldali programozás T-SQL nyelven](Feladat-TSQL.md) - Határidő: 2019. november 17. vasárnap 23.59
+1. [Adatelérés ADO.NET-ben](Feladat-ADONET.md) - Határidő: 2019. november 17. vasárnap 23.59
+1. [Entity Framework](Feladat-EF.md) - Határidő: 2019. november 17. vasárnap 23.59
+1. [MongoDB](Feladat-MongoDB.md) - Határidő: 2019. november 17. vasárnap 23.59
+1. [REST API Web API technológiával](Feladat-WebAPI.md) - Határidő: 2019. december 18. szerda 23.59
 
 ## A feladatokhoz szükséges szerver platformok
 

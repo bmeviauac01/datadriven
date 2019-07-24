@@ -2,8 +2,6 @@
 
 A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
 
-Határidő: **2019. november 3. vasárnap 23.59**
-
 GitHub Classroom segítségével a <https://classroom.github.com/a/ZDCmZFep> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 ## Szükséges eszközök
