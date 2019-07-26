@@ -12,7 +12,7 @@ GitHub Classroom segítségével a <https://classroom.github.com/a/xckRuv3o> lin
 - Microsoft SQL Server Management Studio
 - Gyakorlatokon is használt minta adatbázis kódja (elérhető a gyakorlatok anyagai között).
   - Előkészületként hozz létre egy új adatbázist, és futtasd le a táblákat létrehozó szkriptet.
-- Microsoft Visual Studio 2017/2019
+- Microsoft Visual Studio 2017/2019 [az itt található beállításokkal](VisualStudio-install.md)
 
 ## Feladat 0: Neptun kód
 

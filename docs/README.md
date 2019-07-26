@@ -10,7 +10,7 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 1. [MongoDB](Feladat-MongoDB.md) - Határidő: 2019. november 17. vasárnap 23.59
 1. [REST API Web API technológiával](Feladat-WebAPI.md) - Határidő: 2019. december 18. szerda 23.59
 
-> A feladatok kiértékelése automatikusan történik, ezért minden esetben szükséges a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!
+> A feladatok kiértékelése automatikusan történik, ezért minden esetben fontos a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!
 
 ## A feladatokhoz szükséges szerver platformok
 
@@ -40,7 +40,7 @@ Minden feladathoz egy-egy link tartozik, amin keresztül a feladathoz tartozó r
 
 A feladat beadásának lépései:
 
-1. [Regisztrálj](https://github.com/join/customize) egy GitHub accountot, ha még nincs.
+1. [Regisztrálj](https://github.com/join) egy GitHub accountot, ha még nincs.
 
 1. A feladat beadásához tartozó linket nyisd meg. Ez minden feladathoz más lesz, a feladat leírásában találod.
 

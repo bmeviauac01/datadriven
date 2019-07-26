@@ -55,4 +55,4 @@ Szeretnénk az **ajánlott kort** tartalmazó adatot könnyebb elérhetőség v�
 
 1. Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az `<ajanlott_kor>` elemet kiemelve feltölti a az előbb létrehozott `AjanlottKor` oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon `NULL` az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheti, hogy csak egyetlen `<ajanlott_kor>` elem van az xmlben.
 
-   > A megoldást az `f2.sql` fájlban add be. Az sql fájl önmagában futtatható legyen, de ne legyen benne `use` parancs!
+> A megoldást az `f2.sql` fájlban add be. Az sql fájl önmagában futtatható legyen, de ne legyen benne `use` parancs!
