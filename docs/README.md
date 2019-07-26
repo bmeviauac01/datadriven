@@ -10,6 +10,8 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 1. [MongoDB](Feladat-MongoDB.md) - Határidő: 2019. november 17. vasárnap 23.59
 1. [REST API Web API technológiával](Feladat-WebAPI.md) - Határidő: 2019. december 18. szerda 23.59
 
+> A feladatok kiértékelése automatikusan történik, ezért minden esetben szükséges a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!
+
 ## A feladatokhoz szükséges szerver platformok
 
 A feladatok megoldásához szükséges Microsoft SQL Server és MongoDB futtatása több féle módon történhet.
