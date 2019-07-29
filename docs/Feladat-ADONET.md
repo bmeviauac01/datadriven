@@ -34,7 +34,7 @@ Készítsd a termékek kezeléséhez egy _repository_ osztályt **ADO.NET Connec
 - A `Termek` osztály kódját ezen feladathoz ne módosítsd!
 - A `TermekRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
 
-A teszteléshez találsz unit teszteket a solution-ben ([segítség a unit tesztek futtatásához](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019)). Az adatbázis eléréhez a `TestConnectionStringHelper` segédosztályban módosíthatod a connection stringet.
+A teszteléshez találsz unit teszteket a solution-ben ([segítség a unit tesztek futtatásához](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019)). Az adatbázis eléréséhez a `TestConnectionStringHelper` segédosztályban módosíthatod a connection stringet.
 
 ## Feladat 2: Optimista konkurenciakezelés (2 iMsc pont)
 
