@@ -10,7 +10,9 @@
 
 [Gyakorlat 6 - REST](Gyak6-REST/README.md)
 
-[Microsoft SQL Server használata](MSSQL-hasznalata/README.md)
+[Az adatbázis sémájának leírása](Adatbazis/sema.md)
+
+[Microsoft SQL Server használata](Adatbazis/mssql-server.md)
 
 ---
 
