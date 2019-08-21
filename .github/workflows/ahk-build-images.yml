@@ -1,0 +1,14 @@
+name: Build Docker images for AHK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Build with compose
+        run: cd ahk/src && docker-compose build
