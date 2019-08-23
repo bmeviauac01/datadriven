@@ -19,9 +19,9 @@ Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Ne
 
 ## Feladat 1: Termék repository (2 pluszpont)
 
-Készítsd a termékek kezeléséhez egy _repository_ osztályt **ADO.NET Connection** technológiát használva. Nyisd meg a kiinduló kódban az _sln_ fájlt Visual Studion-val. Keresd meg a `TermekRepository` és `Termek` osztályokat. Implementáld a `TermekRepository` osztályt alábbi funkcióit:
+Készítsd a termékek kezeléséhez egy _repository_ osztályt **ADO.NET Connection** technológiát használva. Nyisd meg a kiinduló kódban az _sln_ fájlt Visual Studio-val. Keresd meg a `TermekRepository` és `Termek` osztályokat. Implementáld a `TermekRepository` osztályt alábbi funkcióit:
 
-- A `Search(string name)` függvény keresse meg az adatbázisban a parméterben kapott terméknévre illeszkedő találatokat, és adja őket vissza C# osztály példányaként. Ha a kapott szűrési paraméter `null`, akkor minden terméket adjon vissza, ellenkező esetben _case-insensitive_ módon a névben bárhol keressen!
+- A `Search(string name)` függvény keresse meg az adatbázisban a paraméterben kapott terméknévre illeszkedő találatokat, és adja őket vissza C# osztály példányaként. Ha a kapott szűrési paraméter `null`, akkor minden terméket adjon vissza, ellenkező esetben _case-insensitive_ módon a névben bárhol keressen!
 - A `FindById(int id)` adja vissza az ID alapján megtalált terméket, vagy `null` értéket, ha nem található ilyen.
 - Az `Update(Termek t)` egy létező termék adatait frissítse az adatbázisban a kapott paraméter alapján. Csak a név, nettóár és raktárkészlet változhat, a többi tulajdonságot itt nem kell figyelembe venni.
 

@@ -45,13 +45,13 @@ Egy példa a tartalmára:
     </termek_meret>
     <leiras>Elemmel mukodik, a csomag nem tartalmaz elemet.</leiras>
     <ajanlott_kor>0-18 hónap</ajanlott_kor>
-</termek>'
+</termek>
 ```
 
 Szeretnénk az **ajánlott kort** tartalmazó adatot könnyebb elérhetőség végett egy saját oszlopba helyezni.
 
 1. Adj hozzá egy új oszlopot a `Termek` táblához `AjanlottKor` néven, ami egy szöveget tartalmaz tartalmaz: `alter table [Termek] add [AjanlottKor] nvarchar(200)`.
 
-1. Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az `<ajanlott_kor>` elemet kiemelve feltölti a az előbb létrehozott `AjanlottKor` oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon `NULL` az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheti, hogy csak egyetlen `<ajanlott_kor>` elem van az xmlben.
+1. Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az `<ajanlott_kor>` elemet kiemelve feltölti a az előbb létrehozott `AjanlottKor` oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon `NULL` az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheti, hogy csak egyetlen `<ajanlott_kor>` elem van az xml-ben.
 
 > A megoldást az `f2.sql` fájlban add be. Az sql fájl önmagában futtatható legyen, de ne legyen benne `use` parancs!

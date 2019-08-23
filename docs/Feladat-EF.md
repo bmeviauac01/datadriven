@@ -40,7 +40,7 @@ Készítsd el az adatbázisunk Entity Framework leképzését _Code First_ megol
    }
    ```
 
-   Menj vissza a DbContext-hez és töröld a kommentet a _Termekek_ property elől.
+   Menj a `AdatvezDbContext` osztályhoz és töröld a kommentet a _Termekek_ property elől.
 
 1. Készíts egy `DbAfa` osztályt az AFA tábla leképzésére a `DbTermek`-hez hasonlóan. Ne felejtsd el felvenni a DbSet property-t az `AdatvezContext`-be `AfaKulcsok` néven.
 
