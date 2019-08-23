@@ -20,15 +20,13 @@ Amit érdemes átnézned:
 
 ## Gyakorlat menete
 
-Az első négy feladatot (beleértve a megoldások tesztelését is) a gyakorlatvezetővel együtt  oldjuk meg. Az utolsó feladat önálló munka, amennyiben marad rá idő.
+Az első négy feladatot (beleértve a megoldások tesztelését is) a gyakorlatvezetővel együtt oldjuk meg. Az utolsó feladat önálló munka, amennyiben marad rá idő.
 
 Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
 ## Feladat 0: Adatbázis létrehozása, ellenőrzése
 
-Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban
-létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha
-nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az első gyakorlat anyagában.)
+Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az első gyakorlat anyagában.)
 
 ## Feladat 1: SQL parancsok (emlékeztető)
 
@@ -36,76 +34,70 @@ nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lás
 
 1. Hány nem teljesített megrendelésünk van (a státusz alapján)?
 
-    <details>
-    <summary>Megoldás</summary>
+   <details><summary markdown="span">Megoldás</summary>
 
-    ```sql
-    select count(*)
-    from Megrendeles m join Statusz s on m.StatuszID = s.ID
-    where s.Nev != 'Kiszállítva'
-    ```
+   ```sql
+   select count(*)
+   from Megrendeles m join Statusz s on m.StatuszID = s.ID
+   where s.Nev != 'Kiszállítva'
+   ```
 
-    </details>
+   </details>
 
 1. Melyek azok a fizetési módok, amit soha nem választottak a megrendelőink?
 
-    <details>
-    <summary>Megoldás</summary>
+   <details><summary markdown="span">Megoldás</summary>
 
-    ```sql
-    select f.Mod
-    from Megrendeles m right outer join FizetesMod f on m.FizetesModID = f.ID
-    where m.ID is null
-    ```
+   ```sql
+   select f.Mod
+   from Megrendeles m right outer join FizetesMod f on m.FizetesModID = f.ID
+   where m.ID is null
+   ```
 
-    </details>
+   </details>
 
 1. Rögzítsünk be egy új vevőt! Kérdezzük le az újonnan létrejött rekord kulcsát!
 
-    <details>
-    <summary>Megoldás</summary>
+   <details><summary markdown="span">Megoldás</summary>
 
-    ```sql
-    insert into Vevo(Nev, Login, Jelszo, Email)
-    values ('Teszt Elek', 't.elek', '********', 't.elek@email.com')
+   ```sql
+   insert into Vevo(Nev, Login, Jelszo, Email)
+   values ('Teszt Elek', 't.elek', '********', 't.elek@email.com')
 
-    select @@IDENTITY
-    ```
+   select @@IDENTITY
+   ```
 
-    </details>
+   </details>
 
-1. A kategóriák között hibásan szerepel az *Fajáték* kategória név. Javítsuk át a kategória nevét *Fakockák*ra!
+1. A kategóriák között hibásan szerepel az _Fajáték_ kategória név. Javítsuk át a kategória nevét *Fakockák*ra!
 
-    <details>
-    <summary>Megoldás</summary>
+   <details><summary markdown="span">Megoldás</summary>
 
-    ```sql
-    update Kategoria
-    set Nev = 'Fakockák'
-    where Nev = 'Fajáték'
-    ```
+   ```sql
+   update Kategoria
+   set Nev = 'Fakockák'
+   where Nev = 'Fajáték'
+   ```
 
-    </details>
+   </details>
 
 1. Melyik termék kategóriában van a legtöbb termék?
 
-    <details>
-    <summary>Megoldás</summary>
+   <details><summary markdown="span">Megoldás</summary>
 
-    ```sql
-    select top 1 Nev, (select count(*) from Termek where Termek.KategoriaID = k.ID) as db
-    from Kategoria k
-    order by db desc
-    ```
+   ```sql
+   select top 1 Nev, (select count(*) from Termek where Termek.KategoriaID = k.ID) as db
+   from Kategoria k
+   order by db desc
+   ```
 
-    </details>
+   </details>
 
 ## Feladat 2: Termékkategória rögzítése
 
 Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóriát vehetünk fel. Az eljárás bemenő paramétere a felvételre kerülő kategória neve, és opcionálisan a szülőkategória neve. Dobjon alkalmazás hibát, ha a kategória létezik, vagy a szülőkategória nem létezik. A kategória elsődleges kulcsának generálását bízza az adatbázisra.
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 #### Tárolt eljárás
 
@@ -166,8 +158,7 @@ Ismételjük meg a fenti beszúrást, ekkor már hibák kell dobjon.
 
 Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 #### Tárolt eljárás
 
@@ -224,8 +215,7 @@ Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában
 1. Adjuk hozzá az a táblához az új oszlopot: `alter table vevo add vegosszeg float`
 1. Számoljuk ki az aktuális végösszeget. A megoldáshoz használjunk kurzort, ami minden vevőn megy végig.
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```sql
 declare cur_vevo cursor
@@ -262,8 +252,7 @@ deallocate cur_vevo
 
 Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csak. Készítsünk triggert, amivel karbantartjuk azt az összeget minden megrendelést érintő változás esetén. Az összeg újraszámolása helyett csak frissítse a változásokkal az értéket!
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 A megoldás kulcsa meghatározni, mely táblára kell a triggert tenni. A megrendelések változása érdekes számunkra, de valójában a végösszeg a megrendeléshez felvett tételek módosulásakor fog változni, így erre a táblára kell a trigger.
 

@@ -30,7 +30,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New / Project... / Visual C# / Windows desktop / Console application_). A `c/d:\work` mappába dolgozz. (**Ne** .NET Core alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New / Project... / Visual C# / Windows desktop / Console application_). A `c/d:\work` mappába dolgozz. (**Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
 
 1. Adj a projekthez egy *ADO.NET Entity Data Model*t.
 
@@ -43,7 +43,7 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
      - _Save connection settings in App.Config_: igen
    - Entity Framework 6.0-as leképzést használj.
    - Az összes táblát képezzük le.
-   - Jegyezd meg a választott nevet (_Model namespace_).
+   - Jegyezd meg a választott nevet (_Model namespace_), pl. `AdatvezEntities`.
 
 1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
 
@@ -82,12 +82,11 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
 1. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár, csak egyszer szerepeljen a listában.
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 Console.WriteLine("***** Második feladat *****");
-using (AAFEntities db = new AAFEntities())
+using (var db = new AdatvezEntities())
 {
     // 2.1
     Console.WriteLine("\t2.1:");
@@ -163,12 +162,11 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
 
 1. Hozz létre egy új kategóriát a *Drága játékok*nak, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 Console.WriteLine("***** Harmadik feladat *****");
-using (AAFEntities db = new AAFEntities())
+using (var db = new AdatvezEntities())
 {
     // 3.1
     Console.WriteLine("\t3.1:");
@@ -275,12 +273,11 @@ A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás vis
 
    - Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!
 
-<details>
-<summary>Megoldások C# kódja</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 Console.WriteLine("***** Negyedik feladat *****");
-using (AAFEntities db = new AAFEntities())
+using (var db = new AdatvezEntities())
 {
     // 4.3
     Console.WriteLine("\t4.3:");

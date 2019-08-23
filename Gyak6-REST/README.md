@@ -60,8 +60,7 @@ Készítsünk egy új Web API controllert, ami viszaad egy üdvözlő szöveget.
 1. Módosítsuk a REST kérést kiszolgáló metódust úgy, hogy opcionálisan fogadjon el egy nevet _query paraméterben_, azaz az urlben, és ha kap ilyet, akkor a válasza legyen "Hello" + a kapott név. Próbáljuk ki ezt is Postmannel: Ha adunk nevet, akkor azt a <http://localhost:5000/api/hello?nev=alma> url-je küldjük.
 1. Végül készítsünk egy _új_ REST Api végpontot (új függvényt), ami a <http://localhost:5000/api/hello/alma> url-en fog válaszolni pont úgy, ahogy az előző is tette (csak most a név a _path_ része).
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 [Route("api/hello")]
@@ -115,8 +114,7 @@ A valódi API-t természetesen nem szövegeket adnak vissza. Készítsünk API-t
 
 Teszteljük a megoldásunkat.
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 // *********************************
@@ -238,8 +236,7 @@ A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szüks
 
 A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkesztés és beszúrás esetén keressük meg benne a _Location_ kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény.
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 // *********************************
@@ -351,8 +348,7 @@ namespace restgyak.Controllers
 
 Az új termék létrehozása során meg kellene adnunk még a kategóriát és az áfakulcsot is. Módosítsuk a fenti termék beszúrást úgy, hogy a kategória nevét és az áfakulcs számértékét is meg lehessen adni. A kapott adatok alapján keresd ki a megfelelő `AFA` és `Kategoria` rekordokat az adatbázisból, vagy hozz létre újat, ha nem léteznek.
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ```csharp
 [HttpPost]

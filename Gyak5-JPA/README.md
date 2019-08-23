@@ -119,8 +119,7 @@ A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java 
 
 Röviden: a metódus törzsön belüli változásokon kívül mindig újraindítás lesz szükséges.
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ### 4.a feladat
 
@@ -273,8 +272,7 @@ A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítás
 
 **c)** Egyszerű önálló feladat: az 5.b feladat közös megoldásában egy `EntityManager`-en keresztül lefuttatott lekérdezéssel ellenőrizzük, hogy létezik-e "Drága játékok" nevű kategória. Valósítsd meg ugyanezt a lekérdezést Spring Data repository interfészben, metódus névből származtatott lekérdezéssel, és hívd meg a megfelelő ponton.
 
-<details>
-<summary>Megoldások</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 ### 5.a feladat
 
@@ -404,8 +402,7 @@ Hívd meg a JPA-ból a _FizetesModLetrehozasa_ nevű tárolt eljárást, mely ú
 
 - Ha nem, akkor nyisd meg a projekt gyökerében található CreateSequenceAndSP.sql nevű fájlt, és a tartalmát futtasd le Oracle SQL Developerben!
 
-<details>
-<summary>Megoldás</summary>
+<details><summary markdown="span">Megoldás</summary>
 
 A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal (_CreateSequenceAndSP.sql_) a változó neveket!
 
