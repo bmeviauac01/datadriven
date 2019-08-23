@@ -8,7 +8,6 @@ GitHub Classroom segítségével a <https://classroom.github.com/a/XBoIGuLn> lin
 
 - Microsoft SQL Server
   - Express változat ingyenesen használható, avagy Visual Studio telepítésével a gyakorlatokon is használt "localdb" változat elérhető
-  - Használható a [Docker változat](../Docker-hasznalat.md) is.
 - Microsoft SQL Server Management Studio
 - Gyakorlatokon is használt minta adatbázis kódja (elérhető a gyakorlatok anyagai között).
   - Előkészületként hozz létre egy új adatbázist, és futtasd le a táblákat létrehozó szkriptet.

@@ -48,7 +48,7 @@ A feladatok megoldásához szükséges Microsoft SQL Server és MongoDB futtatá
 
 1. Telepítés
 
-   Mindkét szerverből telepíthető ingyenesen elérhető Express változat.
+   Mindkét szerverből telepíthető ingyenesen használható változat.
 
    MongoDB: <https://www.mongodb.com/download-center/community>
 
@@ -57,7 +57,3 @@ A feladatok megoldásához szükséges Microsoft SQL Server és MongoDB futtatá
 1. Microsoft SQL Server "localdb"
 
    Visual Studio-val települ a localdb, a gyakorlatokon megszokott módon tudunk vele dolgozni.
-
-1. Docker
-
-   Ennek használatáról részletesen lásd [itt](Docker-hasznalat.md).
