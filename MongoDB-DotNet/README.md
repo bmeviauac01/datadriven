@@ -481,7 +481,7 @@ Például: a nyári szezonra való tekintettel _minden_ labdára adjunk 25% enge
 ```csharp
 collection.UpdateMany(
     filter: Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák"),
-    update: Builders<Termek>.Update.Mul(x => x.Raktarkeszlet, 0.75)
+    update: Builders<Termek>.Update.Mul(x => x.NettoAr, 0.75)
                                    .AddToSet(x => x.Karegoriak, "Akciós termékek"));
 ```
 
