@@ -6,13 +6,17 @@
 
 [Gyakorlat 3 - Entity Framework](Gyak3-EF/README.md)
 
-[Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md)
+[Gyakorlat 4 - MongoDB](Gyak4-MongoDB/README.md) - **még készül**
+
+[Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md) - **még átdolgozás alatt**
 
 [Gyakorlat 6 - REST](Gyak6-REST/README.md)
 
 [Az adatbázis sémájának leírása](Adatbazis/sema.md)
 
 [Microsoft SQL Server használata](Adatbazis/mssql-server.md)
+
+[MongoDB használata](Adatbazis/mongodb.md)
 
 ---
 
