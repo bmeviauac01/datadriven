@@ -274,7 +274,7 @@ Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk 
   
 > Ha nem változtatunk izolációs szintet, akkor helytelen működés állhatna elő. Mivel a *read committed* izolációs szint nem biztosítja számunkra azt, hogy amíg fut a tranzakciónk, addig egy másik tranzakció berögzítsen rekordokat. Tehát lefuthatna az `insert`, ami miatt végeredményben több árut adnánk el, mint ami a raktárban van. Ez a nem megismételhető olvasás problémája.
 >
-> Erről az oldalról nézve tehát a *serializable* izolációs szint nem volt túl szigorú. Tényleg megvédett minket egy problémától.
+> Erről az oldalról nézve tehát a *serializable* izolációs szint nem volt feleslegesen szigorú. Tényleg megvédett minket egy problémától.
 
 </details>
 
@@ -384,6 +384,6 @@ from tablanev with(TABLOCKX)
 
 <details><summary markdown="span">Magyarázat</summary>
   
-Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni. De ez ugyanazzal az eredménnyel járna, mit a *serializable* izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné. Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.
+> Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni. De ez ugyanazzal az eredménnyel járna, mint a *serializable* izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné. Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.
 
 </details>
