@@ -6,7 +6,7 @@
 
 [Gyakorlat 3 - Entity Framework](Gyak3-EF/README.md)
 
-[Gyakorlat 4 - MongoDB](Gyak4-MongoDB/README.md) - **még készül**
+[Gyakorlat 4 - MongoDB](Gyak4-MongoDB/README.md)
 
 [Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md) - **még átdolgozás alatt**
 

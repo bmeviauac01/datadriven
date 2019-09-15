@@ -10,12 +10,15 @@ A labor elvégzéséhez szükséges eszközök:
 
 - Microsoft Visual Studio 2015/2017/2019 (_nem_ VS Code)
 - MongoDB Community Edition
+- Robo 3T
+- Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mongo.js)
 - Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulas>
 
 Amit érdemes átnézned:
 
 - C# nyelv
 - MongoDB előadás
+- [MongoDB használata segédlet](../Adatbazis/mongodb.md)
 
 ## Gyakorlat menete
 
@@ -23,15 +26,33 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
-## Feladat 0: Projekt megnyitása
+## Feladat 0: Adatbázis létrehozása, projekt megnyitása
+
+1. Hozzunk létre egy mappát, ahol dolgozni fogunk, például `c/d:\work\NEPTUN`.
+
+   > A továbbiakban kezeljük ezt "törzskönyvtárként", tehát minden új mappát ebben hozzunk létre, és minden _command prompt_-ot itt nyissunk meg.
+
+1. Indítsuk el a MongoDB szervert és hozzuk létre az adatbáist.
+
+   - Hozzunk létre egy mappát az adatbázisfájloknak, például `db` néven
+   - Nyissunk egy _command prompt_-ot és indítsuk el a MongoDB szervert: `mongod.exe --dbpath="db"`
+   - Töltsük le az adatbázislétrehozó scriptet és mentsük el `mongo.js` néven
+   - Nyissunk egy _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/aaf mongo.js`
+
+1. Ellenőrizzük, hogy létrejött az adatbázis Robo3T segítségével.
+
+   - Indítsuk el a Robo3T programot és csatlakozzunk a MongoDB szerverhez.
+
+     ![Robo3T Connection Settings](images/robo3t_connection.png)
+
+   - Ellenőrizzük, hogy létrejöttek a megfelelő _Collection_-ök.
+
+     ![Robo3T Collections](images/robo3t_collections.png)
 
 1. Töltsük le a méréshez tartozó projekt vázat!
 
    - Nyissunk egy _command prompt_-ot
-   - Navigáljunk el egy tetszőleges mappába, például `c/d:\work\NEPTUN`
    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulas.git`
-
-1. Hozzuk létre az adatbázist a MongoDB-n belül. TODO
 
 1. Nyissuk meg a `Mongo` könyvtár alatti _sln_ fájlt Visual Studio-val.
 
@@ -182,7 +203,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
     }
     ```
 
-    > :information_source: Úgy tudnánk hatékonyabbá tenni a lekérdezést, ha csak azokat a termékeket listázzuk, amelyek adataira ténylegesen szükségünk van. Hogyan tehetnénk ezt meg?
+    > Úgy tudnánk hatékonyabbá tenni a lekérdezést, ha csak azokat a termékeket listázzuk, amelyek adataira ténylegesen szükségünk van. Hogyan tehetnénk ezt meg?
 
 </details>
 
@@ -197,6 +218,12 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 1. A `Termek` osztály a `termekek` kollekciót reprezentálja az adatbázisban, ezért tartozik hozzá egyedi `ObjectID` ami alapján hivatkozni tudunk rá az adatbázis felé. Ezzel szemben az `AFA` osztály a `Termek` egy beágyazott objektuma, önmagában nem jelenik meg kollekcióként. Ezért nem tartozik hozzá `ObjectID` érték.
 
 1. Hozzunk létre új POCO osztályt `Kategoria` néven.
+
+    Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `kategoriak` kollekcióban lévő dokumentumokban.
+
+    ![kategoriak](images/kategoriak.png)
+
+    Ez alapján létre tudjuk hozni a `Kategoria` osztályt.
 
     ```csharp
     public class Kategoria
@@ -304,6 +331,6 @@ Az `IMongoColection<TEntity>` interfész nem csak lekérdezéshez használható,
     Console.WriteLine($"\t\tMódosítás után {kategoriaCollection.CountDocuments(_ => true)} db kategória");
     ```
 
-    > :warning: Vegyük észre, hogy ez az utasítás nem atomikus. Ha közben vettek fel új terméket, akkor lehet, hogy olyan kategóriát törlünk amihez azóta tartozik termék. Nem vettük figyelemve továbbá a kategóriák hierarchiáját sem.
+    > Vegyük észre, hogy ez az utasítás nem atomikus. Ha közben vettek fel új terméket, akkor lehet, hogy olyan kategóriát törlünk amihez azóta tartozik termék. Nem vettük figyelemve továbbá a kategóriák hierarchiáját sem.
 
 </details>
