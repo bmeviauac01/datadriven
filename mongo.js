@@ -1,15 +1,15 @@
 db.vevok.createIndex({ "telephelyek._id" : 1 }, { "unique" : true, "name" : "ix_telephely_id" })
 
 db.vevok.insertMany([{
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d4"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb4"),
     "nev" : "Puskás Norbert",
     "szamlaszam" : "16489665-05899845-10000038",
     "login" : "pnorbert",
     "jelszo" : "huti9haj1s",
     "email" : "puskasnorbert@freemail.hu",
-    "kozpontiTelephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d5"),
+    "kozpontiTelephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb5"),
     "telephelyek" : [{
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d5"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb5"),
         "ir" : "1051",
         "varos" : "Budapest",
         "utca" : "Hercegprímás u. 22.",
@@ -17,21 +17,21 @@ db.vevok.insertMany([{
         "fax" : "061-457-11-04"
       }]
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d6"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb6"),
     "nev" : "Hajdú-Nagy Katalin",
     "szamlaszam" : "54255831-15615432-25015126",
     "login" : "katinka",
     "jelszo" : "gandalf67j",
     "email" : "hajdunagyk@hotmail.com",
-    "kozpontiTelephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d7"),
+    "kozpontiTelephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb7"),
     "telephelyek" : [{
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d7"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb7"),
         "ir" : "1114",
         "varos" : "Budapest",
         "utca" : "Baranyai u. 16.",
         "tel" : "061-569-23-99"
       }, {
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d8"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb8"),
         "ir" : "3000",
         "varos" : "Hatvan",
         "utca" : "Vörösmarty tér. 5.",
@@ -39,15 +39,15 @@ db.vevok.insertMany([{
         "fax" : "0646-319-168"
       }]
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10d9"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbb9"),
     "nev" : "Grosz János",
     "szamlaszam" : "25894467-12005362-59815126",
     "login" : "jano",
     "jelszo" : "jag7guFs",
     "email" : "janos.grosz@gmail.com",
-    "kozpontiTelephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10da"),
+    "kozpontiTelephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbba"),
     "telephelyek" : [{
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10da"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbba"),
         "ir" : "2045",
         "varos" : "Törökbálint",
         "utca" : "Határ u. 17.",
@@ -57,88 +57,88 @@ db.vevok.insertMany([{
   }])
 
 db.kategoriak.insertMany([{
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10db"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbbb"),
     "nev" : "Játék"
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10dc"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbbc"),
     "nev" : "Játszóház"
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10dd"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbbd"),
     "nev" : "Bébijáték",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10db")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbb")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10de"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbbe"),
     "nev" : "Építojáték",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10db")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbb")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10df"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbbf"),
     "nev" : "Fajáték",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10db")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbb")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e0"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc0"),
     "nev" : "Plüss figurák",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10db")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbb")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e1"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc1"),
     "nev" : "Közlekedési eszközök",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10db")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbb")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e2"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc2"),
     "nev" : "0-6 hónapos kor",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10dd")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbd")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e3"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc3"),
     "nev" : "6-18 hónapos kor",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10dd")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbd")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e4"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc4"),
     "nev" : "18-24 hónapos kor",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10dd")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbd")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e5"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc5"),
     "nev" : "DUPLO",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10de")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbe")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e6"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc6"),
     "nev" : "LEGO",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10de")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbe")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e7"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc7"),
     "nev" : "Építo elemek",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10de")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbe")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e8"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc8"),
     "nev" : "Építo kockák",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10df")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbf")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10e9"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbc9"),
     "nev" : "Készségfejleszto játékok",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10df")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbf")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10ea"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbca"),
     "nev" : "Logikai játékok",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10df")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbf")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10eb"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbcb"),
     "nev" : "Ügyességi játékok",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10df")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbf")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10ec"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbcc"),
     "nev" : "Bébi taxik",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e1")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc1")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10ed"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbcd"),
     "nev" : "Motorok",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e1")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc1")
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10ee"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbce"),
     "nev" : "Triciklik",
-    "szuloKategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e1")
+    "szuloKategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc1")
   }])
 
 db.termekek.insertMany([{
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10ef"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e2"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbcf"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc2"),
     "nev" : "Activity playgim",
     "nettoAr" : 7488.0,
     "raktarkeszlet" : 21,
@@ -168,8 +168,8 @@ db.termekek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f0"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e2"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd0"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc2"),
     "nev" : "Színes bébikönyv",
     "nettoAr" : 1738.0,
     "raktarkeszlet" : 58,
@@ -199,8 +199,8 @@ db.termekek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f1"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e3"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd1"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc3"),
     "nev" : "Zenélo bébitelefon",
     "nettoAr" : 3725.0,
     "raktarkeszlet" : 18,
@@ -230,8 +230,8 @@ db.termekek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f2"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e4"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd2"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc4"),
     "nev" : "Fisher Price kalapáló",
     "nettoAr" : 8356.0,
     "raktarkeszlet" : 58,
@@ -240,8 +240,8 @@ db.termekek.insertMany([{
       "kulcs" : 20
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f3"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e7"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd3"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc7"),
     "nev" : "Mega Bloks 24 db-os",
     "nettoAr" : 4325.0,
     "raktarkeszlet" : 47,
@@ -250,8 +250,8 @@ db.termekek.insertMany([{
       "kulcs" : 20
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f4"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e7"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd4"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc7"),
     "nev" : "Maxi Blocks 56 db-os",
     "nettoAr" : 1854.0,
     "raktarkeszlet" : 36,
@@ -260,8 +260,8 @@ db.termekek.insertMany([{
       "kulcs" : 20
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f5"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e7"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd5"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc7"),
     "nev" : "Building Blocks 80 db-os",
     "nettoAr" : 4362.0,
     "raktarkeszlet" : 25,
@@ -270,8 +270,8 @@ db.termekek.insertMany([{
       "kulcs" : 20
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f6"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e6"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd6"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc6"),
     "nev" : "Lego City kikötoje",
     "nettoAr" : 27563.0,
     "raktarkeszlet" : 12,
@@ -295,8 +295,8 @@ db.termekek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f7"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10e5"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd7"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbc5"),
     "nev" : "Lego Duplo Ásógép",
     "nettoAr" : 6399.0,
     "raktarkeszlet" : 26,
@@ -305,8 +305,8 @@ db.termekek.insertMany([{
       "kulcs" : 20
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f8"),
-    "kategoriaID" : ObjectId("5d3dccd3cffa8e3a9c5f10dc"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd8"),
+    "kategoriaID" : ObjectId("5d7e42adcffa8e1b64f7dbbc"),
     "nev" : "Egy óra gyerekfelügyelet",
     "nettoAr" : 800.0,
     "raktarkeszlet" : 0,
@@ -316,10 +316,28 @@ db.termekek.insertMany([{
     }
   }])
 
+db.szamlakiallito.insertMany([{
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd9"),
+    "nev" : "Regio Játék Áruház Kft",
+    "ir" : "1119",
+    "varos" : "Budapest",
+    "utca" : "Nándorfejérvári u. 23",
+    "adoszam" : "15684995-2-32",
+    "szamlaszam" : "259476332-15689799-10020065"
+  }, {
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbda"),
+    "nev" : "Regio Játék Áruház Zrt",
+    "ir" : "1119",
+    "varos" : "Budapest",
+    "utca" : "Nándorfejérvári u. 23",
+    "adoszam" : "68797867-1-32",
+    "szamlaszam" : "259476332-15689799-10020065"
+  }])
+
 db.megrendelesek.insertMany([{
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10f9"),
-    "vevoID" : ObjectId("5d3dccd3cffa8e3a9c5f10d6"),
-    "telephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d8"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbdb"),
+    "vevoID" : ObjectId("5d7e42adcffa8e1b64f7dbb6"),
+    "telephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb8"),
     "datum" : ISODate("2008-01-17T23:00:00Z"),
     "hatarido" : ISODate("2008-01-29T23:00:00Z"),
     "statusz" : "Kiszállítva",
@@ -330,7 +348,7 @@ db.megrendelesek.insertMany([{
     "megrendelesTetelek" : [{
         "mennyiseg" : 2,
         "nettoAr" : 8356.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f2"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd2"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
           "nev" : "Fisher Price kalapáló",
@@ -341,7 +359,7 @@ db.megrendelesek.insertMany([{
       }, {
         "mennyiseg" : 1,
         "nettoAr" : 1854.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f4"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd4"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
           "nev" : "Maxi Blocks 56 db-os",
@@ -352,7 +370,7 @@ db.megrendelesek.insertMany([{
       }, {
         "mennyiseg" : 5,
         "nettoAr" : 1738.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f0"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd0"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
           "nev" : "Színes bébikönyv",
@@ -373,7 +391,7 @@ db.megrendelesek.insertMany([{
       "teljesitesDatum" : ISODate("2008-01-29T23:00:00Z"),
       "fizetesiHatarido" : ISODate("2008-01-29T23:00:00Z"),
       "kiallito" : {
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10fa"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd9"),
         "nev" : "Regio Játék Áruház Kft",
         "ir" : "1119",
         "varos" : "Budapest",
@@ -383,9 +401,9 @@ db.megrendelesek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10fb"),
-    "vevoID" : ObjectId("5d3dccd3cffa8e3a9c5f10d4"),
-    "telephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d5"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbdc"),
+    "vevoID" : ObjectId("5d7e42adcffa8e1b64f7dbb4"),
+    "telephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb5"),
     "datum" : ISODate("2008-02-12T23:00:00Z"),
     "hatarido" : ISODate("2008-02-14T23:00:00Z"),
     "statusz" : "Kiszállítva",
@@ -396,7 +414,7 @@ db.megrendelesek.insertMany([{
     "megrendelesTetelek" : [{
         "mennyiseg" : 2,
         "nettoAr" : 7488.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10ef"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbcf"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
           "nev" : "Activity playgym",
@@ -407,7 +425,7 @@ db.megrendelesek.insertMany([{
       }, {
         "mennyiseg" : 3,
         "nettoAr" : 3725.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f1"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd1"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
           "nev" : "Zenélo bébitelefon",
@@ -428,7 +446,7 @@ db.megrendelesek.insertMany([{
       "teljesitesDatum" : ISODate("2008-02-14T23:00:00Z"),
       "fizetesiHatarido" : ISODate("2008-02-22T23:00:00Z"),
       "kiallito" : {
-        "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10fa"),
+        "_id" : ObjectId("5d7e42adcffa8e1b64f7dbd9"),
         "nev" : "Regio Játék Áruház Kft",
         "ir" : "1119",
         "varos" : "Budapest",
@@ -438,9 +456,9 @@ db.megrendelesek.insertMany([{
       }
     }
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10fc"),
-    "vevoID" : ObjectId("5d3dccd3cffa8e3a9c5f10d6"),
-    "telephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d7"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbdd"),
+    "vevoID" : ObjectId("5d7e42adcffa8e1b64f7dbb6"),
+    "telephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb7"),
     "datum" : ISODate("2008-02-14T23:00:00Z"),
     "hatarido" : ISODate("2008-02-19T23:00:00Z"),
     "statusz" : "Várakozik",
@@ -451,28 +469,28 @@ db.megrendelesek.insertMany([{
     "megrendelesTetelek" : [{
         "mennyiseg" : 1,
         "nettoAr" : 4362.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f5"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd5"),
         "statusz" : "Csomagolva"
       }, {
         "mennyiseg" : 6,
         "nettoAr" : 1854.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f4"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd4"),
         "statusz" : "Várakozik"
       }, {
         "mennyiseg" : 2,
         "nettoAr" : 6399.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f7"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd7"),
         "statusz" : "Csomagolva"
       }, {
         "mennyiseg" : 5,
         "nettoAr" : 1738.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f0"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd0"),
         "statusz" : "Rögzítve"
       }]
   }, {
-    "_id" : ObjectId("5d3dccd3cffa8e3a9c5f10fd"),
-    "vevoID" : ObjectId("5d3dccd3cffa8e3a9c5f10d4"),
-    "telephelyID" : ObjectId("5d3dccd3cffa8e3a9c5f10d5"),
+    "_id" : ObjectId("5d7e42adcffa8e1b64f7dbde"),
+    "vevoID" : ObjectId("5d7e42adcffa8e1b64f7dbb4"),
+    "telephelyID" : ObjectId("5d7e42adcffa8e1b64f7dbb5"),
     "datum" : ISODate("2008-02-14T23:00:00Z"),
     "hatarido" : ISODate("2008-02-19T23:00:00Z"),
     "statusz" : "Csomagolva",
@@ -483,22 +501,22 @@ db.megrendelesek.insertMany([{
     "megrendelesTetelek" : [{
         "mennyiseg" : 23,
         "nettoAr" : 3725.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f1"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd1"),
         "statusz" : "Csomagolva"
       }, {
         "mennyiseg" : 12,
         "nettoAr" : 1738.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f0"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd0"),
         "statusz" : "Csomagolva"
       }, {
         "mennyiseg" : 10,
         "nettoAr" : 27563.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10f6"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbd6"),
         "statusz" : "Csomagolva"
       }, {
         "mennyiseg" : 25,
         "nettoAr" : 7488.0,
-        "termekID" : ObjectId("5d3dccd3cffa8e3a9c5f10ef"),
+        "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbcf"),
         "statusz" : "Csomagolva"
       }]
   }])
