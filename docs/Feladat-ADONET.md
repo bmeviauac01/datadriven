@@ -33,9 +33,22 @@ Készítsd a termékek kezeléséhez egy _repository_ osztályt **ADO.NET Connec
 - A `Termek` osztály kódját ezen feladathoz ne módosítsd!
 - A `TermekRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
 
+Készíts egy képernyőképet (screenshot), amin látszódik
+
+- a fejlesztéséhez használt eszköz (pl. Visual Studio),
+- a gép és a felhasználó neve, amin a fejlesztést végezted (pl. konzolban add ki a `whoami` parancsot és ezt a konzolt is rakd a képernyőképre),
+- az aktuális dátum (pl. az óra a tálcán)
+- valamint a repository osztály kódja.
+
+[Itt egy példa](img/img-screenshot-pl-vs.png), körülbelül ilyesmit várunk.
+
+> A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+
 A teszteléshez találsz unit teszteket a solution-ben ([segítség a unit tesztek futtatásához](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019)). Az adatbázis eléréséhez a `TestConnectionStringHelper` segédosztályban módosíthatod a connection stringet.
 
 ## Feladat 2: Optimista konkurenciakezelés (2 iMsc pont)
+
+> Az iMsc pont megszerzésére a első feladat megoldásával együtt van lehetőség.
 
 A termékek adatbázisban történő frissítése esetén vegyük észre, és ne engedjük a módosítást, ha a frissítéssel felülírnánk egy nem látott módosítást. A `TermekRepository.Update` függvénye legyen felelős a helyes viselkedésért, és ne végezze el a kért módosítást, ha _elveszett módosítás_ jellegű konkurenciaproblémát észlel.
 
@@ -57,3 +70,7 @@ A megoldást a `TermekRepository.Update` függvényben írd meg, felülírva az 
 - Védekezz az SQL injectionnel szemben!
 - A `TermekRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
 - A `Termek` osztályban konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.
+
+Készíts egy _új_ képernyőképet a fent leírtak szerint a repository osztály módosított kódjával.
+
+> A képet `f2.png` néven mentsd el és add be a megoldásod részeként!

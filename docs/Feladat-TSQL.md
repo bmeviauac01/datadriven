@@ -24,11 +24,22 @@ Biztonsági megfontolásból szeretnénk kötelezővé tenni a jelszó időnkén
 
 1. Készíts triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a `JelszoLejarat` mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (_insert_) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (_update_) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.)
 
-> A megoldást az `f1.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create trigger`), és ne legyen benne `use` parancs!
+   > A megoldást az `f1.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create trigger`), és ne legyen benne `use` parancs!
+
+1. Készíts egy képernyőképet (screenshot), amin látszódik
+
+   - a trigger fejlesztéséhez használt eszköz (pl. SQL Server Management Studio),
+   - a gép és a felhasználó neve, amin a fejlesztést végezted (pl. SQL Server Management Studio-ban az Object Explorer-ben a megnyitott kapcsolat nevében szerepel, vagy konzolban add ki a `whoami` parancsot és ezt a konzolt is rakd a képernyőképre),
+   - az aktuális dátum (pl. az óra a tálcán)
+   - valamint a trigger kódja.
+
+   [Itt egy példa](img/img-screenshot-pl-sql.png), körülbelül ilyesmit várunk.
+
+   > A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
 ## Feladat 2: Termék ajánlott korhatára (2 iMsc pont)
 
-Az iMsc pontok megszerzése csak az előző feladat teljesítése esetén lehetséges.
+> Az iMsc pont megszerzésére a első feladat megoldásával együtt van lehetőség.
 
 A minta adatbázisban a termékek rekordjaiban van egy xml típusú `leiras` nevű oszlop. Ez néhány terméknél van csak kitöltve.
 
@@ -54,4 +65,8 @@ Szeretnénk az **ajánlott kort** tartalmazó adatot könnyebb elérhetőség v�
 
 1. Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az `<ajanlott_kor>` elemet kiemelve feltölti a az előbb létrehozott `AjanlottKor` oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon `NULL` az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheti, hogy csak egyetlen `<ajanlott_kor>` elem van az xml-ben.
 
-> A megoldást az `f2.sql` fájlban add be. Az sql fájl önmagában futtatható legyen, de ne legyen benne `use` parancs!
+   > A megoldást az `f2.sql` fájlban add be. Az sql fájl önmagában futtatható legyen, de ne legyen benne `use` parancs!
+
+1. Készíts egy képernyőképet a fent leírtak szerint a szkript kódjával.
+
+   > A képet `f2.png` néven mentsd el és add be a megoldásod részeként!

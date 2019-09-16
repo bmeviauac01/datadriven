@@ -50,9 +50,22 @@ Készítsd el az adatbázisunk Entity Framework leképzését _Code First_ megol
 
    Vedd fel ennek az egy-több kapcsolatnak a másik oldalát a DbAFA osztályba. Ez a `Termekek` nevű property `System.Collections.Generic.List` típusú legyen. (Lásd a példában is az előbbi linken.)
 
+1. Készíts egy képernyőképet (screenshot), amin látszódik
+
+   - a fejlesztéséhez használt eszköz (pl. Visual Studio),
+   - a gép és a felhasználó neve, amin a fejlesztést végezted (pl. konzolban add ki a `whoami` parancsot és ezt a konzolt is rakd a képernyőképre),
+   - az aktuális dátum (pl. az óra a tálcán)
+   - valamint a `DbAfa` osztály kódja.
+
+   [Itt egy példa](img/img-screenshot-pl-vs.png), körülbelül ilyesmit várunk.
+
+   > A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+
 A megírt kód kipróbálásához találsz unit teszteket a solution-ben a `TestFeladat1` osztályban. A kódja ki van kommentezve, mert nem fordul, amíg nem írod meg a fentieket. Jelöld ki a teljes kódot, és használd az _Edit / Advanced / Uncomment Selection_ parancsot, majd futtasd a teszteket ([segítség a unit tesztek futtatásához](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019)). Ha nem fordulna le a teszt kód, lehet, hogy egy-egy property névnek mást használtál. A kódodban javítsd a nevet, ne a tesztekben! Az adatbázis eléréséhez a `TestConnectionStringHelper` segédosztályban módosíthatod a connection stringet.
 
 ## Feladat 2: Repository megvalósítás Entity Framework-kel (2 iMsc pont)
+
+> Az iMsc pont megszerzésére a első feladat megoldásával együtt van lehetőség.
 
 Az Entity Framework DbContext-je az előzőekben megírt módon nem használható kényelmesen. Például a kapcsolatok betöltését (`Include`) kézzel kell kezdeményezni, és a leképzett entitások túlságosan kötődnek az adatbázis sémájához. Egy komplex alkalmazás esetében ezért célszerű a DbContext-et a repository minta szerint becsomagolni, és ily módon nyújtani az adatelérési réteget.
 
@@ -63,5 +76,9 @@ Implementáld a `TermekRepository` osztály függvényeit.
 - A `List` az összes terméket adja vissza `TermekAfaval` típusra leképezve.
 - Az `Insert` szúrjon be egy új terméket. A kapott ÁFA kulcs értéknek megfelelően keresse ki az adatbázisból a kapcsolódó AFA rekordot, vagy ha nem létezik ilyen kulcs még, akkor szúrjon be egy új AFA rekordot is!
 - A `TermekRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
+
+Készíts egy képernyőképet a fent leírtak szerint a repository osztály kódjával.
+
+> A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
 A teszteléshez az előző feladathoz hasonlóan találsz unit teszteket a `TestFeladat2` osztályban.
