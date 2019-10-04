@@ -42,6 +42,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    where s.Nev != 'Kiszállítva'
    ```
 
+   A `join` mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)
+
    </details>
 
 1. Melyek azok a fizetési módok, amit soha nem választottak a megrendelőink?
@@ -53,6 +55,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    from Megrendeles m right outer join FizetesMod f on m.FizetesModID = f.ID
    where m.ID is null
    ```
+
+   A megoldás kulcsa az `outer join`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
 
    </details>
 
@@ -66,6 +70,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
    select @@IDENTITY
    ```
+
+   Az `insert` után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.
 
    </details>
 
@@ -90,6 +96,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    from Kategoria k
    order by db desc
    ```
+
+   A kérdésre több alternatív lekérdezés is eszünkbe juthat. Ez csak egyike a lehetséges megoldásoknak. Itt láthatunk példát az allekérdezésre is.
 
    </details>
 
@@ -177,6 +185,8 @@ where i.StatuszID != d.StatuszID
   and mt.StatuszID=d.StatuszID
 ```
 
+Szánjunk egy kis időt az `update ... from` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `update ... set...` formát követi, kiegészítve egy `from` szakasszal, melyben már a `select from` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`join`) adatokat a módosítandó táblához. Így a `set` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az = jobb oldalán).
+
 #### Tesztelés
 
 Ellenőrizzük a megrendelés és a tételek státuszát:
@@ -208,7 +218,7 @@ where megrendelesid = 1
 
 </details>
 
-## Feladat 4: Vevő megrendeléseinek összegzése (önálló feladat)
+## Feladat 4: Vevő megrendeléseinek összegzése
 
 Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában!
 
@@ -221,7 +231,7 @@ Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában
 declare cur_vevo cursor
     for select ID from Vevo
 declare @vevoId int
-declare @osszeg int
+declare @osszeg float
 
 open cur_vevo
 fetch next from cur_vevo into @vevoId
