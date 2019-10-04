@@ -16,7 +16,7 @@ Amit érdemes átnézned:
 
 - SQL nyelv
 - Microsoft SQL Server programozása (tárolt eljárások, triggerek)
-- [Microsoft SQL Server használata segédlet](../MSSQL-hasznalata/README.md)
+- [Microsoft SQL Server használata segédlet](../Adatbazis/mssql-server.md)
 
 ## Gyakorlat menete
 
