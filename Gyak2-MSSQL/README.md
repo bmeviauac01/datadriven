@@ -239,11 +239,10 @@ while @@FETCH_STATUS = 0
 begin
 
     select @osszeg = sum(mt.Mennyiseg * mt.NettoAr)
-    from Vevo v
-    inner join Telephely t on v.ID=t.VevoID
+    from Telephely t
     inner join Megrendeles m on m.TelephelyID=t.ID
     inner join MegrendelesTetel mt on mt.MegrendelesID=m.ID
-    where v.ID = @vevoId
+    where t.VevoID = @vevoId
 
     update Vevo
     set vegosszeg = ISNULL(@osszeg, 0)
@@ -280,29 +279,26 @@ update Vevo
 set vegosszeg=isnull(vegosszeg,0) + OsszegValtozas
 from Vevo
 inner join
-    (select v.ID, sum(mennyiseg * NettoAr) as OsszegValtozas
-    from Vevo v
-    inner join Telephely t on v.ID=t.VevoID
+    (select t.VevoId, sum(mennyiseg * NettoAr) as OsszegValtozas
+    from Telephely t
     inner join Megrendeles m on m.TelephelyID=t.ID
     inner join inserted i on i.MegrendelesID=m.ID
-    group by v.ID) VevoValtozas on Vevo.ID = VevoValtozas.ID
+    group by t.VevoId) VevoValtozas on Vevo.ID = VevoValtozas.ID
 
 update Vevo
 set vegosszeg=isnull(vegosszeg,0) - OsszegValtozas
 from Vevo
 inner join
-    (select v.ID, sum(mennyiseg * NettoAr) as OsszegValtozas
-    from Vevo v
-    inner join Telephely t on v.ID=t.VevoID
+    (select t.VevoId, sum(mennyiseg * NettoAr) as OsszegValtozas
+    from Telephely t
     inner join Megrendeles m on m.TelephelyID=t.ID
     inner join deleted d on d.MegrendelesID=m.ID
-    group by v.id) VevoValtozas on Vevo.ID = VevoValtozas.ID
+    group by t.VevoID) VevoValtozas on Vevo.ID = VevoValtozas.ID
 ```
 
 #### Tesztelés
 
-Nézzük meg az összmegrendelések aktuális értékét, jegyezzük meg a
-számokat.
+Nézzük meg az összmegrendelések aktuális értékét, jegyezzük meg a számokat.
 
 ```sql
 select id, osszmegrendeles
