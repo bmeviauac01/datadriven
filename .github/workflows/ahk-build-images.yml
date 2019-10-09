@@ -10,5 +10,13 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Build with compose
+      - name: Build all images with compose
         run: cd ahk/src && docker-compose build
+      - name: Test sample solution for TSQL
+        run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas bmeviauac01/hf-tsql
+      - name: Test sample solution for ADONET
+        run: docker run --rm -v $(pwd)/megoldas/adonet:/megoldas bmeviauac01/hf-adonet
+      - name: Test sample solution for EF
+        run: docker run --rm -v $(pwd)/megoldas/ef:/megoldas bmeviauac01/hf-ef
+      - name: Test sample solution for WebApi
+        run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas bmeviauac01/hf-webapi
