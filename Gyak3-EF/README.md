@@ -121,7 +121,7 @@ using (var db = new AdatvezEntities())
     // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
     Console.WriteLine("\tc 2.3 alternatív megoldás:");
     var qMegrendelesOssz2 = from m in
-        oc.Megrendeles.Include("MegrendelesTetel").Include("MegrendelesTetel.Termek")
+        db.Megrendeles.Include("MegrendelesTetel").Include("MegrendelesTetel.Termek")
             .Include("Telephely").Include("Telephely.Vevo")
         where m.MegrendelesTetelek.Sum(mt => mt.Mennyiseg * mt.NettoAr) > 30000
         select m;
@@ -196,7 +196,14 @@ using (var db = new AdatvezEntities())
         select k).SingleOrDefault();
 
     if (dragaJatek == null)
-        dragaJatek = new Kategoria { Nev = "Drága Játék"; }
+    {
+        dragaJatek = new Kategoria { Nev = "Drága Játék" };
+        
+        // Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast
+        // es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban
+        // kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.
+        db.Category.Add(dragaJatek);
+    }
 
     var qTermekDraga = from t in db.Termek
         where t.NettoAr > 8000
@@ -206,7 +213,7 @@ using (var db = new AdatvezEntities())
         t.Kategoria = dragaJatek;
     db.SaveChanges();
 
-    qTermekDraga = from t in oc.Termek
+    qTermekDraga = from t in db.Termek
         where t.Kategoria.Nev == "Drága Játék"
         select t;
 
@@ -288,8 +295,8 @@ using (var db = new AdatvezEntities())
         Hatarido = 99999
     };
 
-    oc.FizetesMod.Add(f);
-    oc.SaveChanges();
+    db.FizetesMod.Add(f);
+    db.SaveChanges();
 
     // 4.6
     Console.WriteLine("\t4.6:");
