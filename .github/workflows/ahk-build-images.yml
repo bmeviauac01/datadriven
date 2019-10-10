@@ -21,4 +21,4 @@ jobs:
       - name: Test sample solution for MongoDB
         run: docker run --rm -v $(pwd)/megoldas/mongo:/megoldas bmeviauac01/hf-mongo
       - name: Test sample solution for WebApi
-        run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas bmeviauac01/hf-webapi
+        run: docker run --rm -v $(pwd)/megoldas/webapi:/megoldas bmeviauac01/hf-webapi
