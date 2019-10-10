@@ -1,6 +1,10 @@
 name: Build Docker images for AHK
 
-on: [push]
+on:
+  push:
+    paths:
+      - "ahk/**"
+      - "megoldas/**"
 
 jobs:
   build:
