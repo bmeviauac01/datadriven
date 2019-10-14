@@ -37,24 +37,26 @@ public (string, double?) LegnagyobbOsszertekuTermek(ObjectId kategoriaID)
    - Amennyiben tartozik termék a megadott kategóriához, akkor a legnagyobb összértékű termék nevét és az összértéket kell visszaadnunk.
    - Amennyiben nem tartozik termék a kategóriához, mind a két értékre `null`-t kell visszaadnunk.
 
-1. A termék kolleckiót reprezentáló `IMongoCollection<Termek>` objektumot a `MongoDatabase` osztály `TermekCollection` statikus propertyjében találhatjuk meg. Ennek segítségével tudunk lekérdezéseket és módosító parancsokat kiadni az adatbázis számára.
+1. A termék kollekciót reprezentáló `IMongoCollection<Termek>` objektumot a `MongoDatabase` osztály `TermekCollection` statikus propertyjében találhatjuk meg. Ennek segítségével tudunk lekérdezéseket és módosító parancsokat kiadni az adatbázis számára.
 
 1. A lekérdezés elvégzéséhez a MongoDB aggregációs pipeline-ját érdemes használni. Ennek működésének felelevenítéséhez nézd meg a gyakorlatfeladatok megoldását.
 
    A lekérdezéshez a következő pipeline lépések szükségesek:
 
-   - Szűrjük le a termékeket a megadott kategóriához tartozókra. Ehhez egy [$match](https://docs.mongodb.com/manual/reference/operator/aggregation/match/) (`Match`) lépésre lesz szükségünk, ahol megadhatjuk a megfelelő filter kifejezést.
+   - Szűrjük le a termékeket a megadott kategóriához tartozókra. Ehhez egy [\$match](https://docs.mongodb.com/manual/reference/operator/aggregation/match/) (`Match`) lépésre lesz szükségünk, ahol megadhatjuk a megfelelő filter kifejezést.
 
-   - Számoljuk ki minden megmaradt termék esetén az összértéket egy [$project](https://docs.mongodb.com/manual/reference/operator/aggregation/project/) (`Project`) lépés segítségével. Ne felejtsd el, hogy az `Osszertek` mellett a termék `Nev`-re is szükségünk lesz!
+   - Számoljuk ki minden megmaradt termék esetén az összértéket egy [\$project](https://docs.mongodb.com/manual/reference/operator/aggregation/project/) (`Project`) lépés segítségével. Ne felejtsd el, hogy az `Osszertek` mellett a termék `Nev`-re is szükségünk lesz!
 
-   - Rendezzük az így kapott dokumentumokat csökkenő sorrendbe az `Osszertek` alapján. Ehhez a [$sort](https://docs.mongodb.com/manual/reference/operator/aggregation/sort/) (`SortByDescending`) lépést tudjuk alkalmazni.
+   - Rendezzük az így kapott dokumentumokat csökkenő sorrendbe az `Osszertek` alapján. Ehhez a [\$sort](https://docs.mongodb.com/manual/reference/operator/aggregation/sort/) (`SortByDescending`) lépést tudjuk alkalmazni.
 
    - A legnagyobb értékre vagyunk kíváncsiak, azaz az eredmények közül csupán az első érdekel minket. Azonban akkor sem szeretnénk hibát kapni, ha egyáltalán nem tartozott termék ehhez a kategóriához. Ezért a `FirstOrDefault` kiértékelő utasítást érdemes használni.
 
    > Ha esetleg ismeretlen lenne a `(string, double?)` szintaktika:
+   >
    > ```csharp
    > return ("test", 0.0);
    > ```
+   >
    > utasítás segítségével egyszerre két visszatérési értéket tudunk adni a függvénynek.
 
 1. Ha úgy gondolod sikerült implementálni a metódust, akkor a korábban már látott `TestFeladat1` osztályban található teszt metódusokkal ellenőrizni tudod a működést.
@@ -110,7 +112,7 @@ public void AfaKulcsValtoztat(string nev, int ujKulcs)
 1. Az előzőekből következik, hogy a gyakorlaton látott példához hasonlóan itt is `UpdateMany` utasításra lesz szükségünk — ugyanis mindenhol szeretnénk módosítani az áfakulcsot ahol a név megegyezik. A függvény használatának módját érdemes felidézni a gyakorlatanyag megoldásából.
 
    - Az `UpdateMany` függvény `filter` paraméterében szűrjünk rá azokra a termékekre melyekben az `AFA.Nev` megegyezik a függvény `nev` paraméterével.
-   - A függvény `update` paraméterében a módosító  lépést mondjuk meg, itt az `AFA.Kulcs` értéket szeretnénk beállítani az `ujKulcs` paraméter értékére. Ehhez a [$set](https://docs.mongodb.com/manual/reference/operator/update/set/) (`Set`) operátor használható.
+   - A függvény `update` paraméterében a módosító lépést mondjuk meg, itt az `AFA.Kulcs` értéket szeretnénk beállítani az `ujKulcs` paraméter értékére. Ehhez a [\$set](https://docs.mongodb.com/manual/reference/operator/update/set/) (`Set`) operátor használható.
 
 1. Az elkészült implementációt a `TestFeladat2` osztályban található teszt metódussal ellenőrizheted.
 
@@ -168,11 +170,11 @@ A specifikáció a következő:
 
    - Vegyük észre, hogy a `Termek` entitás már fel van erre készülve, megtalálható benne egy erre a célra szánt `Verzio` property.
 
-      ```csharp
-      public int? Verzio { get; set; }
-      ```
+     ```csharp
+     public int? Verzio { get; set; }
+     ```
 
-      Arra oda kell figyelnünk, hogy az adatbázisban ez az érték nincs mindenhol kitöltve, tehát szerepelhet benne `null` érték.
+     Arra oda kell figyelnünk, hogy az adatbázisban ez az érték nincs mindenhol kitöltve, tehát szerepelhet benne `null` érték.
 
    - Első lépésünk a korábbi kódunkat egy `while(true)` ciklusba helyezni — ez fogja végezni az újrapróbálást ha esetleg valaki megelőzött volna minket a változtatással.
 
