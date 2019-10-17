@@ -13,6 +13,8 @@ A labor elvégzéséhez szükséges eszközök:
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mssql.sql)
 - Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas>
+- Az MSSQL JDBC driver letöltése innen: https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip
+  - A zipet csomagold ki ide: *c:\work\javaee\.m2\repository* (a zip egy *com* nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: *c:\work\javaee\.m2\repository\com\microsoft\...*)
 
 ## Amit érdemes átnézned
 
@@ -44,7 +46,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Eclipse indítása
 
-1. Indítsukk el az Eclipse-et innen: `C:\Work\javaee\eclipse\eclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.)
+1. Indítsuk el az Eclipse-et innen: `C:\Work\javaee\eclipse\eclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.)
 1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: `C:\Work\javaee\workspaces\adatvez`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 
@@ -57,17 +59,17 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 1. Importáljuk a letöltött forráskódot a workspace-be:
    - Nyissuk meg a _File / Import..._-ot
    - Kezdjük el gépelni a textboxba, hogy _Existing projects into workspace_, így rá fog szűrni és válasszuk ki ezt
-   - Keressük meg a kicsomagolt webshop projektet (a `webshop`mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
+   - Keressük meg a kicsomagolt webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
    - Finish
 1. Tekintsük át röviden a projektet:
 
-   - Ez egy _maven_ alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében `pom.xml`-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a _Hibernate_-et mint JPA implementációt, a _Spring Boot_-ot, a _Spring Data_-t és a webréteghez szükséges _Spring MVC_-t és _Thymeleaf_-et. Érdekesség, hogy az Oracle nem teszi ki a JDBC driverét a publikus maven repository-ba, ezért ez benne van a projektben, a localrepo könyvtár alatt.
+   - Ez egy _maven_ alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében `pom.xml`-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a _Hibernate_-et mint JPA implementációt, a _Spring Boot_-ot, a _Spring Data_-t és a webréteghez szükséges _Spring MVC_-t és _Thymeleaf_-et. A laborban a maven offline működésre van konfigurálva, és előre le van töltve az összes függőség, így megelőzzük az esetleges hálózati problémákat.
 
-   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez adjuk meg a usernevet és jelszót. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: `spring.datasource.jndi-name=jdbc/termekDB`. Klasszikus Java EE alkalmazásban ezt a `persistence.xml`-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van `persistence.xml`, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)
+   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez **adjuk meg a usernevet és jelszót**. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: `spring.datasource.jndi-name=jdbc/termekDB`. Klasszikus Java EE alkalmazásban ezt a `persistence.xml`-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van `persistence.xml`, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)
 
    - A `ConnectionProperties` az előző konfig fájl egy részének Java-beli reprezentációja
 
-   - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja és konfigja is. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et). A `tomcatFactory` metódusban regisztráljuk be az Oracle JDBC driverét jdbc/termekDB JNDI néven, hogy a JPA majd megtalálja.
+   - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja és konfigja is. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et). A `tomcatFactory` metódusban regisztráljuk be az SQL Server JDBC driverét jdbc/termekDB JNDI néven, hogy a JPA majd megtalálja. Ha nem adatvez az adatbázisunk neve, akkor a JDBC URL-t módosítani kell a megfelelő sornál: resource.setProperty("url", "jdbc:sqlserver://localhost;database=**adatvez**");
 
    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.
 
@@ -325,9 +327,8 @@ public class KategoriaService {
         .getResultList();
 
     if(resultList.isEmpty()){
-      //0-s id-jű kategória elvileg nincs, ha mégis, válasszunk egy nem létező
-      // id-t, és adjuk át azt az első argumentumban
-      dragaKategoria = new Kategoria(0, nev);
+	  //0 vagy null id érték esetén fog a @GeneratedValue működésbe lépni. Most primitív long az id-nk, az csak 0 tud lenni, null nem. 
+	  dragaKategoria = new Kategoria(0, nev);
       em.persist(dragaKategoria);
     }else{
       dragaKategoria = resultList.get(0);
@@ -398,23 +399,22 @@ public class KategoriaService {
 
 Hívd meg a JPA-ból a _FizetesModLetrehozasa_ nevű tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját!
 
-- Oracle SQL Developerben ellenőrizzük, hogy az adatbázis tartalmazza-e a _SEQ_FizetesMod_ nevű sequence-t és a _FizetesModLetrehozasa_ nevű tárolt eljárást!
+- Az SQL Server Management Studioban ellenőrizzük, hogy az adatbázis tartalmazza-e a _FizetesModLetrehozasa_ nevű tárolt eljárást!
 
-- Ha nem, akkor nyisd meg a projekt gyökerében található CreateSequenceAndSP.sql nevű fájlt, és a tartalmát futtasd le Oracle SQL Developerben!
+- Ha nem, akkor nyisd meg a projekt gyökerében található CreateSP.sql nevű fájlt, és a tartalmát futtasd le a Management Studioban!
 
 <details><summary markdown="span">Megoldás</summary>
 
-A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal (_CreateSequenceAndSP.sql_) a változó neveket!
+A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal (_CreateSP.sql_) a változó neveket!
 
 ```java
 @NamedStoredProcedureQueries({
-  @NamedStoredProcedureQuery(name = "fizModSP",
-    procedureName = "FizetesModLetrehozasa",
-      parameters = {
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_mod", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_hatarido", type = BigDecimal.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "CurrentId", type = Long.class)
-      })
+	@NamedStoredProcedureQuery(name = "fizModSP", 
+			procedureName = "FizetesModLetrehozasa",			
+			parameters = {
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Mod", type = String.class),
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Hatarido", type = BigDecimal.class)	        	
+	        })	  
 })
 public class Fizetesmod implements Serializable {
 ...
@@ -426,7 +426,7 @@ A named stored procedure query meghívható Spring Data repositoryból (`dao` pa
 public interface FizetesmodRepository extends JpaRepository<Fizetesmod, Long> {
 
   @Procedure(name="fizModSP")
-  Long ujFizetesmod(@Param("p_mod") String nev, @Param("p_hatarido") BigDecimal hatarido);
+  void ujFizetesmod(@Param("Mod") String nev, @Param("Hatarido") BigDecimal hatarido);
 }
 ```
 
@@ -439,12 +439,11 @@ public class FizetesmodService {
   @PersistenceContext
   private EntityManager em;
 
-  public Long createUjFizetesMod(Fizetesmod fizetesMod){
+  public void createUjFizetesMod(Fizetesmod fizetesMod){
     StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("fizModSP");
-    sp.setParameter("p_mod", fizetesMod.getMod());
-    sp.setParameter("p_hatarido", fizetesMod.getHatarido());
-    sp.execute();
-    return (Long) sp.getOutputParameterValue("CurrentId");
+    sp.setParameter("Mod", fizetesMod.getMod());
+    sp.setParameter("Hatarido", fizetesMod.getHatarido());
+    sp.execute();    
   }
 }
 ```
