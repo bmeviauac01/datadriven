@@ -8,7 +8,7 @@
 
 [Gyakorlat 4 - MongoDB](Gyak4-MongoDB/README.md)
 
-[Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md) - **még átdolgozás alatt**
+[Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md)
 
 [Gyakorlat 6 - REST](Gyak6-REST/README.md)
 
