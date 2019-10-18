@@ -43,7 +43,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 1. Hozzuk létre az adatbázis.
 
    - Töltsük le az adatbázislétrehozó scriptet és mentsük el `mongo.js` néven a munkakönyvtárunkba.
-   - Nyissunk egy **új** _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/aaf c:\work\NEPTUN\mongo.js`
+   - Nyissunk egy **új** _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/aaf c:\work\<NEPTUN>\mongo.js`
      - Ez az exe most nem mongo**d**, csak mongo. Ez egy kliensprogram, amivel a szerverhez csatlakozva parancsokat futtathatunk.
      - A laborokban ezt az exe-t is a `c:\tools\mongodb\bin` könyvtárban találjuk.
      - Ügyeljünk a connection stringre, amiben a szerver elérése után az adatbázis neve is benne van!
