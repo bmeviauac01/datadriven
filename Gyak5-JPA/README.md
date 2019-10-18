@@ -13,8 +13,8 @@ A labor elvégzéséhez szükséges eszközök:
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mssql.sql)
 - Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas>
-- Az MSSQL JDBC driver letöltése innen: https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip
-  - A zipet csomagold ki ide: *c:\work\javaee\.m2\repository* (a zip egy *com* nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: *c:\work\javaee\.m2\repository\com\microsoft\...*)
+- Az MSSQL JDBC driver letöltése innen: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
+  - A zipet csomagold ki ide: `c:\work\javaee\.m2\repository` (a zip egy _com_ nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: `c:\work\javaee\.m2\repository\com\microsoft\...`)
 
 ## Amit érdemes átnézned
 
@@ -40,9 +40,13 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
   - Window menü / Preferences, ott elkezdjük gépelni, hogy _font_, így megtalálja azt a beállítást, hogy Fonts and Colors
   - Azt kiválasztva, a Basic kategória alatt kell a Text Fontot kijelölni, és a méretét pl. 18-asra állítani
 
-## Feladat 0: Adatbázis létrehozása, ellenőrzése
+## Feladat 0: Adatbázis létrehozása
 
-Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az első gyakorlat anyagában.) Ezúttal nem _localdb_-t használunk, így a szerver címe más lesz: `localhost\sqlexpress`.
+1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk.
+
+1. Hozzunk létre egy `adatvez` nevű adatbázist (ügyeljünk a névre, különben a Java projektben módosítanunk kell). Az adatbázis létrehozásának mikéntjét lásd az első gyakorlat anyagában. Ha a gépen már létezik az adatbázis, akkor nem kell újat létrehozni.
+
+1. Futtassuk le az adatbázis inicializáló sql szkriptet az adatbázisban. Akkor is futtassuk le a szkriptet, ha már létezne az adatbázis (hogy a kezdeti állapotot visszakapjuk.)
 
 ## Feladat 1: Eclipse indítása
 
@@ -65,7 +69,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
    - Ez egy _maven_ alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében `pom.xml`-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a _Hibernate_-et mint JPA implementációt, a _Spring Boot_-ot, a _Spring Data_-t és a webréteghez szükséges _Spring MVC_-t és _Thymeleaf_-et. A laborban a maven offline működésre van konfigurálva, és előre le van töltve az összes függőség, így megelőzzük az esetleges hálózati problémákat.
 
-   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez **adjuk meg a usernevet és jelszót**. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: `spring.datasource.jndi-name=jdbc/termekDB`. Klasszikus Java EE alkalmazásban ezt a `persistence.xml`-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van `persistence.xml`, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)
+   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez **ellenőrizzük a usernevet és jelszót**. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: `spring.datasource.jndi-name=jdbc/termekDB`. Klasszikus Java EE alkalmazásban ezt a `persistence.xml`-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van `persistence.xml`, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)
 
    - A `ConnectionProperties` az előző konfig fájl egy részének Java-beli reprezentációja
 
@@ -88,7 +92,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket! A lekérdezéseket JPA és Spring Data használata esetén több módon is megvalósíthatjuk. Az alábbi feladatokban azt is megadjuk, milyen módon kell elkészíteni a lekérdezést, hogy mindegyikre lássunk példát. Fontos megjegyezni, hogy ezek a módszerre vonatkozó megkötések csak oktatási szempontok miatt szerepelnek, valójában bármelyik módszerrel bármelyik lekérdezés megvalósítható lenne.
 
 Az egyes feladatokat megvalósító metódusokat mindig a `WebshopController` osztály megfelelő `//TODO` kommentjeinél kell meghívni, majd a webalkalmazást futtatni és böngészőből tesztelni a
-<http://localhost:8080> URL-en.
+<http://localhost:9080> URL-en.
 
 **a)** Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron! Módszer: Spring Data repository interfész, metódusnévből származtatott lekérdezés.
 
@@ -100,7 +104,7 @@ Futás közben a Console nézetben látszódnak a Hibernate által generált SQL
 
 ### Futtatás
 
-A projektben megtalálható (a legalsó fájl a Project Explorerben) a **webshop run.launch** nevű konfig fájl. Ezen jobb klikk / _Debug As / webshop run_. Ez debug módban indítja a Spring Boot maven plugin-t, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <http://localhost:8080> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:
+A projektben megtalálható (a legalsó fájl a Project Explorerben) a **webshop run.launch** nevű konfig fájl. Ezen jobb klikk / _Debug As / webshop run_. Ez debug módban indítja a Spring Boot maven plugin-t, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <http://localhost:9080> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:
 
 ![Eclipse futtatás](images/eclipse-run.png)
 
@@ -264,7 +268,7 @@ private List<Termek> findLegdragabbTermekek() {
 
 </details>
 
-## Adatmódosítás
+## Feladat 5: Adatmódosítás
 
 A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
@@ -327,7 +331,7 @@ public class KategoriaService {
         .getResultList();
 
     if(resultList.isEmpty()){
-	  //0 vagy null id érték esetén fog a @GeneratedValue működésbe lépni. Most primitív long az id-nk, az csak 0 tud lenni, null nem. 
+	  //0 vagy null id érték esetén fog a @GeneratedValue működésbe lépni. Most primitív long az id-nk, az csak 0 tud lenni, null nem.
 	  dragaKategoria = new Kategoria(0, nev);
       em.persist(dragaKategoria);
     }else{
@@ -409,12 +413,12 @@ A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a
 
 ```java
 @NamedStoredProcedureQueries({
-	@NamedStoredProcedureQuery(name = "fizModSP", 
-			procedureName = "FizetesModLetrehozasa",			
+	@NamedStoredProcedureQuery(name = "fizModSP",
+			procedureName = "FizetesModLetrehozasa",
 			parameters = {
 	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Mod", type = String.class),
-	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Hatarido", type = BigDecimal.class)	        	
-	        })	  
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Hatarido", type = BigDecimal.class)
+	        })
 })
 public class Fizetesmod implements Serializable {
 ...
@@ -443,7 +447,7 @@ public class FizetesmodService {
     StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("fizModSP");
     sp.setParameter("Mod", fizetesMod.getMod());
     sp.setParameter("Hatarido", fizetesMod.getHatarido());
-    sp.execute();    
+    sp.execute();
   }
 }
 ```
