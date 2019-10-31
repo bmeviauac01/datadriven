@@ -1,5 +1,7 @@
 # BMEVIAUAC01 Adatvezérelt rendszerek - gyakorlatok
 
+## Gyakorlatok feladatai
+
 [Gyakorlat 1 - Tranzakciókezelés](Gyak1-Tranzakciok/README.md)
 
 [Gyakorlat 2 - Microsoft SQL Server programozása](Gyak2-MSSQL/README.md)
@@ -12,11 +14,13 @@
 
 [Gyakorlat 6 - REST](Gyak6-REST/README.md)
 
+## Segédanyagok
+
 [Az adatbázis sémájának leírása](Adatbazis/sema.md)
 
-[Microsoft SQL Server használata](Adatbazis/mssql-server.md)
+Microsoft SQL Server használata: [leírás](Adatbazis/mssql-server.md) és [videó](https://youtu.be/gmY8reqSL7U)
 
-[MongoDB használata](Adatbazis/mongodb.md)
+MongoDB használata: [leírás](Adatbazis/mongodb.md) és [videó](https://youtu.be/Xu2af7qPCHI)
 
 ---
 
