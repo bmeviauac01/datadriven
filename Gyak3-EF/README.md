@@ -34,16 +34,18 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
 
 1. Adj a projekthez egy *ADO.NET Entity Data Model*t.
 
-   - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_.
+   - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_. Az ablak alján a Name mezőben `AdatvezEntities`-t adj meg.
    - A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").
    - A kapcsolatok megadásánál a saját adatbázishoz kapcsolódj. Hozz létre egy új kapcsolatot a varázsló segítségével, és mentsd el a kapcsolódási adatokat a config fájlba.
      - _Data source_: Microsoft SQL Server
      - _Server name_: `(localdb)\mssqllocaldb`
      - _Select or enter database name_: adjuk meg az adatbázis nevét
-     - _Save connection settings in App.Config_: igen
+     - _Save connection settings in App.Config_: 
+       - igen (pipa) 
+       - alatta a szerkesztőmezőben az `AdatvezEntities`-t add meg (ilyen néven fog a DbContext osztály legenerálódni)
    - Entity Framework 6.0-as leképzést használj.
    - Az összes táblát képezzük le.
-   - Jegyezd meg a választott nevet (_Model namespace_), pl. `AdatvezEntities`.
+   - _Model namespace_: pl. `AdatvezEntitiesModel`
 
 1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
 
@@ -94,7 +96,7 @@ using (var db = new AdatvezEntities())
         where t.Raktarkeszlet > 30
         select t;
     foreach (var t in qTermekRaktarkeszlet)
-        Console.WriteLine("\t\tNév={0}\tRaktrákészlet={1}", t.Nev, t.Raktarkeszlet);
+        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}", t.Nev, t.Raktarkeszlet);
 
     // 2.2
     Console.WriteLine("\t2.2:");
@@ -103,7 +105,7 @@ using (var db = new AdatvezEntities())
         select t;
 
     foreach (var t in qTermekRendeles)
-        Console.WriteLine("\t\tNév={0}\tRaktrákészlet={1}", t.Nev, t.Raktarkeszlet);
+        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}", t.Nev, t.Raktarkeszlet);
 
     // 2.3
     Console.WriteLine("\t2.3:");
@@ -118,13 +120,21 @@ using (var db = new AdatvezEntities())
     }
 
     // 2.3 második megoldás
+    // Ehhez szükség van a következő névtér importálására: innen vegyük ki és tegyük be
+    // a fájl elejére !!!
+    using System.Data.Entity;
+
     // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
     Console.WriteLine("\tc 2.3 alternatív megoldás:");
-    var qMegrendelesOssz2 = from m in
-        db.Megrendeles.Include("MegrendelesTetel").Include("MegrendelesTetel.Termek")
-            .Include("Telephely").Include("Telephely.Vevo")
+    var qMegrendelesOssz2 = 
+       from m in db.Megrendeles
+         .Include(m => m.MegrendelesTetelek)                         // vagy .Include("MegrendelesTetelek")
+         .Include(m => m.MegrendelesTetelek.Select(mt => mt.Termek)) // vagy .Include("MegrendelesTetelek.Termek")
+         .Include(m => m.Telephely)                                  // vagy .Include("Telephely")
+         .Include(m => m.Telephely.Vevo)                             // vagy .Include("Telephely.Vevo")
         where m.MegrendelesTetelek.Sum(mt => mt.Mennyiseg * mt.NettoAr) > 30000
         select m;
+
     foreach (var m in qMegrendelesOssz2)
     {
         Console.WriteLine("\t\tNév={0}", m.Telephely.Vevo.Nev);
@@ -138,7 +148,7 @@ using (var db = new AdatvezEntities())
         where t.NettoAr == db.Termek.Max(a => a.NettoAr)
         select t;
     foreach (var t in qTermekMax)
-        Console.WriteLine("\t\tNév={0}\tÁrt={1}", t.Nev, t.NettoAr);
+        Console.WriteLine("\t\tNév={0}\tÁr={1}", t.Nev, t.NettoAr);
 
     // 2.5
     Console.WriteLine("\t2.5:");
@@ -176,7 +186,7 @@ using (var db = new AdatvezEntities())
     Console.WriteLine("\tMódosítás előtt:");
     foreach (var t in qTermekEpito)
     {
-        Console.WriteLine("\t\t\tNév={0}\tRaktrákészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
+        Console.WriteLine("\t\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
         t.NettoAr = 1.1 * t.NettoAr;
     }
 
@@ -187,7 +197,7 @@ using (var db = new AdatvezEntities())
         select t;
     Console.WriteLine("\tMódosítás után:");
     foreach (var t in qTermekEpito)
-        Console.WriteLine("\t\t\tNév={0}\tRaktrákészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
+        Console.WriteLine("\t\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
 
     // 3.2
     Console.WriteLine("\t3.2:");
@@ -202,7 +212,7 @@ using (var db = new AdatvezEntities())
         // Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast
         // es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban
         // kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.
-        db.Category.Add(dragaJatek);
+        db.Kategoria.Add(dragaJatek);
     }
 
     var qTermekDraga = from t in db.Termek
@@ -302,7 +312,7 @@ using (var db = new AdatvezEntities())
     Console.WriteLine("\t4.6:");
     var qTermekNepszeru = db.NepszeruTermek(5);
     foreach (var t in qTermekNepszeru)
-        Console.WriteLine("\t\tNév={0}\tRaktrákészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr));
+        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr));
 }
 ```
 
