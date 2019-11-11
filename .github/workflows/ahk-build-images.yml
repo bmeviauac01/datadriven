@@ -15,35 +15,27 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: Login to GitHub Docker packages
+        env:
+          DOCKER_REG_USERNAME: ${{ secrets.DOCKER_REG_USERNAME }}
+          DOCKER_REG_TOKEN: ${{ secrets.DOCKER_REG_TOKEN }}
+        run: docker login docker.pkg.github.com -u $DOCKER_REG_USERNAME -p $DOCKER_REG_TOKEN
       - name: Build all images with compose
         run: |
           cd ahk/src
           docker-compose build
       - name: Test sample solution for TSQL
-        run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas bmeviauac01/hf-tsql
+        run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-tsql:2019
       - name: Test sample solution for ADONET
-        run: docker run --rm -v $(pwd)/megoldas/adonet:/megoldas bmeviauac01/hf-adonet
+        run: docker run --rm -v $(pwd)/megoldas/adonet:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-adonet:2019
       - name: Test sample solution for EF
-        run: docker run --rm -v $(pwd)/megoldas/ef:/megoldas bmeviauac01/hf-ef
+        run: docker run --rm -v $(pwd)/megoldas/ef:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-ef:2019
       - name: Test sample solution for MongoDB
-        run: docker run --rm -v $(pwd)/megoldas/mongo:/megoldas bmeviauac01/hf-mongo
+        run: docker run --rm -v $(pwd)/megoldas/mongo:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-mongo:2019
       - name: Test sample solution for WebApi
-        run: docker run --rm -v $(pwd)/megoldas/webapi:/megoldas bmeviauac01/hf-webapi
-      - name: Tag and push docker images
-        env:
-          AHK_DOCKER_IMAGE_TAG: "2019"
-          DOCKER_REG_USERNAME: ${{ secrets.DOCKER_REG_USERNAME }}
-          DOCKER_REG_TOKEN: ${{ secrets.DOCKER_REG_TOKEN }}
+        run: docker run --rm -v $(pwd)/megoldas/webapi:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-webapi:2019
+      - name: Push Docker images
         run: |
-          docker login docker.pkg.github.com -u $DOCKER_REG_USERNAME -p $DOCKER_REG_TOKEN
-          docker tag bmeviauac01/hf-tsql docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-tsql:$AHK_DOCKER_IMAGE_TAG
-          docker push docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-tsql:$AHK_DOCKER_IMAGE_TAG
-          docker tag bmeviauac01/hf-adonet docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-adonet:$AHK_DOCKER_IMAGE_TAG
-          docker push docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-adonet:$AHK_DOCKER_IMAGE_TAG
-          docker tag bmeviauac01/hf-ef docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-ef:$AHK_DOCKER_IMAGE_TAG
-          docker push docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-ef:$AHK_DOCKER_IMAGE_TAG
-          docker tag bmeviauac01/hf-mongo docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-mongo:$AHK_DOCKER_IMAGE_TAG
-          docker push docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-mongo:$AHK_DOCKER_IMAGE_TAG
-          docker tag bmeviauac01/hf-webapi docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-webapi:$AHK_DOCKER_IMAGE_TAG
-          docker push docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-webapi:$AHK_DOCKER_IMAGE_TAG
+          cd ahk/src
+          docker-compose push
           docker logout docker.pkg.github.com
