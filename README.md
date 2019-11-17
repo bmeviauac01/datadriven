@@ -1,2 +1,2 @@
-# AUT-AR
-Adatvezérelt Rendszerek (Data-Driven Systems)
+# AUT-DDS
+Data-Driven Systems
