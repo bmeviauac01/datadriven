@@ -51,7 +51,7 @@ A teszteléshez találsz unit teszteket a solution-ben ([segítség a unit teszt
 
 > Az iMsc pont megszerzésére a első feladat megoldásával együtt van lehetőség.
 
-A termékek adatbázisban történő frissítése esetén vegyük észre, és ne engedjük a módosítást, ha a frissítéssel felülírnánk egy nem látott módosítást. A `TermekRepository.Update` függvénye legyen felelős a helyes viselkedésért, és ne végezze el a kért módosítást, ha _elveszett módosítás_ jellegű konkurenciaproblémát észlel.
+A termékek adatbázisban történő frissítése esetén vegyük észre, és ne engedjük a módosítást, ha a frissítéssel felülírnánk egy nem látott módosítást. A `TermekRepository.UpdateWithConcurrencyCheck` függvénye legyen felelős a helyes viselkedésért, és ne végezze el a kért módosítást, ha _elveszett módosítás_ jellegű konkurenciaproblémát észlel.
 
 A konkrét eset, amit el szeretnénk kerülni:
 
@@ -60,11 +60,11 @@ A konkrét eset, amit el szeretnénk kerülni:
 1. _Alma_ felhasználó módosítja a termék árát (vagy más tulajdonságát), visszamenti az adatbázisba.
 1. _Banán_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _Alma_ módosítását figyelmeztetés nélkül.
 
-A megoldáshoz az _optimista konkurenciakezelés_ koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. Helyette a `Termek` osztályban tárold el a lekérdezés pillanatában érvényes adatokat újonnan felvett mezőkben. Ezen új tulajdonságokat a példányon végzett módosítások nem szerkesztik, így megmarad a lekérdezés pillanatában aktuális érték, és az új érték is. A változtatások elmentése előtt pedig ellenőrizd, hogy az adatbázisban az eredeti értékek változtak-e. A megoldást a `TermekRepository.Update` függvényben írd meg, felülírva az előző feladat megoldását, de megtartva annak viselkedését, amennyiben nincs észlelt probléma.
+A megoldáshoz az _optimista konkurenciakezelés_ koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. Helyette a `Termek` osztályban tárold el a lekérdezés pillanatában érvényes adatokat újonnan felvett mezőkben. Ezen új tulajdonságokat a példányon végzett módosítások nem szerkesztik, így megmarad a lekérdezés pillanatában aktuális érték, és az új érték is. A változtatások elmentése előtt pedig ellenőrizd, hogy az adatbázisban az eredeti értékek változtak-e. A megoldást a `TermekRepository.UpdateWithConcurrencyCheck` függvényben írd meg, hasonlóan az előző feladat megoldásához, és megtartva annak viselkedését, amennyiben nincs észlelt probléma. A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás.
 
 Ügyelj az alábbiakra:
 
-- Csak a `TermekRepository` és `Termek` osztályok kódját módosítsd!
+- Csak a `TermekRepository.UpdateWithConcurrencyCheck` függvény és a `Termek` osztályok kódját módosítsd!
 - Csak ADO.NET technológiát használhatsz!
 - Védekezz az SQL injectionnel szemben!
 - A `TermekRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
