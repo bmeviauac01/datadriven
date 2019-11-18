@@ -296,7 +296,7 @@ Meghívása a `WebshopController`-ből:
         RequestMethod.POST, RequestMethod.GET })
 private String epitoElemekDragit() {
   // TODO
-  termekRepository.kategoriaDragit("Építo elemek");
+  termekRepository.kategoriaDragit("Építő elemek");
   return "redirect:/";
 }
 ```
