@@ -28,6 +28,7 @@ Készítsd a termékek kezeléséhez egy _repository_ osztályt **ADO.NET Connec
 Ügyelj az alábbiakra:
 
 - Csak a `TermekRepository` osztály kódját módosítsd!
+- A termék áfakulcsát is ki kell keresni, tehát nem a kapcsolódó rekord id-ját kell a `Termek` osztálynak átadni, hanem a az áfakulcs értékét! A termék kategóriáját hasonlóan ki kell keresni.
 - Csak ADO.NET technológiát használhatsz!
 - Védekezz az SQL injectionnel szemben!
 - A `Termek` osztály kódját ezen feladathoz ne módosítsd!
@@ -59,9 +60,7 @@ A konkrét eset, amit el szeretnénk kerülni:
 1. _Alma_ felhasználó módosítja a termék árát (vagy más tulajdonságát), visszamenti az adatbázisba.
 1. _Banán_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _Alma_ módosítását figyelmeztetés nélkül.
 
-A megoldáshoz az _optimista konkurenciakezelés_ koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. A megoldáshoz az adatbázis sémáján ne módosíts, nem vehetsz fel verzió vagy időbélyeg oszlopot! Arra viszont építhetsz, hogy a lekérdezés-módosítás során ugyanazon `Termek` példányon dolgozik a felhasználó.
-
-A megoldást a `TermekRepository.Update` függvényben írd meg, felülírva az előző feladat megoldását, de megtartva annak viselkedését, amennyiben nincs észlelt probléma.
+A megoldáshoz az _optimista konkurenciakezelés_ koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. Helyette a `Termek` osztályban tárold el a lekérdezés pillanatában érvényes adatokat újonnan felvett mezőkben. Ezen új tulajdonságokat a példányon végzett módosítások nem szerkesztik, így megmarad a lekérdezés pillanatában aktuális érték, és az új érték is. A változtatások elmentése előtt pedig ellenőrizd, hogy az adatbázisban az eredeti értékek változtak-e. A megoldást a `TermekRepository.Update` függvényben írd meg, felülírva az előző feladat megoldását, de megtartva annak viselkedését, amennyiben nincs észlelt probléma.
 
 Ügyelj az alábbiakra:
 
