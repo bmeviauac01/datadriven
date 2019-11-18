@@ -12,35 +12,15 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 
 ## A feladatok beadása
 
-A feladatok beadásához a [GitHub Classroom](https://classroom.github.com)-ot használjuk. Minden feladat beadás egy-egy GitHub repository-ban történik. A megoldásként elkészített fájlokat fel kell tölteni egy repository-ba, aminek elkészítését a GitHub classroom segíti.
+A feladatok beadásához a [GitHub Classroom](https://classroom.github.com)-ot használjuk. Minden feladat beadás egy-egy GitHub repository-ban történik. Minden feladatleírásban található egy link, amin keresztül a feladathoz tartozó repository elkészül. Használd a linket a saját repository-d elkészítéséhez, majd ide dolgozz, és ide töltsd fel (pushold) a megoldást.
 
-Minden feladatleírásban található egy link, amin keresztül a feladathoz tartozó repository elkészül. Mindehhez szükséges egy GitHub account.
-
-A feladat beadásának lépései:
-
-1. [Regisztrálj](https://github.com/join) egy GitHub accountot, ha még nincs.
-
-1. A feladat beadásához tartozó linket nyisd meg. Ez minden feladathoz más lesz, a feladat leírásában találod.
-
-1. Ha kéri, adj engedélyt a _GitHub Classroom_ alkalmazásnak, hogy használja az account adataidat.
-
-1. Látni fogsz egy oldalt, ahol elfogadhatod a feladatot ("Accept the ... assignment"). Kattints a gombra.
-
-1. Várd meg, amíg elkészül a repository.
-
-   > A repository privát lesz, azaz az senki nem látja, csak te, és az oktatók.
-
-1. Klónozd le a repository-t. Ebben találni fogsz egy keretet, vagy kiinduló kódot. Ezen dolgozz, ezt változtasd.
-
-   > A git repository kezeléséhez tetszőleges klienst használhatsz. Ha nincs kedvenced még, akkor legegyszerűbb a [GitHub Desktop](https://desktop.github.com/).
-
-1. Old meg a feladatot. Pushold a határidőig. Akárhány commitod lehet, a legutolsó állapotot fogjuk nézni.
+A GitHub használatáról részletesen lásd [a leírást itt](GitHub-hasznalat.md).
 
 ## A feladatok kiértékelése
 
 A feladatok kiértékelése **automatikusan** történik, ezért minden esetben fontos a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!
 
-És ne felejtsd el megadni a Neptun kódodat a gyökérben levő txt fájlban!
+Ha a kapott pontszámmal kapcsolatban kételyed támad, és kellően biztos vagy a dolgodban, nyiss egy GitHub issue-t a kérdéseddel (lásd [a leírást itt](GitHub-hasznalat.md)).
 
 ## A feladatokhoz szükséges szerver platformok
 
