@@ -343,7 +343,7 @@ BEGIN TRY
 
 
 	insert into szamlatetel (id, nev, mennyiseg, nettoar, afakulcs,szamlaid, megrendelestetelid)
-			values (4,'Activity playgym',2,7488,20,2,4);
+			values (4,'Activity playgim',2,7488,20,2,4);
 
 
 	insert into szamlatetel (id, nev, mennyiseg, nettoar, afakulcs,szamlaid, megrendelestetelid)

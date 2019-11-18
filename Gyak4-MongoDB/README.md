@@ -16,7 +16,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 Amit érdemes átnézned:
 
-- C# nyelv
+- C# nyelv és Linq kifejezések
 - MongoDB előadás
 - [MongoDB használata segédlet](../Adatbazis/mongodb.md)
 
@@ -28,20 +28,29 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 0: Adatbázis létrehozása, projekt megnyitása
 
-1. Hozzunk létre egy mappát, ahol dolgozni fogunk, például `c/d:\work\NEPTUN`.
+1. Hozzunk létre egy mappát, ahol dolgozni fogunk, például `c:\work\NEPTUN`.
 
-   > A továbbiakban kezeljük ezt "törzskönyvtárként", tehát minden új mappát ebben hozzunk létre, és minden _command prompt_-ot itt nyissunk meg.
+   > A továbbiakban kezeljük ezt "munkakönyvtárként", tehát minden új mappát ebben hozzunk létre.
 
-1. Indítsuk el a MongoDB szervert és hozzuk létre az adatbáist.
+1. Indítsuk el a MongoDB szervert és hozzuk létre az adatbázist.
 
-   - Hozzunk létre egy mappát az adatbázisfájloknak, például `db` néven
-   - Nyissunk egy _command prompt_-ot és indítsuk el a MongoDB szervert: `mongod.exe --dbpath="db"`
-   - Töltsük le az adatbázislétrehozó scriptet és mentsük el `mongo.js` néven
-   - Nyissunk egy _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/aaf mongo.js`
+   - Hozzunk létre egy mappát az adatbázisfájloknak, például `db` néven. (Ezt a mappát az előbb létrehozott munkakönyvtárban hozzuk létre.)
+   - Nyissunk egy _command prompt_-ot és indítsuk el a MongoDB szervert: `mongod.exe --dbpath="c:\work\<NEPTUN>\db"`
+     - _Command prompt_ például a start menüben megkereshető a "cmd" kulcsszóval.
+     - A laborokban a MongoDB a `c:\tools\mongodb\bin` könyvtárban van. Navigáljunk el ide a `cd` utasítással.
+     - Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet.
+
+1. Hozzuk létre az adatbázis.
+
+   - Töltsük le az adatbázislétrehozó scriptet és mentsük el `mongo.js` néven a munkakönyvtárunkba.
+   - Nyissunk egy **új** _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/aaf c:\work\<NEPTUN>\mongo.js`
+     - Ez az exe most nem mongo**d**, csak mongo. Ez egy kliensprogram, amivel a szerverhez csatlakozva parancsokat futtathatunk.
+     - A laborokban ezt az exe-t is a `c:\tools\mongodb\bin` könyvtárban találjuk.
+     - Ügyeljünk a connection stringre, amiben a szerver elérése után az adatbázis neve is benne van!
 
 1. Ellenőrizzük, hogy létrejött az adatbázis Robo3T segítségével.
 
-   - Indítsuk el a Robo3T programot és csatlakozzunk a MongoDB szerverhez.
+   - Indítsuk el a Robo3T programot (laborokban a `c:\tools\robo3t` könyvtárban) és csatlakozzunk a MongoDB szerverhez.
 
      ![Robo3T Connection Settings](images/robo3t_connection.png)
 
@@ -51,7 +60,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 1. Töltsük le a méréshez tartozó projekt vázat!
 
-   - Nyissunk egy _command prompt_-ot
+   - Nyissunk egy **új** _command prompt_-ot a munkakönyvtárunkba.
    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulas.git`
 
 1. Nyissuk meg a `Mongo` könyvtár alatti _sln_ fájlt Visual Studio-val.

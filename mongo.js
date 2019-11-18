@@ -417,7 +417,7 @@ db.megrendelesek.insertMany([{
         "termekID" : ObjectId("5d7e42adcffa8e1b64f7dbcf"),
         "statusz" : "Kiszállítva",
         "szamlaTetel" : {
-          "nev" : "Activity playgym",
+          "nev" : "Activity playgim",
           "mennyiseg" : 2,
           "nettoAr" : 7488.0,
           "afaKulcs" : 20
