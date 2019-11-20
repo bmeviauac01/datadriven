@@ -22,7 +22,7 @@ Biztonsági megfontolásból szeretnénk kötelezővé tenni a jelszó időnkén
 
 1. Adj hozzá egy új oszlopot a `Vevo` táblához `JelszoLejarat` néven, ami egy dátumot tartalmaz: `alter table [Vevo] add [JelszoLejarat] datetime`.
 
-1. Készíts triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a `JelszoLejarat` mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (_insert_) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (_update_) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.)
+1. Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a `JelszoLejarat` mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (_insert_) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (_update_) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.)
 
    > A megoldást az `f1.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create trigger`), ne legyen benne se `use` se `go` parancs!
 
