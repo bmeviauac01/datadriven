@@ -272,7 +272,7 @@ private List<Termek> findLegdragabbTermekek() {
 
 A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-**a)** Írj olyan JPQL lekérdezést a `TermekRepository` interfészbe, mely az "Építo elemek" árát megemeli 10 százalékkal!
+**a)** Írj olyan JPQL lekérdezést a `TermekRepository` interfészbe, mely az "Építő elemek" árát megemeli 10 százalékkal!
 
 **b)** Írj egy olyan metódust, amely létrehoz egy új kategóriát "Drága játékok" névvel, ha még nem létezik ilyen, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
