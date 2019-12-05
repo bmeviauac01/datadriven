@@ -322,7 +322,7 @@ namespace restgyak.Controllers
             dbContext.Termek.Add(dbTermek);
             dbContext.SaveChanges();
 
-            return CreatedAtAction(nameof(Get), new { id = dbTermek.Id }, new Models.Termek(dbTermek.Id, dbTermek.Nev, dbTermek.NettoAr, dbTermek.Raktarkeszlet)); // igy mondjuk meg, hol kerdezheto le a beszurl elem
+            return CreatedAtAction(nameof(Get), new { id = dbTermek.Id }, new Models.Termek(dbTermek.Id, dbTermek.Nev, dbTermek.NettoAr, dbTermek.Raktarkeszlet)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
         }
 
         // DELETE api/termek/id
@@ -336,7 +336,9 @@ namespace restgyak.Controllers
                 return NotFound();
 
             dbContext.Termek.Remove(dbTermek);
-            return Ok(); // a torles sikeresseget jelezzuk a 200 ok valasszal
+            dbContext.SaveChanges();
+            
+            return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk an entitast)
         }
     }
 }
