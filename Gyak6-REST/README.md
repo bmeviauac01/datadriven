@@ -302,7 +302,7 @@ namespace restgyak.Controllers
             // mentes az adatbazisban
             dbContext.SaveChanges();
 
-            return AcceptedAtAction(nameof(Get)); // 202 Accepted valasz
+            return NoContent(); // 204 NoContent valasz
         }
 
         // POST api/termek
