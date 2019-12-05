@@ -13,8 +13,9 @@ __A függőséginjektálás egy mechanizmus arra, hogy az osztály függőségi 
 
 Célok
 
-* könnyebb bővíthetőség
+* könnyebb bővíthetőség és karbantarthatóság
 * unit tesztelhetőség
+* kód újrafelhasználhatóság
 
 Természetesen a fenti definícóból önmagában nem derül ki, pontosan milyen problémákat és milyen módon old meg a függőséginjektálás. A következő fejezetekben egy példa segítségével helyezzük kontextusba a problémakört, illetve példa keretében megismerkedünk az ASP&#46;NET Core beépített DI szolgáltatásának alapjaival.
 
