@@ -15,11 +15,6 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Login to GitHub Docker packages
-        env:
-          DOCKER_REG_USERNAME: ${{ secrets.DOCKER_REG_USERNAME }}
-          DOCKER_REG_TOKEN: ${{ secrets.DOCKER_REG_TOKEN }}
-        run: docker login docker.pkg.github.com -u $DOCKER_REG_USERNAME -p $DOCKER_REG_TOKEN
       - name: Build all images with compose
         run: |
           cd ahk/src
@@ -37,5 +32,6 @@ jobs:
       - name: Push Docker images
         run: |
           cd ahk/src
+          docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
           docker-compose push
           docker logout docker.pkg.github.com
