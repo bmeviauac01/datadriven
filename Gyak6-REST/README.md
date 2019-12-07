@@ -287,17 +287,20 @@ namespace restgyak.Controllers
         // PUT api/termek/id
         [HttpPut]
         [Route("{id}")]
-        public ActionResult Modify([FromBody] Models.Termek valtozas)
+        public ActionResult Modify([FromRoute] int id, [FromBody] Models.Termek modositott)
         {
-            var dbTermek = dbContext.Termek.SingleOrDefault(t => t.Id == valtozas.Id);
+            if (id != modositott.Id)
+                return BadRequest();
+
+            var dbTermek = dbContext.Termek.SingleOrDefault(t => t.Id == id);
 
             if (dbTermek == null)
                 return NotFound();
 
             // modositasok elvegzese
-            dbTermek.Nev = valtozas.Nev;
-            dbTermek.NettoAr = valtozas.NettoAr;
-            dbTermek.Raktarkeszlet = valtozas.Raktarkeszlet;
+            dbTermek.Nev = modositott.Nev;
+            dbTermek.NettoAr = modositott.NettoAr;
+            dbTermek.Raktarkeszlet = modositott.Raktarkeszlet;
 
             // mentes az adatbazisban
             dbContext.SaveChanges();
