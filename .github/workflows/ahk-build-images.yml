@@ -18,6 +18,7 @@ jobs:
       - name: Build all images with compose
         run: |
           cd ahk/src
+          docker-compose -f docker-compose.mssqldotnet.yml build
           docker-compose build
       - name: Test sample solution for TSQL
         run: docker run --rm -v $(pwd)/megoldas/tsql:/megoldas docker.pkg.github.com/bmeviauac01/hazi-feladatok/hf-tsql:2019
