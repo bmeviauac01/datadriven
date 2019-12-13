@@ -29,7 +29,7 @@ Feladatok:
 
 1. Készíts egy olyan API végpontot, ami egy terméket ad vissza az id-ja alapján; a kérés GET típusú legyen a `/api/product/{id}` címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.
 
-1. Készíts egy olyan API végpontot, amivel lekérdezhető, hány termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy GET típusú kérés legyen a `/api/product/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
+1. Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy GET típusú kérés legyen a `/api/product/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
 
    Vedd észre, hogy ez az URL, és az előbbi (az ID alapú termék lekérdezés) URL-je nagyon hasonlít. A feladat úgy elkészíteni ez utóbbi kérést, hogy az ne rontsa el az előbbit. Ehhez kihasználjuk, hogy az attribútum alapú route megadásnál lehetőségünk van az [illeszkedés sorrendjét definiálni](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-2.1#ordering-attribute-routes). Azt szeretnénk tehát elérni, hogy a `api/product/count` URL-re a darabszámot visszaadó API végpont illeszkedjen, és ne az ID alapú lekérdezés. Használd ehhez az [Order](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute?view=aspnetcore-2.1#properties) tulajdonságot.
 
