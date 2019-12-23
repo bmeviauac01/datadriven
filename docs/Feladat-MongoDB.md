@@ -2,7 +2,7 @@
 
 A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
 
-GitHub Classroom segítségével a <https://classroom.github.com/a/eTw1sV_L> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+GitHub Classroom segítségével a <TBD> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 > A letöltött anyagot Visual Studio segítségével megnyitva keresd meg a `Megoldas.cs` fájlt (a `Solution` mappában). A házi feladat elvégzése során kizárólag ezt a fájlt kell módosítanod — minden más módosítás elveszik az automatikus kiértékelés során.
 >

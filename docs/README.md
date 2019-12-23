@@ -1,4 +1,4 @@
-# Adatvezérelt rendszerek szorgalmi házi feladatok
+# Adatvezérelt rendszerek szorgalmi házi feladatok (2020 ősz)
 
 A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük. A feladatok leírása található itt; a megoldások beadása GitHub Classroom segítségével történik.
 
@@ -6,11 +6,11 @@ A feladatok során működő kódot, kódrészleteteket kell készíteni. A fela
 
 ## A feladatok
 
-1. [Szerver oldali programozás T-SQL nyelven](Feladat-TSQL.md) - Határidő: 2019. november 17. vasárnap 23.59
-1. [Adatelérés ADO.NET-ben](Feladat-ADONET.md) - Határidő: 2019. november 17. vasárnap 23.59
-1. [Entity Framework](Feladat-EF.md) - Határidő: 2019. november 17. vasárnap 23.59
-1. [MongoDB](Feladat-MongoDB.md) - Határidő: 2019. november 17. vasárnap 23.59
-1. [REST API Web API technológiával](Feladat-WebAPI.md) - Határidő: 2019. december 18. szerda 23.59
+1. [Szerver oldali programozás T-SQL nyelven](Feladat-TSQL.md) - Határidő: TBD
+1. [Adatelérés ADO.NET-ben](Feladat-ADONET.md) - Határidő: TBD
+1. [Entity Framework](Feladat-EF.md) - Határidő: TBD
+1. [MongoDB](Feladat-MongoDB.md) - Határidő: TBD
+1. [REST API Web API technológiával](Feladat-WebAPI.md) - Határidő: TBD
 
 ## A feladatok beadása
 
