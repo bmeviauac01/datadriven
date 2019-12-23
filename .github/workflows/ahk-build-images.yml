@@ -2,10 +2,10 @@ name: Build Docker images for AHK
 
 on:
   push:
-    paths:
-      - "ahk/**"
-      - "megoldas/**"
-      - ".github/workflows/**"
+    branches:
+      - master
+    paths-ignore:
+      - "docs/**"
 
 jobs:
   build:
