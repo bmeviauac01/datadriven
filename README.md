@@ -2,25 +2,18 @@
 
 ## Gyakorlatok feladatai
 
-[Gyakorlat 1 - Tranzakciókezelés](Gyak1-Tranzakciok/README.md)
+- [Tranzakciókezelés](Gyak-Tranzakciok/README.md)
+- [Microsoft SQL Server programozása](Gyak-MSSQL/README.md)
+- [Entity Framework](Gyak-EF/README.md)
+- [MongoDB](Gyak-MongoDB/README.md)
+- [JPA és Spring Data](Gyak-JPA/README.md)
+- [REST](Gyak-REST/README.md)
 
-[Gyakorlat 2 - Microsoft SQL Server programozása](Gyak2-MSSQL/README.md)
+### Segédanyagok
 
-[Gyakorlat 3 - Entity Framework](Gyak3-EF/README.md)
-
-[Gyakorlat 4 - MongoDB](Gyak4-MongoDB/README.md)
-
-[Gyakorlat 5 - JPA és Spring Data](Gyak5-JPA/README.md)
-
-[Gyakorlat 6 - REST](Gyak6-REST/README.md)
-
-## Segédanyagok
-
-[Az adatbázis sémájának leírása](Adatbazis/sema.md)
-
-Microsoft SQL Server használata: [leírás](Adatbazis/mssql-server.md) és [videó](https://youtu.be/gmY8reqSL7U)
-
-MongoDB használata: [leírás](Adatbazis/mongodb.md) és [videó](https://youtu.be/Xu2af7qPCHI)
+- [Az adatbázis sémájának leírása](Adatbazis/sema.md)
+- Microsoft SQL Server használata: [leírás](Adatbazis/mssql-server.md) és [videó](https://youtu.be/gmY8reqSL7U)
+- MongoDB használata: [leírás](Adatbazis/mongodb.md) és [videó](https://youtu.be/Xu2af7qPCHI)
 
 ---
 
