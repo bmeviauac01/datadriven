@@ -12,7 +12,7 @@ A labor elvégzéséhez szükséges eszközök:
 - Microsoft SQL Server Express edition (localdb nem alkalmas)
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mssql.sql)
-- Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas>
+- Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-seminar-jpa-starter>
 - Az MSSQL JDBC driver letöltése innen: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
   - A zipet csomagold ki ide: `c:\work\javaee\.m2\repository` (a zip egy _com_ nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: `c:\work\javaee\.m2\repository\com\microsoft\...`)
 
@@ -59,7 +59,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 1. Töltsük le a méréshez tartozó projekt vázat!
    - Nyissunk egy _command prompt_-ot
    - Navigáljunk el egy tetszőleges mappába, például `c/d:\work\NEPTUN`
-   - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas.git`
+   - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-seminar-jpa-starter.git`
 1. Importáljuk a letöltött forráskódot a workspace-be:
    - Nyissuk meg a _File / Import..._-ot
    - Kezdjük el gépelni a textboxba, hogy _Existing projects into workspace_, így rá fog szűrni és válasszuk ki ezt
@@ -83,7 +83,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 - Az entitások már előre készen a `hu.bme.aut.adatvez.webshop.model` package-ben találhatók. Ezeket általában vagy kézzel írjuk meg, vagy generáljuk a DB táblákból pl. az Eclipse-es JPA plugin segítségével.
 
-- Az entitások közül nyissunk meg egyet, pl. `Afa`, látszik benne a `@Entity`, a `@Id` annotáció, illetve a kapcsolatok definiálására `@OneToMany` vagy `@ManyToOne`
+- Az entitások közül nyissunk meg egyet, pl. `Vat`, látszik benne a `@Entity`, a `@Id` annotáció, illetve a kapcsolatok definiálására `@OneToMany` vagy `@ManyToOne`
 
 - Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a `target\generated-sources\apt` alatt (A `pom.xml`-ben látható maven-precessor-plugin generálja egyébként őket a build során.)
 
@@ -129,55 +129,55 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
 
 ### 4.a feladat
 
-Nyissuk meg a `dao` package-ben lévő `TermekRepository` interfészt, amely a Spring Data-s `JpaRepository`-ból származik (és az egyelőre üres `TermekRepositoryCustom`-ból). Találunk benne későbbi feladathoz kapcsolódó metódusokat, azokat csak figyeljük meg. Valamelyik `@Query` annotációval definiálja a futtatandó lekérdezést, valamelyiknél az is hiányzik. Nekünk sem lesz szükség `@Query` annotációra, mert a metódus neve alapján a Spring Data képes kitalálni a query-t. Tegyük tehát bele ezt az új metódust:
+Nyissuk meg a `dao` package-ben lévő `ProductRepository` interfészt, amely a Spring Data-s `JpaRepository`-ból származik (és az egyelőre üres `ProductRepositoryCustom`-ból). Találunk benne későbbi feladathoz kapcsolódó metódusokat, azokat csak figyeljük meg. Valamelyik `@Query` annotációval definiálja a futtatandó lekérdezést, valamelyiknél az is hiányzik. Nekünk sem lesz szükség `@Query` annotációra, mert a metódus neve alapján a Spring Data képes kitalálni a query-t. Tegyük tehát bele ezt az új metódust:
 
 ```java
 package hu.bme.aut.adatvez.webshop.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.adatvez.webshop.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TermekRepository extends JpaRepository<Termek, Long>, TermekRepositoryCustom {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
   ...
-  List<Termek> findByRaktarkeszletGreaterThan(BigDecimal limit);
+  List<Product> findByStockGreaterThan(BigDecimal limit);
 }
 ```
 
-A `WebshopController`-ben már be van injektálva egy `TermekRepository` típusú tagváltozó, hívjuk meg rajta a metódust az 4.a TODO-nál:
+A `WebshopController`-ben már be van injektálva egy `ProductRepository` típusú tagváltozó, hívjuk meg rajta a metódust az 4.a TODO-nál:
 
 ```java
 @Controller
 public class WebshopController {
 
   @Autowired
-  TermekRepository termekRepository;
+  ProductRepository productRepository;
 
   //...
   // 4.a feladat
-  private List<Termek> findTermekek30Folott() {
-    return termekRepository.findByRaktarkeszletGreaterThan(BigDecimal.valueOf(30));
+  private List<Product> findProductsOver30() {
+    return productRepository.findByStockGreaterThan(BigDecimal.valueOf(30));
   }
 }
 ```
 
 ### 4.b feladat
 
-A `dao` package-ben lévő `TermekRepositoryCustom` interfészbe vegyük fel egy `findLegalabbKetszerRendeltTermekek` nevű metódust:
+A `dao` package-ben lévő `ProductRepositoryCustom` interfészbe vegyük fel egy `findProductsOrderedAtLeastTwice` nevű metódust:
 
 ```java
 package hu.bme.aut.adatvez.webshop.dao;
 
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.adatvez.webshop.model.Product;
 import java.util.List;
 
-public interface TermekRepositoryCustom {
-  List<Termek> findLegalabbKetszerRendeltTermekek();
+public interface ProductRepositoryCustom {
+  List<Product> findProductsOrderedAtLeastTwice();
 }
 ```
 
-A dao package-ben lévő `TermekRepositoryImpl` osztály hibás lesz emiatt, mert nem implementálja a `TermekRepositoryCustom`-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:
+A dao package-ben lévő `ProductRepositoryImpl` osztály hibás lesz emiatt, mert nem implementálja a `ProductRepositoryCustom`-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:
 
 ![Eclise interfész implementálása](images/eclipse-implement-methods.png)
 
@@ -186,83 +186,82 @@ Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált En
 ```java
 package hu.bme.aut.adatvez.webshop.dao;
 
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.adatvez.webshop.model.Product;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class TermekRepositoryImpl implements TermekRepositoryCustom {
+public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
   @PersistenceContext
   EntityManager em;
 
   @Override
-  public List<Termek> findLegalabbKetszerRendeltTermekek(){
-    return em.createQuery("SELECT DISTINCT t FROM Termek t
-                           LEFT JOIN FETCH t.megrendelestetels
-                           WHERE size(t.megrendelestetels) >= :tetelMin", Termek.class)
-          .setParameter("tetelMin", 2)
+  public List<Product> findProductsOrderedAtLeastTwice(){
+    return em.createQuery("SELECT DISTINCT p FROM Product p
+                           LEFT JOIN FETCH p.orderitems
+                           WHERE size(p.orderitems) >= :itemsMin", Termek.class)
+          .setParameter("itemsMin", 2)
           .getResultList();
   }
 }
 ```
 
-Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: `SELECT t FROM Termek t WHERE size(t.megrendelestetels) /= :tetelMin`. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont `org.hibernate.LazyInitializationException` dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és a megrendelestetels listára hivatkozunk). Lehetséges megoldások:
+Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: `SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin`. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont `org.hibernate.LazyInitializationException` dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és a orderitems listára hivatkozunk). Lehetséges megoldások:
 
-- Az _application.properties_-ben `spring.jpa.open-in-view=true` (ez lenne amúgy a default Spring Boot esetében, de a példa projektben direkt false-ra van állítva): Ilyenkor az EntityManager már a webes kérés legelején létrejön, és csak a view renderelése után záródik be, vagyis a Spring bean-beli metódusok visszatérése után is menedzselt állapotban lenne a termek entitás, és el lehetne kérni a kapcsolódó megrendelestetels listát.
-- vagy `@OneToMany(fetch=EAGER)` a megrendelestetels változóra
+- Az _application.properties_-ben `spring.jpa.open-in-view=true` (ez lenne amúgy a default Spring Boot esetében, de a példa projektben direkt false-ra van állítva): Ilyenkor az EntityManager már a webes kérés legelején létrejön, és csak a view renderelése után záródik be, vagyis a Spring bean-beli metódusok visszatérése után is menedzselt állapotban lenne a Product entitás, és el lehetne kérni a kapcsolódó orderitems listát.
+- vagy `@OneToMany(fetch=EAGER)` a orderitems változóra
 - vagy _EntityGraph_ definiálása és annak alkalmazása a query létrehozásakor
-- vagy `LEFT JOIN FETCH`, mi ezt választottuk a fenti megoldásban. E mellé a `DISTINCT` is kell, különben minden kapcsolódó Megrendelestetel példányra külön Termek sor is lesz.
+- vagy `LEFT JOIN FETCH`, mi ezt választottuk a fenti megoldásban. E mellé a `DISTINCT` is kell, különben minden kapcsolódó Orderitem példányra külön Product sor is lesz.
 
 A meghívás a `WebshopController`-ben triviális:
 
 ```java
 // 4.b feladat
-private List<Termek> findLegalabbKetszerRendeltTermekek() {
+private List<Product> findProductsOrderedAtLeastTwice() {
   // TODO
-  return termekRepository.findLegalabbKetszerRendeltTermekek();
+  return productRepository.findProductsOrderedAtLeastTwice();
 }
 ```
 
 ### 4.c feladat
 
-A `Termek` osztályt nyissuk meg, ott a gyorsabb haladás érdekében már fogunk találni kész named query-ket, a másodikat kell használnunk:
+A `Product` osztályt nyissuk meg, ott a gyorsabb haladás érdekében már fogunk találni kész named query-ket, a másodikat kell használnunk:
 
 ```java
 @NamedQueries({
-@NamedQuery(name="Termek.findAll", query="SELECT t FROM Termek t"),
-@NamedQuery(name="Termek.findLegdragabb", query="SELECT t FROM Termek t
-            WHERE t.nettoar IN (SELECT MAX(t2.nettoar) FROM Termek t2)")
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p"),
+@NamedQuery(name="Product.findMostExpensive", query="SELECT p FROM Product p WHERE p.price IN (SELECT MAX(p2.price) FROM Product p2)")
 })
 ```
 
-A named query-t két módon is meghívhatjuk. Ha lassú a haladás, elég az első módszerrel megcsinálni. Az első módszer, hogy a named query-vel egyező nevű metódust teszünk a `TermekRepository`-ba (leszámítva a _Termek._ előtagot.) Vagyis:
+A named query-t két módon is meghívhatjuk. Ha lassú a haladás, elég az első módszerrel megcsinálni. Az első módszer, hogy a named query-vel egyező nevű metódust teszünk a `ProductRepository`-ba (leszámítva a _Product._ előtagot.) Vagyis:
 
 ```java
-public List<Termek> findLegdragabb();
+public List<Product> findMostExpensive();
 ```
 
-A másik lehetőség, hogy a `TermekRepositoryImpl`-ben, `EntityManager`-en keresztül hívjuk meg a named query-t:
+A másik lehetőség, hogy a `ProductRepositoryImpl`-ben, `EntityManager`-en keresztül hívjuk meg a named query-t:
 
 ```java
 @Override
-public List<Termek> findLegdragabbTermek(){
-  return em.createNamedQuery("Termek.findLegdragabb", Termek.class).getResultList();
+public List<Product> findMostExpensiveProducts(){
+  return em.createNamedQuery("Product.findMostExpensive", Product.class).getResultList();
 }
 ```
 
-Ilyenkor ezt a metódust ki kell még tenni a `TermekRepositoryCustom` interfészbe. Leggyorsabb így: Jobb klikk / _Refactor / Pull up_, és ott a metódus kiválasztható
+Ilyenkor ezt a metódust ki kell még tenni a `ProductRepositoryCustom` interfészbe. Leggyorsabb így: Jobb klikk / _Refactor / Pull up_, és ott a metódus kiválasztható
 
 Végül valamelyik verziót hívjuk meg a `WebshopController` megfelelő pontján:
 
 ```java
 // 4.c feladat
-private List<Termek> findLegdragabbTermekek() {
+private List<Product> findMostExpensiveProducts() {
   // TODO
-  // return termekRepository.findLegdragabbTermek();
-  return termekRepository.findLegdragabb();
+  // return productRepository.findMostExpensiveProducts();
+  return productRepository.findMostExpensive();
 }
 ```
 
@@ -272,35 +271,35 @@ private List<Termek> findLegdragabbTermekek() {
 
 A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-**a)** Írj olyan JPQL lekérdezést a `TermekRepository` interfészbe, mely az "Építő elemek" árát megemeli 10 százalékkal!
+**a)** Írj olyan JPQL lekérdezést a `ProductRepository` interfészbe, mely a "Building items" árát megemeli 10 százalékkal!
 
-**b)** Írj egy olyan metódust, amely létrehoz egy új kategóriát "Drága játékok" névvel, ha még nem létezik ilyen, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
+**b)** Írj egy olyan metódust, amely létrehoz egy új kategóriát "Expensive toys" névvel, ha még nem létezik ilyen, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
-**c)** Egyszerű önálló feladat: az 5.b feladat közös megoldásában egy `EntityManager`-en keresztül lefuttatott lekérdezéssel ellenőrizzük, hogy létezik-e "Drága játékok" nevű kategória. Valósítsd meg ugyanezt a lekérdezést Spring Data repository interfészben, metódus névből származtatott lekérdezéssel, és hívd meg a megfelelő ponton.
+**c)** Egyszerű önálló feladat: az 5.b feladat közös megoldásában egy `EntityManager`-en keresztül lefuttatott lekérdezéssel ellenőrizzük, hogy létezik-e "Expensive toys" nevű kategória. Valósítsd meg ugyanezt a lekérdezést Spring Data repository interfészben, metódus névből származtatott lekérdezéssel, és hívd meg a megfelelő ponton.
 
 <details><summary markdown="span">Megoldás</summary>
 
 ### 5.a feladat
 
-A `TermekRepository` interfészben egy _UPDATE query_-t definiálunk. Azt, hogy ez módosító query, közölni kell a Spring Data-val (`@Modifying`), valamint tranzakcióba is kell tennünk `@Transactional`, az `org.springframework...` package-ből):
+A `ProductRepository` interfészben egy _UPDATE query_-t definiálunk. Azt, hogy ez módosító query, közölni kell a Spring Data-val (`@Modifying`), valamint tranzakcióba is kell tennünk `@Transactional`, az `org.springframework...` package-ből):
 
 ```java
 @Modifying
 @Transactional
-@Query("UPDATE Termek t SET t.nettoar=t.nettoar*1.1 WHERE t.id IN
-(SELECT t2.id FROM Termek t2 WHERE t2.kategoria.nev=:kategoriaNev)")
-void kategoriaDragit(@Param("kategoriaNev") String kategoriaNev);
+@Query("UPDATE Product p SET p.price=p.price*1.1 WHERE t.id IN
+(SELECT p2.id FROM Product p2 WHERE p2.category.name=:categoryName)")
+void categoryRaisePrice(@Param("categoryName") String categoryName);
 ```
 
 Meghívása a `WebshopController`-ből:
 
 ```java
 // 5.a feladat
-@RequestMapping(value = "/epitoElemekDragit", method = {
+@RequestMapping(value = "/raisePriceOfBuildingItems", method = {
         RequestMethod.POST, RequestMethod.GET })
-private String epitoElemekDragit() {
+private String raisePriceOfBuildingItems() {
   // TODO
-  termekRepository.kategoriaDragit("Építő elemek");
+  productRepository.categoryRaisePrice("Building items");
   return "redirect:/";
 }
 ```
@@ -309,39 +308,39 @@ Böngészőben a gomb megnyomása után a gomb alatti táblázatban látszódik 
 
 #### 5.b feladat
 
-A `dao` package-be új osztály, `KategoriaService` néven, `@Service` annotációval, szintén `@Transactional` metódussal:
+A `dao` package-be új osztály, `CategoryService` néven, `@Service` annotációval, szintén `@Transactional` metódussal:
 
 ```java
 @Service
-public class KategoriaService {
+public class CategoryService {
 
   @PersistenceContext
   private EntityManager em;
 
   @Autowired
-  TermekRepository termekRepository;
+  ProductRepository productRepository;
 
   @Transactional
-  public void createDragaJatekokEsAtsorol(double arLimit){
-    String nev = "Drága játékok";
-    Kategoria dragaKategoria = null;
-    List<Kategoria> resultList =
-      em.createQuery("SELECT k from Kategoria k WHERE k.nev=:nev", Kategoria.class)
-        .setParameter("nev", nev)
+  public void moveToExpensiveToys(double priceLimit){
+    String name = "Expensive toys";
+    Category categoryExpensive = null;
+    List<Category> resultList =
+      em.createQuery("SELECT c from Category c WHERE c.name=:name", Category.class)
+        .setParameter("name", name)
         .getResultList();
 
     if(resultList.isEmpty()){
-	  //0 vagy null id érték esetén fog a @GeneratedValue működésbe lépni. Most primitív long az id-nk, az csak 0 tud lenni, null nem.
-	  dragaKategoria = new Kategoria(0, nev);
-      em.persist(dragaKategoria);
+      //0 vagy null id érték esetén fog a @GeneratedValue működésbe lépni. Most primitív long az id-nk, az csak 0 tud lenni, null nem.
+      categoryExpensive = new Category(0, name);
+      em.persist(categoryExpensive);
     }else{
-      dragaKategoria = resultList.get(0);
+      categoryExpensive = resultList.get(0);
     }
 
-    List<Termek> dragaTermekek = termekRepository.findByNettoarGreaterThan(arLimit);
+    List<Product> expensiveProducts = productRepository.findByPriceGreaterThan(priceLimit);
 
-    for (Termek termek : dragaTermekek) {
-      dragaKategoria.addTermek(termek);
+    for (Product product : expensiveProducts) {
+      categoryExpensive.addProduct(product);
     }
   }
 }
@@ -353,15 +352,15 @@ Meghívás a `WebshopController`-ből:
 
 ```java
 @Autowired
-KategoriaService kategoriaService;
+CategoryService categoryService;
 ...
 
 // 5.b feladat
-@RequestMapping(value = "/dragaTermekbeAtsorol", method = {
+@RequestMapping(value = "/moveToExpensiveToys", method = {
         RequestMethod.POST, RequestMethod.GET })
-private String dragaTermekbeAtsorol() {
+private String moveToExpensiveToys() {
   // TODO
-  kategoriaService.createDragaJatekokEsAtsorol(8000.0);
+  categoryService.moveToExpensiveToys(8000.0);
   return "redirect:/";
 }
 ```
@@ -370,29 +369,29 @@ Böngészőben a gomb megnyomása után látszódik a _Drága játékok_ kategó
 
 #### 5.c feladat
 
-A `dao` package-be új interfész, `KategoriaRepository` néven, a `TermekRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
+A `dao` package-be új interfész, `CategoryRepository` néven, a `ProductRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
 
 ```java
-public interface KategoriaRepository extends JpaRepository<Kategoria, Long>{
-  List<Kategoria> findByNev(String nev);
+public interface CategoryRepository extends JpaRepository<Category, Long>{
+  List<Category> findByName(String name);
 }
 ```
 
-Ezután a `KategoriaService` így egyszerűsödik le:
+Ezután a `CategoryService` így egyszerűsödik le:
 
 ```java
 @Service
-public class KategoriaService {
+public class CategoryService {
 ...
 
   @Autowired
-  KategoriaRepository kategoriaRepository;
+  CategoryRepository categoryRepository;
 
   @Transactional
-  public void createDragaJatekokEsAtsorol(double arLimit){
-...
-    List<Kategoria> resultList = kategoriaRepository.findByNev(nev);
-...
+  public void moveToExpensiveToys(double priceLimit){
+    // ...
+    List<Category> resultList = categoryRepository.findByName(name);
+    //  ...
   }
 }
 ```
@@ -401,36 +400,48 @@ public class KategoriaService {
 
 ## Feladat 6: Tárolt eljárások használata
 
-Hívd meg a JPA-ból a _FizetesModLetrehozasa_ nevű tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját!
+Hívd meg a JPA-ból a _CreateNewPaymentMethod_ nevű tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját!
 
-- Az SQL Server Management Studioban ellenőrizzük, hogy az adatbázis tartalmazza-e a _FizetesModLetrehozasa_ nevű tárolt eljárást!
+- Az SQL Server Management Studioban ellenőrizzük, hogy az adatbázis tartalmazza-e a _CreateNewPaymentMethod_ nevű tárolt eljárást!
 
-- Ha nem, akkor nyisd meg a projekt gyökerében található CreateSP.sql nevű fájlt, és a tartalmát futtasd le a Management Studioban!
+- Ha nem, akkor az alábbi kódot futtasd le a Management Studioban a tárolt eljárás létrehozásához!
+
+  ```sql
+  CREATE PROCEDURE CreateNewPaymentMethod
+  (
+  @Method nvarchar(20),
+  @Deadline int
+  )
+  AS
+  insert into PaymentMethod
+  values(@Method,@Deadline)
+  select scope_identity() as NewId
+  ```
 
 <details><summary markdown="span">Megoldás</summary>
 
-A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal (_CreateSP.sql_) a változó neveket!
+A `PaymentMethod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal a változó neveket!
 
 ```java
 @NamedStoredProcedureQueries({
-	@NamedStoredProcedureQuery(name = "fizModSP",
-			procedureName = "FizetesModLetrehozasa",
+	@NamedStoredProcedureQuery(name = "createMethodSP",
+			procedureName = "CreateNewPaymentMethod",
 			parameters = {
-	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Mod", type = String.class),
-	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Hatarido", type = BigDecimal.class)
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Method", type = String.class),
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Deadline", type = BigDecimal.class)
 	        })
 })
-public class Fizetesmod implements Serializable {
+public class Paymentmethod implements Serializable {
 ...
 ```
 
-A named stored procedure query meghívható Spring Data repositoryból (`dao` package-en _New Interface ... / FizetesmodRepository_):
+A named stored procedure query meghívható Spring Data repositoryból (`dao` package-en _New Interface ... / PaymentmethodRepository_):
 
 ```java
-public interface FizetesmodRepository extends JpaRepository<Fizetesmod, Long> {
+public interface PaymentmethodRepository extends JpaRepository<Paymentmethod, Long> {
 
-  @Procedure(name="fizModSP")
-  void ujFizetesmod(@Param("Mod") String nev, @Param("Hatarido") BigDecimal hatarido);
+  @Procedure(name="createMethodSP")
+  void newMethod(@Param("Method") String method, @Param("Deadline") BigDecimal deadline);
 }
 ```
 
@@ -438,15 +449,15 @@ Spring Data nélkül így menne, `EntityManager`-en keresztül, erre valószín�
 
 ```java
 @Service
-public class FizetesmodService {
+public class PaymentmethodService {
 
   @PersistenceContext
   private EntityManager em;
 
-  public void createUjFizetesMod(Fizetesmod fizetesMod){
-    StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("fizModSP");
-    sp.setParameter("Mod", fizetesMod.getMod());
-    sp.setParameter("Hatarido", fizetesMod.getHatarido());
+  public void createNewMethod(Paymentmethod paymentMethod){
+    StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("createMethodSP");
+    sp.setParameter("Method", paymentMethod.getMethod());
+    sp.setParameter("Deadline", paymentMethod.getDeadline());
     sp.execute();
   }
 }
@@ -454,28 +465,28 @@ public class FizetesmodService {
 
 A webrétegbeli meghívás:
 
-- Injektáljuk a `WebshopController`-be a `FizetesmodRepository` interfészt:
+- Injektáljuk a `WebshopController`-be a `PaymentmethodRepository` interfészt:
 
 ```java
 @Autowired
-FizetesmodRepository fizetesmodRepository;
+PaymentmethodRepository paymentmethodRepository;
 ```
 
 - A WebshopController utolsó TODO-jánál hívjuk meg
 
 ```java
-fizetesmodRepository.ujFizetesmod(fizetesmod.getMod(), fizetesmod.getHatarido());
+paymentmethodRepository.newMethod(paymentMethod.getMod(), paymentMethod.getHatarido());
 ```
 
-- A `Fizetesmod` entitás `hatarido` és `mod` tagváltozóin validációs _constraint_-eket találunk. Ezek az annotációk a _Bean Validation API_ részei, amivel a webes rétegben használt Spring MVC, de a JPA és integrálódik, így a webrétegbeli és adatrétegbeli validáció konzisztens módon, redundanciamentesen definiálható.
+- A `Paymentmethod` entitás `deadline` és `method` tagváltozóin validációs _constraint_-eket találunk. Ezek az annotációk a _Bean Validation API_ részei, amivel a webes rétegben használt Spring MVC, de a JPA és integrálódik, így a webrétegbeli és adatrétegbeli validáció konzisztens módon, redundanciamentesen definiálható.
 
 ```java
 @NotNull
-private BigDecimal hatarido;
+private BigDecimal deadline;
 
-@Column(name="MOD")
+@Column(name="METHOD")
 @NotEmpty
-private String mod;
+private String method;
 ```
 
 </details>

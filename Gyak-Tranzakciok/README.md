@@ -55,22 +55,24 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
    ```sql
    -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
-   select S1.nev, t.nev,s2.nev
-   from megrendeles m, megrendelestetel mt, statusz s1, statusz s2, termek t
-   where m.id=mt.megrendelesid
-   and m.id=4
-   and m.statuszid=s1.ID
-   and mt.statuszid=s2.ID
-   and t.id=mt.termekid
+   select s1.Name, p.Name, s2.Name
+   from [Order] o, OrderItem oi, Status s1, status s2, Product p
+   where o.Id=oi.OrderID
+   and o.ID=4
+   and o.StatusID=s1.ID
+   and oi.StatusID=s2.ID
+   and p.ID=oi.ProductID
    ```
+
+   > Az `[Order]` tábla nevében azért kell a szögletes zárójel, hogy jelezzük, tábla névről van szó, és nem az `order by` parancs kezdetéről.
 
 1. **T2 tranzakció**
 
    ```sql
    -- Állítsuk át a megrendelés állapotát
-   update megrendeles
-   set statuszid=4
-   where id=4
+   update [Order]
+   set StatusID=4
+   where ID=4
    ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -79,9 +81,9 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
    ```sql
    -- Állítsuk át a megrendeléshez tartozó tételek állapotát
-   update megrendelestetel
-   set statuszid=4
-   where megrendelesid=4
+   update OrderItem
+   set StatusID=4
+   where OrderID=4
    ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -90,7 +92,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
 <details><summary markdown="span">Magyarázat</summary>
   
-> Kezdetben minden tétel csomagolva státuszban van, ami így konzisztens (nem lehet egy darab tétel postázva, ha a megrendelés nincs postázva). Viszont, amint változatunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis **nem** inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.
+> Kezdetben minden tétel "Packaged" státuszban van, ami így konzisztens (nem lehet egy darab tétel "in transit", azaz postázás alatt, ha a megrendelés nincs). Viszont, amint változatunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis **nem** inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.
 >
 > Az SQL Server alapértelmezésben auto commit üzemmódban fut, azaz egy utasítás az egy tranzakció, amit automatikusan lezár. Tehát a probléma, hogy a módosításaink nem egy tranzakciót képeznek.
 >
@@ -123,13 +125,13 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
 
    ```sql
    -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
-   select S1.nev, t.nev,s2.nev
-   from megrendeles m, megrendelestetel mt, statusz s1, statusz s2, termek t
-   where m.id=mt.megrendelesid
-   and m.id=4
-   and m.statuszid=s1.ID
-   and mt.statuszid=s2.ID
-   and t.id=mt.termekid
+   select s1.Name, p.Name, s2.Name
+   from [Order] o, OrderItem oi, Status s1, status s2, Product p
+   where o.Id=oi.OrderID
+   and o.ID=4
+   and o.StatusID=s1.ID
+   and oi.StatusID=s2.ID
+   and p.ID=oi.ProductID
    ```
 
 1. **T2 tranzakció**
@@ -139,9 +141,9 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
    begin tran
 
    -- Állítsuk át a megrendelés állapotát
-   update megrendeles
-   set statuszid=4
-   where id=4
+   update [Order]
+   set StatusID=4
+   where ID=4
    ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -156,8 +158,8 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
 #### Mit tapasztalt? Miért?
 
 <details><summary markdown="span">Magyarázat</summary>
-  
-> Az előzőekben tapasztaltakhoz hasonlóan a módosítás megkezdte után az olvasó utasítás várakozásra kényszerült. Amikor megszakítottuk a tranzakciót, akkor érkezett meg az eredmény. Mivel *read committed* izolációs szinten vagyunk, nem látjuk a módosítás alatt levő tartalmat. Amint a módosító tranzakció befejeződik, akár sikeres `commit`, akár `rollback` miatt, elérhetővé válnak a rekordok.
+
+> Az előzőekben tapasztaltakhoz hasonlóan a módosítás megkezdte után az olvasó utasítás várakozásra kényszerült. Amikor megszakítottuk a tranzakciót, akkor érkezett meg az eredmény. Mivel _read committed_ izolációs szinten vagyunk, nem látjuk a módosítás alatt levő tartalmat. Amint a módosító tranzakció befejeződik, akár sikeres `commit`, akár `rollback` miatt, elérhetővé válnak a rekordok.
 >
 > Vegyük észre, hogy pont elkerültük a piszkos olvasás problémáját. Ha a módosítás futása közben megjelent volna a félkész eredmény, a `rollback` miatt az a tranzakció érvénytelen adattal dolgozna tovább.
 
@@ -177,8 +179,8 @@ Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy te
 
    -- Ellenőrizzük, hogy mennyi van raktáron egy termékből
    select *
-   from termek
-   where id = 2
+   from Product
+   where ID=2
    ```
 
 1. **T2 tranzakció**
@@ -188,41 +190,41 @@ Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy te
    begin tran
 
    select *
-   from termek
-   where id = 2
+   from Product
+   where ID=2
    ```
 
 1. **T1 tranzakció**
 
    ```sql
    -- Ellenőrizzük, hogy hány, még fel nem dolgozott megrendelés van erre a termékre
-   select sum (mennyiseg)
-   from megrendelestetel
-   where termekid=2
-   and statuszid=1
+   select sum(Amount)
+   from OrderItem
+   where ProductID=2
+   and StatusID=1
    ```
 
 1. **T2 tranzakció**
 
    ```sql
-   select sum (mennyiseg)
-   from megrendelestetel
-   where termekid=2
-   and statuszid=1
+   select sum(Amount)
+   from OrderItem
+   where ProductID=2
+   and StatusID=1
    ```
 
 1. **T1 tranzakció**
 
    ```sql
    -- Mivel teljesíthető a megrendelés, rögzítsük
-   insert into megrendelestetel (MegrendelesID,TermekID,Mennyiseg,StatuszID)
+   insert into OrderItem(OrderID,ProductID,Amount,StatusID)
    values(2,2,3,1)
    ```
 
 1. **T2 tranzakció**
 
    ```sql
-   insert into megrendelestetel (MegrendelesID,TermekID,Mennyiseg,StatuszID)
+   insert into OrderItem(OrderID,ProductID,Amount,StatusID)
    values(3,2,3,1)
    ```
 
@@ -252,13 +254,13 @@ Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy te
 Ismételjük meg a fenti műveletsort, csak a megrendelés rögzítésekor más-más termék ID-t használjunk! Ezzel azt szimuláljuk, hogy két megrendelő más-más terméket rendel meg.
 
 - A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
-- Ahol utasításban `id` vagy `termekid` szerepel, ott egyik tranzakcióban a 2-es, másikban a 3-as terméket használjuk.
+- Ahol utasításban `ID` vagy `ProductID` szerepel, ott egyik tranzakcióban a 2-es, másikban a 3-as terméket használjuk.
 
 #### Mit tapasztalt? Miért?
 
 <details><summary markdown="span">Magyarázat</summary>
   
-> Ha különböző termékre történik a rögzítés, akkor is holtpont fog kialakulni. Olyan a zárolási rendszer, hogy a `select sum` az egész táblát zárolja, mivel nem tudja megkülönböztetni `termekid` szerint a rekordokat. Ez természetes is, mivel csak az üzleti logikából adódik, hogy ha két különböző termékre történik a megrendelés rögzítése, akkor azok történhetnének egyszerre is. Az adatbázis ezt nem tudja.
+> Ha különböző termékre történik a rögzítés, akkor is holtpont fog kialakulni. Olyan a zárolási rendszer, hogy a `select sum` az egész táblát zárolja, mivel nem tudja megkülönböztetni `ProductID` szerint a rekordokat. Ez természetes is, mivel csak az üzleti logikából adódik, hogy ha két különböző termékre történik a megrendelés rögzítése, akkor azok történhetnének egyszerre is. Az adatbázis ezt nem tudhatja.
 >
 > Azaz a *serializable* izolációs szint túl szigorú, üzleti logikát figyelembe véve nagyobb párhuzamosítás engedhető meg. Ezért is ritkán használjuk a gyakorlatban.
 
@@ -288,7 +290,7 @@ A megoldáshoz kihasználjuk, hogy lehetséges manuálisan zárakat elhelyezni. 
 
 ```sql
 select *
-from tablanev with(XLOCK)
+from tablename with(XLOCK)
 ...
 ```
 
@@ -296,7 +298,7 @@ from tablanev with(XLOCK)
 
 <details><summary markdown="span">Magyarázat</summary>
   
-> A megoldás kulcsa, hogy jó helyre tegyük a zárat. A kérdés, hogy mit is kellene zárolni? A válasz, hogy a **terméket**: azt akarjuk meggátolni, hogy ugyanabból a termékből rögzíthető legyen még egy eladás. Tehát a termékre, konkrétan a termék táblában arra a sorra tesszük a zárat, ami a terméket reprezentálja.
+> A megoldás kulcsa, hogy jó helyre tegyük a zárat. A kérdés, hogy mit is kellene zárolni? A válasz, hogy a **terméket (Product)**: azt akarjuk meggátolni, hogy ugyanabból a termékből rögzíthető legyen még egy eladás. Tehát a termékre, konkrétan a termék táblában arra a sorra tesszük a zárat, ami a terméket reprezentálja.
 >
 > Ennek a megoldásnak a hátránya, hogy nagyon alaposan át kell gondolnunk, hogyan és hol végezzük a zárolást.
 >
@@ -309,8 +311,8 @@ from tablanev with(XLOCK)
    begin tran
 
    select *
-   from termek ***with (xlock)***
-   where id = 2
+   from Product ***with (xlock)***
+   where ID=2
    ```
 
 1. **T2 tranzakció**
@@ -320,39 +322,39 @@ from tablanev with(XLOCK)
    begin tran
 
    select *
-   from termek ***with (xlock)***
-   where id = ***3***
+   from Product ***with (xlock)***
+   where ID=***3***
    ```
 
 1. **T1 tranzakció**
 
    ```sql
-   select sum (mennyiseg)
-   from megrendelestetel
-   where termekid=2
-   and statuszid=1
+   select sum(Amount)
+   from OrderItem
+   where ProductID=2
+   and StatusID=1
    ```
 
 1. **T2 tranzakció**
 
    ```sql
-   select sum (mennyiseg)
-   from megrendelestetel
-   where termekid=***3***
-   and statuszid=1
+   select sum(Amount)
+   from OrderItem
+   where ProductID=***3***
+   and StatusID=1
    ```
 
 1. **T1 tranzakció**
 
    ```sql
-   insert into megrendelestetel (MegrendelesID,TermekID,Mennyiseg,StatuszID)
+   insert into OrderItem(OrderID,ProductID,Amount,StatusID)
    values(2,2,3,1)
    ```
 
 1. **T2 tranzakció**
 
    ```sql
-   insert into megrendelestetel (MegrendelesID,TermekID,Mennyiseg,StatuszID)
+   insert into OrderItem(OrderID,ProductID,Amount,StatusID)
    values(3,***3***,3,1)
    ```
 

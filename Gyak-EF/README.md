@@ -30,7 +30,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New / Project... / Visual C# / Windows desktop / Console application_). A `c/d:\work` mappába dolgozz. (**Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New / Project... / Visual C# / Windows desktop / Console application_). A `c:\work` mappába dolgozz. (**Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
 
 1. Adj a projekthez egy *ADO.NET Entity Data Model*t.
 
@@ -40,8 +40,8 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
      - _Data source_: Microsoft SQL Server
      - _Server name_: `(localdb)\mssqllocaldb`
      - _Select or enter database name_: adjuk meg az adatbázis nevét
-     - _Save connection settings in App.Config_: 
-       - igen (pipa) 
+     - _Save connection settings in App.Config_:
+       - igen (pipa)
        - alatta a szerkesztőmezőben az `AdatvezEntities`-t add meg (ilyen néven fog a DbContext osztály legenerálódni)
    - Entity Framework 6.0-as leképzést használj.
    - Az összes táblát képezzük le.
@@ -56,11 +56,12 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
    - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
    - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
 
-     - Vevo.Telephely -> .Telephely**ek**
-     - Megrendeles.MegrendelesTetel -> .MegrendelesTetel**ek**
-     - Termek.MegrendelesTetel -> .MegrendelesTetel**ek**
-     - AFA.Termek -> .Termek**ek**
-     - Kategoria.Termek -> .Termek**ek**
+     - Customer.CustomerSite1 -> **.Sites**
+     - CustomerSite.Customer1 -> **.MainCustomer**
+     - Order.OrderItem -> .OrderItem**s**
+     - Product.OrderItem -> .OrderItem**s**
+     - VAT.Product -> .Product**s**
+     - Category.Product -> .Product**s**
 
      Mentsük a változtatások után a modellt.
 
@@ -78,7 +79,7 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
 1. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
 
-1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30000 Ft! Az eredményhalmaz kiírásakor a vevő nevet követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
+1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevet követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
 
 1. Listázd ki a legdrágább termék adatait!
 
@@ -92,73 +93,72 @@ using (var db = new AdatvezEntities())
 {
     // 2.1
     Console.WriteLine("\t2.1:");
-    var qTermekRaktarkeszlet = from t in db.Termek
-        where t.Raktarkeszlet > 30
-        select t;
-    foreach (var t in qTermekRaktarkeszlet)
-        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}", t.Nev, t.Raktarkeszlet);
+    var qProductStock = from p in db.Product
+                        where p.Stock > 30
+                        select p;
+    foreach (var p in qProductStock)
+        Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
 
     // 2.2
     Console.WriteLine("\t2.2:");
-    var qTermekRendeles = from t in db.Termek
-        where t.MegrendelesTetelek.Count >= 2
-        select t;
+    var qProductOrder = from p in db.Product
+                        where p.OrderItems.Count >= 2
+                        select p;
 
-    foreach (var t in qTermekRendeles)
-        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}", t.Nev, t.Raktarkeszlet);
+    foreach (var p in qProductOrder)
+        Console.WriteLine("\t\tName={0}", p.Name);
 
     // 2.3
     Console.WriteLine("\t2.3:");
-    var qMegrendelesOssz = from m in db.Megrendeles
-        where m.MegrendelesTetelek.Sum(mt => mt.Mennyiseg * mt.NettoAr) > 30000
-        select m;
-    foreach (var m in qMegrendelesOssz)
+    var qOrderTotal = from o in db.Order
+                        where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+                        select o;
+    foreach (var o in qOrderTotal)
     {
-        Console.WriteLine("\t\tNév={0}", m.Telephely.Vevo.Nev);
-        foreach (var mt in m.MegrendelesTetelek)
-            Console.WriteLine("\t\t\tTermék={0}\tÁr={1}\tDb={2}", mt.Termek.Nev, mt.NettoAr, mt.Mennyiseg);
+        Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        foreach (var oi in o.OrderItems)
+            Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
     }
 
     // 2.3 második megoldás
     // Ehhez szükség van a következő névtér importálására: innen vegyük ki és tegyük be
     // a fájl elejére !!!
-    using System.Data.Entity;
+    // using System.Data.Entity;
 
     // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
     Console.WriteLine("\tc 2.3 alternatív megoldás:");
-    var qMegrendelesOssz2 = 
-       from m in db.Megrendeles
-         .Include(m => m.MegrendelesTetelek)                         // vagy .Include("MegrendelesTetelek")
-         .Include(m => m.MegrendelesTetelek.Select(mt => mt.Termek)) // vagy .Include("MegrendelesTetelek.Termek")
-         .Include(m => m.Telephely)                                  // vagy .Include("Telephely")
-         .Include(m => m.Telephely.Vevo)                             // vagy .Include("Telephely.Vevo")
-        where m.MegrendelesTetelek.Sum(mt => mt.Mennyiseg * mt.NettoAr) > 30000
-        select m;
+    var qOrderTotal2 =
+        from o in db.Order
+            .Include(o => o.OrderItems)                          // vagy .Include("OrderItem")
+            .Include(o => o.OrderItems.Select(oi => oi.Product)) // vagy .Include("OrderItem.Product")
+            .Include(o => o.CustomerSite)                        // vagy .Include("CustomerSite")
+            .Include(o => o.CustomerSite.MainCustomer)           // vagy .Include("CustomerSite.Customer")
+        where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        select o;
 
-    foreach (var m in qMegrendelesOssz2)
+    foreach (var o in qOrderTotal2)
     {
-        Console.WriteLine("\t\tNév={0}", m.Telephely.Vevo.Nev);
-        foreach (var mt in m.MegrendelesTetelek)
-            Console.WriteLine("\t\t\tTermék={0}\tÁr={1}\tDb={2}", mt.Termek.Nev, mt.NettoAr, mt.Mennyiseg);
+        Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        foreach (var oi in o.OrderItems)
+            Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
     }
 
     // 2.4
     Console.WriteLine("\t2.4:");
-    var qTermekMax = from t in db.Termek
-        where t.NettoAr == db.Termek.Max(a => a.NettoAr)
-        select t;
-    foreach (var t in qTermekMax)
-        Console.WriteLine("\t\tNév={0}\tÁr={1}", t.Nev, t.NettoAr);
+    var qPriceMax = from p in db.Product
+                    where p.Price == db.Product.Max(a => a.Price)
+                    select p;
+    foreach (var t in qPriceMax)
+        Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
 
     // 2.5
     Console.WriteLine("\t2.5:");
-    var qJoin = from t1 in db.Telephely
-        join t2 in db.Telephely on t1.Varos equals t2.Varos
-        where t1.VevoID > t2.VevoID
-        select new { v1 = t1.Vevo, v2 = t2.Vevo };
+    var qJoin = from s1 in db.CustomerSite
+                join s2 in db.CustomerSite on s1.City equals s2.City
+                where s1.CustomerID > s2.CustomerID
+                select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
     foreach (var v in qJoin)
-        Console.WriteLine("\t\tVevő 1={0}\tVevő 2={1}", v.v1.Nev, v.v2.Nev);
-
+        Console.WriteLine("\t\tCustomer 1={0}\tCustomer 2={1}", v.c1.Name, v.c2.Name);
 }
 ```
 
@@ -168,9 +168,9 @@ using (var db = new AdatvezEntities())
 
 A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-1. Írj olyan Linq-ra épülő C# kódot, mely az "Építo elemek" (ügyelj az írásmódra!) árát megemeli 10 százalékkal!
+1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" (ügyelj az írásmódra!) kategóriás termékek árát megemeli 10 százalékkal!
 
-1. Hozz létre egy új kategóriát a *Drága játékok*nak, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
+1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 <details><summary markdown="span">Megoldás</summary>
 
@@ -180,55 +180,55 @@ using (var db = new AdatvezEntities())
 {
     // 3.1
     Console.WriteLine("\t3.1:");
-    var qTermekEpito = from t in db.Termek
-        where t.Kategoria.Nev == "Építo elemek"
-        select t;
+    var qProductsLego = from p in db.Product
+                        where p.Category.Name == "LEGO"
+                        select p;
     Console.WriteLine("\tMódosítás előtt:");
-    foreach (var t in qTermekEpito)
+    foreach (var p in qProductsLego)
     {
-        Console.WriteLine("\t\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
-        t.NettoAr = 1.1 * t.NettoAr;
+        Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        p.Price = 1.1 * p.Price;
     }
 
     db.SaveChanges();
 
-    qTermekEpito = from t in db.Termek
-        where t.Kategoria.Nev == "Építo elemek"
-        select t;
+    qProductsLego = from p in db.Product
+                    where p.Category.Name == "LEGO"
+                    select p;
     Console.WriteLine("\tMódosítás után:");
-    foreach (var t in qTermekEpito)
-        Console.WriteLine("\t\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr);
+    foreach (var p in qProductsLego)
+        Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
 
     // 3.2
     Console.WriteLine("\t3.2:");
-    Kategoria dragaJatek = (from k in db.Kategoria
-        where k.Nev == "Drága Játék"
-        select k).SingleOrDefault();
+    Category categoryExpensiveToys = (from c in db.Category
+                                        where c.Name == "Expensive toys"
+                                        select c).SingleOrDefault();
 
-    if (dragaJatek == null)
+    if (categoryExpensiveToys == null)
     {
-        dragaJatek = new Kategoria { Nev = "Drága Játék" };
-        
+        categoryExpensiveToys = new Category { Name = "Expensive toys" };
+
         // Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast
         // es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban
         // kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.
-        db.Kategoria.Add(dragaJatek);
+        db.Category.Add(categoryExpensiveToys);
     }
 
-    var qTermekDraga = from t in db.Termek
-        where t.NettoAr > 8000
-        select t;
+    var qProductExpensive = from p in db.Product
+                            where p.Price > 8000
+                            select p;
 
-    foreach (var t in qTermekDraga)
-        t.Kategoria = dragaJatek;
+    foreach (var p in qProductExpensive)
+        p.Category = categoryExpensiveToys;
     db.SaveChanges();
 
-    qTermekDraga = from t in db.Termek
-        where t.Kategoria.Nev == "Drága Játék"
-        select t;
+    qProductExpensive = from p in db.Product
+                        where p.Category.Name == "Expensive toys"
+                        select p;
 
-    foreach (var t in qTermekDraga)
-        Console.WriteLine("\t\tNév={0}\tÁrt={1}", t.Nev, t.NettoAr);
+    foreach (var t in qProductExpensive)
+        Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
 }
 ```
 
@@ -247,46 +247,48 @@ A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás vis
    - Hozd létre a tárolt eljárást SQL Management Studio segítségével.
 
      ```sql
-     CREATE PROCEDURE FizetesModLetrehozasa
+     CREATE PROCEDURE CreateNewPaymentMethod
      (
-     @Mod nvarchar(20),
-     @Hatarido int
+     @Method nvarchar(20),
+     @Deadline int
      )
      AS
-     insert into FizetesMod
-     values(@Mod,@Hatarido)
-     select scope_identity() as UjId
+     insert into PaymentMethod
+     values(@Method,@Deadline)
+     select scope_identity() as NewId
      ```
 
-   - A tárolt eljárást állítsd be a `FizetesMod` entitás _insert_ metódusának.
+   - A tárolt eljárást állítsd be a `PaymentMethod` entitás _insert_ metódusának.
 
      - Add hozzá a tárolt eljárást az EDM-hez. Az EDM Browser-ben jobb kantitással hozd elő a kontextus menüt, használd az "Update model from database"-t, és importáld (_Add_) az új tárolt eljárást.
      - Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.
-     - Állítsd be ezt a metódust a `FizetesiMod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `FizetesiMod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
+     - Állítsd be ezt a metódust a `PaymentMethod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `PaymentMethod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
 
        ![Tárolt eljárás mappelése](images/vs-insert-storedproc.png)
 
-   - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext FizetesiMod gyűjteményéhez az Add metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
+   - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext `PaymentMethod` gyűjteményéhez az `Add` metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
 
 1. Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolj eljárást C# kódból!
 
    - Hozd létre a tárolt eljárást az alábbi kóddal.
 
      ```sql
-     CREATE PROCEDURE dbo.NepszeruTermek (
-     @MinDB int = 10
+     CREATE PROCEDURE dbo.PopularProducts (
+     @MinAmount int = 10
      )
      AS
-     SELECT Termek.* FROM Termek INNER JOIN
+     SELECT Product.* FROM Product INNER JOIN
      (
-     SELECT MegrendelesTetel.TermekID
-     FROM MegrendelesTetel
-     GROUP BY MegrendelesTetel.TermekID
-     HAVING SUM(MegrendelesTetel.Mennyiseg) > @MinDB
-     )a ON Termek.ID=a.TermekID
+     SELECT OrderItem.ProductID
+     FROM OrderItem
+     GROUP BY OrderItem.ProductID
+     HAVING SUM(OrderItem.Amount) > @MinAmount
+     ) a ON Product.ID = a.ProductID
      ```
 
-   - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Termek` típusúra. Mentsd el a modell változásait.
+   - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Produc` típusúra. Mentsd el a modell változásait.
+
+   ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
 
    - Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!
 
@@ -299,20 +301,20 @@ using (var db = new AdatvezEntities())
     // 4.3
     Console.WriteLine("\t4.3:");
 
-    var f = new FizetesMod
+    var pm = new PaymentMethod
     {
-        Mod = "Valamikor hozom",
-        Hatarido = 99999
+        Method = "Apple pay",
+        Deadline = 99999
     };
 
-    db.FizetesMod.Add(f);
+    db.PaymentMethod.Add(pm);
     db.SaveChanges();
 
     // 4.6
     Console.WriteLine("\t4.6:");
-    var qTermekNepszeru = db.NepszeruTermek(5);
-    foreach (var t in qTermekNepszeru)
-        Console.WriteLine("\t\tNév={0}\tRaktárkészlet={1}\tÁr={2}", t.Nev, t.Raktarkeszlet, t.NettoAr));
+    var qPopularProducts = db.PopularProducts(5);
+    foreach (var p in qPopularProducts)
+        Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price));
 }
 ```
 

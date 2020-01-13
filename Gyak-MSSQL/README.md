@@ -38,8 +38,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
    ```sql
    select count(*)
-   from Megrendeles m join Statusz s on m.StatuszID = s.ID
-   where s.Nev != 'Kiszállítva'
+   from [Order] o join Status s on o.StatusID = s.ID
+   where s.Name != 'Delivered'
    ```
 
    A `join` mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)
@@ -51,9 +51,9 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    <details><summary markdown="span">Megoldás</summary>
 
    ```sql
-   select f.Mod
-   from Megrendeles m right outer join FizetesMod f on m.FizetesModID = f.ID
-   where m.ID is null
+   select p.Method
+   from [Order] o right outer join PaymentMethod p on o.PaymentMethodID = p.ID
+   where o.ID is null
    ```
 
    A megoldás kulcsa az `outer join`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
@@ -65,7 +65,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    <details><summary markdown="span">Megoldás</summary>
 
    ```sql
-   insert into Vevo(Nev, Login, Jelszo, Email)
+   insert into Customer(Name, Login, Password, Email)
    values ('Teszt Elek', 't.elek', '********', 't.elek@email.com')
 
    select @@IDENTITY
@@ -75,14 +75,14 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
    </details>
 
-1. A kategóriák között hibásan szerepel az _Fajáték_ kategória név. Javítsuk át a kategória nevét *Fakockák*ra!
+1. A kategóriák között hibásan szerepel az _Bicycles_ kategória név. Javítsuk át a kategória nevét _Tricycles_-re!
 
    <details><summary markdown="span">Megoldás</summary>
 
    ```sql
-   update Kategoria
-   set Nev = 'Fakockák'
-   where Nev = 'Fajáték'
+   update Category
+   set Nev = 'Bicycles'
+   where Nev = 'Tricycles'
    ```
 
    </details>
@@ -92,9 +92,9 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
    <details><summary markdown="span">Megoldás</summary>
 
    ```sql
-   select top 1 Nev, (select count(*) from Termek where Termek.KategoriaID = k.ID) as db
-   from Kategoria k
-   order by db desc
+   select top 1 Name, (select count(*) from Product where Product.CategoryID = c.ID) as cnt
+   from Category c
+   order by cnt desc
    ```
 
    A kérdésre több alternatív lekérdezés is eszünkbe juthat. Ez csak egyike a lehetséges megoldásoknak. Itt láthatunk példát az allekérdezésre is.
@@ -110,42 +110,42 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 #### Tárolt eljárás
 
 ```sql
-create procedure UjKategoria
-    @Kategoria nvarchar(50),
-    @SzuloKategoria nvarchar(50)
+create procedure AddNewCategory
+    @Name nvarchar(50),
+    @ParentName nvarchar(50)
 as
 
 begin tran
 
 declare @ID int
-select @ID=ID
-from kategoria with (TABLOCKX)
-where upper(nev) = upper(@Kategoria)
+select @ID = ID
+from Category with (TABLOCKX)
+where upper(Name) = upper(@Name)
 
 if @ID is not null
 begin
     rollback
-    raiserror (' A %s kategoria mar letezik',16,1,@Kategoria)
+    raiserror ('Category %s alredy exists',16,1,@Name)
     return
 end
 
-declare @SzuloKategoriaID int
-if @SzuloKategoria is not null
+declare @ParentID int
+if @ParentName is not null
 begin
-    select @SzuloKategoriaID = id
-    from kategoria
-    where upper(nev) = upper(@SzuloKategoria)
+    select @ParentID = ID
+    from Category
+    where upper(Name) = upper(@ParentName)
 
-    if @SzuloKategoriaID is null
+    if @ParentID is null
     begin
         rollback
-        raiserror (' A %s kategoria nem letezik',16,1,@SzuloKategoria)
+        raiserror ('Category %s does not exist',16,1,@ParentName)
         return
     end
 end
 
-insert into Kategoria
-values(@Kategoria,@SzuloKategoriaID)
+insert into Category
+values(@Name,@ParentID)
 
 commit
 ```
@@ -154,7 +154,7 @@ commit
 
 Nyissunk egy új Query ablakot és adjuk ki az alábbi parancsot.
 
-`exec UjKategoria 'Uszogumik', NULL`
+`exec AddNewCategory 'Beach balls', NULL`
 
 Ennek sikerülnie kell. Ellenőrizzük utána a tábla tartalmát.
 
@@ -171,49 +171,47 @@ Ismételjük meg a fenti beszúrást, ekkor már hibák kell dobjon.
 #### Tárolt eljárás
 
 ```sql
-create trigger StatuszKarbantartas
-on Megrendeles
+create trigger UpdateOrderStatus
+on [Order]
 for update
 as
 
-update Megrendelestetel
-set StatuszID =i.StatuszID
-from Megrendelestetel mt
-inner join inserted i on i.Id=mt.MegrendelesID
-inner join deleted d on d.ID=mt.MegrendelesID
-where i.StatuszID != d.StatuszID
-  and mt.StatuszID=d.StatuszID
+update OrderItem
+set StatusID = i.StatusID
+from OrderItem oi
+inner join inserted i on i.Id=oi.OrderID
+inner join deleted d on d.ID=oi.OrderID
+where i.StatusID != d.StatusID
+  and oi.StatusID=d.StatusID
 ```
 
-Szánjunk egy kis időt az `update ... from` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `update ... set...` formát követi, kiegészítve egy `from` szakasszal, melyben már a `select from` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`join`) adatokat a módosítandó táblához. Így a `set` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az = jobb oldalán).
+Szánjunk egy kis időt az `update ... from` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `update ... set...` formát követi, kiegészítve egy `from` szakasszal, melyben már a `select from` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`join`) adatokat a módosítandó táblához. Így a `set` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).
 
 #### Tesztelés
 
 Ellenőrizzük a megrendelés és a tételek státuszát:
 
 ```sql
-select megrendelestetel.statuszid, megrendeles.statuszid
-from megrendelestetel join megrendeles on
-megrendelestetel.megrendelesid=megrendeles.id
-where megrendelesid = 1
+select OrderItem.StatusID, [Order].StatusID
+from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
+where OrderID = 1
 ```
 
 Változtassuk meg a megrendelést:
 
 ```sql
-update megrendeles
-set statuszid=4
-where id=1
+update [Order]
+set StatusID=4
+where ID=1
 ```
 
 Ellenőrizzük a megrendelést és a tételeket (update után minden
 státusznak meg kell változnia):
 
 ```sql
-select megrendelestetel.statuszid, megrendeles.statuszid
-from megrendelestetel join megrendeles on
-megrendelestetel.megrendelesid=megrendeles.id
-where megrendelesid = 1
+select OrderItem.StatusID, [Order].StatusID
+from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
+where OrderID = 1
 ```
 
 </details>
@@ -222,37 +220,37 @@ where megrendelesid = 1
 
 Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában!
 
-1. Adjuk hozzá az a táblához az új oszlopot: `alter table vevo add vegosszeg float`
+1. Adjuk hozzá az a táblához az új oszlopot: `alter table Customer add Total float`
 1. Számoljuk ki az aktuális végösszeget. A megoldáshoz használjunk kurzort, ami minden vevőn megy végig.
 
 <details><summary markdown="span">Megoldás</summary>
 
 ```sql
-declare cur_vevo cursor
-    for select ID from Vevo
-declare @vevoId int
-declare @osszeg float
+declare cur_customer cursor
+    for select ID from Customer
+declare @CustomerId int
+declare @Total float
 
-open cur_vevo
-fetch next from cur_vevo into @vevoId
+open cur_customer
+fetch next from cur_customer into @CustomerId
 while @@FETCH_STATUS = 0
 begin
 
-    select @osszeg = sum(mt.Mennyiseg * mt.NettoAr)
-    from Telephely t
-    inner join Megrendeles m on m.TelephelyID=t.ID
-    inner join MegrendelesTetel mt on mt.MegrendelesID=m.ID
-    where t.VevoID = @vevoId
+    select @Total = sum(oi.Amount * oi.Price)
+    from CustomerSite s
+    inner join [Order] o on o.CustomerSiteID=s.ID
+    inner join OrderItem oi on oi.OrderID=o.ID
+    where s.CustomerID = @CustomerId
 
-    update Vevo
-    set vegosszeg = ISNULL(@osszeg, 0)
-    where ID = @vevoId
+    update Customer
+    set Total = ISNULL(@Total, 0)
+    where ID = @CustomerId
 
-    fetch next from cur_vevo into @vevoId
+    fetch next from cur_customer into @CustomerId
 end
 
-close cur_vevo
-deallocate cur_vevo
+close cur_customer
+deallocate cur_customer
 ```
 
 </details>
@@ -270,30 +268,30 @@ A feladat nehézségét az adja, hogy az `inserted` és `deleted` táblákban ne
 #### Trigger
 
 ```sql
-create trigger VegosszegKarbatartas
-on MegrendelesTetel
+create trigger CustomerTotalUpdate
+on OrderItem
 for insert, update, delete
 as
 
-update Vevo
-set vegosszeg=isnull(vegosszeg,0) + OsszegValtozas
-from Vevo
+update Customer
+set Total=isnull(Total,0) + TotalChange
+from Customer
 inner join
-    (select t.VevoId, sum(mennyiseg * NettoAr) as OsszegValtozas
-    from Telephely t
-    inner join Megrendeles m on m.TelephelyID=t.ID
-    inner join inserted i on i.MegrendelesID=m.ID
-    group by t.VevoId) VevoValtozas on Vevo.ID = VevoValtozas.ID
+    (select s.CustomerId, sum(Amount * Price) as TotalChange
+    from CustomerSite s
+    inner join [Order] o on o.CustomerSiteID=s.ID
+    inner join inserted i on i.OrderID=o.ID
+    group by s.CustomerId) CustomerChange on Customer.ID = CustomerChange.CustomerId
 
-update Vevo
-set vegosszeg=isnull(vegosszeg,0) - OsszegValtozas
-from Vevo
+update Customer
+set Total=isnull(Total,0) - TotalChange
+from Customer
 inner join
-    (select t.VevoId, sum(mennyiseg * NettoAr) as OsszegValtozas
-    from Telephely t
-    inner join Megrendeles m on m.TelephelyID=t.ID
-    inner join deleted d on d.MegrendelesID=m.ID
-    group by t.VevoID) VevoValtozas on Vevo.ID = VevoValtozas.ID
+    (select s.CustomerId, sum(Amount * Price) as TotalChange
+    from CustomerSite s
+    inner join [Order] o on o.CustomerSiteID=s.ID
+    inner join deleted d on d.OrderID=o.ID
+    group by s.CustomerID) CustomerChange on Customer.ID = CustomerChange.CustomerId
 ```
 
 #### Tesztelés
@@ -301,23 +299,23 @@ inner join
 Nézzük meg az összmegrendelések aktuális értékét, jegyezzük meg a számokat.
 
 ```sql
-select id, osszmegrendeles
-from vevo
+select ID, Total
+from Customer
 ```
 
 Módosítsunk egy megrendelés mennyiségén.
 
 ```sql
-update megrendelestetel
-set mennyiseg=3
-where id=1
+update OrderItem
+set Amount=3
+where ID=1
 ```
 
 Nézzük meg az összegeket ismét, meg kellett változnia a számnak.
 
 ```sql
-select id, osszmegrendeles
-from vevo
+select ID, Total
+from Customer
 ```
 
 </details>
