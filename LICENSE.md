@@ -1,14 +1,4 @@
-# BME Data-driven systems
-
-Lecture notes and code samples for [BMEVIAUAC01 Data-driven systems](https://www.aut.bme.hu/Course/ENVIAUAC01) tárgyhoz.
-
-## Course materials
-
-[Dependency injection](./Dependency-Injection)
-
-[REST and WebAPI demo application](https://github.com/bmeviauac01/rest-webapi-sample)
-
----
+# License
 
 The materials found in this repository are created for the students of course BMEVIAUAC01. The usage of these materials outside the scope of teaching or learning this particular course is only granted if the source and authors are contributed.
 
