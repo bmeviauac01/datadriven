@@ -4,7 +4,16 @@ Lecture notes and code samples for [BMEVIAUAC01 Data-driven systems](https://www
 
 ## Course materials
 
-[Dependency injection](./Dependency-Injection)
+**Microsoft SQL Server programming**
+
+- [SQL language review](./MSSQL-programming/sql-language.md)
+- [Microsoft SQL Server programming (T-SQL)](./MSSQL-programming/mssql-programming)
+
+[LINQ: Language Integrated Query](./LINQ/README.md)
+
+[MongoDB operations and the MongoDB .NET Driver](./MongoDB-DotNet/README.md)
+
+[Dependency injection](./Dependency-Injection/README.md)
 
 [REST and WebAPI demo application](https://github.com/bmeviauac01/rest-webapi-sample)
 
