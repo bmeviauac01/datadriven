@@ -19,7 +19,7 @@ Jegyzetek és példa kódok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.a
 
 [Dependency injection (függőség injektálás)](./Dependency-Injection)
 
-[REST és WebAPI demó alkalmazás](./Rest-WebApi)
+[REST és WebAPI demó alkalmazás](https://github.com/bmeviauac01/rest-webapi-sample)
 
 [Többrétegű webalkalmazás ASP.NET Core technológiával](./TobbreteguWebalkalmazas-AspNetCore)
 
