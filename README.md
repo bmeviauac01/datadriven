@@ -21,7 +21,7 @@ Jegyzetek és példa kódok [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.a
 
 [REST és WebAPI demó alkalmazás](https://github.com/bmeviauac01/rest-webapi-sample)
 
-[Többrétegű webalkalmazás ASP.NET Core technológiával](./TobbreteguWebalkalmazas-AspNetCore)
+[Többrétegű webalkalmazás ASP.NET Core technológiával (demó alkalmazás)](https://github.com/bmeviauac01/threelayered-aspnetcore-sample)
 
 ---
 
