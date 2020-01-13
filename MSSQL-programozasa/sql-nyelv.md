@@ -7,17 +7,17 @@ A példák a minta adatbázison futtathatóak.
 Melyik termék olcsóbb mint 2000 és kevesebb, mint 50 db van belőle?
 
 ```sql
-select Nev, NettoAr,Raktarkeszlet
-from Termek
-where NettoAr<2000 and Raktarkeszlet<50
+select Name, Price,Stock
+from Product
+where Price<2000 and Stock<50
 ```
 
-Melyik termékhez nincs leírás, de van hozzá kép?
+Melyik termékhez nincs leírás?
 
 ```sql
 select *
-from Termek
-where Leiras is null and Kep is not null
+from Product
+where Description is null
 ```
 
 ## Táblák összekapcsolása
@@ -26,46 +26,48 @@ Budapesti központi telephellyel rendelkező vevők (a két megoldás ekvivalens
 
 ```sql
 select *
-from vevo v, telephely t
-where v.KozpontiTelephely=t.ID and Varos='Budapest'
+from Customer c, CustomerSite s
+where c.MainCustomerSiteID=s.ID and City='Budapest'
 
 select *
-from vevo v inner join telephely t on v.KozpontiTelephely=t.ID
-where Varos='Budapest'
+from Customer c inner join CustomerSite s on c.MainCustomerSiteID=s.ID
+where City='Budapest'
 ```
 
-Listázza ki a M betűvel kezdődő termékek nevét és amegrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
+Listázza ki a M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
 
 ```sql
-select t.Nev, mt.Mennyiseg
-from Termek t
-     left outer join MegrendelesTetel mt on t.id=mt.TermekID
-     left outer join Megrendeles m on m.ID=mt.MegrendelesID
-where t.Nev like 'M%'
+select p.Name, oi.Amount
+from Product p
+     left outer join OrderItem oi on p.id=oi.ProductID
+     left outer join [Order] o on o.ID=oi.OrderID
+where p.Name like 'M%'
 ```
+
+> Az `[Order]` azért szerepel szögeletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
 
 ## Rendezés
 
 ```sql
 select *
-from Termek
-order by Nev
+from Product
+order by Name
 ```
 
-Microsoft SQL Server specifikus: *collation* a rendezés szabályait adja meg
+Microsoft SQL Server specifikus: _collation_ a rendezés szabályait adja meg
 
 ```sql
 select *
-from Termek
-order by Nev collate SQL_Latin1_General_Cp1_CI_AI	  
+from Product
+order by Name collate SQL_Latin1_General_Cp1_CI_AI
 ```
 
 Több mező szerinti rendezés
 
 ```sql
-select * 
-from Termek
-order by Raktarkeszlet desc, NettoAr
+select *
+from Product
+order by Stock desc, Price
 ```
 
 ## Allekérdezések
@@ -73,18 +75,18 @@ order by Raktarkeszlet desc, NettoAr
 Listázzuk ki a megrendelések Statuszát határidejét és dátumát
 
 ```sql
-select m.Datum, m.Hatarido, s.Nev
-from Megrendeles m inner join Statusz s on m.StatuszId=s.ID
+select o.Date, o.Deadline, s.Name
+from [Order] o inner join Status s on o.StatusId=s.ID
 ```
 
 Alternatív, de nem ekvivalens megoldás: az allekérdezés az outer joinnak felel meg!
 
 ```sql
-select m.Datum,m.Hatarido,
-       (select s.Nev
-        from Statusz s
-        where m.StatuszId=s.ID)
-from Megrendeles m
+select o.Date, o.Deadline,
+       (select s.Name
+        from Status s
+        where o.StatusId=s.ID)
+from [Order] o
 ```
 
 ## Duplikátum szűrése
@@ -92,90 +94,89 @@ from Megrendeles m
 Melyek azok a termékek, melyből egyszerre több, mint 3 db-ot rendeltek? Ugyanabból a termékből több alkalommal is előfordulhatott, de csak egyszer szeretnénk a nevét látni.
 
 ```sql
-select distinct t.Nev
-from Termek t inner join MegrendelesTetel mt on mt.TermekID=t.ID
-where mt.Mennyiseg>3
+select distinct p.Name
+from Product p inner join OrderItem oi on oi.ProductID=p.ID
+where oi.Amount>3
 ```
 
 ## Oszlopfüggvények
 
 Mennyibe kerül a legdrágább termék?
 
-
 ```sql
-select max(NettoAr)
-from Termek
+select max(Price)
+from Product
 ```
 
 Melyek a legdrágább termékek?
 
 ```sql
 select *
-from Termek
-where NettoAr=(select max(NettoAr) from Termek)
+from Product
+where Price=(select max(Price) from Product)
 ```
 
 Azon termékeket min, max és átlag mennyiért adták el, melyek nevében szerepel a Lego és az átlag eladási áruk 10.000-nél nagyobb
 
 ```sql
-select t.id, t.Nev, min (mt.NettoAr), max (mt.NettoAr), avg (mt.NettoAr)
-from Termek t
-     inner join MegrendelesTetel mt on t.ID=mt.TermekID
-Where t.Nev like '%Lego%'
-group by t.id, t.Nev
-having avg (mt.NettoAr)>10000
+select p.Id, p.Name, min(oi.Price), max(oi.Price), avg(oi.Price)
+from Product p
+     inner join OrderItem oi on p.ID=oi.ProductID
+Where p.Name like '%Lego%'
+group by p.Id, p.Name
+having avg(oi.Price)>10000
 order by 2
 ```
 
 ## Rekordok létrehozása
 
-Egy rekord létrehozása minden oszlop (kivéve *identity*) adatának megadásával
+Egy rekord létrehozása minden oszlop (kivéve _identity_) adatának megadásával
 
 ```sql
-insert into Termek
-values ('aa', 100, 0, 3, 2, null, null)
+insert into Product
+values ('aa', 100, 0, 3, 2, null)
 ```
 
 Csak megnevezett oszlopok értékeinek kitöltése
 
 ```sql
-insert into Termek (Nev,NettoAr)
+insert into Product (Name,Price)
 values ('aa', 100)
 ```
 
 Lekérdezés eredményeinek beszúrása
 
 ```sql
-insert into Termek (Nev, NettoAr)
-select Nev, NettoAr
-from SzamlaTetel
-where Mennyiseg>2
+insert into Product (Name, Price)
+select Name, Price
+from InvoiceItem
+where Amount>2
 ```
 
 MSSQL specifikus: identity oszlop
 
 ```sql
-create table AFA
+create table VAT
 (
    ID int identity primary key,
-   Kulcs int
+   Percentage int
 )
 
-insert into AFA (Kulcs)
+insert into VAT(Percentage)
 values (27)
 
 select @@identity
 ```
 
-MSSQL specifikus: értékadás *identity* oszlopnak
+MSSQL specifikus: értékadás _identity_ oszlopnak
 
 ```sql
-set identity_insert AFA on
+set identity_insert VAT on
 
-insert into AFA (ID, Kulcs)
+insert into VAT (ID, Percentage)
 values (123, 27)
 
-set identity_insert Termek off
+set identity_insert VAT off
 ```
 
 ## Rekordok módosítása
@@ -183,42 +184,42 @@ set identity_insert Termek off
 A Legók árát emeljük meg 10%-kal és a raktrákészletüket 5 db-bal
 
 ```sql
-update Termek
-set NettoAr=1.1*NettoAr,
-    Raktarkeszlet=Raktarkeszlet+5
-where Nev like '%Lego%'
+update Product
+set Price=1.1*Price,
+    Stock=Stock+5
+where Name like '%Lego%'
 ```
 
 Módosítás, ha kapcsolódó tábla alapján kell szűrni: emeljük meg 10%-kal azon 20%-os ÁFA kulcsú termékek árát, melyből, több mint 10 db van raktáron
 
 ```sql
-update Termek
-set NettoAr=1.1*NettoAr
-where Raktarkeszlet>10
-and AFAID in
+update Product
+set Price=1.1*Price
+where Stock>10
+and VATID in
 (
     select ID
-    from AFA
-    where kulcs=20
+    from VAT
+    where Percentage=20
 )
 ```
 
 MSSQL Server specifikus szintaktika az előzőre
 
 ```sql
-update Termek
-set NettoAr=1.1*NettoAR
-from Termek t
-     inner join AFA a on t.AFAID=a.ID
-where Raktarkeszlet>10
-      and kulcs=20
+update Product
+set Price=1.1*Price
+from Product p
+     inner join VAT v on p.VATID=v.ID
+where Stock>10
+      and Percentage=20
 ```
 
 ## Rekordok törlése
 
 ```sql
 delete
-from termek
+from Product
 where ID>10
 ```
 
@@ -227,19 +228,19 @@ where ID>10
 Sorszámozás egy adott rendezés szerint
 
 ```sql
-select t.*,
-       rank() over (order by Nev) as r,
-       dense_rank() over (order by Nev) as dr
-from termek t
+select p.*,
+       rank() over (order by Name) as r,
+       dense_rank() over (order by Name) as dr
+from Product p
 ```
 
 Sorszámozás csoportosításonként
 
 ```sql
-select t.*
-       ,rank() over (partition by KategoriaID order by Nev) as r
-       ,dense_rank() over (partition by KategoriaID order by Nev) as dr
-from termek 
+select p.*
+       ,rank() over (partition by CategoryID order by Name) as r
+       ,dense_rank() over (partition by CategoryID order by Name) as dr
+from Product p
 ```
 
 ## CTE (Common Table Expression)
@@ -252,10 +253,10 @@ ABC sorrendben melyik az első három termék
 select *
 from
 (
-    select t.*
-            ,rank() over (order by Nev) as r
-            ,dense_rank() over (order by Nev) as dr
-    from termek t
+    select p.*
+            ,rank() over (order by Name) as r
+            ,dense_rank() over (order by Name) as dr
+    from Product p
 ) a
 where a.dr<=3
 ```
@@ -267,9 +268,9 @@ with q1
 as
 (
     select *
-           ,rank() over (order by Nev) as r
-          ,dense_rank() over (order by Nev) as dr
-    from termek t
+           ,rank() over (order by Name) as r
+          ,dense_rank() over (order by Name) as dr
+    from Product
 )
 select *
 from q1
@@ -283,14 +284,14 @@ with q
 as
 (
     select *
-            , dense_rank() over (order by NettoAr desc) dr
-    from termek
+            , dense_rank() over (order by Price desc) dr
+    from Product
 )
-select q.ID,q.Nev,sum(Mennyiseg)
+select q.ID, q.Name, sum(Amount)
 from q
-     inner join megrendelestetel mt on mt.TermekID=q.ID
+     inner join OrderItem oi on oi.ProductID=q.ID
 where q.dr = 2
-group by q.ID, q.Nev
+group by q.ID, q.Name
 ```
 
 Lapozás: termékek listázása ABC sorrendben a 3. rekordól a 8. rekordig
@@ -300,8 +301,8 @@ with q
 as
 (
     select *
-            , rank() over (order by Nev) r
-    from termek
+            , rank() over (order by Name) r
+    from Product
 )
 select *
 from q
@@ -312,12 +313,12 @@ Lapozás: MSSQL Server (2012+) specifikus megoldás
 
 ```sql
 select *
-from termek
-order by nev
+from Product
+order by Name
 offset 2 rows
 fetch next 6 rows only
 
 select top 3 *
-from Termek
-order by Nev
+from Product
+order by Name
 ```

@@ -3,27 +3,27 @@
 Adottak a következő osztályok, és listák ilyen objektumokból.
 
 ```csharp
-class Termek
+class Product
 {
     public int ID;
-    public string Nev;
-    public int Ar;
-    public int AfaId;
+    public string Name;
+    public int Price;
+    public int VATID;
 }
 
-class Afa
+class VAT
 {
     public int ID;
-    public int Kulcs;
+    public int Percentage;
 }
 
-List<Termek> termekek = ...
-List<Afa> afa = ...
+List<Product> products = ...
+List<VAT> vat = ...
 ```
 
 ## LINQ kifejezések és az IQueryable
 
-Vegyünk egy egyszerű kifejezést: `termekek.Where(t => t.Ar < 1000)`. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés **nem került végrehajtásra**. A LINQ kifejezések eredménye egy `IQueryable<T>` generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.
+Vegyünk egy egyszerű kifejezést: `products.Where(p => p.Price < 1000)`. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés **nem került végrehajtásra**. A LINQ kifejezések eredménye egy `IQueryable<T>` generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.
 
 Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:
 
@@ -34,10 +34,10 @@ Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt m
 Ez a működés azért praktikus, mert így tudjuk szintaktikailag egymás után fűzni a LINQ műveleteket, mint például:
 
 ```csharp
-var l = termekek.Where(t => t.Ar < 1000)
-                .Where(t => t.Nev.Contains('s'))
-                .OrderBy(t => t.Nev)
-                .Select(t => t.Nev)
+var l = products.Where(p => p.Price < 1000)
+                .Where(p => p.Name.Contains('s'))
+                .OrderBy(p => p.Name)
+                .Select(p => p.Name)
 ...
 
 // az l változó nem tartalmazza az eredményhalmazt
@@ -55,48 +55,48 @@ Az alábbi példáknál, ahol elérhető, mindkét szintaktikát mutatjuk. A ké
 ### Szűrés
 
 ```csharp
-termekek.Where(t => t.Ar < 1000)
+products.Where(p => p.Price < 1000)
 
-from t in termekek
-where t.Ar < 1000
+from p in products
+where p.Price < 1000
 ```
 
 ### Projekció
 
 ```csharp
-termekek.Select(t => t.Nev)
+products.Select(p => p.Name)
 
-from t in termekek
-select t.Nev
+from p in products
+select p.Name
 ```
 
 ### Join
 
 ```csharp
-from t in termekek
-join a in afa on t.AfaId equals a.Id
-select t.NettoAr * a.Kulcs
+from p in products
+join v in vat on p.VATID equals v.Id
+select p.Price * v.Percentage
 
-termekek.Join(afa, t => t.AfaId, a => a.Id, (t, a) => t.NettoAr * a.Kulcs)
+products.Join(vat, p => p.VATID, v => v.Id, (t, v) => p.Price * v.Percentage)
 ```
 
 ### Sorrendezés
 
 ```csharp
-termekek.OrderBy[Descending](t => t.Nev)
-.ThenBy[Descending](t => t.Ar)
+products.OrderBy[Descending](p => p.Name)
+.ThenBy[Descending](p => p.Price)
 
-from t in termekek
-orderby t.Nev, t.Ar [descending]
+from p in products
+orderby p.Name, p.Price [descending]
 ```
 
 ### Halmaz műveletek
 
 ```csharp
-termekek.Select(t => t.Nev).Distinct()
+products.Select(p => p.Name).Distinct()
 
-termekek.Where(t => t.Ar < 1000)
-.Union( termekek.Where(t => t.Ar > 100000) )
+products.Where(p => p.Price < 1000)
+.Union( products.Where(p => p.Price > 100000) )
 
 // hasonlóan Except, Intersect
 ```
@@ -104,9 +104,9 @@ termekek.Where(t => t.Ar < 1000)
 ### Aggregáció
 
 ```csharp
-termekek.Count()
+products.Count()
 
-termekek.Select(t => t.NettoAr).Average()
+products.Select(p => p.Price).Average()
 
 // hasonlóan Sum, Min, Max
 ```
@@ -114,38 +114,38 @@ termekek.Select(t => t.NettoAr).Average()
 ### Első, utolsó
 
 ```csharp
-termekek.First()
+products.First()
 
-termekek.Last()
+products.Last()
 
-termekek.Where(t => t.Id==12).FirstOrDefault()
+products.Where(p => p.Id==12).FirstOrDefault()
 
-termekek.Where(t => t.Id==12).SingleOrDefault()
+products.Where(p => p.Id==12).SingleOrDefault()
 ```
 
 ### Lapozás
 
 ```csharp
-termekek.Take(10)
+products.Take(10)
 
-termekek.Skip(10).Take(10)
+products.Skip(10).Take(10)
 ```
 
 ### Tartalmazás (létezik-e)
 
 ```csharp
-termekek.Any(t => t.Ar == 1234)
+products.Any(p => p.Price == 1234)
 
-termekek.Where(t => t.Ar == 1234).Any()
+products.Where(p => p.Price == 1234).Any()
 ```
 
 ### Csoportosítás
 
 ```csharp
-from t in termekek
-group t by t.AfaId
+from p in products
+group p by p.VATID
 
-termekek.GroupBy(t => t.AfaId)
+products.GroupBy(p => p.VATID)
 ```
 
 ### Bonyolultabb projekció
@@ -155,19 +155,19 @@ A projekció során több féle módon kérhetjük az eredményeket.
 ### Egész objektum
 
 ```csharp
-from t in termekek
+from p in products
 ...
 select t
 ```
 
-Ilyenkor az eredmény `IQueryable<Termek>`, azaz Termék osztály példányokat kapunk.
+Ilyenkor az eredmény `IQueryable<Product>`, azaz Product osztály példányokat kapunk.
 
 ### Csak bizonyos mező
 
 ```csharp
-from t in termekek
+from p in products
 ...
-select t.Nev
+select p.Name
 ```
 
 Ilyenkor az eredmény `IQueryable<string>`, azaz csak a neveket kapjuk.
@@ -175,9 +175,9 @@ Ilyenkor az eredmény `IQueryable<string>`, azaz csak a neveket kapjuk.
 ### Nevesített típusok
 
 ```csharp
-from t in termekek
+from p in products
 ...
-select new MyType(t.Nev, t.NettoAr)
+select new MyType(p.Name, p.Price)
 ```
 
 Ilyenkor az eredmény `IQueryable<MyType>`, ahol a _MyType_ osztályt deklarálnunk kell, és a select-ben a konstruktorát hívjuk meg.
@@ -185,9 +185,9 @@ Ilyenkor az eredmény `IQueryable<MyType>`, ahol a _MyType_ osztályt deklaráln
 ### Névtelen típusok
 
 ```csharp
-from t in termek
-where t.Ar > 1000
-select new { ID = t.ID, Nev = t.Nev };
+from t in products
+where p.Price > 1000
+select new { ID = p.ID, Name = p.Name };
 ```
 
 Névtelen típust a `new { }` szintaktikával hozhatunk létre. Ebből a fordító egy osztály definíciót készít a megadott nevű property-kkel. Ezt tipikusan akkor érdemes használni, ha egy-két tulajdonságot szeretnénk csak lekérdezni, és nincs szükségünk az egész objektumra.
@@ -195,9 +195,9 @@ Névtelen típust a `new { }` szintaktikával hozhatunk létre. Ebből a fordít
 Egy másik gyakori használati esete a névtelen típusnak, amikor nem egy rekord pár tulajdonságára vagyunk kíváncsiak, hanem számított értéket kérdezünk le, pl. a termékek neve és bruttó ára:
 
 ```csharp
-from t in termekek
-join a in afa on t.AfaId equals a.Id
-select new { Nev = t.Nev, BruttoAr = t.NettoAr * a.Kulcs }
+from p in products
+join v in vat on p.VATID equals v.Id
+select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
 ```
 
 ## További információk és példák

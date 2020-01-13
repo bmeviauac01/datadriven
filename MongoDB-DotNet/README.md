@@ -27,7 +27,7 @@ Az adatbázisnak nem kell előzetesen létezni. A fenti hívás hatására, ha m
 Egy relációs adatbázistól eltérően **MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük**, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a `where`), hanem a művelet előfeltétele. Egy adott gyűjteményt a `GetCollection` hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.
 
 ```csharp
-var collection = db.GetCollection<BsonDocument>("termekek");
+var collection = db.GetCollection<BsonDocument>("products");
 ```
 
 A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az un. _ODM (Object Document Mapping)_ funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.
@@ -41,18 +41,19 @@ A gyűjteményt reprezentáló változón tudunk további műveleteket futtatni,
 ```csharp
 collection.InsertOne(new BsonDocument()
 {
-    { "nev", "Alma" },
-    { "nettoAr", 123 }
+    { "name", "Apple" },
+    { "categoryName", "Apple" },
+    { "price", 123 }
 });
 
 // minden dokumentum listázása: szükség van egy szűrési feltételre, ami itt
 // egy üres feltétel, azaz minden dokumentumra illeszkedik
-var lista = collection.Find(new BsonDocument()).ToList();
-foreach(var l in lista)
+var list = collection.Find(new BsonDocument()).ToList();
+foreach(var l in list)
     Console.WriteLine(l);
 ```
 
-> A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `nettoAr` (ez az un. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
+> A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `price` vagy `categoryName` (ez az un. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
 
 ## Dokumentumok leképzése C# objektumokra
 
@@ -63,24 +64,24 @@ Első lépésként definiálnunk kell a C# osztályt, ill. osztályokat, amikre 
 Definiáljuk a _Termékek_ reprezentáláshoz az alábbi osztályokat.
 
 ```csharp
-public class Termek
+public class Product
 {
     public ObjectId Id { get; set; } // ez lesz az elsődleges kulcs helyett az _id azonosító
-    public string Nev { get; set; }
-    public float NettoAr { get; set; }
-    public int Raktarkeszlet { get; set; }
-    public string[] Karegoriak { get; set; } // tömb értékű mező
-    public AfaKulcs AfaKulcs { get; set; } // beágyazást alkalmazunk
+    public string Name { get; set; }
+    public float Price { get; set; }
+    public int Stock { get; set; }
+    public string[] Categories { get; set; } // tömb értékű mező
+    public VAT VAT { get; set; } // beágyazást alkalmazunk
 }
 
-public class AfaKulcs // mivel ez beágyazott entitás, így nem adunk neki egyedi azonosítót
+public class VAT // mivel ez beágyazott entitás, így nem adunk neki egyedi azonosítót
 {
-    public string AfaKategoriaNev { get; set; }
-    public float Kulcs { get; set; }
+    public string VATCategoryName { get; set; }
+    public float Percentage { get; set; }
 }
 ```
 
-Figyeljük meg, hogy korábban `nettoAr` néven használtuk a dokumentumban a kulcsot, de a C# osztályban az un. _Pascal Case_ szerint nagybetűvel kezdjük: `NettoAr`. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a `NettoAr` osztály tulajdonságból `nettoAr` kulcs név lesz a dokumentumban.
+Figyeljük meg, hogy korábban `price` néven használtuk a dokumentumban a kulcsot, de a C# osztályban az un. _Pascal Case_ szerint nagybetűvel kezdjük: `Price`. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a `Price` osztály tulajdonságból `price` kulcs név lesz a dokumentumban.
 
 ### A leképzés testreszabása
 
@@ -89,14 +90,14 @@ A C# osztály - MongoDB dokumentum leképzés automatikus, de testreszabható. A
 A legegyszerűbb, ha az osztály definíciójában attribútumokkal jelöljük a testreszabást:
 
 ```csharp
-public class Termek
+public class Product
 {
     // _id mezőre képződik le
     [BsonId]
     public ObjectId Azonosito { get; set; }
 
     // megadhatjuk a MongoDB dokumentumban használatos nevet
-    [BsonElement("nettoAr")]
+    [BsonElement("price")]
     public string Ar { get; set; }
 
     // kihagyhatunk egyes mezőket
@@ -125,16 +126,16 @@ Ennél bonyolultabb testreszabásokra is lehetőségünk van, például definiá
 
 ## Lekérdezések
 
-A továbbiakban a típusos, `Termek` osztályra leképző módon használjuk a gyűjteményt, és így végzünk műveletet. Ez a javasolt megoldás, a `BsonDocument` alapú megoldást csak szükség esetén használjuk.
+A továbbiakban a típusos, `Product` osztályra leképző módon használjuk a gyűjteményt, és így végzünk műveletet. Ez a javasolt megoldás, a `BsonDocument` alapú megoldást csak szükség esetén használjuk.
 
 A legegyszerűbb lekérdezést már láthattuk, listázzunk minden dokumentumot:
 
 ```csharp
-var collection = db.GetCollection<Termek>("termekek");
+var collection = db.GetCollection<Product>("products");
 
 var lista = collection.Find(new BsonDocument()).ToList();
 foreach (var l in lista)
-    Console.WriteLine($"Id: {l.Id}, Név: {l.Nev}");
+    Console.WriteLine($"Id: {l.Id}, Name: {l.Name}");
 ```
 
 A listázás a `Find` metódussal történik. Az elnevezés jól mutatja a MongoDB filozófiáját: az adatbázis keresésre való, minden elem listázása nem praktikus, ezért nincs is rá egyszerű szintaktika. A `Find` egy keresési feltételt vár, ami itt egy üres feltétel, azaz mindenre illeszkedik.
@@ -146,13 +147,13 @@ A **`BsonDocument`** alapú szűrésben nyersen, a MongoDB szintaktikája szerin
 A legtöbb esetben egy **Lambda-kifejezéssel** leírhatjuk a feltételt.
 
 ```csharp
-collection.Find(x => x.NettoAr < 123);
+collection.Find(x => x.Price < 123);
 ```
 
-Ilyenkor a Lambda-kifejezés egy `Predicate<T>` típusú delegate, azaz a megadott osztálytípuson (itt: `Termek`) fogalmazzuk meg, és `bool` visszatérési értékű. Tehát a fenti példában az `x` változó egy `Termek` objektumot reprezentál. Ez a keresés működik természetesen bonyolultabb esetekre is.
+Ilyenkor a Lambda-kifejezés egy `Predicate<T>` típusú delegate, azaz a megadott osztálytípuson (itt: `Product`) fogalmazzuk meg, és `bool` visszatérési értékű. Tehát a fenti példában az `x` változó egy `Product` objektumot reprezentál. Ez a keresés működik természetesen bonyolultabb esetekre is.
 
 ```csharp
-collection.Find(x => x.NettoAr < 123 && x.Nev.Contains("piros"));
+collection.Find(x => x.Price < 123 && x.Name.Contains("red"));
 ```
 
 A Lambda kifejezésekkel leírt szűrési feltételek elrejtik, hogy a MongoDB-ben valójában milyen keresési feltételeink is vannak. Például az előbbi `Contains` keresési feltétel egy reguláris kifejezéssel való keresést fog valójában jelenteni.
@@ -161,10 +162,10 @@ A MongoDB saját nyelvén az előbbi szűrés így néz ki:
 
 ```json
 {
-  "nettoAr": {
+  "price": {
     "$lt": 123.0
   },
-  "nev": "/piros/s"
+  "name": "/red/s"
 }
 ```
 
@@ -174,16 +175,16 @@ A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk a
 
 ```csharp
 collection.Find(
-    Builders<Termek>.Filter.And(
-        Builders<Termek>.Filter.Lt(x => x.NettoAr, 123),
-        Builders<Termek>.Filter.Regex(x => x.Nev, "/piros/s"),
+    Builders<Product>.Filter.And(
+        Builders<Product>.Filter.Lt(x => x.Price, 123),
+        Builders<Product>.Filter.Regex(x => x.Name, "/red/s"),
     )
 );
 ```
 
 A fenti szintaktikai kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de közelebb áll a MongoDB világához, és jobban leírja, mit is szeretnénk valójában. Tekinthetünk erre a szintaktikára úgy, mint az SQL nyelvre: deklaratív, célorientált, de a platform képességeit szem előtt tartó leírás. Emellett azonban típusbiztos is.
 
-A `Builders<T>` generikus osztály egy segédosztály, amivel szűrési, és később látni fogjuk, egyéb MongoDB specifikus definíciókat építhetünk fel. A `Builders<Termek>.Filter` a _Termek_ C# osztályhoz illeszkedő szűrési feltételek definiálására használható. Először egy _és_ kapcsolatot hozunk létre, amelyen belül két szűrési feltételünk lesz. Az operátorok a korábban látott _less than_ és a reguláris kifejezés. Ezen függvényeknek két paramétert adunk át: a mezőt, amire szűrni szeretnénk, és az operandust.
+A `Builders<T>` generikus osztály egy segédosztály, amivel szűrési, és később látni fogjuk, egyéb MongoDB specifikus definíciókat építhetünk fel. A `Builders<Product>.Filter` a _Product_ C# osztályhoz illeszkedő szűrési feltételek definiálására használható. Először egy _és_ kapcsolatot hozunk létre, amelyen belül két szűrési feltételünk lesz. Az operátorok a korábban látott _less than_ és a reguláris kifejezés. Ezen függvényeknek két paramétert adunk át: a mezőt, amire szűrni szeretnénk, és az operandust.
 
 > Vegyük észre, hogy se itt, se a Lambda-kifejezésekben nem használtunk string alapú mezőneveket, mindenhol ugyanazzal a szintaktikával (ez a _C# Expression_) az osztálydefinícióra hivatkoztunk. Ez azért praktikus így, mert elkerüljük a mezőnevek elgépelését.
 
@@ -223,44 +224,44 @@ A szűrési feltétel tehát a dokumentum egy mezőjét egy általunk megadott k
 #### Összehasonlítási operátorok
 
 ```csharp
-collection.Find(x => x.NettoAr == 123);
-collection.Find(Builders<Termek>.Filter.Eq(x => x.NettoAr, 123)); //Eq, mint equals
+collection.Find(x => x.Price == 123);
+collection.Find(Builders<Product>.Filter.Eq(x => x.Price, 123)); //Eq, mint equals
 
-collection.Find(x => x.NettoAr != 123);
-collection.Find(Builders<Termek>.Filter.Ne(x => x.NettoAr, 123)); // Ne, mint not equals
+collection.Find(x => x.Price != 123);
+collection.Find(Builders<Product>.Filter.Ne(x => x.Price, 123)); // Ne, mint not equals
 
-collection.Find(x => x.NettoAr >= 123);
-collection.Find(Builders<Termek>.Filter.Gte(x => x.NettoAr, 123)); // Gte, mint greater than or equal to
+collection.Find(x => x.Price >= 123);
+collection.Find(Builders<Product>.Filter.Gte(x => x.Price, 123)); // Gte, mint greater than or equal to
 
-collection.Find(x => x.NettoAr < 123);
-collection.Find(Builders<Termek>.Filter.Lt(x => x.NettoAr, 123)); // Lt, mint less than
+collection.Find(x => x.Price < 123);
+collection.Find(Builders<Product>.Filter.Lt(x => x.Price, 123)); // Lt, mint less than
 ```
 
 #### Logikai operátorok
 
 ```csharp
-collection.Find(x => x.NettoAr > 500 && x.NettoAr < 1000);
+collection.Find(x => x.Price > 500 && x.Price < 1000);
 collection.Find(
-    Builders<Termek>.Filter.And(
-        Builders<Termek>.Filter.Gt(x => x.NettoAr, 500),
-        Builders<Termek>.Filter.Lt(x => x.NettoAr, 1000)
+    Builders<Product>.Filter.And(
+        Builders<Product>.Filter.Gt(x => x.Price, 500),
+        Builders<Product>.Filter.Lt(x => x.Price, 1000)
     )
 );
 
-collection.Find(x => x.NettoAr < 500 || x.Raktarkeszlet < 10);
+collection.Find(x => x.Price < 500 || x.Stock < 10);
 collection.Find(
-    Builders<Termek>.Filter.Or(
-        Builders<Termek>.Filter.Lt(x => x.NettoAr, 500),
-        Builders<Termek>.Filter.Lt(x => x.Raktarkeszlet, 10)
+    Builders<Product>.Filter.Or(
+        Builders<Product>.Filter.Lt(x => x.Price, 500),
+        Builders<Product>.Filter.Lt(x => x.Stock, 10)
     )
 );
 
-collection.Find(x => !(x.NettoAr < 500 || x.Raktarkeszlet < 10));
+collection.Find(x => !(x.Price < 500 || x.Stock < 10));
 collection.Find(
-    Builders<Termek>.Filter.Not(
-        Builders<Termek>.Filter.And(
-            Builders<Termek>.Filter.Lt(x => x.NettoAr, 500),
-            Builders<Termek>.Filter.Lt(x => x.Raktarkeszlet, 10)
+    Builders<Product>.Filter.Not(
+        Builders<Product>.Filter.And(
+            Builders<Product>.Filter.Lt(x => x.Price, 500),
+            Builders<Product>.Filter.Lt(x => x.Stock, 10)
         )
     )
 );
@@ -270,41 +271,41 @@ collection.Find(
 
 ```csharp
 collection.Find(x => x.Id == ... || x.Id = ...);
-collection.Find(Builders<Termek>.Filter.In(x => x.Id, new[] { ... }));
+collection.Find(Builders<Product>.Filter.In(x => x.Id, new[] { ... }));
 // hasonlóan létezik a Nin, mint not in operátor
 ```
 
 #### Érték létezik (nem null)
 
 ```csharp
-collection.Find(x => x.AfaKulcs != null);
-collection.Find(Builders<Termek>.Filter.Exists(x => x.AfaKulcs));
+collection.Find(x => x.VAT != null);
+collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 ```
 
 > A létezik-e, azaz nem null szűrés azért különleges, mert a MongoDB szempontjából két módon is lehet null egy érték: ha a kulcs létezik a dokumentumban és értéke null; avagy, ha a kulcs nem is létezik.
 
 ### Szűrés beágyazott dokumentum mezőjére
 
-A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyaztott dokumentum (a példákban az _AfaKulcs_ nem létezik):
+A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyaztott dokumentum (a példákban az _VAT_ nem létezik):
 
 ```csharp
-collection.Find(x => x.AfaKulcs.Kulcs < 27);
-collection.Find(Builders<Termek>.Filter.Lt(x => x.AfaKulcs.Kulcs));
+collection.Find(x => x.VAT.Percentage < 27);
+collection.Find(Builders<Product>.Filter.Lt(x => x.VAT.Percentage));
 
-collection.Find(Builders<Termek>.Filter.Exists(x => x.AfaKulcs.Kulcs, exists: false));
+collection.Find(Builders<Product>.Filter.Exists(x => x.VAT.Percentage, exists: false));
 // ez a nem létezik, azaz null szűrés
 ```
 
 ### Szűrés tömb értékű mezőre
 
-A dokumentum bármely mezője lehet tömb értékű, mint a példában a `string[] Kategoriak`. MongoDB-ben a tömbökkel is egyszerűen tudunk dolgozni, az `Any*` szűrési feltételekkel.
+A dokumentum bármely mezője lehet tömb értékű, mint a példában a `string[] Categories`. MongoDB-ben a tömbökkel is egyszerűen tudunk dolgozni, az `Any*` szűrési feltételekkel.
 
 ```csharp
 // azon termékeket, amelyek a jelzett kategóriában vannak
-collection.Find(Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák"));
+collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"));
 
 // azon termékeket, amelyek legalább egy olyan kategóriához tartoznak, amelyet nem soroltunk fel
-collection.Find(Builders<Termek>.Filter.AnyNin(x => x.Karegoriak, new[] { "Labdák", "Ütők" }));
+collection.Find(Builders<Product>.Filter.AnyNin(x => x.Categories, new[] { "Labdák", "Ütők" }));
 ```
 
 > Az `Any*` feltételek a tömb minden elemét vizsgálják, de a dokumentum szempontjából csak egyszer illeszkednek. Tehát, ha a tömb több eleme is illeszkedik egy feltételre, attól még csak egyszer kapjuk meg a dokumentumot az eredményhalmazban.
@@ -331,7 +332,7 @@ A `Skip` és `Limit` ebben a formában nem értelmes, ugyanis rendezés nélkül
 
 ```csharp
 collection.Find(...)
-    .Sort(Builders<Termek>.Sort.Ascending(x => x.Nev))
+    .Sort(Builders<Product>.Sort.Ascending(x => x.Name))
     .Skip(100).Limit(100);
 ```
 
@@ -342,9 +343,9 @@ collection.Find(...)
 A lekérdezésre illeszkedő dokumentumok számát két féle módon is lekérdezhetjük:
 
 ```csharp
-collection.CountDocuments(Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák"));
+collection.CountDocuments(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"));
 
-collection.Find(Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák")).CountDocuments();
+collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák")).CountDocuments();
 ```
 
 #### Csoportosítás
@@ -354,13 +355,13 @@ A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy a
 ```csharp
 // A "Labdák" kategóriába tartozó termékek az ÁFA kulcs szerint csoportosítva
 foreach (var g in collection.Aggregate()
-                            .Match(Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák")) // szűrés
-                            .Group(x => x.AfaKulcs.Kulcs, x => x) // csoportosítás
+                            .Match(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák")) // szűrés
+                            .Group(x => x.VAT.Percentage, x => x) // csoportosítás
                             .ToList())
 {
-    Console.WriteLine($"Áfa kulcs: {g.Key}");
-    foreach(var t in g)
-        Console.WriteLine($"\tTermék: {t.Nev}");
+    Console.WriteLine($"VAT percentage: {g.Key}");
+    foreach(var p in g)
+        Console.WriteLine($"\tProduct: {p.Name}");
 }
 ```
 
@@ -373,15 +374,15 @@ A lekérdezések után ismerkedjünk meg az adatmódosításokkal.
 Új dokumentum beszúrásához az új dokumentumot reprezentáló objektumra van szükségünk. Ezt a gyűjteményhez tudjuk hozzáadni.
 
 ```csharp
-var ujTermek = new Termek
+var newProduct = new Product
 {
-    Nev = "Alma",
-    NettoAr = 890,
-    Karegoriak = new[] { "Gyümölcsök" }
+    Name = "Alma",
+    Price = 890,
+    Categories = new[] { "Gyümölcsök" }
 };
-collection.InsertOne(ujTermek);
+collection.InsertOne(newProduct);
 
-Console.WriteLine($"Beszúrt rekord id: {ujTermek.Id}"); // beszúrás után frissítésre kerül a C# objektum, és lekérdezhető az Id-ja
+Console.WriteLine($"Beszúrt rekord id: {newProduct.Id}"); // beszúrás után frissítésre kerül a C# objektum, és lekérdezhető az Id-ja
 ```
 
 Figyeljük meg, hogy az `Id` mezőt nem töltöttük ki. Ezt a kliens oldali driver pótolni fogja. Ha akarjuk, mi is adhatunk neki értéket, de nem szokás.
@@ -416,13 +417,13 @@ Alapvetően két féle módon tudunk egy dokumentumot megváltoztatni: lecserél
 A dokumentum teljes cseréjéhez szükségünk van egy szűrési feltételre, amellyel megadjuk, mely dokumentumot akarjuk cserélni; valamint szükségünk van az új dokumentumra.
 
 ```csharp
-var csereTermek = new Termek
+var replacementProduct = new Product
 {
-    Nev = "Alma",
-    NettoAr = 890,
-    Karegoriak = new[] { "Gyümölcsök" }
+    Name = "Alma",
+    Price = 890,
+    Categories = new[] { "Gyümölcsök" }
 };
-var replaceResult = collection.ReplaceOne(x => x.Id == new ObjectId("..."), csereTermek);
+var replaceResult = collection.ReplaceOne(x => x.Id == new ObjectId("..."), replacementProduct);
 Console.WriteLine($"Módosítva: {replaceResult.ModifiedCount}");
 ```
 
@@ -432,17 +433,17 @@ Ez a csere 1-1 jellegű, azaz egy dokumentumot cserélünk egy dokumentumra. A m
 
 #### Dokumentum módosító operátorok
 
-A dokumentum módosító operátorokkal atomi módon tudunk a dokumentum mezőinek értékén változtatni anélkül, hogy a teljes dokumentumot lecserélnénk. A módosító műveletek leírásához a korábban már látott `Builder<T>` segítségét vesszük igénybe.
+A dokumentum módosító operátorokkal atomi módon tudunk a dokumentum mezőinek értékén változtatni anélkül, hogy a teljes dokumentumot lecserélnénk. A módosító műveletek leírásához a korábban már látott `Builders<T>` segítségét vesszük igénybe.
 
 Állítsunk be a raktárkészletet egy konstans értékre:
 
 ```csharp
 collection.UpdateOne(
     filter: x => x.Id == new ObjectId("..."),
-    update: Builders<Termek>.Update.Set(x => x.Raktarkeszlet, 5));
+    update: Builders<Product>.Update.Set(x => x.Stock, 5));
 ```
 
-Az `UpdateOne` függvény első paramétere a szűrési feltétel. Leírásához bármely korábban ismertetett szintaktika használható. Második paramétere a módosító művelet leírója, amelyet a `Builder<T>` segítségével építhetünk fel.
+Az `UpdateOne` függvény első paramétere a szűrési feltétel. Leírásához bármely korábban ismertetett szintaktika használható. Második paramétere a módosító művelet leírója, amelyet a `Builders<T>` segítségével építhetünk fel.
 
 A fenti példakódban a paraméterek nevét is kiírtuk (`filter:` és `update:`), hogy egyértelmű legyen, paraméter mit jelképez. Ez nem kötelező, de az olvashatóságot növeli (a kódsorok hosszának rovására).
 
@@ -451,10 +452,10 @@ A módosítás nem csak egy műveletet tartalmazhat.
 ```csharp
 collection.UpdateOne(
     filter: x => x.Id == new ObjectId("..."),
-    update: Builders<Termek>.Update
-                .Set(x => x.Raktarkeszlet, 5) // raktárkészlet legyen 5
-                .CurrentDate(x => x.RaktarFeltolve) // mai dátumot beírjuk, mint a feltöltés ideje
-                .Unset(x => x.Hianycikk) // töröljük a hiányzikk jelzést
+    update: Builders<Product>.Update
+                .Set(x => x.Stock, 5) // raktárkészlet legyen 5
+                .CurrentDate(x => x.StockUpdated) // mai dátumot beírjuk, mint a frissítás ideje
+                .Unset(x => x.NeedsUpdate) // töröljük a frissítendő jelzést
 );
 ```
 
@@ -464,7 +465,7 @@ A tipikusan használt módosító operátorok:
 - `SetOnInsert`: mint a `Set`, de csak új dokumentum beszúrása esetén fut le (lásd _upsert_ alább);
 - `Unset`: mező törlése (a kulcs és érték eltávolítása a dokumentumból);
 - `CurrentDate`: aktuális dátum beírása;
-- `Inc`: számláló növelése;
+- `Inc`: érték növelése;
 - `Min`, `Max`: mező értékének lecserélése, amennyiben a megadott érték kisebb/nagyobb, mint a mező jelenlegi értéke;
 - `Mul`: érték megszorzása;
 - `PopFirst`, `PopLast`: tömbből első/utolsó elem eltávolítása;
@@ -480,21 +481,21 @@ Például: a nyári szezonra való tekintettel _minden_ labdára adjunk 25% enge
 
 ```csharp
 collection.UpdateMany(
-    filter: Builders<Termek>.Filter.AnyEq(x => x.Karegoriak, "Labdák"),
-    update: Builders<Termek>.Update.Mul(x => x.NettoAr, 0.75)
-                                   .AddToSet(x => x.Karegoriak, "Akciós termékek"));
+    filter: Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"),
+    update: Builders<Product>.Update.Mul(x => x.Price, 0.75)
+                                   .AddToSet(x => x.Categories, "Akciós termékek"));
 ```
 
 A módosító operátorok atomi módon teszik szerkeszthetővé a dokumentumainkat. Használatukkal kiküszöbölhető a konkurens adathozzáférésből eredő problémák egy része.
 
 #### _Upsert_: nemlétező dokumentum cseréje
 
-Mindkét módosító művelet során lehetőségünk van az un. _upsert (update/insert)_ jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés _nem_ upsert, azt külön kérnünk kell.
+Módosító művelet során lehetőségünk van az un. _upsert (update/insert)_ jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés _nem_ upsert, azt külön kérnünk kell.
 
 ```csharp
 collection.ReplaceOne(
     filter: x => x.Id == new ObjectId("..."),
-    replacement: cseret,
+    replacement: replacementObject,
     options: new UpdateOptions() { IsUpsert = true });
 ```
 

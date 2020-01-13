@@ -7,83 +7,82 @@ A példák a minta adatbázison futtathatóak.
 Változó deklaráció:
 
 ```sql
-DECLARE @darab int
+DECLARE @num int
 
-SELECT @darab
+SELECT @num
 -- NULL
 ```
 
 Értékadás a `SET` utasítással, vagy a deklarációban:
 
 ```sql
-DECLARE @darab int = 5
+DECLARE @num int = 5
 
-SELECT @darab
+SELECT @num
 -- 4
 
-SET @darab = 3
+SET @num = 3
 
-SELECT @darab
+SELECT @num
 -- 3
 ```
 
-A változó *nem* kötődik scope-hoz (utasítás blokkhoz). A változó az un. *batch*-en belül vagy tárolt eljáráson belül érvényes:
+A változó _nem_ kötődik az utasítás blokkhoz. A változó az un. _batch_-en belül vagy tárolt eljáráson belül érvényes:
 
 ```sql
 BEGIN
-  DECLARE @darab int
-  SET @darab = 3
+  DECLARE @num int
+  SET @num = 3
 END
 
-SELECT @darab
+SELECT @num
 -- Ez működik, a változó az utasítás blokkon kívül is elérhető.
 -- 3
 
 GO -- új batch-et kezd
 
-SELECT @darab
--- Hiba: Must declare the scalar variable "@darab".
+SELECT @num
+-- Hiba: Must declare the scalar variable "@num".
 ```
 
 Változó értékadása lekérdezéssel:
 
 ```sql
-DECLARE @nev nvarchar(max)
+DECLARE @name nvarchar(max)
 
-SELECT @nev = Nev
-FROM Vevo
+SELECT @name = Name
+FROM Customer
 WHERE ID = 1
 
-SELECT @nev
--- Puskás Norbert
+SELECT @name
 ```
 
-Ha a lekérdezés több sorral tér vissza, az *utolsó* érték marad a változóban:
+Ha a lekérdezés több sorral tér vissza, az _utolsó_ érték marad a változóban:
 
 ```sql
-DECLARE @nev nvarchar(max)
+DECLARE @name nvarchar(max)
 
-SELECT @nev = Nev
-FROM Vevo
+SELECT @name = Name
+FROM Customer
 -- több illeszkedő sor is lesz
 
-SELECT @nev
--- Grosz János (SELECT utolsó eredménye kerül a változóba)
+SELECT @name
+-- SELECT utolsó eredménye kerül a változóba
 ```
 
 Ha a lekérdezés nem tér vissza eredménnyel, a változó értéke nem változik:
 
 ```sql
-DECLARE @nev nvarchar(max)
-SET @nev = 'alma'
+DECLARE @name nvarchar(max)
+SET @name = 'aaa'
 
-SELECT @nev = Nev
-FROM Vevo
+SELECT @name = Name
+FROM Customer
 WHERE ID = 99999999
 -- nincs illeszkedő sor
 
-SELECT @nev
--- alma
+SELECT @name
+-- aaa
 ```
 
 ## Utasítás blokkok és vezérlési szerkezetek
@@ -92,65 +91,65 @@ Utasítás blokk:
 
 ```sql
 BEGIN
-  DECLARE @darab int
-  SET @darab = 3
+  DECLARE @num int
+  SET @num = 3
 END
 ```
 
 Elágazás (ha létezik a felhasználó, frissítsük az email címét):
 
 ```sql
-DECLARE @nev nvarchar(max)
+DECLARE @name nvarchar(max)
 
-SELECT @nev = Nev
-FROM Vevo
+SELECT @name = Name
+FROM Customer
 WHERE ID = 123
 
-IF @nev IS NOT NULL
+IF @name IS NOT NULL
 BEGIN
-  PRINT 'Email cim frissitese'
-  UPDATE Vevo
+  PRINT 'Updating email'
+  UPDATE Customer
   SET Email = 'agh*******@gmail.com'
   WHERE ID = 123
 END
 ELSE
 BEGIN
-  PRINT 'Nincs ilyen vevo'
+  PRINT 'No such customer'
 END
 ```
 
 Ciklus (generáljunk legalább 1000 terméket - pl. teszteléshez):
 
 ```sql
-WHILE (SELECT COUNT(*) FROM Termek) < 1000
+WHILE (SELECT COUNT(*) FROM Product) < 1000
 BEGIN
-    INSERT INTO Termek(Nev,NettoAr,Raktarkeszlet,AFAID,KategoriaID)
-    VALUES ('Alma', 1, 1, 3, 13)
+    INSERT INTO Product(Name,Price,Stock,VATID,CategoryID)
+    VALUES ('Abc', 1, 1, 3, 13)
 END
 ```
 
 ## Tárolt eljárás
 
-ÁFA kulcs rögzítése az ÁFA táblába, olyan kulcs nem rögzíthető mely már létezik:
+ÁFA kulcs rögzítése a `VAT` táblába, olyan kulcs nem rögzíthető mely már létezik:
 
 ```sql
-create or alter procedure AFARogzites -- tárolt eljárás létrehozása, neve
-    @Kulcs int                        -- tárolt eljárás paraméterei
+create or alter procedure InsertNewVAT -- tárolt eljárás létrehozása, neve
+    @Percentage int                    -- tárolt eljárás paraméterei
 as
 
 begin tran                            -- nem megismételhető olvasás elkerülése végett
 set transaction isolation level repeatable read
 
-declare @DB int
+declare @Count int
 
-select @DB = count(*)
-from AFA
-where Kulcs = @Kulcs
+select @Count = count(*)
+from VAT
+where Percentage = @Percentage
 
-if @DB = 0
-    insert into AFA values (@Kulcs)
+if @Count = 0
+    insert into VAT values (@Percentage)
 else
-    print ‘hiba’;
+    print 'error';
 
 commit
 ```
@@ -158,13 +157,13 @@ commit
 Tárolt eljárás meghívása:
 
 ```sql
-exec AFARogzites 27
+exec InsertNewVAT 27
 ```
 
 Tárolt eljárás törlése:
 
 ```sql
-drop procedure AFARogzites
+drop procedure InsertNewVAT
 ```
 
 SQL Server 2016 előtt nem volt `create or alter`, csak külön-külön.
@@ -174,12 +173,12 @@ SQL Server 2016 előtt nem volt `create or alter`, csak külön-külön.
 Áfakulcsok lekérése egy adott százalék felett:
 
 ```sql
-CREATE FUNCTION Afakulcsok(@minkulcs int)
+CREATE FUNCTION VATPercentages(@min int)
 RETURNS TABLE
 AS RETURN
 (
-    SELECT ID, Kulcs FROM AFA
-    WHERE Kulcs > @minkulcs
+    SELECT ID, Percentage FROM VAT
+    WHERE Percentage > @min
 );
 ```
 
@@ -187,31 +186,31 @@ Használata:
 
 ```sql
 SELECT *
-FROM Afakulcsok(20)
+FROM VATPercentages(20)
 ```
 
-## Kivételkezelés
+## Hibakezelés
 
 ÁFA kulcs rögzítése az ÁFA táblába, ha már létezik az ÁFA kulcs, dobjon hibát:
 
 ```sql
-create or alter procedure AFARogzites
-    @Kulcs int
+create or alter procedure InsertNewVAT
+    @Percentage int
 as
 
 begin tran
 set transaction isolation level repeatable read
 
-declare @DB int
+declare @Count int
 
-select @DB = count(*)
-from AFA
-where Kulcs = @Kulcs
+select @Count = count(*)
+from VAT
+where Percentage = @Percentage
 
-if @DB = 0
-    insert into AFA values (@Kulcs)
+if @Count = 0
+    insert into VAT values (@Percentage)
 else
-    throw 51000, ‘hiba’, 1;
+    throw 51000, 'error', 1;
 
 commit
 ```
@@ -220,10 +219,10 @@ Hiba lekezelése (elkapása):
 
 ```sql
 begin try
-  exec AFARogzites 27
+  exec InsertNewVAT 27
 end try
 begin catch
-  SELECT  
+  SELECT
     ERROR_NUMBER() AS ErrorNumber,
     ERROR_SEVERITY() AS ErrorSeverity,
     ERROR_STATE() AS ErrorState,
@@ -239,59 +238,59 @@ Naplózzuk a termékek törlését egy napló táblába:
 
 ```sql
 -- Napló ábla létrehozása
-create table Naplo([Leiras] [nvarchar](max) NULL)
+create table AuditLog([Description] [nvarchar](max) NULL)
 go
 
 -- Naplózó trigger
-create or alter trigger TermekTorlesNaplo
-  on Termek
+create or alter trigger ProductDeleteLog
+  on Product
   for delete
 as
-insert into Naplo(Leiras)
-select 'Termek torolve: ' + convert(nvarchar, d.Nev) from deleted d
+insert into AuditLog(Description)
+select 'Product deleted: ' + convert(nvarchar, d.Name) from deleted d
 ```
 
 Tegyük fel, hogy a vevőknek két email címe is van: egy a bejelentkezéshez, és megadhatnak egy másikat, amit az értesítésekhez használni akarnak. Hogy ne kelljen mindig mindkét email címet lekérdezni, és választani a kettő közül, legyen elérhető adatbázisban a valóban használt email cím:
 
 ```sql
 -- Plusz email cím oszlopok a vevőknek
-alter table Vevo
-add [ErtesitesiEmail] nvarchar(max), [HasznaltEmail] nvarchar(max)
+alter table Customer
+add [NotificationEmail] nvarchar(max), [EffectiveEmail] nvarchar(max)
 go
 
 -- Használt email címet frissítő trigger
-create or alter trigger VevoHirlevelEmail
-  on vevo
+create or alter trigger CustomerEmailUpdate
+  on Customer
   for insert, update
 as
-update Vevo
-set HasznaltEmail = ISNULL(i.ErtesitesiEmail, i.Email)
-from Vevo v join inserted i on v.ID = i.ID
+update Customer
+set EffectiveEmail = ISNULL(i.NotificationEmail, i.Email)
+from Customer c join inserted i on c.ID = i.ID
 ```
 
 A megrendelés táblába felvett végösszeg oszlopot (amely a megrendelés teljes nettó ára) automatikusan tartsuk karban:
 
 ```sql
-create or alter trigger MegrendelesVegosszegKarbatartas
-  on MegrendelesTetel
+create or alter trigger OrderTotalUpdateTrigger
+  on OrderItem
   for insert, update, delete
 as
 
-update Megrendeles
-set vegosszeg = isnull(vegosszeg,0) + OsszegValtozas
-from Megrendeles inner join
-        (select i.MegrendelesID, sum(Mennyiseg*NettoAr) as OsszegValtozas
+update Order
+set Total = isnull(Total,0) + TotalChange
+from Order inner join
+        (select i.OrderID, sum(Amount*Price) as TotalChange
         from inserted i
-        group by i.MegrendelesID) MegrValtozas
-    on Megrendeles.ID = MegrValtozas.MegrendelesID
+        group by i.OrderID) OrderChange
+    on Order.ID = OrderChange.OrderID
 
-update Megrendeles
-set vegosszeg = isnull(vegosszeg,0) – OsszegValtozas
-from Megrendeles inner join
-        (select d.MegrendelesID, sum(Mennyiseg*NettoAr) as OsszegValtozas
+update Order
+set Total = isnull(Total,0) – TotalChange
+from Order inner join
+        (select d.OrderID, sum(Amount*Price) as TotalChange
         from deleted d
-        group by d.MegrendelesID) MegrValtozas
-    on Megrendeles.ID = MegrValtozas.MegrendelesID
+        group by d.OrderID) OrderChange
+    on Order.ID = OrderChange.OrderID
 ```
 
 ## Kurzor
@@ -299,37 +298,37 @@ from Megrendeles inner join
 Keressük meg azon termékeket, amiből alig van raktáron, és ha a legutolsó eladás több, mint egy éve volt, akkor adjunk kedvezményt a termékre:
 
 ```sql
-DECLARE @TermekNev nvarchar(max)
-DECLARE @TermekID int
-DECLARE @UtolsoRendeles datetime
-DECLARE @NettoAr float
+DECLARE @ProductName nvarchar(max)
+DECLARE @ProductID int
+DECLARE @LastOrder datetime
+DECLARE @Price float
 
-DECLARE Termekek CURSOR FAST_FORWARD READ_ONLY
+DECLARE products_cur CURSOR FAST_FORWARD READ_ONLY
 FOR
-  SELECT Id, Nev, NettoAr FROM Termek
-  WHERE Raktarkeszlet < 3
+  SELECT Id, Name, Price FROM Product
+  WHERE Stock < 3
 
-OPEN Termekek
-FETCH FROM Termekek INTO @TermekId, @TermekNev, @NettoAr
+OPEN products_cur
+FETCH FROM products_cur INTO @ProductID, @ProductName, @Price
 WHILE @@FETCH_STATUS = 0
 BEGIN
 
-  SELECT @UtolsoRendeles = MAX(Megrendeles.Datum)
-  FROM Megrendeles JOIN MegrendelesTetel ON Megrendeles.Id = MegrendelesTetel.MegrendelesId
-  WHERE MegrendelesTetel.TermekID = @TermekId
+  SELECT @LastOrder = MAX(Order.Date)
+  FROM Order JOIN OrderItem ON Order.Id = OrderItem.OrderId
+  WHERE OrderItem.ProductID = @ProductId
 
-  PRINT 'Termek ' + convert(nvarchar, @TermekID) + ' utolsó megrendelése '
-    + convert(nvarchar, @UtolsoRendeles)
+  PRINT 'Product ' + convert(nvarchar, @ProductID) + ' last order '
+    + convert(nvarchar, @LastOrder)
 
-  IF @UtolsoRendeles IS NULL OR @UtolsoRendeles < DATEADD(year, -1, GETDATE())
+  IF @LastOrder IS NULL OR @LastOrder < DATEADD(year, -1, GETDATE())
   BEGIN
-    UPDATE Termek
-    SET NettoAr = @NettoAr * 0.75
-    WHERE Id = @TermekId
+    UPDATE Product
+    SET Price = @Price * 0.75
+    WHERE Id = @Product
   END
 
-  FETCH FROM Termekek INTO @TermekId, @TermekNev, @NettoAr
+  FETCH FROM products_cur INTO @ProductID, @ProductName, @Price
 END
-CLOSE Termekek
-DEALLOCATE Termekek
+CLOSE products_cur
+DEALLOCATE products_cur
 ```
