@@ -17,6 +17,8 @@ Lecture notes and code samples for [BMEVIAUAC01 Data-driven systems](https://www
 
 [REST and WebAPI demo application](https://github.com/bmeviauac01/rest-webapi-sample)
 
+[Unit testing WebAPI (official sample from Microsoft)](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing)
+
 ---
 
 The materials found in this repository are created for the students of course BMEVIAUAC01. The usage of these materials outside the scope of teaching or learning this particular course is only granted if the source and authors are contributed.
