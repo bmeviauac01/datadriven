@@ -55,5 +55,3 @@ A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált tri
 ![Trigger](./images/trigger.png)
 
 A tárolj eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a _Modify_ menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy _alter_ utasítást az aktuális programkóddal.
-
-A programkódokat lehetséges debuggolni is, ehhez azonban adminisztrátori jogra van szükség, amely a tanszéki laborokban nem adott. Otthoni környezetben a _Query_ ablak fölötti ![Debug gomb](./images/debug-button.png) gombbal indítható a debuggolás, amely után a _Query_ ablakban sárga nyíl mutatja az aktuális utasítást, és láthatóvá válnak a szokásos léptető gombok. Trigger illetve tárolt eljárás debuggolásához a tárolt eljárást meghívó, avagy a triggert kiváltó kódot kell írni majd debuggolni, és így "léphetünk bele" a tárolt eljárás vagy trigger kódjába.
