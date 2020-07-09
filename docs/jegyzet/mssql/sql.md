@@ -1,6 +1,6 @@
 # SQL nyelv, MSSQL platformfüggő SQL utasítások
 
-A példák a minta adatbázison futtathatóak.
+A példák a [minta adatbázison](../../db/index.md) futtathatóak.
 
 ## Egyszerű lekérdezések
 
@@ -44,7 +44,8 @@ from Product p
 where p.Name like 'M%'
 ```
 
-> Az `[Order]` azért szerepel szögeletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
+!!! info "`[Order]`"
+    Az `[Order]` azért szerepel szögeletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
 
 ## Rendezés
 

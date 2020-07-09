@@ -1,43 +1,9 @@
+# Adatvezérelt rendszerek
+
+Jegyzetek, gyakorlati anyagok és házi feladatok a BMEVIAUAC01 Adatvezérelt rendszerek c. tárgyhoz.
+
 ---
-title: Page Title
----
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+Az itt található oktatási segédanyagok a BMEVIAUAC01 tárgy hallgatóinak készültek. Az anyagok oly módú felhasználása, amely a tárgy oktatásához nem szorosan kapcsolódik, csak a szerző(k) és a forrás megjelölésével történhet.
 
-!!! note "This is a custom title"
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
-
-You can also create one without a title.
-
-!!! note ""
-    Lorem ipsum dolor sit amet. No title.
-
-And create one collapsed with nested code.
-
-??? note "Collapsible panel with embedded code"
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
-
-    ```csharp
-    public static void Main()
-    {
-        int a = 13;
-        ++a;
-        Console.WriteLine(a);
-    }
-    ```
-
-    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
-
-!!! tip
-    See other styles here: https://squidfunk.github.io/mkdocs-material/extensions/admonition/#types
-
-Code formatting and highlights also work.
-
-```csharp hl_lines="3 4"
-public static void Main()
-{
-    int a = 13;
-    ++a;
-    Console.WriteLine(a);
-}
-```
+Az anyagok a tárgy keretében oktatott kontextusban értelmezhetőek. Az anyagokért egyéb felhasználás esetén a szerző(k) felelősséget nem vállalnak.

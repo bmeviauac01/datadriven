@@ -1,12 +1,14 @@
 # Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
 
-## Mit nevezünk adatvezérelt alkalmazásnak?
+## Mit nevezünk _adatvezérelt_ alkalmazásnak?
 
-Minden alkalmazás valamilyen módon adatokat kezel, hiszen a számítógép memóriájában adatok vannak, és a program ezeket manipulálja. De mégse minden alkalmazás adatvezérelt. Akkor hívunk egy alkalmazást adatvezéreltnek, ha a szoftver *elsődleges* célja a tartalmazott adatok kezelése.
+Minden alkalmazás valamilyen módon adatokat kezel, hiszen a számítógép memóriájában adatok vannak, és a program ezeket manipulálja. De mégse minden alkalmazás adatvezérelt. Akkor hívunk egy alkalmazást adatvezéreltnek, ha a szoftver **elsődleges** célja a tartalmazott adatok kezelése.
 
-Más szóval, az adatvezérelt alkalmazás azért jön létre, hogy adatokat tároljon, megjelenítsen, manipuláljon. A felhasználó azért lép interakcióba az alkalmazással, hogy az adatokhoz hozzáférjen.
+!!! example ""
+    Más szóval, az adatvezérelt alkalmazás azért jön létre, hogy adatokat tároljon, megjelenítsen, manipuláljon. A felhasználó azért lép interakcióba az alkalmazással, hogy az adatokhoz hozzáférjen.
 
-> Egy sakkprogram esetében a tábla állása memóriában található adat. De a sakkprogram nem azért jön létre, hogy ezt a memóriabeli táblát manipulálja, hanem azért, hogy a játékos sakkozzon.
+!!! note ""
+    Egy sakkprogram esetében a tábla állása memóriában található adat. De a sakkprogram nem azért jön létre, hogy ezt a memóriabeli táblát manipulálja, hanem azért, hogy a játékos sakkozzon.
 
 Egy adatvezérelt alkalmazásban az adat határozza meg, hogy miként működik a szoftver. Például az adat rekordok egyes attribútumainak függvényében értelmezhető egy törlés művelet a rekordra, vagy sem. Egy hasonló példa, ahol az adat maga határozza meg a rajta végrehajtható műveleteket, a Neptun rendszerben a vizsgajelentkezés. A félévhez tartozó időszakok, beleértve, hogy mikor kezdődik a vizsgaidőszak, maga is a Neptun rendszer adatai között található. Ezen adat határozza meg, hogy a felhasználó (hallgató) tud-e egy vizsgára jelentkezni. Attól, hogy egyik évben máskor kezdődik a vizsgaidőszak, a program logikája (kódja) nem változik meg, a szoftver mégis képes máshogyan viselkedni.
 
@@ -28,7 +30,8 @@ Vegyük a Gmail példáját. Szeretnénk egy olyan modern email rendszert épít
 * tudjuk késleltetni egy email elküldését,
 * stb.
 
-Hogyan kezdenénk neki egy ilyen alkalmazás fejlesztésének?
+!!! question "Gondoljuk végig"
+    Hogyan kezdenénk neki egy ilyen alkalmazás fejlesztésének?
 
 Ez talán túl nehéz kérdés. Kezdjük egy egyszerűbb kérdéssel: tegyük fel, hogy már majdnem minden része működik az alkalmazásnak, csak éppen a késleltetett email küldés hiányzik; ezt hogyan implementálnánk?
 
@@ -57,23 +60,25 @@ Ezen kívül az architektúrához kapcsolódik még:
 
 Az alkalmazásunkat úgy szervezzük meg, hogy az egyes komponensek (szoftver elemek) rétegekbe szerveződnek, és minden egyes réteg más-más funkcionalitásért felel. Ez a logikai szervezés megkönnyíti a szoftverfejlesztők munkáját azáltal, hogy egyértelmű felelősségi köröket és határokat jelöl ki a rétegekben.
 
-> Miért többrétegű, hiszen csak három rétege van?
->
-> Az elnevezés arra utal, hogy mindegyik réteg maga is tovább bontható további rétegekre az alkalmazás komplexitásának függvényében. Attól többrétegű az architektúra, hogy kettőnél több rétege van. (Így szembeállítva a *kétrétegű architektúrával*, ahol a felhasználói felület és az üzleti logikai réteg nem válik el.)
+!!! question "Miért többrétegű, hiszen csak három rétege van"
+    Az elnevezés arra utal, hogy mindegyik réteg maga is tovább bontható további rétegekre az alkalmazás komplexitásának függvényében. Attól többrétegű az architektúra, hogy kettőnél több rétege van. (Így szembeállítva a *kétrétegű architektúrával*, ahol a felhasználói felület és az üzleti logikai réteg nem válik el.)
 
 Az egyes rétegek nem csak saját **felelősségi körrel** rendelkeznek, hanem egyben meghatározzák azt az **interfészt**, amit a ráépülő rétegek használhatnak. Az adatelérési réteg definiálja, milyen műveleteken keresztül érhető el az üzleti logikai réteg számára; az üzleti logikai réteg hasonlóan definiálja az interfészét a megjelenítési réteg felé. Ennek megfelelően **minden réteg csak az alatta levővel kommunikál** (így tehát a prezentációs réteg nem ad ki pl. SQL lekérdezést az adatbázis felé), valamint a rétegek által definiált **interfész mögött az implementáció cserélhetővé** válik, így elősegítve az alkalmazás hosszú karbantarthatóságát.
 
 A rétegek szétválasztásának köszönhetően az is gyakori, hogy az alkalmazásunk nem egy helyen, hanem a rétegek mentén több kiszolgálón fut. Leggyakoribb esete ennek a megjelenítési réteg leválasztása, amely például egy webalkalmazás esetén a felhasználó számítógépén a böngészőben fut, míg a többi komponens a távoli kiszolgálón található. Hasonlóan gyakori, hogy az adatréteg (pl. adatbázis) egy saját kiszolgálót kap teljesítény okokból. Amíg a rétegek közötti interfészek változatlanok maradnak, a rétegek akár kiszolgálók között is mozgathatóak. Ennek tipikus oka a teljesítmény-optimalizálás és a nagy terhelések kiszolgálásának elősegítése (pl. forgalmas webhelyek esetében).
 
-> Az architektúra angol elnevezése megkülönbözteti a logikai és fizikai elválasztást. A *three-layered* elnevezésben a rétegek logikailag különválnak, de azonos kiszolgálón futnak. A *three-tiered* azonban a rétegek (*tier*) mentén fizikai elválasztására, külön kiszolgálókon való futásra is utal.
+!!! info "Layer / tier"
+    Az architektúra angol elnevezése megkülönbözteti a logikai és fizikai elválasztást. A *three-layered* elnevezésben a rétegek logikailag különválnak, de azonos kiszolgálón futnak. A *three-tiered* azonban a rétegek (*tier*) mentén fizikai elválasztására, külön kiszolgálókon való futásra is utal.
 
 Egy jó architektúrával rendelkező alkalmazás hosszú életciklusa során is karbantartható marad. A rétegezés nem plusz teherként, betartandó szabályok halmazaként, hanem mankóként segíti a fejlesztőket a kód fejlesztésében. Ezért egy többrétegű alkalmazás fejlesztése során fontos, hogy pontosan értsük, mely rétegek milyen felelősségekkel rendelkeznek, és milyen feladok tartoznak hozzájuk.
 
-> A réteges felépítés nem azt jelenti, hogy a felhasználók által használt funkciók csak egy-egy rétegben jelennek meg. A legtöbb funkció valamilyen módon az összes rétegben megjelenik: a funkcióhoz tartozik felhasználói felület, valamilyen adatkezelés az üzleti logikában, és az eredmény mentésre kerül az adatbázisba.
+!!! note ""
+    A réteges felépítés nem azt jelenti, hogy a felhasználók által használt funkciók csak egy-egy rétegben jelennek meg. A legtöbb funkció valamilyen módon az összes rétegben megjelenik: a funkcióhoz tartozik felhasználói felület, valamilyen adatkezelés az üzleti logikában, és az eredmény mentésre kerül az adatbázisba.
 
 A többrétegű architektúrával készülő alkalmazások kód szervezése is tükrözi a rétegek felépítését. Az adott programozási környezet lehetőségeit és szokásait figyelembe véve az egyes rétegeket külön projektekbe, csomagokba szokás elhelyezni. Ez egyértelművé teszi az egymásra épülést is, hiszen a projektek és csomagok között általában csak egyirányú hivatkozás lehetséges (tehát ha az üzleti logikai csomag használja az adatelérési réteget, akkor fordítva ez már nem történhet meg).
 
-> A többrétegű architektúra nem az egyetlen lehetőség adatvezérelt alkalmazás megvalósítása esetén. Kis, egyszerű alkalmazásokra célszerű lehet a kétrétegű architektúra, míg sokkal komplexebb rendszerek esetén az alkalmazás további darabolása is szükséges lehet például un. mikroszolgáltatások architektúra irányába lépve.
+!!! tip ""
+    A többrétegű architektúra nem az egyetlen lehetőség adatvezérelt alkalmazás megvalósítása esetén. Kis, egyszerű alkalmazásokra célszerű lehet a kétrétegű architektúra, míg sokkal komplexebb rendszerek esetén az alkalmazás további darabolása is szükséges lehet például un. mikroszolgáltatások architektúra irányába lépve.
 
 ## A többrétegű architektúra rétegeinek felelőssége
 
@@ -93,13 +98,15 @@ Előfordulhat az is, hogy a rendszer által kezelt adatok nem mind a saját adat
 
 Az ilyen jellegű külső szolgáltatásokat azért az adatbázisok mellett helyezzük el képzeletben, mert a mi alkalmazásunk számára csak adatokat szolgáltatnak (pl. listázd az elérhető fájlokat). A belső működésükbe nem látunk bele, és nem is célunk azt megérteni. Ilyen szempontból nem nagy a különbség egy relációs adatbázis és egy külső szolgáltatás között.
 
-> Ma már több modern adatbázis-kezelő rendszer is a külső szolgáltatások eléréséhez használt HTTP/REST-jellegű interfésszel rendelkezik, és nem SQL nyelven kell velük kommunikálni. Így egyre kevesebb a különbség egy adatbázis és egy külső adatforrás között.
+!!! note ""
+    Ma már több modern adatbázis-kezelő rendszer is gyakran rendelkeznek a külső szolgáltatások eléréséhez használt HTTP/REST-jellegű interfésszel, és nem SQL nyelven kell velük kommunikálni. Így egyre kevesebb a különbség egy adatbázis és egy külső adatforrás között.
 
 ### Adatelérési réteg
 
 Az adatelérési réteg (*data access layer*, röviden *DAL*) feladata az adatforrások kényelmes elérésének biztosítása. Fő funkciója az elemi adatszolgáltatási műveletek biztosítása, mint egy új rekord tárolása, meglevő módosítása vagy törlése.
 
-> Az adatforrásokat és az adatelérési réteget szokás még egyben **adatrétegnek** (*data layer*) is nevezni.
+!!! note ""
+    Az adatforrásokat és az adatelérési réteget szokás még egyben **adatrétegnek** (*data layer*) is nevezni.
 
 Az adatbázisok eléréséhez szükséges funkcionalitásokat az un. *data access components*-ek valósítják meg. Céljuk, hogy elrejtsék a komplexitást, ami az adatbázis kezeléséből adódik, és központilag kényelmes, a felsőbb réteg számára egyszerűen használható **szolgáltatásként nyújtsák az adattárolást**. Ide tartozik például az SQL parancsok kezelése, valamint az adatbázis tárolási modelljének leképzése az üzleti logika számára is kényelmesen használható módon.
 
@@ -107,7 +114,8 @@ Amennyiben az adatok nem egy adatbázisban, hanem egy külső szolgáltatásban 
 
 Ebben a rétegben található komponensek általában egy konkrét technológia köré csoportosulnak, például a választott adatbázis-kezelő rendszer eléréséhez használt technológia (mint az ADO.NET, Entity Framework, vagy JDBC, JPA, stb.). Az itt megvalósított logikák gyakran szorosan csatolódnak az adatkezelési technológiákkal. Fontos azonban, hogy ez a platform specifikusság ne szivárogjon ki ebből a rétegből.
 
-> Egy jól megtervezett rendszerben SQL lekérdezések csak az adatelérési rétegben jelennek meg, a többi réteg semmilyen körülmények között nem állít össze SQL lekérdezést.
+!!! warning "Fontos"
+    Egy jól megtervezett rendszerben SQL lekérdezések csak az adatelérési rétegben jelennek meg, a többi réteg semmilyen körülmények között nem állít össze SQL lekérdezést.
 
 Mivel az adatbázisban való tárolás gondolkodásmódja (tipikusan a relációs séma), valamint az objektumorientált modellezés nem egy az egyben fedik egymást, ezért ennek a rétegnek a feladata a két világ közötti **leképezés** és megfeleltetés megvalósítása. A relációs adatbázisokban használt külső kulcsokat (*foreign key*) objektumorientált asszociációkra, kompozíciókra alakítjuk, valamint ha szükséges, **konvertálást** végzünk a különböző rendszerek által támogatott adattípusok között. Erről a feladatról a későbbeikben még részletesebben ejtünk szót.
 
@@ -141,7 +149,8 @@ Minden eddig tárgyalt réteg ugyanígy biztosít egy interfészt a felsőbb ré
 
 További gyakori eset, hogy az alkalmazásunk nem csak egy saját megjelenítési réteggel rendelkezik, hanem un. API-t (*application programming interface*) is elérhetővé tesz. Az API harmadik fél számára teszi elérhetővé az alkalmazásunk funkcióit. A saját felhasználói felületünk, és a harmadik fél számára nyújtott API funkcionalitása és elérése gyakran eltérő, és külön technológiát, így külön szolgáltatási interfészeket is igényel.
 
-> Az API publikálással válhat a mi alkalmazásunk maga is külső adatforrássá más alkalmazások számára.
+!!! note ""
+    Az API publikálással válhat a mi alkalmazásunk maga is külső adatforrássá más alkalmazások számára.
 
 Az üzleti logikai funkcióink publikálásával részletesebben foglalkozunk a félév során. Meg fogjuk ismerni a *web services* és a *REST* modelleket.
 
@@ -151,7 +160,8 @@ A megjelenítési réteg (*presentation layer*, *UI*, vagy felhasználói felül
 
 Az adatok prezentálása olyan módon kell történjen, ahogy az a felhasználó számára hasznos. Például egy listás megjelenítés esetén gyakran a felhasználói felület feladata a rendezés, csoportosítás, kereshetőség.
 
-> A választott technológia függvényében a rendezés, keresés tipikusan igénybe veszi a többi réteget is. Nagy mennyiségű adat, több száz, vagy több ezer rekordot nem célszerű egyben eljuttatni a megjelenítési réteg számára, hogy ott legyen a keresés megvalósítva. Ez egyrészt terheli a hálózatot is, másrészt a UI technológiák limitációi miatt nem hatékony sok adatot itt memóriában tartani. Viszont, ha nem nagy mennyiségű adatról van szó, sokkal elegánsabb a megjelenítési rétegre bízni mindezt, mert sokkal gyorsabb lesz a visszajelzés a felhasználónak (hiszen ha mindezt a UI végzi, nem szükséges minden alkalommal a háttérrendszerhez fordulni).
+!!! info "Rendezés és keresés"
+    A választott technológia függvényében a rendezés, keresés tipikusan igénybe veszi a többi réteget is. Nagy mennyiségű adat, több száz, vagy több ezer rekordot nem célszerű egyben eljuttatni a megjelenítési réteg számára, hogy ott legyen a keresés megvalósítva. Ez egyrészt terheli a hálózatot is, másrészt a UI technológiák limitációi miatt nem hatékony sok adatot itt memóriában tartani. Viszont, ha nem nagy mennyiségű adatról van szó, sokkal elegánsabb a megjelenítési rétegre bízni mindezt, mert sokkal gyorsabb lesz a visszajelzés a felhasználónak (hiszen ha mindezt a UI végzi, nem szükséges minden alkalommal a háttérrendszerhez fordulni).
 
 Az adatok megjelenítése során a UI felelős olyan egyszerű transzformációkért is, mint például a dátum felhasználóbarát megjelenítése. A korábban említett példa alapján tehát egy dátumot a felhasználói felület feladata a "15:23", 3:23 AM", vagy akár a "15 perccel ezelőtt" szöveges megjelenítésre átalakítani.
 
@@ -161,7 +171,8 @@ A felhasználói felület felel még a végfelhasználó interakcióinak kezelé
 
 Amikor a felhasználó adatot visz be a rendszerbe, azt is a felhasználói felület biztosítja, és ez a réteg felel az adatok validációjáért (ellenőrzéséért) is. A validáció során egyszerűbb ellenőrzések hajthatók végre, mint például, hogy a szükséges mezők nem maradhatnak üresen, az email címben kell legyen @ karakter, a megadott percnek 0 és 59 közé kell esnie, stb.
 
-> A validációt nem elég, ha kizárólag a felhasználói felület végzi. A választott technológiától függően a UI könnyen "kikerülhető", és lehetőség van az adatokat közvetlenül a háttérrendszernek küldeni. Ilyen esetben, ha a validációt csak a felhasználó felület valósítaná meg, érvénytelen adat kerülhetne a rendszerbe. Ezért a validációkat tipikusan megismétli a háttérrendszer is. Ennek ellenére praktikus ezeket a felhasználói felületen is elvégezni, mert azonnali visszajelzést tudunk így adni a felhasználónak.
+!!! important "Validáció"
+    A validációt nem elég, ha kizárólag a felhasználói felület végzi. A választott technológiától függően a UI könnyen "kikerülhető", és lehetőség van az adatokat közvetlenül a háttérrendszernek küldeni. Ilyen esetben, ha a validációt csak a felhasználó felület valósítaná meg, érvénytelen adat kerülhetne a rendszerbe. Ezért a validációkat tipikusan megismétli a háttérrendszer is. Ennek ellenére praktikus ezeket a felhasználói felületen is elvégezni, mert azonnali visszajelzést tudunk így adni a felhasználónak.
 
 A réteggel ennél részleteseben nem foglalkozunk ezen tárgy keretei között.
 
@@ -211,7 +222,7 @@ A kommunikáció részének tekintjük általában a titkosítást is. Amennyibe
 
 Ha az alkalmazásra egy kicsit más szemszögből nézünk, akkor meg szoktuk különböztetni a **backend** és a **frontend** részt. A frontend nagyrészt a felhasználói felület, vagyis a prezentációs réteg, ill. annak változatos megjelenési formái (böngészőben futó webalkalmazás UI, natív mobil alkalmazás, vastag kliens UI, stb). A felhasználó ezzel lép kapcsolatba. A backend pedig a "háttérben" futó rendszer, a szolgáltatási API-k, az üzleti logikai réteg, az adatelérés, adatbázisok.
 
-> A frontend nem csak felhasználó számítógépén jelenik meg. Frontend technológia függvényében gyakran előfordul, hogy a felhasználói felület egy részét a backend készíti el. Ezt szokták *szerver oldali renderelésnek* hívni.
+A frontend nem csak felhasználó számítógépén jelenik meg. Frontend technológia függvényében gyakran előfordul, hogy a felhasználói felület egy részét a backend készíti el. Ezt szokták *szerver oldali renderelésnek* hívni.
 
 Ha összefoglalóan akarjuk hivatkozni, akkor a tárgy keretében a backend technológiákkal foglalkozunk.
 
@@ -222,10 +233,10 @@ Ha összefoglalóan akarjuk hivatkozni, akkor a tárgy keretében a backend tech
 * Mik a háromrétegű architektúra rétegei? Mik a felelősségeik?
 * Ismertesse a rétegfüggetlen szolgáltatásokat!
 * Döntse el, hogy igaz vagy hamis az alábbi állítás:
-  * Az adatbevitel validációjáért csak a megjelenítési réteg felel.
-  * Az architektúra szempontjából helytelen, ha SQL parancsok kerülnek az üzleti logikai rétegbe.
-  * A háromrétegű architektúra rétegei mindig külön kiszolgálókon futnak.
-  * A háromrétegű architektúra akkor lesz többrétegű, pl. négyrétegű, ha teljesítmény okokból az üzleti logikai réteget más kiszolgálóra visszük, mint az adatelérési réteget.
-  * A réteges felépítés garantálja, hogy a rétegek által biztosított szolgáltatásokat tetszőlegesen megváltoztathatjuk, ez nem érinti a többi réteget.
-  * A frontend és a megjelenítési réteg egy és ugyanaz.
-  * Kivételkezelésre csak az üzleti logikai rétegben van szükség.
+    * Az adatbevitel validációjáért csak a megjelenítési réteg felel.
+    * Az architektúra szempontjából helytelen, ha SQL parancsok kerülnek az üzleti logikai rétegbe.
+    * A háromrétegű architektúra rétegei mindig külön kiszolgálókon futnak.
+    * A háromrétegű architektúra akkor lesz többrétegű, pl. négyrétegű, ha teljesítmény okokból az üzleti logikai réteget más kiszolgálóra visszük, mint az adatelérési réteget.
+    * A réteges felépítés garantálja, hogy a rétegek által biztosított szolgáltatásokat tetszőlegesen megváltoztathatjuk, ez nem érinti a többi réteget.
+    * A frontend és a megjelenítési réteg egy és ugyanaz.
+    * Kivételkezelésre csak az üzleti logikai rétegben van szükség.

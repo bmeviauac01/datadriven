@@ -1,4 +1,4 @@
-site_name: BMEVIAUAC00 Adatvezérelt rendszerek
+site_name: BMEVIAUAC01 Adatvezérelt rendszerek
 site_author: Dudás Ákos
 copyright: Copyright &copy; BME AUT
 repo_name: bmeviauac01/adatvezerelt
@@ -47,3 +47,20 @@ plugins:
 
 nav:
   - index.md
+  - "Adatbázis":
+      - db/index.md
+      - db/mssql.md
+      - db/mongodb.md
+      - "mssql.sql": db/mssql.sql
+      - "mongodb.js": db/mongo.js
+  - "Jegyzetek":
+      - jegyzet/architektura/index.md
+      - jegyzet/transactions/index.md
+      - jegyzet/mssql/sql.md
+      - jegyzet/mssql/server-side-programming.md
+      - jegyzet/linq/index.md
+      - jegyzet/mongodb/index.md
+      - jegyzet/dependency-injection/index.md
+      - "REST és WebAPI demó alkalmazás": https://github.com/bmeviauac01/rest-webapi-sample
+      - "ASP.NET Core DI demó alkalmazás": https://github.com/bmeviauac01/todoapi-di-sample
+      - "Minta többrétegű webalkalmazás": https://github.com/bmeviauac01/threelayered-aspnetcore-sample

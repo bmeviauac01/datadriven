@@ -1,6 +1,6 @@
 # Microsoft SQL Server programozása
 
-A példák a minta adatbázison futtathatóak.
+A példák a [minta adatbázison](../../db/index.md) futtathatóak.
 
 ## Változók
 

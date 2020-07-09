@@ -46,7 +46,8 @@ foreach(var x in l) // itt fog lefutni a tényleges kiértékelés
    { ... }
 ```
 
-> Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a `.ToList()`-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.
+!!! note "Kiértékelés"
+    Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a `.ToList()`-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.
 
 ## LINQ műveletek
 

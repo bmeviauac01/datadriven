@@ -1,10 +1,11 @@
-# MongoDB műveletek és a MongoDB .NET Driver használata
+# MongoDB műveletek és a MongoDB .NET Driver
 
-Az alábbi, illusztrációra használt kódrészletek a hivatalos [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver) Nuget csomagot használják.
+!!! note ""
+    Az alábbi, illusztrációra használt kódrészletek a hivatalos [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver) Nuget csomagot használják.
 
 ## Kapcsolat létesítése
 
-A MongoDB adatbázis eléréséhez első lépésben szükségünk van egy kapcsolatra. A kapcsolatot egy `MongoClient` osztály reprezentálja. A kapcsolathoz szükségünk van a szerver elérhetőségére (a connection stringről részletesebben lásd <https://docs.mongodb.com/manual/reference/connection-string/>).
+A MongoDB adatbázis eléréséhez első lépésben szükségünk van egy kapcsolatra. A kapcsolatot egy `MongoClient` osztály reprezentálja. A kapcsolathoz szükségünk van a szerver elérhetőségére (a connection stringről részletesebben lásd: <https://docs.mongodb.com/manual/reference/connection-string/>).
 
 ```csharp
 var client = new MongoClient("mongodb://localhost:27017");
@@ -12,7 +13,8 @@ var client = new MongoClient("mongodb://localhost:27017");
 
 A kapcsolatot singleton-ként érdemes kezelni, nem kell Dispose-olni.
 
-> A kapcsolatot tipikusan egy globális statikus változóban tároljuk, avagy a környezet által támogatott IoC (Inversion of Control) / DI (Dependency Injection) tárolóban helyezzük el.
+!!! info "Kapcsolat életciklusa"
+    A kapcsolatot tipikusan egy globális statikus változóban tároljuk, avagy a környezet által támogatott IoC (Inversion of Control) / DI (Dependency Injection) tárolóban helyezzük el.
 
 Az adatbázis neve szerepelhet ugyan a connection stringben (pl. `mongodb://localhost:27017/adatvez`), azt csak az authentikációhoz használja a rendszer. Így a kapcsolat felépítése után meg kell adnunk, milyen adatbázist fogunk használni.
 
@@ -32,7 +34,8 @@ var collection = db.GetCollection<BsonDocument>("products");
 
 A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az un. _ODM (Object Document Mapping)_ funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.
 
-> Más nyelveken és platformokon a MongoDB driverek nem mindig végzik el a leképezést objektumokra, így az interneten található példákban gyakran "nyers" JSON dokumentumokon keresztüli kommunikációt mutatnak. Igyekezzünk ezt elkerülni, ahogy az ORM témakörében megtanultuk, kényelmesebb és biztonságosabb az objektumorientált leképzés.
+!!! warning ""Nyers" json"
+    Más nyelveken és platformokon a MongoDB driverek nem mindig végzik el a leképezést objektumokra, így az interneten található példákban gyakran "nyers" JSON dokumentumokon keresztüli kommunikációt mutatnak. Igyekezzünk ezt elkerülni, ahogy az ORM témakörében megtanultuk, kényelmesebb és biztonságosabb az objektumorientált leképzés.
 
 Az előző példában `BsonDocument` típusú dokumentumot használunk. A `BsonDocument` egy általános dokumentum reprezentáció, amiben kulcs-érték párokat tárolhatunk. Használata kényelmetlen és nem típusbiztos, ezért általában nem ezt a megoldást használjuk. A javasolt megoldást lásd hamarosan.
 
@@ -53,7 +56,8 @@ foreach(var l in list)
     Console.WriteLine(l);
 ```
 
-> A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `price` vagy `categoryName` (ez az un. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
+!!! important "Elnevezési konvenció"
+    A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `price` vagy `categoryName` (ez az un. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
 
 ## Dokumentumok leképzése C# objektumokra
 
@@ -186,7 +190,8 @@ A fenti szintaktikai kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de k
 
 A `Builders<T>` generikus osztály egy segédosztály, amivel szűrési, és később látni fogjuk, egyéb MongoDB specifikus definíciókat építhetünk fel. A `Builders<Product>.Filter` a _Product_ C# osztályhoz illeszkedő szűrési feltételek definiálására használható. Először egy _és_ kapcsolatot hozunk létre, amelyen belül két szűrési feltételünk lesz. Az operátorok a korábban látott _less than_ és a reguláris kifejezés. Ezen függvényeknek két paramétert adunk át: a mezőt, amire szűrni szeretnénk, és az operandust.
 
-> Vegyük észre, hogy se itt, se a Lambda-kifejezésekben nem használtunk string alapú mezőneveket, mindenhol ugyanazzal a szintaktikával (ez a _C# Expression_) az osztálydefinícióra hivatkoztunk. Ez azért praktikus így, mert elkerüljük a mezőnevek elgépelését.
+!!! note "_Expression_ szintaktika"
+    Vegyük észre, hogy se itt, se a Lambda-kifejezésekben nem használtunk string alapú mezőneveket, mindenhol ugyanazzal a szintaktikával (ez a _C# Expression_) az osztálydefinícióra hivatkoztunk. Ez azért praktikus így, mert elkerüljük a mezőnevek elgépelését.
 
 Valójában mindegyik leírás, amit használtunk, ugyanazt a szűrési feltételt jelenti. A MongoDB driver mindegyik szintaktikát leképezi a saját belső reprezentációjává. A Lambda-kifejezés alapú kevesebb karaktert igényel, és jobban illeszkedik a C# nyelvbe, míg az utóbbi a MongoDB sajátosságainak kifejezésére való. Bármelyiket használhatjuk.
 
@@ -282,7 +287,8 @@ collection.Find(x => x.VAT != null);
 collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 ```
 
-> A létezik-e, azaz nem null szűrés azért különleges, mert a MongoDB szempontjából két módon is lehet null egy érték: ha a kulcs létezik a dokumentumban és értéke null; avagy, ha a kulcs nem is létezik.
+!!! note "Létezik-e"
+    A létezik-e, azaz nem null szűrés azért különleges, mert a MongoDB szempontjából két módon is lehet null egy érték: ha a kulcs létezik a dokumentumban és értéke null; avagy, ha a kulcs nem is létezik.
 
 ### Szűrés beágyazott dokumentum mezőjére
 
@@ -308,7 +314,8 @@ collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"));
 collection.Find(Builders<Product>.Filter.AnyNin(x => x.Categories, new[] { "Labdák", "Ütők" }));
 ```
 
-> Az `Any*` feltételek a tömb minden elemét vizsgálják, de a dokumentum szempontjából csak egyszer illeszkednek. Tehát, ha a tömb több eleme is illeszkedik egy feltételre, attól még csak egyszer kapjuk meg a dokumentumot az eredményhalmazban.
+!!! note "Any..."
+    Az `Any*` feltételek a tömb minden elemét vizsgálják, de a dokumentum szempontjából csak egyszer illeszkednek. Tehát, ha a tömb több eleme is illeszkedik egy feltételre, attól még csak egyszer kapjuk meg a dokumentumot az eredményhalmazban.
 
 ## Lekérdezés-végrehajtó pipeline
 
@@ -336,7 +343,8 @@ collection.Find(...)
     .Skip(100).Limit(100);
 ```
 
-> A fenti lapozás még mindig nem teljesen helyes. Például, ha a két lap lekérdezése közben egy termék törlésre kerül, akkor "eggyel arrébb csúsznak" a termékek, és lesz egy termék, amely kimarad a következő lapozásnál. Ez nem csak a MongoDB problémája. Gondolkodtató feladat: hogyan oldható meg ez a probléma?
+!!! question "Lapozási probléma"
+    A fenti lapozás még mindig nem teljesen helyes. Például, ha a két lap lekérdezése közben egy termék törlésre kerül, akkor "eggyel arrébb csúsznak" a termékek, és lesz egy termék, amely kimarad a következő lapozásnál. Ez nem csak a MongoDB problémája. Gondolkodtató feladat: hogyan oldható meg ez a probléma?
 
 #### Darabszám lekérdezés
 
@@ -397,7 +405,8 @@ A törléshez egy szűrési feltételt kell definiálnunk, és vagy a `DeleteOne
 
 A törlés feltétele a keresésnél megismert szintaktikákkal írható le.
 
-> A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedésről. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.
+!!! note ""
+    A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedésről. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.
 
 ```csharp
 var deleteResult = collection.DeleteOne(x => x.Id == new ObjectId("..."));
@@ -429,7 +438,8 @@ Console.WriteLine($"Módosítva: {replaceResult.ModifiedCount}");
 
 Ez a csere 1-1 jellegű, azaz egy dokumentumot cserélünk egy dokumentumra. A művelet magában atomi, azaz ha menet közben megszakad, akkor se fordulhat elő, hogy egy fél dokumentum került elmentésre. Ha szeretnénk megkapni a csere előtti dokumentumot, akkor a `FindOneAndReplace` metódust használhatjuk.
 
-> Érdekesség: a csere során lehetőség van a dokumentum id-jának módosítására is. Ha a csere dokumentumban más id szerepel, a dokumentum id-ja megváltozik.
+!!! note "Érdekesség"
+    A csere során lehetőség van a dokumentum id-jának módosítására is. Ha a csere dokumentumban más id szerepel, a dokumentum id-ja megváltozik.
 
 #### Dokumentum módosító operátorok
 
@@ -507,4 +517,5 @@ collection.UpdateOne(filter: ..., update: ..., options: new UpdateOptions() { Is
 
 Az upsert művelet egy eszköz a konkurens módosítások terén a tranzakció hiányára. Mivel nincs tranzakciónk, ezért nem tudunk meggyőződni arról a beszúrás előtt, hogy még nem létezik egy adott rekord. Helyette használhatjuk az upsert módszert, ami atomi lekérdezést és beszúrást/módosítást tesz lehetővé.
 
-> Megjegyzés: SQL nyelvben a `merge` parancs nyújt erre hasonló megoldást.
+!!! note "`merge`"
+    SQL nyelvben a `merge` parancs nyújt erre hasonló megoldást.

@@ -1,6 +1,7 @@
 # Tranzakciókezelés adatbázisokban
 
-> Az alábbiak alapvetően **relációs adatbázisokra** vonatkozóan ismertetik a tranzakciókat. Azonban a problémák és megoldások egy része általános, és más jellegű adatbázis rendszerekben is megtalálhatóak.
+!!! warning "Kontextus"
+    Az alábbiak alapvetően **relációs adatbázisokra** vonatkozóan ismertetik a tranzakciókat. Azonban a problémák és megoldások egy része általános, és más jellegű adatbázis rendszerekben is megtalálhatóak.
 
 ## Konkurens adathozzáférés
 
@@ -16,7 +17,8 @@ Adatbázis-kezelő rendszerekben a konkurens hozzáférés az adatbázisban tal�
 
 ## Tranzakciók
 
-*A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.*
+!!! quote "Definíció"
+    A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.
 
 A tranzakciókkal tehát műveleteket fogunk össze egy egységbe, amelyekre vonatkozóan a rendszer biztosítja az alábbi tulajdonságokat:
 
@@ -27,7 +29,8 @@ A tranzakciókkal tehát műveleteket fogunk össze egy egységbe, amelyekre von
 
 Vizsgáljuk meg a tranzakciók alaptulajdonságait, hogy megérthessük, hogyan oldhatjuk meg használatukkal a konkurens adathozzáférés problémáját.
 
-> A tranzakciók (a kölcsönös kizárás biztosításához használt mutexekhez hasonlóan) csak eszközt adnak a programozó kezébe, de a helyes használat a fejlesztő felelőssége.
+!!! danger "A tranzakció csak eszköz"
+    A tranzakciók (a kölcsönös kizárás biztosításához használt mutexekhez hasonlóan) csak eszközt adnak a programozó kezébe, de a helyes használat a fejlesztő felelőssége.
 
 ### Tranzakciók alaptulajdonságai
 
@@ -80,9 +83,11 @@ A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna sza
 
 ![Piszkos olvasás](images/dirty-read.png)
 
-> A képek forrása: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
+!!! quote "A képek forrása"
+    https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
-> A piszkos olvasást szinte minden esetben el akarjuk kerülni.
+!!! note ""
+    A piszkos olvasást szinte minden esetben el akarjuk kerülni.
 
 #### Elveszett módosítás (*lost update*)
 
@@ -128,7 +133,8 @@ Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.
 - Repeatable read: nincs piszkos olvasás, se nem megismételhető olvasás.
 - Serializable: egyik probléma sem fordulhat elő.
 
-> A *read uncommitted* szintet szinte soha nem használjuk. A *serializable-t* pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a *read committed*.
+!!! note ""
+    A *read uncommitted* szintet általában nem használjuk. A *serializable-t* pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a *read committed*.
 
 ### Ütemezés biztosítása: zárolás
 
@@ -142,7 +148,8 @@ Ha egy rendszerben zárak vannak, akkor tudjuk, hogy **holtpontok** (*deadlock*)
 
 Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az **egyik érintett tranzakciót megszakítja** és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.
 
-> Holtpont után, ha a tranzakció megszakításra került, nem igazán lehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.
+!!! note ""
+    Holtpont után, ha a tranzakció megszakításra került, nem igazán tehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.
 
 ## Tranzakciós határok
 
@@ -150,11 +157,13 @@ A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez sz
 
 1. Minden művelet az adatbázisban tranzakcióban fut. Ha nem jelöli a fejlesztő a tranzakció használatát, akkor minden SQL utasítás automatikusan önmagában egy tranzakció.
 
-   > Mivel minden SQL utasítás tranzakcióban fut, minden utasításra önmagában is teljesülnek a tranzakciók tulajdonságai. Például, ha egy `delete` utasítás több rekordot töröl, nem lehetséges, hogy az utasítás a lefutása közben megszakad, és csak a rekordok fele került törlésre.
+    !!! note ""
+        Mivel minden SQL utasítás tranzakcióban fut, minden utasításra önmagában is teljesülnek a tranzakciók tulajdonságai. Például, ha egy `delete` utasítás több rekordot töröl, nem lehetséges, hogy az utasítás a lefutása közben megszakad, és csak a rekordok fele került törlésre.
 
 1. A fejlesztő a tranzakció megkezdéshez a `begin transaction` SQL utasítást, míg a bejezeséhez a `commit` vagy `rollback` utasításokat használhatja. A commit sikeresen lezárja a tranzakciót és minden változást ment, míg rollback esetén a tranzakció eldobásra kerül, és visszaáll a tranzakció megkezdése előtti állapot.
 
-> Adatbázis-kezelő rendszer függően lehetőség van tranzakcióba ágyazott tranzakcióra is. Ilyenkor a zárójelezés szabályainak megfelelően történik a tranzakciók lezárása.
+    !!! note ""
+        Adatbázis-kezelő rendszer függően lehetőség van tranzakcióba ágyazott tranzakcióra is. Ilyenkor a zárójelezés szabályainak megfelelően történik a tranzakciók lezárása.
 
 ## Tranzakciós naplózás
 
@@ -288,7 +297,8 @@ Ennek a megoldásnak az előnye, hogy
 
 A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a végtelenségig. Olyan tranzakciók bejegyzései törölhetőek belőle, amelyek valóban kommitálásra kerültek (az adatbázis fájlba beírásra került minden eredményük), vagy amelyek megszakadtak, és nem kell őket visszaállítani. Ez a folyamat általában automatikus, de kezdeményezhető manuálisan is.
 
-> Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.
+!!! note ""
+    Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.
 
 ---
 
@@ -298,9 +308,9 @@ A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a v�
 - Milyen izolációs szintek vannak? Milyen problémákra adnak megoldást?
 - Mik a tranzakciók alaptulajdonságai?
 - Döntse el, hogy igaz vagy hamis az alábbi állítás:
-  - A *serializable* izolációs szint egymás után hajtja végre a tranzakciókat.
-  - A holtpont elkerülhető a megfelelő izolációs szint használatával.
-  - A *read committed* általában az alapértelmezett izolációs szint.
-  - Ha nem használunk explicit indított tranzakciót, akkor (alapesetben) elkerüljük a piszkos olvasást.
-  - A tranzakciós napló véd minden féle adatvesztéssel szemben.
-  - *Redo* tranzakciós naplózás esetén a *commit* jellel kezdődik a tranzakciós napló.
+    - A *serializable* izolációs szint egymás után hajtja végre a tranzakciókat.
+    - A holtpont elkerülhető a megfelelő izolációs szint használatával.
+    - A *read committed* általában az alapértelmezett izolációs szint.
+    - Ha nem használunk explicit indított tranzakciót, akkor (alapesetben) elkerüljük a piszkos olvasást.
+    - A tranzakciós napló véd minden féle adatvesztéssel szemben.
+    - *Redo* tranzakciós naplózás esetén a *commit* jellel kezdődik a tranzakciós napló.
