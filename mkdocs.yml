@@ -1,0 +1,49 @@
+site_name: BMEVIAUAC00 Adatvezérelt rendszerek
+site_author: Dudás Ákos
+copyright: Copyright &copy; BME AUT
+repo_name: bmeviauac01/adatvezerelt
+repo_url: https://github.com/bmeviauac01/adatvezerelt
+
+theme:
+  name: material
+  custom_dir: theme-overrides
+  language: hu
+  palette:
+    primary: red
+    accent: red
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - tabs
+
+extra_css:
+  - extra-material-theme.css
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+
+plugins:
+  - search:
+      prebuild_index: true
+
+nav:
+  - index.md
