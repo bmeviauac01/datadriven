@@ -9,6 +9,9 @@ Letöltési linkek:
 
 Telepítési útmutató: <https://docs.mongodb.com/manual/administration/install-community/>
 
+!!! example "Eszköz használata videó"
+    Az eszköz használatának bemutatása: <https://youtu.be/Xu2af7qPCHI>
+
 ## MongoDB szerver elindítása
 
 A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusan elindul. Ha nem kértük ezt a telepítéskor, akkor a telepítési könyvtárban az alábbi paranccsal tudjuk elindítani a szervert. (Ügyeljünk rá, hogy a szerver a mongo**d** exe.)

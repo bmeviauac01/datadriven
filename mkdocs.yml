@@ -64,3 +64,10 @@ nav:
       - "REST és WebAPI demó alkalmazás": https://github.com/bmeviauac01/rest-webapi-sample
       - "ASP.NET Core DI demó alkalmazás": https://github.com/bmeviauac01/todoapi-di-sample
       - "Minta többrétegű webalkalmazás": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
+  - "Gyakorlatok":
+      - gyakorlat/transactions/index.md
+      - gyakorlat/mssql/index.md
+      - gyakorlat/ef/index.md
+      - gyakorlat/mongodb/index.md
+      - gyakorlat/jpa/index.md
+      - gyakorlat/rest/index.md

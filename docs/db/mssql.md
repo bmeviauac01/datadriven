@@ -8,6 +8,9 @@ Letöltési linkek:
 - <https://www.microsoft.com/en-us/sql-server/sql-server-editions-express>
 - <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms>
 
+!!! example "Eszköz használata videó"
+    Az eszköz használatának bemutatása: <https://youtu.be/gmY8reqSL7U>
+
 ## SQL Server Management Studio használata
 
 A tanszéki laborokban a programot a start menüből indíthatjuk. A program indulása után kapcsolódhatunk az adatbázishoz a felugró ablakban. LocalDB használata esetén a _Server name_ `(localdb)\mssqllocaldb`, Express Edition használata esetén `.\sqlexpress` (alapbeállításokkal való telepítés esetén). Mindkét esetben _Windows Authentication_-t használunk.
