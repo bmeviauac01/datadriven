@@ -71,3 +71,13 @@ nav:
       - gyakorlat/mongodb/index.md
       - gyakorlat/jpa/index.md
       - gyakorlat/rest/index.md
+  - "Házi feladatok":
+      - hazi/index.md
+      - hazi/mssql/index.md
+      - hazi/adonet/index.md
+      - hazi/ef/index.md
+      - hazi/mongodb/index.md
+      - hazi/rest/index.md
+      - hazi/GitHub.md
+      - hazi/GitHub-Actions.md
+      - hazi/VisualStudio.md
