@@ -51,8 +51,8 @@ nav:
       - db/index.md
       - db/mssql.md
       - db/mongodb.md
-      - "mssql.sql": db/mssql.sql
-      - "mongodb.js": db/mongo.js
+      - "Minta adatbázis: mssql.sql": db/mssql.sql
+      - "Minta adatbázis: mongo.js": db/mongo.js
   - "Jegyzetek":
       - jegyzet/architektura/index.md
       - jegyzet/transactions/index.md
@@ -61,9 +61,9 @@ nav:
       - jegyzet/linq/index.md
       - jegyzet/mongodb/index.md
       - jegyzet/dependency-injection/index.md
-      - "REST és WebAPI demó alkalmazás": https://github.com/bmeviauac01/rest-webapi-sample
-      - "ASP.NET Core DI demó alkalmazás": https://github.com/bmeviauac01/todoapi-di-sample
-      - "Minta többrétegű webalkalmazás": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
+      - "REST és WebAPI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
+      - "ASP.NET Core DI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/todoapi-di-sample
+      - "Minta többrétegű webalkalmazás (GitHub)": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
   - "Gyakorlatok":
       - gyakorlat/transactions/index.md
       - gyakorlat/mssql/index.md

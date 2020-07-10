@@ -1,6 +1,6 @@
 # Microsoft SQL Server programozása
 
-A gyakorlat célja, hogy a hallgatók megismerjék az Microsoft SQL szerver oldali programozásának alapjait, elsajátítsák az alapfogalmakat és a fejlesztőeszköz használatát.
+A gyakorlat célja, hogy a hallgatók megismerjék az Microsoft SQL Server platform szerver oldali programozásának alapjait, elsajátítsák az alapfogalmakat és a fejlesztőeszköz használatát.
 
 ## Előfeltételek
 
@@ -8,7 +8,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](../../db/mssql.sql)
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 
 Amit érdemes átnézned:
 
@@ -20,7 +20,8 @@ Amit érdemes átnézned:
 
 Az első négy feladatot (beleértve a megoldások tesztelését is) a gyakorlatvezetővel együtt oldjuk meg. Az utolsó feladat önálló munka, amennyiben marad rá idő.
 
-Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
+!!! info ""
+    Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
 ## Feladat 0: Adatbázis létrehozása, ellenőrzése
 
@@ -68,8 +69,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
     ??? example "Megoldás"
         ```sql
         update Category
-        set Nev = 'Bicycles'
-        where Nev = 'Tricycles'
+        set Name = 'Bicycles'
+        where Name = 'Tricycles'
         ```
 
 1. Melyik termék kategóriában van a legtöbb termék?
@@ -85,13 +86,13 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 2: Termékkategória rögzítése
 
-Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóriát vehetünk fel. Az eljárás bemenő paramétere a felvételre kerülő kategória neve, és opcionálisan a szülőkategória neve. Dobjon alkalmazás hibát, ha a kategória létezik, vagy a szülőkategória nem létezik. A kategória elsődleges kulcsának generálását bízza az adatbázisra.
+Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóriát vehetünk fel. Az eljárás bemenő paramétere a felvételre kerülő kategória neve, és opcionálisan a szülőkategória neve. Dobjon hibát, ha a kategória létezik, vagy a szülőkategória nem létezik. A kategória elsődleges kulcsának generálását bízza az adatbázisra.
 
 ??? example "Megoldás"
     **Tárolt eljárás**
 
     ```sql
-    create procedure AddNewCategory
+    create or alter procedure AddNewCategory
         @Name nvarchar(50),
         @ParentName nvarchar(50)
     as
@@ -149,7 +150,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     **Tárolt eljárás**
 
     ```sql
-    create trigger UpdateOrderStatus
+    create or alter trigger UpdateOrderStatus
     on [Order]
     for update
     as
@@ -228,6 +229,8 @@ Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában
     deallocate cur_customer
     ```
 
+    Ellenőrizzük a `Customer` tábla tartalmát.
+
 ## Feladat 5: Vevő összemegrendelésének karbantartása (önálló feladat)
 
 Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csak. Készítsünk triggert, amivel karbantartjuk azt az összeget minden megrendelést érintő változás esetén. Az összeg újraszámolása helyett csak frissítse a változásokkal az értéket!
@@ -240,7 +243,7 @@ Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csa
     **Trigger**
 
     ```sql
-    create trigger CustomerTotalUpdate
+    create or alter trigger CustomerTotalUpdate
     on OrderItem
     for insert, update, delete
     as

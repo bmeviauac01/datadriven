@@ -45,7 +45,7 @@ A táblák tartalmának listázásához az _Object Explorer_-ben bontsuk ki az a
 
 Az SQL Management Studio query ablakban az intellisense első körben sosem működik magától, használni kell a Control+Shift+R-t az intellisense cache frissítésére. Akkor is, ha új objektumot (pl. tárolt eljárást) hozunk létre.
 
-### Tárolt eljárások és triggerek készítése, debuggolása
+### Tárolt eljárások és triggerek készítése
 
 Tárolt eljárás és trigger létrehozására a _Query_ ablak használható, amelyben a megfelelő létrehozó-módosító utasítást futtatjuk. Ügyeljünk rá, hogy ha már létrejött egyszer a trigger vagy tárolt eljárás, utána már csak módosítani tudjuk.
 

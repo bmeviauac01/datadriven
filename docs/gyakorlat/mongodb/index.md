@@ -6,11 +6,11 @@ A gyakorlat célja, hogy a hallgatók megismerjék a _MongoDB_ általános cél�
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2015/2017/2019 (_nem_ VS Code)
+- Microsoft Visual Studio 2019 (_nem_ VS Code)
 - MongoDB Community Edition
 - Robo 3T
-- Adatbázis létrehozó script: [mongo.js](../../db/mongo.js)
-- Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-seminar-mongo-starter>
+- Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+- Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo>
 
 Amit érdemes átnézned:
 
@@ -68,7 +68,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 1. Töltsük le a méréshez tartozó projekt vázat!
 
     - Nyissunk egy **új** _command prompt_-ot a munkakönyvtárunkba.
-    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-seminar-mongo-starter.git`
+    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
 
 1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val.
 
@@ -118,7 +118,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
             .Find(Builders<Product>.Filter.Gt(p => p.Stock, 30))
             .ToList();
 
-        foreach (var t in qProductAndStock2)
+        foreach (var p in qProductAndStock2)
             Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
         ```
 
@@ -218,9 +218,9 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
 ## Feladat 2: Entitásosztály létrehozása
 
-1. Vizsgáld meg a `Product` és a `VAT` entitásosztályokat. Miért van a `Product` entitásban `[BsonId]` annotáció, és miért nincs az `VAT` osztályban?
+1. Vizsgáld meg a `Product` és a `VAT` entitásosztályokat. Miért van a `Product` entitásban `[BsonId]`-val ellátott mező, és miért nincs az `VAT` osztályban?
 
-1. Hozz létre entitásosztályt a `Category` entitásnak, és vedd fel hozzá a megfelelő `IMongoCollection<Category>` interfészt.
+1. Hozz létre entitásosztályt a `Category` entitásnak, és vedd fel hozzá a megfelelő `IMongoCollection<Category>` mezőt.
 
 ??? example "Megoldás"
     1. A `Product` osztály a `products` gyűjteményt reprezentálja az adatbázisban, ezért tartozik hozzá egyedi `ObjectID` ami alapján hivatkozni tudunk rá az adatbázis felé. Ezzel szemben az `VAT` osztály a `Product` egy beágyazott objektuma, önmagában nem jelenik meg gyűjteményként. Ezért nem tartozik hozzá `ObjectID` érték.
@@ -229,17 +229,23 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
         Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
 
-        ![kategoriak](images/kategoriak.png)
+        ![kategoriak](images/categories.png)
 
-        Ez alapján létre tudjuk hozni a `Category` osztályt.
+        Ez alapján létre tudjuk hozni a `Category` osztályt an `Entities` mappában.
 
         ```csharp
-        public class Category
+        using MongoDB.Bson;
+        using MongoDB.Bson.Serialization.Attributes;
+
+        namespace BME.DataDriven.Mongo.Entitites
         {
-            [BsonId]
-            public ObjectId ID { get; set; }
-            public string Name { get; set; }
-            public ObjectId? ParentCategoryID { get; set; }
+            public class Category
+            {
+                [BsonId]
+                public ObjectId ID { get; set; }
+                public string Name { get; set; }
+                public ObjectId? ParentCategoryID { get; set; }
+            }
         }
         ```
 
@@ -259,7 +265,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
 Az `IMongoColection<TEntity>` interfész nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-1. Írj olyan _MongoDB C#/.NET Driverre_ épülő C# kódot, mely a "LEGO" (ügyelj az írásmódra!) árát megemeli 10 százalékkal!
+1. Írj olyan _MongoDB C#/.NET Driverre_ épülő C# kódot, mely a "LEGO" kategóriájú termékek árát megemeli 10 százalékkal!
 
 1. Hozz létre egy új kategóriát a _Expensive toys_ néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 

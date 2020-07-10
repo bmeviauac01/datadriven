@@ -14,7 +14,7 @@ Telepítési útmutató: <https://docs.mongodb.com/manual/administration/install
 
 ## MongoDB szerver elindítása
 
-A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusan elindul. Ha nem kértük ezt a telepítéskor, akkor a telepítési könyvtárban az alábbi paranccsal tudjuk elindítani a szervert. (Ügyeljünk rá, hogy a szerver a mongo**d** exe.)
+A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusan elindul. Ha nem kértük ezt a telepítéskor, akkor a telepítési könyvtárban az alábbi paranccsal tudjuk elindítani a szervert. (Ügyeljünk rá, hogy a szerver a mongo&#8203;**d** exe.)
 
 ```bash
 mongod.exe --dbpath="<munkakönyvtár>"
@@ -34,7 +34,7 @@ A program indulásakor kiválaszthatjuk a már korábban létrehozott kapcsolatu
 
 ![Kapcsolódás](./images/robo3t-connection.png)
 
-A sikeres kapcsolódás után az alkalmazás bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a _Create Database_ parancsot.
+A sikeres kapcsolódás után az alkalmazás bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a _Create Database_ parancsot. Mi azonban ezt nem használjuk.)
 
 ![Kapcsolódás](./images/robo3t-db-collections.png)
 

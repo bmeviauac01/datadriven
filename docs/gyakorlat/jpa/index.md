@@ -7,10 +7,10 @@ A gyakorlat célja, hogy a hallgatók megismerjék a JPA és a Spring Data haszn
 A labor elvégzéséhez szükséges eszközök:
 
 - Eclipse for Java EE
-- Microsoft SQL Server Express edition (localdb nem alkalmas)
+- Microsoft SQL Server Express edition (localdb ezúttal **nem** jó)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](../../db/mssql.sql)
-- Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-seminar-jpa-starter>
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo>
 - Az MSSQL JDBC driver letöltése innen: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
     - A zipet csomagold ki ide: `c:\work\javaee\.m2\repository` (a zip egy _com_ nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: `c:\work\javaee\.m2\repository\com\microsoft\...`)
 
@@ -56,12 +56,12 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 1. Töltsük le a méréshez tartozó projekt vázat!
     - Nyissunk egy _command prompt_-ot
-    - Navigáljunk el egy tetszőleges mappába, például `c/d:\work\NEPTUN`
-    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-seminar-jpa-starter.git`
+    - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
+    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo.git`
 1. Importáljuk a letöltött forráskódot a workspace-be:
     - Nyissuk meg a _File / Import..._-ot
     - Kezdjük el gépelni a textboxba, hogy _Existing projects into workspace_, így rá fog szűrni és válasszuk ki ezt
-    - Keressük meg a kicsomagolt webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
+    - Keressük meg a letöltött webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
     - Finish
 1. Tekintsük át röviden a projektet:
 

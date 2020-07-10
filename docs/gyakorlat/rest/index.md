@@ -6,12 +6,12 @@ A gyakorlat célja, hogy a hallgatók gyakorolják a REST API-k tervezését, é
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2017/2019 (_nem_ VS Code)
+- Microsoft Visual Studio 2019 (_nem_ VS Code)
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Postman: <https://www.getpostman.com/downloads/>
-- Adatbázis létrehozó script: [mssql.sql](../../db//mssql.sql)
-- Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-seminar-rest-starter>
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-rest-kiindulo>
 
 Amit érdemes átnézned:
 
@@ -35,17 +35,20 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     - Nyissunk egy _command prompt_-ot
     - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
-    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-seminar-rest-starter.git`
+    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-rest-kiindulo.git`
 
 1. Nyissuk meg a `rest` könyvtár alatti _sln_ fájlt Visual Studio-val.
 
 1. Vizsgáljuk meg a projektet.
 
     - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
-        - Nézzük meg a `Program.cs` tartalmát. Nem kell értenünk, hogy mi történik itt pontosan, csak lássuk, hogy ez olyan, mint egy konzol alkalmazás: a `Main` függvényben elindít egy webszervert.
+    - Nézzük meg a `Program.cs` tartalmát. Nem kell értenünk, hogy mi történik itt pontosan, csak lássuk, hogy ez olyan, mint egy konzol alkalmazás: a `Main` függvényben elindít egy webszervert.
     - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. A _connection stringet_ javítsuk ki szükség esetén ebben az osztályban az `OnConfiguring` függvényben.
-    - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg.
-        - Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
+
+        !!! note ""
+            A connection stringet természetesen nem célszerű beégetni a forráskódba. Mi ezt csupán egyszerűsítésként alkalmazzuk.
+
+    - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
 
 1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el, ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy _Ctrl-C_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
 
@@ -163,14 +166,14 @@ Teszteljük a megoldásunkat.
             [HttpGet]
             public ActionResult<Models.Product[]> List([FromQuery] string search = null, [FromQuery] int from = 0)
             {
-                IQueryable<Dal.Product> filteredLista;
+                IQueryable<Dal.Product> filteredList;
 
                 if (string.IsNullOrEmpty(search)) // ha nincs nev alapu kereses, az osszes termek
-                    filteredLista = dbContext.Product;
+                    filteredList = dbContext.Product;
                 else // nev alapjan kereses
-                    filteredLista = dbContext.Product.Where(p => p.Name.Contains(search));
+                    filteredList = dbContext.Product.Where(p => p.Name.Contains(search));
 
-                return filteredLista
+                return filteredList
                         .Skip(from) // lapozashoz: hanyadik termektol kezdve
                         .Take(5) // egy lapon max 5 termek
                         .Select(p => new Models.Product(p.Id, p.Name, p.Price, p.Stock)) // adatbazis entitas -> DTO
@@ -287,9 +290,9 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                     return NotFound();
 
                 // modositasok elvegzese
-                dbProduct.Name = modositott.Name;
-                dbProduct.Price = modositott.Price;
-                dbProduct.Stock = modositott.Stock;
+                dbProduct.Name = updated.Name;
+                dbProduct.Price = updated.Price;
+                dbProduct.Stock = updated.Stock;
 
                 // mentes az adatbazisban
                 dbContext.SaveChanges();
@@ -307,7 +310,7 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                     Price = newProduct.Price,
                     Stock = newProduct.Stock,
                     CategoryId = 1, // nem szep, ideiglenes megoldas
-                    VATId = 1 // nem szep, ideiglenes megoldas
+                    VatId = 1 // nem szep, ideiglenes megoldas
                 };
 
                 // mentes az adatbazisba
@@ -363,7 +366,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
         // ...
 
         [HttpPost]
-        public ActionResult Create([FromBody] Models.NewProduct uj)
+        public ActionResult Create([FromBody] Models.NewProduct newProduct)
         {
             var dbVat = dbContext.Vat.FirstOrDefault(v => v.Percentage == newProduct.VATPercentage);
             if (dbVat == null)
@@ -386,7 +389,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
             dbContext.Product.Add(dbProduct);
             dbContext.SaveChanges();
 
-            return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurl elem
+            return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
         }
     }
     ```

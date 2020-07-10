@@ -1,6 +1,6 @@
 # Tranzakciókezelés
 
-A gyakorlat célja a relációs adatbázisok és a Microsoft SQL Server tranzakciókezelésének megismerése, a Serializable izolációs szint gyakorlati használhatóságának korlátai, egyedi adat egymásra hatások szabályozása read committed izolációs szinten.
+A gyakorlat célja a relációs adatbázisok és a Microsoft SQL Server tranzakciókezelésének megismerése, a _serializable_ izolációs szint gyakorlati használhatóságának korlátai, egyedi adat egymásra hatások szabályozása read committed izolációs szinten.
 
 ## Előfeltételek
 
@@ -8,7 +8,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mssql.sql)
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 
 Amit érdemes átnézned:
 
@@ -27,10 +27,10 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 
 1. Kapcsolódjon a Microsoft SQL Serverhez SQL Server Management Studio Segítségével. Indítsa el az alkalmazást, és az alábbi adatokkal kapcsolódjon.
 
-    - Server name: `(localdb)\mssqllocaldb` vagy `.\sqlexpress`
+    - Server name: `(localdb)\mssqllocaldb`
     - Authentication: `Windows authentication`
 
-1. Hozzon létre egy új adatbázist (ha még nem létezik)! Az adatbázis neve legyen a Neptun kódja: _Object Explorer_-ben Databases-en jobb kattintás, és _Create Database_.
+1. Hozzon létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódja: _Object Explorer_-ben Databases-en jobb kattintás, és _Create Database_.
 
 1. Hozza létre a minta adatbázist az generáló script lefuttatásával. Nyisson egy új _Query_ ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
 
@@ -243,7 +243,7 @@ Ismételjük meg a fenti műveletsort, csak a megrendelés rögzítésekor más-
 
 Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?
 
-??? question "Mit tapasztalt? Miért?"
+??? question "Mit várunk? Miért?"
     Ha nem változtatunk izolációs szintet, akkor helytelen működés állhatna elő. Mivel a *read committed* izolációs szint nem biztosítja számunkra azt, hogy amíg fut a tranzakciónk, addig egy másik tranzakció berögzítsen rekordokat. Tehát lefuthatna az `insert`, ami miatt végeredményben több árut adnánk el, mint ami a raktárban van. Ez a nem megismételhető olvasás problémája.
 
     Erről az oldalról nézve tehát a *serializable* izolációs szint nem volt feleslegesen szigorú. Tényleg megvédett minket egy problémától.

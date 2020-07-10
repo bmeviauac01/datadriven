@@ -2,6 +2,9 @@
 
 A gyakorlat célja, hogy a hallgatók megismerjék a Linq lekérdezések használatát, valamint az Entity Framework működését.
 
+!!! important "Entity Framework ~~Core~~"
+    A gyakorlat során a .NET Framework-ben használt Entity Framework-öt használjuk, nem a platformfüggetlen Core változatot. A Linq lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de az alább használt vizuális kód generálás és szerkesztő csak .NET Framework és Entity Framework esetén érhető el.
+
 ## Előfeltételek
 
 A labor elvégzéséhez szükséges eszközök:
@@ -9,7 +12,7 @@ A labor elvégzéséhez szükséges eszközök:
 - Microsoft Visual Studio 2015/2017/2019 (_nem_ VS Code)
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](../../db/mssql.sql)
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 
 Amit érdemes átnézned:
 
@@ -28,9 +31,18 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New / Project... / Visual C# / Windows desktop / Console application_). A `c:\work` mappába dolgozz. (**Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS 2019 esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.
 
-1. Adj a projekthez egy *ADO.NET Entity Data Model*t.
+![VS projekt típus](images/vs-create-project.png)
+
+!!! important ""
+    **Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
+
+    Ügyeljünk a projekt nyelvére is, C# nyelvű projekt legyen.
+
+Hozd létre a projektet. A `c:\work` mappába dolgozz.
+
+1. Adj a projekthez egy _ADO.NET Entity Data Model_-t.
 
     - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_. Az ablak alján a Name mezőben `AdatvezEntities`-t adj meg.
     - A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").
@@ -42,15 +54,17 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
             - igen (pipa)
             - alatta a szerkesztőmezőben az `AdatvezEntities`-t add meg (ilyen néven fog a DbContext osztály legenerálódni)
     - Entity Framework 6.0-as leképzést használj.
-    - Az összes táblát képezzük le.
+    - Az összes táblát képezzük le (ki kell pipálni a _Tables_-t).
     - _Model namespace_: pl. `AdatvezEntitiesModel`
+
+1. Várjuk meg, amíg elkészül a modell. Ha közben a VS kérdezne "template" futtatásáról, engedélyezzük.
 
 1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
 
     !!! note "`app.config`"
         Azért jó, ha ide kerül a _connection string_, mert az alkalmazáshoz tartozó adatbázis helye telepítésenként változhat. Ha a forráskódban van a szerver elérhetősége, akkor újra kell fordítani az alkalmazást minden telepítéshez. Az `app.config` fájl viszont az exe mellett része az alkalmazásnak, és szerkeszthető. Ha szükséges, kiemelhető a fájl más konfigurációs állományba is.
 
-1. Nyissuk meg az EF adatmodellt. Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
+1. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
 
    - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
    - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
@@ -64,7 +78,7 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást (_File / New
 
      Mentsük a változtatások után a modellt.
 
-1. Nézd meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
+1. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
 
     !!! note ""
         Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály _partial_-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
@@ -308,6 +322,6 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
         Console.WriteLine("\t4.6:");
         var qPopularProducts = db.PopularProducts(5);
         foreach (var p in qPopularProducts)
-            Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price));
+            Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
     }
     ```
