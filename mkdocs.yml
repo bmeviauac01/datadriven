@@ -60,7 +60,7 @@ nav:
       - jegyzet/mssql/server-side-programming.md
       - jegyzet/linq/index.md
       - jegyzet/mongodb/index.md
-      - jegyzet/dependency-injection/index.md
+      - jegyzet/di/index.md
       - "REST és WebAPI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
       - "ASP.NET Core DI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/todoapi-di-sample
       - "Minta többrétegű webalkalmazás (GitHub)": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
