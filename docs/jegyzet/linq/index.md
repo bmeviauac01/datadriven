@@ -153,7 +153,7 @@ products.GroupBy(p => p.VATID)
 
 A projekció során több féle módon kérhetjük az eredményeket.
 
-### Egész objektum
+#### Egész objektum
 
 ```csharp
 from p in products
@@ -163,7 +163,7 @@ select t
 
 Ilyenkor az eredmény `IQueryable<Product>`, azaz Product osztály példányokat kapunk.
 
-### Csak bizonyos mező
+#### Csak bizonyos mező
 
 ```csharp
 from p in products
@@ -173,7 +173,7 @@ select p.Name
 
 Ilyenkor az eredmény `IQueryable<string>`, azaz csak a neveket kapjuk.
 
-### Nevesített típusok
+#### Nevesített típusok
 
 ```csharp
 from p in products
@@ -183,7 +183,7 @@ select new MyType(p.Name, p.Price)
 
 Ilyenkor az eredmény `IQueryable<MyType>`, ahol a _MyType_ osztályt deklarálnunk kell, és a select-ben a konstruktorát hívjuk meg.
 
-### Névtelen típusok
+#### Névtelen típusok
 
 ```csharp
 from t in products

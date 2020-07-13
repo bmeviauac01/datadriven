@@ -23,7 +23,8 @@ A labor elvégzéséhez szükséges eszközök:
 
 A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.
 
-Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
+!!! info ""
+    Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
 ## Tippek az Eclipse használatához
 
@@ -31,8 +32,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 - Fájl keresése: Ctrl+Shift+R
 - Hiányzó importok megjavítása: Ctrl+Shift+O
 - Kód formázása: Ctrl+Shift+F
-- Ha a Java Resources alatt egy package-en jobb klikk / New Class/Interfaces, akkor abba a package-be rakja az új elemet by
-  default
+- Ha a Java Resources alatt egy package-en jobb klikk / New Class/Interfaces, akkor abba a package-be rakja az új elemet
 - Ha a nézeteket becsukjuk/átrendezzük, a default elrendezés visszaállítható: Window / Reset perspective
 - Font megnövelése (a tanári gépen hasznos):
     - Window menü / Preferences, ott elkezdjük gépelni, hogy _font_, így megtalálja azt a beállítást, hogy Fonts and Colors
@@ -40,7 +40,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 0: Adatbázis létrehozása
 
-1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk.
+1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk.
 
 1. Hozzunk létre egy `adatvez` nevű adatbázist. **Ügyeljünk a névre, különben a Java projektben módosítanunk kell**. Az adatbázis létrehozásának mikéntjét lásd az [első gyakorlat anyagában](../transactions/index.md). Ha a gépen már létezik az adatbázis, akkor nem kell újat létrehozni.
 
@@ -471,17 +471,17 @@ Hívd meg a JPA-ból a _CreateNewPaymentMethod_ nevű tárolt eljárást, mely �
 
     - A WebshopController utolsó TODO-jánál hívjuk meg
 
-    ```java
-    paymentmethodRepository.newMethod(paymentMethod.getMod(), paymentMethod.getHatarido());
-    ```
+        ```java
+        paymentmethodRepository.newMethod(paymentMethod.getMethod(), paymentMethod.getDeadline());
+        ```
 
     - A `Paymentmethod` entitás `deadline` és `method` tagváltozóin validációs _constraint_-eket találunk. Ezek az annotációk a _Bean Validation API_ részei, amivel a webes rétegben használt Spring MVC, de a JPA és integrálódik, így a webrétegbeli és adatrétegbeli validáció konzisztens módon, redundanciamentesen definiálható.
 
-    ```java
-    @NotNull
-    private BigDecimal deadline;
+        ```java
+        @NotNull
+        private BigDecimal deadline;
 
-    @Column(name="METHOD")
-    @NotEmpty
-    private String method;
-    ```
+        @Column(name="METHOD")
+        @NotEmpty
+        private String method;
+        ```

@@ -23,7 +23,8 @@ Amit érdemes átnézned:
 
 A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.
 
-Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
+!!! info ""
+    Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
 ## Feladat 0: Adatbázis létrehozása, ellenőrzése
 
@@ -36,7 +37,7 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS 2019 ese
 ![VS projekt típus](images/vs-create-project.png)
 
 !!! important ""
-    **Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs _Database First_ leképzés, amit használni fogunk.)
+    **Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs vizuális _Database First_ leképzés, amit használni fogunk.
 
     Ügyeljünk a projekt nyelvére is, C# nyelvű projekt legyen.
 
@@ -66,22 +67,22 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
 1. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
 
-   - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
-   - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
+    - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
+    - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
 
-     - Customer.CustomerSite1 -> **.Sites**
-     - CustomerSite.Customer1 -> **.MainCustomer**
-     - Order.OrderItem -> .OrderItem&#8203;**s**
-     - Product.OrderItem -> .OrderItem&#8203;**s**
-     - VAT.Product -> .Product&#8203;**s**
-     - Category.Product -> .Product&#8203;**s**
+        - Customer.CustomerSite1 -> **.Sites**
+        - CustomerSite.Customer1 -> **.MainCustomer**
+        - Order.OrderItem -> .OrderItem&#8203;**s**
+        - Product.OrderItem -> .OrderItem&#8203;**s**
+        - VAT.Product -> .Product&#8203;**s**
+        - Category.Product -> .Product&#8203;**s**
 
-     Mentsük a változtatások után a modellt.
+    Mentsük a változtatások után a modellt.
 
 1. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
 
     !!! note ""
-        Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály _partial_-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
+        Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály `partial`-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
 
 ## Feladat 2: Lekérdezések
 
@@ -179,7 +180,7 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
 A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" (ügyelj az írásmódra!) kategóriás termékek árát megemeli 10 százalékkal!
+1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
 
 1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
@@ -249,7 +250,7 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
 !!! note "Tárolt eljárás az EDM-ben"
     A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkesztenünk.
 
-    ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
+    ![Tárolt eljárás mappelés beállításai](images/vs-storedproc-mapping.png)
 
 1. Készíts egy tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját! Használd ezt a tárolt eljárást új entitás felvételéhez!
 
@@ -273,7 +274,7 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
         - Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.
         - Állítsd be ezt a metódust a `PaymentMethod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `PaymentMethod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
 
-           ![Tárolt eljárás mappelése](images/vs-insert-storedproc.png)
+            ![Tárolt eljárás entitásra mappelése](images/vs-insert-storedproc.png)
 
     - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext `PaymentMethod` gyűjteményéhez az `Add` metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
 
@@ -295,9 +296,9 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
         ) a ON Product.ID = a.ProductID
         ```
 
-    - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Produc` típusúra. Mentsd el a modell változásait.
+    - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Product` típusúra. Mentsd el a modell változásait.
 
-       ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
+        ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
 
     - Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!
 

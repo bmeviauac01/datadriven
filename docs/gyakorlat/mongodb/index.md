@@ -22,7 +22,8 @@ Amit érdemes átnézned:
 
 A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen.
 
-Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
+!!! info ""
+    Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
 ## Feladat 0: Adatbázis létrehozása, projekt megnyitása
 
@@ -31,7 +32,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
     !!! important "Munkakönyvtár"
         A továbbiakban kezeljük ezt **munkakönyvtárként**, tehát minden új mappát ebben hozzunk létre.
 
-1. Indítsuk el a MongoDB szervert és hozzuk létre az adatbázist.
+1. Indítsuk el a MongoDB szervert.
 
     - Hozzunk létre egy mappát az adatbázisfájloknak, például `db` néven. (Ezt a mappát az előbb létrehozott munkakönyvtárban hozzuk létre.)
     - Nyissunk egy _command prompt_-ot és indítsuk el a MongoDB szervert: `mongod.exe --dbpath="c:\work\<NEPTUN>\db"`
@@ -103,7 +104,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         ```csharp
         Console.WriteLine("***** Első feladat *****");
 
-        //2.1
+        //2.1 első megoldás
         Console.WriteLine("\t2.1 1. megoldás:");
         var qProductAndStock1 = productsCollection
             .Find(p => p.Stock > 30)
@@ -125,7 +126,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
     1. Ez a feladat nagyon hasonló ez előzőhöz. Figyeljük meg, hogy az SQL-es adatbázis séma esetén ehhez már `JOIN`-t (`Navigation Property`) kellett alkalmazni. Ezzel szemben itt minden szükséges adat a megrendelés kollekcióban található.
 
         ```csharp
-        // 2.2
+        // 2.2 első megoldás
         Console.WriteLine("\t2.2 1. megoldás:");
         var qOrderItems1 = ordersCollection
             .Find(o => o.OrderItems.Length >= 2)
@@ -168,7 +169,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         }
         ```
 
-    1. A legdrágább termékek lekérdezéséhez két lekérdezést kell kiadnunk: először lekérdezzük a legmagasabb nettóár értékét, utána pedig lekérdezzük azokat a termékeket, melyeknek a nettóára megegyezik ezzel az értékkel.
+    1. A legdrágább termékek lekérdezéséhez két lekérdezést kell kiadnunk: először lekérdezzük a legmagasabb árat, utána pedig lekérdezzük azokat a termékeket, melyeknek a nettóára megegyezik ezzel az értékkel.
 
         ```csharp
         //2.4
@@ -216,6 +217,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         }
         ```
 
+        A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregácós pipeline-jának használatával a fenti módszerhes hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)
+
 ## Feladat 2: Entitásosztály létrehozása
 
 1. Vizsgáld meg a `Product` és a `VAT` entitásosztályokat. Miért van a `Product` entitásban `[BsonId]`-val ellátott mező, és miért nincs az `VAT` osztályban?
@@ -229,7 +232,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
         Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
 
-        ![kategoriak](images/categories.png)
+        ![Kategódia dokumentumok](images/categories.png)
 
         Ez alapján létre tudjuk hozni a `Category` osztályt an `Entities` mappában.
 

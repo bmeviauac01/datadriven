@@ -50,6 +50,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
         from [Order] o right outer join PaymentMethod p on o.PaymentMethodID = p.ID
         where o.ID is null
         ```
+        
         A megoldás kulcsa az `outer join`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
 
 1. Rögzítsünk be egy új vevőt! Kérdezzük le az újonnan létrejött rekord kulcsát!
@@ -142,12 +143,16 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     Ismételjük meg a fenti beszúrást, ekkor már hibák kell dobjon.
 
+    Próbáljuk ki szülőkategóriával is.
+
+    `exec AddNewCategory 'LEGO Star Wars', 'LEGO'`
+
 ## Feladat 3: Megrendeléstétel státuszának karbantartása
 
 Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
 
 ??? example "Megoldás"
-    **Tárolt eljárás**
+    **Trigger**
 
     ```sql
     create or alter trigger UpdateOrderStatus
@@ -184,8 +189,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     where ID=1
     ```
 
-    Ellenőrizzük a megrendelést és a tételeket (update után minden
-    státusznak meg kell változnia):
+    Ellenőrizzük a megrendelést és a tételeket (update után minden státusznak meg kell változnia):
 
     ```sql
     select OrderItem.StatusID, [Order].StatusID

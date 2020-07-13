@@ -71,7 +71,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | TaxIdentifier      | A cég adószáma.                                                                                                                      |
 |               | BankAccount        | A cég bankszámlaszáma.                                                                                                               |
 | Invoice       | ID                 | Automatikusan generált azonosító, elsődleges kulcs                                                                                   |
-|               | CustomerNev        | Megrendelő neve, ez az információ fog a számla vevő részén megjelenni.                                                               |
+|               | CustomerName       | Megrendelő neve, ez az információ fog a számla vevő részén megjelenni.                                                               |
 |               | CustomerZipCode    | A vevő címének irányítószáma.                                                                                                        |
 |               | CustomerCity       | A vevő címének város része.                                                                                                          |
 |               | CustomerStreet     | A vevő címének utca része.                                                                                                           |

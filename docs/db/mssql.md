@@ -1,6 +1,6 @@
 # Microsoft SQL Server használata
 
-A Microsoft SQL Server kiszolgálóhoz az SQL Server Management Studio szoftverrel kapcsolódunk. A kiszolgáló helyben fut, az un. LocalDB verziót használjuk, de otthoni használatra megfelel az Express változat is (bármely verzió).
+A Microsoft SQL Server kiszolgálóhoz az SQL Server Management Studio szoftverrel kapcsolódunk. Fejlesztés közben a kiszolgáló helyben fut, az un. LocalDB verziót használjuk, de otthoni használatra megfelel az Express változat is (bármely verzió).
 
 Letöltési linkek:
 

@@ -19,7 +19,8 @@ Amit érdemes átnézned:
 
 A gyakorlat vezetett. A szoftverekkel történő megismerkedés után a gyakorlatvezető instrukciói alapján együtt kerülnek elvégzésre a feladatok. A tapasztalt viselkedésekre magyarázatot keresünk, és azt a csoport együtt megbeszéli.
 
-A viselkedések magyarázatát röviden összefoglalja az útmutató is. Előbb azonban gondolkodjunk el magunk a kérdéseken!
+!!! info ""
+    A viselkedések magyarázatát röviden összefoglalja az útmutató is. Előbb azonban gondolkodjunk el magunk a kérdéseken!
 
 ## Feladat 1: Adatbázis létrehozása MS SQL Serveren
 
