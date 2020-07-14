@@ -1,26 +1,17 @@
-# BME Data-driven systems
+# BMEVIAUAC01 Data-driven systems
 
-Lecture notes and code samples for [BMEVIAUAC01 Data-driven systems](https://www.aut.bme.hu/Course/ENVIAUAC01) tárgyhoz.
+![Build docs](https://github.com/bmeviauac01/datadriven-en/workflows/Build%20docs/badge.svg?branch=master)
 
-## Course materials
+[BMEVIAUAC01 Data-driven systems](https://www.aut.bme.hu/Course/ENVIAUAC01/) course lecture notes, seminar materials and homework exercises.
 
-**Microsoft SQL Server programming**
+The content in built using MkDocs and is published to GitHub Pages at: <https://bmeviauac01.github.io/datadriven-en/>
 
-- [SQL language review](./MSSQL-programming/sql-language.md)
-- [Microsoft SQL Server programming (T-SQL)](./MSSQL-programming/mssql-programming)
+#### How to built it locally (using Docker)
 
-[LINQ: Language Integrated Query](./LINQ/README.md)
+1. Open a Powershell console to the root of the directory
 
-[MongoDB operations and the MongoDB .NET Driver](./MongoDB-DotNet/README.md)
+1. `docker run -it --rm -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material:5.4.0`
 
-[Dependency injection](./Dependency-Injection/README.md)
+1. Open <http://localhost:8000> in a browser
 
-[REST and WebAPI demo application](https://github.com/bmeviauac01/rest-webapi-sample)
-
-[Unit testing WebAPI (official sample from Microsoft)](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing)
-
----
-
-The materials found in this repository are created for the students of course BMEVIAUAC01. The usage of these materials outside the scope of teaching or learning this particular course is only granted if the source and authors are contributed.
-
-The materials are to be used within the course context. For any other usage scenarios the material is provided as-is.
+1. Edit the Markdown source and save; build and webpage refresh will be automatically triggered

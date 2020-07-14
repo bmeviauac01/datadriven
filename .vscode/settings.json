@@ -1,4 +1,15 @@
 {
-  "spellright.language": ["en"],
-  "spellright.documentTypes": ["markdown", "latex", "plaintext"]
+  "spellright.language": [
+    "en"
+  ],
+  "spellright.documentTypes": [
+    "markdown",
+    "latex",
+    "plaintext"
+  ],
+  "prettier.disableLanguages": ["markdown"],
+  "markdownlint.config": {
+    "default": true,
+    "MD007": { "indent": 4 }
+  }
 }
