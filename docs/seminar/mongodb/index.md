@@ -71,7 +71,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
     - Open yet another **new** _command prompt_ into our working directory.
     - Execute the following command: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
 
-1. Open the _sln_ file from the newly created folder using Visual Studio-val.
+1. Open the _sln_ file from the newly created folder using Visual Studio.
 
 1. Let us examine this project.
 

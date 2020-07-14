@@ -6,8 +6,8 @@ The goal of the seminar is to practice working with REST APIs and the .NET Web A
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2019 (_nem_ VS Code)
-- Microsoft SQL Server (LocalDB vagy Express edition)
+- Microsoft Visual Studio 2019 (_not_ VS Code)
+- Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Postman: <https://www.getpostman.com/downloads/>
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -30,52 +30,52 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 The database resides on each machine, thus the database you created previously might not be available. First check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
 
-## Feladat 1: Projekt megnyitása
+## Exercise 1: Open starter project
 
-1. Töltsük le a méréshez tartozó projekt vázat!
+1. Download the project skeleton!
 
-    - Nyissunk egy _command prompt_-ot
-    - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
-    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-rest-kiindulo.git`
+    - Open a new _command prompt_
+    - Navigate to a directory, e.g. `c:\work\NEPTUN`
+    - Execute the following command: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-rest-kiindulo.git`
 
-1. Nyissuk meg a `rest` könyvtár alatti _sln_ fájlt Visual Studio-val.
+1. Open the _sln_ file in the `rest` folder using Visual Studio.
 
-1. Vizsgáljuk meg a projektet.
+1. Let us examine this project.
 
-    - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
-    - Nézzük meg a `Program.cs` tartalmát. Nem kell értenünk, hogy mi történik itt pontosan, csak lássuk, hogy ez olyan, mint egy konzol alkalmazás: a `Main` függvényben elindít egy webszervert.
-    - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. A _connection stringet_ javítsuk ki szükség esetén ebben az osztályban az `OnConfiguring` függvényben.
+    - This is an ASP.NET Core Web API project. This project is created especially for hosting REST Api backends. It contains a web server internally, thus when running it with F5 we get a fully functional API able to respond to http requests.
+    - Let us examine `Program.cs`. We do not need to understand everything here. This is like a console application; the `Main` method here, the entry point that starts a web server.
+    - The Entity Framework _Code First_ mapping of our database is in the `Dal` folder. Class `DataDrivenDbContext` is the data access class. We need to fix the _connection string_ in the `OnConfiguring` method in this class.
 
         !!! note ""
-            A connection stringet természetesen nem célszerű beégetni a forráskódba. Mi ezt csupán egyszerűsítésként alkalmazzuk.
+            The connection string usually should not be hard-wired in the source code. This is for the sake of simplicity here.
 
-    - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
+    - There is a test controller in folder `Controllers`. Let us open and examine the code. Let us note the `[ApiController]` and `[Route]` attributes and the inheritance. These make a class a _Web API controller_. The behavior is automatic: the methods of the controller are invoked by the framework when they match the expected signature. This means that no additional configuration is needed here.
 
-1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el, ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy _Ctrl-C_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
+1. Start the application. After building the source code a console application will start where we will see diagnostic messages. Let us open a browser and navigate to <http://localhost:5000/api/values>. We should receive a JSON response. Stop the application by pressing _Ctrl-C_ in the console, or stop with Visual Studio.
 
-## Feladat 2: Első Controller és metódus, tesztelés Postmannel
+## Exercise 2: First controller and testing with Postman
 
-Készítsünk egy új Web API controllert, ami viszaad egy üdvözlő szöveget. Próbáljuk ki a működést Postman használatával.
+Create a new Web API controller that responds with a greeting. Test the behavior using Postman.
 
-1. Töröljük ki a `ValuesController` osztályt. Adjuk hozzá helyette egy új _Api Controller_-t üresen `HelloController` néven: a _Solution Explorer_-ben a _Controllers_ mappára jobb egérrel kattintva _Add / Controller... / API Controller - Empty_. A `HelloController` a `/api/hello` url alatt legyen elérhető.
-1. Készítsünk egy `GET` kérésre válaszoló metódust, ami egy szöveggel tér vissza. Próbáljuk ki Postman-nel: a GET kérést <http://localhost:5000/api/hello> címre kell küldenünk.
-1. Módosítsuk a REST kérést kiszolgáló metódust úgy, hogy opcionálisan fogadjon el egy nevet _query paraméterben_, azaz az urlben, és ha kap ilyet, akkor a válasza legyen "Hello" + a kapott név. Próbáljuk ki ezt is Postmannel: Ha adunk nevet, akkor azt a <http://localhost:5000/api/hello?nev=alma> url-je küldjük.
-1. Végül készítsünk egy _új_ REST Api végpontot (új függvényt), ami a <http://localhost:5000/api/hello/alma> url-en fog válaszolni pont úgy, ahogy az előző is tette (csak most a név a _path_ része).
+1. Delete the existing class `ValuesController`. Add a new empty _Api Controller_ with name `HelloController`: in _Solution Explorer_ right click the _Controllers_ folder and choose _Add / Controller... / API Controller - Empty_. The `HelloController` should respond to url `/api/hello`.
+1. The application shall respond with a text when GET request is received. Test this endpoint using Postman by sending a GET request to <http://localhost:5000/api/hello>.
+1. Change the REST endpoint by expecting an optional name as a _query parameter_; if such value is provided, the response greeting should include this name. Test this with Postman too: send a name by calling url <http://localhost:5000/api/hello?name=apple>.
+1. Create a _new_ REST Api endpoint that responds to URL <http://localhost:5000/api/hello/apple> just like the previous one, but the name is in the _path_ here.
 
-??? example "Megoldás"
+??? example "Solution"
     ```csharp
     [Route("api/hello")]
     [ApiController]
     public class HelloController : ControllerBase
     {
-        // 2. alfeladat
+        // 2.
         //[HttpGet]
         //public ActionResult<string> Hello()
         //{
         //    return "Hello!";
         //}
 
-        // 3. alfeladat
+        // 3.
         [HttpGet]
         public ActionResult<string> Hello([FromQuery] string name)
         {
@@ -85,9 +85,9 @@ Készítsünk egy új Web API controllert, ami viszaad egy üdvözlő szöveget.
                 return "Hello " + name;
         }
 
-        // 4. alfeladat
+        // 4.
         [HttpGet]
-        [Route("{personName}")] // a route-ban a {} közötti név meg kell egyezzen a paraméter nevével
+        [Route("{personName}")] // the liter inside {} in this route must match the parameter name
         public ActionResult<string> HelloRoute(string personName)
         {
             return "Hello route " + personName;
@@ -95,25 +95,25 @@ Készítsünk egy új Web API controllert, ami viszaad egy üdvözlő szöveget.
     }
     ```
 
-    Foglaljuk össze, mi kell ahhoz, hogy egy WebAPI végpontot készítsünk:
+    Let us summarize what we need to create a new WebAPI endpoint:
 
-    - Leszármazni a `ControllerBase`-ből és az `[ApiController]` attribútumot rátenni az osztályra.
-    - Megadni a route-ot, akár az osztályon, akár a metóduson (vagy mindkettőn) a `[Route]` attribútummal.
-    - Megfelelő formájú metódust készíteni (pl. visszatérési érték, paraméterek).
-    - Megadni, milyen http kérésre válaszol a végpont a megfelelő `[Http*]` attribútummal.
+    - Inherit from the `ControllerBase` class and add the `[ApiController]` attribute.
+    - Specify the URL route on the class or above the method (or on both) using the `[Route]` attribute.
+    - Define a method with the right signature (return value and parameters).
+    - Choose what type of http queries to respond to using one of the `[Http*]` attributes.
 
-## Feladat 3: Termékek keresése API
+## Exercise 3: Product search API
 
-Egy valódi API természetesen nem konstansokat ad vissza. Készítsünk API-t a webshopban árult termékek közötti kereséshez.
+A real API does not return constant strings. Create an API for searching among the products of our webshop.
 
-- Készítsünk ehhez egy új controller-t.
-- Lehessen listázni a termékeket, de csak lapozva (max 5 elem minden lapon).
-- Lehessen keresni termék névre.
-- A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, un. _DTO_ (data transfer object) osztályt egy új, `Models` mappában.
+- Create a new controller.
+- Enable listing products; 5 per page.
+- Enable search based on name.
+- The data returned should _not_ be the database entity; instead create a new _DTO_ (data transfer object) class in a new folder called `Models`.
 
-Teszteljük a megoldásunkat.
+Test the new endpoints.
 
-??? example "Megoldás"
+??? example "Solution"
     ```csharp
     // *********************************
     // Models/Product.cs
@@ -130,9 +130,9 @@ Teszteljük a megoldásunkat.
                 Stock = stock;
             }
 
-            // Csak a lenyeges tulajdonsagokat tartalmazza, pl. az adatbazis kulso kulcsokat nem.
-            // Ertekadas csak a konstruktoron keresztul lehetseges, ezzel jelezve, hogy a peldany
-            // egy pillanatkep alapjan jon letre, es nem modosithato.
+            // Contains only the relevant data; e.g. the database foreign keys are of no use here.
+            // Assignment only via the constructor; this makes it unambiguous
+            // that this is a snapshot of information that cannot be modified.
 
             public int Id { get; private set; }
             public string Name { get; private set; }
@@ -151,14 +151,14 @@ Teszteljük a megoldásunkat.
 
     namespace BME.DataDriven.REST.Controllers
     {
-        [Route("api/products")] // adjunk meg explicit urlt inkabb
+        [Route("api/products")] // it is better to explicitly specify the url
         [ApiController]
         public class ProductsController : ControllerBase
         {
             private readonly Dal.DataDrivenDbContext dbContext;
 
-            // Az adatbazist igy kaphatjuk meg. A kornyezet adja a Dependency Injection szolgaltatast.
-            // A DbContext automatikusan megszunik, amikor a controller megszunik: a lekerdezes vegen.
+            // The database is obtained through the Dependency Injection service of the framework.
+            // The DbContext is automatically disposed at the end of the request.
             public ProductsController(Dal.DataDrivenDbContext dbContext)
             {
                 this.dbContext = dbContext;
@@ -169,70 +169,70 @@ Teszteljük a megoldásunkat.
             {
                 IQueryable<Dal.Product> filteredList;
 
-                if (string.IsNullOrEmpty(search)) // ha nincs nev alapu kereses, az osszes termek
+                if (string.IsNullOrEmpty(search)) // no search yields all products
                     filteredList = dbContext.Product;
-                else // nev alapjan kereses
+                else // search by name
                     filteredList = dbContext.Product.Where(p => p.Name.Contains(search));
 
                 return filteredList
-                        .Skip(from) // lapozashoz: hanyadik termektol kezdve
-                        .Take(5) // egy lapon max 5 termek
-                        .Select(p => new Models.Product(p.Id, p.Name, p.Price, p.Stock)) // adatbazis entitas -> DTO
-                        .ToArray(); // a fenti IQueryable kiertekelesesen kieroltetese, kulonben hibara futnank
+                        .Skip(from) // paging: from which product
+                        .Take(5) // 5 items on one page
+                        .Select(p => new Models.Product(p.Id, p.Name, p.Price, p.Stock)) // db to dto conversion
+                        .ToArray(); // enforce evaluating the IQueryable - otherwise would yield an error
             }
         }
     }
     ```
 
-    Vegyük észre, hogy a JSON sorosítással nem kellett foglalkoznunk. Az API csak entitást ad vissza. A sorosításról automatikusan gondoskodik a keretrendszer.
+    Let us note that we did not need to concern ourselves with JSON serialization. The API returns objects. The serialization is automatically handled by the framework.
 
-    Lapozást azért érdemes beiktatni, hogy korlátozzuk a visszaadott választ (ahogy a felhasználói felületeken is szokás lapozni). Erre tipikus megoldás ez a "-tól" jellegű megoldás.
+    Paging is useful to limit the size of the response (and paging is also customary on UIs). Specifying a “from” is a simple and frequently used solution.
 
-    A metódus eredménye a `ToArray`-t megelőzően egy `IQueryable`. Emlékezzünk arra, hogy az `IQueryable` nem tartalmazza az eredményt, az csak egy leíró. Ha nem lenne a végén `ToArray`, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból soha ne adjunk emiatt `IQueryable` vagy `IEnumerable` visszatérési értéket!
+    The result of the method before the `ToArray` is an `IQueryable`. We may remember that the `IQueryable` does not contain the result; it is merely a descriptor of the query. If we had no `ToArray`, we would see an error. When the framework would begin the serialization to JSON it would start iterating the query; but at this point the database connection has already been closed. Therefore WebAPI endpoints should not return `IEnumerable` or `IQueryable`.
 
-## Feladat 4: Termékek adatainak szerkesztés API
+## Exercise 4: Editing products via the API
 
-Egészítsük ki a termékek kereséséhez született API-t az alábbi funkciókkal:
+Add the following functionality to our API:
 
-- Lehessen egy adott termék adatait lekérdezni a termék id-ja alapján a `/api/products/id` url-en.
-- Tudjunk módosítani meglevő terméket (nevet, árat, raktárkészletet).
-- Lehessen felvenni új terméket (ehhez készítsünk egy új DTO osztályt, amiben csak a név, raktárkészlet és ár van).
-- Lehessen törölni egy terméket az id-ja alapján.
+- Fetch the data of a particular product specified by id at url `/api/products/id`.
+- Update the name, price and stock of a product.
+- Add a new product (create a new DTO class for input that contains only the name, price and stock).
+- Delete a product by specifying the id.
 
-Mindegyik végpontot teszteljük!
+Test each endpoint!
 
-**Új termék beszúrásához** Postman-ben az alábbi beállításokra lesz szükség:
+**Inserting** a new product you will need the following settings in Postman:
 
-- POST kérés a helyes URL-re
-- A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
-- Az alábbi _body_ json:
+- POST request to the correct url
+- Specify the _Body_: choose `raw` and then `JSON`
+- And use the JSON as _body_ below:
   ```json
   {
-    "name": "BME-s kardigán",
+    "name": “BME pen",
     "price": 8900,
     "stock": 100
   }
   ```
 
-A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szükség:
+**Updating** a product you will need the following settings:
 
-- PUT kérés a helyes URL-re
-- A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
-- Az alábbi _body_ json:
+- PUT request to the correct url
+- Specify the _Body_: choose `raw` and then `JSON`
+- And use the JSON as _body_ below:
   ```json
   {
-    "id": 10,
-    "name": "Egy óra csend",
+    ID: 10,
+    "name": "Silence for one hour”,
     "price": 440,
     "stock": 10
   }
   ```
 
-![Postman PUT kérés](images/postman-put-query.png)
+![Postman PUT query](images/postman-put-query.png)
 
-A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkesztés és beszúrás esetén keressük meg benne a _Location_ kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény.
+Make sure to check the headers of the response too! Update and insert should add the _Location_ header. This header should contain the URL to fetch the record.
 
-??? example "Megoldás"
+??? example "Solution"
     ```csharp
     // *********************************
     // Models/NewProduct.cs
@@ -272,9 +272,9 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                 var dbProduct = dbContext.Product.SingleOrDefault(p => p.Id == id);
 
                 if (dbProduct == null)
-                    return NotFound(); // helyes http valasz, ha nem talalhato a keresett elem
+                    return NotFound(); // expected response when an item is not found
                 else
-                    return new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock); // siker eseten visszaadjuk az adatot magat
+                    return new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock); // in case of success return the item itself
             }
 
             // PUT api/products/id
@@ -290,15 +290,15 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                 if (dbProduct == null)
                     return NotFound();
 
-                // modositasok elvegzese
+                // modifications performed here
                 dbProduct.Name = updated.Name;
                 dbProduct.Price = updated.Price;
                 dbProduct.Stock = updated.Stock;
 
-                // mentes az adatbazisban
+                // save to database
                 dbContext.SaveChanges();
 
-                return NoContent(); // 204 NoContent valasz
+                return NoContent(); // response 204 NoContent
             }
 
             // POST api/products
@@ -310,15 +310,15 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                     Name = newProduct.Name,
                     Price = newProduct.Price,
                     Stock = newProduct.Stock,
-                    CategoryId = 1, // nem szep, ideiglenes megoldas
-                    VatId = 1 // nem szep, ideiglenes megoldas
+                    CategoryId = 1, // not nice, temporary solution
+                    VatId = 1 // not nice, temporary solution
                 };
 
-                // mentes az adatbazisba
+                // save to database
                 dbContext.Product.Add(dbProduct);
                 dbContext.SaveChanges();
 
-                return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
+                return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // this will add the URL where the new item is available into the header
             }
 
             // DELETE api/products/id
@@ -334,17 +334,17 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                 dbContext.Product.Remove(dbProduct);
                 dbContext.SaveChanges();
 
-                return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk an entitast)
+                return NoContent(); // successful delete is signaled with 204 NoContent (could be 200 OK as well if we included the entity)
             }
         }
     }
     ```
 
-## Feladat 5: Új termék létrehozása: kategória és áfakulcs
+## Exercise 5: Add new product with category and VAT
 
-Az új termék létrehozása során meg kellene adnunk még a kategóriát és az áfakulcsot is. Módosítsuk a fenti termék beszúrást úgy, hogy a kategória nevét és az áfakulcs számértékét is meg lehessen adni. A kapott adatok alapján keresd ki a megfelelő `VAT` és `Category` rekordokat az adatbázisból, vagy hozz létre újat, ha nem léteznek.
+When creating the new product we have to specify the category, as well as the value added tax. Change the insert operation from before by allowing the category name and the tax percentage to be specified. Find the `VAT` and `Category` records based on the provided data, or create new records if needed.
 
-??? example "Megoldás"
+??? example "Solution"
     ```csharp
     // *********************************
     // Models/NewProduct.cs
@@ -353,7 +353,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
         public class NewProduct
         {
             // ...
-            // konstruktort is ki kell egesziteni
+            // need to extend the constructor
 
             public int VATPercentage { get; private set; }
             public string CategoryName { get; private set; }
@@ -386,11 +386,11 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
                 VAT = dbVat
             };
 
-            // mentes az adatbazisba
+            // save to database
             dbContext.Product.Add(dbProduct);
             dbContext.SaveChanges();
 
-            return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
+            return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // this will add the URL where the new item is available into the header
         }
     }
     ```
