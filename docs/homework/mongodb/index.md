@@ -1,40 +1,40 @@
-# Feladat: MongoDB
+﻿# Exercise: MongoDB
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+This exercise is optional. You may earn **2+2 points** by completing this exercise.
 
-GitHub Classroom segítségével a <TBD> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+Use GitHub Classroom to get your personal git repository at <TBD>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
 
-## Szükséges eszközök
+## Required tools
 
-- Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
-- MongoDB Community Server ([letöltés](https://www.mongodb.com/download-center/community))
-- Robo 3T ([letöltés](https://robomongo.org/download))
-- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
-    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
+- Windows, Linux or MacOS: All tools are platform-independent, or a platform-independent alternative is available.
+- MongoDB Community Server ([download](https://www.mongodb.com/download-center/community))
+- Robo 3T ([download](https://robomongo.org/download))
+- Microsoft Visual Studio 2019 [with the settings here](../VisualStudio.md)
+    - When using Linux or MacOS you can use Visual Studio Code, the .NET Core SDK and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-    - Visual Studio esetén települ, de ha mégse, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.)
-    - Linux és MacOS esetén telepíteni szükséges.
-- Gyakorlatokon is használt minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
-    - Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../seminar/mongodb/index.md) leírt módon.
-- GitHub account és egy git kliens
+    - Usually installed with Visual Studio; if not, use the link above to install (the SDK and _not_ the runtime).
+    - You need to install it manually when using Linux or MacOS.
+- Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+    - Create and initialize the database; use the steps [the seminar exercises](../../seminar/mongodb/index.md) describe.
+- GitHub account and a git client
 
-## Feladat 0: Neptun kód
+## Exercise 0: Neptun code
 
-Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
+Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
 
-## Feladat 1: Áfa kulcs módosítása (2 pluszpont)
+## Exercise 1: Modify tax percentage (2 points)
 
-Ebben a feladatban egy módosító utasítás (`Update`) segítségével kell megváltoztatni egy áfatípus kulcsát. Az implementálandó metódus a `ProductRepository` osztályban a következő.
+This exercises requires you to change the percentage of a value added tax and update all related products. You need to implement the following method in class `ProductRepository`.
 
 ```csharp
 public void ChangeVatPercentage(string name, int newPercentage)
 ```
 
-1. Először is vizsgáljuk meg, hogy hogy találhatók meg az ÁFA értékek az adatbázisunkban. Az SQL adatbázisban megszokott normalizált táblával ellentétben itt denormalizált módon, a `products` kollekcióban beágyazott dokumentumként szerepel.
+1. Let us first examine where the tax-related data is in the database. Compared to a relational database, the VAT-related data is denormalized in MongoDB and resides in the `products` collection as an embedded document in each item.
 
-    ![Beágyazott dokumentum](embedded-doc.png)
+    ![Embedded document](embedded-doc.png)
 
-    Ezt tükrözi a `Product` entitás osztály is.
+    This is also mirrored in the the `Product` C# class.
 
     ```csharp
     public class Product
@@ -50,65 +50,65 @@ public void ChangeVatPercentage(string name, int newPercentage)
     }
     ```
 
-    Ez az adatbázis olvasását igen hatékonnyá teszi: ha egy termék bruttó árára vagyunk kíváncsiak, egyetlen dokumentumban rendelkezésünkre áll minden szükséges érték — szemben az SQL adatbázissal, ahol ehhez `JOIN`-ra lenne szükség.
+    This makes working with products efficient as the total price of the product can be calculated by taking the price and the embedded tax percentage (without the need to `JOIN` another data table, as it is required in a relational db).
 
-    Hátránya viszont, hogy módosítás esetén **minden** dokumentumban módosítanunk kell az áfakulcsot, ahol megjelenik.
+    The disadvantage is though that an update to the tax has to change **all documents**.
 
-1. Az előzőekből következik, hogy a tömeges változtatáshoz `UpdateMany` utasításra lesz szükségünk — ugyanis mindenhol szeretnénk módosítani az áfakulcsot ahol a név megegyezik. A függvény használatának módját érdemes felidézni.
+1. From the description above it follows that we need to change more than one document, hence we shall use an `UpdateMany` command to find and update all product records where the name in the `vat` field matches the parameter. Let us review how this method works.
 
-    - Az `UpdateMany` függvény `filter` paraméterében szűrjünk rá azokra a termékekre melyekben az `VAT.Name` megegyezik a függvény `name` paraméterével.
-    - A függvény `update` paraméterében a módosító lépést mondjuk meg, itt az `VAT.Percentage` értéket szeretnénk beállítani az `newPercentage` paraméter értékére. Ehhez a [$set](https://docs.mongodb.com/manual/reference/operator/update/set/) (`Set`) operátor használható.
+    - `UpdateMany` has a `filter` parameter to specify which product records to update: where `VAT.Name` equals the value in the `name` parameter of the repository method.
+    - The `update` parameter specifies the changes to make: change the `VAT.Percentage` to the value received as `newPercentage` parameter of the repository method. You should use a [$set](https://docs.mongodb.com/manual/reference/operator/update/set/) (`Set`) operator for this modification.
 
-1. Készítsd el a függvény implementációját. A repository osztály konstruktorban megkapja az adatbázist és elmenti magának a használandó gyűjteményt, ezen keresztül érheted el az adatbázist.
+1. Implement the repository method. The repository class receives the database as parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.
 
-A teszteléshez találsz unit teszteket a solution-ben. A teszteket [Visual Studio-ban egyszerűen tudod futtatni](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), de ha mást használsz fejlesztéshez (pl. VS Code és/vagy `dotnet cli`), akkor is [tudsz teszteket futtatni](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). Az adatbázis eléréséhez a `TestDbFactory` osztályban módosíthatod a connection stringet.
+There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g. VS Code and/or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestDbFactory` if needed.
 
-!!! important "Tesztek"
-    A tesztek az adatbázis kiinduló állapotát feltételezik. Futtasd le az adatbázis scriptet a kiinduló állapot visszaállításához.
+!!! important "Tests"
+    The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
 
-    A tesztek kódját **NE** módosítsd. Ha a teszteléshez szükséges, ideiglenesen beleszerkeszthetsz, de ügyelj rá, hogy az eredeti állapottal kommitold a megoldásod.
+    Do **NOT** change the unit tests. You may temporarily alter the unit tests if you need to, but make sure to reset your changes before committing.
 
-!!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+!!! example "SUBMISSION"
+    Upload the changed C# source code.
 
-    Emellett készíts egy képernyőképet a **`products` gyűjtemény tartalmáról a változtatás után**. A teszt lefuttatásával a _Standard Rate_ nevű áfakulcs százaléka megváltozik. Robo3T-ből (vagy más eszközből) mutasd meg, hogy valóban frissülnek a gyűjteményben az értékek. Egy-két érintett dokumentumot bonts ki, hogy látható legyen a változás (mint a képen fent).
+    Create a screenshot that displays the **content of the `products` collection after the successful update**. If you execute the test, the _Standard Rate_ VAT percentage should change. Use Robo3T (or any other similar tool) to verify and show that the values have indeed changed. Make sure to expand a few documents to show the new values (just like on the image above).
 
-## Feladat 2: Legnagyobb összértékű termék a raktárban (2 iMsc pont)
+## Exercise 2: Product with largest total value (2 points)
 
-A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó termékek közül melyik képviseli a legnagyobb összértéket — tehát melyik termék az, amelyiknek az **ára szorozva a raktárban lévő mennyiségével a legnagyobb**. Ehhez a `ProductRepository` osztályban a következő metódust kell implementálnunk.
+The task is to find the product that has the largest total value within a product category. The total value is the **price of the product multiplied by the amount of the product in stock**. You need to implement the following method in class `ProductRepository`.
 
 ```csharp
 (string, double?) ProductWithLargestTotalValue(ObjectId categoryId)
 ```
 
-1. A pontos specifikáció megértéséhez vizsgáljuk meg először a feladathoz tartozó teszteket a `TestExercise2.cs` fájlban.
+1. In order to understand what is expected here, let us check the test related to this exercise in file `TestExercise2.cs`.
 
-    - A függvény bemeneti paramétere a kategória ID-ja, amelyhez tartozó termékekre éppen kíváncsiak vagyunk.
-    - Amennyiben tartozik termék a megadott kategóriához, akkor a legnagyobb összértékű termék nevét és az összértéket kell visszaadnunk.
-    - Amennyiben nem tartozik termék a kategóriához, mind a két értékre `null`-t kell visszaadnunk.
+    - The method accepts a category name as argument; products have to be filtered for this category.
+    - The return value should be the name of the product (with the largest total value) and the total value itself.
+    - If there are no products in the specified category, the return value should be `(null, null)`.
 
-1. A lekérdezés elvégzéséhez a MongoDB aggregációs pipeline-ját érdemes használni. Ennek működésének felelevenítéséhez nézd meg a gyakorlatfeladatok megoldását.
+1. Use the aggregation pipeline of MongoDB. To see how this aggregation pipeline works, you can refer to the seminar material.
 
-    A lekérdezéshez a következő pipeline lépések szükségesek:
+    You should build a pipeline consisting of the following stages:
 
-    - Szűrjük le a termékeket a megadott kategóriához tartozókra. Ehhez egy [$match](https://docs.mongodb.com/manual/reference/operator/aggregation/match/) (`Match`) lépésre lesz szükségünk, ahol megadhatjuk a megfelelő filter kifejezést.
+    - Filter the products for the specified category. Use a [$match](https://docs.mongodb.com/manual/reference/operator/aggregation/match/) (`Match`) stage to specify the filter.
 
-    - Számoljuk ki minden megmaradt termék esetén az összértéket egy [$project](https://docs.mongodb.com/manual/reference/operator/aggregation/project/) (`Project`) lépés segítségével. Ne felejtsd el, hogy az összérték mellett a termék nevére is szükségünk lesz!
+    - Calculate for each product the total value (multiply the price and the stock) using a [$project](https://docs.mongodb.com/manual/reference/operator/aggregation/project/) (`Project`) stage. Make sure to also include the name of the product, you will need it for the final result.
 
-    - Rendezzük az így kapott dokumentumokat csökkenő sorrendbe az összérték alapján. Ehhez a [$sort](https://docs.mongodb.com/manual/reference/operator/aggregation/sort/) (`SortByDescending`) lépést tudjuk alkalmazni.
+    - Order the items based on this calculated total value descending. Use a [$sort](https://docs.mongodb.com/manual/reference/operator/aggregation/sort/) (`SortByDescending`) stage.
 
-    - A legnagyobb értékre vagyunk kíváncsiak, azaz az eredmények közül csupán az első érdekel minket. Azonban akkor sem szeretnénk hibát kapni, ha egyáltalán nem tartozott termék ehhez a kategóriához. Ezért a `FirstOrDefault` kiértékelő utasítást érdemes használni.
+    - Since it is the largest value that we need, take the first item after sorting. Do not forget that there might not be any product in the specified category. Therefore you should use `FirstOrDefault` to fetch this item.
 
     !!! note ""
-        Ha esetleg ismeretlen lenne a `(string, double?)` szintaktika:
+        If the syntax `(string, double?)` is unfamiliar:
 
         ```csharp
         return ("test", 0.0);
         ```
         
-        utasítás segítségével egyszerre két visszatérési értéket tudunk adni a függvénynek.
+        The function will return with these two values.
 
-Ha sikerült implementálni a metódust, akkor a korábban már látott módon a `TestExercise2` osztályban található teszt metódusokkal ellenőrizni tudod a működést.
+You may test your implementation with the tests provided in class `TestExercise2`.
 
-!!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+!!! example "SUBMISSION"
+    Upload the changed C# source code.

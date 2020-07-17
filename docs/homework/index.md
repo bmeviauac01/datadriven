@@ -1,37 +1,37 @@
-# Szorgalmi házi feladatok
+﻿# Optional homeworks
 
-A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük. A feladatok leírása található itt; a megoldások beadása GitHub Classroom segítségével történik.
+These exercises are **optional**. You can earn **extra points** that are added to your exam score. In the exercises and the evaluation results you will see a text “iMsc”; please ignore that, it is for the Hungarian students. All exercises are available for extra points on this course. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom.
 
-!!! important "Működő kód"
-    A feladatok során működő kódot, kódrészleteteket kell készíteni. A feladat lényege a valóságban működő és a kívánt funkciót ellátó kód készítése.
+!!! important "Working code"
+    You are expected to write code that actually works! Your code will be executed and it is required to fulfil the specified task.
 
-## A feladatok
+## The exercises
 
-1. [MSSQL szerveroldali programozás](mssql/index.md)
-1. [ADO.NET adatelérés](adonet/index.md)
+1. [MSSQL server-side programming](mssql/index.md)
+1. [ADO.NET data access](adonet/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
-1. [REST API Web API technológiával](rest/index.md)
+1. [REST API and Web API](rest/index.md)
 
-## A feladatok beadása
+## Submission
 
-Minden házi feladat megoldását egy személyre szóló git repository-ban kell beadni. Ennek pontos [folyamatát lásd itt](GitHub.md). Kérünk, hogy alaposan olvasd végig a leírást!
+Each homework must be submitted in a personal git repository. Please refer to the detailed [guideline here](GitHub.md). You must carefully study these guidelines!
 
-!!! important "FONTOS"
-    A házik elkészítése és beadás során az itt leírtak szerint **kell** eljárnod. A nem ilyen formában beadott házikat nem értékeljük.
+!!! important "IMPORTANT"
+    The submissions of the homeworks **must** follow these guidelines. Submissions not adhering to the expected format are not considered.
 
-## Képernyőképek
+## Screenshots
 
-A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részéről, mert ezzel bizonyítod, hogy a megoldásod saját magad készítetted. **A képernyőképek elvárt tartalmát a feladat minden esetben pontosan megnevezi**. A képernyőkép készülhet a teljes desktopról is, de lehet csak a kért alkalmazásról készíteni.
+Some of the exercises require you to create a screenshot. This screenshot is the proof of completion of the exercise. **The expected content of these screenshots is detailed in the exercise description.** The screenshot may include the entire desktop, or just the required portion of the screen.
 
 !!! info ""
-    A képernyőképeket a megoldás részeként kell beadni, így felkerülnek a git repository tartalmával együtt. Mivel a repository privát, azt az oktatókon kívül más nem látja. Amennyiben olyan tartalom kerül a képernyőképre, amit nem szeretnél feltölteni, kitakarhatod a képről.
+    The screenshots must be submitted as part of the solution code, uploaded to the git repository. The repositories are private; only you and the instructions can access them. If there is any content on the screenshot that is not relevant to the exercise and you would like to remove, you can obscure these parts.
 
-## A feladatok kiértékelése
+## Submission evaluation
 
-A feladatok kiértékelése részben **automatikusan** történik. A futtatható kódokat valóban le fogjuk futtatni, ezért minden esetben fontos a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!
+The evaluation of the exercises is **semi-automatic**. Your code will be executed, therefore it is important that you follow the exercise descriptions precisely (e.g. use the provided code skeleton, change only the allowed parts of the code, etc).
 
-A kiértékelés eredményéről a GitHub-on kapsz szöveges visszajelzést (lásd [itt](GitHub.md)). Ha ennél több információra van szükséged, a _GitHub Actions_ webes felülete segítségül szolgálhat. Erről [itt](GitHub-Actions.md) találsz egy rövid ismertetőt.
+You will receive a preliminary result about your submission in GitHub; see in the guideline [here](GitHub.md)). If there are some issues you need to diagnose, the entire log of the execution is available for you on the _GitHub Actions_ web page. A short introduction is provided [here](GitHub-Actions.md).
 
-!!! danger "Ellenőrzés"
-    Egyes házikban (ahol a technológia ezt kényelmessé teszi) találsz unit teszteket. Ezen tesztek **segítenek** ellenőrizni a munkádat, de **nem helyettesítik saját ellenőrzésed**. Amikor feltöltöd a munkádat, alaposabb tesztelésen fog átesni a kódod.
+!!! danger "Verification"
+    In some of the exercises, where the technology permits, you will find unit tests. These tests **help** you in verifying your work, but these are **no substitution for your own validation**. When you upload your work, a more exhaustive testing will evaluate your submission.

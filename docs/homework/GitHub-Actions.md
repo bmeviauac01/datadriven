@@ -1,29 +1,29 @@
-# GitHub Actions ismertető
+﻿# Using GitHub Actions
 
-A feladatok kiértékelésében a [GitHub Actions](https://github.com/features/actions)-re támaszkodunk. Segítségével a git repository-kon műveleteket és programokat tudunk futtatni. Ilyen művelet például a C# kód lefordítása, vagy a beadott kód tesztelése.
+The semi-automatic evaluation of the exercises is based on [GitHub Actions](https://github.com/features/actions). It is a CI system capable of running jobs on git repositories. We use this system for example to compile your code and test it.
 
-A lefutott kiértékelésről a pull request-ben fogsz értesítést kapni. Ha meg szeretnéd nézni részletesebben a háttérben történteket, vagy például az alkalmazás naplókat, a GitHub felületén az _Actions_ alatt indulhatsz el.
+You will receive a notification about the results in a pull request. But if you need more details, such as check the application logs, you can access these using the web interface of GitHub under _Actions_.
 
-![GitHub Actions a webfelületen](images/github/github-actions-tab.png)
+![GitHub Actions on the web interface](images/github/github-actions-tab.png)
 
-Az _Actions_ felületén un. _Workflow_-kat látsz; minden egyes kiértékelés futtatás egy-egy elem lesz itt (tehát historikusan is visszakereshetőek).
+Here, you will see a list of _Workflows_. Each evaluation (each commit) is a separate item here (so the history is also available).
 
-![GitHub Actions workflow lista](images/github/github-actions-executions-list.png)
+![GitHub Actions workflow list](images/github/github-actions-executions-list.png)
 
-Ezek közül egyet kiválasztva (pl. a legfelső mindig a legutolsó) láthatod a workflow futásának részleteit. A futás naplójához a bal oldali listában még kattintani kell egyet. Jobb oldalon látható a folyamat teljes naplója.
+By selecting one (e.g. the last one is always at the top of the list) you see the details of this workflow. To get to the logs you need to click once more on the left. The log will be on the right side.
 
-![GitHub Actions a job naplója](images/github/github-actions-job-log.png)
+![GitHub Actions job log](images/github/github-actions-job-log.png)
 
-Minden zöld pipa egy-egy sikeres lépést jelent. Ezen lépések nem azonosak a feladatokokkal, hanem a kiértékelés folyamatának lépései lesznek. Ilyen lépés például a környezet előkészítése, pl. a .NET SDK telepítése (minden kiértékelés egy vadiúj környezetben indul, így mindent elő kell készíteni).
+Each green checkmark is a successful step. These steps do not correspond to you exercises; these describe the evaluation process. These steps include preparations, such as setting up the .NET environment for compiling your code (since each workflow starts in a clean environment, these steps are performed each time).
 
-Alapvetően a lépések mindig sikeresek, akkor is, ha a megoldásodban hiba van, mert a kiértékelés erre fel van készítve. Kivételt ez alól csak a `neptun.txt` hiánya ill. a C# kód lefordítása jelent. Előbbi feltétlenül szükséges, ezért semmilyen folyamatot nem hajtunk végre nélküle. Utóbbi esetében a C# kód fordítása szintén szükséges a továbblépéshez, ezért sikertelenség esetén leáll a folyamat.
+Most of these steps should be successful, even if your submission contains an error. The two exceptions when these tasks might fail due to your changes are: (1) if `neptun.txt` is missing, or (2) your C# code does not compile. The `neptun.txt` is mandatory and no evaluation is performed until that is provided. The C# compilation is a step that must succeed, otherwise your application cannot be started.
 
-Néha előfordulhat azonban tranziens, időszakos hiba is. Például a .NET környezet letöltése nem sikerül hálózati hiba miatt. Ilyen esetben a futtatást kézzel meg lehet ismételni. Ez persze csak akkor segít, ha tényleg átmeneti hibáról van szó, tehát pl. egy C# fordítási hibán nem fog segíteni. (Ezt a hibaüzenetből illetve a lépés nevéből tudod kideríteni, vagy legalább is megtippelni kellő bizonyossággal.)
+There might be transient errors in these workflows. An example is when a download, such as the download of the .NET environment fails. The workflow execution can be repeated if this occurs. Obviously retrying the execution may only help if the problem is indeed transient; a C# compilation error will not be resolved by a retry. (You can deduce the cause from the name of the step and the error message.)
 
-![GitHub Actions tranziens hiba és újra futtatás](images/github/github-actions-rerun.png)
+![GitHub Actions transient error and retry](images/github/github-actions-rerun.png)
 
-A feladat függvényében akár az alkalmazás naplókat is meg tudod nézni itt. Pl. amikor .NET alkalmazást készítesz, az alkalmazást elindítjuk, és minden, amit naplóz, itt megtekinthető.
+You might also be able to access the application logs. E.g. when testing a .NET application, it is started and the logs will be printed here.
 
-Az alábbi például egy Entity Framework-öt használó alkalmazás inicializását mutatja, köztük például a kiadott SQL parancsokat is. Debuggolás közben a Visual Studio _Output_ ablakában is hasonlókat láthatsz. Ez természetesen nagyban függ a konkrét feladattól.
+The image below shows the initialization of an Entity Framework application where you can also see the translated and executed SQL commands. (You would see the same in Visual Studio _Output_ while debugging.) The content here, obviously, depends on the actual exercise.
 
-![GitHub Actions alkalmazás napló](images/github/github-actions-app-log.png)
+![GitHub Actions application log](images/github/github-actions-app-log.png)

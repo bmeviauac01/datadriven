@@ -6,7 +6,7 @@
 
 The content in built using MkDocs and is published to GitHub Pages at: <https://bmeviauac01.github.io/datadriven-en/>
 
-#### How to built it locally (using Docker)
+#### How to build it locally (using Docker)
 
 1. Open a Powershell console to the root of the directory
 

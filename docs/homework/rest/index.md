@@ -1,78 +1,78 @@
-# Feladat: REST API Web API technológiával
+﻿# Exercise: REST API and Web API
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+This exercise is optional. You may earn **2+2 points** by completing this exercise.
 
-GitHub Classroom segítségével a <TBD> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+Use GitHub Classroom to get your personal git repository at <TBD>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
 
-## Szükséges eszközök
+## Required tools
 
-- Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
-- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
-    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
+- Windows, Linux or MacOS: All tools are platform-independent, or a platform-independent alternative is available.
+- Microsoft Visual Studio 2019 [with the settings here](../VisualStudio.md)
+    - When using Linux or MacOS you can use Visual Studio Code, the .NET Core SDK and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-    - Visual Studio esetén települ, de ha mégse, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.)
-    - Linux és MacOS esetén telepíteni szükséges.
+    - Usually installed with Visual Studio; if not, use the link above to install (the SDK and _not_ the runtime).
+    - You need to install it manually when using Linux or MacOS.
 - [Postman](https://www.getpostman.com/)
-- GitHub account és egy git kliens
+- GitHub account and a git client
 
-## Feladat 0: Neptun kód
+## Exercise 0: Neptun code
 
-Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
+Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
 
-## Feladat 1: Termék műveletek (2 pluszpont)
+## Exercise 1: Operations on products (2 points)
 
-A létrehozott és klónozott repository-ban megtalálható a kiinduló kód váz. Nyitsd meg Visual Studio-val és indítsd el. Egy konzol alkalmazásnak kell elindulnia, amely hosztolja a web alkalmazást. Próbáld ki (miközben fut a program): böngészőben nyitsd meg a <http://localhost:5000/api/product> oldalt, ahol a termékek listáját kell lásd JSON formában.
+The repository you cloned contains a skeleton application. Open the provided Visual Studio solution and start the application. A console window should appear that hosts the web application. While the web app is running test it: open a browser to <http://localhost:5000/api/product>. The page should display a list of products in JSON format.
 
-Nézd meg a rendelkezésre álló kódot.
+Check the source code.
 
-- A `Startup.cs` inicializálja az alkalmazást. Ez egy ASP.NET Core webalkalmazás.
-- Az alkalmazásban nincs adatbázis elérés az egyszerűség végett. A `ProductRepository` osztály teszteléshez használandó adatokat ad.
-- A `ProductsController` _dependency injection_ segítségével példányosítja az `IProductRepository`-t.
+- `Startup.cs` initializes your application. This is an ASP.NET Core web application.
+- There is no database used in this project to make things simpler. Class `ProductRepository` contains hard-wired data used for testing.
+- `ProductsController` uses _dependency injection_ to instantiate  `IProductRepository`.
 
-Feladatok:
+Exercises:
 
-1. A `DAL.ProductRepository` osztályban a `Neptun` nevű mező értékében cseréld le a Neptun kódod. A string értéke a Neptun kódod 6 karaktere legyen.
+1. In class `DAL.ProductRepository` edit the field `Neptun` and add your Neptun code here. The string should contain the 6 characters of your Neptun code.
 
-    !!! warning "FONTOS"
-        Az így módosított adatokról kell képernyőképet készíteni, így ez a lépés fontos.
+    !!! warning "IMPORTANT"
+        The data altered this way will be displayed on a screenshot in a later exercise, hence this step is important.
 
-1. Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy `HEAD` típusú HTTP kérést fogunk küldeni a `/api/product/{id}` URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).
+1. Create a new API endpoint for verifying whether a particular product specified by its ID exists. This new endpoint should respond to a `HEAD` HTTP query on URL `/api/product/{id}`. The HTTP response should be status code 200 or 404 (without any body either case).
 
-1. Készíts egy olyan API végpontot, ami egy terméket (`Product`) ad vissza az id-ja alapján; a kérés GET típusú legyen a `/api/product/{id}` címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.
+1. Create a new API endpoints that returns a single `Product` specified by its ID; the query is a `GET` query on URL `/api/product/{id}` and the response should be either 200 OK with the product as body, or 404 when the product is not found.
 
-1. Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy GET típusú kérés legyen a `/api/product/-/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
+1. Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a GET HTTP request to URL `/api/product/-/count`. The returned result should be a JSON serialized `CountResult` object with the correct count.
 
-    ??? question "Miért van a `/-` rész az URL-ben?"
-        Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehene az URL: termékek darabszámára vagyunk kíváncsiak, tehát `/api/product/`, de utána mi? Lehetne `/api/product/count`. Viszont ez "összekeveredik" a `/api/product/123` jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha `/123` az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig `/count` az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A `/-` rész azt jelzi, hogy ott _nem_ termék azonosító utazik.
+    ??? question "Why is there a `/-` in the URL?"
+        In order to understand the need for this, let us consider what the URL should look like: we are querying products, so `/api/product` is the prefix, but what is the end of the URL? It could be `/api/product/count`. However, this clashes with `/api/product/123` where we can get a particular product. In practice, the two URLs could work side-by-side here, since the product ID is an integer and the framework would recognize that an URL ending in `/123` is to get a product and the `/count` is to get the counts. But this works only as long as the ID is an integer. If the product ID would be a string, this would be more problematic. Our solution makes sure that the URLs do not clash. The `/-` is to indicate that there is _no_ product ID.
 
-        Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute?view=aspnetcore-3.1#properties).
+        Note: the way URLs are matched to controller methods is more complicated actually. ASP.NET Core has a notion of priorities when trying to find a controller method for an URL. This priority can be modified on the [`[Http*]` attributes by setting the `Order` property](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute?view=aspnetcore-3.1#properties).
 
-!!! example "BEADANDÓ"
-    A módosított forráskódot töltsd fel.
+!!! example "SUBMISSION"
+    Upload the changed source code.
 
-    Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legeyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**.
+    Create a screenshot from Postman (or any alternative tool you used for testing) that shows a successful query that fetches an existing product. The screenshot should display both the request and response with all information (request type, URL, response code, response body). Save the screenshot as `f1.png` and upload as part of your submission! The response body must contain your **Neptun code**.
 
-## Feladat 2: OpenAPI dokumentáció (2 iMsc pont)
+## Exercise 2: OpenAPI documentation (2 points)
 
 !!! note ""
-    Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.
+    In the evaluation you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
 
-Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts [OpenAPI specifikációt és dokumentációt](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1) a REST API leírásához.
+OpenAPI (formerly Swagger) is a REST API documentation tool. It is similar to the WSDL for Web Services. Its goal is to describe the API in a standardized format. In this exercise you are required to create a [OpenAPI specification and documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1) for your REST API.
 
-1. A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio>
+1. Please follow the official Microsoft tutorial at: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio>
 
-    - Mindenképpen a **Swashbuckle** opciót használd.
-    - A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v1/swagger.json` címen legyen elérhető.
-    - Állítsd be a _Swagger UI_-t is, ez a `/neptun` címen legyen elérhető. Ezt a `UseSwaggerUI` beállításánál a `RoutePrefix` konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix **csupa kisbetűvel**.
-    - (A "Customize and extend" résszel és egyéb testreszabással nem kell foglalkoznod.)
+    - Make sure to use **Swashbuckle**.
+    - The `swagger.json` should be generated by your application (you need not write it), and it should be available at URL `/swagger/v1/swagger.json`.
+    - Set up _Swagger UI_, which should be available at URL `/neptun`. To achieve this, when configuring `UseSwaggerUI` set the `RoutePrefix` as your Neptun code **all lower-case**.
+    - (You can ignore the "Customize and extend" parts in the tutorial.)
 
-1. Indítsd el a webalkalmazást, és nézd meg a `swagger.json`-t <http://localhost:5000/swagger/v1/swagger.json> címen, és próbáld ki a SwaggerUI-t a <http://localhost:5000/swagger> címen.
+1. When ready, start the web application and check `swagger.json` at URL <http://localhost:5000/swagger/v1/swagger.json>, then open SwaggerUI too at <http://localhost:5000/neptun>.
 
-1. Próbáld ki a SwaggerUI "Try it out" szolgáltatását: tényleg kiküldi a kérést a webalkalmazásnak, és látod a valódi választ.
+1. Test the “Try it out” in SwaggerUI: it will send out the query that your backend will serve.
 
     ![SwaggerUI Try it out](swaggerui-try.png)
 
-!!! example "BEADANDÓ"
-    A módosított forráskódot töltsd fel. Ügyelj rá, hogy a `csproj` fájl is módosult a hozzáadott NuGet csomaggal!
+!!! example "SUBMISSION"
+    Upload the changed source code. Make sure to upload the altered `csproj` file too; it contains a new NuGet package added in this exercise.
 
-    Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a `/neptun` címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+    Create a screenshot of SwaggerUI open in the browser. Make sure that the URL is visible and that it contains `/neptun` with your Neptun code. Save the screenshot as `f2.png` and upload as part of your submission!

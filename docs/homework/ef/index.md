@@ -1,37 +1,37 @@
-# Feladat: Entity Framework
+﻿# Exercise: Entity Framework
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+This exercise is optional. You may earn **2+2 points** by completing this exercise.
 
-GitHub Classroom segítségével a <TBD> linken keresztül hozz létre egy repository-t. Klónozd le a repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+Use GitHub Classroom to get your personal git repository at <TBD>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
 
 !!! warning "Entity Framework _Core_"
-    A feladatban Entity Framework **Core**-t használunk. A gyakorlaton használt Entity Framework-től eltérően ez egy platformfüggetlen technológia.
+    We are using Entity Framework **Core** in this exercise. This is different from Entity Framework used in the seminar exercises; this is a platform-independent technology.
 
-## Szükséges eszközök
+## Required tools
 
-- Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
+- Windows, Linux or MacOS: All tools are platform-independent, or a platform-independent alternative is available.
 - Microsoft SQL Server
-    - Express változat ingyenesen használható, avagy Visual Studio mellett feltelepülő _localdb_ változat is megfelelő
-    - Van [Linux változata](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is.
-    - MacOS-en Docker-rel futtatható.
-- [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), vagy kipróbálható a platformfüggetlen [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
-- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
-- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
-    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
+    - The free Express version is sufficient, or you may also use _localdb_ installed with Visual Studio
+    - A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available.
+    - On MacOS you can use Docker.
+- [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
+- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Microsoft Visual Studio 2019 [with the settings here](../VisualStudio.md)
+    - When using Linux or MacOS you can use Visual Studio Code, the .NET Core SDK and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-    - Visual Studio esetén települ, de ha mégse, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.)
-    - Linux és MacOS esetén telepíteni szükséges.
-- GitHub account és egy git kliens
+    - Usually installed with Visual Studio; if not, use the link above to install (the SDK and _not_ the runtime).
+    - You need to install it manually when using Linux or MacOS.
+- GitHub account and a git client
 
-## Feladat 0: Neptun kód
+## Exercise 0: Neptun code
 
-Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
+Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
 
-## Feladat 1: Adatbázis leképzés Code First modellel és lekérdezések (2 pluszpont)
+## Exercise 1: Database mapping using Code First model and queries (2 points)
 
-Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _Code First_ megoldással. Az Entity Framework Core csomag már része a kiinduló projektünknek, így rögtön kódolhatunk is. Az adatelérés központi eleme a DbContext. Ez az osztály már létezik `ProductDbContext` néven.
+Prepare the (partial) mapping of the database using Entity Framework _Code First_ modeling. The Entity Framework Core package is part of the project, so you can start coding. The central class for database access is the DbContext. This class already exists with name `ProductDBContext`.
 
-1. Képezd le a termékeket. Hozz létre egy új osztályt `DbProduct` néven az alábbi kóddal. (A _Db_ prefix egyértelművé teszi, hogy az osztály az adatbázis kontextusában értelmezett. Ez a későbbi feladatnál lesz érdekes.) A leképzésnél többnyire hagyatkozzunk a konvenciókra, azaz a property-k nevénél használjuk az adatbázis oszlopok nevét, így automatikus lesz a leképzés.
+1. Map the product entity. Create a new class with name `DbProduct` with the following code. (The _Db_ prefix indicates that this class is within the scope of the database. This will be relevant in the next exercise.) We are relying on conventions as much as possible: use property names that match the column names to make mapping automatic.
 
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
@@ -50,53 +50,53 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
     }
     ```
 
-    Menj a `ProductDbContext` osztályhoz és töröld a kommentet a `Products` property elől.
+    Open the source code of class `ProductDbContext` and uncomment the `Products` property.
 
-1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t az `ProductDbContext`-be `Vat` néven.
+1. Create a new class with name `DbVat` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with name `Vat`.
 
-1. Képezd le a Termek - AFA kapcsolatot.
+1. Map the product-VAT connection.
 
-    A `DbProduct` osztályba vegyél fel egy `DbVat` típusú `Vat` nevű get-set property-t, ez lesz a navigation property. Használd a `ForeignKey` [attribútumot a property felett](https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=data-annotations%2Cdata-annotations-simple-key%2Csimple-key#foreign-key), ami meghatározza a külső kulcs adatbázis mezőjét ("VatID").
+    Add a new get-set property into class `DbProduct` with name `Vat` and type `DbVat`. Use the `ForeignKey` [attribute on this property](https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=data-annotations%2Cdata-annotations-simple-key%2Csimple-key#foreign-key), to indicate the foreign key used to store the relationship ("VatID").
 
-    Vedd fel ennek az egy-több kapcsolatnak a másik oldalát a `DbVat` osztályba. Ez a `Products` nevű property `System.Collections.Generic.List` típusú legyen. (Lásd a példában is az előbbi linken.)
+    Create the “other side” of this one-to-many connection from class `DbVat` to `DbProduct`. This should be a new property of type `System.Collections.Generic.List` with name `Products`. (See an example in the link above.)
 
-A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van kommentezve, mert nem fordul, amíg nem írod meg a fentieket. Jelöld ki a teljes kódot, és használd az _Edit / Advanced / Uncomment Selection_ parancsot. Ezután a teszteket [Visual Studio-ban egyszerűen tudod futtatni](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), de ha mást használsz fejlesztéshez (pl. VS Code és/vagy `dotnet cli`), akkor is [tudsz teszteket futtatni](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). Az adatbázis eléréséhez a `TestConnectionStringHelper` segédosztályban módosíthatod a connection stringet.
+There are unit tests available in the solution. The test codes are commented out, because it does not compile until you write the code. Select the whole test code and use _Edit / Advanced / Uncomment Selection_. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g. VS Code and/or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
 
-!!! important "Tesztek"
-    A tesztek az adatbázis kiinduló állapotát feltételezik. Futtasd le az adatbázis scriptet a kiinduló állapot visszaállításához.
+!!! important "Tests"
+    The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
 
-    A tesztek kódját **NE** módosítsd. Ha a teszteléshez szükséges, ideiglenesen beleszerkeszthetsz, de ügyelj rá, hogy az eredeti állapottal kommitold a megoldásod.
+    Do **NOT** change the unit tests. You may temporarily alter the unit tests if you need to, but make sure to reset your changes before committing.
 
-!!! danger "Ha a teszt nem fordul"
-    Ha nem fordulna le a teszt kód, lehet, hogy egy-egy property névnek mást használtál. A **saját kódodban javítsd a nevet, ne a tesztekben**!
+!!! danger "If the tests do not compile"
+    If the test code does not compile, you may have used slightly different property names. Fix these in **your own code and not in the tests**!
 
 !!! danger "`OnConfiguring`"
-    A _DbContext_ kódjában nincs szükséged connection stringre. A konstruktor intézi a kapcsolat felépítését. Ne írj `OnConfiguring` függvény az osztályba!
+    You need no connection string in the _DbContext_. The constructor handles the connection to the database. Do not create `OnConfiguring` method in this class!
 
-!!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+!!! example "SUBMISSION"
+    Upload the changed C# source code.
 
-    Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **DbContext kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+    Create a screenshot displaying the successfully executed unit tests. You can run the tests in Visual Studio or using `dotnet cli`. Make sure that the screenshot includes the **source code of the DbContext** and the **test execution outcome**! Save the screenshot as `f1.png` and upload as part of your submission!
 
-    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolód a részletesebb naplózáshoz.
+    If you are using `dotnet cli` to run the tests, make sure to display the test names too. Use the `-v n` command line switch to set detailed logging.
 
-    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
+    It is not necessary for the image to show the exact same source code that you actually submit, there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Feladat 2: Repository megvalósítás Entity Framework-kel (2 iMsc pont)
+## Exercise 2: Repository implementation using Entity Framework (2 points)
 
 !!! note ""
-    Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.
+    In the evaluation you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
 
-Az Entity Framework DbContext-je az előzőekben megírt módon nem használható kényelmesen. Például a kapcsolatok betöltését (`Include`) kézzel kell kezdeményezni, és a leképzett entitások túlságosan kötődnek az adatbázis sémájához. Egy komplex alkalmazás esetében ezért célszerű a DbContext-et a repository minta szerint becsomagolni, és ily módon nyújtani az adatelérési réteget.
+The Entity Framework DbContext created above has some drawbacks. For example we need to trigger loading related entities using `Include` in every query, and the mapped entities are bound to match the database schema precisely. In complex applications the DbContext is frequently wrapped in a repository that handles all peculiarities of the data access layer.
 
-Implementáld a `ProductRepository` osztályt, amely megvalósítja a termékek listázását és beszúrását. Ehhez már rendelkezésre áll egy új, un. _modell_ osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcs százalékos értékét is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Ez a `Model.Product` nevű osztály, ami tartalmazza a `DbProduct` leképzett tulajdonságait, de a `DbVat`-ra mutató navigation property _helyett_ az int típusú áfakulcs (`VAT.Percentage`) százalékos értékét tartalmazza.
+Implement class `ProductRepository` that helps with listing and inserting products. You are provided with a so-called _model_ class that represents the product entity, only in a more user-friendly way: it contains the tax percentage value directly. An instance if this class is built from database entities, but represents all information in one instance instead of having to handle a product and a VAT record separately. Class `Model.Product` contains most properties of class `DbProduct`, but _instead of_ the navigation property to `DbVat` it contains the referenced percentage value (`VAT.Percentage`) directly.
 
-Implementáld a `ProductRepository` osztály függvényeit.
+Implement the methods of class `ProductRepository.
 
-- A `List` az összes terméket adja vissza `Model.Product` típusra leképezve.
-- Az `Insert` szúrjon be egy új terméket. A kapott ÁFA kulcs értéknek megfelelően keresse ki az adatbázisból a kapcsolódó `VAT` rekordot, vagy ha nem létezik ilyen kulcs még, akkor szúrjon be egy új `VAT` rekordot is!
-- A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
-- A kódban a `ProductRepository.createDbContext()`-et használd a _DbContext_ létrehozásához (és **ne** a `TestConnectionStringHelper`-t).
+- `List` shall return all products mapped to instances of `Model.Product`.
+- `Insert` shall insert a new product into the database. This method shall find the matching `VAT` record in the database based on the tax percentage value in the model class; if there is no match, it shall insert a new VAT record too!
+- Do not change the definition of class `ProductRepository` (do not change the name of the class, nor the constructor or method declarations); only write the method bodies.
+- In the repository code use `ProductRepository.createDbContext()` to instantiate the _DbContext_  (do **not** use `TestConnectionStringHelper` here).
 
-!!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+!!! example "SUBMISSION"
+    Upload the changed C# source code.

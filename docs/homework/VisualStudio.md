@@ -1,19 +1,19 @@
-# Visual Studio telepítése
+﻿# Install Visual Studio
 
-Egyes feladatokhoz a Microsoft Visual Studio **2019 16.6 vagy újabb** verziója szükséges. Az ingyenes, [Community változata](https://visualstudio.microsoft.com/vs/community/) is elegendő a feladatok megoldásához.
+Some of the exercises require Microsoft Visual Studio **version 2019 16.6 or newer**. The free [Community edition](https://visualstudio.microsoft.com/vs/community/) is sufficient for solving these exercises.
 
-![Visual Studio verzió](images/visual-studio/vs-verzio.png)
+![Visual Studio version](images/visual-studio/vs-verzio.png)
 
 !!! info "VS Code"
-    A feladatok Visual Studio nélkül, **Visual Studio Code**-dal is megoldhatóak. A kiadott kód váz azonban Visual Studio-hoz készült, annak konfigurációit tartalmazza. Ha VS Code-dal dolgozol, magadnak kell konfigurálni a környezetet.
+    The exercises can also be solved using the platform-independent **Visual Studio Code**. However, the skeleton of the exercises are prepared for Visual Studio. If you are working with VS Code, you need to configure your environment.
 
-A Visual Studio telepítésekor ki kell pipálni az alábbi [workload-okat](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019#step-4---choose-workloads):
+When installing Visual Studio the following [workloads](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019#step-4---choose-workloads) have to be selected:
 
 - ASP.NET and web development
 - .NET Core cross-platform development
 
-    ![Visual Studio workloadok](images/visual-studio/vs-workload.png)
+    ![Visual Studio workloads](images/visual-studio/vs-workload.png)
 
-Meglevő telepítés a _Visual Studio Installer_-ben a [_Modify_](https://docs.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2019) gombbal módosítható, ill. ellenőrizhető.
+An existing installation can be [_modified_](https://docs.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2019) using the _Visual Studio Installer_.
 
-![Visual Studio komponensek telepítése](images/visual-studio/vs-installer-modify.png)
+![Visual Studio install components](images/visual-studio/vs-installer-modify.png)
