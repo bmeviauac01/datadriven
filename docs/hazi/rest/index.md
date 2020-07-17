@@ -50,7 +50,7 @@ Feladatok:
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legeyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**.
+    Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
 ## Feladat 2: OpenAPI dokumentáció (2 iMsc pont)
 
@@ -66,7 +66,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
     - Állítsd be a _Swagger UI_-t is, ez a `/neptun` címen legyen elérhető. Ezt a `UseSwaggerUI` beállításánál a `RoutePrefix` konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix **csupa kisbetűvel**.
     - (A "Customize and extend" résszel és egyéb testreszabással nem kell foglalkoznod.)
 
-1. Indítsd el a webalkalmazást, és nézd meg a `swagger.json`-t <http://localhost:5000/swagger/v1/swagger.json> címen, és próbáld ki a SwaggerUI-t a <http://localhost:5000/swagger> címen.
+1. Indítsd el a webalkalmazást, és nézd meg a `swagger.json`-t <http://localhost:5000/swagger/v1/swagger.json> címen, és próbáld ki a SwaggerUI-t a <http://localhost:5000/neptun> címen.
 
 1. Próbáld ki a SwaggerUI "Try it out" szolgáltatását: tényleg kiküldi a kérést a webalkalmazásnak, és látod a valódi választ.
 
