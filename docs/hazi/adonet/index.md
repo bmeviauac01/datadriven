@@ -70,7 +70,7 @@ A konkrét eset, amit el szeretnénk kerülni:
 1. _A_ felhasználó lekérdez egy terméket.
 1. _B_ felhasználó lekérdezi ugyanazt a terméket.
 1. _A_ felhasználó módosítja a termék árát (vagy más tulajdonságát), visszamenti az adatbázisba.
-1. _B_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _Alma_ módosítását figyelmeztetés nélkül.
+1. _B_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _A_ módosítását figyelmeztetés nélkül.
 
 !!! tip "Optimista konkurenciakezelés"
     A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
