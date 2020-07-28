@@ -2,7 +2,7 @@
 
 This exercise is optional. You may earn **2+2 points** by completing this exercise.
 
-Use GitHub Classroom to get your personal git repository at <TBD>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
+Use GitHub Classroom to get your personal git repository at <https://classroom.github.com/a/ePdcRbph>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
 
 ## Required tools
 
