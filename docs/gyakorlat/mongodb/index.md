@@ -345,4 +345,4 @@ Az `IMongoColection<TEntity>` interfész nem csak lekérdezéshez használható,
         Console.WriteLine($"\t\tMódosítás után {categoriesCollection.CountDocuments(_ => true)} db kategória");
         ```
 
-        Vegyük észre, hogy ez az utasítás nem atomikus. Ha közben vettek fel új terméket, akkor lehet, hogy olyan kategóriát törlünk amihez azóta tartozik termék. Nem vettük figyelemve továbbá a kategóriák hierarchiáját sem.
+        Vegyük észre, hogy ez az utasítás nem atomikus. Ha közben vettek fel új terméket, akkor lehet, hogy olyan kategóriát törlünk amihez azóta tartozik termék. Nem vettük figyelembe továbbá a kategóriák hierarchiáját sem.
