@@ -339,7 +339,7 @@ There is another option for manual locking by locking entire tables:
 
 ```sql
 select *
-from tablaname with(TABLOCKX)
+from tablename with(TABLOCKX)
 ...
 ```
 
