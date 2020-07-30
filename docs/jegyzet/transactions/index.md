@@ -128,7 +128,7 @@ A fenti problémák mindegyike elkerülhető a megfelelő izolációs szint megv
 
 Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.
 
-- Read uncomitted: nem nyújt megoldást egyik problémára se.
+- Read uncommitted: nem nyújt megoldást egyik problémára se.
 - Read committed: nincs piszkos olvasás.
 - Repeatable read: nincs piszkos olvasás, se nem megismételhető olvasás.
 - Serializable: egyik probléma sem fordulhat elő.
