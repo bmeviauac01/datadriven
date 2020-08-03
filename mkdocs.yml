@@ -54,6 +54,7 @@ nav:
       - "Sample database: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql
       - "Sample database: mongo.js": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js
   - "Lecture notes":
+      - lecture-notes/architecture/index.md
       - lecture-notes/transactions/index.md
       - lecture-notes/mssql/sql.md
       - lecture-notes/mssql/server-side-programming.md
