@@ -2,25 +2,25 @@
 
 This exercise is optional. You may earn **2+2 points** by completing this exercise.
 
-Use GitHub Classroom to get your personal git repository at <https://classroom.github.com/a/vu7F1SHB>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them commit and push your submission.
+Use GitHub Classroom to get your git repository at <https://classroom.github.com/a/vu7F1SHB>. Clone your repository. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
 !!! warning "Entity Framework _Core_"
     We are using Entity Framework **Core** in this exercise. This is different from Entity Framework used in the seminar exercises; this is a platform-independent technology.
 
 ## Required tools
 
-- Windows, Linux or MacOS: All tools are platform-independent, or a platform-independent alternative is available.
+- Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.
 - Microsoft SQL Server
     - The free Express version is sufficient, or you may also use _localdb_ installed with Visual Studio
     - A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available.
-    - On MacOS you can use Docker.
+    - On macOS, you can use Docker.
 - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 - Microsoft Visual Studio 2019 [with the settings here](../VisualStudio.md)
-    - When using Linux or MacOS you can use Visual Studio Code, the .NET Core SDK and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
+    - When using Linux or macOS, you can use Visual Studio Code, the .NET Core SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
     - Usually installed with Visual Studio; if not, use the link above to install (the SDK and _not_ the runtime).
-    - You need to install it manually when using Linux or MacOS.
+    - You need to install it manually when using Linux or macOS.
 - GitHub account and a git client
 
 ## Exercise 0: Neptun code
@@ -29,9 +29,9 @@ Your very first task is to type your Neptun code into `neptun.txt` in the root o
 
 ## Exercise 1: Database mapping using Code First model and queries (2 points)
 
-Prepare the (partial) mapping of the database using Entity Framework _Code First_ modeling. The Entity Framework Core package is part of the project, so you can start coding. The central class for database access is the DbContext. This class already exists with name `ProductDBContext`.
+Prepare the (partial) mapping of the database using Entity Framework _Code First_ modeling. The Entity Framework Core package is part of the project, so you can start coding. The central class for database access is the DbContext. This class already exists with the name `ProductDBContext`.
 
-1. Map the product entity. Create a new class with name `DbProduct` with the following code. (The _Db_ prefix indicates that this class is within the scope of the database. This will be relevant in the next exercise.) We are relying on conventions as much as possible: use property names that match the column names to make mapping automatic.
+1. Map the product entity. Create a new class with the name `DbProduct` with the following code. (The _Db_ prefix indicates that this class is within the scope of the database. This will be relevant in the next exercise.) We rely on conventions as much as possible: use property names that match the column names to make mapping automatic.
 
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
@@ -52,7 +52,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
 
     Open the source code of class `ProductDbContext` and uncomment the `Products` property.
 
-1. Create a new class with name `DbVat` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with name `Vat`.
+1. Create a new class with the name `DbVat` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with the name `Vat`.
 
 1. Map the product-VAT connection.
 
@@ -60,7 +60,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
 
     Create the “other side” of this one-to-many connection from class `DbVat` to `DbProduct`. This should be a new property of type `System.Collections.Generic.List` with name `Products`. (See an example in the link above.)
 
-There are unit tests available in the solution. The test codes are commented out, because it does not compile until you write the code. Select the whole test code and use _Edit / Advanced / Uncomment Selection_. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g. VS Code and/or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
+There are unit tests available in the solution. The test codes are commented out because it does not compile until you write the code. Select the whole test code and use _Edit / Advanced / Uncomment Selection_. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code, or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
 
 !!! important "Tests"
     The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
@@ -68,7 +68,7 @@ There are unit tests available in the solution. The test codes are commented out
     Do **NOT** change the unit tests. You may temporarily alter the unit tests if you need to, but make sure to reset your changes before committing.
 
 !!! danger "If the tests do not compile"
-    If the test code does not compile, you may have used slightly different property names. Fix these in **your own code and not in the tests**!
+    If the test code does not compile, you may have used slightly different property names. Fix these in **your code and not in the tests**!
 
 !!! danger "`OnConfiguring`"
     You need no connection string in the _DbContext_. The constructor handles the connection to the database. Do not create `OnConfiguring` method in this class!
@@ -80,16 +80,16 @@ There are unit tests available in the solution. The test codes are commented out
 
     If you are using `dotnet cli` to run the tests, make sure to display the test names too. Use the `-v n` command line switch to set detailed logging.
 
-    It is not necessary for the image to show the exact same source code that you actually submit, there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
+    The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
 ## Exercise 2: Repository implementation using Entity Framework (2 points)
 
 !!! note ""
-    In the evaluation you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
+    In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
 
-The Entity Framework DbContext created above has some drawbacks. For example we need to trigger loading related entities using `Include` in every query, and the mapped entities are bound to match the database schema precisely. In complex applications the DbContext is frequently wrapped in a repository that handles all peculiarities of the data access layer.
+The Entity Framework DbContext created above has some drawbacks. For example, we need to trigger loading related entities using `Include` in every query, and the mapped entities are bound to precisely match the database schema. In complex applications, the DbContext is frequently wrapped in a repository that handles all peculiarities of the data access layer.
 
-Implement class `ProductRepository` that helps with listing and inserting products. You are provided with a so-called _model_ class that represents the product entity, only in a more user-friendly way: it contains the tax percentage value directly. An instance if this class is built from database entities, but represents all information in one instance instead of having to handle a product and a VAT record separately. Class `Model.Product` contains most properties of class `DbProduct`, but _instead of_ the navigation property to `DbVat` it contains the referenced percentage value (`VAT.Percentage`) directly.
+Implement class `ProductRepository` that helps with listing and inserting products. You are provided with a so-called _model_ class representing the product entity, only in a more user-friendly way: it contains the tax percentage value directly. An instance of this class is built from database entities, but represents all information in one instance instead of having to handle a product and a VAT record separately. Class `Model.Product` contains most properties of class `DbProduct`, but _instead of_ the navigation property to `DbVat` it contains the referenced percentage value (`VAT.Percentage`) directly.
 
 Implement the methods of class `ProductRepository.
 

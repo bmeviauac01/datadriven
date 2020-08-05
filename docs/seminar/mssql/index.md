@@ -1,6 +1,6 @@
 # Microsoft SQL Server programming
 
-The goal of the seminar is to get to know the server-side programming capabilities of the Microsoft SQL Server platform.
+The seminar's goal is to get to know the server-side programming capabilities of the Microsoft SQL Server platform.
 
 ## Pre-requisites
 
@@ -21,17 +21,17 @@ Recommended to review:
 The first four exercises are solved together with the instructor. The final exercise is individual work if time permits.
 
 !!! info ""
-    This guide contains the solutions too. Before looking at these provided answers, we should try to solve the exercises by ourselves!
+    This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!
 
 ## Exercise 0: Create/check the database
 
-The database resides on each machine, thus the database you created previously might not be available. First check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
+The database resides on each machine; thus, the database you created previously might not be available. First, check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
 
 ## Exercise 1: SQL commands (review)
 
 Write SQL commands/queries for the following exercises.
 
-1. How many uncompleted orders are there (look for status other than "Delivered")?
+1. How many uncompleted orders are there (look for a status other than "Delivered")?
 
     ??? example "Solution"
         ```sql
@@ -40,7 +40,7 @@ Write SQL commands/queries for the following exercises.
         where s.Name != 'Delivered'
         ```
 
-        We see a `join` and an aggregation here. (There are other syntaxes for joiining tables; refer to the lecture notes.)
+        We see a `join` and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)
 
 1. Which payment methods have _not_ been used at all?
 
@@ -65,7 +65,7 @@ Write SQL commands/queries for the following exercises.
 
         It is recommended (though not required) to name the columns after `insert` to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.
 
-1. One of the categories have the wrong name. Let us change _Bicycles_ to _Tricycles_!
+1. One of the categories has the wrong name. Let us change _Bicycles_ to _Tricycles_!
 
     ??? example "Solution"
         ```sql
@@ -83,11 +83,11 @@ Write SQL commands/queries for the following exercises.
         order by cnt desc
         ```
 
-        There are lot of ways this query can be formualted. This is only one possible solution. It also serves as an example for the usage of subqueries.
+        There are many ways this query can be formulated. This is only one possible solution. It also serves as an example of the usage of subqueries.
 
 ## Exercise 2: Inserting a new product category
 
-Create a new stored procedure which helps inserting a new product category. The inputs of the procedure are the name of the new category, and optionally the name of the parent category. Raise an error, if the category already exists, or the parent category does not exist. Let the database generate the primary key for the insertion.
+Create a new stored procedure that helps inserting a new product category. The procedure's inputs are the name of the new category, and optionally the name of the parent category. Raise an error if the category already exists, or the parent category does not exist. Let the database generate the primary key for the insertion.
 
 ??? example "Solution"
     **Stored procedure**
@@ -139,7 +139,7 @@ Create a new stored procedure which helps inserting a new product category. The 
 
     `exec AddNewCategory 'Beach balls', NULL`
 
-    This shall succeed. Let us verify the table content afterwards.
+    This shall succeed. Let us verify the table content afterward.
 
     Let us repeat the same command; it shall fail now.
 
@@ -169,7 +169,7 @@ Create a trigger that updates the status of each item of an order when the statu
     and oi.StatusID=d.StatusID
     ```
 
-    Let us make sure we understand the `update ... from` syntax. The behavior is as follows. We use this command when the some of the changes we want to make during the update requires data from another table. The syntax is based on the usual `update ... set...` format extended with a `from` part, which follows the same syntax as a `select from`, including the `join` to gather information from other tables. This allows us to use the joined records and their content in the `set` statement (that is, a value from a joined record can be on the right side of an assignment).
+    Let us make sure we understand the `update ... from` syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual `update ... set...` format extended with a `from` part, which follows the same syntax as a `select from`, including the `join` to gather information from other tables. This allows us to use the joined records and their content in the `set` statement (that is, a value from a joined record can be on the right side of an assignment).
 
     **Testing**
 
@@ -237,12 +237,12 @@ Let us calculate and store the value of all purchases made by a customer!
 
 ## Exercise 5: Maintenance of the total value (individual exercise)
 
-The values calculated in the previous exercise contain the current state. Create a trigger that updates this value whenever a related order is changed. Instead of re-calculating the value update it with the changes made!
+The values calculated in the previous exercise contain the current state. Create a trigger that updates this value whenever a related order is changed. Instead of re-calculating the value, update it with the changes made!
 
 ??? example "Solution"
-    The key in the solution is recognizing which table should the trigger be placed on. We are interested in changes in an order, but the total value actually depends on the items registered for an order, thus the trigger should react to changes in the order items.
+    The key in the solution is recognizing which table the trigger should be placed on. We are interested in changes in order, but the total value actually depends on the items registered for an order; thus the trigger should react to changes in the order items.
 
-    The exercise is complicated by the fact the `inserted` and `deleted` tables may contain multiple records, possible even related to multitple customers. A solution for overcoming this obstacle is to use a cursor to process all changes; another option, as below, is aggregating the changes by customer.
+    The exercise is complicated because the `inserted` and `deleted` tables may contain multiple records, possibly even related to multiple customers. A solution for overcoming this obstacle is to use a cursor to process all changes; another option, as below, is aggregating the changes by customer.
 
     **Trigger**
 

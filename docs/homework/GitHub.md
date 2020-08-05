@@ -1,13 +1,13 @@
 ﻿# Submitting your work (GitHub)
 
-We are using GitHub for submitting the solutions. Each homework is submitted in a GitHub repository. The repository is created through a link included in the exercise description. The solution of the exercises are created within these repositories, then committed and pushed to GitHub. The submission is finished with a _pull request_ assigned to the instructor (with GitHub username `akosdudas`).
+We are using GitHub to submit the solutions. Each homework is submitted in a GitHub repository. The repository is created through a link included in the exercise description. The solution of the exercises are created within these repositories, then committed and pushed to GitHub. The submission is finished with a _pull request_ assigned to the instructor (with GitHub username `akosdudas`).
 
 !!! important "IMPORTANT"
     The submission requirements detailed below and mandatory. Submissions not following these guidelines are not graded.
 
 ## Short version, aka. TL;DR
 
-The detailed description below shows the entire procedure. This short summary is an overview of the whole process.
+The detailed description below shows the entire procedure. This summary is an overview of the whole process.
 
 1. The exercises are solved in a dedicated GitHub repository created through a link in the exercise description.
 
@@ -19,7 +19,7 @@ The detailed description below shows the entire procedure. This short summary is
 
 ## Starting your work: git checkout
 
-1. [Register](https://github.com/join) a GitHub account, if you don't have one yet.
+1. [Register](https://github.com/join) a GitHub account if you don't have one yet.
 
 1. Open the link in the exercise description to create your repository.
 
@@ -44,11 +44,11 @@ The detailed description below shows the entire procedure. This short summary is
 
 1. Clone your repository. You will need the repository git URL, which you can get from the repository webpage following the _Clone or download_ button.
 
-    You may use any git client. If you do not have a favorit yet, the simplest one is [GitHub Desktop](https://desktop.github.com/). You can list your repositories in this application directly from GitHub.
+    You may use any git client. The simplest one is [GitHub Desktop](https://desktop.github.com/) if you do not have a favorite yet. You can list your repositories in this application directly from GitHub.
 
     ![GitHub Desktop repository clone](images/github/github-desktop-clone.png)
 
-    If you are using console, the following command performs the clone (if the `git` command is available): `git clone <repository link>`
+    If you are using the shell or the console, the following command performs the clone (if the `git` command is available): `git clone <repository link>`
 
 1. If the cloning is successful, **DO NOT START WORKING YET!** The solution should _not_ be committed to the repository `master` branch. Instead, create a new branch with the name `solution`.
 
@@ -56,19 +56,19 @@ The detailed description below shows the entire procedure. This short summary is
 
     ![GitHub Desktop create branch](images/github/github-desktop-new-branch.png)
 
-    If using console, use the following command: `git checkout -b solution`
+    If using the console, use the following command: `git checkout -b solution`
 
 1. Complete the exercises on this branch. You may have any number of commits and pushes.
 
     !!! warning "Check the name used for committing"
-        Before you make your first commit check whether your name and email address is properly configured. You can check this using the following commands.
+        Before you make your first commit, check whether your name and email address are properly configured. You can check this using the following commands.
 
         ```bash
         git config user.name
         git config user.email
         ```
 
-        If the values are not correct, set your name and email address with the following commands executed in the repository directory.This will set the values for the repository. (It is recommended to set the email address to the one you use with GitHub.)
+        If the values are not correct, set your name and email address with the following commands executed in the repository directory. This will set the values for the repository. (It is recommended to set the email address to the one you use with GitHub.)
 
         ```bash
         git config user.name "John Doe"
@@ -81,11 +81,11 @@ The detailed description below shows the entire procedure. This short summary is
 
     ![GitHub Desktop push branch](images/github/github-desktop-commit-to-branch.png)
 
-    When adding further commits, verify the branch. You can publish the commit using the _Push origin_ button. The little number of this buttons shows you how many commits need pushing.
+    When adding further commits, verify the branch. You can publish the commit using the _Push origin_ button. The little number on this button shows you how many commits need pushing.
 
     ![GitHub Desktop commit and push](images/github/github-desktop-push-commit.png)
 
-    If you are using console, use the following commands:
+    If you are using the console, use the following commands:
 
     ```bash
     # Check the current branch and the files modified
@@ -116,13 +116,13 @@ The detailed description below shows the entire procedure. This short summary is
 1. When you are truly ready, open a _pull request_.
 
     !!! tip "Why the pull request?"
-        This _pull request_ combines all changes you made, and shows us the final result. This helps the instructor to evaluate your submission more easily by seeing all changes at once. This _pull request_ means you submit your solution, hence this step **cannot be omitted**.
+        This _pull request_ combines all changes you made and shows us the final result. This helps the instructor to evaluate your submission more easily by seeing all changes at once. This _pull request_ means you submit your solution; hence this step **cannot be omitted**.
 
-    To open the _pull request_ you need to go to the repository's GitHub web frontend. If you pushed recently, GitHub will offer you to create the pull request..
+    To open the _pull request_, you need to go to the repository's GitHub web frontend. If you pushed recently, GitHub will offer you to create the pull request.
 
     ![GitHub create pull request](images/github/github-create-pull-request-1.png)
 
-    You may also open the _pull request_ from the menu at the top. It is important to specify the correct branches: `master` is the target into witch `solution` is merged.
+    You may also open the _pull request_ from the menu at the top. It is important to specify the correct branches: `master` is the target into which `solution` is merged.
 
     ![GitHub create pull request](images/github/github-create-pull-request-2.png)
 
@@ -138,13 +138,13 @@ The detailed description below shows the entire procedure. This short summary is
 
      If you need more information about the evaluation and the results, _GitHub Actions_ can provide you more. A short introduction is provided [here](GitHub-Actions.md).
 
-1. If you are not satisfied with your work, you can make further changes. You only need to commit and push your changes continuing to work on the correct branch. Any changes pushed will re-trigger the evaluation of the _pull request_. We ask that you trigger **NO MORE THAN 5 evaluations**!
+1. If you are not satisfied with your work, you can make further changes. You only need to commit and push your changes. Any changes pushed will re-trigger the evaluation of the _pull request_. We ask that you trigger **NO MORE THAN 5 evaluations**!
 
     !!! tip "Making further changes"
         If you want to make changes to your submission and not have the re-evaluation run, you should **close the pull request**. When you are finished, you can open a new one instead.
 
     !!! note "Maximum 5"
-        Evaluations that fail due to transient errors, such as network problems, are not counted into the 5 evaluations. But if you trigger more evaluation by mistake, or on purpose, it will be sancioned. You are required to **test your solution locally** before submitting it.
+        Evaluations that fail due to transient errors, such as network problems, are not counted into the 5 evaluations. But if you trigger more evaluation by mistake, or on purpose, it will be sanctioned. You are required to **test your solution locally** before submitting it.
 
 1. **FINALLY**, when you are ready, assign the _pull request_ to the instructor. This step is considered as the submission of your work.
 
@@ -163,4 +163,4 @@ If you have questions on concerns regarding the automated evaluation, use the pu
 ![GitHub PR asking questions](images/github/github-question-in-pr.png)
 
 !!! warning "Please provide proof"
-    Please note, that if you think the evaluation made a mistake, you are required to support your question/complaint with proof (e.g. show how you tested your solution and prove that it worked).
+    Please note that if you think the evaluation made a mistake, you must support your question/complaint with proof (e.g., show how you tested your solution and prove that it worked).

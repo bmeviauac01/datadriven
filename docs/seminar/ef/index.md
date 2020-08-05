@@ -3,7 +3,7 @@
 The goal of the seminar is to practice writing Linq queries and working with Entity Framework.
 
 !!! important "Entity Framework ~~Core~~"
-    In this seminar we are using Entity Framework available in the .NET Framework and not the cross-platform Core version. The usage of Linq is very similar, if not identical in both technologies. The visual code generation technology, however, is only available in the .NET Framework and Entity Framework.
+    In this seminar, we are using Entity Framework available in the .NET Framework and not the cross-platform Core version. The usage of Linq is very similar, if not identical in both technologies. The visual code generation technology, however, is only available in the .NET Framework and Entity Framework.
 
 ## Pre-requisites
 
@@ -24,13 +24,13 @@ Recommended to review:
 The exercises are solved together with the instructor. A few exercises we can try to solve by ourselves and then discuss the results. The final exercise is individual work if time permits.
 
 !!! info ""
-    This guide contains the solutions too. Before looking at these provided answers, we should try to solve the exercises by ourselves!
+    This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!
 
 ## Exercise 0: Create/check the database
 
-The database resides on each machine, thus the database you created previously might not be available. First check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
+The database resides on each machine; thus, the database you created previously might not be available. First, check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
 
-## Exercise 1: Create project and map the database
+## Exercise 1: Create a project and map the database
 
 Let us create a new C# console application in Visual Studio. In VS 2019 search for "console framework"; this will yield the project template we are looking for.
 
@@ -45,8 +45,8 @@ Create a new project; you may work in directory `c:\work`.
 
 1. Add a new _ADO.NET Entity Data Model_ to the project.
 
-    - In Solution Explorer right click the project / _Add / New Item / Data / ADO.NET Entity Data Model_. At the bottom of the dialog use the name `DataDrivenEntities`.
-    - The model shall be created based on an existing database: in the wizard choose the "EF designer from database" option.
+    - In Solution Explorer right-click the project / _Add / New Item / Data / ADO.NET Entity Data Model_. At the bottom of the dialog, use the name `DataDrivenEntities`.
+    - The model shall be created based on an existing database: in the wizard, choose the "EF designer from database" option.
     - Specify the connection to the database. Create a new connection and save the connection string into the app config file.
         - _Data source_: Microsoft SQL Server
         - _Server name_: `(localdb)\mssqllocaldb`
@@ -63,11 +63,11 @@ Create a new project; you may work in directory `c:\work`.
 1. Locate the _connection string_ in `app.config` and check its contents.
 
     !!! note "`app.config`"
-        It is advisable to put configuration, such as the _connection string_ here, because the database access information may be different for each installatin of an application. If the connection string is hard-wired into the source code, the application needs to be recompiled to change it. However, the `app.config` file is part of the application next to the executable is an editable xml format.
+        It is advisable to put configuration, such as the _connection string_ here, because the database access information may be different for each installation of an application. If the connection string is hard-wired into the source code, the application needs to be recompiled to change it. However, the `app.config` file is part of the application next to the executable is an editable xml format.
 
-1. Open the EF data model (double click in in the Solution Explorer). Let us examine the entities and the connections.
+1. Open the EF data model (double-click in the Solution Explorer). Let us examine the entities and the connections.
 
-    - The model can be changes using the _Entity Data Model Browser_ and _Entity Data Model Mapping Details_ windows (if not visible open them through _View_ / _Other windows_).
+    - The model can be changed using the _Entity Data Model Browser_ and _Entity Data Model Mapping Details_ windows (if not visible open them through _View_ / _Other windows_).
     - Let us make a few corrections in the generated names:
 
         - Customer.CustomerSite1 -> **.Sites**
@@ -79,26 +79,26 @@ Create a new project; you may work in directory `c:\work`.
 
     Save the model using Ctrl-S.
 
-1. Let us examine the C# source code of the _DbContext_ any one of the entity classes. In _Solution Explorer_ expand the EDM model file and the C# source files will be listed underneath.
+1. Let us examine the C# source code of the _DbContext_ any one of the entity classes. In _Solution Explorer_ expand the EDM model file, and the C# source files will be listed underneath.
 
     !!! note ""
-        You should _not_ make changes to these files, as these are generated by the EDM model. Any change we make is lost when the EDM is re-generated. We may note, however, that all classes are declared as `partial`, thus we can extend them by creating new source files and using the same namespace and class name.
+        You should _not_ make changes to these files, as these are generated by the EDM model. Any change we make is lost when the EDM is re-generated. We may note, however, that all classes are declared as `partial`; thus we can extend them by creating new source files and using the same namespace and class name.
 
 ## Exercise 2: Queries
 
-In the following exercises write C# code using Linq to Entities. The results should be printed to console.
+In the following exercises, write C# code using Linq to Entities. The results should be printed to console.
 
-You can check the SQL query generated in runtime: hover over the the IQueryable variable once the iteration of the list is underway; it will show you the generated command.
+You can check the SQL query generated in runtime: hover over the IQueryable variable once the iteration of the list is underway; it will show you the generated command.
 
 1. List the names and the amount of stock of all products that we have more than 30 in stock!
 
 1. List the products that have been ordered at least twice!
 
-1. List the orders that have a total value at least 30.000! For each order print the customer name, and list all items of the order (with the product name, amount and price).
+1. List the orders that have a total value of at least 30.000! For each order, print the customer name and list all items of the order (with the product name, amount, and price).
 
 1. Find the most expensive product!
 
-1. List all customer record pairs that have their main site of business in same city. Each pair should only be listed once.
+1. List all customer record pairs that have their main site of business in the same city. Each pair should only be listed once.
 
 ??? example "Solution"
     ```csharp
@@ -245,10 +245,10 @@ The DbContext can also be used to modify the database.
 
 ## Exercise 4: Using stored procedures
 
-Stored procedures can be mapped into the EDM model either as a method on the DbContext or an operation of an entity.
+Stored procedures can be mapped into the EDM model either as a method on the DbContext or an entity's operation.
 
 !!! note "Procedure mapping in the EDM"
-    The mapping properties of the stored procedure (e.g. the return value) usually has to be manually altered using the _Entity Data Model Browser_: find the _Function Import_ and open its properties.
+    The mapping properties of the stored procedure (e.g., the return value) usually has to be manually altered using the _Entity Data Model Browser_: find the _Function Import_ and open its properties.
 
     ![Mapping properties of a stored procedure](images/vs-storedproc-mapping.png)
 
@@ -270,15 +270,15 @@ Stored procedures can be mapped into the EDM model either as a method on the DbC
 
     - Set this procedure as the `PaymentMethod` entity _insert_ operation.
 
-        - Add the stored procedure to the EDM. In the EDM Browser right click to open the context menu and use "Update model from database" to _Add_ the previously created procedure.
+        - Add the stored procedure to the EDM. In the EDM Browser right-click to open the context menu and use "Update model from database" to _Add_ the previously created procedure.
         - Save the model changes to generate the required C# code in the background.
         - Set this procedure on the `PaymentMethod` entity as the _insert_ operation: select the `PaymentMethod` entity in the EDM and in the _Mapping Details_ window change to the _Map Entity to Functions_ tab, then chose the procedure for _Insert_ operation. The return value shall be mapped to the _ID_ property. Save the model.
 
             ![Mapping procedure to entity](images/vs-insert-storedproc.png)
 
-    - Test the behavior: in C# code create a new `PaymentMethod` entity and add it to the appropriate list of the DbContext using `Add`. Verify the creation of the new record in the database.
+    - Test the behavior: in C# code, create a new `PaymentMethod` entity and add it to the appropriate list of the DbContext using `Add`. Verify the creation of the new record in the database.
 
-1. Create a stored procedure that list all products that have been sold more then a specified amount of times. Call this method from C# code!
+1. Create a stored procedure that lists all products that have been sold more than a specified amount of times. Call this method from C# code!
 
     - Create the stored procedure with the T-SQL command below.
 

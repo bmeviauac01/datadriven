@@ -27,7 +27,7 @@ Let us consider a simple expression: `products.Where(p => p.Price < 1000)`. This
 
 This is called _deferred execution_, as the execution will only happen when the result is effectively used:
 
-- when the result set is iterated (eg. foreach),
+- when the result set is iterated (e.g. `foreach`),
 - when a specific item is accessed (see later, e.g. `.First()`),
 - when we as for a list instead (`.ToList()`).
 
@@ -47,7 +47,7 @@ foreach(var x in l) // this is when the execution will happen
 ```
 
 !!! note "Force evaluation"
-    If we want to force the execution at any given moment we usually use `.ToList()`. But this has to be considered first and only used when really necessary.
+    If we want to force the execution at any given moment, we usually use `.ToList()`. But this has to be considered first and only used when necessary.
 
 ## LINQ operations
 
@@ -181,7 +181,7 @@ from p in products
 select new MyType(p.Name, p.Price)
 ```
 
-The result set is of type `IQueryable<MyType>`, when _MyType_ is a class we have to define and which has a matching constructor.
+The result set is of type `IQueryable<MyType>`, when _MyType_ is a class we have to define and has a matching constructor.
 
 #### Anonym types
 

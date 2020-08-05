@@ -1,24 +1,24 @@
 ﻿# Transactions in databases
 
 !!! warning "Context"
-    When we talk about transactions, we mean **relational databases**. The problem and the solutions, however, are generic, and are not specific to relational databases.
+    When we talk about transactions, we mean **relational databases**. The problem and the solutions, however, are generic and are not specific to relational databases.
 
 ## Concurrent data access
 
-Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executed queries. We should always remember though, that there is a single database, but multiple clients involved here. The purpose of the database system is to serve as many requests as possible; consequently it **executes the queries concurrently**. In such a concurrent system data accesses can overlap in the following ways.
+Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executes queries. We should always remember that there is a single database, but multiple clients involved here. The purpose of the database system is to serve as many requests as possible; consequently, it **executes the queries concurrently**. In such a concurrent system, data access can overlap in the following ways.
 
-- If the concurrent data accesses (either read or write) concern independent data, there is no problem, and the operations may proceed concurrently.
+- If the concurrent data access (either read or write) concerns independent data, there is no problem, and the operations may proceed concurrently.
 - If all operations only read data, there is no issue either; multiple readers can access the same data.
-- However, if **the same data is accessed at the same time** and **there is at least one writer**, a concurrency problem may manifest itself.
+- However, if **the same data is accessed simultaneously** and **there is at least one writer**, a concurrency problem may manifest itself.
 
-This concurrency issue is analogous to the mutual exclusion problem known in operating systems and in the various programming languages and frameworks. Concurrent data access in these scenarios usually involve mutual access to a shared memory space, and the solution is ensuring mutual exclusion using some kind of guard.
+This concurrency issue is analogous to the mutual exclusion problem known in operating systems and the various programming languages and frameworks. Concurrent data access in these scenarios usually involve mutual access to shared memory space, and the solution is ensuring mutual exclusion using some kind of guard.
 
-In database management systems concurrency is related to the records (rows) of database tables, and the guards are transactions.
+In database management systems, concurrency is related to the records (rows) of database tables, and the guards are transactions.
 
 ## Transactions
 
 !!! quote "Definition"
-    The transaction is a logical unit of a process; a series of operations that only make sense together.
+    A transaction is a logical unit of a process, a series of operations that only make sense together.
 
 A transaction combines operations into one unit, and the system guarantees the following properties:
 
@@ -27,47 +27,47 @@ A transaction combines operations into one unit, and the system guarantees the f
 - isolation from each other,
 - and durability.
 
-Let us examine these basic properties so that we understand how concurrent data access issues are resolved with their help.
+Let us examine these basic properties to understand how concurrent data access issues are resolved with their help.
 
 !!! danger "A transaction is just a tool"
-    A transaction, similarly to mutextes provides by an operating system of programming framework, is just a tool provided to the software developer. The proper usage is the responsibility of the developer.
+    A transaction, similarly to mutexes provides by an operating system of programming framework, is just a tool provided to the software developer. The proper usage is the responsibility of the developer.
 
 ### Transactions basic properties
 
 #### Atomicity
 
-Atomic execution means, that we have a sequence of operations, and this sequence is meaningful only when all of it is executed. In other words, partial execution must be prohibited. In database systems we often need multiple statements to achieve our goal, hence the sequence of steps.
+Atomic execution means that we have a sequence of operations, and this sequence is meaningful only when all of it is executed. In other words, partial execution must be prohibited. In database systems, we often need multiple statements to achieve our goal, hence the sequence of steps.
 
 Let us imaging the checkout process in a webshop:
 
 1. The order is recorded in the database with the provided data
-1. The amount of stock is decreased by one, since one piece was sold
+1. The amount of stock is decreased by one since one piece was sold
 
-These steps only make sense together. Given, that an order has been recorded, the amount of stock must be compensated, otherwise the data becomes invalid and we sell more products than we have. Thus, we must not abort the sequence of steps in the middle.
+These steps only make sense together. Given that an order has been recorded, the amount of stock must be compensated; otherwise, the data becomes invalid, and we sell more products than we have. Thus, we must not abort the sequence of steps in the middle.
 
-This is what atomicity guarantees: **if executing a sequence of steps has begun, either all steps have to complete successfully, or the initial state from before the modification must be restored**.
+This is what atomicity guarantees: **if executing a sequence of steps has begun, all steps have to complete successfully or the initial state before the modification must be restored**.
 
 #### Consistency
 
-The consistency rules of the database is described by the integrity requirements, such as the record referenced by a foreign key must exist. There are other types of consistency requirements too; e.g. in the Neptun system, there cannot be more students registered for an exam than the limit.
+The database's consistency rules are described by the integrity requirements, such as the record referenced by a foreign key must exist. There are other types of consistency requirements; e.g., there cannot be more students registered for an exam than the limit in the Neptun system.
 
-Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of operations above. However, at the end of transaction, consistency must be restored. In other words: **transactions enforce transition between consistent states**.
+Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of the operation above. However, at the end of the transaction, consistency must be restored. In other words: **transactions enforce transition between consistent states**.
 
 #### Durability
 
-Durability prescribes that the **effect of a transaction is durable**, that is, the results are not lost. Practically it means that the modifications performed by a transaction must be flushed to persistent storage (i.e. disk).
+Durability prescribes that the **effect of a transaction is durable**, that is, the results are not lost. Practically it means that the modifications performed by a transaction must be flushed to persistent storage (i.e., disk).
 
-There are two types of errors in database systems that can lead to data corruption: soft crash and hard crash. **Soft crash** means the database process terminates and the content of memory is lost. Transactions offer protection from these kind of crashes. A **hard crash** means that the disk is also affected. Only a backup can offer protection here.
+There are two types of errors in database systems that can lead to data corruption: soft crash and hard crash. **Soft crash** means the database process terminates, and the content of memory is lost. Transactions offer protection from these kinds of crashes. A **hard crash** means that the disk is also affected. Only a backup can provide protection here.
 
 #### Isolation
 
-By isolation we mean to isolate the effect of transactions from each other. That is, when writing our query, we do not need to concern ourselves with other concurrent transactions; the system will handle this aspect. The developer can write queries *as if* they were executed in the system alone and the system will guarantee that it will **prohibit those concurrency issues that we do not want to deal with**.
+By isolation, we mean to isolate the effect of transactions from each other. That is, when writing our query, we do not need to concern ourselves with other concurrent transactions; the system will handle this aspect. The developer can write queries *as if* they were executed in the system alone, and the system will guarantee that it will **prohibit those concurrency issues that we do not want to deal with**.
 
-Actually, the system will still run transactions concurrently. However, it guarantees to schedule the transactions so that they will not violate the rules of the isolation level requested by the transaction. Therefore, all transactions need to specify the requested *isolation level*.
+The system will still run transactions concurrently. However, it guarantees to schedule the transactions to not violate the rules of the isolation level requested by the transaction. Therefore, all transactions need to specify the requested *isolation level*.
 
 ## Isolation problems and isolation levels
 
-Before we can discuss the isolation levels, first, we need to understand the types of problems that concurrency can cause.
+Before we can discuss the isolation levels, we need to first understand the types of problems that concurrency can cause.
 
 ### Problems
 
@@ -75,9 +75,9 @@ Before we can discuss the isolation levels, first, we need to understand the typ
 
 A dirty read means that a transaction accesses the uncommitted data of another transaction:
 
-1. A transaction modifies a record in the database, but does not commit yet.
+1. A transaction modifies a record in the database but does not commit yet.
 1. Another transaction reads the same record (in its changed state).
-1. The first transaction is aborted and the system restores the record to the state it was in before the change.
+1. The first transaction is aborted, and the system restores the record to the state it was in before the change.
 
 The transaction that read the record in the second step is now working with invalid, non-existent data. It should not have read it.
 
@@ -91,12 +91,12 @@ The transaction that read the record in the second step is now working with inva
 
 #### Lost update
 
-During a lost update two writes conflict:
+During a lost update, two writes conflict:
 
 1. A transaction changes a record.
 1. Another transaction overwrites the same record.
 
-The database has the result of the second write, as if the first did not even happen.
+The database has the result of the second write as if the first did not even happen.
 
 ![Lost update](images/lost-update.png)
 
@@ -112,11 +112,11 @@ A non-repeatable read means that the result of the query depends on the time it 
 
 #### Phantom records / phantom read
 
-We face the problem of phantom records when we work with record sets:
+We face the problem of phantom records when we work with recordsets:
 
 1. A transaction executes a query that yields multiple records as a result.
-1. Meanwhile a different transaction deletes a record that is included in the previous result set.
-1. The first transaction starts processing its result set (e.g. iterates over the records one by one).
+1. Meanwhile, a different transaction deletes a record that is included in the previous result set.
+1. The first transaction starts processing its result set (e.g., iterates over the records one by one).
 
 Should the deleted record be processed now? We can imagine a similar scenario when a record is altered in the second step. Which state should the reader transaction in step three see? The one before, or the one after the modification?
 
@@ -124,7 +124,7 @@ Should the deleted record be processed now? We can imagine a similar scenario wh
 
 ### Isolation levels
 
-The problems discussed before can be avoided by using the right isolation level. We should consider through, that the "higher" level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a *compromise* between a suitable isolation level and performance.
+The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a *compromise* between a suitable isolation level and performance.
 
 The ANSI/ISO SQL standard defines the following isolation levels:
 
@@ -138,53 +138,53 @@ The ANSI/ISO SQL standard defines the following isolation levels:
 
 ### Scheduling enforced with locks
 
-The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed, and is removed at the end of the transaction. The type of lock (e.g. shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.
+The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.
 
 These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another translation and concurrent access is not allowed by the isolation level, the transaction will wait.
 
-We know that when we use locks, **deadlock** can occur. This is no different in databases. A deadlock may occur when there are two transactions competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled resulting in both transactions being unable to move forward.
+We know that when we use locks, **deadlock** can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.
 
 ![Deadlock](images/holtpont-eroforras-graf.png)
 
-In database management systems deadlocks cannot be prevented but they can be recognized and dealt with. The system monitors locks and when a deadlock is detected **one of the transactions is aborted** and all its modifications are rolled back. All applications using a database must be prepared to handle this.
+Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected **one of the transactions is aborted** and all its modifications are rolled back. All applications using a database must be prepared to handle this.
 
 !!! note ""
-    When a deadlock happens, there is usually no other resolution to retry the operation at a later time (e.g. automatically, or manually requested by the end user).
+    When a deadlock happens, there is usually no other resolution to retry the operation later (e.g., automatically, or manually requested by the end-user).
 
 ## Transaction boundaries
 
-A transaction combines a sequence of steps. It is therefore necessary to mark the beginning and the end of the transaction. The way transaction boundaries are signaled may depend on the platform, but generally:
+A transaction combines a sequence of steps. It is, therefore, necessary to mark the beginning and the end of the transaction. The way transaction boundaries are signaled may depend on the platform, but generally:
 
-1. All operations are executed within the scope of a transaction. If the transaction boundary is not marked explicitly each statement is a transaction in itself.
-
-    !!! note ""
-        Since all SQL statements run within a scope of a transaction, the transaction properties are automatically guaranteed for statement. For example a `delete` statement affecting multiple records cannot abort and delete only half of the records.
-
-1. The developer executes a `begin transaction` SQL statement to start a transaction, and completes it either with `commit` or `rollback`. Commit completes the translation and saves its changes, while rollback aborts the transaction and undoes all its changes.
+1. All operations are executed within the scope of a transaction. If the transaction boundary is not marked explicitly, each statement is a transaction in itself.
 
     !!! note ""
-        Some database management systems enable nested transactions too. Completing transactions in this case follow the nesting: each level needs to be committed.
+        Since all SQL statements run within a transaction scope, the transaction properties are automatically guaranteed for all statements. For example, a `delete` statement affecting multiple records cannot abort and delete only half of the records.
+
+1. The developer executes a `begin transaction` SQL statement to start a transaction, and completes it either with `commit` or `rollback`. Commit completes the translation and saves its changes, while rollback aborts the transaction and undoes its changes.
+
+    !!! note ""
+        Some database management systems enable nested transactions too. Completing transactions follow the nesting: each level needs to be committed.
 
 ## Transaction logging
 
-So far we have covered what transactions are used for. Let us understand how they work internally.
+So far, we have covered what transactions are used for. Let us understand how they work internally.
 
 **Transactional logging** is the process used by the database management system to track the pending modifications of running transactions allowing rolling back these changes in case of abort or soft crash.
 
-In order to understand transactional logging let us consider the following system model.
+To understand transactional logging, let us consider the following system model.
 
 ![Transactional logging conceptual model](images/tranzakcios-naplozas-io-modell.png)
 
 This conceptual model includes the following operations:
 
 - Begin T(x): Start of transaction
-- Input(A): Read data from the database durable store (disk)
-- Output(A): Write data to database durable store (disk)
+- Input(A): Read data from the durable database store (disk)
+- Output(A): Write data to durable database store (disk)
 - Read(A): Transaction reads the data from the memory buffer
 - Write(A): Transaction writes the data to the memory buffer
 - FLUSH_LOG: Write the transaction log to disk
 
-The process of transactional logging is demonstrated on the following example. In this example a transaction modifies two data elements: A is decreases by 2 and B is increased by 2.
+The process of transactional logging is demonstrated in the following example. In this example, a transaction modifies two data elements: A is decreases by 2, and B is increased by 2.
 
 ### Undo transaction log
 
@@ -196,7 +196,7 @@ We begin with an empty memory buffer. Every data is on disk. The process starts 
 | Input(A)  | 10 | 20 | **10** | - | |
 | Input(B)  | 10 | 20 | 10 | **20** | |
 
-The transaction has all the necessary data in memory buffer. The modification is performed and the data is written back to the buffer. At the same time *original values* and written to the transaction log.
+The transaction has all the necessary data in the memory buffer. The modification is performed, and the data is written back to the buffer. At the same time, the *original values* and written to the transaction log.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -205,7 +205,7 @@ The transaction has all the necessary data in memory buffer. The modification is
 | Read(B) | 10 | 20 | 8 | 20 | |
 | Write(B) | 10 | 20 | 8 | **22** | **T1, B, 20** |
 
-The transaction completes and it saves the changes. The transaction commits, which first flushes the transaction log to disk, then the changes are persisted to disk.
+The transaction completes, and it saves the changes. The transaction commits, which first flushes the transaction log to disk, then the changes are persisted to disk.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -216,15 +216,15 @@ The transaction completes and it saves the changes. The transaction commits, whi
 
 How can the consistent state be restored in case of a soft crash?
 
-- If the transaction is aborted before the commit, there is no action needed, as the database files on disk contain the original values, and the memory buffer is lost during the crash.
+- Suppose the transaction is aborted before the commit. There is no action needed, as the database files on disk contain the original values, and the memory buffer is lost during the crash.
 - If the transaction is in the middle of the commit procedure, some data could already be written to disk. These need to be reverted. The transaction log is processed starting from the end, and for all transactions that have no *commit* mark in the log, the values must be restored to their original state.
 
-To summarize, when using undo logging
+To summarize, when using undo logging:
 
 - the database cannot be modified until the transaction log is flushed,
-- and the commit mark must be placed into the log once database writes are finished.
+- and the commit mark must be placed into the log once the database writes are finished.
 
-The key is to flush the transaction log before the changes are persisted. The drawback of this method is that the transaction log is flushed twice, which is a performance issue doe to the cost of disk access.
+The key is to flush the transaction log before the changes are persisted. The drawback of this method is that the transaction log is flushed twice, which is a performance issue due to the cost of disk access.
 
 ### Redo transaction log
 
@@ -237,14 +237,14 @@ The process starts with reading the data from disk, followed by performing the m
 | Read(B) | 10 | 20 | 8 | 20 | |
 | Write(B) | 10 | 20 | 8 | **22** | **T1, B, 22** |
 
-To finalize the transaction the log is flushed first that contains the modified values - but no modification is made to the database files yet. Thus, the transaction log needs to be written to disk only once (as opposed to the undo logging scheme).
+To finalize the transaction, the log is flushed first to register the modified values - but no modification is made to the database files yet. Thus, the transaction log needs to be written to disk only once (compared to the undo logging scheme).
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
 | | | | | | **Commit T1** |
 | Flush_LOG | 10 | 20 | 8 | 22 | |
 
-After the transaction log is persisted the changes are committed to the database files.
+After the transaction log is persisted, the changes are committed to the database files.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -253,19 +253,19 @@ After the transaction log is persisted the changes are committed to the database
 
 How can the consistent state be restored in case of a soft crash?
 
-- If the transaction is aborted before the commit, there is no action needed, as the database files on disk contain the original values, and the memory buffer is lost during the crash.
-- If the transaction is in the middle of the commit procedure, the commit mark is flushed to the log but no changes were made to the database yet. Restoring from an aborted state at this stage is performed by processing the transaction log from the beginning and re-doing all committed transactions.
+- Suppose the transaction is aborted before the commit. In that case, there is no action needed, as the database files on disk contain the original values, and the memory buffer is lost during the crash.
+- If the transaction is in the middle of the commit procedure, the commit mark is flushed to the log, but no changes were made to the database yet. Restoring from an aborted state at this stage is performed by processing the transaction log from the beginning and redoing all committed transactions.
 
-To summarize, when using redo logging
+To summarize, when using redo logging:
 
 - the database cannot be modified until the transaction log is flushed,
 - commit mark must be placed into the transaction log before writing the database files.
 
-There are less transaction log flushes in this scheme compared to the undo logging, however, the restore procedure is longer.
+There are fewer transaction log flushes in this scheme compared to undo logging; however, the restore procedure is longer.
 
 ### Undo/redo logging
 
-As the name suggests this is the combination of the two schemes. The process starts just like in the previous cases. The difference is in writing the transaction log: both the original and the modified values are written to the log.
+As the name suggests, this is the combination of the two schemes. The process starts just like in the previous cases. The difference is in writing the transaction log: both the original and the modified values are written to the log.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -274,7 +274,7 @@ As the name suggests this is the combination of the two schemes. The process sta
 | Read(B) | 10 | 20 | 8 | 20 | |
 | Write(B) | 10 | 20 | 8 | **22** | **T1, B, 20, 22** |
 
-The commit procedure is simpler here. The order of writing the database files and writing the commit mark into the transaction log is no longer fixed - however, flushing the transaction log must still be performed first. The simplification, therefore, is that the place of the commit mark is not fixed.
+The commit procedure is simpler. The order of writing the database files and writing the commit mark into the transaction log is no longer fixed - however, flushing the transaction log must still be performed first. The simplification, therefore, is that the place of the commit mark is not fixed.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -307,10 +307,10 @@ The transaction log needs to be emptied periodically. Transactions that are comm
 - What type of concurrent data access problems do you know?
 - List the isolation levels. Which problems does each of the levels prohibit?
 - What are the basic properties of transactions?
-- Decide, whether the following statements are true or false:
+- Decide whether the following statements are true or false:
     - The *serializable* isolation level executes the transactions one after the other.
     - Deadlock can be prevented by using the right isolation level.
     - The default isolation level is usually *read committed*.
     - If we are not using explicit transactions, then we are protected from the issue of dirty read.
     - The transaction log offers protection against all kinds of data losses.
-    - In the *redo* transaction logging scheme the transaction log starts with the *commit* mark.
+    - In the *redo* transaction logging scheme, the transaction log starts with the *commit* mark.

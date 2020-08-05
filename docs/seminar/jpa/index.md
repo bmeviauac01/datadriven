@@ -24,7 +24,7 @@ Recommended to review:
 The exercises are solved together with the instructor. A few exercises we can try to solve by ourselves and then discuss the results. The final exercise is individual work if time permits.
 
 !!! info ""
-    This guide contains the solutions too. Before looking at these provided answers, we should try to solve the exercises by ourselves!
+    This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!
 
 ## Tips for using Eclipse
 
@@ -32,17 +32,17 @@ The exercises are solved together with the instructor. A few exercises we can tr
 - Search file: Ctrl+Shift+R
 - Fix missing imports:Ctrl+Shift+O
 - Format code: Ctrl+Shift+F
-- In Java Resources right click a package / New Class/Interfaces will create the source in this package
+- In Java Resources right-click a package / New Class/Interfaces will create the source in this package
 - Restore default layout of views: Window > Reset perspective
 - Increase font size:
     - Window menu / Preferences, start typing _font_ to locate _Fonts and Colors_
     - Select it and under _Basic_ choose _Text Font_ and increase the size
 
-## Exercise 0: Create database
+## Exercise 0: Create a database
 
 1. Use _Microsoft SQL Server Management Studio_ to connect to the database. We are not using _localdb_ here; the address is: `localhost\sqlexpress` and use _SQL Server Authentication_.
 
-1. Create a new database with name `adatvez`. **You should this exact name or will have to update the Java project**. To create a new database see the instructions [in the first seminar material](../transactions/index.md). If a database with this name already exists, no need to re-create it.
+1. Create a new database with the name `adatvez`. **You should this exact name or will have to update the Java project**. To create a new database see the instructions [in the first seminar material](../transactions/index.md). If a database with this name already exists, no need to re-create it.
 
 1. Run the database initialization script on this database. If the database exists on this machine, run the script anyway to reset any changes made in the schema.
 
@@ -50,7 +50,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 1. Start Eclipse from here: `C:\work\javaee\eclipse\eclipse.exe`. (There might be a `D:\eclipse` folder too, but do _not_ use that one.)
 1. It will ask for a workspace, select: `C:\work\javaee\workspaces\adatvez`
-1. If there is a **webshop** project in the Project Explorer already, delete it: right click the project / _Delete_, and check _Delete project contents on disk_
+1. If there is a **webshop** project in the Project Explorer already, delete it: right-click the project / _Delete_, and check _Delete project contents on disk_
 
 ## Exercise 2: Import project
 
@@ -61,28 +61,28 @@ The exercises are solved together with the instructor. A few exercises we can tr
 1. Import the downloaded project into the workspace:
     - Open _File / Import..._
     - Start typing _Existing projects into workspace_ and choose it
-    - Locate the downloaded webshop project (the `webshop` folder in the checked out repository), OK, check the webshop project in the dialog
+    - Locate the downloaded webshop project (the `webshop` folder in the checked-out repository), OK, check the webshop project in the dialog
     - Finish
 1. Overview of the projects
-    - It is a _maven_ based project. Maven is a command line build tool that can be integrated with IDEs as well. It is able to download the libraries that or project depend on from public repositories. After opening the `pom.xml` file, the config file of the maven project, you can see some dependency tags that will transitively download Hibernate, our JPA implementation, Spring Boot, Spring Data, Spring MVC and Thymeleaf.
-    - The application.properties file contains some basic settings. **Let us verify the user name and password for the DB access here.** The JNDI name of the database is set up via this line: `spring.datasource.jndi-name=jdbc/termekDB`. In classic Java EE web applications this name should be defined in the `persistence.xml`, but Spring Boot supports XML-less configuration.
+    - It is a _maven_ based project. Maven is a command-line build tool that can be integrated with IDEs as well. It can download the libraries our projects depend on from public repositories. After opening the `pom.xml` file, the maven project's config file, you can see some dependency tags that will transitively download Hibernate, our JPA implementation, Spring Boot, Spring Data, Spring MVC and Thymeleaf.
+    - The application.properties file contains some basic settings. **Let us verify the user name and password for the DB access here.** The JNDI name of the database is set up via this line: `spring.datasource.jndi-name=jdbc/termekDB`. In classic Java EE web applications, this name should be defined in the `persistence.xml`, but Spring Boot supports XML-less configuration.
     - The `ConnectionProperties` class is a Java representation of the user name/password pair in the previous config file.
-    - `WebshopApplication` is the entry point and configuration of the Spring Boot application. A traditional web application should be deployed to a web container (e.g. Tomcat, Jetty) running in a separate process. In case of Spring Boot, however, Spring Boot itself will start an embedded web container (Tomcat, by default). The JDBC driver and JDBC url is registered in the `tomcatFactory` method with the jdbc/ProductDB JNDI name so that JPA can find it.
+    - `WebshopApplication` is the entry point and configuration of the Spring Boot application. A traditional web application should be deployed to a web container (e.g., Tomcat, Jetty) running in a separate process. In the case of Spring Boot, however, Spring Boot itself will start an embedded web container (Tomcat, by default). The JDBC driver and JDBC URL is registered in the `tomcatFactory` method with the jdbc/ProductDB JNDI name so that JPA can find it.
 
         !!! note ""
             If the database name was changed, edit the JDBC URL: resource.setProperty("url", "jdbc:sqlserver://localhost;database=**adatvez**");
 
     - The web interface is one page: `src\main\resources\templates\testPage.html`. We will not modify it. It contains standard HTML and some Thymeleaf attributes.
-    - `WebshopController`: the controller class implementing the web layer, its methods handle the HTTP requests. These methods typically call a query implemented in a repository or a service method, and put the resultinto themodel keyed with a name that we can reference to via Thymeleaf. You should call the methods implementing the tasks at the `//TODO` comments.
+    - `WebshopController`: the controller class implementing the web layer (its methods handle the HTTP requests). These methods typically call a query implemented in a repository or a service method and put the result into the model with a name that we can reference via Thymeleaf. You should call the methods implementing the tasks at the `//TODO` comments.
 
 ## Exercise 3: Overview of the entities
 
-- The  entities can be found in the `hu.bme.aut.adatvez.webshop.model` package. We could have written them by hand, but in this case they were generated from the DB tables via the JPA plugin of Eclipse.
-- Open an entity class, e.g. Vat, and check the JPA-related code. You can see the `@Entity`, `@Id` annotations, and `@OneToMany` or `@ManyToOne` for defining relationships.
+- The  entities can be found in the `hu.bme.aut.adatvez.webshop.model` package. We could have written them by hand, but in this case, they were generated from the DB tables via the JPA plugin of Eclipse.
+- Open an entity class, e.g., Vat, and check the JPA-related code. You can see the `@Entity`, `@Id` annotations, and `@OneToMany` or `@ManyToOne` for defining relationships.
 
 ## Exercise 4: Queries
 
-Implement the following queries on the data model. In JPA and Spring Data, you can write queries by different means. In the following tasks we specify the way of writing the query, so that multiple ways can be demonstrated.
+Implement the following queries on the data model. In JPA and Spring Data, you can write queries by different means. In the following tasks, we specify how to write the query so that multiple ways can be demonstrated.
 
 !!! important ""
     It is important to note that each task could be written using any technology and style. The requirements are provided for demonstrating all technologies.
@@ -99,19 +99,19 @@ When running the application, the SQL statements generated by Hibernate can be o
 
 ### Running the application
 
-The project contains the configuration file **webshop run.launch**. Right click on it > Debug As > webshop run. This starts the Spring Boot maven plugin in debug mode, which starts an embedded web container, and the application is available at <http://localhost:9080> from a browser. Having done this once, we can do it in a more simple way: Click on the Debug icon on the toolbar, and you will see the webshop run there.
+The project contains the configuration file **webshop run.launch**. Right-click on it > Debug As > webshop run. This starts the Spring Boot maven plugin in debug mode, which starts an embedded web container, and the application is available at <http://localhost:9080> from a browser. Having done this once, we can do it more easily: Click on the Debug icon on the toolbar, and you will see the webshop run there.
 
 ![Eclipse run](images/eclipse-run.png)
 
 If under the _Debug_ icon you find _webshop run_, the method above is unnecessary.
 
-The running application can be stopped with the red _Terminate_ icon in the Console view. If we run the application twice, without terminating the first run, the second run will report a port collision on the port 9080, and stop. This second execution will be visible in the _Console_ view and the _Terminate_ command will be inactive, as this copy has been terminated already. Click on the gray double C icon next to _Terminate_ to close this view, and only the active running process will be visible.
+The running application can be stopped with the red _Terminate_ icon in the Console view. If we run the application twice, without terminating the first run, the second run will report a port collision on the port 9080 and stop. This second execution will be visible in the _Console_ view, and the _Terminate_ command will be inactive, as this copy has been terminated already. Click on the gray double C icon next to _Terminate_ to close this view, and only the active running process will be visible.
 
 If we close the _Console_ view by mistake, use shortcut _Alt+Shift+Q, C_ or menu _Window / Show View / Console_ to reopen.
 
-After shutdown we can re-run using F11.
+After shutdown, we can re-run using F11.
 
-When running the application in debug mode, the modifications in HTML files and some Java ode modifications are immediately actualized, so we have only have to refresh the browser to see the effect of the code modification. But the application has to be restarted, if we modify the Java code in either of the following ways
+When running the application in debug mode, the modifications in HTML files and some Java ode modifications are immediately actualized, so we only have to refresh the browser to see the effect of the code modification. But the application has to be restarted if we modify the Java code in either of the following ways
 
 - adding a new type
 - adding/removing/modifying an annotation
@@ -171,11 +171,11 @@ Simply put, when modifying code that is not inside of an existing method, a rest
     }
     ```
 
-    The implemenation class `ProductRepositoryImpl` will contain an error now as it does not implement `ProductRepositoryCustom`. Let us open this class, and line of the class declaration there will be a light bulb we can click to generate the method skeleton:
+    The implementation class `ProductRepositoryImpl` will contain an error now as it does not implement `ProductRepositoryCustom`. Let us open this class, and line of the class declaration there will be a light bulb we can click to generate the method skeleton:
 
     ![Eclise implement interface](images/eclipse-implement-methods.png)
 
-    Add the implemention of the method as follows: use the injected EntityManager to create and run the query.
+    Add the method's implementation as follows: use the injected EntityManager to create and run the query.
 
     ```java
     package hu.bme.aut.adatvez.webshop.dao;
@@ -226,7 +226,7 @@ Simply put, when modifying code that is not inside of an existing method, a rest
     })
     ```
 
-    This named query can be called in two ways. The first is to create method in `ProductRepository` with the same name (without the _Product._ prefix.), that is:
+    This named query can be called in two ways. The first is to create a method in `ProductRepository` with the same name (without the _Product._ prefix.), that is:
 
     ```java
     public List<Product> findMostExpensive();
@@ -241,7 +241,7 @@ Simply put, when modifying code that is not inside of an existing method, a rest
     }
     ```
 
-    This method also needs to be added to the `ProductRepositoryCustom` interface. E.g. right click / _Refactor / Pull up_
+    This method also needs to be added to the `ProductRepositoryCustom` interface. E.g. right-click / _Refactor / Pull up_
 
     Finally, call the method in `WebshopController`:
 
@@ -260,7 +260,7 @@ JPA can also be used to modify the database content.
 
 **a)** Write a JPQL query into the `ProductRepository` interface that raises the price of "Building items" by 10 percent!
 
-**b)** Write a method that creates a new category called "Expensive toys", if it does not exist yet, and move all the products with price higher than 8000 into this category!
+**b)** Write a method that creates a new category called "Expensive toys", if it does not exist yet, and move all the products with a price higher than 8000 into this category!
 
 **c)** Simple individual task: create a `CategoryRepository` interface, and implement a method name-derived query that you can use in task 5.b) instead of the query created with the injected EntityManager.
 
@@ -290,7 +290,7 @@ JPA can also be used to modify the database content.
     }
     ```
 
-    In the browser the changes are visible after clicking the button.
+    In the browser, the changes are visible after clicking the button.
 
     **5.b exercise**
 
@@ -351,7 +351,7 @@ JPA can also be used to modify the database content.
     }
     ```
 
-    In the browser the changes are visible after clicking the button.
+    In the browser, the changes are visible after clicking the button.
 
     **5.c exercise**
 
@@ -363,7 +363,7 @@ JPA can also be used to modify the database content.
     }
     ```
 
-    THis simplifies the `CategoryService` as follows:
+    This simplifies the `CategoryService` as follows:
 
     ```java
     @Service
@@ -386,7 +386,7 @@ JPA can also be used to modify the database content.
 
 Use the `CreatePaymentMethod` stored procedure to create a new `Paymentmethod`!
 
-- Check in SQL Server Management Studio, whether the database contains the stored procedure with name `CreatePaymentMethod`!
+- Check in SQL Server Management Studio, whether the database contains the stored procedure with the name `CreatePaymentMethod`!
 
 - If not, create the procedure with the code below!
 

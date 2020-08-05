@@ -205,7 +205,7 @@ and VATID in
 )
 ```
 
-MSSQL Server specirfic solution to the same task
+MSSQL Server specific solution to the same task
 
 ```sql
 update Product
@@ -310,7 +310,7 @@ from q
 where q.r between 3 and 8
 ```
 
-Paging usign MSSQL Server (2012+) specific syntax
+Paging using MSSQL Server (2012+) specific syntax
 
 ```sql
 select *

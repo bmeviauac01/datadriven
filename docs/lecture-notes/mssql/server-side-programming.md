@@ -268,7 +268,7 @@ set EffectiveEmail = ISNULL(i.NotificationEmail, i.Email)
 from Customer c join inserted i on c.ID = i.ID
 ```
 
-A total sum colum on the order table should be updated to reflect the total of all items in the order:
+A total sum column on the order table should be updated to reflect the total of all items in the order:
 
 ```sql
 create or alter trigger OrderTotalUpdateTrigger

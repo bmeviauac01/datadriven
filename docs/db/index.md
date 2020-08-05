@@ -1,14 +1,14 @@
 # Sample database scheme
 
-The examples and seminars during the semester will use a sample database. The database is a simplified retail management system with products, customers and orders. This description details the relational schema of the database; the MongoDB variant is the appropriate mirror of this scheme.
+The examples and seminars during the semester will use a sample database. The database is a simplified retail management system with products, customers, and orders. This description details the relational schema of the database; the MongoDB variant is the appropriate mirror of this scheme.
 
 ## The context of the database
 
 The system is designed to help the retail process of products. The _products_ are grouped into hierarchical _categories_. _Customers_ can browse products, place _orders_, and track the _status_ of the orders.
 
-Customers can have multiple _sites_ (e.g. a retail stores of one company with multiple addresses). The order can be completed to any of these sites. Each customer has exactly one main site, which is where the invoices are addressed. An order can have multiple _items_; each item has its own status.
+Customers can have multiple _sites_ (e.g., retail stores of one company with multiple addresses). The order can be completed to any of these sites. Each customer has exactly one "main site," which is where the invoices are addressed. An order can have multiple _items_; each item has its status.
 
-An _invoice_ is printed if the order is ready. An invoice cannot be changed once it is created. Different products have different _VAT_ (value added tax) rates. These VAT rates are subject to change over time, but these changes must not affect existing invoices.
+An _invoice_ is printed if the order is ready. An invoice cannot be changed once it is created. Different products have different _VAT_ (value-added tax) rates. These VAT rates are subject to change over time, but these changes must not affect existing invoices.
 
 ## Data scheme
 
@@ -21,15 +21,15 @@ The model of the whole database is depicted below.
 | **Table**     | **Column**         | **Description**                                                                                                                      |
 | ------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
 | VAT           | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Percentage         | The percentage of the value added tax.                                                                                               |
+|               | Percentage         | The percentage of the value-added tax.                                                                                               |
 | PaymentMethod | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Mode               | Short name of the payment method, e.g. cash or wire-transfer.                                                                        |
+|               | Mode               | Short name of the payment method, e.g., cash or wire transfer.                                                                        |
 |               | Deadline           | The deadline of the payment method, that is, the deadline for completing the transaction after the invoice is received.              |
 | Status        | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Name               | Short name of the status (e.g. new, processed).                                                                                      |
+|               | Name               | Short name of the status (e.g., new, processed).                                                                                      |
 | Category      | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Name               | Name of the category, e.g. toys, LEGO, etc.                                                                                          |
-|               | ParentCategoryID   | Foreign key indicating the parent category; null if this is a top level category.                                                    |
+|               | Name               | Name of the category, e.g., toys, LEGO, etc.                                                                                          |
+|               | ParentCategoryID   | Foreign key indicating the parent category; null if this is a top-level category.                                                    |
 | Product       | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Name               | Product name.                                                                                                                        |
 |               | Price              | Product price without tax.                                                                                                           |
@@ -43,7 +43,7 @@ The model of the whole database is depicted below.
 |               | Login              | Login name for the webshop.                                                                                                          |
 |               | Password           | Password for the webshop.                                                                                                            |
 |               | Email              | Email address of the customer.                                                                                                       |
-|               | MainCustomerSiteID | The main site of the customer; foreign key to the CustomerSite table.                                                                |
+|               | MainCustomerSiteID | The main site of the customer; a foreign key to the CustomerSite table.                                                                |
 | CustomerSite  | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Zip                | The zip code of the address.                                                                                                         |
 |               | City               | The city part of the address.                                                                                                        |
@@ -61,7 +61,7 @@ The model of the whole database is depicted below.
 |               | Amount             | The amount ordered of the specific product.                                                                                          |
 |               | Price              | The unit price of the product; by default this is the price of the product, but can be altered (e.g. for bulk order).                |
 |               | OrderID            | Foreign key to the Order table; identifier the order this item belongs to.                                                           |
-|               | ProductID          | Foreign key to the Product table, identifies the product that is ordered.                                                            |
+|               | ProductID          | Foreign key to the Product table; identifies the product that is ordered.                                                            |
 |               | StatusID           | Foreign key to the Status table; the actual status of the item.                                                                      |
 | InvoiceIssuer | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Name               | Name of the company selling the products.                                                                                            |
@@ -86,7 +86,7 @@ The model of the whole database is depicted below.
 | InvoiceItem   | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Name               | Name of the product; printed on the invoice.                                                                                         |
 |               | Amount             | The amount ordered of the specific product.                                                                                          |
-|               | Price              | The unit price of the product; by default this is the price of the product, but can be altered (e.g. for bulk order).                |
+|               | Price              | The unit price of the product; by default this is the price of the product, but can be altered (e.g., for bulk order).                |
 |               | VATPercentage      | The effective percentage of the tax applied.                                                                                         |
 |               | InvoiceID          | Foreign key to the Invoice table; the invoice this item is part of.                                                                  |
 |               | OrderItemID        | Foreign key to the OrderItem table; the item out of which this invoice item was created.                                             |
@@ -95,7 +95,7 @@ The model of the whole database is depicted below.
 
 #### Invoicing
 
-Invoices cannot be altered once issued; they can only be cancelled. Therefore all data that appears on the order are copied into the `Invoice` and `InvoiceItem` tables once the invoice is created. There is only a single original copy of the invoice, therefore the number of printed copies is recorded.
+Invoices cannot be altered once issued; they can only be canceled. Therefore all data that appears on the order are copied into the `Invoice` and `InvoiceItem` tables once the invoice is created. There is only a single original copy of the invoice; therefore, the number of printed copies is recorded.
 
 #### Invoice issuer
 
@@ -103,7 +103,7 @@ The issuer of the invoices changes very infrequently. However, in case it change
 
 #### VAT
 
-The `VAT` percentage of products can change at any time. However, existing invoices must not be altered. Therefore the actual VAT percentage is stored with the invoice when created, and not referenced from the VAT table.
+The `VAT` percentage of products can change at any time. However, existing invoices must not be altered. Therefore the actual VAT percentage is stored with the invoice when created and not referenced from the VAT table.
 
 #### Product description
 

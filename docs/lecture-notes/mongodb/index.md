@@ -5,18 +5,18 @@
 
 ## Establishing a connection
 
-To access the MongoDB database, you first need a connection. The connection is represented by a `MongoClient` class. The connection requires the server's availability (see <https://docs.mongodb.com/manual/reference/connection-string/> for details on the connection string).
+To access the MongoDB database, you first need a connection. A `MongoClient` class represents the connection. We need the server address to establish a connection (see <https://docs.mongodb.com/manual/reference/connection-string/> for details on the connection string).
 
 ```csharp
 var client = new MongoClient("mongodb://localhost:27017");
 ```
 
-The connection should be treated as a singleton, and not disposed of.
+The connection should be treated as a singleton and not disposed of.
 
 !!! info "Connection lifetime"
-    The connection is typically stored in a global static variable, or in an IoC (Inversion of Control) / DI (Dependency Injection) store.
+    The connection is typically stored in a global static variable, or an IoC (Inversion of Control) / DI (Dependency Injection) store.
 
-Although the database name may be in the connection string (eg `mongodb://localhost:27017/datadriven`), it is used only for authentication. Thus, after establishing the connection, we need to specify what database we will use.
+Although the database name may be in the connection string (e.g. `mongodb://localhost:27017/datadriven`), it is used only for authentication. Thus, after establishing the connection, we need to specify what database we will use.
 
 ```csharp
 var db = client.GetDatabase("datadriven");
@@ -26,7 +26,7 @@ The database does not need to exist in advance. The above call will automaticall
 
 ## Managing collections
 
-Unlike a relational database, **in MongoDB, our operations are always performed on a single collection**, so the selection of a collection is not part of the issued command (like `where` in SQL), but a prerequisite for the operation. You can get a specific collection by calling `GetCollection`, its generic parameter is the C# class implementing the document type.
+Unlike a relational database, **in MongoDB, our operations are always performed on a single collection**, so the selection of a collection is not part of the issued command (like `where` in SQL), but a prerequisite for the operation. You can get a specific collection by calling `GetCollection`; its generic parameter is the C# class implementing the document type.
 
 ```csharp
 var collection = db.GetCollection<BsonDocument>("products");
@@ -35,11 +35,11 @@ var collection = db.GetCollection<BsonDocument>("products");
 The basic concept of the .NET MongoDB driver is to map every document to a .NET object. This is also called _ODM (Object Document Mapping)_. ODM is the equivalent of ORM in the NoSQL database world.
 
 !!! warning ""Raw" json"
-    In other languages ​​and platforms, MongoDB drivers do not always map to objects. Sample code found on the Internet often show communication via "raw" JSON documents. Let's try to avoid this, as we learned in ORM, that object-oriented mapping is more convenient and secure.
+    In other languages ​​and platforms, MongoDB drivers do not always map to objects. Sample codes found on the Internet often show communication via "raw" JSON documents. Let's try to avoid this, as we learned in ORM, that object-oriented mapping is more convenient and secure.
 
-In the previous example, a document of the type "BsonDocument" is used. `BsonDocument` is a generic document representation in which we can store key-value pairs. It is uncomfortable and unsafe to use, thus we usually do try to avoid it. See the suggested solution soon.
+In the previous example, a document of the type "BsonDocument" is used. `BsonDocument` is a generic document representation in which we can store key-value pairs. It is uncomfortable and unsafe to use; thus we usually do try to avoid it. See the suggested solution soon.
 
-You can run instance on the variable representing the collection, such as inserting a document and then listing the contents of the collection. The collection will be created automatically the first time you use it, so you don't have to define it.
+You can run queries on the variable representing the collection, such as inserting a document and then listing the contents of the collection. The collection will be created automatically the first time you use it, so you don't have to define it.
 
 ```csharp
 collection.InsertOne(new BsonDocument()
@@ -57,13 +57,13 @@ foreach(var l in list)
 ```
 
 !!! important "Naming convention"
-    Field names in the document start with lowercase letters like `price` or`categoryName` (this is the so-called _camel case_ spelling). This is a **convention** of the MongoDB world for historical reasons. Unless there is a good reason, do not deviate from it.
+    Field names in the document start with lowercase letters like `price` or `categoryName` (this is the so-called _camel case_ spelling). This is a **convention** of the MongoDB world for historical reasons. Unless there is a good reason, do not deviate from it.
 
 ## Mapping documents to C# objects
 
 As with relational databases, we can work with objects and classes in MongoDB. The .NET driver for MongoDB offers this conveniently.
 
-The first step is to define the C# class(es) to map the contents of the database to. Since there is no schema for the database and table, we cannot generate C# code based on the schema (as we did with the Entity Framework). So in this world, we tend to follow the _Code First_ approach, which is to write C# code and have the system translate it to database collections.
+The first step is to define the C# class(es) to map the contents of the database. Since there is no schema for the database and table, we cannot generate C# code based on the schema (as we did with the Entity Framework). So in this world, we tend to follow the _Code First_ approach, which is to write C# code and have the system translate it to database collections.
 
 Let us define the following classes to represent _Products_.
 
@@ -89,7 +89,7 @@ Note that the name of the field was `price` before, but in C# it starts with a c
 
 ### Customizing the mapping
 
-The C# class - MongoDB document mapping is automatic but it can also be customized. There are several ways to deviate from the conventions.
+The C# class - MongoDB document mapping is automatic, but it can also be customized. There are several ways to deviate from the conventions.
 
 The easiest way is to use custom attributes in the class definition:
 
@@ -110,7 +110,7 @@ public class Product
 }
 ```
 
-Our other option is to register so-called _convention packs_ at a higher level. The convention pack describes the rules of mapping. (The default behavior is also defined by a set of conventions.)
+Our other option is to register so-called _convention packs_ at a higher level. The convention pack describes the rules of mapping. (A set of conventions also defines the default behavior.)
 
 For example, you can specify the following to map the field names to camel case and exclude data members with a default value (defined in the C# language) from the document.
 
@@ -130,7 +130,7 @@ We also have more sophisticated customizations, such as defining conversion logi
 
 ## Queries
 
-We will use the collection from now on by mapping it to the `Product` class. This is the recommended solution, the `BsonDocument` based solution is used only when necessary.
+We will use the collection from now on by mapping it to the `Product` class. This is the recommended solution; the `BsonDocument` based solution is used only when necessary.
 
 The simplest query we have already seen is to list all the documents:
 
@@ -142,7 +142,7 @@ foreach (var l in lista)
     Console.WriteLine($"Id: {l.Id}, Name: {l.Name}");
 ```
 
-Listing is done using the `Find` method. The name illustrates MongoDB's philosophy: listing an entire collection is not practical, so there is no simple syntax for it. `Find` requires a search criteria, which is an empty condition condition here to matches everything.
+Listing is done using the `Find` method. The name illustrates MongoDB's philosophy: listing an entire collection is not practical, so there is no simple syntax for it. `Find` requires a search criteria, which is an empty condition here to matches everything.
 
 There are several ways to describe search criteria.
 
@@ -160,7 +160,7 @@ In this case, the Lambda expression is a delegate of type `Predicate <T>`, that 
 collection.Find(x => x.Price < 123 && x.Name.Contains("red"));
 ```
 
-The filtering described by the Lambda expressions hide what search syntax we actually have in MongoDB. For example, the above `Contains` search condition will actually mean a search with a regular expression.
+The filtering described by the Lambda expressions hides what search syntax we actually have in MongoDB. For example, the above `Contains` search condition will actually mean a search with a regular expression.
 
 In MongoDB's own language, the previous filter looks like this:
 
@@ -173,7 +173,7 @@ In MongoDB's own language, the previous filter looks like this:
 }
 ```
 
-Note that this description is itself a document. If we wanted to write the filter condition ourselves, we would have to create this descriptor in a `BsonDocument`. The keys of the document describing the filter condition are the fields used for filtering and the value is the filter criteria. The condition is in some cases a scalar value such as a regular expression (or if we filter for equality), in other cases the condition is an embedded document, as with the `<` condition. Here, the `$lt` key is a special key that denotes the _less than_ operator and the value to the right of the operator is 123.0. The regular expression should be specified according to [JavaScript RegExp Syntax](https://www.w3schools.com/jsref/jsref_obj_regexp.asp). The conditions listed in this way are automatically evaluated in and `and` fashion.
+Note that this description is itself a document. If we wanted to write the filter condition ourselves, we would have to create this descriptor in a `BsonDocument`. The document keys describe the fields used for filtering, and the values are the filter criteria. In some cases, the condition is a scalar value such as a regular expression (or if we filter for equality); in other cases, the condition is an embedded document, as with the `<` condition. Here, the `$lt` key is a special key that denotes the _less than_ operator and the value to the right of the operator is 123.0. The regular expression should be specified according to [JavaScript RegExp Syntax](https://www.w3schools.com/jsref/jsref_obj_regexp.asp). The conditions listed in this way are automatically evaluated in and `and` fashion.
 
 Instead of the Lambda expression, we can create a similar description without having to compile a filter condition in "text" form. The .NET driver for MongoDB gives us the ability to use a so-called **_builders_**.
 
@@ -186,13 +186,13 @@ collection.Find(
 );
 ```
 
-The above syntax is a bit more eloquent than the Lambda expression, but it is closer to the MongoDB phisosophy and better describes what we really want. We can view this syntax as SQL, a declarative, goal-oriented, but platform-specific description. However, it is also type-safe.
+The above syntax is a bit more eloquent than the Lambda expression, but it is closer to the MongoDB philosophy, and better describes what we want. We can view this syntax as SQL, a declarative, goal-oriented, but platform-specific description. However, it is also type-safe.
 
-The `Builders<T>` generic class is an auxiliary class that we can use to build filtering and other MongoDB specific definitions. `Builders<Product>.Filter` can be used to define filtering conditions that match the _Product_ C# class. First, we create a _and_ connection, within which we have two filtering conditions. The operators are the _less than_ and regular expressions seen before. We pass two parameters to these functions: the field to be filtered and the operand.
+The `Builders<T>` generic class is an auxiliary class that we can use to build filtering and other MongoDB specific definitions. `Builders<Product>.Filter` can be used to define filtering conditions that match the _Product_ C# class. First, we create an _and_ connection, within which we have two filtering conditions. The operators are the _less than_ and regular expressions seen before. We pass two parameters to these functions: the field to be filtered and the operand.
 
 Note that no string-based field names were used here or in the Lambda expressions. We can refer to the class fields with the _C# Expression_ syntax. This is practical because we avoid typing field names.
 
-Note that all ways of describing the search criteria are identical. The MongoDB driver maps each syntax to its own internal representation. Lambda expression-based requires fewer characters and fits better into C#, while the builder approach is used to better express MongoDB features. You can use either one.
+Note that all ways of describing the search criteria are identical. The MongoDB driver maps each syntax to its internal representation. Lambda expression-based requires fewer characters and fits better into C#, while the builder approach is used to express MongoDB features better. You can use either one.
 
 ### Using query results
 
@@ -208,7 +208,7 @@ If you only need the first item, or know that there will be only one item, you c
 
 #### Cursor
 
-If the result set contains multiple documents, it is advisable to iterate it using a cursor. MongoDB limits the size of the response to a query, so if we query too many documents, we may get an error instead of a result. To overcome this we use the cursors where we always get only a subset of the documents.
+If the result set contains multiple documents, it is advisable to iterate it using a cursor. MongoDB limits the size of the response to a query, so if we query too many records, we may get an error instead of a result. To overcome this, we use the cursors where we always get only a subset of the documents.
 
 ```csharp
 var cur = collection.Find(...).ToCursor();
@@ -221,7 +221,7 @@ while (cur.MoveNext()) // kurzor stepping
 
 ### Operators for filtering
 
-The filter criteria apply to the fields in the document, and the filter criteria is always constant. Thus **it is not possible, for example, to compare two fields**, and we cannot refer to other collections. There is a so called MongoDB aggregation pipeline, which allows you to formulate more complex queries, but for now let us focus on simple queries.
+The filter criteria apply to the fields in the document, and the filter criteria are always constant. Thus **it is not possible, for example, to compare two fields**, and we cannot refer to other collections. There is a so-called MongoDB aggregation pipeline, which allows you to formulate more complex queries, but for now, let us focus on simple queries.
 
 The filter condition compares a field in the document to a constant we specify. The following options are most commonly used.
 
@@ -287,7 +287,7 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 ```
 
 !!! note "Exists filtering"
-    Does exist, that is, non-null filtering is special because there are two ways to have a null value in MongoDB: if the key exists in the document and it has value of null; or if the key does not exist at all.
+    Does exist, that is, non-null filtering is special because there are two ways to have a null value in MongoDB: if the key exists in the document and it has a value of null; or if the key does not exist at all.
 
 ### Filtering fields of embedded document
 
@@ -303,7 +303,7 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT.Percentage, exists: f
 
 ### Filtering based on an array field
 
-Any field in the document can be an array value, as in the example `string [] Categories`. In MongoDB, we can define filtering based on array field using the `Any*` criterion.
+Any field in the document can be an array value, as in the example `string [] Categories`. In MongoDB, we can define filtering based on an array field using the `Any*` criterion.
 
 ```csharp
 // products of this category
@@ -334,7 +334,7 @@ And for the items on the following page, we skip the items already seen on the f
 collection.Find(...).Skip(100).Limit(100);
 ```
 
-`Skip` és `Limit` are meaningless in this form, because without sorting the "first 100 elements" query is not deterministic. So for these types of queries it is necessary to provide an appropriate sorting requirement. Sorting is defined using `Builders<T>`.
+`Skip` and `Limit` are meaningless in this form because without sorting, the "first 100 elements" query is not deterministic. So for these types of queries, it is necessary to provide an appropriate sorting requirement. Sorting is defined using `Builders<T>`.
 
 ```csharp
 collection.Find(...)
@@ -343,7 +343,7 @@ collection.Find(...)
 ```
 
 !!! question "Paging issue"
-    The above paging mechanism is still not completely correct. For example, if a product is deleted in between the query of the first and second pages, the products will shift by one and there may be a product that will be skipped. This is, in fact, not a problem just with MongoDB. Consider how you would solve this problem.
+    The above paging mechanism is still not entirely correct. For example, if a product is deleted in between the query of the first and second pages, the products will shift by one, and there may be a product that will be skipped. This is, in fact, not a problem just with MongoDB. Consider how you would solve this problem.
 
 #### Number documents
 
@@ -357,7 +357,7 @@ collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Balls")).Coun
 
 #### Grouping
 
-Grouping is a syntactically complex operation. For grouping, we need to define an aggregation pipeline. We will not discuss this in mote details, but the following example shows its use.
+Grouping is a syntactically complex operation. For grouping, we need to define an aggregation pipeline. We will not discuss this in more detail, but the following example shows its use.
 
 ```csharp
 // products in the "Balls" category grouped by VAT percentage
@@ -396,7 +396,7 @@ Note that the `Id` field is not assigned. This will be set by the client driver.
 
 Remember, there is no schema in MongoDB, so the inserted document may be completely different from the rest of the items in the collection. Note that not all fields are assigned values. Because there are no integrity criteria, any insertion will be successful, but there may be problems with queries (for example, assuming that the `Stock` field is always set).
 
-You can use the `InsertMany` function to insert multiple documents, but remember that there are no transactions, so inserting multiple documents is an independent operation. If, for any reason, an error occurs during the insertion, the successfully inserted documents will remain in the database. However, each document is saved atomically, so no "half" document can be added to the database in the event of an error.
+You can use the `InsertMany` function to insert multiple documents, but remember that there are no transactions, so adding multiple documents is an independent operation. If, for any reason, an error occurs during the insertion, the successfully inserted documents will remain in the database. However, each document is saved atomically, so no "half" document can be added to the database in the event of an error.
 
 ### Delete documents
 
@@ -405,7 +405,7 @@ To delete, you need to define a filter condition and execute it with the `Delete
 The deletion condition can be described by the syntax familiar to the search.
 
 !!! note ""
-    Deletion is different from Entity Framework. Here, the entity does not have to be loaded; instead we specify a filtering condition.
+    Deletion is different from Entity Framework. Here, the entity does not have to be loaded; instead, we specify a filtering condition.
 
 ```csharp
 var deleteResult = collection.DeleteOne(x => x.Id == new ObjectId("..."));
@@ -416,9 +416,9 @@ If you want to retrieve the deleted element, you can use `FindOneAndDelete`, whi
 
 ### Updating documents
 
-Perhaps the most interesting feature of MongoDB is update of documents. While the functionalities showed before (queries, inserts, deletions) are similar to most databases (either relational or NoSQL), MongoDB supports a much broader range of modification operations.
+Perhaps the most interesting feature of MongoDB is the update of documents. While the functionalities showed before (queries, inserts, deletions) are similar to most databases (either relational or NoSQL), MongoDB supports a much broader range of modification operations.
 
-There are basically two ways to change a document: replace the entire document with a new one, or update parts of it.
+There are two ways to change a document: replace the entire document with a new one or update its parts.
 
 #### Complete document replacement
 
@@ -435,7 +435,7 @@ var replaceResult = collection.ReplaceOne(x => x.Id == new ObjectId("..."), repl
 Console.WriteLine($"Updated: {replaceResult.ModifiedCount}");
 ```
 
-A single document is matched and replaces with another document. The operation itself is atomic, that is, if it is interrupted, no half document is saved. You can use the `FindOneAndReplace` method to get the pre-swap document.
+A single document is matched and replaces it with another document. The operation itself is atomic, that is, if it is interrupted, no half document is saved. You can use the `FindOneAndReplace` method to get the pre-swap document.
 
 !!! note "Interesting"
     It is also possible to change the document ID during update (the replacement document can have a different ID).
@@ -452,9 +452,9 @@ collection.UpdateOne(
     update: Builders<Product>.Update.Set(x => x.Stock, 5));
 ```
 
-The first parameter of the `UpdateOne` function is the filter condition. You can use any of the syntax described before. The second parameter is the descriptor of the update operation which you can build with `Builders<T>`.
+The first parameter of the `UpdateOne` function is the filter condition. You can use any of the syntax described before. The second parameter is the descriptor of the update operation, which you can build with `Builders<T>`.
 
-In the example code above, the names of the arguments are specified (`filter:` and `update:`) to make it clear what the parameter represents. This is optional, but it increases readability (at the expense of length of code).
+In the example code above, the argument names are specified (`filter:` and `update:`) to make it clear what the parameter represents. This is optional, but it increases readability (at the expense of code length).
 
 The operation can update multiple fields at the same time.
 
@@ -477,16 +477,16 @@ Typical modifier operators are:
 - `Inc`: increment value;
 - `Min`,`Max`: change the value of a field if the value entered is smaller / larger than the current value of the field;
 - `Mul`: value multiplication;
-- `PopFirst`,`PopLast`: remove first / last element from array;
+- `PopFirst`,`PopLast`: remove first / last element from an array;
 - `Pull`: remove value from an array;
 - `Push`: add value to an array at the end (further options in the same operator: array sorting, keeping the first _n_ element of an array);
 - `AddToSet`: add a value to an array if it does not already exist.
 
-The above operations are meaningful even if the specified field does not exist. Depending on the type of operator, the database will make changes to a default value. For example, for `Inc` and`Mul`, the field will be set to 0 and then modified. For array operations, an empty array is modified. For the other operations, you can look up the behavior from the [documentation](https://docs.mongodb.com/manual/reference/operator/update/).
+The above operations are meaningful even if the specified field does not exist. Depending on the type of operator, the database will make changes to a default value. For example, for `Inc` and `Mul`, the field will be set to 0 and then modified. For array operations, an empty array is modified. For other operations, you can look up the behavior in the [documentation](https://docs.mongodb.com/manual/reference/operator/update/).
 
 Multiple documents can be modified at the same time using this method. The requested update operations are performed on all documents that match the filter criteria.
 
-For example: in view of the summer season, put _all_ balls on sale with 25% discount.
+For example: in view of the summer season, put _all_ balls on sale with a 25% discount.
 
 ```csharp
 collection.UpdateMany(
@@ -499,7 +499,7 @@ Update operators change the documents atomically. Using them can eliminate some 
 
 #### _Upsert_: replacing a non-existent document
 
-During update operations, we have the option _upsert (update/insert)_. This means that either and insertion or a update is made, depending on whether the item was in the database. The default behavior is _not_ to upsert, we must request it explicitly.
+During update operations, we have the option _upsert (update/insert)_. This means that either an insertion or an update is made, depending on whether the item was in the database. The default behavior is _not_ to upsert, we must request it explicitly.
 
 ```csharp
 collection.ReplaceOne(
@@ -514,7 +514,7 @@ We can also do upsert with update operators. As we have seen, modifier operators
 collection.UpdateOne(filter: ..., update: ..., options: new UpdateOptions() { IsUpsert = true });
 ```
 
-The upsert operation can be a workaround for managing concurrency in the absence of a transaction. Because we do not have a transaction, we cannot verify before insertion that a particular record does not yet exist. Instead, we can use the upsert method, which allows atomic querying and insertion / modification.
+The upsert operation can be a workaround for managing concurrency in the absence of a transaction. Because we do not have a transaction, we cannot verify before insertion that a particular record does not yet exist. Instead, we can use the upsert method, which allows atomic querying and insertion/modification.
 
 !!! note "`merge`"
     Note: In SQL, the `merge` command provides a similar solution.

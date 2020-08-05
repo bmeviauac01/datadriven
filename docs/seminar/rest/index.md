@@ -1,6 +1,6 @@
 # REST API & ASP.NET Web API
 
-The goal of the seminar is to practice working with REST APIs and the .NET Web API technology.
+The seminar's goal is to practice working with REST APIs and the .NET Web API technology.
 
 ## Pre-requisites
 
@@ -24,11 +24,11 @@ Recommended to review:
 The exercises are solved together with the instructor. A few exercises we can try to solve by ourselves and then discuss the results. The final exercise is individual work if time permits.
 
 !!! info ""
-    This guide contains the solutions too. Before looking at these provided answers, we should try to solve the exercises by ourselves!
+    This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!
 
 ## Exercise 0: Create/check the database
 
-The database resides on each machine, thus the database you created previously might not be available. First check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
+The database resides on each machine; thus, the database you created previously might not be available. First, check if your database exists, and if it does not, create and initialize it. (See the instructions [in the first seminar material](../transactions/index.md).)
 
 ## Exercise 1: Open starter project
 
@@ -42,25 +42,25 @@ The database resides on each machine, thus the database you created previously m
 
 1. Let us examine this project.
 
-    - This is an ASP.NET Core Web API project. This project is created especially for hosting REST Api backends. It contains a web server internally, thus when running it with F5 we get a fully functional API able to respond to http requests.
+    - This is an ASP.NET Core Web API project. This project is created for hosting REST API backends. It contains a web server internally; thus, when running it using F5 we get a fully functional API able to respond to http requests.
     - Let us examine `Program.cs`. We do not need to understand everything here. This is like a console application; the `Main` method here, the entry point that starts a web server.
     - The Entity Framework _Code First_ mapping of our database is in the `Dal` folder. Class `DataDrivenDbContext` is the data access class. We need to fix the _connection string_ in the `OnConfiguring` method in this class.
 
         !!! note ""
             The connection string usually should not be hard-wired in the source code. This is for the sake of simplicity here.
 
-    - There is a test controller in folder `Controllers`. Let us open and examine the code. Let us note the `[ApiController]` and `[Route]` attributes and the inheritance. These make a class a _Web API controller_. The behavior is automatic: the methods of the controller are invoked by the framework when they match the expected signature. This means that no additional configuration is needed here.
+    - There is a test controller in folder `Controllers`. Let us open and examine the code. Let us note the `[ApiController]` and `[Route]` attributes and the inheritance. These make a class a _Web API controller_. The behavior is automatic: the controller's methods are invoked by the framework when they match the expected signature. This means that no additional configuration is needed here.
 
-1. Start the application. After building the source code a console application will start where we will see diagnostic messages. Let us open a browser and navigate to <http://localhost:5000/api/values>. We should receive a JSON response. Stop the application by pressing _Ctrl-C_ in the console, or stop with Visual Studio.
+1. Start the application. After building the source code, a console application will start where we will see diagnostic messages. Let us open a browser and navigate to <http://localhost:5000/api/values>. We should receive a JSON response. Stop the application by pressing _Ctrl-C_ in the console, or stop with Visual Studio.
 
 ## Exercise 2: First controller and testing with Postman
 
 Create a new Web API controller that responds with a greeting. Test the behavior using Postman.
 
-1. Delete the existing class `ValuesController`. Add a new empty _Api Controller_ with name `HelloController`: in _Solution Explorer_ right click the _Controllers_ folder and choose _Add / Controller... / API Controller - Empty_. The `HelloController` should respond to url `/api/hello`.
+1. Delete the existing class `ValuesController`. Add a new empty _Api Controller_ with the name `HelloController`: in _Solution Explorer_ right-click the _Controllers_ folder and choose _Add / Controller... / API Controller - Empty_. The `HelloController` should respond to URL `/api/hello`.
 1. The application shall respond with a text when GET request is received. Test this endpoint using Postman by sending a GET request to <http://localhost:5000/api/hello>.
-1. Change the REST endpoint by expecting an optional name as a _query parameter_; if such value is provided, the response greeting should include this name. Test this with Postman too: send a name by calling url <http://localhost:5000/api/hello?name=apple>.
-1. Create a _new_ REST Api endpoint that responds to URL <http://localhost:5000/api/hello/apple> just like the previous one, but the name is in the _path_ here.
+1. Change the REST endpoint by expecting an optional name as a _query parameter_; if such value is provided, the response greeting should include this name. Test this with Postman: send a name by calling URL <http://localhost:5000/api/hello?name=apple>.
+1. Create a _new_ REST API endpoint that responds to URL <http://localhost:5000/api/hello/apple> just like the previous one, but the name is in the _path_ here.
 
 ??? example "Solution"
     ```csharp
@@ -108,7 +108,7 @@ A real API does not return constant strings. Create an API for searching among t
 
 - Create a new controller.
 - Enable listing products; 5 per page.
-- Enable search based on name.
+- Enable search based on the name.
 - The data returned should _not_ be the database entity; instead create a new _DTO_ (data transfer object) class in a new folder called `Models`.
 
 Test the new endpoints.
@@ -184,26 +184,26 @@ Test the new endpoints.
     }
     ```
 
-    Let us note that we did not need to concern ourselves with JSON serialization. The API returns objects. The serialization is automatically handled by the framework.
+    Let us note that we did not need to concern ourselves with JSON serialization. The API returns objects. The framework automatically handles the serialization.
 
     Paging is useful to limit the size of the response (and paging is also customary on UIs). Specifying a “from” is a simple and frequently used solution.
 
-    The result of the method before the `ToArray` is an `IQueryable`. We may remember that the `IQueryable` does not contain the result; it is merely a descriptor of the query. If we had no `ToArray`, we would see an error. When the framework would begin the serialization to JSON it would start iterating the query; but at this point the database connection has already been closed. Therefore WebAPI endpoints should not return `IEnumerable` or `IQueryable`.
+    The result of the method before the `ToArray` is an `IQueryable`. We may remember that the `IQueryable` does not contain the result; it is merely a descriptor of the query. If we had no `ToArray`, we would see an error. When the framework would begin the serialization to JSON, it would start iterating the query; but at this point, the database connection has already been closed. Therefore WebAPI endpoints should not return `IEnumerable` or `IQueryable`.
 
 ## Exercise 4: Editing products via the API
 
 Add the following functionality to our API:
 
 - Fetch the data of a particular product specified by id at url `/api/products/id`.
-- Update the name, price and stock of a product.
-- Add a new product (create a new DTO class for input that contains only the name, price and stock).
+- Update the name, price, and stock of a product.
+- Add a new product (create a new DTO class for input that contains only the name, price, and stock).
 - Delete a product by specifying the id.
 
 Test each endpoint!
 
 **Inserting** a new product you will need the following settings in Postman:
 
-- POST request to the correct url
+- POST request to the correct URL
 - Specify the _Body_: choose `raw` and then `JSON`
 - And use the JSON as _body_ below:
   ```json
@@ -216,7 +216,7 @@ Test each endpoint!
 
 **Updating** a product you will need the following settings:
 
-- PUT request to the correct url
+- PUT request to the correct URL
 - Specify the _Body_: choose `raw` and then `JSON`
 - And use the JSON as _body_ below:
   ```json
@@ -342,7 +342,7 @@ Make sure to check the headers of the response too! Update and insert should add
 
 ## Exercise 5: Add new product with category and VAT
 
-When creating the new product we have to specify the category, as well as the value added tax. Change the insert operation from before by allowing the category name and the tax percentage to be specified. Find the `VAT` and `Category` records based on the provided data, or create new records if needed.
+When creating the new product, we have to specify the category, as well as the value-added tax. Change the insert operation from before by allowing the category name and the tax percentage to be specified. Find the `VAT` and `Category` records based on the provided data, or create new records if needed.
 
 ??? example "Solution"
     ```csharp
