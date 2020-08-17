@@ -140,8 +140,14 @@ The detailed description below shows the entire procedure. This summary is an ov
 
 1. If you are not satisfied with your work, you can make further changes. You only need to commit and push your changes. Any changes pushed will re-trigger the evaluation of the _pull request_. We ask that you trigger **NO MORE THAN 5 evaluations**!
 
-    !!! tip "Making further changes"
-        If you want to make changes to your submission and not have the re-evaluation run, you should **close the pull request**. When you are finished, you can open a new one instead.
+    !!! tip "Making further changes without running the evaluation"
+        If you want to make changes to your submission and not have the re-evaluation run, you should **convert the pull request to draft**.
+
+        ![GitHub create pull request](images/github/github-convert-pr-to-draft.png)
+
+        This state means work in progress. You can commit and push freely. These will not trigger any evaluation. Once ready, you **must** change the state back: go to the bottom of the PR and click "Ready for review." This will set the PR back to its normal state and trigger an automated evaluation.
+
+        ![GitHub create pull request](images/github/github-draft-pr-ready.png)
 
     !!! note "Maximum 5"
         Evaluations that fail due to transient errors, such as network problems, are not counted into the 5 evaluations. But if you trigger more evaluation by mistake, or on purpose, it will be sanctioned. You are required to **test your solution locally** before submitting it.
