@@ -11,8 +11,6 @@ Required tools to complete the tasks:
 - SQL Server Management Studio
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 - Starter code: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo>
-- MSSQL JDBC driver downloaded from here: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
-    - Extract the zip to `c:\work\javaee\.m2\repository` (the zip contains _com_ directory; the resulting directory hierarchy should be `c:\work\javaee\.m2\repository\com\microsoft\...`)
 
 Recommended to review:
 
@@ -124,30 +122,30 @@ Simply put, when modifying code that is not inside of an existing method, a rest
     **4.a exercise**
 
     In the `dao` package open `ProductRepository` interface that implements the Spring Data `JpaRepository`. There are a few methods for other exercises. Some define a `@Query` annotation and the query as text, some work without such annotation. We will not need the `@Query` annotation, but rather have Spring Data infer the SQL instruction from the method name as follows:
-
+    
     ```java
     package hu.bme.aut.adatvez.webshop.dao;
-
+    
     import java.math.BigDecimal;
     import java.util.List;
     import hu.bme.aut.adatvez.webshop.model.Product;
     import org.springframework.data.jpa.repository.JpaRepository;
-
+    
     public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
       ...
       List<Product> findByStockGreaterThan(BigDecimal limit);
     }
     ```
-
+    
     `WebshopController` already contains an injected `ProductRepository`; let us call this method at TODO 4.a:
-
+    
     ```java
     @Controller
     public class WebshopController {
-
+    
       @Autowired
       ProductRepository productRepository;
-
+    
       //...
       // 4.a
       private List<Product> findProductsOver30() {
@@ -155,58 +153,58 @@ Simply put, when modifying code that is not inside of an existing method, a rest
       }
     }
     ```
-
+    
     **4.b exercise**
-
+    
     In the `dao` package find `ProductRepositoryCustom` interface add a new method `findProductsOrderedAtLeastTwice`:
-
+    
     ```java
     package hu.bme.aut.adatvez.webshop.dao;
-
+    
     import hu.bme.aut.adatvez.webshop.model.Product;
     import java.util.List;
-
+    
     public interface ProductRepositoryCustom {
       List<Product> findProductsOrderedAtLeastTwice();
     }
     ```
-
+    
     The implementation class `ProductRepositoryImpl` will contain an error now as it does not implement `ProductRepositoryCustom`. Let us open this class, and line of the class declaration there will be a light bulb we can click to generate the method skeleton:
-
+    
     ![Eclise implement interface](images/eclipse-implement-methods.png)
-
+    
     Add the method's implementation as follows: use the injected EntityManager to create and run the query.
-
+    
     ```java
     package hu.bme.aut.adatvez.webshop.dao;
-
+    
     import hu.bme.aut.adatvez.webshop.model.Product;
-
+    
     import java.util.List;
-
+    
     import javax.persistence.EntityManager;
     import javax.persistence.PersistenceContext;
-
+    
     public class ProductRepositoryImpl implements ProductRepositoryCustom {
-
+    
       @PersistenceContext
       EntityManager em;
-
+    
       @Override
       public List<Product> findProductsOrderedAtLeastTwice(){
         return em.createQuery("SELECT DISTINCT p FROM Product p
                               LEFT JOIN FETCH p.orderitems
-                              WHERE size(p.orderitems) >= :itemsMin", Termek.class)
+                              WHERE size(p.orderitems) >= :itemsMin", Product.class)
               .setParameter("itemsMin", 2)
               .getResultList();
       }
     }
     ```
-
+    
     Note: we might try this command: `SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin`, which will yield an `org.hibernate.LazyInitializationException` error, hence the `LEFT JOIN FETCH` above.
-
+    
     Call this in `WebshopController`:
-
+    
     ```java
     // 4.b
     private List<Product> findProductsOrderedAtLeastTwice() {
@@ -214,37 +212,37 @@ Simply put, when modifying code that is not inside of an existing method, a rest
       return productRepository.findProductsOrderedAtLeastTwice();
     }
     ```
-
+    
     **4.c exercise**
-
+    
     Open entity class `Product` where we can find a few named querys; we need the second one:
-
+    
     ```java
     @NamedQueries({
     @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p"),
     @NamedQuery(name="Product.findMostExpensive", query="SELECT p FROM Product p WHERE p.price IN (SELECT MAX(p2.price) FROM Product p2)")
     })
     ```
-
+    
     This named query can be called in two ways. The first is to create a method in `ProductRepository` with the same name (without the _Product._ prefix.), that is:
-
+    
     ```java
     public List<Product> findMostExpensive();
     ```
-
+    
     The second option is to execute it manually in `ProductRepositoryImpl` using `EntityManager`:
-
+    
     ```java
     @Override
     public List<Product> findMostExpensiveProducts(){
       return em.createNamedQuery("Product.findMostExpensive", Product.class).getResultList();
     }
     ```
-
+    
     This method also needs to be added to the `ProductRepositoryCustom` interface. E.g. right-click / _Refactor / Pull up_
-
+    
     Finally, call the method in `WebshopController`:
-
+    
     ```java
     // 4.c
     private List<Product> findMostExpensiveProducts() {
@@ -268,17 +266,17 @@ JPA can also be used to modify the database content.
     **5.a exercise**
 
     Crate an _UPDATE query_ in `ProductRepository` interface. We have to denote that this is a `@Modifying` query, and also add @Transactional` (from package `org.springframework...`):
-
+    
     ```java
     @Modifying
     @Transactional
-    @Query("UPDATE Product p SET p.price=p.price*1.1 WHERE t.id IN
+    @Query("UPDATE Product p SET p.price=p.price*1.1 WHERE p.id IN
     (SELECT p2.id FROM Product p2 WHERE p2.category.name=:categoryName)")
     void categoryRaisePrice(@Param("categoryName") String categoryName);
     ```
-
+    
     Call in `WebshopController`:
-
+    
     ```java
     // 5.a
     @RequestMapping(value = "/raisePriceOfBuildingItems", method = {
@@ -289,23 +287,23 @@ JPA can also be used to modify the database content.
       return "redirect:/";
     }
     ```
-
+    
     In the browser, the changes are visible after clicking the button.
-
+    
     **5.b exercise**
-
+    
     In the `dao` package add a new class `CategoryService` with a `@Service` annotation with a `@Transactional` method:
-
+    
     ```java
     @Service
     public class CategoryService {
-
+    
       @PersistenceContext
       private EntityManager em;
-
+    
       @Autowired
       ProductRepository productRepository;
-
+    
       @Transactional
       public void moveToExpensiveToys(double priceLimit){
         String name = "Expensive toys";
@@ -314,7 +312,7 @@ JPA can also be used to modify the database content.
           em.createQuery("SELECT c from Category c WHERE c.name=:name", Category.class)
             .setParameter("name", name)
             .getResultList();
-
+    
         if(resultList.isEmpty()){
           // 0 or null id triggers @GeneratedValue; this is a scalar, hence use 0
           categoryExpensive = new Category(0, name);
@@ -322,25 +320,25 @@ JPA can also be used to modify the database content.
         }else{
           categoryExpensive = resultList.get(0);
         }
-
+    
         List<Product> expensiveProducts = productRepository.findByPriceGreaterThan(priceLimit);
-
+    
         for (Product product : expensiveProducts) {
           categoryExpensive.addProduct(product);
         }
       }
     }
     ```
-
+    
     Let us note that the managed entities (fetched through queries within the transaction, or added as new with persist) need no explicit save; the transaction saves them to DB automatically.
-
+    
     Call in `WebshopController`:
-
+    
     ```java
     @Autowired
     CategoryService categoryService;
     ...
-
+    
     // 5.b
     @RequestMapping(value = "/moveToExpensiveToys", method = {
             RequestMethod.POST, RequestMethod.GET })
@@ -350,29 +348,29 @@ JPA can also be used to modify the database content.
       return "redirect:/";
     }
     ```
-
+    
     In the browser, the changes are visible after clicking the button.
-
+    
     **5.c exercise**
-
+    
     In `dao` package add a new interface `CategoryRepository`, similar to `ProductRepository` (without the Custom inheritance) with one method:
-
+    
     ```java
     public interface CategoryRepository extends JpaRepository<Category, Long>{
       List<Category> findByName(String name);
     }
     ```
-
+    
     This simplifies the `CategoryService` as follows:
-
+    
     ```java
     @Service
     public class CategoryService {
     ...
-
+    
       @Autowired
       CategoryRepository categoryRepository;
-
+    
       @Transactional
       public void moveToExpensiveToys(double priceLimit){
         // ...
@@ -417,26 +415,26 @@ Use the `CreatePaymentMethod` stored procedure to create a new `Paymentmethod`!
     public class Paymentmethod implements Serializable {
     ...
     ```
-
+    
     The named stored procedure query can be called from a Spring Data repository (`dao` package _New Interface ... / PaymentmethodRepository_):
-
+    
     ```java
     public interface PaymentmethodRepository extends JpaRepository<Paymentmethod, Long> {
-
+    
       @Procedure(name="createMethodSP")
       void newMethod(@Param("Method") String method, @Param("Deadline") BigDecimal deadline);
     }
     ```
-
+    
     Without Spring Data we could use `EntityManager`:
-
+    
     ```java
     @Service
     public class PaymentmethodService {
-
+    
       @PersistenceContext
       private EntityManager em;
-
+    
       public void createNewMethod(Paymentmethod paymentMethod){
         StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("createMethodSP");
         sp.setParameter("Method", paymentMethod.getMethod());
@@ -445,18 +443,18 @@ Use the `CreatePaymentMethod` stored procedure to create a new `Paymentmethod`!
       }
     }
     ```
-
+    
     Call from the web layer:
-
+    
     - Inject into `WebshopController` the `PaymentmethodRepository` interface:
-
+    
         ```java
         @Autowired
         PaymentmethodRepository paymentmethodRepository;
         ```
-
+    
     - Call the method from WebshopController at the last TODO
-
+    
         ```java
         paymentmethodRepository.newMethod(paymentMethod.getMethod(), paymentMethod.getDeadline());
         ```
