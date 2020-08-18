@@ -11,8 +11,6 @@ A labor elvégzéséhez szükséges eszközök:
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 - Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo>
-- Az MSSQL JDBC driver letöltése innen: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
-    - A zipet csomagold ki ide: `c:\work\javaee\.m2\repository` (a zip egy _com_ nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: `c:\work\javaee\.m2\repository\com\microsoft\...`)
 
 ## Amit érdemes átnézned
 
@@ -205,7 +203,7 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
       public List<Product> findProductsOrderedAtLeastTwice(){
         return em.createQuery("SELECT DISTINCT p FROM Product p
                               LEFT JOIN FETCH p.orderitems
-                              WHERE size(p.orderitems) >= :itemsMin", Termek.class)
+                              WHERE size(p.orderitems) >= :itemsMin", Product.class)
               .setParameter("itemsMin", 2)
               .getResultList();
       }
@@ -286,7 +284,7 @@ A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítás
     ```java
     @Modifying
     @Transactional
-    @Query("UPDATE Product p SET p.price=p.price*1.1 WHERE t.id IN
+    @Query("UPDATE Product p SET p.price=p.price*1.1 WHERE p.id IN
     (SELECT p2.id FROM Product p2 WHERE p2.category.name=:categoryName)")
     void categoryRaisePrice(@Param("categoryName") String categoryName);
     ```
