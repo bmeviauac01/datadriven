@@ -10,7 +10,7 @@ Download links:
 Installation instructions: <https://docs.mongodb.com/manual/administration/install-community/>
 
 !!! example "Video guide of the tools"
-    How to use these tools: <https://youtu.be/5XsmeKmTGII>
+    How to use these tools: <https://web.microsoftstream.com/video/9bb0c06f-7b5f-454b-b5ff-c784bd96d84b>
 
 ## Starting MongoDB server
 

@@ -9,7 +9,7 @@ Download links:
 - <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms>
 
 !!! example "Video guide of the tools"
-    How to use these tools: <https://youtu.be/kK1i_HUujAc>
+    How to use these tools: <https://web.microsoftstream.com/video/98a6697d-daec-4a5f-82b6-8e96f06302e8>
 
 ## Using SQL Server Management Studio
 
