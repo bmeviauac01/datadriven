@@ -9,7 +9,7 @@ Letöltési linkek:
 - <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms>
 
 !!! example "Eszköz használata videó"
-    Az eszköz használatának bemutatása: <https://youtu.be/gmY8reqSL7U>
+    Az eszköz használatának bemutatása: <https://web.microsoftstream.com/video/e3a83d16-b5c4-4fe9-b027-703347951621>
 
 ## SQL Server Management Studio használata
 

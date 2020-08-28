@@ -10,7 +10,7 @@ Letöltési linkek:
 Telepítési útmutató: <https://docs.mongodb.com/manual/administration/install-community/>
 
 !!! example "Eszköz használata videó"
-    Az eszköz használatának bemutatása: <https://youtu.be/Xu2af7qPCHI>
+    Az eszköz használatának bemutatása: <https://web.microsoftstream.com/video/d1d25850-30af-43c8-ad0a-7139facda7f9>
 
 ## MongoDB szerver elindítása
 
