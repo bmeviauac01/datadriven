@@ -63,7 +63,7 @@ A gyakorlati anyagban benne van a megoldás. Ha valaki lemarad, vagy otthon meg 
 
 ### Anyagok elérhetősége
 
-- Tárgy honlapja: https://www.aut.bme.hu/Course/adatvezerelt Itt vannak az előadások, időpontok, határidők és a hivatalos követelmények.
+- A tárgy előadás anyagai, az időpontok és határidők és hivatalos követelmények Moodle-ben lesznek. (Ehhez a tárgy indulásával kapsz hozzáférést.)
 - Gyakorlatok anyagai: lásd a fenti menüben. A gyakorlati anyag minden része teljesen publikus.
 
     A gyakorlatok anyaga GitHub repository-ban van. Ha hibát, elgépelést találsz benne, arra kérünk, hogy javítsd: minden anyag jobb felső sarkában van egy kis ceruza ikon, javítsd a hibát, és küldj PR-t.
