@@ -100,6 +100,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     begin tran
 
+    -- Létezik-e ilyen névvel már kategória
     declare @ID int
     select @ID = ID
     from Category with (TABLOCKX)
@@ -108,10 +109,11 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     if @ID is not null
     begin
         rollback
-        raiserror ('Category %s alredy exists',16,1,@Name)
+        raiserror ('Category %s already exists',16,1,@Name)
         return
     end
 
+    -- Szülő kategóriának léteznie kell
     declare @ParentID int
     if @ParentName is not null
     begin
@@ -141,7 +143,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     Ennek sikerülnie kell. Ellenőrizzük utána a tábla tartalmát.
 
-    Ismételjük meg a fenti beszúrást, ekkor már hibák kell dobjon.
+    Ismételjük meg a fenti beszúrást, ekkor már hibát kell dobjon.
 
     Próbáljuk ki szülőkategóriával is.
 
