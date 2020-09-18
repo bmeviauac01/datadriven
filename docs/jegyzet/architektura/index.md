@@ -16,7 +16,7 @@ Egy adatvezérelt alkalmazásban az adat határozza meg, hogy miként működik 
 
 A már említett *Neptun* rendszer egy tipikus adatvezérelt alkalmazás. Célja az oktatáshoz kapcsolódó adatok, a kurzusok, jegyek, vizsgák, stb. kezelése.
 
-Egy másik példa a *Gmail*: azért létezik, hogy adatokat (itt: emailek, csatolmányok, kontaktok) kezeljen. Az alkalmazás minden funkciója ezen adatok kezeléséről, megjelenítéséről, manipulálásáról szól. Mindemellett, az adatokat hosszú távol megőrzi, azaz minden módosítás a rendszerben megmarad.
+Egy másik példa a *Gmail*: azért létezik, hogy adatokat (itt: emailek, csatolmányok, kontaktok) kezeljen. Az alkalmazás minden funkciója ezen adatok kezeléséről, megjelenítéséről, manipulálásáról szól. Mindemellett, az adatokat hosszú távon megőrzi, azaz minden módosítás a rendszerben megmarad.
 
 ## Adatvezérelt rendszer felépítése
 
