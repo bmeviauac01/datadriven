@@ -41,7 +41,7 @@ Helyette csinálhatjuk úgy, hogy rögzítjük az email mellett, hogy mikor kell
 
 Mielőtt meg tudjuk válaszolni a kérdést, hogy mégis milyen komponensnek lesz a dolga az email jövőbeli kiküldése, nézzünk egy hasonló kérdést.
 
-A Gmail az email érkezésének idejét magyar felhasználóknak magyar szokás szerint (pl. "15:23"), más nyelvű felhasználóknak a saját preferenciáik szerint jeleníti meg (pl. "3:23 AM"). Ez azt jelenti, hogy az email, mind adat rekord több féle érkezési idővel rendelkezik? Nyilván nem. Az email érkezési ideje egyetlen dátum, egy univerzális reprezentációban, és csak akkor kerül átalakításra, amikor megjeleníti a felhasználó felület.
+A Gmail az email érkezésének idejét magyar felhasználóknak magyar szokás szerint (pl. "15:23"), más nyelvű felhasználóknak a saját preferenciáik szerint jeleníti meg (pl. "3:23 PM"). Ez azt jelenti, hogy az email, min adat rekord többféle érkezési idővel rendelkezik? Nyilván nem. Az email érkezési ideje egyetlen dátum, egy univerzális reprezentációban, és csak akkor kerül átalakításra, amikor megjeleníti a felhasználó felület.
 
 Megállapítottuk tehát, hogy vannak feladatok, amelyek a felhasználói felület felelősségi körébe tartoznak, és vannak olyanok, amelyek nem. Így érkezünk meg a többrégetű-, avagy háromrétegű architektúrához.
 
