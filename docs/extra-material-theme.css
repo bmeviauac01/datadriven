@@ -12,3 +12,8 @@ article ul ul {
 article ul ul ul {
 	list-style-type:  square !important;
 }
+
+.md-content p {
+	text-align: justify;
+	hyphens: auto;
+}
