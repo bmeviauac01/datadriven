@@ -6,9 +6,9 @@ A félév során a gyakorlati példákat egy egységes mintapéldán keresztül 
 
 A rendszer termékek értékesítési folyamatának a követésére szolgál. A termékeket (_product_) kategóriákba (_category_) lehet sorolni, mely kategóriák hierarchikusan egymásra épülhetnek. A vevők (_customer_) megrendeléseiket (_order_) és azok státuszát (_status_) nyomon tudják követni.
 
-Az ügyfeleken több telephelyük (_customer site_) is lehet, az egyes megrendelések (_order_) feladásakor, tisztázni kell, hogy az ügyfél mely telephelyére történik meg a kiszállítás. Minden vevőnek kell rendelkeznie központi telephellyel, mely a számlázási címül is szolgál. Természetesen egy megrendeléshez több tétel (_order item_) is tartozhat, az egyes tételek státusza külön-külön is követhető, ezáltal a vevő látja, hogy esetleg mely termékre kell várnia. A kész megrendelésekről számlát (_invoice_) kell készíteni.
+Az ügyfeleknek több telephelyük (_customer site_) is lehet, az egyes megrendelések (_order_) feladásakor, tisztázni kell, hogy az ügyfél mely telephelyére történik meg a kiszállítás. Minden vevőnek kell rendelkeznie központi telephellyel, mely a számlázási címül is szolgál. Természetesen egy megrendeléshez több tétel (_order item_) is tartozhat, az egyes tételek státusza külön-külön is követhető, ezáltal a vevő látja, hogy esetleg mely termékre kell várnia. A kész megrendelésekről számlát (_invoice_) kell készíteni.
 
-A számla (_invoice_) olyan bizonylat, melynek az adatai később nem változtathatók, valamint az első nyomtatást követően csak számlamásolatot lehet csak kiállítani. Figyelembe kell venni azt is, hogy az egyes termékek ÁFA besorolása (_VAT_ = _value added tax_) ill. ÁFA kulcsa megváltozhat az idők során, viszont a kiállított számlákon természetesen már ez az információ sem változhat meg.
+A számla (_invoice_) olyan bizonylat, melynek az adatai később nem változtathatók, valamint az első nyomtatást követően számlamásolatot lehet csak kiállítani. Figyelembe kell venni azt is, hogy az egyes termékek ÁFA besorolása (_VAT_ = _value added tax_) ill. ÁFA kulcsa megváltozhat az idők során, viszont a kiállított számlákon természetesen már ez az információ sem változhat meg.
 
 ## Adatmodell
 
