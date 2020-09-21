@@ -65,13 +65,13 @@ Write SQL commands/queries for the following exercises.
 
         It is recommended (though not required) to name the columns after `insert` to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.
 
-1. One of the categories has the wrong name. Let us change _Bicycles_ to _Tricycles_!
+1. One of the categories has the wrong name. Let us change _Tricycle_ to _Tricycles_!
 
     ??? example "Solution"
         ```sql
         update Category
-        set Name = 'Bicycles'
-        where Name = 'Tricycles'
+        set Name = 'Tricycles'
+        where Name = 'Tricycle'
         ```
 
 1. Which category contains the largest number of products?
@@ -100,6 +100,7 @@ Create a new stored procedure that helps inserting a new product category. The p
 
     begin tran
 
+    -- Is there a category with identical name?
     declare @ID int
     select @ID = ID
     from Category with (TABLOCKX)
@@ -108,7 +109,7 @@ Create a new stored procedure that helps inserting a new product category. The p
     if @ID is not null
     begin
         rollback
-        raiserror ('Category %s alredy exists',16,1,@Name)
+        raiserror ('Category %s already exists',16,1,@Name)
         return
     end
 
@@ -139,7 +140,7 @@ Create a new stored procedure that helps inserting a new product category. The p
 
     `exec AddNewCategory 'Beach balls', NULL`
 
-    This shall succeed. Let us verify the table content afterward.
+    This shall succeed. Let us verify the table contents afterward.
 
     Let us repeat the same command; it shall fail now.
 
