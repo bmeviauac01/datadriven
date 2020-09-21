@@ -65,13 +65,13 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
         Az `insert` után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.
 
-1. A kategóriák között hibásan szerepel az _Bicycles_ kategória név. Javítsuk át a kategória nevét _Tricycles_-re!
+1. A kategóriák között hibásan szerepel a _Tricycle_ kategória név. Javítsuk át a kategória nevét _Tricycles_-re!
 
     ??? example "Megoldás"
         ```sql
         update Category
-        set Name = 'Bicycles'
-        where Name = 'Tricycles'
+        set Name = 'Tricycles'
+        where Name = 'Tricycle'
         ```
 
 1. Melyik termék kategóriában van a legtöbb termék?
