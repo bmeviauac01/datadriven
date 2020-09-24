@@ -20,7 +20,7 @@ GitHub Classroom segítségével a <https://classroom.github.com/a/CEXFRiAu> lin
 Hozz létre egy új adatbázist, amelynek **neve megegyezik a Neptun kódoddal**. Ebben az adatbázisban futtasd le a táblákat létrehozó szkriptet.
 
 !!! warning "Neptun kód fontos"
-    A feladatok alább kérnek képernyőképet, amelyen szerepelnie kell az adatbázis nevének, amely megegyezik a Neptun kódodal!
+    A feladatok alább kérnek képernyőképet, amelyen szerepelnie kell az adatbázis nevének, amely megegyezik a Neptun kódoddal!
 
 ## Feladat 0: Neptun kód
 
