@@ -167,7 +167,7 @@ Az adatok megjelenítése során a UI felelős olyan egyszerű transzformációk
 
 Továbbá, a felhasználói felület feladata az un. lokalizáció is. A lokalizáció a UI felhasználó által választott nyelven való megjelenítése, amely kiterjed a statikus szövegekre, feliratokra is, de egyben a kultúra függő adat transzformációkra is (mint a dátumok, számok, pénznemek megjelenítése is).
 
-A felhasználói felület felel még a végfelhasználó interakcióinak kezeléséért. Ha egy gomra kattintottak, akkor a UI kezdeményezi a kért funkció végrehajtását, és tájékoztatja a végeredményről a felhasználót.
+A felhasználói felület felel még a végfelhasználó interakcióinak kezeléséért. Ha egy gombra kattintottak, akkor a UI kezdeményezi a kért funkció végrehajtását, és tájékoztatja a végeredményről a felhasználót.
 
 Amikor a felhasználó adatot visz be a rendszerbe, azt is a felhasználói felület biztosítja, és ez a réteg felel az adatok validációjáért (ellenőrzéséért) is. A validáció során egyszerűbb ellenőrzések hajthatók végre, mint például, hogy a szükséges mezők nem maradhatnak üresen, az email címben kell legyen @ karakter, a megadott percnek 0 és 59 közé kell esnie, stb.
 
@@ -186,17 +186,17 @@ A biztonsági szolgáltatások lefedik
 
 * a felhasználók beléptetését (*authentikáció*)
 * és a hozzáférés ellenőrzését (*authorizáció*),
-* valamint a nyomkövetést és auditálás.
+* valamint a nyomkövetést és auditálást.
 
 Az authentikáció a "ki vagy" kérdést, míg az authorizáció a "mihez van jogod" kérdést kezeli.
 
 Az authentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.
 
-Bejelentkezésre több féle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).
+Bejelentkezésre többféle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).
 
 A hozzáférés szabályozás megszabja, hogy milyen funkciókhoz ki férhet hozzá. Ennek ellenőrzése történhet a felhasználói felületen is (ne is jelenjen meg a a nem elérhető funkció), de ahogy a bemenetek validációjánál is említésre került, az üzleti logikának meg kell ismételnie az ellenőrzést. Fontos, hogy ez a két validáció azonos szabályrendszer szerint dolgozzon.
 
-A nyomkövetés, auditálás feladata, hogy visszakereshetővé váljon a rendszerben, hogy ki, mikor, mit csinált. Célja, hogy egy ember ne tudja "eltüntetni a nyomokat". Ez a fajta naplózás több ponton is megtörténhet, tipikusan az üzleti logikában és adat adatbázisban.
+A nyomkövetés, auditálás feladata, hogy visszakereshetővé váljon a rendszerben, hogy ki, mikor, mit csinált. Célja, hogy egy ember ne tudja "eltüntetni a nyomokat". Ez a fajta naplózás több ponton is megtörténhet, tipikusan az üzleti logikában és az adatbázisban.
 
 #### Üzemeltetés
 
