@@ -158,7 +158,7 @@ A projekció során több féle módon kérhetjük az eredményeket.
 ```csharp
 from p in products
 ...
-select t
+select p
 ```
 
 Ilyenkor az eredmény `IQueryable<Product>`, azaz Product osztály példányokat kapunk.
