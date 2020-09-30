@@ -158,7 +158,7 @@ During projection we can transform the results into various formats.
 ```csharp
 from p in products
 ...
-select t
+select p
 ```
 
 The result set is of type `IQueryable<Product>`, so we get Product instances.
