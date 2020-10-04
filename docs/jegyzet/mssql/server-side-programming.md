@@ -19,7 +19,7 @@ SELECT @num
 DECLARE @num int = 5
 
 SELECT @num
--- 4
+-- 5
 
 SET @num = 3
 
