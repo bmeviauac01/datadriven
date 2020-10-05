@@ -19,7 +19,7 @@ Assigning a value with `SET` instruction or part of the declaration:
 DECLARE @num int = 5
 
 SELECT @num
--- 4
+-- 5
 
 SET @num = 3
 
@@ -237,7 +237,7 @@ end catch
 Let us log the deletion of products into an audit log table:
 
 ```sql
--- Creating the audit lot table
+-- Creating the audit log table
 create table AuditLog([Description] [nvarchar](max) NULL)
 go
 
