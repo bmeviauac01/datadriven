@@ -237,7 +237,7 @@ end catch
 Naplózzuk a termékek törlését egy napló táblába:
 
 ```sql
--- Napló ábla létrehozása
+-- Napló tábla létrehozása
 create table AuditLog([Description] [nvarchar](max) NULL)
 go
 
