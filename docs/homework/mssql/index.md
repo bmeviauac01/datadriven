@@ -67,7 +67,7 @@ We want to extract the `recommended_age` and move it to a new column in the tabl
 
 1. Add a new column to the `Product` table with name `RecommendedAge` storing a text: `alter table [Product] add [RecommendedAge] nvarchar(200)`.
 
-1. Create a T-SQL script that extracts the content of the `<recommended_age>` tag from the xml and copies the value into the `RecommendedAge` column of the table. If the xml description is empty or there is no `<recommended_age>` tag, the column's value should be `NULL`. Otherwise, take the tag's text content (without the tag name) and copy the value into the column. You can presume that there is at most one `<recommended_age>` element in the xml.
+1. Create a T-SQL script that extracts the content of the `<recommended_age>` tag from the xml and moves the value into the `RecommendedAge` column of the table. If the xml description is empty or there is no `<recommended_age>` tag, the column's value should be `NULL`. Otherwise, take the tag's text content (without the tag name), copy the value into the column, and remove the tag from the xml. You can presume that there is at most one `<recommended_age>` element in the xml.
 
 !!! example "SUBMISSION"
     Submit the T-SQL code in file `f2.sql`. Do not use a stored procedure in this exercise; create a simple T-SQL code block. This sql file should be executable by itself and should not contain any `use` or `go` commands.
