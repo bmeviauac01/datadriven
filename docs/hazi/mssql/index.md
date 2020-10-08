@@ -32,7 +32,7 @@ Biztonsági megfontolásból szeretnénk kötelezővé tenni a jelszó időnkén
 
 1. Adj hozzá egy új oszlopot a `Customer` táblához `PasswordExpiry` néven, ami egy dátumot tartalmaz: `alter table [Customer] add [PasswordExpiry] datetime`.
 
-1. Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a `PasswordExpiry` mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (_insert_) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (_update_) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.)
+1. Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a `PasswordExpiry` mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (_insert_) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (_update_) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) A trigger csak a beszúrás/frissítés által érintett rekordokkal törődjön (tehát nem a tábla teljes tartalmára kell frissíteni a dátum oszlopot)!
 
 Ellenőrizd a trigger viselkedését különböző esetekre is.
 
