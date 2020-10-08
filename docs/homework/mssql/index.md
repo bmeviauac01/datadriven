@@ -32,7 +32,7 @@ Due to security reasons, we would like to enforce password expiry. For this, we 
 
 1. Add a new column to the `Customer` table with the name `PasswordExpiry` storing a date: `alter table [Customer] add [PasswordExpiry] datetime`.
 
-1. Create a trigger that automatically fills the `PasswordExpiry` date column when the password value is updated. The new value should be the current date plus one year. The trigger shall calculate the value. When a new Customer is registered (inserted into the table), the column should always be populated automatically. However, when data is updated, only update the date if the password is changed. (E.g. if only the address is altered, the date should not be updated.)
+1. Create a trigger that automatically fills the `PasswordExpiry` date column when the password value is updated. The new value should be the current date plus one year. The trigger shall calculate the value. When a new Customer is registered (inserted into the table), the column should always be populated automatically. However, when data is updated, only update the date if the password is changed. (E.g. if only the address is altered, the date should not be updated.) The trigger should only update the date for the inserted/modified records (it should not set it for all records in the table)!
 
 Make sure to verify the behavior of the trigger under various circumstances.
 
