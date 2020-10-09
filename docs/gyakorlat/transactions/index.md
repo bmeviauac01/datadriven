@@ -33,7 +33,7 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 
 1. Hozzon létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódja: _Object Explorer_-ben Databases-en jobb kattintás, és _Create Database_.
 
-1. Hozza létre a minta adatbázist az generáló script lefuttatásával. Nyisson egy új _Query_ ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
+1. Hozza létre a minta adatbázist a generáló script lefuttatásával. Nyisson egy új _Query_ ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
 
     ![Adatbázis kiválasztása](images/sql-management-database-dropdown.png)
 
