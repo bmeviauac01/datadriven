@@ -237,7 +237,7 @@ Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában
 
     Ellenőrizzük a `Customer` tábla tartalmát.
 
-## Feladat 5: Vevő összemegrendelésének karbantartása (önálló feladat)
+## Feladat 5: Vevő összmegrendelésének karbantartása (önálló feladat)
 
 Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csak. Készítsünk triggert, amivel karbantartjuk azt az összeget minden megrendelést érintő változás esetén. Az összeg újraszámolása helyett csak frissítse a változásokkal az értéket!
 
