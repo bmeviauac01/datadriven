@@ -65,7 +65,7 @@ An example for the content is below:
 
 We want to extract the `recommended_age` and move it to a new column in the table.
 
-1. Add a new column to the `Product` table with name `RecommendedAge` storing a text: `alter table [Product] add [RecommendedAge] nvarchar(200)`.
+1. Add a new column to the `Product` table with name `RecommendedAge` storing a text: `alter table [Product] add [RecommendedAge] nvarchar(200)`. (Do not submit this statement in the solution.)
 
 1. Create a T-SQL script that extracts the content of the `<recommended_age>` tag from the xml and moves the value into the `RecommendedAge` column of the table. If the xml description is empty or there is no `<recommended_age>` tag, the column's value should be `NULL`. Otherwise, take the tag's text content (without the tag name), copy the value into the column, and remove the tag from the xml. You can presume that there is at most one `<recommended_age>` element in the xml.
 
