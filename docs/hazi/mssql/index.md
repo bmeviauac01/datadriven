@@ -65,7 +65,7 @@ Egy példa a tartalmára:
 
 Szeretnénk a `recommended_age` tag tartalmát könnyebb elérhetőség végett egy saját oszlopba helyezni.
 
-1. Adj hozzá egy új oszlopot a `Product` táblához `RecommendedAge` néven, ami egy szöveget tartalmaz tartalmaz: `alter table [Product] add [RecommendedAge] nvarchar(200)`.
+1. Adj hozzá egy új oszlopot a `Product` táblához `RecommendedAge` néven, ami egy szöveget tartalmaz tartalmaz: `alter table [Product] add [RecommendedAge] nvarchar(200)`. (Ezt a kódot nem kell beadni a megoldásban.)
 
 1. Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az `<recommended_age>` elemet kiemelve feltölti az előbb létrehozott `RecommendedAge` oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon `NULL` az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheted, hogy csak egyetlen `<recommended_age>` elem van az xml-ben.
 
