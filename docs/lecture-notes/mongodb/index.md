@@ -35,7 +35,7 @@ var collection = db.GetCollection<BsonDocument>("products");
 The basic concept of the .NET MongoDB driver is to map every document to a .NET object. This is also called _ODM (Object Document Mapping)_. ODM is the equivalent of ORM in the NoSQL database world.
 
 !!! warning ""Raw" json"
-    In other languages ​​and platforms, MongoDB drivers do not always map to objects. Sample codes found on the Internet often show communication via "raw" JSON documents. Let's try to avoid this, as we learned in ORM, that object-oriented mapping is more convenient and secure.
+    In other languages and platforms, MongoDB drivers do not always map to objects. Sample codes found on the Internet often show communication via "raw" JSON documents. Let's try to avoid this, as we learned in ORM, that object-oriented mapping is more convenient and secure.
 
 In the previous example, a document of the type "BsonDocument" is used. `BsonDocument` is a generic document representation in which we can store key-value pairs. It is uncomfortable and unsafe to use; thus we usually do try to avoid it. See the suggested solution soon.
 
@@ -137,8 +137,8 @@ The simplest query we have already seen is to list all the documents:
 ```csharp
 var collection = db.GetCollection<Product>("products");
 
-var lista = collection.Find(new BsonDocument()).ToList();
-foreach (var l in lista)
+var list = collection.Find(new BsonDocument()).ToList();
+foreach (var l in list)
     Console.WriteLine($"Id: {l.Id}, Name: {l.Name}");
 ```
 
@@ -212,7 +212,7 @@ If the result set contains multiple documents, it is advisable to iterate it usi
 
 ```csharp
 var cur = collection.Find(...).ToCursor();
-while (cur.MoveNext()) // kurzor stepping
+while (cur.MoveNext()) // cursor stepping
 {
     foreach (var t in cur.Current) // the value of the cursor is not a single document, but a list in itself
     { ... }
