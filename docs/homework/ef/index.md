@@ -36,7 +36,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace adatvez
+    namespace ef
     {
         [Table("Product")]
         public class DbProduct
