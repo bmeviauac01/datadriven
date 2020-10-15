@@ -36,7 +36,7 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace adatvez
+    namespace ef
     {
         [Table("Product")]
         public class DbProduct
