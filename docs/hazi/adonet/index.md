@@ -74,14 +74,16 @@ A konkrét eset, amit el szeretnénk kerülni:
 
 !!! tip "Optimista konkurenciakezelés"
     A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
+
 Ügyelj az alábbiakra:
 
 - Csak a `ProductRepository.UpdateWithConcurrencyCheck` függvény és a `Model.Product` osztályok kódját módosítsd!
 - A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurencia probléma).
+- **Magyarázd el a viselkedést** az `UpdateWithConcurrencyCheck` függvényben egy kommentben (2-3 mondatban).
 - Csak ADO.NET technológiát használhatsz!
 - Védekezz SQL injectionnel szemben!
 - A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvény törzsét írd meg.
 - A `Model.Product` osztályban konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot töltsd fel. Az `UpdateWithConcurrencyCheck` függvényben **kommentben** magyarázd el a viselkedést (2-3 mondatban).
+    A módosított C# forráskódot töltsd fel. Ne felejtsd a magyarázatot a C# kódban!
