@@ -73,13 +73,14 @@ A konkrét eset, amit el szeretnénk kerülni:
 1. _B_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _A_ módosítását figyelmeztetés nélkül.
 
 !!! tip "Optimista konkurenciakezelés"
-    A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. Ne használj tranzakciót, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
+    A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. **Ne használj tranzakciót**, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. **Ne használj több SQL utasítást** se, mert a lefutásuk között más adatbázis hozzáférések történhetnek elrontva a várt viselkedést. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
 
 Ügyelj az alábbiakra:
 
 - Csak a `ProductRepository.UpdateWithConcurrencyCheck` függvény és a `Model.Product` osztályok kódját módosítsd!
 - A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurencia probléma).
 - **Magyarázd el a viselkedést** az `UpdateWithConcurrencyCheck` függvényben egy kommentben (2-3 mondatban).
+- Egyetlen SQL parancs használatával oldd meg a feladatot!
 - Csak ADO.NET technológiát használhatsz!
 - Védekezz SQL injectionnel szemben!
 - A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvény törzsét írd meg.
