@@ -73,13 +73,14 @@ The specific sequence of events that we want to prohibit:
 1. User _B_ makes a change to the product properties (either the price property, or another one), and overwrites the changes made by user _A_ without noticing it.
 
 !!! tip "Optimistic concurrency handling"
-    Use the technique of optimistic concurrency handling to resolve this issue. You must not use transactions here, since the query and the data update happens over a longer period without maintaining a database connection. Implement the method `ProductRepository.UpdateWithConcurrencyCheck`, and also update `Model.Product` as needed. You may **not** add any new columns to the database.
+    Use the technique of optimistic concurrency handling to resolve this issue. You **must not use transactions** here, since the query and the data update happens over a longer period without maintaining a database connection. Do **not use multiple SQL statements** either, as in-between the execution of multiple statements the database content can change resulting in your application not working with the latest data. Implement the method `ProductRepository.UpdateWithConcurrencyCheck`, and also update `Model.Product` as needed. You may **not** add any new columns to the database.
 
 You should mind the following requirements:
 
 - Only make changes to the method `ProductRepository.UpdateWithConcurrencyCheck` and class `Model.Product`!
 - The method shall indicate as return value whether the change was saved (that it, it discovered no concurrency issues).
 - **Explain the behavior** in a C# comment in method UpdateWithConcurrencyCheck (in 2-3 sentences).
+- Solve the exercise with using a single SQL command!
 - You may only use ADO.NET.
 - You must prohibit SQL injection.
 - Do not change the definition of class `ProductRepository` (do not change the name of the class, nor the constructor or method declarations); only write the single method body.
