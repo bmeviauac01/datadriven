@@ -54,7 +54,7 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
 
 1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t az `ProductDbContext`-be `Vat` néven.
 
-1. Képezd le a Termek - AFA kapcsolatot.
+1. Képezd le a Product - VAT kapcsolatot.
 
     A `DbProduct` osztályba vegyél fel egy `DbVat` típusú `Vat` nevű get-set property-t, ez lesz a navigation property. Használd a `ForeignKey` [attribútumot a property felett](https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=data-annotations%2Cdata-annotations-simple-key%2Csimple-key#foreign-key), ami meghatározza a külső kulcs adatbázis mezőjét ("VatID").
 
