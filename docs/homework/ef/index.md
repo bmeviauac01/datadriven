@@ -54,7 +54,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
 
 1. Create a new class with the name `DbVat` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with the name `Vat`.
 
-1. Map the product-VAT connection.
+1. Map the Product - VAT connection.
 
     Add a new get-set property into class `DbProduct` with name `Vat` and type `DbVat`. Use the `ForeignKey` [attribute on this property](https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=data-annotations%2Cdata-annotations-simple-key%2Csimple-key#foreign-key), to indicate the foreign key used to store the relationship ("VatID").
 
