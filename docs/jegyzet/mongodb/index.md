@@ -138,8 +138,8 @@ A legegyszerűbb lekérdezést már láthattuk, listázzunk minden dokumentumot:
 var collection = db.GetCollection<Product>("products");
 
 var lista = collection.Find(new BsonDocument()).ToList();
-foreach (var l in lista)
-    Console.WriteLine($"Id: {l.Id}, Name: {l.Name}");
+foreach (var p in lista)
+    Console.WriteLine($"Id: {p.Id}, Name: {p.Name}");
 ```
 
 A listázás a `Find` metódussal történik. Az elnevezés jól mutatja a MongoDB filozófiáját: az adatbázis keresésre való, minden elem listázása nem praktikus, ezért nincs is rá egyszerű szintaktika. A `Find` egy keresési feltételt vár, ami itt egy üres feltétel, azaz mindenre illeszkedik.
@@ -296,7 +296,7 @@ A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók sz
 
 ```csharp
 collection.Find(x => x.VAT.Percentage < 27);
-collection.Find(Builders<Product>.Filter.Lt(x => x.VAT.Percentage));
+collection.Find(Builders<Product>.Filter.Lt(x => x.VAT.Percentage, 27));
 
 collection.Find(Builders<Product>.Filter.Exists(x => x.VAT.Percentage, exists: false));
 // ez a nem létezik, azaz null szűrés
