@@ -138,8 +138,8 @@ The simplest query we have already seen is to list all the documents:
 var collection = db.GetCollection<Product>("products");
 
 var list = collection.Find(new BsonDocument()).ToList();
-foreach (var l in list)
-    Console.WriteLine($"Id: {l.Id}, Name: {l.Name}");
+foreach (var p in list)
+    Console.WriteLine($"Id: {p.Id}, Name: {p.Name}");
 ```
 
 Listing is done using the `Find` method. The name illustrates MongoDB's philosophy: listing an entire collection is not practical, so there is no simple syntax for it. `Find` requires a search criteria, which is an empty condition here to matches everything.
@@ -295,7 +295,7 @@ Embedded documents can be used for filtering in the same way. The following are 
 
 ```csharp
 collection.Find(x => x.VAT.Percentage < 27);
-collection.Find(Builders<Product>.Filter.Lt(x => x.VAT.Percentage));
+collection.Find(Builders<Product>.Filter.Lt(x => x.VAT.Percentage, 27));
 
 collection.Find(Builders<Product>.Filter.Exists(x => x.VAT.Percentage, exists: false));
 // does not exists, that is, in C#, equals null
