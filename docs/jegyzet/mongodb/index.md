@@ -264,7 +264,7 @@ collection.Find(
 collection.Find(x => !(x.Price < 500 || x.Stock < 10));
 collection.Find(
     Builders<Product>.Filter.Not(
-        Builders<Product>.Filter.And(
+        Builders<Product>.Filter.Or(
             Builders<Product>.Filter.Lt(x => x.Price, 500),
             Builders<Product>.Filter.Lt(x => x.Stock, 10)
         )

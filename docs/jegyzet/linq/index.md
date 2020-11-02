@@ -186,7 +186,7 @@ Ilyenkor az eredmény `IQueryable<MyType>`, ahol a _MyType_ osztályt deklaráln
 #### Névtelen típusok
 
 ```csharp
-from t in products
+from p in products
 where p.Price > 1000
 select new { ID = p.ID, Name = p.Name };
 ```
