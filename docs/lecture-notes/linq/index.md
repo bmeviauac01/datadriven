@@ -186,7 +186,7 @@ The result set is of type `IQueryable<MyType>`, when _MyType_ is a class we have
 #### Anonym types
 
 ```csharp
-from t in products
+from p in products
 where p.Price > 1000
 select new { ID = p.ID, Name = p.Name };
 ```
