@@ -7,7 +7,7 @@ You can run these queries on the [sample database](../../db/index.md).
 Which product costs less than 2000 and have less than 50 in stock?
 
 ```sql
-select Name, Price,Stock
+select Name, Price, Stock
 from Product
 where Price<2000 and Stock<50
 ```
