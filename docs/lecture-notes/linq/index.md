@@ -78,7 +78,7 @@ from p in products
 join v in vat on p.VATID equals v.Id
 select p.Price * v.Percentage
 
-products.Join(vat, p => p.VATID, v => v.Id, (t, v) => p.Price * v.Percentage)
+products.Join(vat, p => p.VATID, v => v.Id, (p, v) => p.Price * v.Percentage)
 ```
 
 ### Sorting
