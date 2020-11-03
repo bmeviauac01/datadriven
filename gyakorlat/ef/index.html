@@ -1,0 +1,1374 @@
+
+
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Dudás Ákos">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Entity Framework - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ef5350">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#entity-framework" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Entity Framework
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Adatvezérelt rendszerek
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../db/" class="md-tabs__link">
+          Adatbázis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../jegyzet/architektura/" class="md-tabs__link">
+          Jegyzetek
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../transactions/" class="md-tabs__link md-tabs__link--active">
+          Gyakorlatok
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../hazi/" class="md-tabs__link">
+          Házi feladatok
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Adatvezérelt rendszerek" class="md-nav__link">
+      Adatvezérelt rendszerek
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Adatbázis
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Adatbázis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/" title="Minta adatbázis sémája" class="md-nav__link">
+      Minta adatbázis sémája
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mssql/" title="Microsoft SQL Server használata" class="md-nav__link">
+      Microsoft SQL Server használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mongodb/" title="MongoDB használata" class="md-nav__link">
+      MongoDB használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" title="Minta adatbázis: mssql.sql" class="md-nav__link">
+      Minta adatbázis: mssql.sql
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" title="Minta adatbázis: mongo.js" class="md-nav__link">
+      Minta adatbázis: mongo.js
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Jegyzetek
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Jegyzetek
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/architektura/" title="Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra" class="md-nav__link">
+      Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/transactions/" title="Tranzakciókezelés adatbázisokban" class="md-nav__link">
+      Tranzakciókezelés adatbázisokban
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mssql/sql/" title="SQL nyelv, MSSQL platformfüggő SQL utasítások" class="md-nav__link">
+      SQL nyelv, MSSQL platformfüggő SQL utasítások
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mssql/server-side-programming/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/linq/" title="LINQ: Language Integrated Query" class="md-nav__link">
+      LINQ: Language Integrated Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mongodb/" title="MongoDB műveletek és a MongoDB .NET Driver" class="md-nav__link">
+      MongoDB műveletek és a MongoDB .NET Driver
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/di/" title="Függőséginjektálás ASP.NET Core környezetben" class="md-nav__link">
+      Függőséginjektálás ASP.NET Core környezetben
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/rest-webapi-sample" title="REST és WebAPI demó alkalmazás (GitHub)" class="md-nav__link">
+      REST és WebAPI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/todoapi-di-sample" title="ASP.NET Core DI demó alkalmazás (GitHub)" class="md-nav__link">
+      ASP.NET Core DI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" title="Minta többrétegű webalkalmazás (GitHub)" class="md-nav__link">
+      Minta többrétegű webalkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Gyakorlatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Gyakorlatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Tranzakciókezelés" class="md-nav__link">
+      Tranzakciókezelés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mssql/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Entity Framework
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Entity Framework" class="md-nav__link md-nav__link--active">
+      Entity Framework
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elofeltetelek" class="md-nav__link">
+    Előfeltételek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlat-menete" class="md-nav__link">
+    Gyakorlat menete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-0-adatbazis-letrehozasa-ellenorzese" class="md-nav__link">
+    Feladat 0: Adatbázis létrehozása, ellenőrzése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" class="md-nav__link">
+    Feladat 1: Projekt létrehozása, adatbázis leképzése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-2-lekerdezesek" class="md-nav__link">
+    Feladat 2: Lekérdezések
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-adatmodositasok" class="md-nav__link">
+    Feladat 3: Adatmódosítások
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-4-tarolt-eljarasok-hasznalata" class="md-nav__link">
+    Feladat 4: Tárolt eljárások használata
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mongodb/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jpa/" title="JPA & Spring Data" class="md-nav__link">
+      JPA & Spring Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rest/" title="REST API & ASP.NET Web API" class="md-nav__link">
+      REST API & ASP.NET Web API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Házi feladatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Házi feladatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/" title="Szorgalmi házi feladatok" class="md-nav__link">
+      Szorgalmi házi feladatok
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mssql/" title="Feladat: MSSQL szerveroldali programozás" class="md-nav__link">
+      Feladat: MSSQL szerveroldali programozás
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/adonet/" title="Feladat: ADO.NET adatelérés" class="md-nav__link">
+      Feladat: ADO.NET adatelérés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/ef/" title="Feladat: Entity Framework" class="md-nav__link">
+      Feladat: Entity Framework
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mongodb/" title="Feladat: MongoDB" class="md-nav__link">
+      Feladat: MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/rest/" title="Feladat: REST API Web API technológiával" class="md-nav__link">
+      Feladat: REST API Web API technológiával
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub/" title="Feladatok beadása (GitHub)" class="md-nav__link">
+      Feladatok beadása (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub-Actions/" title="GitHub Actions ismertető" class="md-nav__link">
+      GitHub Actions ismertető
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/VisualStudio/" title="Visual Studio telepítése" class="md-nav__link">
+      Visual Studio telepítése
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elofeltetelek" class="md-nav__link">
+    Előfeltételek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlat-menete" class="md-nav__link">
+    Gyakorlat menete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-0-adatbazis-letrehozasa-ellenorzese" class="md-nav__link">
+    Feladat 0: Adatbázis létrehozása, ellenőrzése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" class="md-nav__link">
+    Feladat 1: Projekt létrehozása, adatbázis leképzése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-2-lekerdezesek" class="md-nav__link">
+    Feladat 2: Lekérdezések
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-adatmodositasok" class="md-nav__link">
+    Feladat 3: Adatmódosítások
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-4-tarolt-eljarasok-hasznalata" class="md-nav__link">
+    Feladat 4: Tárolt eljárások használata
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/gyakorlat/ef/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="entity-framework">Entity Framework<a class="headerlink" href="#entity-framework" title="Permanent link">&para;</a></h1>
+<p>A gyakorlat célja, hogy a hallgatók megismerjék a Linq lekérdezések használatát, valamint az Entity Framework működését.</p>
+<div class="admonition important">
+<p class="admonition-title">Entity Framework <del>Core</del></p>
+<p>A gyakorlat során a .NET Framework-ben használt Entity Framework-öt használjuk, nem a platformfüggetlen Core változatot. A Linq lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de az alább használt vizuális kód generálás és szerkesztő csak .NET Framework és Entity Framework esetén érhető el.</p>
+</div>
+<h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
+<p>A labor elvégzéséhez szükséges eszközök:</p>
+<ul>
+<li>Microsoft Visual Studio 2015/2017/2019 (<em>nem</em> VS Code)</li>
+<li>Microsoft SQL Server (LocalDB vagy Express edition)</li>
+<li>SQL Server Management Studio</li>
+<li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">mssql.sql</a></li>
+</ul>
+<p>Amit érdemes átnézned:</p>
+<ul>
+<li>C# nyelv</li>
+<li>Entity Framework és Linq</li>
+</ul>
+<h2 id="gyakorlat-menete">Gyakorlat menete<a class="headerlink" href="#gyakorlat-menete" title="Permanent link">&para;</a></h2>
+<p>A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.</p>
+<div class="admonition info">
+<p>Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!</p>
+</div>
+<h2 id="feladat-0-adatbazis-letrehozasa-ellenorzese">Feladat 0: Adatbázis létrehozása, ellenőrzése<a class="headerlink" href="#feladat-0-adatbazis-letrehozasa-ellenorzese" title="Permanent link">&para;</a></h2>
+<p>Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az <a href="../transactions/">első gyakorlat anyagában</a>.)</p>
+<h2 id="feladat-1-projekt-letrehozasa-adatbazis-lekepzese">Feladat 1: Projekt létrehozása, adatbázis leképzése<a class="headerlink" href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" title="Permanent link">&para;</a></h2>
+<p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS 2019 esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.</p>
+<p><img alt="VS projekt típus" src="images/vs-create-project.png" /></p>
+<div class="admonition important">
+<p><strong>Ne</strong> .NET <em>Core</em> alkalmazást hozzunk létre, mert abban nincs vizuális <em>Database First</em> leképzés, amit használni fogunk.</p>
+<p>Ügyeljünk a projekt nyelvére is, C# nyelvű projekt legyen.</p>
+</div>
+<p>Hozd létre a projektet. A <code>c:\work</code> mappába dolgozz.</p>
+<ol>
+<li>
+<p>Adj a projekthez egy <em>ADO.NET Entity Data Model</em>-t.</p>
+<ul>
+<li>Solution Explorer-ben a projektre jobb egér / <em>Add / New Item / Data / ADO.NET Entity Data Model</em>. Az ablak alján a Name mezőben <code>AdatvezEntities</code>-t adj meg.</li>
+<li>A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").</li>
+<li>A kapcsolatok megadásánál a saját adatbázishoz kapcsolódj. Hozz létre egy új kapcsolatot a varázsló segítségével, és mentsd el a kapcsolódási adatokat a config fájlba.<ul>
+<li><em>Data source</em>: Microsoft SQL Server</li>
+<li><em>Server name</em>: <code>(localdb)\mssqllocaldb</code></li>
+<li><em>Select or enter database name</em>: adjuk meg az adatbázis nevét</li>
+<li><em>Save connection settings in App.Config</em>:<ul>
+<li>igen (pipa)</li>
+<li>alatta a szerkesztőmezőben az <code>AdatvezEntities</code>-t add meg (ilyen néven fog a DbContext osztály legenerálódni)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Entity Framework 6.0-as leképzést használj.</li>
+<li>Az összes táblát képezzük le (ki kell pipálni a <em>Tables</em>-t).</li>
+<li><em>Model namespace</em>: pl. <code>AdatvezEntitiesModel</code></li>
+</ul>
+</li>
+<li>
+<p>Várjuk meg, amíg elkészül a modell. Ha közben a VS kérdezne "template" futtatásáról, engedélyezzük.</p>
+</li>
+<li>
+<p>Keressük meg a <em>connection stringet</em> az <code>app.config</code> fájlban. Nézzük meg a tartalmát.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>app.config</code></p>
+<p>Azért jó, ha ide kerül a <em>connection string</em>, mert az alkalmazáshoz tartozó adatbázis helye telepítésenként változhat. Ha a forráskódban van a szerver elérhetősége, akkor újra kell fordítani az alkalmazást minden telepítéshez. Az <code>app.config</code> fájl viszont az exe mellett része az alkalmazásnak, és szerkeszthető. Ha szükséges, kiemelhető a fájl más konfigurációs állományba is.</p>
+</div>
+</li>
+<li>
+<p>Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.</p>
+<ul>
+<li>Ha szerkeszteni akarjuk a modellt, az <em>Entity Data Model Browser</em> és <em>Entity Data Model Mapping Details</em> ablakokon keresztül lehet szerkeszteni (ezek a <em>View</em> menü, <em>Other windows</em> menüponton keresztül érhetők el).</li>
+<li>
+<p>Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:</p>
+<ul>
+<li>Customer.CustomerSite1 -&gt; <strong>.Sites</strong></li>
+<li>CustomerSite.Customer1 -&gt; <strong>.MainCustomer</strong></li>
+<li>Order.OrderItem -&gt; .OrderItem&#8203;<strong>s</strong></li>
+<li>Product.OrderItem -&gt; .OrderItem&#8203;<strong>s</strong></li>
+<li>VAT.Product -&gt; .Product&#8203;<strong>s</strong></li>
+<li>Category.Product -&gt; .Product&#8203;<strong>s</strong></li>
+</ul>
+</li>
+</ul>
+<p>Mentsük a változtatások után a modellt.</p>
+</li>
+<li>
+<p>Nézzük meg a <em>DbContext</em> és egy választott entitás osztály C# kódját. Bontsd ki a <em>Solution Explorer</em>-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.</p>
+<div class="admonition note">
+<p>Ezen fájlokba <em>nem</em> szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály <code>partial</code>-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.</p>
+</div>
+</li>
+</ol>
+<h2 id="feladat-2-lekerdezesek">Feladat 2: Lekérdezések<a class="headerlink" href="#feladat-2-lekerdezesek" title="Permanent link">&para;</a></h2>
+<p>A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket Linq használatával. Írd ki konzolra az eredményeket.</p>
+<p>Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az IQueryable típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.</p>
+<ol>
+<li>
+<p>Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!</p>
+</li>
+<li>
+<p>Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!</p>
+</li>
+<li>
+<p>Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevet követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).</p>
+</li>
+<li>
+<p>Listázd ki a legdrágább termék adatait!</p>
+</li>
+<li>
+<p>Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár, csak egyszer szerepeljen a listában.</p>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Második feladat *****&quot;</span><span class="p">);</span>
+<span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AdatvezEntities</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="c1">// 2.1</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.1:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qProductStock</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                        <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span> <span class="p">&gt;</span> <span class="m">30</span>
+                        <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductStock</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tStock={1}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">);</span>
+
+    <span class="c1">// 2.2</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.2:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qProductOrder</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                        <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;=</span> <span class="m">2</span>
+                        <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductOrder</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+    <span class="c1">// 2.3</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.3:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qOrderTotal</span> <span class="p">=</span> <span class="k">from</span> <span class="n">o</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Order</span>
+                        <span class="k">where</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span> <span class="p">*</span> <span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span> <span class="p">&gt;</span> <span class="m">30000</span>
+                        <span class="k">select</span> <span class="n">o</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderTotal</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}&quot;</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">CustomerSite</span><span class="p">.</span><span class="n">MainCustomer</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">oi</span> <span class="k">in</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\t\tProduct={0}\tPrice={1}\tAmount={2}&quot;</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 2.3 második megoldás</span>
+    <span class="c1">// Ehhez szükség van a következő névtér importálására: innen vegyük ki és tegyük be</span>
+    <span class="c1">// a fájl elejére !!!</span>
+    <span class="c1">// using System.Data.Entity;</span>
+
+    <span class="c1">// Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\tc 2.3 alternatív megoldás:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qOrderTotal2</span> <span class="p">=</span>
+        <span class="k">from</span> <span class="n">o</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Order</span>
+            <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span>                          <span class="c1">// vagy .Include(&quot;OrderItem&quot;)</span>
+            <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">Product</span><span class="p">))</span> <span class="c1">// vagy .Include(&quot;OrderItem.Product&quot;)</span>
+            <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">CustomerSite</span><span class="p">)</span>                        <span class="c1">// vagy .Include(&quot;CustomerSite&quot;)</span>
+            <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">CustomerSite</span><span class="p">.</span><span class="n">MainCustomer</span><span class="p">)</span>           <span class="c1">// vagy .Include(&quot;CustomerSite.Customer&quot;)</span>
+        <span class="k">where</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span> <span class="p">*</span> <span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span> <span class="p">&gt;</span> <span class="m">30000</span>
+        <span class="k">select</span> <span class="n">o</span><span class="p">;</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderTotal2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}&quot;</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">CustomerSite</span><span class="p">.</span><span class="n">MainCustomer</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">oi</span> <span class="k">in</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\t\tProduct={0}\tPrice={1}\tAmount={2}&quot;</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 2.4</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.4:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qPriceMax</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                    <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">==</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Max</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+                    <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">qPriceMax</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tPrice={1}&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
+
+    <span class="c1">// 2.5</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.5:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qJoin</span> <span class="p">=</span> <span class="k">from</span> <span class="n">s1</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">CustomerSite</span>
+                <span class="k">join</span> <span class="n">s2</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">CustomerSite</span> <span class="k">on</span> <span class="n">s1</span><span class="p">.</span><span class="n">City</span> <span class="k">equals</span> <span class="n">s2</span><span class="p">.</span><span class="n">City</span>
+                <span class="k">where</span> <span class="n">s1</span><span class="p">.</span><span class="n">CustomerID</span> <span class="p">&gt;</span> <span class="n">s2</span><span class="p">.</span><span class="n">CustomerID</span>
+                <span class="k">select</span> <span class="k">new</span> <span class="p">{</span> <span class="n">c1</span> <span class="p">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">MainCustomer</span><span class="p">,</span> <span class="n">c2</span> <span class="p">=</span> <span class="n">s2</span><span class="p">.</span><span class="n">MainCustomer</span> <span class="p">};</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">v</span> <span class="k">in</span> <span class="n">qJoin</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tCustomer 1={0}\tCustomer 2={1}&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+<h2 id="feladat-3-adatmodositasok">Feladat 3: Adatmódosítások<a class="headerlink" href="#feladat-3-adatmodositasok" title="Permanent link">&para;</a></h2>
+<p>A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.</p>
+<ol>
+<li>
+<p>Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!</p>
+</li>
+<li>
+<p>Hozz létre egy új kategóriát <em>Expensive toys</em> néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!</p>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Harmadik feladat *****&quot;</span><span class="p">);</span>
+<span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AdatvezEntities</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="c1">// 3.1</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.1:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qProductsLego</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                        <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;LEGO&quot;</span>
+                        <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\tMódosítás előtt:&quot;</span><span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductsLego</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\t\tName={0}\tStock={1}\tPrice={2}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">=</span> <span class="m">1.1</span> <span class="p">*</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+
+    <span class="n">qProductsLego</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                    <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;LEGO&quot;</span>
+                    <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\tMódosítás után:&quot;</span><span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductsLego</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\t\tName={0}\tStock={1}\tPrice={2}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
+
+    <span class="c1">// 3.2</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.2:&quot;</span><span class="p">);</span>
+    <span class="n">Category</span> <span class="n">categoryExpensiveToys</span> <span class="p">=</span> <span class="p">(</span><span class="k">from</span> <span class="n">c</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Category</span>
+                                        <span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Expensive toys&quot;</span>
+                                        <span class="k">select</span> <span class="n">c</span><span class="p">).</span><span class="n">SingleOrDefault</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">categoryExpensiveToys</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">categoryExpensiveToys</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Category</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;Expensive toys&quot;</span> <span class="p">};</span>
+
+        <span class="c1">// Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast</span>
+        <span class="c1">// es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban</span>
+        <span class="c1">// kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.</span>
+        <span class="n">db</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">categoryExpensiveToys</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">var</span> <span class="n">qProductExpensive</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                            <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">&gt;</span> <span class="m">8000</span>
+                            <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductExpensive</span><span class="p">)</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">Category</span> <span class="p">=</span> <span class="n">categoryExpensiveToys</span><span class="p">;</span>
+    <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+
+    <span class="n">qProductExpensive</span> <span class="p">=</span> <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span>
+                        <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Expensive toys&quot;</span>
+                        <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">qProductExpensive</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tPrice={1}&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+<h2 id="feladat-4-tarolt-eljarasok-hasznalata">Feladat 4: Tárolt eljárások használata<a class="headerlink" href="#feladat-4-tarolt-eljarasok-hasznalata" title="Permanent link">&para;</a></h2>
+<p>Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolj eljárás vagy a DbContext függvényeként, vagy entitás módosító műveletére köthető be.</p>
+<div class="admonition note">
+<p class="admonition-title">Tárolt eljárás az EDM-ben</p>
+<p>A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az <em>Entity Data Model Browser</em>-ben, az adott függvény <em>Function Import</em>-jához tartozó tulajdonságainál szerkesztenünk.</p>
+<p><img alt="Tárolt eljárás mappelés beállításai" src="images/vs-storedproc-mapping.png" /></p>
+</div>
+<ol>
+<li>
+<p>Készíts egy tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját! Használd ezt a tárolt eljárást új entitás felvételéhez!</p>
+<ul>
+<li>
+<p>Hozd létre a tárolt eljárást SQL Management Studio segítségével.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">CreateNewPaymentMethod</span>
+<span class="p">(</span>
+<span class="o">@</span><span class="k">Method</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+<span class="o">@</span><span class="n">Deadline</span> <span class="nb">int</span>
+<span class="p">)</span>
+<span class="k">AS</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">PaymentMethod</span>
+<span class="k">values</span><span class="p">(</span><span class="o">@</span><span class="k">Method</span><span class="p">,</span><span class="o">@</span><span class="n">Deadline</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">scope_identity</span><span class="p">()</span> <span class="k">as</span> <span class="n">NewId</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>A tárolt eljárást állítsd be a <code>PaymentMethod</code> entitás <em>insert</em> metódusának.</p>
+<ul>
+<li>Add hozzá a tárolt eljárást az EDM-hez. Az EDM Browser-ben jobb kantitással hozd elő a kontextus menüt, használd az "Update model from database"-t, és importáld (<em>Add</em>) az új tárolt eljárást.</li>
+<li>Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.</li>
+<li>
+<p>Állítsd be ezt a metódust a <code>PaymentMethod</code> entitás <em>insert</em> metódusaként: kiválasztva az EDM-ben a <code>PaymentMethod</code> elemet a <em>Mapping Details</em> ablakban válts át a <em>Map Entity to Functions</em> nézetre, és állítsd be <em>Insert</em> metódusnak. A visszatérési értéket feleltesd meg az <em>ID</em> tulajdonságnak. Mentsd el a modell változásait.</p>
+<p><img alt="Tárolt eljárás entitásra mappelése" src="images/vs-insert-storedproc.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext <code>PaymentMethod</code> gyűjteményéhez az <code>Add</code> metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolj eljárást C# kódból!</p>
+<ul>
+<li>
+<p>Hozd létre a tárolt eljárást az alábbi kóddal.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">PopularProducts</span> <span class="p">(</span>
+<span class="o">@</span><span class="n">MinAmount</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="p">)</span>
+<span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">Product</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="n">Product</span> <span class="k">INNER</span> <span class="k">JOIN</span>
+<span class="p">(</span>
+<span class="k">SELECT</span> <span class="n">OrderItem</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">FROM</span> <span class="n">OrderItem</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">OrderItem</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">HAVING</span> <span class="k">SUM</span><span class="p">(</span><span class="n">OrderItem</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">@</span><span class="n">MinAmount</span>
+<span class="p">)</span> <span class="n">a</span> <span class="k">ON</span> <span class="n">Product</span><span class="p">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">ProductID</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (<em>EDM Model Browser</em>-ben a <em>function</em>-re dupla kattintással nyílik) állítsd be a visszatérési értéket <code>Product</code> típusúra. Mentsd el a modell változásait.</p>
+<p><img alt="Tárolt eljárás mappelése" src="images/vs-storedproc-mapping.png" /></p>
+</li>
+<li>
+<p>Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!</p>
+</li>
+</ul>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Negyedik feladat *****&quot;</span><span class="p">);</span>
+<span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AdatvezEntities</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="c1">// 4.3</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t4.3:&quot;</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">pm</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PaymentMethod</span>
+    <span class="p">{</span>
+        <span class="n">Method</span> <span class="p">=</span> <span class="s">&quot;Apple pay&quot;</span><span class="p">,</span>
+        <span class="n">Deadline</span> <span class="p">=</span> <span class="m">99999</span>
+    <span class="p">};</span>
+
+    <span class="n">db</span><span class="p">.</span><span class="n">PaymentMethod</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">pm</span><span class="p">);</span>
+    <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+
+    <span class="c1">// 4.6</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t4.6:&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">qPopularProducts</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">PopularProducts</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qPopularProducts</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tStock={1}\tPrice={2}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+  <div class="md-footer-nav">
+    <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+
+      <!-- Link to previous page -->
+      
+      <a href="../mssql/" title="Microsoft SQL Server programozása"
+        class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </div>
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Előző
+            </span>
+            Microsoft SQL Server programozása
+          </div>
+        </div>
+      </a>
+      
+
+      <!-- Link to next page -->
+      
+      <a href="../mongodb/" title="MongoDB"
+        class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Következő
+            </span>
+            MongoDB
+          </div>
+        </div>
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+        </div>
+      </a>
+      
+    </nav>
+  </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+        <div class="md-footer-copyright__highlight">
+          Copyright &copy; BME AUT
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

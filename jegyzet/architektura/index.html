@@ -1,0 +1,1384 @@
+
+
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Dudás Ákos">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ef5350">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adatvezerelt-rendszerek-es-a-tobbretegu-haromretegu-architektura" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Adatvezérelt rendszerek
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../db/" class="md-tabs__link">
+          Adatbázis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Jegyzetek
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../gyakorlat/transactions/" class="md-tabs__link">
+          Gyakorlatok
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../hazi/" class="md-tabs__link">
+          Házi feladatok
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Adatvezérelt rendszerek" class="md-nav__link">
+      Adatvezérelt rendszerek
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Adatbázis
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Adatbázis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/" title="Minta adatbázis sémája" class="md-nav__link">
+      Minta adatbázis sémája
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mssql/" title="Microsoft SQL Server használata" class="md-nav__link">
+      Microsoft SQL Server használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mongodb/" title="MongoDB használata" class="md-nav__link">
+      MongoDB használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" title="Minta adatbázis: mssql.sql" class="md-nav__link">
+      Minta adatbázis: mssql.sql
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" title="Minta adatbázis: mongo.js" class="md-nav__link">
+      Minta adatbázis: mongo.js
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Jegyzetek
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Jegyzetek
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra" class="md-nav__link md-nav__link--active">
+      Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mit-nevezunk-adatvezerelt-alkalmazasnak" class="md-nav__link">
+    Mit nevezünk adatvezérelt alkalmazásnak?
+  </a>
+  
+    <nav class="md-nav" aria-label="Mit nevezünk adatvezérelt alkalmazásnak?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pelda-adatvezerelt-alkalmazasra" class="md-nav__link">
+    Példa adatvezérelt alkalmazásra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adatvezerelt-rendszer-felepitese" class="md-nav__link">
+    Adatvezérelt rendszer felépítése
+  </a>
+  
+    <nav class="md-nav" aria-label="Adatvezérelt rendszer felépítése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-tobbretegu-haromretegu-architektura" class="md-nav__link">
+    A többrétegű (háromrétegű) architektúra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-tobbretegu-architektura-retegeinek-felelossege" class="md-nav__link">
+    A többrétegű architektúra rétegeinek felelőssége
+  </a>
+  
+    <nav class="md-nav" aria-label="A többrétegű architektúra rétegeinek felelőssége">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#az-adatforrasok" class="md-nav__link">
+    Az adatforrások
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adateleresi-reteg" class="md-nav__link">
+    Adatelérési réteg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzleti-logikai-reteg" class="md-nav__link">
+    Üzleti logikai réteg
+  </a>
+  
+    <nav class="md-nav" aria-label="Üzleti logikai réteg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#szolgaltatasi-interfesz-alreteg" class="md-nav__link">
+    Szolgáltatási interfész alréteg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#megjelenitesi-reteg" class="md-nav__link">
+    Megjelenítési réteg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retegfuggetlen-szolgaltatasok" class="md-nav__link">
+    Rétegfüggetlen szolgáltatások
+  </a>
+  
+    <nav class="md-nav" aria-label="Rétegfüggetlen szolgáltatások">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#biztonsag" class="md-nav__link">
+    Biztonság
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzemeltetes" class="md-nav__link">
+    Üzemeltetés
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kommunikacio" class="md-nav__link">
+    Kommunikáció
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-es-frontend" class="md-nav__link">
+    Backend és frontend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+    Ellenőrző kérdések
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Tranzakciókezelés adatbázisokban" class="md-nav__link">
+      Tranzakciókezelés adatbázisokban
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mssql/sql/" title="SQL nyelv, MSSQL platformfüggő SQL utasítások" class="md-nav__link">
+      SQL nyelv, MSSQL platformfüggő SQL utasítások
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mssql/server-side-programming/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linq/" title="LINQ: Language Integrated Query" class="md-nav__link">
+      LINQ: Language Integrated Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mongodb/" title="MongoDB műveletek és a MongoDB .NET Driver" class="md-nav__link">
+      MongoDB műveletek és a MongoDB .NET Driver
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../di/" title="Függőséginjektálás ASP.NET Core környezetben" class="md-nav__link">
+      Függőséginjektálás ASP.NET Core környezetben
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/rest-webapi-sample" title="REST és WebAPI demó alkalmazás (GitHub)" class="md-nav__link">
+      REST és WebAPI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/todoapi-di-sample" title="ASP.NET Core DI demó alkalmazás (GitHub)" class="md-nav__link">
+      ASP.NET Core DI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" title="Minta többrétegű webalkalmazás (GitHub)" class="md-nav__link">
+      Minta többrétegű webalkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Gyakorlatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Gyakorlatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/transactions/" title="Tranzakciókezelés" class="md-nav__link">
+      Tranzakciókezelés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/mssql/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/ef/" title="Entity Framework" class="md-nav__link">
+      Entity Framework
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/mongodb/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/jpa/" title="JPA & Spring Data" class="md-nav__link">
+      JPA & Spring Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gyakorlat/rest/" title="REST API & ASP.NET Web API" class="md-nav__link">
+      REST API & ASP.NET Web API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Házi feladatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Házi feladatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/" title="Szorgalmi házi feladatok" class="md-nav__link">
+      Szorgalmi házi feladatok
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mssql/" title="Feladat: MSSQL szerveroldali programozás" class="md-nav__link">
+      Feladat: MSSQL szerveroldali programozás
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/adonet/" title="Feladat: ADO.NET adatelérés" class="md-nav__link">
+      Feladat: ADO.NET adatelérés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/ef/" title="Feladat: Entity Framework" class="md-nav__link">
+      Feladat: Entity Framework
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mongodb/" title="Feladat: MongoDB" class="md-nav__link">
+      Feladat: MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/rest/" title="Feladat: REST API Web API technológiával" class="md-nav__link">
+      Feladat: REST API Web API technológiával
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub/" title="Feladatok beadása (GitHub)" class="md-nav__link">
+      Feladatok beadása (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub-Actions/" title="GitHub Actions ismertető" class="md-nav__link">
+      GitHub Actions ismertető
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/VisualStudio/" title="Visual Studio telepítése" class="md-nav__link">
+      Visual Studio telepítése
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mit-nevezunk-adatvezerelt-alkalmazasnak" class="md-nav__link">
+    Mit nevezünk adatvezérelt alkalmazásnak?
+  </a>
+  
+    <nav class="md-nav" aria-label="Mit nevezünk adatvezérelt alkalmazásnak?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pelda-adatvezerelt-alkalmazasra" class="md-nav__link">
+    Példa adatvezérelt alkalmazásra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adatvezerelt-rendszer-felepitese" class="md-nav__link">
+    Adatvezérelt rendszer felépítése
+  </a>
+  
+    <nav class="md-nav" aria-label="Adatvezérelt rendszer felépítése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-tobbretegu-haromretegu-architektura" class="md-nav__link">
+    A többrétegű (háromrétegű) architektúra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-tobbretegu-architektura-retegeinek-felelossege" class="md-nav__link">
+    A többrétegű architektúra rétegeinek felelőssége
+  </a>
+  
+    <nav class="md-nav" aria-label="A többrétegű architektúra rétegeinek felelőssége">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#az-adatforrasok" class="md-nav__link">
+    Az adatforrások
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adateleresi-reteg" class="md-nav__link">
+    Adatelérési réteg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzleti-logikai-reteg" class="md-nav__link">
+    Üzleti logikai réteg
+  </a>
+  
+    <nav class="md-nav" aria-label="Üzleti logikai réteg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#szolgaltatasi-interfesz-alreteg" class="md-nav__link">
+    Szolgáltatási interfész alréteg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#megjelenitesi-reteg" class="md-nav__link">
+    Megjelenítési réteg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retegfuggetlen-szolgaltatasok" class="md-nav__link">
+    Rétegfüggetlen szolgáltatások
+  </a>
+  
+    <nav class="md-nav" aria-label="Rétegfüggetlen szolgáltatások">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#biztonsag" class="md-nav__link">
+    Biztonság
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzemeltetes" class="md-nav__link">
+    Üzemeltetés
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kommunikacio" class="md-nav__link">
+    Kommunikáció
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-es-frontend" class="md-nav__link">
+    Backend és frontend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+    Ellenőrző kérdések
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/architektura/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="adatvezerelt-rendszerek-es-a-tobbretegu-haromretegu-architektura">Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra<a class="headerlink" href="#adatvezerelt-rendszerek-es-a-tobbretegu-haromretegu-architektura" title="Permanent link">&para;</a></h1>
+<h2 id="mit-nevezunk-adatvezerelt-alkalmazasnak">Mit nevezünk <em>adatvezérelt</em> alkalmazásnak?<a class="headerlink" href="#mit-nevezunk-adatvezerelt-alkalmazasnak" title="Permanent link">&para;</a></h2>
+<p>Minden alkalmazás valamilyen módon adatokat kezel, hiszen a számítógép memóriájában adatok vannak, és a program ezeket manipulálja. De mégse minden alkalmazás adatvezérelt. Akkor hívunk egy alkalmazást adatvezéreltnek, ha a szoftver <strong>elsődleges</strong> célja a tartalmazott adatok kezelése.</p>
+<div class="admonition example">
+<p>Más szóval, az adatvezérelt alkalmazás azért jön létre, hogy adatokat tároljon, megjelenítsen, manipuláljon. A felhasználó azért lép interakcióba az alkalmazással, hogy az adatokhoz hozzáférjen.</p>
+</div>
+<div class="admonition note">
+<p>Egy sakkprogram esetében a tábla állása memóriában található adat. De a sakkprogram nem azért jön létre, hogy ezt a memóriabeli táblát manipulálja, hanem azért, hogy a játékos sakkozzon.</p>
+</div>
+<p>Egy adatvezérelt alkalmazásban az adat határozza meg, hogy miként működik a szoftver. Például az adat rekordok egyes attribútumainak függvényében értelmezhető egy törlés művelet a rekordra, vagy sem. Egy hasonló példa, ahol az adat maga határozza meg a rajta végrehajtható műveleteket, a Neptun rendszerben a vizsgajelentkezés. A félévhez tartozó időszakok, beleértve, hogy mikor kezdődik a vizsgaidőszak, maga is a Neptun rendszer adatai között található. Ezen adat határozza meg, hogy a felhasználó (hallgató) tud-e egy vizsgára jelentkezni. Attól, hogy egyik évben máskor kezdődik a vizsgaidőszak, a program logikája (kódja) nem változik meg, a szoftver mégis képes máshogyan viselkedni.</p>
+<h3 id="pelda-adatvezerelt-alkalmazasra">Példa adatvezérelt alkalmazásra<a class="headerlink" href="#pelda-adatvezerelt-alkalmazasra" title="Permanent link">&para;</a></h3>
+<p>A már említett <em>Neptun</em> rendszer egy tipikus adatvezérelt alkalmazás. Célja az oktatáshoz kapcsolódó adatok, a kurzusok, jegyek, vizsgák, stb. kezelése.</p>
+<p>Egy másik példa a <em>Gmail</em>: azért létezik, hogy adatokat (itt: emailek, csatolmányok, kontaktok) kezeljen. Az alkalmazás minden funkciója ezen adatok kezeléséről, megjelenítéséről, manipulálásáról szól. Mindemellett, az adatokat hosszú távon megőrzi, azaz minden módosítás a rendszerben megmarad.</p>
+<h2 id="adatvezerelt-rendszer-felepitese">Adatvezérelt rendszer felépítése<a class="headerlink" href="#adatvezerelt-rendszer-felepitese" title="Permanent link">&para;</a></h2>
+<p>Vegyük a Gmail példáját. Szeretnénk egy olyan modern email rendszert építeni, ahol lehet:</p>
+<ul>
+<li>emaileket küldeni és fogadni,</li>
+<li>van webes és mobil felülete is,</li>
+<li>a felhasználói felület több nyelvet is támogat,</li>
+<li>tudunk fájlokat csatolni</li>
+<li>a csatolmányokat akár Google Drive-ról is tudjuk hivatkozni,</li>
+<li>tudjuk késleltetni egy email elküldését,</li>
+<li>stb.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Gondoljuk végig</p>
+<p>Hogyan kezdenénk neki egy ilyen alkalmazás fejlesztésének?</p>
+</div>
+<p>Ez talán túl nehéz kérdés. Kezdjük egy egyszerűbb kérdéssel: tegyük fel, hogy már majdnem minden része működik az alkalmazásnak, csak éppen a késleltetett email küldés hiányzik; ezt hogyan implementálnánk?</p>
+<p>Például lehetne úgy, hogy az email küldése gombra kattintásnál elindítunk egy időzítőt, ami 1 perc múlva indítja csak az email küldést. Ez azért nem lesz jó megoldás, mert ha közben bezárjuk a web böngészőt, akkor nem fog az időzítő lejárni, és nem lesz elküldve az email.</p>
+<p>Helyette csinálhatjuk úgy, hogy rögzítjük az email mellett, hogy mikor kell elküldeni, így ez az információ is az email, mint kezelt adat része lesz. Ezzel eldöntöttük, hogy nem a felhasználói felület feladata lesz a késleltetett email küldés. Még nem tudjuk, hogy milyen alkalmazás komponensre bízzuk a feladatot, de nem a felhasználó felületre.</p>
+<p>Mielőtt meg tudjuk válaszolni a kérdést, hogy mégis milyen komponensnek lesz a dolga az email jövőbeli kiküldése, nézzünk egy hasonló kérdést.</p>
+<p>A Gmail az email érkezésének idejét magyar felhasználóknak magyar szokás szerint (pl. "15:23"), más nyelvű felhasználóknak a saját preferenciáik szerint jeleníti meg (pl. "3:23 PM"). Ez azt jelenti, hogy az email, mint adat rekord többféle érkezési idővel rendelkezik? Nyilván nem. Az email érkezési ideje egyetlen dátum, egy univerzális reprezentációban, és csak akkor kerül átalakításra, amikor megjeleníti a felhasználó felület.</p>
+<p>Megállapítottuk tehát, hogy vannak feladatok, amelyek a felhasználói felület felelősségi körébe tartoznak, és vannak olyanok, amelyek nem. Így érkezünk meg a többrégetű-, avagy háromrétegű architektúrához.</p>
+<h3 id="a-tobbretegu-haromretegu-architektura">A többrétegű (háromrétegű) architektúra<a class="headerlink" href="#a-tobbretegu-haromretegu-architektura" title="Permanent link">&para;</a></h3>
+<p>Adatvezérelt rendszereket tipikusan a többrétegű-, avagy háromrétegű architektúra (<em>three-layered / three-tiered architecture</em>) szerint építünk fel. Jelen kontextusban a két elnevezést szinonimaként kezeljük. Ez az architektúra megkülönbözteti az alkalmazás három fő komponenscsaládját, avagy rétegét:</p>
+<ul>
+<li>a megjelenítési réteget,</li>
+<li>az üzleti logikai réteget,</li>
+<li>és az adatelérési réteget.</li>
+</ul>
+<p>Ezen kívül az architektúrához kapcsolódik még:</p>
+<ul>
+<li>az adatbázis, ill. külső adatforrások;</li>
+<li>és az un. rétegfüggetlen szolgáltatások (lásd később).</li>
+</ul>
+<p>Az alkalmazásunkat úgy szervezzük meg, hogy az egyes komponensek (szoftver elemek) rétegekbe szerveződnek, és minden egyes réteg más-más funkcionalitásért felel. Ez a logikai szervezés megkönnyíti a szoftverfejlesztők munkáját azáltal, hogy egyértelmű felelősségi köröket és határokat jelöl ki a rétegekben.</p>
+<div class="admonition question">
+<p class="admonition-title">Miért többrétegű, hiszen csak három rétege van</p>
+<p>Az elnevezés arra utal, hogy mindegyik réteg maga is tovább bontható további rétegekre az alkalmazás komplexitásának függvényében. Attól többrétegű az architektúra, hogy kettőnél több rétege van. (Így szembeállítva a <em>kétrétegű architektúrával</em>, ahol a felhasználói felület és az üzleti logikai réteg nem válik el.)</p>
+</div>
+<p>Az egyes rétegek nem csak saját <strong>felelősségi körrel</strong> rendelkeznek, hanem egyben meghatározzák azt az <strong>interfészt</strong>, amit a ráépülő rétegek használhatnak. Az adatelérési réteg definiálja, milyen műveleteken keresztül érhető el az üzleti logikai réteg számára; az üzleti logikai réteg hasonlóan definiálja az interfészét a megjelenítési réteg felé. Ennek megfelelően <strong>minden réteg csak az alatta levővel kommunikál</strong> (így tehát a prezentációs réteg nem ad ki pl. SQL lekérdezést az adatbázis felé), valamint a rétegek által definiált <strong>interfész mögött az implementáció cserélhetővé</strong> válik, így elősegítve az alkalmazás hosszú karbantarthatóságát.</p>
+<p>A rétegek szétválasztásának köszönhetően az is gyakori, hogy az alkalmazásunk nem egy helyen, hanem a rétegek mentén több kiszolgálón fut. Leggyakoribb esete ennek a megjelenítési réteg leválasztása, amely például egy webalkalmazás esetén a felhasználó számítógépén a böngészőben fut, míg a többi komponens a távoli kiszolgálón található. Hasonlóan gyakori, hogy az adatréteg (pl. adatbázis) egy saját kiszolgálót kap teljesítény okokból. Amíg a rétegek közötti interfészek változatlanok maradnak, a rétegek akár kiszolgálók között is mozgathatóak. Ennek tipikus oka a teljesítmény-optimalizálás és a nagy terhelések kiszolgálásának elősegítése (pl. forgalmas webhelyek esetében).</p>
+<div class="admonition info">
+<p class="admonition-title">Layer / tier</p>
+<p>Az architektúra angol elnevezése megkülönbözteti a logikai és fizikai elválasztást. A <em>three-layered</em> elnevezésben a rétegek logikailag különválnak, de azonos kiszolgálón futnak. A <em>three-tiered</em> azonban a rétegek (<em>tier</em>) mentén fizikai elválasztására, külön kiszolgálókon való futásra is utal.</p>
+</div>
+<p>Egy jó architektúrával rendelkező alkalmazás hosszú életciklusa során is karbantartható marad. A rétegezés nem plusz teherként, betartandó szabályok halmazaként, hanem mankóként segíti a fejlesztőket a kód fejlesztésében. Ezért egy többrétegű alkalmazás fejlesztése során fontos, hogy pontosan értsük, mely rétegek milyen felelősségekkel rendelkeznek, és milyen feladok tartoznak hozzájuk.</p>
+<div class="admonition note">
+<p>A réteges felépítés nem azt jelenti, hogy a felhasználók által használt funkciók csak egy-egy rétegben jelennek meg. A legtöbb funkció valamilyen módon az összes rétegben megjelenik: a funkcióhoz tartozik felhasználói felület, valamilyen adatkezelés az üzleti logikában, és az eredmény mentésre kerül az adatbázisba.</p>
+</div>
+<p>A többrétegű architektúrával készülő alkalmazások kód szervezése is tükrözi a rétegek felépítését. Az adott programozási környezet lehetőségeit és szokásait figyelembe véve az egyes rétegeket külön projektekbe, csomagokba szokás elhelyezni. Ez egyértelművé teszi az egymásra épülést is, hiszen a projektek és csomagok között általában csak egyirányú hivatkozás lehetséges (tehát ha az üzleti logikai csomag használja az adatelérési réteget, akkor fordítva ez már nem történhet meg).</p>
+<div class="admonition tip">
+<p>A többrétegű architektúra nem az egyetlen lehetőség adatvezérelt alkalmazás megvalósítása esetén. Kis, egyszerű alkalmazásokra célszerű lehet a kétrétegű architektúra, míg sokkal komplexebb rendszerek esetén az alkalmazás további darabolása is szükséges lehet például un. mikroszolgáltatások architektúra irányába lépve.</p>
+</div>
+<h2 id="a-tobbretegu-architektura-retegeinek-felelossege">A többrétegű architektúra rétegeinek felelőssége<a class="headerlink" href="#a-tobbretegu-architektura-retegeinek-felelossege" title="Permanent link">&para;</a></h2>
+<p>Vizsgáljuk meg alaposabban a rétegeket, és feladataikat, felelősségeiket. Az architektúra részletesebben kifejtve az alábbi elemeket tartalmazza.</p>
+<p>(A kép forrása: Microsoft Application Architecture Guide, 2<sup>nd</sup> Edition, <a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29">https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29</a>)</p>
+<p><img alt="A többrétegű architektúra rétegei" src="images/tobbretegu-architektura.png" /></p>
+<p>A rétegeken "lentről felfelé" haladunk végig.</p>
+<h3 id="az-adatforrasok">Az adatforrások<a class="headerlink" href="#az-adatforrasok" title="Permanent link">&para;</a></h3>
+<p>A leggyakoribb adatforrás az <strong>adatbázis</strong>. Ez lehet relációs, vagy akár NoSQL adatbázis is. Feladata az adataink hosszú távon megmaradó és megbízható (un. "perzisztens") tárolása. Tipikusan ez az adatbázis egy megbízható gyártótól származó szoftver, amely egy külön erre a célra üzemeltetett kiszolgálón fut, így az adatelérési réteg hálózaton keresztül éri el.</p>
+<p>Előfordulhat az is, hogy a rendszer által kezelt adatok nem mind a saját adatbázisunkban találhatóak, hanem olyan más <strong>külső szolgáltatásokban</strong>, amelyeket "adatbázisként" használunk. Például a Gmail esetén fájl csatolmányok tárolhatóak az emailekkel együtt egy adatbázisban, de lehetőségünk van Google Drive-ról is csatolni fájlokat. A Gmail ilyenkor a Google Drive-ról letölti az elérhető fájlok listáját, hogy a felhasználó kiválassza a csatolandó mellékletet. A Google Drive nem adatbázis, mégis, a használat szempontjából adatforrásként működik.</p>
+<p>Az ilyen jellegű külső szolgáltatásokat azért az adatbázisok mellett helyezzük el képzeletben, mert a mi alkalmazásunk számára csak adatokat szolgáltatnak (pl. listázd az elérhető fájlokat). A belső működésükbe nem látunk bele, és nem is célunk azt megérteni. Ilyen szempontból nem nagy a különbség egy relációs adatbázis és egy külső szolgáltatás között.</p>
+<div class="admonition note">
+<p>Ma már több modern adatbázis-kezelő rendszer is gyakran rendelkeznek a külső szolgáltatások eléréséhez használt HTTP/REST-jellegű interfésszel, és nem SQL nyelven kell velük kommunikálni. Így egyre kevesebb a különbség egy adatbázis és egy külső adatforrás között.</p>
+</div>
+<h3 id="adateleresi-reteg">Adatelérési réteg<a class="headerlink" href="#adateleresi-reteg" title="Permanent link">&para;</a></h3>
+<p>Az adatelérési réteg (<em>data access layer</em>, röviden <em>DAL</em>) feladata az adatforrások kényelmes elérésének biztosítása. Fő funkciója az elemi adatszolgáltatási műveletek biztosítása, mint egy új rekord tárolása, meglevő módosítása vagy törlése.</p>
+<div class="admonition note">
+<p>Az adatforrásokat és az adatelérési réteget szokás még egyben <strong>adatrétegnek</strong> (<em>data layer</em>) is nevezni.</p>
+</div>
+<p>Az adatbázisok eléréséhez szükséges funkcionalitásokat az ún. <em>data access components</em>-ek valósítják meg. Céljuk, hogy elrejtsék a komplexitást, ami az adatbázis kezeléséből adódik, és központilag kényelmes, a felsőbb réteg számára egyszerűen használható <strong>szolgáltatásként nyújtsák az adattárolást</strong>. Ide tartozik például az SQL parancsok kezelése, valamint az adatbázis tárolási modelljének leképzése az üzleti logika számára is kényelmesen használható módon.</p>
+<p>Amennyiben az adatok nem egy adatbázisban, hanem egy külső szolgáltatásban találhatóak, a <em>service agent</em>-ek feladata a külső rendszerrel való kommunikáció kezelése.</p>
+<p>Ebben a rétegben található komponensek általában egy konkrét technológia köré csoportosulnak, például a választott adatbázis-kezelő rendszer eléréséhez használt technológia (mint az ADO.NET, Entity Framework, vagy JDBC, JPA, stb.). Az itt megvalósított logikák gyakran szorosan csatolódnak az adatkezelési technológiákkal. Fontos azonban, hogy ez a platform specifikusság ne szivárogjon ki ebből a rétegből.</p>
+<div class="admonition warning">
+<p class="admonition-title">Fontos</p>
+<p>Egy jól megtervezett rendszerben SQL lekérdezések csak az adatelérési rétegben jelennek meg, a többi réteg semmilyen körülmények között nem állít össze SQL lekérdezést.</p>
+</div>
+<p>Mivel az adatbázisban való tárolás gondolkodásmódja (tipikusan a relációs séma), valamint az objektumorientált modellezés nem egy az egyben fedik egymást, ezért ennek a rétegnek a feladata a két világ közötti <strong>leképezés</strong> és megfeleltetés megvalósítása. A relációs adatbázisokban használt külső kulcsokat (<em>foreign key</em>) objektumorientált asszociációkra, kompozíciókra alakítjuk, valamint ha szükséges, <strong>konvertálást</strong> végzünk a különböző rendszerek által támogatott adattípusok között. Erről a feladatról a későbbeikben még részletesebben ejtünk szót.</p>
+<p>A külső rendszerekkel való kommunikáció, akár egy adatbázis-kezelő rendszerről, akár egy külső szolgáltatásról van szó, sajátos kezeléstechnikát igényel. Teljesítmény szempontjából nem mindegy, hogy a távoli kiszolgáló megszólítása, a kapcsolat felépítése mikor és milyen gyakran történik. Egyes kapcsolatfelvételi módok, mint például a HTTP (és alatta a TCP) kapcsolat felépítése tipikusan egyszerű és gyors; míg egy relációs adatbázis szerverhez történő csatlakozás hosszabb folyamat. Így az adatelérési réteg felel azért is, hogy megfelelő módon <strong>kezelje a kapcsolatokat</strong>, és ha lehetséges, újra használja a kapcsolatokat (<em>connection pooling</em>). Ezt a működést általában a jól megválasztott kliens könyvtárak automatikusan biztosítják is.</p>
+<p>Hasonlóan réteg specifikus feladat az adatok <strong>konkurens elérésének és módosításának</strong> kezelése. Ezzel részletesen foglalkozunk később. Egyelőre annyit érdemes megjegyezni erről, hogy a többrétegű alkalmazást tipikusan egyszerre több felhasználó használja (gondoljunk csak bele a Neptun rendszerbe, vagy egy webshop működésébe), így előfordulhat, hogy egyszerre többen <em>módosítanának</em> a rendszerben. Ennek szabályait, hogy milyen módosítások engedélyezettek, és mik nem, a konkurenciakezelés témakörében fogjuk tárgyalni.</p>
+<h3 id="uzleti-logikai-reteg">Üzleti logikai réteg<a class="headerlink" href="#uzleti-logikai-reteg" title="Permanent link">&para;</a></h3>
+<p>Az üzleti logikai réteg adja az alkalmazásunk lelkét. Az adattárolás, az adatelérés, és a megjelenítés is mind azért születik, hogy az üzleti logikai rétegben lefektetett funkcionalitásokat nyújtani tudjuk.</p>
+<p>Hogy pontosan milyen funkciókat nyújt ez a réteg, annak függvényében alakítjuk ki, hogy milyen alkalmazásról van szó. Ha a Neptun rendszert tervezzük, akkor vizsgajelentkezésről, tárgyfelvételről, tanulmányi időszakokról fog szólni a réteg; ha egy webshopot tervezünk, akkor termékek, keresés, értékelés, vásárlás lesz a középpontban.</p>
+<p>Általánosan ebben a rétegben</p>
+<ul>
+<li><strong>üzleti entitások</strong> (<em>business entities</em>),</li>
+<li><strong>üzleti komponensek</strong> (<em>business components</em>),</li>
+<li>és <strong>üzleti folyamatok</strong> (<em>business workflows</em>) találhatóak.</li>
+</ul>
+<p>Az entitások hordozzák a kezelt információkat. A problématerület függvényében olyan entitásokat definiálunk, mint a termék és értékelés (egy webshopban), vagy a kurzus és a vizsga (a Neptunban).</p>
+<p>Az entitások manipulálásáért felelnek a komponensek. Ezek olyan alapszolgáltatásokat implementálnak, amelyek az alkalmazásunk által megvalósított bonyolult funkciók alap építőköveit adják. Ilyen funkció lehet például a termékek listázása, vagy a név alapján történő keresés.</p>
+<p>Ezen alap funkciókból építjük fel a folyamatokat. A folyamatok a végfelhasználó számára fontos műveleteket fogják össze. Egy folyamat általában több komponens több műveletét használja. Ilyen folyamat például a rendelés véglegesítése (<em>checkout</em>) egy webshopban, amely ellenőrzi a termékeket, kiállítja a számlát, elküldi a megerősítést emailben, stb.</p>
+<h4 id="szolgaltatasi-interfesz-alreteg">Szolgáltatási interfész alréteg<a class="headerlink" href="#szolgaltatasi-interfesz-alreteg" title="Permanent link">&para;</a></h4>
+<p>A fenti ábrán megkülönböztetésre került a <em>services</em> alréteg. Ezt az üzleti logikai réteg részének tekintjük, annak legfelső alrétege. Feladata a külső hívó számára interfészt biztosítani az üzleti logikai réteg funkcionalitásának eléréséhez.</p>
+<p>Minden eddig tárgyalt réteg ugyanígy biztosít egy interfészt a felsőbb rétegek számára. Az üzleti logikai réteg azért speciális, és azért szokás ezt a szolgáltatási interfész alréteget külön megemlíteni, mert manapság gyakran nem is egyetlen ilyen interfészt publikálnak az alkalmazások. Gyakori, hogy egy alkalmazás több megjelenítési réteggel is rendelkezik, gondolunk csak bele a Gmail esetébe: webalkalmazás, és sok féle mobil platform. Mindegyik felhasználói felület hasonló, de nem teljesen azonos szolgáltatást nyújt, így gyakran elkülönülnek a különböző megjelenítési rétegek számára nyújtott interfészek.</p>
+<p>További gyakori eset, hogy az alkalmazásunk nem csak egy saját megjelenítési réteggel rendelkezik, hanem un. API-t (<em>application programming interface</em>) is elérhetővé tesz. Az API harmadik fél számára teszi elérhetővé az alkalmazásunk funkcióit. A saját felhasználói felületünk, és a harmadik fél számára nyújtott API funkcionalitása és elérése gyakran eltérő, és külön technológiát, így külön szolgáltatási interfészeket is igényel.</p>
+<div class="admonition note">
+<p>Az API publikálással válhat a mi alkalmazásunk maga is külső adatforrássá más alkalmazások számára.</p>
+</div>
+<p>Az üzleti logikai funkcióink publikálásával részletesebben foglalkozunk a félév során. Meg fogjuk ismerni a <em>web services</em> és a <em>REST</em> modelleket.</p>
+<h3 id="megjelenitesi-reteg">Megjelenítési réteg<a class="headerlink" href="#megjelenitesi-reteg" title="Permanent link">&para;</a></h3>
+<p>A megjelenítési réteg (<em>presentation layer</em>, <em>UI</em>, vagy felhasználói felület) feladata az adatok felhasználóbarát megjelenítése, és a lehetséges műveletek kezdeményezésének lehetővé tétele.</p>
+<p>Az adatok prezentálása olyan módon kell történjen, ahogy az a felhasználó számára hasznos. Például egy listás megjelenítés esetén gyakran a felhasználói felület feladata a rendezés, csoportosítás, kereshetőség.</p>
+<div class="admonition info">
+<p class="admonition-title">Rendezés és keresés</p>
+<p>A választott technológia függvényében a rendezés, keresés tipikusan igénybe veszi a többi réteget is. Nagy mennyiségű adat, több száz, vagy több ezer rekordot nem célszerű egyben eljuttatni a megjelenítési réteg számára, hogy ott legyen a keresés megvalósítva. Ez egyrészt terheli a hálózatot is, másrészt a UI technológiák limitációi miatt nem hatékony sok adatot itt memóriában tartani. Viszont, ha nem nagy mennyiségű adatról van szó, sokkal elegánsabb a megjelenítési rétegre bízni mindezt, mert sokkal gyorsabb lesz a visszajelzés a felhasználónak (hiszen ha mindezt a UI végzi, nem szükséges minden alkalommal a háttérrendszerhez fordulni).</p>
+</div>
+<p>Az adatok megjelenítése során a UI felelős olyan egyszerű transzformációkért is, mint például a dátum felhasználóbarát megjelenítése. A korábban említett példa alapján tehát egy dátumot a felhasználói felület feladata a "15:23", 3:23 AM", vagy akár a "15 perccel ezelőtt" szöveges megjelenítésre átalakítani.</p>
+<p>Továbbá, a felhasználói felület feladata az un. lokalizáció is. A lokalizáció a UI felhasználó által választott nyelven való megjelenítése, amely kiterjed a statikus szövegekre, feliratokra is, de egyben a kultúra függő adat transzformációkra is (mint a dátumok, számok, pénznemek megjelenítése is).</p>
+<p>A felhasználói felület felel még a végfelhasználó interakcióinak kezeléséért. Ha egy gombra kattintottak, akkor a UI kezdeményezi a kért funkció végrehajtását, és tájékoztatja a végeredményről a felhasználót.</p>
+<p>Amikor a felhasználó adatot visz be a rendszerbe, azt is a felhasználói felület biztosítja, és ez a réteg felel az adatok validációjáért (ellenőrzéséért) is. A validáció során egyszerűbb ellenőrzések hajthatók végre, mint például, hogy a szükséges mezők nem maradhatnak üresen, az email címben kell legyen @ karakter, a megadott percnek 0 és 59 közé kell esnie, stb.</p>
+<div class="admonition important">
+<p class="admonition-title">Validáció</p>
+<p>A validációt nem elég, ha kizárólag a felhasználói felület végzi. A választott technológiától függően a UI könnyen "kikerülhető", és lehetőség van az adatokat közvetlenül a háttérrendszernek küldeni. Ilyen esetben, ha a validációt csak a felhasználó felület valósítaná meg, érvénytelen adat kerülhetne a rendszerbe. Ezért a validációkat tipikusan megismétli a háttérrendszer is. Ennek ellenére praktikus ezeket a felhasználói felületen is elvégezni, mert azonnali visszajelzést tudunk így adni a felhasználónak.</p>
+</div>
+<p>A réteggel ennél részleteseben nem foglalkozunk ezen tárgy keretei között.</p>
+<h3 id="retegfuggetlen-szolgaltatasok">Rétegfüggetlen szolgáltatások<a class="headerlink" href="#retegfuggetlen-szolgaltatasok" title="Permanent link">&para;</a></h3>
+<p>Rétegfüggetlen szolgáltatások (<em>crosscutting concerns</em>) néven szoktuk hivatkozni az alkalmazás olyan szolgáltatásait, amelyek nem csak egy rétegben jelennek meg. Az ilyen szolgáltatások implementálásakor igyekszünk  elérni, hogy bár több rétegben is jelen van az adott szolgáltatás, mégis, egy közös implementációt, kódot, megoldást használjunk.</p>
+<h4 id="biztonsag">Biztonság<a class="headerlink" href="#biztonsag" title="Permanent link">&para;</a></h4>
+<p>A biztonsági szolgáltatások lefedik</p>
+<ul>
+<li>a felhasználók beléptetését (<em>authentikáció</em>)</li>
+<li>és a hozzáférés ellenőrzését (<em>authorizáció</em>),</li>
+<li>valamint a nyomkövetést és auditálást.</li>
+</ul>
+<p>Az authentikáció a "ki vagy" kérdést, míg az authorizáció a "mihez van jogod" kérdést kezeli.</p>
+<p>Az authentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.</p>
+<p>Bejelentkezésre többféle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).</p>
+<p>A hozzáférés szabályozás megszabja, hogy milyen funkciókhoz ki férhet hozzá. Ennek ellenőrzése történhet a felhasználói felületen is (ne is jelenjen meg a a nem elérhető funkció), de ahogy a bemenetek validációjánál is említésre került, az üzleti logikának meg kell ismételnie az ellenőrzést. Fontos, hogy ez a két validáció azonos szabályrendszer szerint dolgozzon.</p>
+<p>A nyomkövetés, auditálás feladata, hogy visszakereshetővé váljon a rendszerben, hogy ki, mikor, mit csinált. Célja, hogy egy ember ne tudja "eltüntetni a nyomokat". Ez a fajta naplózás több ponton is megtörténhet, tipikusan az üzleti logikában és az adatbázisban.</p>
+<h4 id="uzemeltetes">Üzemeltetés<a class="headerlink" href="#uzemeltetes" title="Permanent link">&para;</a></h4>
+<p>Az üzemeltetési szempontok figyelembe vétele elősegíti, hogy a szoftver fejlesztés utáni életciklusa során is kielégítse a felhasználók igényeit. Ide olyan feladatok megoldása tartozik, mint az egységes kivételkezelés, a megfelelő naplózás és monitorozás, valamint a konfigurálás és konfiguráció-kezelés.</p>
+<p>A kivételkezelés során egy olyan egységes módszert kell kialakítani, ami az alkalmazás futása során keletkező minden kivételt megfog. Mindenképpen rögzíteni kell a hibákat (pl. naplózással), és emellett a felhasználót is valamilyen módon tájékoztatni a hiba jellegéről (pl. hogy próbálja-e újra a műveletet, vagy várjon a javításig). Az egységes kivételkezelés azért nagyon fontos, mert az architektúra alsóbb rétegeiben előforduló hibákat az üzemeltetés és fejlesztés nem látja, csak ha azok megfelelően kezelve és rögzítve lesznek.</p>
+<p>A naplózás és monitorozás az üzemszerű és nem rendeltetésszerű viselkedés követéséhez is fontos. A naplózás általában szöveges formátumú rendszer üzenetek rögzítését jelenti. A monitorozás a rendszer állapotát meghatározott jellemzők (un. <em>KPI</em>-k, <em>key performance indicator</em>) követését jelenti. Ilyen KPI lehet a memória fogyasztás, a hibás kérések száma, a kiszolgált felhasználók száma, stb.</p>
+<p>A konfiguráció kezelés pedig arról szól, hogy az alkalmazás működését befolyásoló beállításokat hol tároljuk, és hogyan kötjük be őket az alkalmazásba. Konfigurációnak minősülnek kiszolgálók elérési útvonalai (pl. az adatbázis szerver címe), de akár a megjelenítési rétegben használt háttérszín is. Alapelv, hogy a beállításokat minél kevésbé "égessük be" a forráskódba, hogy alkalmazkodni tudjunk az üzemeltetés során előforduló különböző környezetekhez. A konfiguráció történhet tipikusan konfigurációs fájlokkal, vagy kifejezetten konfiguráció-menedzsment célra szolgáló eszközökkel is.</p>
+<p>Az üzemeltetési aspektusokkal nem fogunk részletesebben foglalkozni. Tipikusan a választott platform képességeit és lehetőségeit használjuk a megvalósításhoz.</p>
+<h4 id="kommunikacio">Kommunikáció<a class="headerlink" href="#kommunikacio" title="Permanent link">&para;</a></h4>
+<p>A kommunikációs szolgáltatás az egyes rétegek közötti kommunikációs forma megválasztásáért és kezeléséért felel. Ennek helyes megválasztása nem csak architekturális kérdés, mert nagyban függ a telepítés mikéntjétől is. Amennyiben az egyes rétegek eltérő kiszolgálón kerülnek elhelyezésre, hálózati alapú kommunikációra van szükség; míg azonos kiszolgálón üzemeltetett komponensek között egyszerűbb megoldásokat használhatunk.</p>
+<p>Manapság szinte minden alkalmazásban valahol megjelenik a hálózati kommunikáció: tipikusan az adatbázis és adatforrások irányába, illetve a megjelenítési réteg és a szolgáltatási interfészek között. Itt tipikusan HTTP vagy arra épülő kommunikációt szoktak alkalmazni, bár nagyobb teljesítményt igénylő alkalmazások esetén érdemes lehet TCP alapú bináris kommunikációt választani. Nagy rendszerek esetén, ahol az egyes rétegek maguk is elosztva, több kiszolgálón találhatóak, pedig gyakori az üzenetsorok (<em>message queue</em>) használata.</p>
+<p>A kommunikáció részének tekintjük általában a titkosítást is. Amennyiben az egyes rétegek külön kiszolgálókon futnak, fontos, hogy megfelelően titkosítsuk a kommunikációt. A felhasználói felület és a szolgáltatási interfészek között ez általában HTTPS/TLS kommunikációt jelent.</p>
+<h2 id="backend-es-frontend">Backend és frontend<a class="headerlink" href="#backend-es-frontend" title="Permanent link">&para;</a></h2>
+<p>Ha az alkalmazásra egy kicsit más szemszögből nézünk, akkor meg szoktuk különböztetni a <strong>backend</strong> és a <strong>frontend</strong> részt. A frontend nagyrészt a felhasználói felület, vagyis a prezentációs réteg, ill. annak változatos megjelenési formái (böngészőben futó webalkalmazás UI, natív mobil alkalmazás, vastag kliens UI, stb). A felhasználó ezzel lép kapcsolatba. A backend pedig a "háttérben" futó rendszer, a szolgáltatási API-k, az üzleti logikai réteg, az adatelérés, adatbázisok.</p>
+<p>A frontend nem csak felhasználó számítógépén jelenik meg. Frontend technológia függvényében gyakran előfordul, hogy a felhasználói felület egy részét a backend készíti el. Ezt szokták <em>szerver oldali renderelésnek</em> hívni.</p>
+<p>Ha összefoglalóan akarjuk hivatkozni, akkor a tárgy keretében a backend technológiákkal foglalkozunk.</p>
+<hr />
+<h2 id="ellenorzo-kerdesek">Ellenőrző kérdések<a class="headerlink" href="#ellenorzo-kerdesek" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Mik a háromrétegű architektúra rétegei? Mik a felelősségeik?</li>
+<li>Ismertesse a rétegfüggetlen szolgáltatásokat!</li>
+<li>Döntse el, hogy igaz vagy hamis az alábbi állítás:<ul>
+<li>Az adatbevitel validációjáért csak a megjelenítési réteg felel.</li>
+<li>Az architektúra szempontjából helytelen, ha SQL parancsok kerülnek az üzleti logikai rétegbe.</li>
+<li>A háromrétegű architektúra rétegei mindig külön kiszolgálókon futnak.</li>
+<li>A háromrétegű architektúra akkor lesz többrétegű, pl. négyrétegű, ha teljesítmény okokból az üzleti logikai réteget más kiszolgálóra visszük, mint az adatelérési réteget.</li>
+<li>A réteges felépítés garantálja, hogy a rétegek által biztosított szolgáltatásokat tetszőlegesen megváltoztathatjuk, ez nem érinti a többi réteget.</li>
+<li>A frontend és a megjelenítési réteg egy és ugyanaz.</li>
+<li>Kivételkezelésre csak az üzleti logikai rétegben van szükség.</li>
+</ul>
+</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+  <div class="md-footer-nav">
+    <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+
+      <!-- Link to previous page -->
+      
+      <a href="../../db/mongodb/" title="MongoDB használata"
+        class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </div>
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Előző
+            </span>
+            MongoDB használata
+          </div>
+        </div>
+      </a>
+      
+
+      <!-- Link to next page -->
+      
+      <a href="../transactions/" title="Tranzakciókezelés adatbázisokban"
+        class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Következő
+            </span>
+            Tranzakciókezelés adatbázisokban
+          </div>
+        </div>
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+        </div>
+      </a>
+      
+    </nav>
+  </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+        <div class="md-footer-copyright__highlight">
+          Copyright &copy; BME AUT
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1385 @@
+
+
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Dudás Ákos">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>MongoDB - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ef5350">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mongodb" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              MongoDB
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Adatvezérelt rendszerek
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../db/" class="md-tabs__link">
+          Adatbázis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../jegyzet/architektura/" class="md-tabs__link">
+          Jegyzetek
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../transactions/" class="md-tabs__link md-tabs__link--active">
+          Gyakorlatok
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../hazi/" class="md-tabs__link">
+          Házi feladatok
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Adatvezérelt rendszerek" class="md-nav__link">
+      Adatvezérelt rendszerek
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Adatbázis
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Adatbázis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/" title="Minta adatbázis sémája" class="md-nav__link">
+      Minta adatbázis sémája
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mssql/" title="Microsoft SQL Server használata" class="md-nav__link">
+      Microsoft SQL Server használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../db/mongodb/" title="MongoDB használata" class="md-nav__link">
+      MongoDB használata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" title="Minta adatbázis: mssql.sql" class="md-nav__link">
+      Minta adatbázis: mssql.sql
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" title="Minta adatbázis: mongo.js" class="md-nav__link">
+      Minta adatbázis: mongo.js
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Jegyzetek
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Jegyzetek
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/architektura/" title="Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra" class="md-nav__link">
+      Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/transactions/" title="Tranzakciókezelés adatbázisokban" class="md-nav__link">
+      Tranzakciókezelés adatbázisokban
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mssql/sql/" title="SQL nyelv, MSSQL platformfüggő SQL utasítások" class="md-nav__link">
+      SQL nyelv, MSSQL platformfüggő SQL utasítások
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mssql/server-side-programming/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/linq/" title="LINQ: Language Integrated Query" class="md-nav__link">
+      LINQ: Language Integrated Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/mongodb/" title="MongoDB műveletek és a MongoDB .NET Driver" class="md-nav__link">
+      MongoDB műveletek és a MongoDB .NET Driver
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../jegyzet/di/" title="Függőséginjektálás ASP.NET Core környezetben" class="md-nav__link">
+      Függőséginjektálás ASP.NET Core környezetben
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/rest-webapi-sample" title="REST és WebAPI demó alkalmazás (GitHub)" class="md-nav__link">
+      REST és WebAPI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/todoapi-di-sample" title="ASP.NET Core DI demó alkalmazás (GitHub)" class="md-nav__link">
+      ASP.NET Core DI demó alkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" title="Minta többrétegű webalkalmazás (GitHub)" class="md-nav__link">
+      Minta többrétegű webalkalmazás (GitHub)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Gyakorlatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Gyakorlatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Tranzakciókezelés" class="md-nav__link">
+      Tranzakciókezelés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mssql/" title="Microsoft SQL Server programozása" class="md-nav__link">
+      Microsoft SQL Server programozása
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ef/" title="Entity Framework" class="md-nav__link">
+      Entity Framework
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        MongoDB
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="MongoDB" class="md-nav__link md-nav__link--active">
+      MongoDB
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elofeltetelek" class="md-nav__link">
+    Előfeltételek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlat-menete" class="md-nav__link">
+    Gyakorlat menete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-0-adatbazis-letrehozasa-projekt-megnyitasa" class="md-nav__link">
+    Feladat 0: Adatbázis létrehozása, projekt megnyitása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-1-lekerdezesek" class="md-nav__link">
+    Feladat 1: Lekérdezések
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-2-entitasosztaly-letrehozasa" class="md-nav__link">
+    Feladat 2: Entitásosztály létrehozása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-adatmodositasok" class="md-nav__link">
+    Feladat 3: Adatmódosítások
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jpa/" title="JPA & Spring Data" class="md-nav__link">
+      JPA & Spring Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rest/" title="REST API & ASP.NET Web API" class="md-nav__link">
+      REST API & ASP.NET Web API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Házi feladatok
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Házi feladatok
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/" title="Szorgalmi házi feladatok" class="md-nav__link">
+      Szorgalmi házi feladatok
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mssql/" title="Feladat: MSSQL szerveroldali programozás" class="md-nav__link">
+      Feladat: MSSQL szerveroldali programozás
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/adonet/" title="Feladat: ADO.NET adatelérés" class="md-nav__link">
+      Feladat: ADO.NET adatelérés
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/ef/" title="Feladat: Entity Framework" class="md-nav__link">
+      Feladat: Entity Framework
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/mongodb/" title="Feladat: MongoDB" class="md-nav__link">
+      Feladat: MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/rest/" title="Feladat: REST API Web API technológiával" class="md-nav__link">
+      Feladat: REST API Web API technológiával
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub/" title="Feladatok beadása (GitHub)" class="md-nav__link">
+      Feladatok beadása (GitHub)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/GitHub-Actions/" title="GitHub Actions ismertető" class="md-nav__link">
+      GitHub Actions ismertető
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hazi/VisualStudio/" title="Visual Studio telepítése" class="md-nav__link">
+      Visual Studio telepítése
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elofeltetelek" class="md-nav__link">
+    Előfeltételek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlat-menete" class="md-nav__link">
+    Gyakorlat menete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-0-adatbazis-letrehozasa-projekt-megnyitasa" class="md-nav__link">
+    Feladat 0: Adatbázis létrehozása, projekt megnyitása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-1-lekerdezesek" class="md-nav__link">
+    Feladat 1: Lekérdezések
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-2-entitasosztaly-letrehozasa" class="md-nav__link">
+    Feladat 2: Entitásosztály létrehozása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-adatmodositasok" class="md-nav__link">
+    Feladat 3: Adatmódosítások
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/gyakorlat/mongodb/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">&para;</a></h1>
+<p>A gyakorlat célja, hogy a hallgatók megismerjék a <em>MongoDB</em> általános célú dokumentumkezelő adatbázis alapvető működését, valamint a <em>MongoDB C#/.NET Driver</em> használatát.</p>
+<h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
+<p>A labor elvégzéséhez szükséges eszközök:</p>
+<ul>
+<li>Microsoft Visual Studio 2019 (<em>nem</em> VS Code)</li>
+<li>MongoDB Community Edition</li>
+<li>Robo 3T</li>
+<li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">mongo.js</a></li>
+<li>Kiinduló alkalmazás kódja: <a href="https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo">https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo</a></li>
+</ul>
+<p>Amit érdemes átnézned:</p>
+<ul>
+<li>C# nyelv és Linq kifejezések</li>
+<li>MongoDB előadás</li>
+<li><a href="../../db/mongodb/">MongoDB használata segédlet</a></li>
+</ul>
+<h2 id="gyakorlat-menete">Gyakorlat menete<a class="headerlink" href="#gyakorlat-menete" title="Permanent link">&para;</a></h2>
+<p>A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen.</p>
+<div class="admonition info">
+<p>Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!</p>
+</div>
+<h2 id="feladat-0-adatbazis-letrehozasa-projekt-megnyitasa">Feladat 0: Adatbázis létrehozása, projekt megnyitása<a class="headerlink" href="#feladat-0-adatbazis-letrehozasa-projekt-megnyitasa" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Hozzunk létre egy mappát, ahol dolgozni fogunk, például <code>c:\work\NEPTUN</code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Munkakönyvtár</p>
+<p>A továbbiakban kezeljük ezt <strong>munkakönyvtárként</strong>, tehát minden új mappát ebben hozzunk létre.</p>
+</div>
+</li>
+<li>
+<p>Indítsuk el a MongoDB szervert.</p>
+<ul>
+<li>Hozzunk létre egy mappát az adatbázisfájloknak, például <code>db</code> néven. (Ezt a mappát az előbb létrehozott munkakönyvtárban hozzuk létre.)</li>
+<li>
+<p>Nyissunk egy <em>command prompt</em>-ot és indítsuk el a MongoDB szervert: <code>mongod.exe --dbpath="c:\work\&lt;NEPTUN&gt;\db"</code></p>
+<div class="admonition info">
+<p><em>Command prompt</em> például a start menüben megkereshető a "cmd" kulcsszóval.</p>
+<p>A laborokban a MongoDB a <code>c:\tools\mongodb\bin</code> könyvtárban van. Navigáljunk el ide a <code>cd</code> utasítással.</p>
+</div>
+</li>
+<li>
+<p>Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Hozzuk létre az adatbázis.</p>
+<ul>
+<li>Töltsük le az adatbázislétrehozó scriptet és mentsük el <code>mongo.js</code> néven a munkakönyvtárunkba.</li>
+<li>
+<p>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot és hozzuk létre az adatbázist: <code>mongo.exe localhost:27017/datadriven c:\work\&lt;NEPTUN&gt;\mongo.js</code></p>
+<div class="admonition note">
+<p>Ez az exe most nem mongo&#8203;<strong>d</strong>, csak mongo. Ez egy kliensprogram, amivel a szerverhez csatlakozva parancsokat futtathatunk.</p>
+<p>A laborokban ezt az exe-t is a <code>c:\tools\mongodb\bin</code> könyvtárban találjuk.</p>
+<p>Ügyeljünk a connection stringre, amiben a szerver elérése után az adatbázis neve is benne van!</p>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>Ellenőrizzük, hogy létrejött az adatbázis Robo3T segítségével.</p>
+<ul>
+<li>
+<p>Indítsuk el a Robo3T programot (laborokban a <code>c:\tools\robo3t</code> könyvtárban) és csatlakozzunk a MongoDB szerverhez.</p>
+<p><img alt="Robo3T Connection Settings" src="images/robo3t_connection.png" /></p>
+</li>
+<li>
+<p>Ellenőrizzük, hogy létrejöttek a megfelelő <em>Collection</em>-ök.</p>
+<p><img alt="Robo3T Collections" src="images/robo3t_collections.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Töltsük le a méréshez tartozó projekt vázat!</p>
+<ul>
+<li>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot a munkakönyvtárunkba.</li>
+<li>Adjuk ki a következő parancsot: <code>git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git</code></li>
+</ul>
+</li>
+<li>
+<p>Nyissuk meg a forrásban az <em>sln</em> fájlt Visual Studio-val.</p>
+</li>
+<li>
+<p>Vizsgáljuk meg a projektet.</p>
+<ul>
+<li>Ez egy .NET Core konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az <code>Entities</code> mappában találhatók az entitás osztályok, a megoldást pedig a <code>Program.cs</code> fájlba írjuk.</li>
+<li>Nézzük meg a <code>Program.cs</code> tartalmát. Itt már megtalálható a MongoDB kommunikációhoz szükséges inicializáció.<ul>
+<li>Az <code>IMongoClient</code> interfész tartalmazza az adatbázissal való kommunikációhoz szükséges metódusokat. Ezeket nem fogjuk közvetlenül használni.</li>
+<li>Az <code>IMongoDatabase</code> interfész reprezentálja a <code>datadriven</code> adatbázist a MongoDB-n belül.</li>
+<li>A különböző <code>IMongoCollection&lt;TEntity&gt;</code> interfészek pedig a különböző kollekciókat reprezentálják. Ezeket használva tudunk lekérdezéseket és módosító utasításokat kiadni.</li>
+</ul>
+</li>
+<li>Az adatbázisunk entitásainak C# osztályra való leképezése az <code>Entities</code> mappában található. Különbség itt az Entity Frameworkhöz képest, hogy itt ezt nekünk kézzel kell elkészítenünk.<ul>
+<li>Az entitások egy részének a leképezése már megtalálható itt.</li>
+<li>A labor során még visszatérünk ide, és fogunk magunk is készíteni entitás osztályt.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="feladat-1-lekerdezesek">Feladat 1: Lekérdezések<a class="headerlink" href="#feladat-1-lekerdezesek" title="Permanent link">&para;</a></h2>
+<p>A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a <em>MongoDB C#/.NET Driver</em> használatával. Írd ki konzolra az eredményeket.</p>
+<ol>
+<li>
+<p>Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!</p>
+</li>
+<li>
+<p>Írj olyan lekérdezést, mely kilistázza azon megrendeléseket, melyekhez legalább két megrendeléstétel tartozik!</p>
+</li>
+<li>
+<p>Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30000 Ft! Az eredményhalmaz kiírásakor a vevő ID-t követően soronként szerepeljenek az egyes tételek (Termék ID, mennyiség, nettó ár).</p>
+</li>
+<li>
+<p>Listázd ki a legdrágább termék adatait!</p>
+</li>
+<li>
+<p>Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!</p>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><ol>
+<li>
+<p>Ehhez a feladathoz csupán a termékeket reprezentáló gyűjteményben kell egy egyszerű lekérdezést kiadnunk. A szűrési feltételt kétféleképpen is megfogalmazhatjuk: lambda kifejezés segítségével, és kézzel összerakva is.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Első feladat *****&quot;</span><span class="p">);</span>
+
+<span class="c1">//2.1 első megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.1 1. megoldás:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qProductAndStock1</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span> <span class="p">&gt;</span> <span class="m">30</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductAndStock1</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={p.Name}\tStock={p.Stock}&quot;</span><span class="p">);</span>
+
+<span class="c1">// 2.1 második megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.1 2. megoldás:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qProductAndStock2</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gt</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="m">30</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductAndStock2</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={p.Name}\tStock={p.Stock}&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Ez a feladat nagyon hasonló ez előzőhöz. Figyeljük meg, hogy az SQL-es adatbázis séma esetén ehhez már <code>JOIN</code>-t (<code>Navigation Property</code>) kellett alkalmazni. Ezzel szemben itt minden szükséges adat a megrendelés kollekcióban található.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 2.2 első megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.2 1. megoldás:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qOrderItems1</span> <span class="p">=</span> <span class="n">ordersCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;=</span> <span class="m">2</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderItems1</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tCustomerID={o.CustomerID}\tOrderID={o.ID}\tItems={o.OrderItems.Length}&quot;</span><span class="p">);</span>
+
+<span class="c1">//2.2 második megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.2 2. megoldás:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qOrderItems2</span> <span class="p">=</span> <span class="n">ordersCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Order</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">SizeGte</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderItems2</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tCustomerID={o.CustomerID}\tOrderID={o.ID}\tItems={o.OrderItems.Length}&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Ehhez a feladathoz már nem elegendő számunkra a sima lekérdezés kifejezőereje, így az aggregációs pipeline-t kell alkalmaznunk. Figyeljük meg azonban, hogy a séma felépítése miatt továbbra is minden szükséges adat rendelkezésre áll egyetlen gyűjteményben.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//2.3</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.3:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qOrderTotal</span> <span class="p">=</span> <span class="n">ordersCollection</span>
+    <span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">order</span> <span class="p">=&gt;</span> <span class="k">new</span>
+    <span class="p">{</span>
+        <span class="n">CustomerID</span> <span class="p">=</span> <span class="n">order</span><span class="p">.</span><span class="n">CustomerID</span><span class="p">,</span>
+        <span class="n">OrderItems</span> <span class="p">=</span> <span class="n">order</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">,</span>
+        <span class="n">Total</span> <span class="p">=</span> <span class="n">order</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span> <span class="p">*</span> <span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">order</span> <span class="p">=&gt;</span> <span class="n">order</span><span class="p">.</span><span class="n">Total</span> <span class="p">&gt;</span> <span class="m">30000</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderTotal</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tCustomerID={o.CustomerID}&quot;</span><span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">oi</span> <span class="k">in</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\t\tProductID={oi.ProductID}\tPrice={oi.Price}\tAmount={oi.Amount}&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>A legdrágább termékek lekérdezéséhez két lekérdezést kell kiadnunk: először lekérdezzük a legmagasabb árat, utána pedig lekérdezzük azokat a termékeket, melyeknek a nettóára megegyezik ezzel az értékkel.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//2.4</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.4:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">maxPrice</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">SortByDescending</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Limit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Single</span><span class="p">();</span>
+
+<span class="kt">var</span> <span class="n">qProductMax</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">==</span> <span class="n">maxPrice</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">qProductMax</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={t.Name}\tPrice={t.Price}&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Ez a feladat azért nehéz a jelenlegi adatbázissémánk mellett, mert itt már nem igaz az, hogy egyetlen kollekcióban rendelkezésre áll minden adat. Szükségünk van ugyanis a termék kollekcióból a termék nevére és raktárkészletére, a megrendelések kollekcióból pedig a termékhez tartozó megrendelések számára.</p>
+<p>Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//2.5</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.5:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">qOrders</span> <span class="p">=</span> <span class="n">ordersCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="kt">var</span> <span class="n">productOrders</span> <span class="p">=</span> <span class="n">qOrders</span>
+    <span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span> <span class="c1">// Egyetlen listába gyűjti a tételeket</span>
+    <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span> <span class="p">&gt;=</span> <span class="m">2</span><span class="p">);</span>
+
+<span class="kt">var</span> <span class="n">qProducts</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="kt">var</span> <span class="n">productLookup</span> <span class="p">=</span> <span class="n">qProducts</span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">productOrders</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">product</span> <span class="p">=</span> <span class="n">productLookup</span><span class="p">.</span><span class="n">GetValueOrDefault</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={product?.Name}\tStock={product?.Stock}\tOrders={p.Count()}&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregácós pipeline-jának használatával a fenti módszerhes hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)</p>
+</li>
+</ol>
+</details>
+<h2 id="feladat-2-entitasosztaly-letrehozasa">Feladat 2: Entitásosztály létrehozása<a class="headerlink" href="#feladat-2-entitasosztaly-letrehozasa" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Vizsgáld meg a <code>Product</code> és a <code>VAT</code> entitásosztályokat. Miért van a <code>Product</code> entitásban <code>[BsonId]</code>-val ellátott mező, és miért nincs az <code>VAT</code> osztályban?</p>
+</li>
+<li>
+<p>Hozz létre entitásosztályt a <code>Category</code> entitásnak, és vedd fel hozzá a megfelelő <code>IMongoCollection&lt;Category&gt;</code> mezőt.</p>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><ol>
+<li>
+<p>A <code>Product</code> osztály a <code>products</code> gyűjteményt reprezentálja az adatbázisban, ezért tartozik hozzá egyedi <code>ObjectID</code> ami alapján hivatkozni tudunk rá az adatbázis felé. Ezzel szemben az <code>VAT</code> osztály a <code>Product</code> egy beágyazott objektuma, önmagában nem jelenik meg gyűjteményként. Ezért nem tartozik hozzá <code>ObjectID</code> érték.</p>
+</li>
+<li>
+<p>Hozzunk létre új POCO osztályt <code>Category</code> néven.</p>
+<p>Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a <code>categories</code> kollekcióban lévő dokumentumokban.</p>
+<p><img alt="Kategódia dokumentumok" src="images/categories.png" /></p>
+<p>Ez alapján létre tudjuk hozni a <code>Category</code> osztályt an <code>Entities</code> mappában.</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">MongoDB.Bson</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">MongoDB.Bson.Serialization.Attributes</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">BME.DataDriven.Mongo.Entitites</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Category</span>
+    <span class="p">{</span>
+<span class="na">        [BsonId]</span>
+        <span class="k">public</span> <span class="n">ObjectId</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">ObjectId</span><span class="p">?</span> <span class="n">ParentCategoryID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>A <code>Program.cs</code> fájlban vegyül fel az új kollekció interfészt.</p>
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="k">static</span> <span class="n">IMongoCollection</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;</span> <span class="n">categoriesCollection</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Az <code>initialize</code> metódusban pedig inicializáljuk is ezt a kollekciót.</p>
+<div class="highlight"><pre><span></span><code><span class="n">categoriesCollection</span> <span class="p">=</span> <span class="n">database</span><span class="p">.</span><span class="n">GetCollection</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="s">&quot;categories&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+</ol>
+</details>
+<h2 id="feladat-3-adatmodositasok">Feladat 3: Adatmódosítások<a class="headerlink" href="#feladat-3-adatmodositasok" title="Permanent link">&para;</a></h2>
+<p>Az <code>IMongoColection&lt;TEntity&gt;</code> interfész nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.</p>
+<ol>
+<li>
+<p>Írj olyan <em>MongoDB C#/.NET Driverre</em> épülő C# kódot, mely a "LEGO" kategóriájú termékek árát megemeli 10 százalékkal!</p>
+</li>
+<li>
+<p>Hozz létre egy új kategóriát a <em>Expensive toys</em> néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!</p>
+</li>
+<li>
+<p>Töröld ki az összes olyan kategóriát, amelyhez nem tartozik termék.</p>
+</li>
+</ol>
+<details class="example"><summary>Megoldás</summary><ol>
+<li>
+<p>Először lekérdezzük a megfelelő kategória ID-ját, majd az ehhez tartozó termékekre adunk ki módosító utasítást.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Harmadik feladat *****&quot;</span><span class="p">);</span>
+
+<span class="c1">//3.1</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.1:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">categoryLegoId</span> <span class="p">=</span> <span class="n">categoriesCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;LEGO&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Single</span><span class="p">();</span>
+
+<span class="kt">var</span> <span class="n">qProductLego</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span> <span class="p">==</span> <span class="n">categoryLegoId</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tMódosítás előtt:&quot;</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductLego</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\t\tName={p.Name}\tStock={p.Stock}\tÁr={p.Price}&quot;</span><span class="p">);</span>
+
+<span class="n">productsCollection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span>
+    <span class="n">filter</span><span class="p">:</span> <span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span> <span class="p">==</span> <span class="n">categoryLegoId</span><span class="p">,</span>
+    <span class="n">update</span><span class="p">:</span> <span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Update</span><span class="p">.</span><span class="n">Mul</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="m">1.1</span><span class="p">));</span>
+
+<span class="n">qProductLego</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span> <span class="p">==</span> <span class="n">categoryLegoId</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tMódosítás után:&quot;</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductLego</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\t\tName={p.Name}\tStock={p.Stock}\tÁr={p.Price}&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>MongoDB segítségével tranzakció nélkül atomikusan el tudjuk végezni a következő feladatot: "Kérem a <code>Expensive toys</code> kategóriát. Amennyiben nem létezik, hozd létre." Ehhez a <code>FindOneAndUpdate</code> parancs használatára van szükségünk.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//3.2</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.2:&quot;</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">catExpensiveToys</span> <span class="p">=</span> <span class="n">categoriesCollection</span><span class="p">.</span><span class="n">FindOneAndUpdate</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span>
+    <span class="n">filter</span><span class="p">:</span> <span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Expensive toys&quot;</span><span class="p">,</span>
+    <span class="n">update</span><span class="p">:</span> <span class="n">Builders</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;.</span><span class="n">Update</span><span class="p">.</span><span class="n">SetOnInsert</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="s">&quot;Expensive toys&quot;</span><span class="p">),</span>
+    <span class="n">options</span><span class="p">:</span> <span class="k">new</span> <span class="n">FindOneAndUpdateOptions</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">,</span> <span class="n">Category</span><span class="p">&gt;</span> <span class="p">{</span> <span class="n">IsUpsert</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span> <span class="n">ReturnDocument</span> <span class="p">=</span> <span class="n">ReturnDocument</span><span class="p">.</span><span class="n">After</span> <span class="p">});</span>
+
+<span class="n">productsCollection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span>
+    <span class="n">filter</span><span class="p">:</span> <span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">&gt;</span> <span class="m">8000</span><span class="p">,</span>
+    <span class="n">update</span><span class="p">:</span> <span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Update</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">,</span> <span class="n">catExpensiveToys</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
+
+<span class="kt">var</span> <span class="n">qProdExpensive</span> <span class="p">=</span> <span class="n">productsCollection</span>
+    <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span> <span class="p">==</span> <span class="n">catExpensiveToys</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProdExpensive</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={p.Name}\tPrice={p.Price}&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Lekérdezzük azokat a kategóriákat amelyekhez tartozik termék, majd pedig töröljük azokat, amelyek nem tartoznak ezek közé.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//3.3</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.3:&quot;</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tMódosítás előtt {categoriesCollection.CountDocuments(_ =&gt; true)} db kategória&quot;</span><span class="p">);</span>
+
+<span class="kt">var</span> <span class="n">qProductCategory</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="p">&lt;</span><span class="n">ObjectId</span><span class="p">&gt;(</span>
+    <span class="n">productsCollection</span>
+        <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">ToList</span><span class="p">());</span>
+
+<span class="n">categoriesCollection</span><span class="p">.</span><span class="n">DeleteMany</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">qProductCategory</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tMódosítás után {categoriesCollection.CountDocuments(_ =&gt; true)} db kategória&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Vegyük észre, hogy ez az utasítás nem atomikus. Ha közben vettek fel új terméket, akkor lehet, hogy olyan kategóriát törlünk amihez azóta tartozik termék. Nem vettük figyelembe továbbá a kategóriák hierarchiáját sem.</p>
+</li>
+</ol>
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+  <div class="md-footer-nav">
+    <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+
+      <!-- Link to previous page -->
+      
+      <a href="../ef/" title="Entity Framework"
+        class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </div>
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Előző
+            </span>
+            Entity Framework
+          </div>
+        </div>
+      </a>
+      
+
+      <!-- Link to next page -->
+      
+      <a href="../jpa/" title="JPA & Spring Data"
+        class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        <div class="md-footer-nav__title">
+          <div class="md-ellipsis">
+            <span class="md-footer-nav__direction">
+              Következő
+            </span>
+            JPA & Spring Data
+          </div>
+        </div>
+        <div class="md-footer-nav__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+        </div>
+      </a>
+      
+    </nav>
+  </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+        <div class="md-footer-copyright__highlight">
+          Copyright &copy; BME AUT
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
