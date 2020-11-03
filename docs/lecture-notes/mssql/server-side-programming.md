@@ -301,33 +301,31 @@ Let us find the products of which there are only a few in stock, and if the last
 DECLARE @ProductName nvarchar(max)
 DECLARE @ProductID int
 DECLARE @LastOrder datetime
-DECLARE @Price float
 
 DECLARE products_cur CURSOR FAST_FORWARD READ_ONLY
 FOR
-  SELECT Id, Name, Price FROM Product
+  SELECT Id, Name FROM Product
   WHERE Stock < 3
 
 OPEN products_cur
-FETCH FROM products_cur INTO @ProductID, @ProductName, @Price
+FETCH FROM products_cur INTO @ProductID, @ProductName
 WHILE @@FETCH_STATUS = 0
 BEGIN
 
-  SELECT @LastOrder = MAX(Order.Date)
-  FROM Order JOIN OrderItem ON Order.Id = OrderItem.OrderId
+  SELECT @LastOrder = MAX([Order].Date)
+  FROM [Order] JOIN OrderItem ON [Order].Id = OrderItem.OrderId
   WHERE OrderItem.ProductID = @ProductId
-
-  PRINT 'Product ' + convert(nvarchar, @ProductID) + ' last order '
-    + convert(nvarchar, @LastOrder)
+  
+  PRINT CONCAT('ProductID: ', convert(nvarchar, @ProductID), ' Last order: ', ISNULL(convert(nvarchar, @LastOrder), 'No last order'))
 
   IF @LastOrder IS NULL OR @LastOrder < DATEADD(year, -1, GETDATE())
   BEGIN
     UPDATE Product
-    SET Price = @Price * 0.75
-    WHERE Id = @Product
+    SET Price = Price * 0.75
+    WHERE Id = @ProductID
   END
 
-  FETCH FROM products_cur INTO @ProductID, @ProductName, @Price
+  FETCH FROM products_cur INTO @ProductID, @ProductName
 END
 CLOSE products_cur
 DEALLOCATE products_cur
