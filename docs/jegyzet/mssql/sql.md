@@ -7,7 +7,7 @@ A példák a [minta adatbázison](../../db/index.md) futtathatóak.
 Melyik termék olcsóbb mint 2000 és kevesebb, mint 50 db van belőle?
 
 ```sql
-select Name, Price,Stock
+select Name, Price, Stock
 from Product
 where Price<2000 and Stock<50
 ```
@@ -34,7 +34,7 @@ from Customer c inner join CustomerSite s on c.MainCustomerSiteID=s.ID
 where City='Budapest'
 ```
 
-Listázza ki a M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
+Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
 
 ```sql
 select p.Name, oi.Amount
@@ -246,7 +246,7 @@ from Product p
 
 ## CTE (Common Table Expression)
 
-Motiváció: allkérdezésel nehezen áttekinthetővé válnak a lekérdezések
+Motiváció: allekérdezéssel nehezen áttekinthetővé válnak a lekérdezések
 
 ABC sorrendben melyik az első három termék
 
@@ -269,8 +269,8 @@ with q1
 as
 (
     select *
-           ,rank() over (order by Name) as r
-          ,dense_rank() over (order by Name) as dr
+            ,rank() over (order by Name) as r
+            ,dense_rank() over (order by Name) as dr
     from Product
 )
 select *
@@ -285,7 +285,7 @@ with q
 as
 (
     select *
-            , dense_rank() over (order by Price desc) dr
+            , dense_rank() over (order by Price desc) as dr
     from Product
 )
 select q.ID, q.Name, sum(Amount)
@@ -302,7 +302,7 @@ with q
 as
 (
     select *
-            , rank() over (order by Name) r
+            , rank() over (order by Name) as r
     from Product
 )
 select *

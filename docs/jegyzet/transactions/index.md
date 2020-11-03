@@ -153,7 +153,7 @@ Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont keze
 
 ## Tranzakciós határok
 
-A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez szükség van a tranzakció elejének és végének jelöléséhez. A tranzakció határok alapvetően platform függően jelölhetőek, de alapvetően érvényesek az alábbiak.
+A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez szükség van a tranzakció elejének és végének jelöléséhez. A tranzakció határok platform függően jelölhetőek, de alapvetően érvényesek az alábbiak.
 
 1. Minden művelet az adatbázisban tranzakcióban fut. Ha nem jelöli a fejlesztő a tranzakció használatát, akkor minden SQL utasítás automatikusan önmagában egy tranzakció.
 
