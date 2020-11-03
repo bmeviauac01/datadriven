@@ -988,7 +988,7 @@
 <p>A példák a <a href="../../../db/">minta adatbázison</a> futtathatóak.</p>
 <h2 id="egyszeru-lekerdezesek">Egyszerű lekérdezések<a class="headerlink" href="#egyszeru-lekerdezesek" title="Permanent link">&para;</a></h2>
 <p>Melyik termék olcsóbb mint 2000 és kevesebb, mint 50 db van belőle?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Price</span><span class="p">,</span><span class="n">Stock</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Price</span><span class="p">,</span> <span class="n">Stock</span>
 <span class="k">from</span> <span class="n">Product</span>
 <span class="k">where</span> <span class="n">Price</span><span class="o">&lt;</span><span class="mi">2000</span> <span class="k">and</span> <span class="n">Stock</span><span class="o">&lt;</span><span class="mi">50</span>
 </code></pre></div>
@@ -1010,7 +1010,7 @@
 <span class="k">where</span> <span class="n">City</span><span class="o">=</span><span class="s1">&#39;Budapest&#39;</span>
 </code></pre></div>
 
-<p>Listázza ki a M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit</p>
+<p>Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span>
 <span class="k">from</span> <span class="n">Product</span> <span class="n">p</span>
      <span class="k">left</span> <span class="k">outer</span> <span class="k">join</span> <span class="n">OrderItem</span> <span class="n">oi</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
@@ -1174,7 +1174,7 @@
 </code></pre></div>
 
 <h2 id="cte-common-table-expression">CTE (Common Table Expression)<a class="headerlink" href="#cte-common-table-expression" title="Permanent link">&para;</a></h2>
-<p>Motiváció: allkérdezésel nehezen áttekinthetővé válnak a lekérdezések</p>
+<p>Motiváció: allekérdezéssel nehezen áttekinthetővé válnak a lekérdezések</p>
 <p>ABC sorrendben melyik az első három termék</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span>
 <span class="k">from</span>
@@ -1192,8 +1192,8 @@
 <span class="k">as</span>
 <span class="p">(</span>
     <span class="k">select</span> <span class="o">*</span>
-           <span class="p">,</span><span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span>
-          <span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="k">as</span> <span class="n">dr</span>
+            <span class="p">,</span><span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span>
+            <span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="k">as</span> <span class="n">dr</span>
     <span class="k">from</span> <span class="n">Product</span>
 <span class="p">)</span>
 <span class="k">select</span> <span class="o">*</span>
@@ -1206,7 +1206,7 @@
 <span class="k">as</span>
 <span class="p">(</span>
     <span class="k">select</span> <span class="o">*</span>
-            <span class="p">,</span> <span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Price</span> <span class="k">desc</span><span class="p">)</span> <span class="n">dr</span>
+            <span class="p">,</span> <span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Price</span> <span class="k">desc</span><span class="p">)</span> <span class="k">as</span> <span class="n">dr</span>
     <span class="k">from</span> <span class="n">Product</span>
 <span class="p">)</span>
 <span class="k">select</span> <span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
@@ -1221,7 +1221,7 @@
 <span class="k">as</span>
 <span class="p">(</span>
     <span class="k">select</span> <span class="o">*</span>
-            <span class="p">,</span> <span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="n">r</span>
+            <span class="p">,</span> <span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">Name</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span>
     <span class="k">from</span> <span class="n">Product</span>
 <span class="p">)</span>
 <span class="k">select</span> <span class="o">*</span>
