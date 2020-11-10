@@ -104,8 +104,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         ```csharp
         Console.WriteLine("***** Első feladat *****");
 
-        //2.1 első megoldás
-        Console.WriteLine("\t2.1 1. megoldás:");
+        // 1.1 első megoldás
+        Console.WriteLine("\t1.1 1. megoldás:");
         var qProductAndStock1 = productsCollection
             .Find(p => p.Stock > 30)
             .ToList();
@@ -113,8 +113,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         foreach (var p in qProductAndStock1)
             Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
 
-        // 2.1 második megoldás
-        Console.WriteLine("\t2.1 2. megoldás:");
+        // 1.1 második megoldás
+        Console.WriteLine("\t1.1 2. megoldás:");
         var qProductAndStock2 = productsCollection
             .Find(Builders<Product>.Filter.Gt(p => p.Stock, 30))
             .ToList();
@@ -126,8 +126,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
     1. Ez a feladat nagyon hasonló ez előzőhöz. Figyeljük meg, hogy az SQL-es adatbázis séma esetén ehhez már `JOIN`-t (`Navigation Property`) kellett alkalmazni. Ezzel szemben itt minden szükséges adat a megrendelés kollekcióban található.
 
         ```csharp
-        // 2.2 első megoldás
-        Console.WriteLine("\t2.2 1. megoldás:");
+        // 1.2 első megoldás
+        Console.WriteLine("\t1.2 1. megoldás:");
         var qOrderItems1 = ordersCollection
             .Find(o => o.OrderItems.Length >= 2)
             .ToList();
@@ -135,8 +135,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         foreach (var o in qOrderItems1)
             Console.WriteLine($"\t\tCustomerID={o.CustomerID}\tOrderID={o.ID}\tItems={o.OrderItems.Length}");
 
-        //2.2 második megoldás
-        Console.WriteLine("\t2.2 2. megoldás:");
+        // 1.2 második megoldás
+        Console.WriteLine("\t1.2 2. megoldás:");
         var qOrderItems2 = ordersCollection
             .Find(Builders<Order>.Filter.SizeGte(o => o.OrderItems, 2))
             .ToList();
@@ -148,8 +148,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
     1. Ehhez a feladathoz már nem elegendő számunkra a sima lekérdezés kifejezőereje, így az aggregációs pipeline-t kell alkalmaznunk. Figyeljük meg azonban, hogy a séma felépítése miatt továbbra is minden szükséges adat rendelkezésre áll egyetlen gyűjteményben.
 
         ```csharp
-        //2.3
-        Console.WriteLine("\t2.3:");
+        // 1.3
+        Console.WriteLine("\t1.3:");
         var qOrderTotal = ordersCollection
             .Aggregate()
             .Project(order => new
@@ -172,8 +172,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
     1. A legdrágább termékek lekérdezéséhez két lekérdezést kell kiadnunk: először lekérdezzük a legmagasabb árat, utána pedig lekérdezzük azokat a termékeket, melyeknek a nettóára megegyezik ezzel az értékkel.
 
         ```csharp
-        //2.4
-        Console.WriteLine("\t2.4:");
+        // 1.4
+        Console.WriteLine("\t1.4:");
         var maxPrice = productsCollection
             .Find(_ => true)
             .SortByDescending(p => p.Price)
@@ -194,8 +194,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.
 
         ```csharp
-        //2.5
-        Console.WriteLine("\t2.5:");
+        // 1.5
+        Console.WriteLine("\t1.5:");
         var qOrders = ordersCollection
             .Find(_ => true)
             .ToList();
