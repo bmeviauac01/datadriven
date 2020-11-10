@@ -1040,8 +1040,8 @@
 <p>Ehhez a feladathoz csupán a termékeket reprezentáló gyűjteményben kell egy egyszerű lekérdezést kiadnunk. A szűrési feltételt kétféleképpen is megfogalmazhatjuk: lambda kifejezés segítségével, és kézzel összerakva is.</p>
 <div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;***** Első feladat *****&quot;</span><span class="p">);</span>
 
-<span class="c1">//2.1 első megoldás</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.1 1. megoldás:&quot;</span><span class="p">);</span>
+<span class="c1">// 1.1 első megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.1 1. megoldás:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qProductAndStock1</span> <span class="p">=</span> <span class="n">productsCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span> <span class="p">&gt;</span> <span class="m">30</span><span class="p">)</span>
     <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
@@ -1049,8 +1049,8 @@
 <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductAndStock1</span><span class="p">)</span>
     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tName={p.Name}\tStock={p.Stock}&quot;</span><span class="p">);</span>
 
-<span class="c1">// 2.1 második megoldás</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.1 2. megoldás:&quot;</span><span class="p">);</span>
+<span class="c1">// 1.1 második megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.1 2. megoldás:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qProductAndStock2</span> <span class="p">=</span> <span class="n">productsCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gt</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="m">30</span><span class="p">))</span>
     <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
@@ -1062,8 +1062,8 @@
 </li>
 <li>
 <p>Ez a feladat nagyon hasonló ez előzőhöz. Figyeljük meg, hogy az SQL-es adatbázis séma esetén ehhez már <code>JOIN</code>-t (<code>Navigation Property</code>) kellett alkalmazni. Ezzel szemben itt minden szükséges adat a megrendelés kollekcióban található.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 2.2 első megoldás</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.2 1. megoldás:&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1.2 első megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.2 1. megoldás:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qOrderItems1</span> <span class="p">=</span> <span class="n">ordersCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;=</span> <span class="m">2</span><span class="p">)</span>
     <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
@@ -1071,8 +1071,8 @@
 <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">qOrderItems1</span><span class="p">)</span>
     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;\t\tCustomerID={o.CustomerID}\tOrderID={o.ID}\tItems={o.OrderItems.Length}&quot;</span><span class="p">);</span>
 
-<span class="c1">//2.2 második megoldás</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.2 2. megoldás:&quot;</span><span class="p">);</span>
+<span class="c1">// 1.2 második megoldás</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.2 2. megoldás:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qOrderItems2</span> <span class="p">=</span> <span class="n">ordersCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Order</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">SizeGte</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
     <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
@@ -1084,8 +1084,8 @@
 </li>
 <li>
 <p>Ehhez a feladathoz már nem elegendő számunkra a sima lekérdezés kifejezőereje, így az aggregációs pipeline-t kell alkalmaznunk. Figyeljük meg azonban, hogy a séma felépítése miatt továbbra is minden szükséges adat rendelkezésre áll egyetlen gyűjteményben.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//2.3</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.3:&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1.3</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.3:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qOrderTotal</span> <span class="p">=</span> <span class="n">ordersCollection</span>
     <span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
     <span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">order</span> <span class="p">=&gt;</span> <span class="k">new</span>
@@ -1108,8 +1108,8 @@
 </li>
 <li>
 <p>A legdrágább termékek lekérdezéséhez két lekérdezést kell kiadnunk: először lekérdezzük a legmagasabb árat, utána pedig lekérdezzük azokat a termékeket, melyeknek a nettóára megegyezik ezzel az értékkel.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//2.4</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.4:&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1.4</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.4:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">maxPrice</span> <span class="p">=</span> <span class="n">productsCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
     <span class="p">.</span><span class="n">SortByDescending</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
@@ -1129,8 +1129,8 @@
 <li>
 <p>Ez a feladat azért nehéz a jelenlegi adatbázissémánk mellett, mert itt már nem igaz az, hogy egyetlen kollekcióban rendelkezésre áll minden adat. Szükségünk van ugyanis a termék kollekcióból a termék nevére és raktárkészletére, a megrendelések kollekcióból pedig a termékhez tartozó megrendelések számára.</p>
 <p>Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//2.5</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t2.5:&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1.5</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t1.5:&quot;</span><span class="p">);</span>
 <span class="kt">var</span> <span class="n">qOrders</span> <span class="p">=</span> <span class="n">ordersCollection</span>
     <span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
     <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
