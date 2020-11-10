@@ -104,8 +104,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         ```csharp
         Console.WriteLine("***** Exercise one *****");
 
-        //2.1 first solution
-        Console.WriteLine("\t2.1 First solution:");
+        // 1.1 first solution
+        Console.WriteLine("\t1.1 First solution:");
         var qProductAndStock1 = productsCollection
             .Find(p => p.Stock > 30)
             .ToList();
@@ -113,8 +113,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         foreach (var p in qProductAndStock1)
             Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
 
-        // 2.1 second solution
-        Console.WriteLine("\t2.1 Second solution:");
+        // 1.1 second solution
+        Console.WriteLine("\t1.1 Second solution:");
         var qProductAndStock2 = productsCollection
             .Find(Builders<Product>.Filter.Gt(p => p.Stock, 30))
             .ToList();
@@ -126,8 +126,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
     1. This is similar to the previous one. We may note that we would have needed a join in a relational database, but we have everything at hand here.
 
         ```csharp
-        // 2.2 first solution
-        Console.WriteLine("\t2.2 First solution:");
+        // 1.2 first solution
+        Console.WriteLine("\t1.2 First solution:");
         var qOrderItems1 = ordersCollection
             .Find(o => o.OrderItems.Length >= 2)
             .ToList();
@@ -135,8 +135,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         foreach (var o in qOrderItems1)
             Console.WriteLine($"\t\tCustomerID={o.CustomerID}\tOrderID={o.ID}\tItems={o.OrderItems.Length}");
 
-        //2.2 second solution
-        Console.WriteLine("\t2.2 Second solution:");
+        // 1.2 second solution
+        Console.WriteLine("\t1.2 Second solution:");
         var qOrderItems2 = ordersCollection
             .Find(Builders<Order>.Filter.SizeGte(o => o.OrderItems, 2))
             .ToList();
@@ -148,8 +148,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
     1. A simple query is not sufficient for this exercise; thus, we need the aggregation pipeline. We may still note that every information we need is still available in one collection.
 
         ```csharp
-        //2.3
-        Console.WriteLine("\t2.3:");
+        // 1.3
+        Console.WriteLine("\t1.3:");
         var qOrderTotal = ordersCollection
             .Aggregate()
             .Project(order => new
@@ -172,8 +172,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
     1. To find the most expensive product, we need two queries: first, find the largest price value, then find the products with this price.
 
         ```csharp
-        //2.4
-        Console.WriteLine("\t2.4:");
+        // 1.4
+        Console.WriteLine("\t1.4:");
         var maxPrice = productsCollection
             .Find(_ => true)
             .SortByDescending(p => p.Price)
@@ -194,8 +194,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         We will be doing a "join" in the client-side, that is, in C# code. The solution's outline is to query the orders, then in C# gather the orders by product, and finally, query the product details.
 
         ```csharp
-        //2.5
-        Console.WriteLine("\t2.5:");
+        // 1.5
+        Console.WriteLine("\t1.5:");
         var qOrders = ordersCollection
             .Find(_ => true)
             .ToList();
