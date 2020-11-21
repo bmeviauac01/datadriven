@@ -214,6 +214,8 @@ Mindegyik végpontot teszteljük!
   }
   ```
 
+Megjegyzés: Esetünkben a JSON objektum egy Models.NewProduct objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
+
 A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szükség:
 
 - PUT kérés a helyes URL-re
@@ -227,6 +229,8 @@ A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szüks
     "stock": 10
   }
   ```
+
+Megjegyzés: Esetünkben a JSON objektum egy Models.Product objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
 
 ![Postman PUT kérés](images/postman-put-query.png)
 
@@ -353,7 +357,11 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
         public class NewProduct
         {
             // ...
-            // konstruktort is ki kell egesziteni
+            // A konstruktort is ki kell egesziteni!
+            // Lenyeges, hogyan nevezzuk el a konstruktor parametereket:
+            // Mivel a property setter-ek vedettek, a JSON deszerializacio
+            // soran a JSON mezonevek lekepezese a konstruktor parameter
+            // nevekre tortenik (case insensitive modon).
 
             public int VATPercentage { get; private set; }
             public string CategoryName { get; private set; }
