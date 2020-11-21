@@ -213,6 +213,8 @@ Test each endpoint!
     "stock": 100
   }
   ```
+  
+Note: In our case the JSON data is deserialized into a newly introduced (see later) `Models.NewProduct` object. As the property setters are private in this class, JSON field names are mapped to the constructor parameter names of this class (in a case insensitive manner): therefore, it’s important how we name the constuctor parameters in this class.
 
 **Updating** a product you will need the following settings:
 
@@ -227,6 +229,8 @@ Test each endpoint!
     "stock": 10
   }
   ```
+  
+Note: In our case the JSON data is deserialized into a `Models.Product` object. As the property setters are private in this class, JSON field names are mapped to the constructor parameter names of this class (in a case insensitive manner): therefore, it’s important how we name the constuctor parameters in this class.
 
 ![Postman PUT query](images/postman-put-query.png)
 
