@@ -1150,7 +1150,7 @@
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<p>Megjegyzés: Esetünkben a JSON objektum egy Models.NewProduct objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
+<p>Megjegyzés: Esetünkben a JSON objektum egy <code>Models.NewProduct</code> objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
 <p>A <strong>módosítás</strong> teszteléséhez pedig az alábbi beállításokra lesz szükség:</p>
 <ul>
 <li>PUT kérés a helyes URL-re</li>
@@ -1164,7 +1164,7 @@
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<p>Megjegyzés: Esetünkben a JSON objektum egy Models.Product objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
+<p>Megjegyzés: Esetünkben a JSON objektum egy <code>Models.Product</code> objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
 <p><img alt="Postman PUT kérés" src="images/postman-put-query.png" /></p>
 <p>A tesztelés során nézzük meg a kapott válasz <em>Header</em>-jeit is! A szerkesztés és beszúrás esetén keressük meg benne a <em>Location</em> kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény.</p>
 <details class="example"><summary>Megoldás</summary><div class="highlight"><pre><span></span><code><span class="c1">// *********************************</span>
