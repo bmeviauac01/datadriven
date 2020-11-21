@@ -214,7 +214,7 @@ Mindegyik végpontot teszteljük!
   }
   ```
 
-Megjegyzés: Esetünkben a JSON objektum egy Models.NewProduct objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
+Megjegyzés: Esetünkben a JSON objektum egy `Models.NewProduct` objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
 
 A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szükség:
 
@@ -230,7 +230,7 @@ A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szüks
   }
   ```
 
-Megjegyzés: Esetünkben a JSON objektum egy Models.Product objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
+Megjegyzés: Esetünkben a JSON objektum egy `Models.Product` objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
 
 ![Postman PUT kérés](images/postman-put-query.png)
 
