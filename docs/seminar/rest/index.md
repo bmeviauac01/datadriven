@@ -208,7 +208,7 @@ Test each endpoint!
 - And use the JSON as _body_ below:
   ```json
   {
-    "name": “BME pen",
+    "name": "BME pen",
     "price": 8900,
     "stock": 100
   }
@@ -221,8 +221,8 @@ Test each endpoint!
 - And use the JSON as _body_ below:
   ```json
   {
-    ID: 10,
-    "name": "Silence for one hour”,
+    "ID": 10,
+    "name": "Silence for one hour",
     "price": 440,
     "stock": 10
   }
