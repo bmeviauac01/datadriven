@@ -93,10 +93,7 @@ A házikat a határidő lejárta után kell értékelni. A határidő előtt a m
 
 ### Hol kell értékelni a házit?
 
-A határidő lejárta után a feladatod a **hozzád rendelt** pull request-ek értékelése. A hallgató azzal adja be a házit, hogy a pull request-et a gyakorlatvezetőjéhez rendeli. Ezeket a GitHub keresőjével a legegyszerűbb megtalálni. A hallgatók gyakran összekeverik az _assignee_ és _request review_ mezőket, így két szűrést is kell nézni:
-
-- <https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Abmeviauac01+assignee%3A%40me+>
-- <https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Abmeviauac01+review-requested%3A%40me+>
+A határidő lejárta után a feladatod a **hozzád rendelt** pull request-ek értékelése. A hallgató azzal adja be a házit, hogy a pull request-et a gyakorlatvezetőjéhez rendeli. Ezeket a GitHub keresőjével a legegyszerűbb megtalálni: <https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Abmeviauac01+assignee%3A%40me+>.
 
 Alternatívaként a GitHub értesítő felületét is lehet használni a <https://github.com/notifications> címen, itt minden hozzád rendelt, vagy review-ra váró PR megjelenik.
 
