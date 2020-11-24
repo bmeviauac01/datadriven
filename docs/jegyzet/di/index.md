@@ -135,7 +135,7 @@ Pár általános gondolat:
 * A függőség osztályoknak lehetnek további függőségeik: az `EMailSender` remek példa erre, épít a `Logger` osztályra.
 * Megjegyzés: a `NotificationService`, `EMailSender`, `Logger`, `ContactRepository` osztályokat __szolgáltatásosztályoknak__ tekintjük, mert tényleges logikát is tartalmaznak, nem csak adatokat zárnak egységbe, mint pl. a `TodoItem`.
 
-Mint látható, a `SendEmailReminder` műveletet egy objektumgráf szolgálja ki, ahol a `NotificationService` a gyökérobjektum, melynem három függősége van, és a függőségeinek (legalábbis az `EMailSender`-nek) vannak további függőségei. A következő ábra ezt az objektumgráfot illusztrálja:
+Mint látható, a `SendEmailReminder` műveletet egy objektumgráf szolgálja ki, ahol a `NotificationService` a gyökérobjektum, melynek három függősége van, és a függőségeinek (legalábbis az `EMailSender`-nek) vannak további függőségei. A következő ábra ezt az objektumgráfot illusztrálja:
 
 ![Object graph 1](./images/object-graph-1.svg)
 
@@ -413,7 +413,7 @@ A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok füg
 
 #### Függőségfeloldás ASP.NET Web API osztályok esetén
 
-Azon túl, hogy a megoldásunkat konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A `ToDoService` osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core `ControllerBase` leszármazott `TodoController` osztályba mozgatjuk. Ez az osztály lesz a belépsési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A `ToDoService` osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework `DbContext` leszármazott `TodoContext` osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:
+Azon túl, hogy a megoldásunkat konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A `ToDoService` osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core `ControllerBase` leszármazott `TodoController` osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A `ToDoService` osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework `DbContext` leszármazott `TodoContext` osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:
 
 ![Object graph 3](./images/object-graph-3.svg)
 
