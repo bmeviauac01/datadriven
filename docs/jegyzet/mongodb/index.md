@@ -48,6 +48,7 @@ Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fog
 Minden dokumentum (egyértelmű) azonosítója az ’_id’ mező, mást nem tudunk definiálni.  Nem szükséges megadni (de lehet), hanem a kliens driver vagy szerver generálja (12 byte). (Ettől függetlenül tudunk egyediséget garantálni, de azt indexnek.) MongoDB-ben nincs összetett kulcs, viszont tudunk helyette összetett indexet létrehozni
 
 
+
 ## MongoDB műveletek és a MongoDB .NET Driver
 
 !!! note ""
