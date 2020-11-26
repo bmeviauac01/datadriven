@@ -1,7 +1,63 @@
-# MongoDB operations and the MongoDB .NET Driver
+﻿# MongoDB basics, operations, and the MongoDB .NET Driver
+
+## NoSQL databases
+
+NoSQL databases are data management systems that do not work with the relational data model. The NoSQL name can be a little misleading, as the concept has little to do with the SQL language - the main difference is rather the representation of the data. Why do we need such new databases when we already have the relational model and relational databases? A small database with a simple schema can be easily described in the relational model. But our applications evolve: new functionalities are added, making the schema more complex. More and more data is added to the database making the maintenance inefficient.
+
+Relational databases need constant schema changes and updates, which can be cumbersome. Constant data migrations can be a pain. Furthermore, relational databases can be bottlenecks from the scalability perspective - but we will not discuss this aspect in more detail.
+
+NoSQL databases offer a solution to these problems. **Instead of the rigid schema**, NoSQL databases have **a flexible schema**. In other words, we will require less consistency regarding the data.
+
+## Basic concepts of MongoDB
+
+MongoDB is a client-server database system that has a non-relational schema. The _mongod_ (Mongo daemon) process on the right is the database server. The other side is our application, where a client connects to the database using a network connection. This connection uses the so-called _wire protocol_, which is a MongoDB proprietary communication protocol. The protocol transmits data and queries in JSON format represented in a binary fashion as BSON.
+
+![MongoDb architecture](images/mongodb_architecture.png)
+
+### Logical structure
+
+The top layer of a MongoDB database system is the so-called _cluster_. The servers are organized into these clusters. We will not discuss clusters here; these are tools for enabling scalability. The databases are the _mongod_ processes, which host the databases. A MongoDB server/cluster stores multiple databases. And the databases contain _collections_. If we want to map these concepts to a relational model, then the collections correspond to the tables, and the rows/records in a table correspond to the _documents_ of the collection.
+
+Let us investigate these further.
+
+#### Document
+
+The document is the unit of storage in MongoDB. A document is a JSON (-like) file: it contains key-value pairs. MongoDB itself stores it as a BSON in binary format.
+
+```csharp
+{
+    name: "sue",
+    age: 26,
+    status: "A",
+    groups: [ "news", "sports"]
+}
+```
+
+The keys can have arbitrary names with a few limitations, such that they have to be unique and cannot begin with the `$` character. The names are case sensitive. Values can be string, number, date, binary, embedded document, `null`, or even as the `groups` in the example shows, an array - a relational database cannot represent an array so simple.
+
+Mapping to the object-oriented world, a document is an object. MongoDB documents have a maximum size of 16MB and this is not a configurable parameter.
+
+#### Collection
+
+Collections are analogous to relational database tables, but without a schema. Collections need no definition; the system creates them upon first use. Collections are a place for "similar" documents. Although there is no schema, _indexes_ can still be defined on the collections to support fast searching. Since there is no schema, there are no domain integrity requirements enforced either.
+
+#### Database
+
+The database has the same purpose as in the relational model. It gathers all data of our application. Access management is also configured on the database level. The name of databases is case sensitive and lowercase by convention.
+
+#### Key
+
+The `_id` field is the unambiguous identifier of each document. Other keys cannot be defined. This field does not need to be specified during insert; the client driver or the server can generate a new value (a 12 byte `ObjectId` by default).
+
+Uniqueness can be guaranteed with the use of indices. We can define an index and mark it as unique to create a key-like field. These unique indices can contain multiple fields too.
+
+There are no references to keys in MongoDB. A document can reference another document by copying it's key, but the system has no consistency guarantees for these (e.g., the referenced document can be deleted).
+
+## MongoDB operations and the MongoDB .NET Driver
 
 !!! note ""
     The following code snippets use the official Nuget package [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver).
+
 
 ## Establishing a connection
 
