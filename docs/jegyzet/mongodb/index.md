@@ -1,52 +1,57 @@
-# MongoDB alapok, műveletek és a MongoDB .NET Driver
+# MongoDB alapok, műveletek, és a MongoDB .NET Driver
 
-## NoSQL alapok
+## NoSQL adatbázisok
 
-A NoSQL neve megtévesztő, mert semmi köze az SQL-hez. De mégis miért lenne nekünk erre szükségünk, amikor ott a jól bevált SQL, ami relációs adatbázis? Mert egy kis adatbázis egyszerű sémával könnyen leírható relációs adatbázissal, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, azaz komplexebbé válik a séma, illetve egyre több adatot kell eltárolnia, ez azt jelenti, hogy nő az adatbázis. Így ez komplikált, hisz kis változtatások is hatalmas munkával járnának.
+A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak? Egy kis méretű adatbázis egyszerű sémával könnyen leírható relációs modellben, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, ezzel együtt komplexebbé válik a séma is, illetve egyre több adatot kell eltárolni és nő az adatbázis. Ez egy bizonyos határ felett komplikáltá válik.
 
-Összefoglalva a relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat, még a tapasztalt fejlesztőknek sem. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia skálázási problémákkal jár, ha relációs adatbázist használunk, de ezzel nem foglalkozunk a továbbiakban.
+A relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia- és skálázási problémákkal járhat, ha relációs adatbázist használunk - ezzel azonban nem foglalkozunk mélyebben.
 
-Ezekre a problémákra a NoSQL nyújt megoldást. Ebben a világban elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.
+Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.
 
-## MongoDB alapkoncepciói
+## A MongoDB alap koncepciói
 
-A MongoDB egy kliens-szerver architektúrájú, nem-relációs adatbázis. A képen jobb oldalán látható a mongod, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik a mi alkalmazásunk, a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat wire protocol-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
+A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a _mongod_, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az un. _wire protocol_-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
 
 ![A MongoDb architektúrája](images/mongodb_rendszer_architektura.png)
- 
+
 ### Logikai felépítés
 
-A legfelső réteg a klaszter, ezekbe szervezzük a szervereket. Második szint szerver szintje, ami alatt az adatbázis foglal helyet. Ez gyűjteményekből (Collection) épül fel, ezek lesznek a táblák oszlopai, míg a sorok analógiáját a dokumentumok adják.
+Egy MongoDB-alapú adatbázis rendszer legfelső rétege az un. _klaszter_, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a _mongod_ processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (_collection_) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt _dokumentumok_ lesznek.
 
-## Dokumentum
+Nézzük ezeket pontosabban.
 
-A dokumentum az alap tárolási egysége a MongoDB-nek. Ez egy JSON fájl, tehát kulcs-érték párokat tartalmaz. (Maga a MongoDB BSON-ként, bináris reprezentációként tárolja)
+#### Dokumentum
+
+A dokumentum a MongoDB alap tárolási egysége. Egy dokumentum egy JSON (jellegű) fájl, tehát kulcs-érték párokat tartalmaz. Maga a MongoDB BSON-ként, bináris reprezentációként tárolja mindezt.
 
 ```csharp
 {
-name: "sue”,
-age: 26,
-status: "A”,
-groups: [ "news”, "sports”]
+    name: "sue",
+    age: 26,
+    status: "A",
+    groups: [ "news", "sports"]
 }
 ```
 
-A kulcsokra vannak limitációk. Szabad szövegek lehetnek, de egyedinek kell lenniük. Nem kezdődhetnek $ karakterrel, illetve az ```_id``` (azonosító) implicit mezőt nem adjuk meg. Figyelnünk kell, amikor megadjuk őket, mivel case sensitive-k.
-Az érték lehet szöveg, szám, dátum, bináris, beágyazott, null, vagy akár ```groups``` kulcsnál tömbértékekek találhatók (relációs adatbázisban nem lehet ezt reprezentálni).
-Objektum orientált világban, ez számít egy objektumnak. Egy fontos limit, hogy maximális mérete 16MB.
+Kulcsoknak többnyire bármilyen szabad szöveget választhatunk, de a neveknek egyedinek kell lenniük és nem kezdődhetnek a `$` karakterrel. A nevek case sensitive-ek. Az érték lehet szöveg, szám, dátum, bináris, beágyazott elem, `null`, vagy akár a fenti példában a `groups` kulcsnál láthatóan tömb is - relációs adatbázisban ezt így nem lehet reprezentálni.
 
-## Gyűjtemény
-   
-Relációs tábla analógiája, de nem tábla, mivel nincs sémája, így ezeket létrehozni, definiálni se kell. Úgy fogalmazhatnánk meg, hogy ez a „hasonló” dokumentumok gyűjtőhelye. Bár nincs séma, indexet definiálhatunk egy gyűjteményen, ezek a gyors keresést fogják segíteni. Továbbá az is fontos, hogy nincs integritási kritérium, tehát ugyan bármit megenged nekünk a MongoDB, jobb ha betartjuk az íratlan szabályokat.
+Az objektum orientált világban egy dokumentum felel meg egy objektumnak. Fontos megkötés, hogy a dokumentumok maximális mérete 16MB lehet, és ez nem konfigurálható érték.
 
-## Adatbázis
-   
-Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fogja össze az alkalmazás adatait logikailag. Illetve itt is hozzáférési jogosultságokat adatbázis szinten tudunk adni. Továbbá a neve case sensitive és megegyezés alapján tipikusan lowercase.
+#### Gyűjtemény
 
-## Kulcs 
-  
-Minden dokumentum (egyértelmű) azonosítója az ’_id’ mező, mást nem tudunk definiálni.  Nem szükséges megadni (de lehet), hanem a kliens driver vagy szerver generálja (12 byte). (Ettől függetlenül tudunk egyediséget garantálni, de azt indexnek.) MongoDB-ben nincs összetett kulcs, viszont tudunk helyette összetett indexet létrehozni
+Relációs tábla analógiája a gyűjtemény, de nincs sémája, így ezeket létrehozni, definiálni se kell, első használatkor a rendszer automatikusan létrehozza őket. Úgy fogalmazhatjuk meg, hogy a gyűjtemény a "hasonló" dokumentumok gyűjtőhelye. Bár nincs séma, _indexeket_ ennek ellenére definiálhatunk a gyűjteményeken, amely a gyors keresést fogják segíteni. Séma hiányában nincs tartományi integritási kritérium, tehát például a helyes adattípusok és tartományi kritériumok biztosításában az adatbázis nem nyújt segítséget.
 
+#### Adatbázis
+
+Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fogja össze az alkalmazás adatait logikailag. Illetve hozzáférési jogosultságokat adatbázis szinten tudunk adni. Az adatbázisok neve case sensitive és konvenció szerint tipikusan csupa kisbetű.
+
+#### Kulcs
+
+Minden dokumentum egyértelmű azonosítója az `_id` mező, mást kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos `ObjectId`-t készít).
+
+Az `_id` mezőtől függetlenül egyediséget indexek segítségével tudunk garantálni. Amennyiben szükséges, definiálhatunk tehát más, kulcs-szerű mezőket is. Az így definiált egyedi mezők lehetnek összetettek is (tehát lehet több mező együttes egyediségét előírni).
+
+Külső kulcs hivatkozások MongoDB-ben nincsenek. Tudunk hivatkozni más dokumentumokra azok kulcsainak bemásolásával, azonban ezekre a rendszer nem vállal garanciát (pl. a hivatkozott dokumentum törölhető).
 
 ## MongoDB műveletek és a MongoDB .NET Driver
 
