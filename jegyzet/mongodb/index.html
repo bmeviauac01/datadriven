@@ -17,7 +17,7 @@
     
     
       
-        <title>MongoDB műveletek és a MongoDB .NET Driver - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+        <title>MongoDB alapok, műveletek, és a MongoDB .NET Driver - BMEVIAUAC01 Adatvezérelt rendszerek</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mongodb-muveletek-es-a-mongodb-net-driver" class="md-skip">
+        <a href="#mongodb-alapok-muveletek-es-a-mongodb-net-driver" class="md-skip">
           Kihagyás
         </a>
       
@@ -89,7 +89,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              MongoDB műveletek és a MongoDB .NET Driver
+              MongoDB alapok, műveletek, és a MongoDB .NET Driver
             
           </span>
         </div>
@@ -460,14 +460,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        MongoDB műveletek és a MongoDB .NET Driver
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
         </span>
       </label>
     
-    <a href="./" title="MongoDB műveletek és a MongoDB .NET Driver" class="md-nav__link md-nav__link--active">
-      MongoDB műveletek és a MongoDB .NET Driver
+    <a href="./" title="MongoDB alapok, műveletek, és a MongoDB .NET Driver" class="md-nav__link md-nav__link--active">
+      MongoDB alapok, műveletek, és a MongoDB .NET Driver
     </a>
     
       
@@ -484,6 +484,74 @@
       Tartalomjegyzék
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nosql-adatbazisok" class="md-nav__link">
+    NoSQL adatbázisok
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-mongodb-alap-koncepcioi" class="md-nav__link">
+    A MongoDB alap koncepciói
+  </a>
+  
+    <nav class="md-nav" aria-label="A MongoDB alap koncepciói">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logikai-felepites" class="md-nav__link">
+    Logikai felépítés
+  </a>
+  
+    <nav class="md-nav" aria-label="Logikai felépítés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dokumentum" class="md-nav__link">
+    Dokumentum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gyujtemeny" class="md-nav__link">
+    Gyűjtemény
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adatbazis" class="md-nav__link">
+    Adatbázis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kulcs" class="md-nav__link">
+    Kulcs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb-muveletek-es-a-mongodb-net-driver" class="md-nav__link">
+    MongoDB műveletek és a MongoDB .NET Driver
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#kapcsolat-letesitese" class="md-nav__link">
@@ -1042,6 +1110,74 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#nosql-adatbazisok" class="md-nav__link">
+    NoSQL adatbázisok
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-mongodb-alap-koncepcioi" class="md-nav__link">
+    A MongoDB alap koncepciói
+  </a>
+  
+    <nav class="md-nav" aria-label="A MongoDB alap koncepciói">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logikai-felepites" class="md-nav__link">
+    Logikai felépítés
+  </a>
+  
+    <nav class="md-nav" aria-label="Logikai felépítés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dokumentum" class="md-nav__link">
+    Dokumentum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gyujtemeny" class="md-nav__link">
+    Gyűjtemény
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adatbazis" class="md-nav__link">
+    Adatbázis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kulcs" class="md-nav__link">
+    Kulcs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb-muveletek-es-a-mongodb-net-driver" class="md-nav__link">
+    MongoDB műveletek és a MongoDB .NET Driver
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#kapcsolat-letesitese" class="md-nav__link">
     Kapcsolat létesítése
   </a>
@@ -1292,7 +1428,38 @@
                   
                 
                 
-                <h1 id="mongodb-muveletek-es-a-mongodb-net-driver">MongoDB műveletek és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h1>
+                <h1 id="mongodb-alapok-muveletek-es-a-mongodb-net-driver">MongoDB alapok, műveletek, és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-alapok-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h1>
+<h2 id="nosql-adatbazisok">NoSQL adatbázisok<a class="headerlink" href="#nosql-adatbazisok" title="Permanent link">&para;</a></h2>
+<p>A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak? Egy kis méretű adatbázis egyszerű sémával könnyen leírható relációs modellben, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, ezzel együtt komplexebbé válik a séma is, illetve egyre több adatot kell eltárolni és nő az adatbázis. Ez egy bizonyos határ felett komplikáltá válik.</p>
+<p>A relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia- és skálázási problémákkal járhat, ha relációs adatbázist használunk - ezzel azonban nem foglalkozunk mélyebben.</p>
+<p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.</p>
+<h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">&para;</a></h2>
+<p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az un. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
+<p><img alt="A MongoDb architektúrája" src="images/mongodb_rendszer_architektura.png" /></p>
+<h3 id="logikai-felepites">Logikai felépítés<a class="headerlink" href="#logikai-felepites" title="Permanent link">&para;</a></h3>
+<p>Egy MongoDB-alapú adatbázis rendszer legfelső rétege az un. <em>klaszter</em>, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a <em>mongod</em> processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (<em>collection</em>) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt <em>dokumentumok</em> lesznek.</p>
+<p>Nézzük ezeket pontosabban.</p>
+<h4 id="dokumentum">Dokumentum<a class="headerlink" href="#dokumentum" title="Permanent link">&para;</a></h4>
+<p>A dokumentum a MongoDB alap tárolási egysége. Egy dokumentum egy JSON (jellegű) fájl, tehát kulcs-érték párokat tartalmaz. Maga a MongoDB BSON-ként, bináris reprezentációként tárolja mindezt.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s">&quot;sue&quot;</span><span class="p">,</span>
+    <span class="n">age</span><span class="p">:</span> <span class="m">26</span><span class="p">,</span>
+    <span class="n">status</span><span class="p">:</span> <span class="s">&quot;A&quot;</span><span class="p">,</span>
+    <span class="n">groups</span><span class="p">:</span> <span class="p">[</span> <span class="s">&quot;news&quot;</span><span class="p">,</span> <span class="s">&quot;sports&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Kulcsoknak többnyire bármilyen szabad szöveget választhatunk, de a neveknek egyedinek kell lenniük és nem kezdődhetnek a <code>$</code> karakterrel. A nevek case sensitive-ek. Az érték lehet szöveg, szám, dátum, bináris, beágyazott elem, <code>null</code>, vagy akár a fenti példában a <code>groups</code> kulcsnál láthatóan tömb is - relációs adatbázisban ezt így nem lehet reprezentálni.</p>
+<p>Az objektum orientált világban egy dokumentum felel meg egy objektumnak. Fontos megkötés, hogy a dokumentumok maximális mérete 16MB lehet, és ez nem konfigurálható érték.</p>
+<h4 id="gyujtemeny">Gyűjtemény<a class="headerlink" href="#gyujtemeny" title="Permanent link">&para;</a></h4>
+<p>Relációs tábla analógiája a gyűjtemény, de nincs sémája, így ezeket létrehozni, definiálni se kell, első használatkor a rendszer automatikusan létrehozza őket. Úgy fogalmazhatjuk meg, hogy a gyűjtemény a "hasonló" dokumentumok gyűjtőhelye. Bár nincs séma, <em>indexeket</em> ennek ellenére definiálhatunk a gyűjteményeken, amely a gyors keresést fogják segíteni. Séma hiányában nincs tartományi integritási kritérium, tehát például a helyes adattípusok és tartományi kritériumok biztosításában az adatbázis nem nyújt segítséget.</p>
+<h4 id="adatbazis">Adatbázis<a class="headerlink" href="#adatbazis" title="Permanent link">&para;</a></h4>
+<p>Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fogja össze az alkalmazás adatait logikailag. Illetve hozzáférési jogosultságokat adatbázis szinten tudunk adni. Az adatbázisok neve case sensitive és konvenció szerint tipikusan csupa kisbetű.</p>
+<h4 id="kulcs">Kulcs<a class="headerlink" href="#kulcs" title="Permanent link">&para;</a></h4>
+<p>Minden dokumentum egyértelmű azonosítója az <code>_id</code> mező, mást kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos <code>ObjectId</code>-t készít).</p>
+<p>Az <code>_id</code> mezőtől függetlenül egyediséget indexek segítségével tudunk garantálni. Amennyiben szükséges, definiálhatunk tehát más, kulcs-szerű mezőket is. Az így definiált egyedi mezők lehetnek összetettek is (tehát lehet több mező együttes egyediségét előírni).</p>
+<p>Külső kulcs hivatkozások MongoDB-ben nincsenek. Tudunk hivatkozni más dokumentumokra azok kulcsainak bemásolásával, azonban ezekre a rendszer nem vállal garanciát (pl. a hivatkozott dokumentum törölhető).</p>
+<h2 id="mongodb-muveletek-es-a-mongodb-net-driver">MongoDB műveletek és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p>Az alábbi, illusztrációra használt kódrészletek a hivatalos <a href="https://www.nuget.org/packages/mongodb.driver">MongoDB.Driver</a> Nuget csomagot használják.</p>
 </div>
