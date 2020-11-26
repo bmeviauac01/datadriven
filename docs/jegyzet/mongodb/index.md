@@ -1,7 +1,58 @@
-# MongoDB műveletek és a MongoDB .NET Driver
+# MongoDB alapok, műveletek és a MongoDB .NET Driver
+
+## NoSQL alapok
+
+A NoSQL neve megtévesztő, mert semmi köze az SQL-hez. De mégis miért lenne nekünk erre szükségünk, amikor ott a jól bevált SQL, ami relációs adatbázis? Mert egy kis adatbázis egyszerű sémával könnyen leírható relációs adatbázissal, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, azaz komplexebbé válik a séma, illetve egyre több adatot kell eltárolnia, ez azt jelenti, hogy nő az adatbázis. Így ez komplikált, hisz kis változtatások is hatalmas munkával járnának.
+
+Összefoglalva a relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat, még a tapasztalt fejlesztőknek sem. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia skálázási problémákkal jár, ha relációs adatbázist használunk, de ezzel nem foglalkozunk a továbbiakban.
+
+Ezekre a problémákra a NoSQL nyújt megoldást. Ebben a világban elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.
+
+## MongoDB alapkoncepciói
+
+A MongoDB egy kliens-szerver architektúrájú, nem-relációs adatbázis. A képen jobb oldalán látható a mongod, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik a mi alkalmazásunk, a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat wire protocol-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
+
+![A MongoDb architektúrája](images/mongodb_rendszer_architektura.png)
+ 
+### Logikai felépítés
+
+A legfelső réteg a klaszter, ezekbe szervezzük a szervereket. Második szint szerver szintje, ami alatt az adatbázis foglal helyet. Ez gyűjteményekből (Collection) épül fel, ezek lesznek a táblák oszlopai, míg a sorok analógiáját a dokumentumok adják.
+
+## Dokumentum
+
+A dokumentum az alap tárolási egysége a MongoDB-nek. Ez egy JSON fájl, tehát kulcs-érték párokat tartalmaz. (Maga a MongoDB BSON-ként, bináris reprezentációként tárolja)
+
+```csharp
+{
+name: "sue”,
+age: 26,
+status: "A”,
+groups: [ "news”, "sports”]
+}
+```
+
+A kulcsokra vannak limitációk. Szabad szövegek lehetnek, de egyedinek kell lenniük. Nem kezdődhetnek $ karakterrel, illetve az ```_id``` (azonosító) implicit mezőt nem adjuk meg. Figyelnünk kell, amikor megadjuk őket, mivel case sensitive-k.
+Az érték lehet szöveg, szám, dátum, bináris, beágyazott, null, vagy akár ```groups``` kulcsnál tömbértékekek találhatók (relációs adatbázisban nem lehet ezt reprezentálni).
+Objektum orientált világban, ez számít egy objektumnak. Egy fontos limit, hogy maximális mérete 16MB.
+
+## Gyűjtemény
+   
+Relációs tábla analógiája, de nem tábla, mivel nincs sémája, így ezeket létrehozni, definiálni se kell. Úgy fogalmazhatnánk meg, hogy ez a „hasonló” dokumentumok gyűjtőhelye. Bár nincs séma, indexet definiálhatunk egy gyűjteményen, ezek a gyors keresést fogják segíteni. Továbbá az is fontos, hogy nincs integritási kritérium, tehát ugyan bármit megenged nekünk a MongoDB, jobb ha betartjuk az íratlan szabályokat.
+
+## Adatbázis
+   
+Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fogja össze az alkalmazás adatait logikailag. Illetve itt is hozzáférési jogosultságokat adatbázis szinten tudunk adni. Továbbá a neve case sensitive és megegyezés alapján tipikusan lowercase.
+
+## Kulcs 
+  
+Minden dokumentum (egyértelmű) azonosítója az ’_id’ mező, mást nem tudunk definiálni.  Nem szükséges megadni (de lehet), hanem a kliens driver vagy szerver generálja (12 byte). (Ettől függetlenül tudunk egyediséget garantálni, de azt indexnek.) MongoDB-ben nincs összetett kulcs, viszont tudunk helyette összetett indexet létrehozni
+
+
+## MongoDB műveletek és a MongoDB .NET Driver
 
 !!! note ""
     Az alábbi, illusztrációra használt kódrészletek a hivatalos [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver) Nuget csomagot használják.
+
 
 ## Kapcsolat létesítése
 
