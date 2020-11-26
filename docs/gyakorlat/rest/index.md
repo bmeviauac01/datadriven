@@ -55,7 +55,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 2: Első Controller és metódus, tesztelés Postmannel
 
-Készítsünk egy új Web API controllert, ami viszaad egy üdvözlő szöveget. Próbáljuk ki a működést Postman használatával.
+Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget. Próbáljuk ki a működést Postman használatával.
 
 1. Töröljük ki a `ValuesController` osztályt. Adjuk hozzá helyette egy új _Api Controller_-t üresen `HelloController` néven: a _Solution Explorer_-ben a _Controllers_ mappára jobb egérrel kattintva _Add / Controller... / API Controller - Empty_. A `HelloController` a `/api/hello` url alatt legyen elérhető.
 1. Készítsünk egy `GET` kérésre válaszoló metódust, ami egy szöveggel tér vissza. Próbáljuk ki Postman-nel: a GET kérést <http://localhost:5000/api/hello> címre kell küldenünk.
