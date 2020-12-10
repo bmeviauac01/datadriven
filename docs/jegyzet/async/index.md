@@ -341,7 +341,7 @@ Végül pedig példa a FirstOrDefaultAsync-re, valamint egy kliens felől érkez
     //Controller osztályban levő POST kérés
 
         [HttpPost]
-        public async Task<IActionResult> PostCartItem(PostCartItemArgs data)
+        public async Task<IActionResult> PostCartItem([FromBody] PostCartItemArgs data)
         {
             int id = data.cartid;
             int productid = data.productid;
