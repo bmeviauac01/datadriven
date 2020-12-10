@@ -368,7 +368,7 @@ Végül pedig példa a FirstOrDefaultAsync-re, valamint egy kliens felől érkez
             {
                 //propertyk használata új OrderItems létrehozásakor, majd mentés az adatbázisba
                 _context.OrderItems.Add(new OrderItems { CartID = id, Pieces = pieces, ProductID = productid });
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
             //Ha már van ilyen termék a rendelésben
@@ -380,7 +380,7 @@ Végül pedig példa a FirstOrDefaultAsync-re, valamint egy kliens felől érkez
                     //ha 0-ra csökkent a termékből rendelt darabszám, akkor töröljük a rekordot
                     _context.OrderItems.Remove(orderitem);
                 }
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
             return NoContent();
