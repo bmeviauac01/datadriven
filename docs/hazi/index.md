@@ -17,8 +17,10 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 
 Minden házi feladat megoldását egy személyre szóló git repository-ban kell beadni. Ennek pontos [folyamatát lásd itt](GitHub.md). Kérünk, hogy alaposan olvasd végig a leírást!
 
-!!! important "FONTOS"
+!!! danger "FONTOS"
     A házik elkészítése és beadás során az itt leírtak szerint **kell** eljárnod. A nem ilyen formában beadott házikat nem értékeljük.
+
+    A beadás során a munkafolyamati hibákért (pl. nem megfelelő emberhez hozzárendelése, hozzárendelés elfelejtése) pontot vonunk le.
 
 ## Képernyőképek
 
