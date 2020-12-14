@@ -17,8 +17,10 @@ These exercises are **optional**. You can earn **extra points** that are added t
 
 Each homework must be submitted in a personal git repository. Please refer to the detailed [guideline here](GitHub.md). You must carefully study these guidelines!
 
-!!! important "IMPORTANT"
+!!! danger "IMPORTANT"
     The submissions of the homework **must** follow these guidelines. Submissions not adhering to the expected format are not considered.
+
+    Workflow errors, i.e., not following the guidelines (e.g., not assigning the right person, or not assigning at all) are penalized.
 
 ## Screenshots
 
