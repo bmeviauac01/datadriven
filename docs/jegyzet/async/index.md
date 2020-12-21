@@ -35,14 +35,14 @@ ASP.NET Core WebApi és Entity Framework segítségével szeretnénk a fenti ada
 
 1. Adatbázis táblát/táblákat modellező osztály/osztályok létrehozása,
 1. Adatbázis kontextus létrehozása,
-1. (Opcionális, de ebben a jegyzetben foglalkozunk vele) Data Transfer Object létrehozása, ha szükség van az adatok átalakítására a kliens számára,
+1. Data Transfer Object létrehozása, ha szükség van az adatok átalakítására a kliens számára,
 1. WebAPI Kontroller létrehozása
 
 Menjünk végig ezeken a lépéseken!
 
 ### Adatbázist modellező osztályok létrehozása
 
-Az adatbázist modellező osztályokat érdemes egy _Models_ mappába szervezni, és azon belül az általuk reprezentált tábla nevével létrehozni őket.
+Az adatbázist modellező osztályokat ASP.NET Core platformon egy _Models_ mappába szokás szervezni, és azon belül az általuk reprezentált tábla nevével létrehozni őket.
 
 A _Products_ táblát reprezentáló C# osztály:
 
@@ -109,18 +109,17 @@ Miután létrehoztuk a táblákat modellező osztályokat, el tudjuk készíteni
 ```csharp
 namespace WebshopApi.Models
 {
-    // Webshop adatbázist reprezentáló osztály
     public class WebshopContext : DbContext
     {
-        public WebshopContext(DbContextOptions<WebshopContext> options) // opciók, például: connection string
+        public WebshopContext(DbContextOptions<WebshopContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Product> Products { get; set; } // Products tábla
-        public DbSet<Manufacturer> Manufacturers { get; set; } // Manufacturers tábla
-        public DbSet<Cart> Carts { get; set; } // Carts tábla
-        public DbSet<OrderItem> OrderItems { get; set; } // OrderItems tábla
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
 ```
@@ -232,7 +231,7 @@ public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
 }
 ```
 
-Figyeljük meg a függvény deklarációjában az `async` kulcsszót és a `Task` típust, valamint a függvény törzsében a "párját", az `await`-et. Ezekre **async-await**-ként szoktunk hivatkozni. Mivel a `ToListAsync` egy kollekciót fog visszaadni, ezért a visszatérési érték `IEnumerable`. Értelmezzük tehát:
+Figyeljük meg a függvény deklarációjában az `async` kulcsszót és a `Task` típust, valamint a függvény törzsében a "párját", az `await`-et. Ezekre **async-await**-ként szoktunk hivatkozni. Értelmezzük tehát:
 
 1. A függvény `Cart` példányok listáját, `IEnumerable<Cart>` ad vissza,
 1. Amelyet a WebAPI kontrollernek megfelelően egy `ActionResult`-ba csomagolunk,
