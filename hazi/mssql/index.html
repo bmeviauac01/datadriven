@@ -931,7 +931,7 @@
 <p>Adj hozzá egy új oszlopot a <code>Customer</code> táblához <code>PasswordExpiry</code> néven, ami egy dátumot tartalmaz: <code>alter table [Customer] add [PasswordExpiry] datetime</code>.</p>
 </li>
 <li>
-<p>Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a <code>PasswordExpiry</code> mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (<em>insert</em>) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (<em>update</em>) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) A trigger csak a beszúrás/frissítés által érintett rekordokkal törődjön (tehát nem a tábla teljes tartalmára kell frissíteni a dátum oszlopot)!</p>
+<p>Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a <code>PasswordExpiry</code> mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (<em>insert</em>) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (<em>update</em>) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) A trigger csak a beszúrt/frissített rekorddal törődjön (tehát nem a tábla teljes tartalmára kell frissíteni a dátum oszlopot)! A feladatban feltételezheted, hogy egyszerre csak egyetlen rekord módosul.</p>
 </li>
 </ol>
 <p>Ellenőrizd a trigger viselkedését különböző esetekre is.</p>
