@@ -63,6 +63,7 @@ nav:
       - lecture-notes/linq/index.md
       - lecture-notes/mongodb/index.md
       - lecture-notes/di/index.md
+      - lecture-notes/async/index.md
       - "REST and WebAPI sample app (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
       - "ASP.NET Core DI sample app (GitHub)": https://github.com/bmeviauac01/todoapi-di-sample
       - "Sample three-tier webapp (GitHub)": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
