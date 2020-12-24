@@ -15,8 +15,7 @@ theme:
     text: Roboto
     code: Roboto Mono
   features:
-    - tabs
-  icon:
+    - navigation.tabs
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
