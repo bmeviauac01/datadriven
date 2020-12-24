@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="hu" class="no-js">
   <head>
@@ -12,8 +10,9 @@
       
         <meta name="author" content="Dudás Ákos">
       
+      
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.2">
     
     
       
@@ -21,20 +20,22 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
-      
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
-      
+      <link rel="stylesheet" href="../../assets/stylesheets/main.73f7c429.min.css">
       
         
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
         
-        <meta name="theme-color" content="#ef5350">
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
       
     
     
     
       
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -53,7 +54,10 @@
     
     
     
+    
+    
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+      
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -71,7 +75,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
       
@@ -82,18 +88,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             BMEVIAUAC01 Adatvezérelt rendszerek
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               JPA & Spring Data
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -104,7 +112,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -145,37 +153,37 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
           
-
-  
-
-<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
+  
+  
+
+
   <li class="md-tabs__item">
-    
-      <a href="../.." class="md-tabs__link">
-        Adatvezérelt rendszerek
-      </a>
-    
+    <a href="../.." class="md-tabs__link">
+      Adatvezérelt rendszerek
+    </a>
   </li>
 
       
         
   
   
+
+
+  
+  
+  
     <li class="md-tabs__item">
-      
-        <a href="../../db/" class="md-tabs__link">
-          Adatbázis
-        </a>
-      
+      <a href="../../db/" class="md-tabs__link">
+        Adatbázis
+      </a>
     </li>
   
 
@@ -183,12 +191,15 @@
         
   
   
+
+
+  
+  
+  
     <li class="md-tabs__item">
-      
-        <a href="../../jegyzet/architektura/" class="md-tabs__link">
-          Jegyzetek
-        </a>
-      
+      <a href="../../jegyzet/architektura/" class="md-tabs__link">
+        Jegyzetek
+      </a>
     </li>
   
 
@@ -196,12 +207,17 @@
         
   
   
+    
+  
+
+
+  
+  
+  
     <li class="md-tabs__item">
-      
-        <a href="../transactions/" class="md-tabs__link md-tabs__link--active">
-          Gyakorlatok
-        </a>
-      
+      <a href="../transactions/" class="md-tabs__link md-tabs__link--active">
+        Gyakorlatok
+      </a>
     </li>
   
 
@@ -209,12 +225,15 @@
         
   
   
+
+
+  
+  
+  
     <li class="md-tabs__item">
-      
-        <a href="../../hazi/" class="md-tabs__link">
-          Házi feladatok
-        </a>
-      
+      <a href="../../hazi/" class="md-tabs__link">
+        Házi feladatok
+      </a>
     </li>
   
 
@@ -228,10 +247,18 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek">
       
@@ -261,8 +288,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../.." title="Adatvezérelt rendszerek" class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       Adatvezérelt rendszerek
     </a>
   </li>
@@ -273,21 +301,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     
     <label class="md-nav__link" for="nav-2">
       Adatbázis
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Adatbázis
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -298,8 +325,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../db/" title="Minta adatbázis sémája" class="md-nav__link">
+    <a href="../../db/" class="md-nav__link">
       Minta adatbázis sémája
     </a>
   </li>
@@ -310,8 +338,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../db/mssql/" title="Microsoft SQL Server használata" class="md-nav__link">
+    <a href="../../db/mssql/" class="md-nav__link">
       Microsoft SQL Server használata
     </a>
   </li>
@@ -322,8 +351,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../db/mongodb/" title="MongoDB használata" class="md-nav__link">
+    <a href="../../db/mongodb/" class="md-nav__link">
       MongoDB használata
     </a>
   </li>
@@ -334,8 +364,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" title="Minta adatbázis: mssql.sql" class="md-nav__link">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" class="md-nav__link">
       Minta adatbázis: mssql.sql
     </a>
   </li>
@@ -346,8 +377,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" title="Minta adatbázis: mongo.js" class="md-nav__link">
+    <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" class="md-nav__link">
       Minta adatbázis: mongo.js
     </a>
   </li>
@@ -363,21 +395,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
       Jegyzetek
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Jegyzetek
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -388,8 +419,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/architektura/" title="Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra" class="md-nav__link">
+    <a href="../../jegyzet/architektura/" class="md-nav__link">
       Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
     </a>
   </li>
@@ -400,8 +432,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/transactions/" title="Tranzakciókezelés adatbázisokban" class="md-nav__link">
+    <a href="../../jegyzet/transactions/" class="md-nav__link">
       Tranzakciókezelés adatbázisokban
     </a>
   </li>
@@ -412,8 +445,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/mssql/sql/" title="SQL nyelv, MSSQL platformfüggő SQL utasítások" class="md-nav__link">
+    <a href="../../jegyzet/mssql/sql/" class="md-nav__link">
       SQL nyelv, MSSQL platformfüggő SQL utasítások
     </a>
   </li>
@@ -424,8 +458,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/mssql/server-side-programming/" title="Microsoft SQL Server programozása" class="md-nav__link">
+    <a href="../../jegyzet/mssql/server-side-programming/" class="md-nav__link">
       Microsoft SQL Server programozása
     </a>
   </li>
@@ -436,8 +471,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/linq/" title="LINQ: Language Integrated Query" class="md-nav__link">
+    <a href="../../jegyzet/linq/" class="md-nav__link">
       LINQ: Language Integrated Query
     </a>
   </li>
@@ -448,8 +484,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/mongodb/" title="MongoDB alapok, műveletek, és a MongoDB .NET Driver" class="md-nav__link">
+    <a href="../../jegyzet/mongodb/" class="md-nav__link">
       MongoDB alapok, műveletek, és a MongoDB .NET Driver
     </a>
   </li>
@@ -460,8 +497,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../jegyzet/di/" title="Függőséginjektálás ASP.NET Core környezetben" class="md-nav__link">
+    <a href="../../jegyzet/di/" class="md-nav__link">
       Függőséginjektálás ASP.NET Core környezetben
     </a>
   </li>
@@ -472,8 +510,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="https://github.com/bmeviauac01/rest-webapi-sample" title="REST és WebAPI demó alkalmazás (GitHub)" class="md-nav__link">
+    <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
       REST és WebAPI demó alkalmazás (GitHub)
     </a>
   </li>
@@ -484,8 +523,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="https://github.com/bmeviauac01/todoapi-di-sample" title="ASP.NET Core DI demó alkalmazás (GitHub)" class="md-nav__link">
+    <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
       ASP.NET Core DI demó alkalmazás (GitHub)
     </a>
   </li>
@@ -496,8 +536,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" title="Minta többrétegű webalkalmazás (GitHub)" class="md-nav__link">
+    <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
       Minta többrétegű webalkalmazás (GitHub)
     </a>
   </li>
@@ -512,24 +553,23 @@
       
       
 
+
   
 
 
+  
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
     
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       Gyakorlatok
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Gyakorlatok
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -540,8 +580,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../transactions/" title="Tranzakciókezelés" class="md-nav__link">
+    <a href="../transactions/" class="md-nav__link">
       Tranzakciókezelés
     </a>
   </li>
@@ -552,8 +593,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../mssql/" title="Microsoft SQL Server programozása" class="md-nav__link">
+    <a href="../mssql/" class="md-nav__link">
       Microsoft SQL Server programozása
     </a>
   </li>
@@ -564,8 +606,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../ef/" title="Entity Framework" class="md-nav__link">
+    <a href="../ef/" class="md-nav__link">
       Entity Framework
     </a>
   </li>
@@ -576,8 +619,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../mongodb/" title="MongoDB" class="md-nav__link">
+    <a href="../mongodb/" class="md-nav__link">
       MongoDB
     </a>
   </li>
@@ -586,6 +630,7 @@
           
           
           
+
 
   
 
@@ -599,12 +644,10 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         JPA & Spring Data
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="JPA & Spring Data" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       JPA & Spring Data
     </a>
     
@@ -616,9 +659,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Tartalomjegyzék
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -725,8 +766,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../rest/" title="REST API & ASP.NET Web API" class="md-nav__link">
+    <a href="../rest/" class="md-nav__link">
       REST API & ASP.NET Web API
     </a>
   </li>
@@ -742,21 +784,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     
     <label class="md-nav__link" for="nav-5">
       Házi feladatok
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Házi feladatok
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -767,8 +808,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/" title="Szorgalmi házi feladatok" class="md-nav__link">
+    <a href="../../hazi/" class="md-nav__link">
       Szorgalmi házi feladatok
     </a>
   </li>
@@ -779,8 +821,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/mssql/" title="Feladat: MSSQL szerveroldali programozás" class="md-nav__link">
+    <a href="../../hazi/mssql/" class="md-nav__link">
       Feladat: MSSQL szerveroldali programozás
     </a>
   </li>
@@ -791,8 +834,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/adonet/" title="Feladat: ADO.NET adatelérés" class="md-nav__link">
+    <a href="../../hazi/adonet/" class="md-nav__link">
       Feladat: ADO.NET adatelérés
     </a>
   </li>
@@ -803,8 +847,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/ef/" title="Feladat: Entity Framework" class="md-nav__link">
+    <a href="../../hazi/ef/" class="md-nav__link">
       Feladat: Entity Framework
     </a>
   </li>
@@ -815,8 +860,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/mongodb/" title="Feladat: MongoDB" class="md-nav__link">
+    <a href="../../hazi/mongodb/" class="md-nav__link">
       Feladat: MongoDB
     </a>
   </li>
@@ -827,8 +873,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/rest/" title="Feladat: REST API Web API technológiával" class="md-nav__link">
+    <a href="../../hazi/rest/" class="md-nav__link">
       Feladat: REST API Web API technológiával
     </a>
   </li>
@@ -839,8 +886,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/GitHub/" title="Feladatok beadása (GitHub)" class="md-nav__link">
+    <a href="../../hazi/GitHub/" class="md-nav__link">
       Feladatok beadása (GitHub)
     </a>
   </li>
@@ -851,8 +899,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/GitHub-Actions/" title="GitHub Actions ismertető" class="md-nav__link">
+    <a href="../../hazi/GitHub-Actions/" class="md-nav__link">
       GitHub Actions ismertető
     </a>
   </li>
@@ -863,8 +912,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../../hazi/VisualStudio/" title="Visual Studio telepítése" class="md-nav__link">
+    <a href="../../hazi/VisualStudio/" class="md-nav__link">
       Visual Studio telepítése
     </a>
   </li>
@@ -882,7 +932,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -893,9 +944,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Tartalomjegyzék
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -1005,9 +1054,6 @@
                   <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/gyakorlat/jpa/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
-                
-                
-                  
                 
                 
                 <h1 id="jpa-spring-data">JPA &amp; Spring Data<a class="headerlink" href="#jpa-spring-data" title="Permanent link">&para;</a></h1>
@@ -1157,7 +1203,6 @@
   <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="nf">findByStockGreaterThan</span><span class="p">(</span><span class="n">BigDecimal</span> <span class="n">limit</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>A <code>WebshopController</code>-ben már be van injektálva egy <code>ProductRepository</code> típusú tagváltozó, hívjuk meg rajta a metódust az 4.a TODO-nál:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Controller</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebshopController</span> <span class="p">{</span>
@@ -1172,7 +1217,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p><strong>4.b feladat</strong></p>
 <p>A <code>dao</code> package-ben lévő <code>ProductRepositoryCustom</code> interfészbe vegyük fel egy <code>findProductsOrderedAtLeastTwice</code> nevű metódust:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">hu.bme.aut.adatvez.webshop.dao</span><span class="p">;</span>
@@ -1184,7 +1228,6 @@
   <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="nf">findProductsOrderedAtLeastTwice</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>A dao package-ben lévő <code>ProductRepositoryImpl</code> osztály hibás lesz emiatt, mert nem implementálja a <code>ProductRepositoryCustom</code>-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:</p>
 <p><img alt="Eclise interfész implementálása" src="images/eclipse-implement-methods.png" /></p>
 <p>Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)</p>
@@ -1212,7 +1255,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: <code>SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin</code>. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont <code>org.hibernate.LazyInitializationException</code> dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és a orderitems listára hivatkozunk). Lehetséges megoldások:</p>
 <ul>
 <li>Az <em>application.properties</em>-ben <code>spring.jpa.open-in-view=true</code> (ez lenne amúgy a default Spring Boot esetében, de a példa projektben direkt false-ra van állítva): Ilyenkor az EntityManager már a webes kérés legelején létrejön, és csak a view renderelése után záródik be, vagyis a Spring bean-beli metódusok visszatérése után is menedzselt állapotban lenne a Product entitás, és el lehetne kérni a kapcsolódó orderitems listát.</li>
@@ -1227,7 +1269,6 @@
   <span class="k">return</span> <span class="n">productRepository</span><span class="p">.</span><span class="na">findProductsOrderedAtLeastTwice</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p><strong>4.c feladat</strong></p>
 <p>A <code>Product</code> osztályt nyissuk meg, ott a gyorsabb haladás érdekében már fogunk találni kész named query-ket, a másodikat kell használnunk:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@NamedQueries</span><span class="p">({</span>
@@ -1235,18 +1276,15 @@
 <span class="nd">@NamedQuery</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;Product.findMostExpensive&quot;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s">&quot;SELECT p FROM Product p WHERE p.price IN (SELECT MAX(p2.price) FROM Product p2)&quot;</span><span class="p">)</span>
 <span class="p">})</span>
 </code></pre></div>
-
 <p>A named query-t két módon is meghívhatjuk. Ha lassú a haladás, elég az első módszerrel megcsinálni. Az első módszer, hogy a named query-vel egyező nevű metódust teszünk a <code>ProductRepository</code>-ba (leszámítva a <em>Product.</em> előtagot.) Vagyis:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="nf">findMostExpensive</span><span class="p">();</span>
 </code></pre></div>
-
 <p>A másik lehetőség, hogy a <code>ProductRepositoryImpl</code>-ben, <code>EntityManager</code>-en keresztül hívjuk meg a named query-t:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="nf">findMostExpensiveProducts</span><span class="p">(){</span>
   <span class="k">return</span> <span class="n">em</span><span class="p">.</span><span class="na">createNamedQuery</span><span class="p">(</span><span class="s">&quot;Product.findMostExpensive&quot;</span><span class="p">,</span> <span class="n">Product</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">getResultList</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Ilyenkor ezt a metódust ki kell még tenni a <code>ProductRepositoryCustom</code> interfészbe. Leggyorsabb így: Jobb klikk / <em>Refactor / Pull up</em>, és ott a metódus kiválasztható</p>
 <p>Végül valamelyik verziót hívjuk meg a <code>WebshopController</code> megfelelő pontján:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 4.c feladat</span>
@@ -1256,7 +1294,6 @@
   <span class="k">return</span> <span class="n">productRepository</span><span class="p">.</span><span class="na">findMostExpensive</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
-
 </details>
 <h2 id="feladat-5-adatmodositas">Feladat 5: Adatmódosítás<a class="headerlink" href="#feladat-5-adatmodositas" title="Permanent link">&para;</a></h2>
 <p>A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.</p>
@@ -1271,7 +1308,6 @@
 <span class="s">(SELECT p2.id FROM Product p2 WHERE p2.category.name=:categoryName)&quot;</span><span class="p">)</span>
 <span class="kt">void</span> <span class="nf">categoryRaisePrice</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&quot;categoryName&quot;</span><span class="p">)</span> <span class="n">String</span> <span class="n">categoryName</span><span class="p">);</span>
 </code></pre></div>
-
 <p>Meghívása a <code>WebshopController</code>-ből:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 5.a feladat</span>
 <span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;/raisePriceOfBuildingItems&quot;</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="p">{</span>
@@ -1282,7 +1318,6 @@
   <span class="k">return</span> <span class="s">&quot;redirect:/&quot;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Böngészőben a gomb megnyomása után a gomb alatti táblázatban látszódik az átárazás hatása.</p>
 <p><strong>5.b feladat</strong></p>
 <p>A <code>dao</code> package-be új osztály, <code>CategoryService</code> néven, <code>@Service</code> annotációval, szintén <code>@Transactional</code> metódussal:</p>
@@ -1320,7 +1355,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Figyeljük meg, hogy a menedzselt entitás példányokat (amit tranzakción belül találunk meg query-vel, vagy most persist-áltunk frissen) nem kell explicit módon visszamenteni, tranzakció végén automatikusan DB-be íródnak a memóriabeli változások.</p>
 <p>Meghívás a <code>WebshopController</code>-ből:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Autowired</span>
@@ -1336,7 +1370,6 @@
   <span class="k">return</span> <span class="s">&quot;redirect:/&quot;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Böngészőben a gomb megnyomása után látszódik a <em>Drága játékok</em> kategória tartalma</p>
 <p><strong>5.c feladat</strong></p>
 <p>A <code>dao</code> package-be új interfész, <code>CategoryRepository</code> néven, a <code>ProductRepository</code> mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:</p>
@@ -1344,7 +1377,6 @@
   <span class="n">List</span><span class="o">&lt;</span><span class="n">Category</span><span class="o">&gt;</span> <span class="nf">findByName</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Ezután a <code>CategoryService</code> így egyszerűsödik le:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CategoryService</span> <span class="p">{</span>
@@ -1361,7 +1393,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 </details>
 <h2 id="feladat-6-tarolt-eljarasok-hasznalata">Feladat 6: Tárolt eljárások használata<a class="headerlink" href="#feladat-6-tarolt-eljarasok-hasznalata" title="Permanent link">&para;</a></h2>
 <p>Hívd meg a JPA-ból a <em>CreateNewPaymentMethod</em> nevű tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját!</p>
@@ -1381,7 +1412,6 @@
 <span class="k">values</span><span class="p">(</span><span class="o">@</span><span class="k">Method</span><span class="p">,</span><span class="o">@</span><span class="n">Deadline</span><span class="p">)</span>
 <span class="k">select</span> <span class="n">scope_identity</span><span class="p">()</span> <span class="k">as</span> <span class="n">NewId</span>
 </code></pre></div>
-
 </li>
 </ul>
 <details class="example"><summary>Megoldás</summary><p>A <code>PaymentMethod</code> entitáson megtaláljuk az alábbi annotációt. Vessük össze a tárolt eljárást definiáló kóddal a változó neveket!</p>
@@ -1396,7 +1426,6 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Paymentmethod</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="p">{</span>
 <span class="p">...</span>
 </code></pre></div>
-
 <p>A named stored procedure query meghívható Spring Data repositoryból (<code>dao</code> package-en <em>New Interface ... / PaymentmethodRepository</em>):</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PaymentmethodRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Paymentmethod</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
 
@@ -1404,7 +1433,6 @@
   <span class="kt">void</span> <span class="nf">newMethod</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&quot;Method&quot;</span><span class="p">)</span> <span class="n">String</span> <span class="n">method</span><span class="p">,</span> <span class="nd">@Param</span><span class="p">(</span><span class="s">&quot;Deadline&quot;</span><span class="p">)</span> <span class="n">BigDecimal</span> <span class="n">deadline</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>Spring Data nélkül így menne, <code>EntityManager</code>-en keresztül, erre valószínűleg már nem lesz idő:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PaymentmethodService</span> <span class="p">{</span>
@@ -1420,7 +1448,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>A webrétegbeli meghívás:</p>
 <ul>
 <li>Injektáljuk a <code>WebshopController</code>-be a <code>PaymentmethodRepository</code> interfészt:</li>
@@ -1428,13 +1455,11 @@
 <div class="highlight"><pre><span></span><code><span class="nd">@Autowired</span>
 <span class="n">PaymentmethodRepository</span> <span class="n">paymentmethodRepository</span><span class="p">;</span>
 </code></pre></div>
-
 <ul>
 <li>
 <p>A WebshopController utolsó TODO-jánál hívjuk meg</p>
 <div class="highlight"><pre><span></span><code><span class="n">paymentmethodRepository</span><span class="p">.</span><span class="na">newMethod</span><span class="p">(</span><span class="n">paymentMethod</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(),</span> <span class="n">paymentMethod</span><span class="p">.</span><span class="na">getDeadline</span><span class="p">());</span>
 </code></pre></div>
-
 </li>
 <li>
 <p>A <code>Paymentmethod</code> entitás <code>deadline</code> és <code>method</code> tagváltozóin validációs <em>constraint</em>-eket találunk. Ezek az annotációk a <em>Bean Validation API</em> részei, amivel a webes rétegben használt Spring MVC, de a JPA és integrálódik, így a webrétegbeli és adatrétegbeli validáció konzisztens módon, redundanciamentesen definiálható.</p>
@@ -1445,7 +1470,6 @@
 <span class="nd">@NotEmpty</span>
 <span class="kd">private</span> <span class="n">String</span> <span class="n">method</span><span class="p">;</span>
 </code></pre></div>
-
 </li>
 </ul>
 </details>
@@ -1461,7 +1485,29 @@
         </div>
       </main>
       
-        
+        <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
 
 <!-- Application footer -->
 <footer class="md-footer">
@@ -1473,8 +1519,7 @@
 
       <!-- Link to previous page -->
       
-      <a href="../mongodb/" title="MongoDB"
-        class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+      <a href="../mongodb/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
         <div class="md-footer-nav__button md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </div>
@@ -1491,8 +1536,7 @@
 
       <!-- Link to next page -->
       
-      <a href="../rest/" title="REST API & ASP.NET Web API"
-        class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+      <a href="../rest/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
         <div class="md-footer-nav__title">
           <div class="md-ellipsis">
             <span class="md-footer-nav__direction">
@@ -1523,21 +1567,23 @@
         
       </div>
 
+      <!-- Social links -->
+      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum"}</script>
+      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
-          features: ["tabs"],
+          features: ['navigation.tabs'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
