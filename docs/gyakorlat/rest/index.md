@@ -402,3 +402,41 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
         }
     }
     ```
+
+## Feladat 6: Aszinkron kontroller metódus
+
+Az előbbi feladatot írjuk át [**aszinkronra**](../../jegyzet/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
+
+??? example "Megoldás"
+    ```csharp hl_lines="2 4 8 23"
+    [HttpPost]
+    public async Task<ActionResult> Create([FromBody] Models.NewProduct newProduct)
+    {
+        var dbVat = await dbContext.Vat.FirstOrDefaultAsync(v => v.Percentage == newProduct.VATPercentage);
+        if (dbVat == null)
+            dbVat = new Dal.VAT() { Percentage = newProduct.VATPercentage };
+
+        var dbCat = await dbContext.Category.FirstOrDefaultAsync(c => c.Name == newProduct.CategoryName);
+        if (dbCat == null)
+            dbCat = new Dal.Category() { Name = newProduct.CategoryName };
+
+        var dbProduct = new Dal.Product()
+        {
+            Name = newProduct.Name,
+            Price = newProduct.Price,
+            Stock = newProduct.Stock,
+            Category = dbCat,
+            VAT = dbVat
+        };
+
+        // mentes az adatbazisba
+        dbContext.Product.Add(dbProduct);
+        await dbContext.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
+    }
+    ```
+
+    Vegyük észre, mennyire egyszerű volt a dolgunk. Az Entity Framework által biztosított `...Async` metódusokat használjuk, mindegyiket `await`-elve, és a metódus szignatúráját kellett kicsit átírnunk. Minden másról továbbra is a keretrendszer gondoskodik.
+
+    Megjegyzés. Az `async-await` .NET keretrendszer képesség, amelyet az ASP.NET Core és az Entity Framework is támogat. Számos más helyen is találkozhatunk azonban vele.
