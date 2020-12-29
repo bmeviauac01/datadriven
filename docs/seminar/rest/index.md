@@ -402,3 +402,41 @@ When creating the new product, we have to specify the category, as well as the v
         }
     }
     ```
+
+## Exercise 6: Asynchronous controller method
+
+Let us refactor the previous exercise code for [**asynchronous**](../../lecture-notes/async/index.md) execution, that is, let us use `async-await`. Asynchronous execution utilizes the execution threads of the server more efficiently while waiting for database operations. We can easily make our code asynchronous by relying on the asynchronous support of Entity Framework.
+
+??? example "Solution"
+    ```csharp hl_lines="2 4 8 23"
+    [HttpPost]
+    public async Task<ActionResult> Create([FromBody] Models.NewProduct newProduct)
+    {
+        var dbVat = await dbContext.Vat.FirstOrDefaultAsync(v => v.Percentage == newProduct.VATPercentage);
+        if (dbVat == null)
+            dbVat = new Dal.VAT() { Percentage = newProduct.VATPercentage };
+
+        var dbCat = await dbContext.Category.FirstOrDefaultAsync(c => c.Name == newProduct.CategoryName);
+        if (dbCat == null)
+            dbCat = new Dal.Category() { Name = newProduct.CategoryName };
+
+        var dbProduct = new Dal.Product()
+        {
+            Name = newProduct.Name,
+            Price = newProduct.Price,
+            Stock = newProduct.Stock,
+            Category = dbCat,
+            VAT = dbVat
+        };
+
+        // save to database
+        dbContext.Product.Add(dbProduct);
+        await dbContext.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // this will add the URL where the new item is available into the header
+    }
+    ```
+
+    Let us see how simple this was. Entity Framework provides us the `...Async` methods, and we only have to `await` them, and update the method signature a litte. Everything else is taken care of by the framework.
+
+    Note. The `async-await` is a .NET frmaework feature supported by both ASP.NET Core and Entity Framework. It is also supported by a lot of other libraries as well.
