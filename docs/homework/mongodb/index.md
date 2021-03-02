@@ -22,58 +22,7 @@ Use GitHub Classroom to get your git repository at <https://classroom.github.com
 
 Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
 
-## Exercise 1: Modify the tax percentage (2 points)
-
-This exercise requires you to change the percentage of a value-added tax and update all related products. You need to implement the following method in class `ProductRepository`.
-
-```csharp
-public void ChangeVatPercentage(string name, int newPercentage)
-```
-
-1. Let us first examine where the tax-related data is in the database. Compared to a relational database, the VAT-related data is denormalized in MongoDB and resides in the `products` collection as an embedded document in each item.
-
-    ![Embedded document](embedded-doc.png)
-
-    This is also mirrored in the `Product` C# class.
-
-    ```csharp
-    public class Product
-    {
-        [BsonId]
-        public ObjectId ID { get; set; }
-        public ObjectId CategoryID { get; set; }
-
-        public string Name { get; set; }
-        public double? Price { get; set; }
-        public int? Stock { get; set; }
-        public VAT VAT { get; set; }
-    }
-    ```
-
-    This makes working with products efficient as the product's total price can be calculated by taking the price and the embedded tax percentage (without the need to `JOIN` another data table, as it is required in a relational database).
-
-    The disadvantage is though that an update to the tax has to change **all documents**.
-
-1. From the description above, it follows that we need to change more than one document; hence we shall use an `UpdateMany` command to find and update all product records where the name in the `vat` field matches the parameter. Let us review how this method works.
-
-    - `UpdateMany` has a `filter` parameter to specify which product records to update: where `VAT.Name` equals the value in the `name` parameter of the repository method.
-    - The `update` parameter specifies the changes to make: change the `VAT.Percentage` to the value received as `newPercentage` parameter of the repository method. You should use a [$set](https://docs.mongodb.com/manual/reference/operator/update/set/) (`Set`) operator for this modification.
-
-1. Implement the repository method. The repository class receives the database as a parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.
-
-There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestDbFactory` if needed.
-
-!!! important "Tests"
-    The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
-
-    Do **NOT** change the unit tests. You may temporarily alter the unit tests if you need to, but make sure to reset your changes before committing.
-
-!!! example "SUBMISSION"
-    Upload the changed C# source code.
-
-    Create a screenshot that displays the **content of the `products` collection after the successful update**. If you execute the test, the _Standard Rate_ VAT percentage should change. Use Robo3T (or any other similar tool) to verify and show that the values have indeed changed. Make sure to expand a few documents to show the new values (just like the image above).
-
-## Exercise 2: Product with the largest total value (2 points)
+## Exercise 1: Product with the largest total value (2 points)
 
 The task is to find the product that has the largest total value within a product category. The total value is the **price of the product multiplied by the amount of the product in stock**. You need to implement the following method in class `ProductRepository`.
 
@@ -81,7 +30,7 @@ The task is to find the product that has the largest total value within a produc
 (string, double?) ProductWithLargestTotalValue(ObjectId categoryId)
 ```
 
-1. Let us check the test related to this exercise in file `TestExercise2.cs` to understand what is expected here.
+1. Let us check the test related to this exercise in file `TestExercise1.cs` to understand what is expected here.
 
     - The method accepts a category name as an argument; products have to be filtered for this category.
     - The return value should be the name of the product (with the largest total value) and the total value itself.
@@ -108,7 +57,53 @@ The task is to find the product that has the largest total value within a produc
         
         The function will return with these two values.
 
-You may test your implementation with the tests provided in class `TestExercise2`.
+1. Implement the repository method. The repository class receives the database as a parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.
+
+There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestDbFactory` if needed.
+
+!!! important "Tests"
+    The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
+
+    Do **NOT** change the unit tests. You may temporarily alter the unit tests if you need to, but make sure to reset your changes before committing.
+
+!!! example "SUBMISSION"
+    Upload the changed C# source code.
+
+    You can run the tests in Visual Studio or using `dotnet cli`. Make sure that the screenshot includes the **source code of the repository** and the **test execution outcome**! Save the screenshot as `f1.png` and upload as part of your submission!
+
+    If you are using `dotnet cli` to run the tests, make sure to display the test names too. Use the `-v n` command line switch to set detailed logging.
+
+    The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
+
+## Exercise 2: Estimating storage space (2 points)
+
+The company is moving to a new location. We need to know whether the current stock can be moved and will fit into the new storage facility. Implement the method that calculates the **total volume of all products in stock**!
+
+The products have the necessary information in `description.product.package_parameters`:
+
+![Product size](product-size.png)
+
+Use this to calculate the total volume of all items:
+
+- Use the information from `package_parameters` (and **not** from `product_size`).
+- A product might have multiple packages; this information is available in `package_parameters.number_of_packages`. This number shall be used as a multiplicator. Each product has a single size, and if it has multiple packages, then all packages are of the same size.
+- The final total: for all products Σ (product stock * number of packages * width * height * depth).
+- If a product does not have these information, it's volume should be calculated as 0.
+- Mind, that the size also has a unit: either _cm_ or _m_, but the final value is expected in cubic meter.
+
+Implement method `double GetAllProductsCumulativeVolume()` that returns a single scalar total of the volume in **cubic meters**. The calculation should be performed by the database (not in C#); use the aggregation pipeline.
+
+!!! into "Sum aggregation"
+    You will need the `$group` aggregation stage. Although, we do not need to group the products, still, this will allow us to aggregate all of them. Map each product into the same group (that is, in the `$group` stage the `id` should be a constant for all items), then use the projection part to perform a [`$sum`](https://docs.mongodb.com/manual/reference/operator/aggregation/sum/#use-in-group-stage) aggregation according to the formula above.
+
+    Handling of the _cm_ and _m_ units can be solved with a conditional multiplication in the `sum`. If this does not work, you can use two aggregations: one for _cm_ and one for _m_ units, each with a filter in the pipeline then the aggregation afterwards.
+
+The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the `[BsonElement(elementName: "...")]` attribute.
+
+!!! warning "Use Fluent Api"
+    You must use the C# Fluent Api! No not write the query using `BsonDocument`!
+
+You may test your implementation with the tests provided in class `TestExercise2`. The test presume that the database is in its initial state.
 
 !!! example "SUBMISSION"
     Upload the changed C# source code.
