@@ -1,0 +1,1421 @@
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Dudás Ákos">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
+    
+    
+      
+        <title>Aszinkron kérések és DTO-k (példa WebAPI alkalmazás) - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2c0c5eaf.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aszinkron-keresek-es-dto-k-pelda-webapi-alkalmazas" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Adatvezérelt rendszerek
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../db/" class="md-tabs__link">
+        Adatbázis
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architektura/" class="md-tabs__link md-tabs__link--active">
+        Jegyzetek
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../gyakorlat/transactions/" class="md-tabs__link">
+        Gyakorlatok
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hazi/" class="md-tabs__link">
+        Házi feladatok
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Adatvezérelt rendszerek
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Adatbázis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/" class="md-nav__link">
+        Minta adatbázis sémája
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mssql/" class="md-nav__link">
+        Microsoft SQL Server használata
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mongodb/" class="md-nav__link">
+        MongoDB használata
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" class="md-nav__link">
+        Minta adatbázis: mssql.sql
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" class="md-nav__link">
+        Minta adatbázis: mongo.js
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Jegyzetek
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architektura/" class="md-nav__link">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transactions/" class="md-nav__link">
+        Tranzakciókezelés adatbázisokban
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/sql/" class="md-nav__link">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/server-side-programming/" class="md-nav__link">
+        Microsoft SQL Server programozása
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linq/" class="md-nav__link">
+        LINQ: Language Integrated Query
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb/" class="md-nav__link">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../di/" class="md-nav__link">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aszinkronitas" class="md-nav__link">
+    Aszinkronitás
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#az-alkalmazas-adatbazis-modellje" class="md-nav__link">
+    Az alkalmazás adatbázis modellje
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kiszolgalo-alkalmazas-felepitese" class="md-nav__link">
+    Kiszolgáló alkalmazás felépítése
+  </a>
+  
+    <nav class="md-nav" aria-label="Kiszolgáló alkalmazás felépítése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adatbazist-modellezo-osztalyok-letrehozasa" class="md-nav__link">
+    Adatbázist modellező osztályok létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adatbazis-kontextus-letrehozasa" class="md-nav__link">
+    Adatbázis kontextus létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-transfer-object-letrehozasa" class="md-nav__link">
+    Data Transfer Object létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-osztaly-letrehozasa" class="md-nav__link">
+    Controller osztály létrehozása
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teljes-peldakod" class="md-nav__link">
+    Teljes példakód
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Gyakorlatok
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/transactions/" class="md-nav__link">
+        Tranzakciókezelés
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/mssql/" class="md-nav__link">
+        Microsoft SQL Server programozása
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/ef/" class="md-nav__link">
+        Entity Framework
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/mongodb/" class="md-nav__link">
+        MongoDB
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/jpa/" class="md-nav__link">
+        JPA & Spring Data
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/rest/" class="md-nav__link">
+        REST API & ASP.NET Web API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Házi feladatok
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/" class="md-nav__link">
+        Szorgalmi házi feladatok
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/mssql/" class="md-nav__link">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/adonet/" class="md-nav__link">
+        Feladat: ADO.NET adatelérés
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/ef/" class="md-nav__link">
+        Feladat: Entity Framework
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/mongodb/" class="md-nav__link">
+        Feladat: MongoDB
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/rest/" class="md-nav__link">
+        Feladat: REST API Web API technológiával
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/GitHub/" class="md-nav__link">
+        Feladatok beadása (GitHub)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/GitHub-Actions/" class="md-nav__link">
+        GitHub Actions ismertető
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/VisualStudio/" class="md-nav__link">
+        Visual Studio telepítése
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aszinkronitas" class="md-nav__link">
+    Aszinkronitás
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#az-alkalmazas-adatbazis-modellje" class="md-nav__link">
+    Az alkalmazás adatbázis modellje
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kiszolgalo-alkalmazas-felepitese" class="md-nav__link">
+    Kiszolgáló alkalmazás felépítése
+  </a>
+  
+    <nav class="md-nav" aria-label="Kiszolgáló alkalmazás felépítése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adatbazist-modellezo-osztalyok-letrehozasa" class="md-nav__link">
+    Adatbázist modellező osztályok létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adatbazis-kontextus-letrehozasa" class="md-nav__link">
+    Adatbázis kontextus létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-transfer-object-letrehozasa" class="md-nav__link">
+    Data Transfer Object létrehozása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-osztaly-letrehozasa" class="md-nav__link">
+    Controller osztály létrehozása
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teljes-peldakod" class="md-nav__link">
+    Teljes példakód
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/async/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="aszinkron-keresek-es-dto-k-pelda-webapi-alkalmazas">Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)<a class="headerlink" href="#aszinkron-keresek-es-dto-k-pelda-webapi-alkalmazas" title="Permanent link">&para;</a></h1>
+<p>Az alábbi jegyzet a <strong>kiszolgáló oldali aszinkronitást</strong> és a <strong>DTO-k (Data Transfer Object-ek) használatát</strong> mutatja be egy példán keresztül. Az alkalmazás egy ASP.NET Core WebApi kiszolgáló Entity Framework adateléréssel, amely egy webshop kosár kezelését valósítja meg.</p>
+<div class="admonition quote">
+<p class="admonition-title">Szerző</p>
+<p>Az alábbi jegyzet Zergi Máté munkája.</p>
+</div>
+<h2 id="aszinkronitas">Aszinkronitás<a class="headerlink" href="#aszinkronitas" title="Permanent link">&para;</a></h2>
+<p>A webes alkalmazásaink legnagyobb része valamilyen módon kommunikál adatbázissal. Erről a kommunikációról <strong>nem feltételezhetjük</strong>, hogy:</p>
+<ul>
+<li>elérhető az adatbázis szerver,</li>
+<li>gyors a kapcsolat a kliens és a kiszolgáló között,</li>
+<li>az adatokat az adabázis szerver gyorsan állítja elő.</li>
+</ul>
+<p>Ezért fel kell készülni arra, hogy a kiszolgálás során kért adatokra várni kell. Erre kínál megoldást az <strong>aszinkronitás</strong>, amely hatékonyan használja ki a kiszolgáló erőforrásait - például nem foglal a web kiszolgálón erőforrást, amíg az az adatbázisra vár.</p>
+<div class="admonition warning">
+<p class="admonition-title">Aszinkronitás és párhuzamosság</p>
+<p>Az aszinkronitás <strong>nem azonos</strong> a párhuzamossággal. Egy webes kiszolgáló a bejövő kéréseket párhuzamosan szolgálja ki. Az aszinkronitás egy kérés kiszolgálása során alkalmazott módszer, amely az I/O műveletek (pl. adatbázis elérés, fájl elérés, hálózati kommunikáció) során hatékonyan kezeli a kiszolgáló szálait.</p>
+</div>
+<h2 id="az-alkalmazas-adatbazis-modellje">Az alkalmazás adatbázis modellje<a class="headerlink" href="#az-alkalmazas-adatbazis-modellje" title="Permanent link">&para;</a></h2>
+<p>Az alkalmazásunk a tárgy minta adatbázisához hasonló, de egyszerűbb adatbázissal dolgozik, az ER diagramja itt látható:</p>
+<p><img alt="Az alkalmazás adatbázis diagramja" src="images/dbdiagram.png" /></p>
+<div class="admonition note">
+<p>Az egyszerűség kedvéért a kosarakban a <em>UserID</em> nem idegen kulcsként szerepel egy <em>Users</em> táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a <em>UserID</em> idegen kulcs lenne.</p>
+</div>
+<p>A <em>Products</em> tábla reprezentál termékeket, a <em>Manufacturers</em> tábla gyártókat (ez gyorsíthatja a gyártónként szűrést), az <em>OrderItems</em> pedig kosárban levő termékeket.</p>
+<h2 id="kiszolgalo-alkalmazas-felepitese">Kiszolgáló alkalmazás felépítése<a class="headerlink" href="#kiszolgalo-alkalmazas-felepitese" title="Permanent link">&para;</a></h2>
+<p>ASP.NET Core WebApi és Entity Framework segítségével szeretnénk a fenti adatbázis adatait REST-kompatibilis szolgáltatáson keresztül elérhetővé tenni. Az adatbázis modellezéséhez, valamint a WebAPI kiszolgáláshoz alapvetően három (esetleg négy) feladatot kell elvégezni:</p>
+<ol>
+<li>Adatbázis táblát/táblákat modellező osztály/osztályok létrehozása,</li>
+<li>Adatbázis kontextus létrehozása,</li>
+<li>Data Transfer Object létrehozása, ha szükség van az adatok átalakítására a kliens számára,</li>
+<li>WebAPI Kontroller létrehozása</li>
+</ol>
+<p>Menjünk végig ezeken a lépéseken!</p>
+<h3 id="adatbazist-modellezo-osztalyok-letrehozasa">Adatbázist modellező osztályok létrehozása<a class="headerlink" href="#adatbazist-modellezo-osztalyok-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>Az adatbázist modellező osztályokat ASP.NET Core platformon egy <em>Models</em> mappába szokás szervezni, és azon belül az általuk reprezentált tábla nevével létrehozni őket.</p>
+<p>A <em>Products</em> táblát reprezentáló C# osztály:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Product</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ManufacturerID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Price</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A <em>Manufacturers</em> táblát reprezentáló C# osztály:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Manufacturer</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Az <em>OrderItems</em> táblát reprezentáló C# osztály:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">OrderItem</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ProductID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">CartID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Pieces</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A <em>Carts</em> táblát reprezentáló C# osztály:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Cart</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">UserID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Megfigyelhető, hogy ezek az osztályok csak adatok tárolására alkalmasak, amiket az egyes C# property-ken keresztül tudunk majd elérni.</p>
+<h3 id="adatbazis-kontextus-letrehozasa">Adatbázis kontextus létrehozása<a class="headerlink" href="#adatbazis-kontextus-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>Miután létrehoztuk a táblákat modellező osztályokat, el tudjuk készíteni az adatbázis egészét modellező <em>DbContext</em> osztályt. Ehhez a saját osztályunkat le kell származtatni az Entity Framework Core <em>DbContext</em> osztályából.</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">WebshopContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="nf">WebshopContext</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">WebshopContext</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+            <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">Products</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Manufacturer</span><span class="p">&gt;</span> <span class="n">Manufacturers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Cart</span><span class="p">&gt;</span> <span class="n">Carts</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">OrderItem</span><span class="p">&gt;</span> <span class="n">OrderItems</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Az adatbázisban szereplő egyes táblákat <em>DbSet</em>-ek definiálásával tudjuk elérni. A <em>DbSet</em>-eknek meg kell adni, hogy milyen entitásokat tárolnak (pl. a <code>DbSet&lt;Products&gt;</code> egy <code>Products</code> entitásokat tároló <code>DbSet</code>), valamint a nevüket.</p>
+<p>A konstruktorban szereplő <code>DbContextOptions</code>-t a kontextus konfigurálására lehet használni. Erre egy példa, az alkalmazás <code>Startup</code> osztályában (lásd <a href="../../gyakorlat/rest/">REST API &amp; ASP.NET Web API gyakorlat</a>) a következő konfiguráció:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Startup</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="c1">// Ezt a metódust a runtime hívja meg. Ezt a metódust használjuk servicek DI konténerhez való hozzáadásához</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">WebshopContext</span><span class="p">&gt;(</span><span class="n">opt</span> <span class="p">=&gt;</span> 
+                <span class="n">opt</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="s">@&quot;Data Source=(localdb)\mssqllocaldb;Initial Catalog=Webshop;Integrated Security=True&quot;</span><span class="p">));</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="data-transfer-object-letrehozasa">Data Transfer Object létrehozása<a class="headerlink" href="#data-transfer-object-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>Az előző két lépés eredményeként rendelkezésünkre áll az adatbázis és tábláinak leképzése. Következő lépésként gondoljunk bele abba, hogyan néz ki egy webshopban a kosár: egy kosárban egyszerre több termék jelenik meg. Tehát míg az <code>OrderItem</code> osztályunk egy megrendelt terméket tud reprezentálni, a teljes kosarat ilyen elemek listája jelenti. Ez a termék lista egy un. <em>Data Transfer Object</em> használatával írható le: ez egy olyan osztály, ami a <strong>kliens számára használható</strong> adatot gyűjt össze az adatbázisból.</p>
+<div class="admonition quote">
+<p class="admonition-title">Definíció: Data Transfer Object</p>
+<p>Egy olyan objektum, ami adatot szállít futó alkalmazások (itt: kliens és szerver) között.</p>
+</div>
+<p>DTO-k használatával nem csak kényelmesebb lesz az adatok küldése, hanem gyorsítjuk is az alkalmazásunkat:</p>
+<ul>
+<li>Csak olyan adatot küldünk a kliensnek, amire annak szüksége van.</li>
+<li>Továbbá, a DTO-ba összegyűjthetjük az összetartozó adatokat és egyben küldjük el a kliensnek.</li>
+</ul>
+<p>Gondoljuk végig, hogyan érdemes összegyűjteni az adatokat, ha a kliens a kosárban levő összes terméket, azok darabszámát, valamint az összes termék darabszámát szeretnénk megjeleníteni?</p>
+<ol>
+<li>
+<p>Az <code>OrderItem</code>-ben a kliens szempontjából felesleges adat a <code>CartID</code>, valamint az <code>ID</code>. Ezeket kiszűrve és a többi property-t meghagyva már más osztállyal dolgozunk, mint az <code>OrderItem</code>, viszont még mindig csak <strong>egy</strong> kosár cikket reprezentálunk. Az így keletkezett osztály neve legyen <code>CartItem</code>.</p>
+</li>
+<li>
+<p>Vegyük észre, hogy a <code>CartItem</code>-ben tárolt <code>Product</code> termékreprezentációra ugyanez a gondolatmenet érvényes, azzal az eltéréssel, hogy a <code>Product</code> osztályt <strong>bővíteni</strong> kell a Manufacturer <strong>nevével</strong>, a <code>ManufacturerID</code> helyett (hiszen a felhasználói felületen ezt a nevet akarjuk megjeleníteni). Tehát hozzunk létre egy új <code>Product</code> osztályt is, és tároljuk el ezt a <code>CartItem</code>-ben!</p>
+</li>
+<li>
+<p>Ilyen <code>CartItem</code> objektumokat <strong>gyűjtsünk össze</strong> egy listába, valamint számoljuk, hogy hány termék van összesen a kosárban. Legyen ez egy <code>UserCart</code> osztály. Ilyen <code>UserCart</code> példányokat küldünk majd a kliensnek.</p>
+</li>
+</ol>
+<p>A DTO-kat érdemes külön szervezni az adatbázis entitásoktól. Szervezzük őket egy <em>DTOs</em> mappába! A fenti megoldással továbbmenve, nézzük meg, hogyan fognak kinézni ezek az osztályok!</p>
+<p><code>CartItem</code> osztály, ami kiszűri az <code>OrderItem</code>-ből a kliens számára felesleges adatokat, valamint egy kliens oldali, kosárban levő árucikket reprezentál:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.DTOs</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">CartItem</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">Product</span> <span class="n">Product</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Olyan product, amiben már nem ManufacturerID szerepel</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Amount</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// A rendelt mennyiség</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>És a hozzá tartozó Product osztály:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.DTOs</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Product</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">ProductName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// A termék neve, pl AB123 Full HD TV</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Manufacturer</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// A termék gyártójának !!neve!!, pl BMETV</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Price</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// A termék ára</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// A termék azonosítója</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Miért szerepel itt az ID?</p>
+<p>Jogosan merülhet fel a kérdés, hogy itt miért szerepel az <code>ID</code>. Végiggondolva, egy kosárelem áll egy termékből, valamint abból, hogy hány darab van az adott termékből. Megjelenítésnél ezért a kosár elemet a termék azonosítja, hiszen a termék azonosítója alapján tudjuk megjeleníteni a termékhez tartozó esetleges információkat. Ezt a problémát meg lehetne oldani úgy is, hogy a kosár elemnek van azonosítója, és a terméknek nincs, esetleg mindkettőnek lehet, ebben a példában a termék azonosítóját használjuk.</p>
+</div>
+<p>A <code>UserCart</code> osztály, ami összegyűjti az egyes rendelt cikkeket, és számolja, hogy hány terméket rendeltünk összesen:</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">WebshopApi.DTOs</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">UserCart</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">List</span> <span class="p">&lt;</span><span class="n">CartItem</span><span class="p">&gt;</span> <span class="n">CartPieces</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">NumberOfItems</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p>Azzal, hogy a <code>CartItem</code>-eket listában tároljuk, könnyen kezelhetővé válnak, mind szerver, mind kliens oldalon, hiszen a kifele menő JSON objektumban a lista majd egy tömbként fog szerepelni, amin könnyen végig lehet iterálni.</p>
+</div>
+<p>Ezt a <code>UserCart</code> objektumot küldjük a kliens felé a kontrollerből, miután összegyűjtöttük a hozzá tartozó cikkeket és összeszámoltuk, hogy összesen hány termék van a kosárban.</p>
+<h3 id="controller-osztaly-letrehozasa">Controller osztály létrehozása<a class="headerlink" href="#controller-osztaly-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>A kontroller osztályunkat érdemes egy <em>Controllers</em> mappába szervezni, majd a <a href="../../gyakorlat/rest/">REST API &amp; ASP.NET Web API gyakorlaton</a> alapján hozzunk létre egy Controller osztályt. Ez tartalmazni fog egy <code>WebshopContext</code>-et, valamint a HTTP kérések kiszolgálásához létrehozott végpontokat.</p>
+<p>Itt szembesülünk először az aszinkronitással. Nézzük egy példán keresztül:</p>
+<p>A GET kérés, ami lekérdezi az összes kosarat:</p>
+<div class="highlight"><pre><span></span><code><span class="na">[HttpGet]</span>
+<span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ActionResult</span><span class="p">&lt;</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Cart</span><span class="p">&gt;&gt;&gt;</span> <span class="n">GetCarts</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">carts</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">Carts</span><span class="p">.</span><span class="n">ToListAsync</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">carts</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Figyeljük meg a függvény deklarációjában az <code>async</code> kulcsszót és a <code>Task</code> típust, valamint a függvény törzsében a "párját", az <code>await</code>-et. Ezekre <strong>async-await</strong>-ként szoktunk hivatkozni. Értelmezzük tehát:</p>
+<ol>
+<li>A függvény <code>Cart</code> példányok listáját, <code>IEnumerable&lt;Cart&gt;</code> ad vissza,</li>
+<li>Amelyet a WebAPI kontrollernek megfelelően egy <code>ActionResult</code>-ba csomagolunk,</li>
+<li>És az egészet még egy <code>Task</code>-ba is tesszük. Ez az aszinkronitás miatt van.</li>
+</ol>
+<p>A fentiek mindegyike más miatt kell, de így, együtt adják a teljes megoldást. Nézzük ebből is az aszinkronitást, azaz a <code>Task</code> típust és az <code>await</code> kulcsszót. Ezzel a definícióval egy un. "promise"-t adunk vissza (más nyelvekben szokták így hívni), amely egy jövőben elvégzendő feladat eredményét (fogja) tartalmazni.</p>
+<p>Miért jó ez? Azért, mert a kontroller metódus elvégzése így lesz aszinkron. Amikor a rendszer egy <code>await</code> utasításhoz ér, a szál, ami eddig a feldolgozást végezte, abbahagyja ennek a kérésnek a kiszolgálását, és egy másik kérés végrehajtásával folytatja a munkát. Miért is? Mert az <code>await</code> "mögötti" feladatról tudjuk, hogy időigényes: az adatbázisra és a hálózatra várunk. Feleslegesen várakoztatnánk a kiszolgáló szálat, ha az itt "megállna" és bevárná az eredményt. Ehelyett a feladatot kiadjuk egy háttér rendszernek (az operációs rendszer és a .NET aszinkron I/O alrendszerének - ebbe azonban nem megyünk bele), és arról kérünk értesítést, amikor az itt várt végeredmény elkészült. Amint ez megtörténik, a korábban felfüggesztett kérés kiszolgálása folytatódik tovább.</p>
+<p>Másként megfogalmazva a mi alkalmazásunk kiszolgáló száljai mindig aktívan munkát fognak végezni, nem várakoznak. A várakozás helyett más feladatok végrehajtására lesznek képesek. Ez összességében azt jelenti, hogy kevesebb operációs rendszer szálat veszünk igénybe és ezzel több kérést tudunk kiszolgálni. Ettől az alkalmazásunk hatékonyabb lesz.</p>
+<p>Az előbb bemutatott függvényt szintaktikailag tovább egyszerűsíthetjük ha elhagyjuk a lokális változót és közvetlenül visszaadjuk a <code>Task</code> eredményt. Funkcionálisan az alábbi implementáció megegyezik a fentivel, azonban a magyarázatot a fenti részletesebb kiírás jobban szemlélteti.</p>
+<div class="highlight"><pre><span></span><code><span class="na">[HttpGet]</span>
+<span class="k">public</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ActionResult</span><span class="p">&lt;</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Carts</span><span class="p">&gt;&gt;&gt;</span> <span class="n">GetCarts</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">_context</span><span class="p">.</span><span class="n">Carts</span><span class="p">.</span><span class="n">ToListAsync</span><span class="p">();</span> <span class="c1">// nincs await, és a deklarációban sincs async</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">A ***Async függvények</p>
+<p>A tárgyban eddig látott, lekérdezéseket kiértékelő függvényeknek (<code>ToList</code>, <code>First</code>, <code>All</code>, <code>Find</code>, stb...) mind van <code>...Async</code> párja, és hasonlóan kell őket használni a szinkron párjukhoz. Ezen függvények az alapjai az aszinkron működének.</p>
+<p>A működés részteleibe ennél tovább nem megyünk. Annyit jegyezzünk meg, hogy ahhoz, hogy a kontrollerünk aszinkron legyen, kell, hogy legyen "alatta" (itt: az Entity Framework-ben) támogatás az aszinkronitásra.</p>
+</div>
+<p>Nézzünk egy bonyolultabb példát: egy kosár tartalmának összegyűjtése, majd elküldése, a kosár rekord megkeresése <code>FindAsync</code> segítségével:</p>
+<div class="highlight"><pre><span></span><code><span class="na">[HttpGet(&quot;{id}&quot;)]</span>
+<span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ActionResult</span><span class="p">&lt;</span><span class="n">UserCart</span><span class="p">&gt;&gt;</span> <span class="n">GetCart</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// aszinkron kérés az id által azonosított kosár megtalálására</span>
+    <span class="kt">var</span> <span class="n">cartRecord</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">Carts</span><span class="p">.</span><span class="n">FindAsync</span><span class="p">(</span><span class="n">id</span><span class="p">);</span> 
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">cartRecord</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nf">NotFound</span><span class="p">();</span>
+
+    <span class="c1">// lekérdezés felépítése</span>
+    <span class="kt">var</span> <span class="n">productsquery</span> <span class="p">=</span>
+        <span class="k">from</span> <span class="n">p1</span> <span class="k">in</span> <span class="n">_context</span><span class="p">.</span><span class="n">Products</span>
+        <span class="k">join</span> <span class="n">m1</span> <span class="k">in</span> <span class="n">_context</span><span class="p">.</span><span class="n">Manufacturers</span> <span class="k">on</span> <span class="n">p1</span><span class="p">.</span><span class="n">ManufacturerID</span> <span class="k">equals</span> <span class="n">m1</span><span class="p">.</span><span class="n">ID</span>
+        <span class="k">select</span> <span class="k">new</span> <span class="nf">Product</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">m1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span> <span class="c1">// felépítjuk a DTO Product-okat</span>
+    <span class="c1">// aszinkron kiértékelés</span>
+    <span class="kt">var</span> <span class="n">products</span> <span class="p">=</span> <span class="k">await</span> <span class="n">productsquery</span><span class="p">.</span><span class="n">ToListAsync</span><span class="p">().</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+    <span class="c1">// aszinkron kérés az order itemsekre</span>
+    <span class="kt">var</span> <span class="n">orderitemsquery</span> <span class="p">=</span> <span class="k">from</span> <span class="n">oi</span> <span class="k">in</span> <span class="n">_context</span><span class="p">.</span><span class="n">OrderItems</span>
+                          <span class="k">where</span> <span class="n">oi</span><span class="p">.</span><span class="n">CartID</span> <span class="p">==</span> <span class="n">cartRecord</span><span class="p">.</span><span class="n">ID</span>
+                          <span class="k">select</span> <span class="n">oi</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">orderitems</span> <span class="p">=</span> <span class="k">await</span> <span class="n">orderitemsquery</span><span class="p">.</span><span class="n">ToListAsync</span><span class="p">().</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+    <span class="c1">// a továbbiakban szinkron a művelet, mert már memóriában van a két eredmény</span>
+
+    <span class="c1">// Keressük meg azokat a termékeket, amik a kosárban vannak, </span>
+    <span class="c1">// joinoljuk az OrderItems rekordokkal, majd hozzunk létre a kettőből egy CartItem DTO objektumot</span>
+    <span class="kt">var</span> <span class="n">cartitems</span> <span class="p">=</span> <span class="n">products</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderitems</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">oi</span> <span class="p">=&gt;</span> <span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">,</span>
+                                  <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">CartItem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">Pieces</span><span class="p">)).</span><span class="n">ToList</span><span class="p">();</span>
+
+    <span class="c1">// UserCart DTO előállítása</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">UserCart</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">CartPieces</span> <span class="p">=</span> <span class="n">cartitems</span><span class="p">,</span>
+        <span class="n">NumberOfItems</span> <span class="p">=</span> <span class="n">cartitems</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Figyeljük meg, hogy minden aszinkron műveletnél <code>await</code>-et kell használni! Viszont amikor már végeztünk azokkal a műveletekkel, amiknél az adatbázishoz kell fordulni, már használhatunk szinkron műveleteket!</p>
+<div class="admonition info">
+<p class="admonition-title">A <code>ConfigureAwait</code> metódus</p>
+<p>A <code>ConfigureAwait(false)</code> további teljesítmény optimalizálásra ad lehetőséget. Ezzel a hívással azt jelezzük, hogy az <code>await</code>-elt eredmény megérkezése után <em>bármely</em> szál folyathatja a további munkát, nem szükséges ugyanazon szálnak folytatnia a kiszolgálást, amely kezdte. Kiszolgáló oldali alkalmazások során ez általában a helyes viselkedés, de nem minden aszinkron világra igaz ez (például UI szálak használata esetén számít). Erről részletesebben lásd: <a href="https://devblogs.microsoft.com/dotnet/configureawait-faq/">https://devblogs.microsoft.com/dotnet/configureawait-faq/</a>.</p>
+</div>
+<p>Végül nézzünk egy példát a <code>FirstOrDefaultAsync</code>-re, valamint egy kliens felől érkező POST kérésre, amiben a kliens által küldött három azonosító alapján megkeressük a megfelelő adatbázis rekordokat, és frissítjük őket (darabszám növelés/csökkentés):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Modell osztály a kérés argumentumainak kezelésére</span>
+<span class="k">namespace</span> <span class="nn">WebshopApi.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">PostCartItemArgs</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">CartId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ProductId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Amount</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//////////////////////////////////////////////////////////////////////////////</span>
+
+<span class="c1">// Controller osztályban levő POST kérés</span>
+<span class="na">[HttpPost]</span>
+<span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IActionResult</span><span class="p">&gt;</span> <span class="n">PostCartItem</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span> <span class="n">PostCartItemArgs</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// kosár megkeresése az ID alapján</span>
+    <span class="kt">var</span> <span class="n">cart</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">Carts</span><span class="p">.</span><span class="n">FindAsync</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">CartId</span><span class="p">).</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">cart</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nf">NotFound</span><span class="p">();</span>
+
+    <span class="c1">// keressük meg azokat az order itemeket, amik ebbe a kosárba tartoznak, és ezt a terméket tárolják</span>
+    <span class="kt">var</span> <span class="n">orderitemquery</span> <span class="p">=</span> <span class="k">from</span> <span class="n">oi</span> <span class="k">in</span> <span class="n">_context</span><span class="p">.</span><span class="n">OrderItems</span>
+                         <span class="k">where</span> <span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">CartID</span> <span class="p">==</span> <span class="n">data</span><span class="p">.</span><span class="n">Id</span> <span class="p">&amp;&amp;</span> <span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span> <span class="p">==</span> <span class="n">data</span><span class="p">.</span><span class="n">ProductId</span><span class="p">)</span>
+                         <span class="k">select</span> <span class="n">oi</span><span class="p">;</span>
+
+    <span class="c1">// FirstOrDefault, hogy ha nem talál, az orderitem értéke null legyen</span>
+    <span class="kt">var</span> <span class="n">orderitem</span> <span class="p">=</span> <span class="k">await</span> <span class="n">orderitemquery</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">().</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">orderitem</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Ha eddig nem szerepelt a rendelt termékek között, új OrderItems létrehozása</span>
+        <span class="n">_context</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">OrderItems</span> <span class="p">{</span> <span class="n">CartID</span> <span class="p">=</span> <span class="n">data</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">Amount</span> <span class="p">=</span> <span class="n">data</span><span class="p">.</span><span class="n">Amount</span><span class="p">,</span> <span class="n">ProductID</span> <span class="p">=</span> <span class="n">data</span><span class="p">.</span><span class="n">ProductId</span> <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// Ha már van ilyen termék a rendelésben</span>
+        <span class="n">orderitem</span><span class="p">.</span><span class="n">Amount</span> <span class="p">+=</span> <span class="n">data</span><span class="p">.</span><span class="n">Amount</span><span class="p">;</span>
+
+        <span class="c1">// Ha 0-ra csökkent a termékből rendelt darabszám, akkor töröljük a rekordot</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">orderitem</span><span class="p">.</span><span class="n">Amount</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+            <span class="n">_context</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">orderitem</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">await</span> <span class="n">_context</span><span class="p">.</span><span class="n">SaveChangesAsync</span><span class="p">();</span> <span class="c1">// ez is await-elt, hiszen megint az adatbázishoz fordulunk</span>
+    <span class="k">return</span> <span class="nf">NoContent</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Ki várja meg a <code>Task</code> eredményét, ha az csak a jövőben fog elkészülni?</p>
+<p>Minden <code>async</code> függvényt valahol <code>await</code>-elni kell. Jelen esetben a kontroller metódusunkat az ASP.NET Core keretrendszer fogja meghívni, és az fogja "megvárni" az eredményt a JSON sorosítás előtt.</p>
+</div>
+<h2 id="teljes-peldakod">Teljes példakód<a class="headerlink" href="#teljes-peldakod" title="Permanent link">&para;</a></h2>
+<p>A teljes példakód (pár apró eltéréssel, valamint egy másik kontrollerrel) megtalálható a <a href="https://github.com/mzergi/WebshopApi/">https://github.com/mzergi/WebshopApi/</a> repository-ban.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="Footer"
+    >
+
+      <!-- Link to previous page -->
+      
+        <a
+          href="../di/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Előző
+              </span>
+              Függőséginjektálás ASP.NET Core környezetben
+            </div>
+          </div>
+        </a>
+      
+
+      <!-- Link to next page -->
+      
+        <a
+          href="../../gyakorlat/transactions/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Következő
+              </span>
+              Tranzakciókezelés
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; BME VIK AUT
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      
+    
+  </body>
+</html>
