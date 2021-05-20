@@ -10,7 +10,7 @@ The content in built using MkDocs and is published to GitHub Pages at: <https://
 
 1. Open a Powershell console to the root of the directory
 
-1. `docker run -it --rm -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material:7.0.6`
+1. `docker run -it --rm -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material:7.1.5`
 
 1. Open <http://localhost:8000> in a browser
 
