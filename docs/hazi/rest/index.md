@@ -7,13 +7,16 @@ GitHub Classroom segítségével a <https://classroom.github.com/a/h3EDX6Bu> lin
 ## Szükséges eszközök
 
 - Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
-- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
-    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
-- [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-    - Visual Studio esetén települ, de ha mégse, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.)
-    - Linux és MacOS esetén telepíteni szükséges.
 - [Postman](https://www.getpostman.com/)
 - GitHub account és egy git kliens
+- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
+    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
+- [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+
+    !!! warning ".NET Core 3.1"
+        A feladat megoldásához **3.1**-es .NET Core SDK telepítése szükséges.
+
+        Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd [itt](../VisualStudio.md#net-core-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.
 
 ## Feladat 0: Neptun kód
 
