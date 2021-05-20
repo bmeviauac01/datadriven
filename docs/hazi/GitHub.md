@@ -9,7 +9,7 @@ A feladatok beadásához a GitHub platformot használjuk. Minden házi beadása 
 
 Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló az áttekintéshez, illetve a helyes beadás ellenőrzéséhez.
 
-1. A munkádat a házi leírásban található linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
+1. A munkádat Moodle-ben található GitHub Classroom meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
 
 1. A megoldáshoz készíts egy külön ágat, ne a _master_-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.
 
@@ -21,7 +21,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 1. [Regisztrálj](https://github.com/join) egy GitHub accountot, ha még nincs.
 
-1. A feladat beadásához tartozó linket nyisd meg. Ez minden feladathoz más lesz, a feladat leírásában találod.
+1. Moodle-ben a kurzus oldalán keresd meg a házihoz tartozó meghívó URL-t. Ez minden feladathoz más lesz, ügyelj rá, hogy a megfelelő linket használd.
 
 1. Ha kéri, adj engedélyt a _GitHub Classroom_ alkalmazásnak, hogy használja az account adataidat.
 
