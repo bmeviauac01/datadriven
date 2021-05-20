@@ -16,6 +16,8 @@ theme:
     code: Roboto Mono
   features:
     - navigation.tabs
+    - navigation.instant
+    - navigation.top
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
@@ -24,20 +26,20 @@ extra_css:
 
 markdown_extensions:
   - admonition
-  - codehilite
-  - meta
   - toc:
       permalink: true
   - pymdownx.betterem:
       smart_enable: all
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-  - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tabbed
