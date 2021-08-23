@@ -10,7 +10,7 @@ A gyakorlatvezető a tárgy oktatásában segít a gyakorlatok megtartása és a
 
 A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető feladata a gyakorlatra való felkészülés, a gyakorlat megtartása, ennek során a szükséges háttérismeretek rövid átismétlése, a fontos részek kiemelése, és a hallgatók segítése a gyakorlat során. Egy gyakorlati órán 20 hallgató van a teremben.
 
-2020 őszi félév során a gyakorlatok órarendi időpontjai:
+2021 őszi félév során a gyakorlatok órarendi időpontjai:
 
 - kedd 8-10
 - kedd 10-12
