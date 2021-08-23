@@ -6,18 +6,15 @@ Gyakorlatvezető/demonstrátor lennél? Az alábbiakat érdemes tudnod.
 
 A gyakorlatvezető a tárgy oktatásában segít a gyakorlatok megtartása és a számonkérések során. A feladat az alábbiakból áll.
 
-**Félév során 12 gyakorlat megtartása.** A gyakorlatok a 2. oktatási héten kezdődnek és a 13. oktatási héten érnek véget. Egy gyakorlatvezető általában 2 gyakorlati csoport oktatásáért felel és mindkét csoportnak 6-6 gyakorlatot tart meg. A gyakorlat fix órarendi időben van, 90 perces, és számítógép laborban tartjuk. Szünetek miatt elmaradó laborokat nem pótolunk, így néha egy-kettővel kevesebb óra lehet. Alkalmanként lehetőséget tudunk adni "fél" gyakorlatvezetésre is, azaz 12 helyett 6 alkalom, egy gyakorlati csoport minden második héten. Illetőleg többet is lehet vállalni.
+**Félév során 12 gyakorlat megtartása.** A gyakorlatok a 2. oktatási héten kezdődnek és a 13. oktatási héten érnek véget. Egy gyakorlatvezető általában 2 gyakorlati csoport oktatásáért felel és mindkét csoportnak 6-6 gyakorlatot tart meg. A gyakorlat fix órarendi időben van, 90 perces, és számítógép laborban tartjuk. Szünetek miatt elmaradó laborokat nem pótolunk, így néha egy-kettővel kevesebb óra lehet. Lehetőség van többet is vállalni, tehát akár 4 csoportot is (4*6 gyakorlat a félév során).
 
 A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető feladata a gyakorlatra való felkészülés, a gyakorlat megtartása, ennek során a szükséges háttérismeretek rövid átismétlése, a fontos részek kiemelése, és a hallgatók segítése a gyakorlat során. Egy gyakorlati órán 20 hallgató van a teremben.
 
 2020 őszi félév során a gyakorlatok órarendi időpontjai:
 
+- kedd 8-10
 - kedd 10-12
-- szerda 14-16
 - csütörtök 8-10
-- csütörtök 14-16
-- csütörtök 16-18
-- péntek 12-14
 
 **Számonkérések lebonyolításában segítség.** A tárgyban ZH, PZH, és 4 vizsga van. Mindegyik számonkérés írásban történik. A gyakorlatvezető feladata a számonkérések felügyelése majd a javításban történő részvétel. A felügyelés ideje alkalmanként körülbelül 1 óra, a javítás ideje létszám függően 0.5-2 óra alkalmanként. Gyakorlatvezetőként körülbelül a számonkérések felében kell részt venni.
 
@@ -40,7 +37,7 @@ A TVSZ pár követelményt szab demonstrátoroknak: (lásd [aktuális TVSZ](http
 
     d) ne álljon fegyelmi büntetés hatálya alatt.
 
-Ha érdekel a lehetőség, megfelelsz a fenti követelményeknek, és az órarendedbe belefér a gyakorlat (lásd az időpontokat fentebb), keresd a [tárgyfelelőst](mailto:dudas.akos@aut.bme.hu).
+Ha érdekel a lehetőség, megfelelsz a fenti követelményeknek, és az órarendedbe belefér a gyakorlat (lásd az időpontokat fentebb), keresd a [tárgyfelelőst](mailto:dudas.akos@vik.bme.hu).
 
 ## Tudnivalók a gyakorlatok megtartásához
 
@@ -60,6 +57,7 @@ A gyakorlati anyagban benne van a megoldás. Ha valaki lemarad, vagy otthon meg 
 - A gyakorlat teljesítésének adminisztrálása Moodle-ben történik. A teljesítés a gyakorlaton való megjelenést, és a munka veletek történő elvégzését jelenti. (Tehát a hallgató nem sétálhat ki a gyakorlat közepén és nem foglalkozhat mással, csak a gyakorlattal. Eseti problémákat azért kezeljünk le, pl. ZH-ja van máshol, stb. Egy-egy kivétel belefér.) Érdemes a jelenlétet a gyakorlat elején könyvelni.
 - Ha az órán több ember jelenne meg, mint ahány gép van (hiányzás pótlása pl.), vagy egy gép nem működik, akkor akinek nem jut hely, leül valaki mellé.
 - A csoportok között nincs ad-hoc átjárás. Ha valaki jelzi, hogy nem tud részt venni egy gyakorlaton, akkor előre/utólag/ugyanazon a héten egy másik csoportban pótolhat (ha van rá mód). Ennek a megszervezését alapvetően a hallgató bonyolítsa (nézze meg, mikor van még labor azonos anyagból, és egyeztessen a tárgyfelelőssel, vagy a gyakorlatvezetőkkel), de segítsük, ha kell.
+- 2021 őszén a tanév első 2 hetében nem minden hallgatónak lesz kollégiumi helye. Rektori utasítás szerint a hallgatók felmentést kapnak ezen alkalmak alól. Ezt központilag intézzük, az első gyakorlatnál is kell könyvelni a jelenlétet, de a hiányzást nem vesszük figyelembe.
 
 ### Anyagok elérhetősége
 
