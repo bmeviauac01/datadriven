@@ -9,8 +9,18 @@ theme:
   custom_dir: theme-overrides
   language: en
   palette:
-    primary: red
-    accent: red
+    - media: "(prefers-color-scheme: light)"
+      primary: red
+      accent: red
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark theme
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light theme
   font:
     text: Roboto
     code: Roboto Mono
@@ -18,6 +28,7 @@ theme:
     - navigation.tabs
     - navigation.instant
     - navigation.top
+    - search.suggest
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
