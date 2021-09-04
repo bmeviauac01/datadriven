@@ -22,7 +22,7 @@ A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető f
 
 ## Demonstrátorság
 
-Hallgató vagy de szeretnél bekapcsolódni az oktatásba? Szeretnéd kipróbálni magad oktatóként? Szeretsz magyarázni? Elvégezted ezt a tárgyat ötössel? Várunk demonstrátorként!
+Hallgató vagy de szeretnél bekapcsolódni az oktatásba? Szeretnéd kipróbálni magad gyakorlatvezetőként? Elvégezted ezt a tárgyat ötössel? Várunk demonstrátorként!
 
 A TVSZ pár követelményt szab demonstrátoroknak: (lásd [aktuális TVSZ](https://www.kth.bme.hu/document/2376/original/BME_TVSZ_2016%20elfogadott_mod_20200131-T.pdf) 165.§):
 
