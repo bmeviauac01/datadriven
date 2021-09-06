@@ -59,6 +59,20 @@ A gyakorlati anyagban benne van a megoldás. Ha valaki lemarad, vagy otthon meg 
 - A csoportok között nincs ad-hoc átjárás. Ha valaki jelzi, hogy nem tud részt venni egy gyakorlaton, akkor előre/utólag/ugyanazon a héten egy másik csoportban pótolhat (ha van rá mód). Ennek a megszervezését alapvetően a hallgató bonyolítsa (nézze meg, mikor van még labor azonos anyagból, és egyeztessen a tárgyfelelőssel, vagy a gyakorlatvezetőkkel), de segítsük, ha kell.
 - 2021 őszén a tanév első 2 hetében nem minden hallgatónak lesz kollégiumi helye. Rektori utasítás szerint a hallgatók felmentést kapnak ezen alkalmak alól. Ezt központilag intézzük, az első gyakorlatnál is kell könyvelni a jelenlétet, de a hiányzást nem vesszük figyelembe.
 
+#### Gyakorlat jelenlét könyvelése
+
+A jelenlétet Moodle-ben kell könyvelni a "Gyakorlat jelenlét" elemre kattintva.
+
+![](images/moodle-jelenllet-fooldalon.png)
+
+Itt listázható az összes alkalom, vagy lehet csak a hetekre szűrni. Egy héten egy alkalom van, nincs minden csoportnak a saját napjára jelenléti alkalom. Azt a hetet válasszuk, amelyik héten vagyunk. A "lejátszás" gombra kattintva vihető fel a jelentlét.
+
+![](images/moodle-jelenlet-kivalasztas.png)
+
+Az alkalom kiválasztása után lehet a csoportra szűrni. A "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)
+
+![](images/moodle-jelenlet-csoport.png)
+
 ### Anyagok elérhetősége
 
 - A tárgy előadás anyagai, az időpontok és határidők és hivatalos követelmények Moodle-ben lesznek. (Ehhez a tárgy indulásával kapsz hozzáférést.)
