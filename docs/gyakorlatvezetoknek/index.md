@@ -63,15 +63,15 @@ A gyakorlati anyagban benne van a megoldás. Ha valaki lemarad, vagy otthon meg 
 
 A jelenlétet Moodle-ben kell könyvelni a "Gyakorlat jelenlét" elemre kattintva.
 
-![](images/moodle-jelenllet-fooldalon.png)
+![](images/moodle-jelenlet-fooldalon.png)
 
-Itt listázható az összes alkalom, vagy lehet csak a hetekre szűrni. Egy héten egy alkalom van, nincs minden csoportnak a saját napjára jelenléti alkalom. Azt a hetet válasszuk, amelyik héten vagyunk. A "lejátszás" gombra kattintva vihető fel a jelentlét.
+Csoportonként külön jelenléti alkalom van. Érdemes a heti nézetet választani és az aktuális héthez menni. Az alkalom dátuma _nem_ a csoport órarendi idejében van (hétfő mindig), azt kell választani, amelyik aktuális heti és a megfelelő csoporthoz tartozik. A "lejátszás" gombra kattintva vihető fel a jelentlét.
 
 ![](images/moodle-jelenlet-kivalasztas.png)
 
-Az alkalom kiválasztása után lehet a csoportra szűrni. A "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)
+A jelenlét beírásánál a a "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)
 
-![](images/moodle-jelenlet-csoport.png)
+![](images/moodle-jelenlet-eredmeny.png)
 
 ### Anyagok elérhetősége
 
