@@ -89,8 +89,8 @@ Vizsgáljuk meg alaposabban a rétegeket, és feladataikat, felelősségeiket. A
   <figcaption>A többrétegű architektúra rétegei</figcaption>
 </figure>
 
-!!! cite ""
-    A kép forrása: Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>
+!!! cite "Forrás"
+    Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>
 
 A rétegeken "lentről felfelé" haladunk végig.
 
