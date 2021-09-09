@@ -12,7 +12,10 @@ Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a vilá
 
 A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a _mongod_, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az un. _wire protocol_-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
 
-![A MongoDb architektúrája](images/mongodb_rendszer_architektura.png)
+<figure>
+  <img src="images/mongodb_rendszer_architektura.png">
+  <figcaption>A MongoDB architektúrája</figcaption>
+</figure>
 
 ### Logikai felépítés
 

@@ -81,10 +81,13 @@ A piszkos olvasás során egy tranzakció egy másik tranzakció nem kommitált 
 
 A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna szabad felhasználni.
 
-![Piszkos olvasás](images/dirty-read.png)
+<figure>
+  <img src="images/dirty-read.png">
+  <figcaption>Piszkos olvasás</figcaption>
+</figure>
 
-!!! quote "A képek forrása"
-    https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
+!!! quote "Forrás"
+    A képek forrása: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
 !!! note ""
     A piszkos olvasást szinte minden esetben el akarjuk kerülni.
@@ -98,7 +101,10 @@ Az elveszett módosítás során két írás kerül konfliktusba:
 
 Végeredményben csak a második írás eredménye marad meg, mintha az első módosítás nem is történt volna meg.
 
-![Elveszett módosítás](images/lost-update.png)
+<figure>
+  <img src="images/lost-update.png">
+  <figcaption>Elveszett módosítás</figcaption>
+</figure>
 
 #### Nem megismételhető olvasás (*nonrepeatable read*)
 
@@ -108,7 +114,10 @@ A nem megismételhető olvasás során a lekérdezés eredménye függ attól, h
 1. Egy másik tranzakció módosítja ugyanazt az adatelemet.
 1. Ha az első tranzakció megismétli a korábbi lekérdezést, más eredményt kap.
 
-![Nem megismételhető olvasás](images/nonrepeatable-read.png)
+<figure>
+  <img src="images/nonrepeatable-read.png">
+  <figcaption>Nem megismételhető olvasás</figcaption>
+</figure>
 
 #### Fantom rekordok (*phantom records*/*phantom read*)
 
@@ -120,7 +129,10 @@ A fantom rekordok problémája akkor jelentkezik, amikor rekord halmazokkal dolg
 
 A törölt rekord ilyenkor része a lekérdezett eredményhalmaznak, vagy sem? Hasonlóan elképzelhető az is, hogy egy rekord módosul a 2. lépésben. Ilyenkor a 3. lépésben a korábbi, vagy a módosult állapotát kellene látni?
 
-![Fantom rekordok](images/phantom-records.png)
+<figure>
+  <img src="images/phantom-records.png">
+  <figcaption>Fantom rekordok</figcaption>
+</figure>
 
 ### Izolációs szintek
 
@@ -144,7 +156,10 @@ A zárak segítségével valójában a tranzakciókat ütemezi a rendszer. Amiko
 
 Ha egy rendszerben zárak vannak, akkor tudjuk, hogy **holtpontok** (*deadlock*) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.
 
-![Holtpont kialakulása](images/holtpont-eroforras-graf.png)
+<figure>
+  <img src="images/holtpont-eroforras-graf.png">
+  <figcaption>Holtpont kialakulása</figcaption>
+</figure>
 
 Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az **egyik érintett tranzakciót megszakítja** és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.
 
@@ -173,7 +188,10 @@ A **tranzakciós naplózás** segítségével az adatbázis rendszer nyomon tudj
 
 Ahhoz, hogy megértsük a tranzakciós naplózást, az alábbi koncepcionális rendszermodellel dolgozunk.
 
-![Tranzakciós naplózás koncepcionális modellje](images/tranzakcios-naplozas-io-modell.png)
+<figure>
+  <img src="images/tranzakcios-naplozas-io-modell.png">
+  <figcaption>Tranzakciós naplózás koncepcionális modellje</figcaption>
+</figure>
 
 Ebben a modellben a következő műveletek vannak:
 

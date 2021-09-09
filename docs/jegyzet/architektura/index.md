@@ -84,9 +84,13 @@ A többrétegű architektúrával készülő alkalmazások kód szervezése is t
 
 Vizsgáljuk meg alaposabban a rétegeket, és feladataikat, felelősségeiket. Az architektúra részletesebben kifejtve az alábbi elemeket tartalmazza.
 
-(A kép forrása: Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>)
+<figure>
+  <img src="images/tobbretegu-architektura.png">
+  <figcaption>A többrétegű architektúra rétegei</figcaption>
+</figure>
 
-![A többrétegű architektúra rétegei](images/tobbretegu-architektura.png)
+!!! cite ""
+    A kép forrása: Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>
 
 A rétegeken "lentről felfelé" haladunk végig.
 
