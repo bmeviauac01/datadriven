@@ -150,7 +150,7 @@ public class Startup
 
 Az előző két lépés eredményeként rendelkezésünkre áll az adatbázis és tábláinak leképzése. Következő lépésként gondoljunk bele abba, hogyan néz ki egy webshopban a kosár: egy kosárban egyszerre több termék jelenik meg. Tehát míg az `OrderItem` osztályunk egy megrendelt terméket tud reprezentálni, a teljes kosarat ilyen elemek listája jelenti. Ez a termék lista egy un. _Data Transfer Object_ használatával írható le: ez egy olyan osztály, ami a **kliens számára használható** adatot gyűjt össze az adatbázisból.
 
-!!! quote "Definíció: Data Transfer Object"
+!!! abstract "Definíció: Data Transfer Object"
     Egy olyan objektum, ami adatot szállít futó alkalmazások (itt: kliens és szerver) között.
 
 DTO-k használatával nem csak kényelmesebb lesz az adatok küldése, hanem gyorsítjuk is az alkalmazásunkat:

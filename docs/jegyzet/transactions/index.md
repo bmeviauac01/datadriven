@@ -17,7 +17,7 @@ Adatbázis-kezelő rendszerekben a konkurens hozzáférés az adatbázisban tal�
 
 ## Tranzakciók
 
-!!! quote "Definíció"
+!!! abstract "Definíció"
     A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.
 
 A tranzakciókkal tehát műveleteket fogunk össze egy egységbe, amelyekre vonatkozóan a rendszer biztosítja az alábbi tulajdonságokat:
