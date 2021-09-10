@@ -17,7 +17,7 @@ Adatbázis-kezelő rendszerekben a konkurens hozzáférés az adatbázisban tal�
 
 ## Tranzakciók
 
-!!! quote "Definíció"
+!!! abstract "Definíció"
     A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.
 
 A tranzakciókkal tehát műveleteket fogunk össze egy egységbe, amelyekre vonatkozóan a rendszer biztosítja az alábbi tulajdonságokat:
@@ -83,8 +83,8 @@ A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna sza
 
 ![Piszkos olvasás](images/dirty-read.png)
 
-!!! quote "A képek forrása"
-    https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
+!!! quote "Forrás"
+    A képek forrása: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
 !!! note ""
     A piszkos olvasást szinte minden esetben el akarjuk kerülni.
