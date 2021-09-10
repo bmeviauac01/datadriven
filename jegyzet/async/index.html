@@ -1136,7 +1136,7 @@
 </code></pre></div>
 <h3 id="data-transfer-object-letrehozasa">Data Transfer Object létrehozása<a class="headerlink" href="#data-transfer-object-letrehozasa" title="Permanent link">&para;</a></h3>
 <p>Az előző két lépés eredményeként rendelkezésünkre áll az adatbázis és tábláinak leképzése. Következő lépésként gondoljunk bele abba, hogyan néz ki egy webshopban a kosár: egy kosárban egyszerre több termék jelenik meg. Tehát míg az <code>OrderItem</code> osztályunk egy megrendelt terméket tud reprezentálni, a teljes kosarat ilyen elemek listája jelenti. Ez a termék lista egy un. <em>Data Transfer Object</em> használatával írható le: ez egy olyan osztály, ami a <strong>kliens számára használható</strong> adatot gyűjt össze az adatbázisból.</p>
-<div class="admonition quote">
+<div class="admonition abstract">
 <p class="admonition-title">Definíció: Data Transfer Object</p>
 <p>Egy olyan objektum, ami adatot szállít futó alkalmazások (itt: kliens és szerver) között.</p>
 </div>

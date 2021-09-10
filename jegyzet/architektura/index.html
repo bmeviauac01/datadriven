@@ -1247,8 +1247,11 @@
 </div>
 <h2 id="a-tobbretegu-architektura-retegeinek-felelossege">A többrétegű architektúra rétegeinek felelőssége<a class="headerlink" href="#a-tobbretegu-architektura-retegeinek-felelossege" title="Permanent link">&para;</a></h2>
 <p>Vizsgáljuk meg alaposabban a rétegeket, és feladataikat, felelősségeiket. Az architektúra részletesebben kifejtve az alábbi elemeket tartalmazza.</p>
-<p>(A kép forrása: Microsoft Application Architecture Guide, 2<sup>nd</sup> Edition, <a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29">https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29</a>)</p>
 <p><img alt="A többrétegű architektúra rétegei" src="images/tobbretegu-architektura.png" /></p>
+<div class="admonition cite">
+<p class="admonition-title">Forrás</p>
+<p>Microsoft Application Architecture Guide, 2<sup>nd</sup> Edition, <a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29">https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29</a></p>
+</div>
 <p>A rétegeken "lentről felfelé" haladunk végig.</p>
 <h3 id="az-adatforrasok">Az adatforrások<a class="headerlink" href="#az-adatforrasok" title="Permanent link">&para;</a></h3>
 <p>A leggyakoribb adatforrás az <strong>adatbázis</strong>. Ez lehet relációs, vagy akár NoSQL adatbázis is. Feladata az adataink hosszú távon megmaradó és megbízható (un. "perzisztens") tárolása. Tipikusan ez az adatbázis egy megbízható gyártótól származó szoftver, amely egy külön erre a célra üzemeltetett kiszolgálón fut, így az adatelérési réteg hálózaton keresztül éri el.</p>
