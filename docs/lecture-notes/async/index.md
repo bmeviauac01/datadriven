@@ -147,7 +147,7 @@ public class Startup
 
 We have the direct mapping of the database into C# classes. Let us now consider how does the cart of the webshop usually look like: it may contain multiple items. While the `OrderItem` class can represent a single item, our cart is a list of items. This list of items is what we shall describe with a so-called _Data Transfer Object_: it is a class that gathers data **for the client**.
 
-!!! quote "Definition: Data Transfer Object"
+!!! abstract "Definition: Data Transfer Object"
     A container object that transfers data between application (here: between the client and the server).
 
 With the use of DTOs, we can pack all necessary information into one object, making it not only more convenient for the client, but also better in terms of performance:

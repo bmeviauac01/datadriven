@@ -84,9 +84,10 @@ The codebase of a three-layered architecture also reflects the separation of the
 
 Let us examine the layers in more detail. The following diagram represents the architecture.
 
-(Image source: Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>)
-
 ![The three-layered architecture](images/tobbretegu-architektura.png)
+
+!!! cite "Source"
+    Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>
 
 We will discuss the layers from bottom-to-top.
 

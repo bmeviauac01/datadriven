@@ -17,7 +17,7 @@ In database management systems, concurrency is related to the records (rows) of 
 
 ## Transactions
 
-!!! quote "Definition"
+!!! abstract "Definition"
     A transaction is a logical unit of a process, a series of operations that only make sense together.
 
 A transaction combines operations into one unit, and the system guarantees the following properties:
@@ -83,8 +83,8 @@ The transaction that read the record in the second step is now working with inva
 
 ![Dirty read](images/dirty-read.png)
 
-!!! quote "Source of images"
-    https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
+!!! quote "Source"
+    Source of images: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
 !!! note ""
     Dirty read should almost always be avoided.
