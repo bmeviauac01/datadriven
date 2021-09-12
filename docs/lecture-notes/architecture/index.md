@@ -45,7 +45,7 @@ The received date of an email should be displayed to the user according to their
 
 To summarize, we established that there are functionalities that the UI is responsible for, and there are other functionalities that the UI has nothing to do with. Now we arrive at the three- or multi-layer architecture.
 
-### The thee- or multi-layered architecture
+### The three- or multi-layered architecture
 
 Data-driven systems are usually built on the three- or multi-layered architecture. The two names are treaded as synonyms here. This architecture defines three main components:
 
