@@ -293,6 +293,25 @@ from Order inner join
     on Order.ID = OrderChange.OrderID
 ```
 
+Soft-delete, azaz törlés _helyett_ csak jelöljük töröltnek a terméket:
+
+```sql
+-- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
+alter table Product
+add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
+go
+
+-- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre
+-- helyette az alábbi kód fut le
+create or alter trigger ProductSoftDelete
+  on Product
+  instead of delete
+as
+update Product
+  set IsDeleted=1
+  where ID in (select ID from deleted)
+```
+
 ## Kurzor
 
 Keressük meg azon termékeket, amiből alig van raktáron, és ha a legutolsó eladás több, mint egy éve volt, akkor adjunk kedvezményt a termékre:
