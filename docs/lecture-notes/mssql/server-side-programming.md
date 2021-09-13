@@ -293,6 +293,25 @@ from Order inner join
     on Order.ID = OrderChange.OrderID
 ```
 
+Soft-delete, that is, _instead of_ actually deleting a product, mark it as deleted:
+
+```sql
+-- Soft delete flag column into the table with 0 (false) default value
+alter table Product
+add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
+go
+
+-- Instead of trigger: when a delete command is issued, the records are not deleted
+-- The code below is executed instead
+create or alter trigger ProductSoftDelete
+  on Product
+  instead of delete
+as
+update Product
+  set IsDeleted=1
+  where ID in (select ID from deleted)
+```
+
 ## Cursor
 
 Let us find the products of which there are only a few in stock, and if the last time we sold one of them has been more than a year ago, then let us put the product on sale:
