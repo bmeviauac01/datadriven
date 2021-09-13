@@ -1223,6 +1223,22 @@
         <span class="k">group</span> <span class="k">by</span> <span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span> <span class="n">OrderChange</span>
     <span class="k">on</span> <span class="k">Order</span><span class="p">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 </code></pre></div>
+<p>Soft-delete, azaz törlés <em>helyett</em> csak jelöljük töröltnek a terméket:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">Product</span>
+<span class="k">add</span> <span class="p">[</span><span class="n">IsDeleted</span><span class="p">]</span> <span class="nb">bit</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">CONSTRAINT</span> <span class="n">DF_Product_IsDeleted</span> <span class="k">DEFAULT</span> <span class="mi">0</span>
+<span class="k">go</span>
+
+<span class="c1">-- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre</span>
+<span class="c1">-- helyette az alábbi kód fut le</span>
+<span class="k">create</span> <span class="k">or</span> <span class="k">alter</span> <span class="k">trigger</span> <span class="n">ProductSoftDelete</span>
+  <span class="k">on</span> <span class="n">Product</span>
+  <span class="k">instead</span> <span class="k">of</span> <span class="k">delete</span>
+<span class="k">as</span>
+<span class="k">update</span> <span class="n">Product</span>
+  <span class="k">set</span> <span class="n">IsDeleted</span><span class="o">=</span><span class="mi">1</span>
+  <span class="k">where</span> <span class="n">ID</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">ID</span> <span class="k">from</span> <span class="n">deleted</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="kurzor">Kurzor<a class="headerlink" href="#kurzor" title="Permanent link">&para;</a></h2>
 <p>Keressük meg azon termékeket, amiből alig van raktáron, és ha a legutolsó eladás több, mint egy éve volt, akkor adjunk kedvezményt a termékre:</p>
 <div class="highlight"><pre><span></span><code><span class="k">DECLARE</span> <span class="o">@</span><span class="n">ProductName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
