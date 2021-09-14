@@ -55,7 +55,7 @@ Tranzakciók használata biztosítja számunkra, hogy az adatbázisunk mindig ko
 
 #### Tartósság
 
-A tartósság tulajdonsága azt írja elő, hogy a **tranzakció hatása tartósan megmarad**, azaz a tranzakció által végzett műveletek eredménye nem veszhet el. Praktikusan ezt azt jelenti, hogy a tranzakció által végzett módosítások nem csak memóriában kerülnek elvégzésre, hanem tartós tárra (merevlemezre) is kiírásra kerülnek.
+A tartósság tulajdonsága azt írja elő, hogy a **tranzakció hatása tartósan megmarad**, azaz a tranzakció által végzett műveletek eredménye nem veszhet el. Praktikusan ez azt jelenti, hogy a tranzakció által végzett módosítások nem csak memóriában kerülnek elvégzésre, hanem tartós tárra (merevlemezre) is kiírásra kerülnek.
 
 Az adatbázisban két féle hibát különböztetünk meg, amikor adatvesztés következhet be: soft crash és hard crash. **Soft crash** esetén az adatbázis szerver leáll, így a memória tartalma elveszik. Ez ellen védenek a tranzakciók. **Hard crash** esetén a merevlemez is sérül; ez ellen csak a biztonsági mentés tud védeni.
 

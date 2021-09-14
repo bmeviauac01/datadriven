@@ -19,7 +19,7 @@ A sikeres kapcsolódást követően a főablak bal oldalán az _Object Explorer_
 
 SQL kód futtatásához egy új _Query_ ablakra van szükségünk, amelyet az eszköztáron található ![Új lekérdezés gomb](./images/new-query-button.png) ikonnal nyithatunk. A _Query_ ablak parancsai az aktuálisan kiválasztott adatbázison fognak lefutni, ezt az adatbázist az eszköztáron a legördülő menüben tudjuk megváltoztatni (lásd az alábbi képen sárgával). Több _Query_ ablak is lehet nyitva egyszerre.
 
-Az SQL utasításokat lefuttatni a ![Lekérdezés végrehajtása gomb](./images/execute-button.png) gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.
+Az SQL utasításokat lefuttatni az ![Lekérdezés végrehajtása gomb](./images/execute-button.png) gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.
 
 ![SQL Server Management Studio](./images/object-explorer-db-query.png)
 
@@ -57,4 +57,4 @@ A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált tri
 
 ![Trigger](./images/trigger.png)
 
-A tárolj eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a _Modify_ menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy _alter_ utasítást az aktuális programkóddal.
+A tárolt eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a _Modify_ menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy _alter_ utasítást az aktuális programkóddal.
