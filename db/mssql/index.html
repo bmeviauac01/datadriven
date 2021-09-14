@@ -1008,7 +1008,7 @@
 <p>A tanszéki laborokban a programot a start menüből indíthatjuk. A program indulása után kapcsolódhatunk az adatbázishoz a felugró ablakban. LocalDB használata esetén a <em>Server name</em> <code>(localdb)\mssqllocaldb</code>, Express Edition használata esetén <code>.\sqlexpress</code> (alapbeállításokkal való telepítés esetén). Mindkét esetben <em>Windows Authentication</em>-t használunk.</p>
 <p>A sikeres kapcsolódást követően a főablak bal oldalán az <em>Object Explorer</em>-ben kibontható a <em>Databases</em> elem, és ha már létrehoztunk adatbázist, azt is kibontva láthatóak a tábláink és egyéb séma elemek.</p>
 <p>SQL kód futtatásához egy új <em>Query</em> ablakra van szükségünk, amelyet az eszköztáron található <img alt="Új lekérdezés gomb" src="../images/new-query-button.png" /> ikonnal nyithatunk. A <em>Query</em> ablak parancsai az aktuálisan kiválasztott adatbázison fognak lefutni, ezt az adatbázist az eszköztáron a legördülő menüben tudjuk megváltoztatni (lásd az alábbi képen sárgával). Több <em>Query</em> ablak is lehet nyitva egyszerre.</p>
-<p>Az SQL utasításokat lefuttatni a <img alt="Lekérdezés végrehajtása gomb" src="../images/execute-button.png" /> gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.</p>
+<p>Az SQL utasításokat lefuttatni az <img alt="Lekérdezés végrehajtása gomb" src="../images/execute-button.png" /> gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.</p>
 <p><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png" /></p>
 <h3 id="uj-adatbazis-letrehozasa">Új adatbázis létrehozása<a class="headerlink" href="#uj-adatbazis-letrehozasa" title="Permanent link">&para;</a></h3>
 <p>Ha még nincs adatbázisunk, először létre kell hozni egyet. Ezt az <em>Object Explorer</em>-ben a <em>Databases</em>-en jobb kattintással tehetjük meg. Az adatbázisnak csak nevet kell adni, más beállításra nincs szükség. Az adatbázis létrehozása után a <em>Query</em> ablakban ne felejtsük átállítani az aktuális adatbázist!</p>
@@ -1027,7 +1027,7 @@
 <p><img alt="Tárolt eljárást" src="../images/tarolt-eljaras.png" /></p>
 <p>A triggerek az <em>Object Explorer</em>-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a <em>Triggers</em> mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti <em>Programability</em> mappában).</p>
 <p><img alt="Trigger" src="../images/trigger.png" /></p>
-<p>A tárolj eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a <em>Modify</em> menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy <em>alter</em> utasítást az aktuális programkóddal.</p>
+<p>A tárolt eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a <em>Modify</em> menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy <em>alter</em> utasítást az aktuális programkóddal.</p>
                 
               
               
