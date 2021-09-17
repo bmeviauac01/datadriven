@@ -121,16 +121,23 @@ A feladatok minta megoldása itt érhető el: <https://github.com/bmeviauac01?q=
 
 Az értékelés végeztével:
 
-1. Rögzíteni kell a pontszámot Moodle-ben. Ha van iMsc pontszám, azt külön számonkérésben kell rögzíteni.
-1. Opcionális, de javasolt: mergelni a PR-t. (Szoftverfejlesztés során ez a logikus lezárása a PR-nek.)
+- Ha az automata értékelés helyénvaló volt, akkor le kell zárni a PR-t a `/ahk ok` parancs beírásával egy kommentbe. Ennek hatására a PR jóváhagyásra kerül és merge-elve lesz.
+- Ha az automata értékelést felülbírálod pontszámban, akkor az `/ahk ok 1.5 2` parancsot kell kiadni, ahol is a számok a feladatokra kapott pontszámok. Az első szám a nem iMsc feladat pontszáma, a második az iMsc pontszám - ez utóbbi elhagyható 0 esetén.
 
-    ![](images/hazi-github-merge-pr.png)
+A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Ha nincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a parancssal.
 
-    Ha nem mergeled a PR-t, akkor lezárni a PR-t.
+![](images/hazi-github-pr-ahkcommand.png)
 
-    ![](images/hazi-github-close-comment-pr.png)
+A parancs többször is kiadható, tehát elrontott pontszámot lehet javítani az újbóli kiadással.
 
-1. Ha gond volt a megoldással, változott a pontszám, vagy valamit hozzáfűznél, akkor azt is kommentbe beírni a PR-be.
+A parancs hatását látjuk is utána PR-ben:
+
+- a kommentre a parancs felismerésének megerősítésére érkezik egy reakció,
+- a PR változtatásai jóváhagyásra kerülnek (ez szükséges a mergeléshez a protected branch miatt),
+- a a PR mergelésre kerül - ezzel lezárt állapotba kerül a PR és így eltűnik a teendők listájáról,
+- és végül elmentésre kerül az eredmény a háttérben - ezt már közvetlenül nem látjuk.
+
+![](images/hazi-github-pr-ahkmerge.png)
 
 ### Problémák és megoldásuk
 
@@ -143,16 +150,8 @@ Az értékelés végeztével:
 
 **Hiba van a kiértékelő alkalmazásban.** Előfordulhat. Keresd a tárgyfelelőst, vagy javítsd a hibát (a kiértékelő programok itt vannak: <https://github.com/bmeviauac01/hazi-ahk/>).
 
-## Jelenlét és eredmény rögzítése Moodle-ben
+**Az értékelési folyamat sikertelen.** Ha elesik az értékelő folyamat, azt a PR-ben látjuk. Ennek több oka is lehet.
 
-A gyakorlat csoportok Moodle-ban vannak. Neptunból automatikusan kerülnek át. Az eredményeket (gyakorlatokon jelenlét és házi feladat pontszáma) itt könyveljük. Minden gyakorlati alkalom, ill. minden házi feladat külön számonkérés (valamint a házi feladatoknál az iMsc pontok is külön számonkérésben vannak). A jelenlét vagy pontszám rögzítésének menete:
-
-1. Be kell jelentkezni Moodle-re és meg kell keresni a tárgyat.
-
-1. A tárgy kezdőoldalán meg kell keresni a számonkérést.
-
-    ![](images/moodle-szamonkeres-fooldalon.png)
-
-1. Erre kattintva lehet szűrni a csoportra. A _Grade_ gombbal egyesével jönnek a hallgatók, a _View all_ táblázatosan mutatja őket.
-
-    ![](images/moodle-szamonkeres-ertekeles.png)
+- A hallgató kifelejtett valamit. Kötelező elemek hiánya szándékosan blokkolja a folyamatot. Az ilyen házit nem értékeljük (amennyiben valóban a hallgató tévedett).
+- Tranziens hiba, pl. nem sikerül egy konténer pull, vagy egy .NET SDK setup. Lásd az újrafuttatást fentebb.
+- Hiba van a kiértékelő avagy a feldolgozó alkalmazásban. A kiértékelő alkalmazások elég stabilak, hibás megoldásra nem szabad elessenek. Azért megtörténhet. A feldolgozó alkalmazás is sokat futott már, de természetesen lehet benne nem várt eset. Szólj erről, az ilyet meg kell nézzük.
