@@ -70,7 +70,7 @@ A rétegek szétválasztásának köszönhetően az is gyakori, hogy az alkalmaz
 !!! info "Layer / tier"
     Az architektúra angol elnevezése megkülönbözteti a logikai és fizikai elválasztást. A *three-layered* elnevezésben a rétegek logikailag különválnak, de azonos kiszolgálón futnak. A *three-tiered* azonban a rétegek (*tier*) mentén fizikai elválasztására, külön kiszolgálókon való futásra is utal.
 
-Egy jó architektúrával rendelkező alkalmazás hosszú életciklusa során is karbantartható marad. A rétegezés nem plusz teherként, betartandó szabályok halmazaként, hanem mankóként segíti a fejlesztőket a kód fejlesztésében. Ezért egy többrétegű alkalmazás fejlesztése során fontos, hogy pontosan értsük, mely rétegek milyen felelősségekkel rendelkeznek, és milyen feladok tartoznak hozzájuk.
+Egy jó architektúrával rendelkező alkalmazás hosszú életciklusa során is karbantartható marad. A rétegezés nem plusz teherként, betartandó szabályok halmazaként, hanem mankóként segíti a fejlesztőket a kód fejlesztésében. Ezért egy többrétegű alkalmazás fejlesztése során fontos, hogy pontosan értsük, mely rétegek milyen felelősségekkel rendelkeznek, és milyen feladatok tartoznak hozzájuk.
 
 !!! note ""
     A réteges felépítés nem azt jelenti, hogy a felhasználók által használt funkciók csak egy-egy rétegben jelennek meg. A legtöbb funkció valamilyen módon az összes rétegben megjelenik: a funkcióhoz tartozik felhasználói felület, valamilyen adatkezelés az üzleti logikában, és az eredmény mentésre kerül az adatbázisba.
