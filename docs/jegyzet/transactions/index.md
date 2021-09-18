@@ -45,7 +45,7 @@ Képzeljük el egy webshopban a vásárlás végét lezáró műveletet:
 
 Ez a műveletsorozat csak egyben értelmes. Amennyiben a megrendelést rögzítettük, muszáj a raktárkészletet is csökkenteni, különben többet adhatunk el a termékből, mint amennyi rendelkezésre áll. A két lépés között tehát a művelet nem szakítható félbe.
 
-Ezt garantálja az atomi végrehajtás: **ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vegy vissza kell állnia a végrehajtást megelőző állapotba**.
+Ezt garantálja az atomi végrehajtás: **ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vagy vissza kell állnia a végrehajtást megelőző állapotba**.
 
 #### Konzisztencia
 
