@@ -195,7 +195,7 @@ Az authentikáció nem csak a felhasználói felületen történő bejelentkezé
 
 Bejelentkezésre többféle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).
 
-A hozzáférés szabályozás megszabja, hogy milyen funkciókhoz ki férhet hozzá. Ennek ellenőrzése történhet a felhasználói felületen is (ne is jelenjen meg a a nem elérhető funkció), de ahogy a bemenetek validációjánál is említésre került, az üzleti logikának meg kell ismételnie az ellenőrzést. Fontos, hogy ez a két validáció azonos szabályrendszer szerint dolgozzon.
+A hozzáférés szabályozás megszabja, hogy milyen funkciókhoz ki férhet hozzá. Ennek ellenőrzése történhet a felhasználói felületen is (ne is jelenjen meg a nem elérhető funkció), de ahogy a bemenetek validációjánál is említésre került, az üzleti logikának meg kell ismételnie az ellenőrzést. Fontos, hogy ez a két validáció azonos szabályrendszer szerint dolgozzon.
 
 A nyomkövetés, auditálás feladata, hogy visszakereshetővé váljon a rendszerben, hogy ki, mikor, mit csinált. Célja, hogy egy ember ne tudja "eltüntetni a nyomokat". Ez a fajta naplózás több ponton is megtörténhet, tipikusan az üzleti logikában és az adatbázisban.
 
