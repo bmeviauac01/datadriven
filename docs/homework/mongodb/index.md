@@ -4,22 +4,9 @@ This exercise is optional. You may earn **2+2 points** by completing this exerci
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
-## Required tools
+Check the required software and tools [here](../index.md#required-tools).
 
-- Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.
-- MongoDB Community Server ([download](https://www.mongodb.com/download-center/community))
-- Robo 3T ([download](https://robomongo.org/download))
-- Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
-    - Create and initialize the database; use the steps [the seminar exercises](../../seminar/mongodb/index.md) describe.
-- GitHub account and a git client
-- Microsoft Visual Studio 2019 [with the settings here](../VisualStudio.md)
-    - When using Linux, or macOS, you can use Visual Studio Code, the .NET Core SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
-- [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-
-    !!! warning ".NET Core 3.1"
-        Mind the version! You need .NET Core SDK version **3.1** to solve these exercises.
-
-        On Windows, it might already be installed along with Visual Studio (see [here](../VisualStudio.md#check-and-install-net-core-sdk) how to check it); if not, use the link above to install (the SDK and _not_ the runtime). You need to install it manually when using Linux or macOS.
+Before you begin, create and initialize the database; use the steps [the seminar exercises](../../seminar/mongodb/index.md) describe.
 
 ## Exercise 0: Neptun code
 

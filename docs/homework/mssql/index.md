@@ -4,16 +4,7 @@ This exercise is optional. You may earn **2+2 points** by completing this exerci
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
-## Required tools
-
-- Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.
-- Microsoft SQL Server
-    - The free Express version is sufficient, or you may also use _localdb_ installed with Visual Studio
-    - A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available.
-    - On macOS, you can use Docker.
-- [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
-- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
-- GitHub account and a git client
+Check the required software and tools [here](../index.md#required-tools).
 
 ## Prepare the database
 
