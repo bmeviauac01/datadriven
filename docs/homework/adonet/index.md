@@ -17,6 +17,7 @@ Create _repository_ class for managing the `Product` entities; use **ADO.NET Con
 - `Search(string name)`: find all products in the database matching the provided name, and return them as C# objects. If the name filter argument is `null`, the method should return all products; otherwise, it should match names that contain the specified string in a _case-insensitive_ manner!
 - `FindById(int id)`: returns a single product matched by the ID, or returns `null` if not found.
 - `Update(Product p)` updates the properties of a product in the database based on the values received as parameter. Update the `Name`, `Price`, and `Stock` values, and you may ignore the rest.
+- `Delete(int id)` should delete the product specified by the ID from the database - if such product exists. The method shall return whether the delete was successful. (You need to delete the product record only; do not remove other referenced records. In case deletion is blocked due to foreign key constraints, do _not_ catch the error; let the caller see the error.)
 
 You should mind the following requirements:
 

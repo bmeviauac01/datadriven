@@ -27,9 +27,11 @@ Exercises:
     !!! warning "IMPORTANT"
         The data altered this way will be displayed on a screenshot in a later exercise; hence this step is essential.
 
-1. Create a new API endpoint for verifying whether a particular product specified by its ID exists. This new endpoint should respond to a `HEAD` HTTP query on URL `/api/product/{id}`. The HTTP response should be status code 200 or 404 (without any body either case).
+1. Create a new API endpoint for verifying whether a particular product specified by its ID exists. This new endpoint should respond to a `HEAD` HTTP query at URL `/api/product/{id}`. The HTTP response should be status code 200 or 404 (without any body either case).
 
-1. Create a new API endpoint that returns a single `Product` specified by its ID; the query is a `GET` query on URL `/api/product/{id}` and the response should be either 200 OK with the product as body, or 404 when the product is not found.
+1. Create a new API endpoint that returns a single `Product` specified by its ID; the query is a `GET` query at URL `/api/product/{id}` and the response should be either 200 OK with the product as body, or 404 when the product is not found.
+
+1. Create a new API endpoint that deletes a `Product` specified by its ID; the query is a `DELETE` query at URL `/api/product/{id}` and the response should be either 204 with no content, or 404 when the product is not found.
 
 1. Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a GET HTTP request to URL `/api/product/-/count`. The returned result should be a JSON serialized `CountResult` object with the correct count.
 
