@@ -1,6 +1,6 @@
 # Visual Studio & .NET Core SDK telepítése
 
-Egyes laborokhoz a Microsoft Visual Studio **2019 16.6 vagy újabb** verziója szükséges. Az ingyenes, [Community változata](https://visualstudio.microsoft.com/vs/community/) is elegendő a feladatok megoldásához.
+Egyes házikhoz a Microsoft Visual Studio **2019 16.6 vagy újabb** verziója szükséges. Az ingyenes, [Community változata](https://visualstudio.microsoft.com/vs/community/) is elegendő a feladatok megoldásához.
 
 A verziót a _Visual Studio Installer_ elindításával ellenőrizhetjük:
 

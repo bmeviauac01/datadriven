@@ -43,7 +43,7 @@ A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részér
     - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
 - REST API feladatokhoz: [Postman](https://www.getpostman.com/)
 - Az első házi kivételével a C# programozós feladatokhoz:
-    - Microsoft Visual Studio 2019 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
+    - Microsoft Visual Studio 2019/2022 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
     - [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
         !!! warning ".NET Core 3.1"
