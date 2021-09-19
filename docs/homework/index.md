@@ -43,7 +43,7 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
     - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
 - For the REST API homework: [Postman](https://www.getpostman.com/)
 - For writing C# code (most homework, except the first one):
-    - Microsoft Visual Studio 2019 [with the settings here](VisualStudio.md)
+    - Microsoft Visual Studio 2019/2022 [with the settings here](VisualStudio.md)
         - When using Linux or macOS, you can use Visual Studio Code, the .NET Core SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/).
     - [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
