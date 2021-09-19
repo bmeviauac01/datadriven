@@ -1304,7 +1304,7 @@
 <li>A megrendelt terméknél csökkentjük a raktáron levő darabszámot, hiszen egyet eladtunk</li>
 </ol>
 <p>Ez a műveletsorozat csak egyben értelmes. Amennyiben a megrendelést rögzítettük, muszáj a raktárkészletet is csökkenteni, különben többet adhatunk el a termékből, mint amennyi rendelkezésre áll. A két lépés között tehát a művelet nem szakítható félbe.</p>
-<p>Ezt garantálja az atomi végrehajtás: <strong>ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vegy vissza kell állnia a végrehajtást megelőző állapotba</strong>.</p>
+<p>Ezt garantálja az atomi végrehajtás: <strong>ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vagy vissza kell állnia a végrehajtást megelőző állapotba</strong>.</p>
 <h4 id="konzisztencia">Konzisztencia<a class="headerlink" href="#konzisztencia" title="Permanent link">&para;</a></h4>
 <p>Az adatbázis konzisztenciájának szabályait részben az integritási kritériumokkal írhatjuk le: például egy külső kulcs által hivatkozott rekordnak léteznie kell. Ezen kívül az adatok közötti összefüggéseket is beleértjük a konzisztenciába: például a Neptun rendszerben nem lehet több jelentkező a vizsgára, mint a vizsga létszámkorlátja.</p>
 <p>Tranzakciók használata biztosítja számunkra, hogy az adatbázisunk mindig konzisztens állapotban van. Egy megkezdett tranzakció lefutása során előfordulhat ideiglenesen inkonzisztens állapot, mint a fenti példában az egyes lépések között. Azonban a tranzakció végére a konzisztenciának helyre kell állnia. Más szóval: <strong>a tranzakciók az adatbázist konzisztens állapotból konzisztens állapotba viszik</strong>.</p>
