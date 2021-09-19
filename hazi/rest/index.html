@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.be71726b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.802231af.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -805,13 +805,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#szukseges-eszkozok" class="md-nav__link">
-    Szükséges eszközök
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#feladat-0-neptun-kod" class="md-nav__link">
     Feladat 0: Neptun kód
   </a>
@@ -908,13 +901,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#szukseges-eszkozok" class="md-nav__link">
-    Szükséges eszközök
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#feladat-0-neptun-kod" class="md-nav__link">
     Feladat 0: Neptun kód
   </a>
@@ -955,24 +941,7 @@
                 <h1 id="feladat-rest-api-web-api-technologiaval">Feladat: REST API Web API technológiával<a class="headerlink" href="#feladat-rest-api-web-api-technologiaval" title="Permanent link">&para;</a></h1>
 <p>A házi feladat opcionális. A teljesítéssel <strong>2 pluszpont és 2 iMsc pont</strong> szerezhető.</p>
 <p>GitHub Classroom segítségével hozz létre magadnak egy repository-t. A <strong>meghívó URL-t Moodle-ben találod</strong>. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.</p>
-<h2 id="szukseges-eszkozok">Szükséges eszközök<a class="headerlink" href="#szukseges-eszkozok" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.</li>
-<li><a href="https://www.getpostman.com/">Postman</a></li>
-<li>GitHub account és egy git kliens</li>
-<li>Microsoft Visual Studio 2019 <a href="../VisualStudio/">az itt található beállításokkal</a><ul>
-<li>Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/">dotnet CLI</a> használható.</li>
-</ul>
-</li>
-<li>
-<p><a href="https://dotnet.microsoft.com/download/dotnet-core/3.1">.NET Core <strong>3.1</strong> SDK</a></p>
-<div class="admonition warning">
-<p class="admonition-title">.NET Core 3.1</p>
-<p>A feladat megoldásához <strong>3.1</strong>-es .NET Core SDK telepítése szükséges.</p>
-<p>Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd <a href="../VisualStudio/#net-core-sdk-ellenorzese-es-telepitese">itt</a> az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és <em>nem</em> a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.</p>
-</div>
-</li>
-</ul>
+<p>A megoldáshoz szükséges szoftvereket és eszközöket lásd <a href="../#szukseges-eszkozok">itt</a>.</p>
 <h2 id="feladat-0-neptun-kod">Feladat 0: Neptun kód<a class="headerlink" href="#feladat-0-neptun-kod" title="Permanent link">&para;</a></h2>
 <p>Első lépésként a gyökérben található <code>neptun.txt</code> fájlba írd bele a Neptun kódodat!</p>
 <h2 id="feladat-1-termek-muveletek-2-pluszpont">Feladat 1: Termék műveletek (2 pluszpont)<a class="headerlink" href="#feladat-1-termek-muveletek-2-pluszpont" title="Permanent link">&para;</a></h2>
@@ -996,7 +965,10 @@
 <p>Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy <code>HEAD</code> típusú HTTP kérést fogunk küldeni a <code>/api/product/{id}</code> URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).</p>
 </li>
 <li>
-<p>Készíts egy olyan API végpontot, ami egy terméket (<code>Product</code>) ad vissza az id-ja alapján; a kérés GET típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.</p>
+<p>Készíts egy olyan API végpontot, ami egy terméket (<code>Product</code>) ad vissza az id-ja alapján; a kérés <code>GET</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.</p>
+</li>
+<li>
+<p>Készíts egy olyan API végpontot, ami töröl egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>DELETE</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
 </li>
 <li>
 <p>Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy GET típusú kérés legyen a <code>/api/product/-/count</code> címre. A visszaadott adat a <code>CountResult</code> osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).</p>
@@ -1160,7 +1132,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.term.missing": "\u00dcres", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.56a63758.min.js"></script>
+      <script src="../../assets/javascripts/bundle.756773cc.min.js"></script>
       
     
   </body>

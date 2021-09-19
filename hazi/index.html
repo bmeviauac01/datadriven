@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.be71726b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.802231af.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -766,6 +766,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#szukseges-eszkozok" class="md-nav__link">
+    Szükséges eszközök
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#a-feladatok-kiertekelese" class="md-nav__link">
     A feladatok kiértékelése
   </a>
@@ -929,6 +936,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#szukseges-eszkozok" class="md-nav__link">
+    Szükséges eszközök
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#a-feladatok-kiertekelese" class="md-nav__link">
     A feladatok kiértékelése
   </a>
@@ -978,6 +992,36 @@
 <div class="admonition info">
 <p>A képernyőképeket a megoldás részeként kell beadni, így felkerülnek a git repository tartalmával együtt. Mivel a repository privát, azt az oktatókon kívül más nem látja. Amennyiben olyan tartalom kerül a képernyőképre, amit nem szeretnél feltölteni, kitakarhatod a képről.</p>
 </div>
+<h2 id="szukseges-eszkozok">Szükséges eszközök<a class="headerlink" href="#szukseges-eszkozok" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.</li>
+<li>GitHub account és egy git kliens.</li>
+<li>MSSQL adatbázist használó feladatokhoz:<ul>
+<li>Microsoft SQL Server. Az <em>Express</em> változat ingyenesen használható, avagy Visual Studio mellett feltelepülő <em>localdb</em> változat is megfelelő. Van <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup">Linux változata</a> is. MacOS-en Docker-rel futtatható.</li>
+<li><a href="https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">SQL Server Management Studio</a>, vagy kipróbálható a platformfüggetlen <a href="https://docs.microsoft.com/en-us/sql/azure-data-studio/download">Azure Data Studio</a> is.</li>
+<li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">mssql.sql</a></li>
+</ul>
+</li>
+<li>MongoDB adatbázist használó feladathoz:<ul>
+<li><a href="https://www.mongodb.com/download-center/community">MongoDB Community Server</a></li>
+<li><a href="https://robomongo.org/download">Robo 3T</a></li>
+<li>Minta adatbázis kódja: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">mongo.js</a></li>
+</ul>
+</li>
+<li>REST API feladatokhoz: <a href="https://www.getpostman.com/">Postman</a></li>
+<li>Az első házi kivételével a C# programozós feladatokhoz:<ul>
+<li>Microsoft Visual Studio 2019/2022 <a href="VisualStudio/">az itt található beállításokkal</a>. Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/">dotnet CLI</a> használható.</li>
+<li>
+<p><a href="https://dotnet.microsoft.com/download/dotnet-core/3.1">.NET Core <strong>3.1</strong> SDK</a></p>
+<div class="admonition warning">
+<p class="admonition-title">.NET Core 3.1</p>
+<p>A feladat megoldásához <strong>3.1</strong>-es .NET Core SDK telepítése szükséges.</p>
+<p>Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd <a href="VisualStudio/#net-core-sdk-ellenorzese-es-telepitese">itt</a> az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és <em>nem</em> a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="a-feladatok-kiertekelese">A feladatok kiértékelése<a class="headerlink" href="#a-feladatok-kiertekelese" title="Permanent link">&para;</a></h2>
 <p>A feladatok kiértékelése részben <strong>automatikusan</strong> történik. A futtatható kódokat valóban le fogjuk futtatni, ezért minden esetben fontos a feladatleírások pontos követése (kiinduló kód váz használata, csak a megengedett fájlok változtatása, stb.)!</p>
 <p>A kiértékelés eredményéről a GitHub-on kapsz szöveges visszajelzést (lásd <a href="GitHub/">itt</a>). Ha ennél több információra van szükséged, a <em>GitHub Actions</em> webes felülete segítségül szolgálhat. Erről <a href="GitHub-Actions/">itt</a> találsz egy rövid ismertetőt.</p>
@@ -1107,7 +1151,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.term.missing": "\u00dcres", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.56a63758.min.js"></script>
+      <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
       
     
   </body>
