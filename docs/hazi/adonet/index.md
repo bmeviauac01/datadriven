@@ -17,6 +17,7 @@ Készíts a termékek (`Product`) kezeléséhez egy _repository_ osztályt **ADO
 - A `Search(string name)` függvény keresse meg az adatbázisban a paraméterben kapott terméknévre illeszkedő találatokat, és adja őket vissza C# osztály példányaként. Ha a kapott szűrési paraméter `null`, akkor minden terméket adjon vissza, ellenkező esetben _case-insensitive_ módon a névben bárhol keressen!
 - A `FindById(int id)` adja vissza az ID alapján megtalált terméket, vagy `null` értéket, ha nem található ilyen.
 - Az `Update(Product p)` egy létező termék adatait frissítse az adatbázisban a kapott paraméter alapján. Csak a `Name`, `Price` és `Stock` változhat, a többi tulajdonságot itt nem kell figyelembe venni.
+- A `Delete(int id)` törölje az ID alapján meghatározott terméket az adatbázisból, amennyiben az létezik. A visszatérési érték jelzi, hogy sikeres volt-e a törlés. (Csak a termék rekordot kell törölni, semmilyen kapcsolódó rekordot nem! Ha külső kulcs miatt nem törölhető a rekord, a hibát _ne_ kezeld le, hanem engedd tovább a hívónak.)
 
 Ügyelj az alábbiakra:
 

@@ -80,7 +80,8 @@ Implementáld a `ProductRepository` osztályt, amely megvalósítja a termékek 
 Implementáld a `ProductRepository` osztály függvényeit.
 
 - A `List` az összes terméket adja vissza `Model.Product` típusra leképezve.
-- Az `Insert` szúrjon be egy új terméket. A kapott ÁFA kulcs értéknek megfelelően keresse ki az adatbázisból a kapcsolódó `VAT` rekordot, vagy ha nem létezik ilyen kulcs még, akkor szúrjon be egy új `VAT` rekordot is!
+- Az `Insert` szúrjon be egy új terméket. A kapott ÁFA kulcs értéknek megfelelően keresse ki az adatbázisból a kapcsolódó `VAT` rekordot, vagy ha nem létezik ilyen kulcs még, akkor szúrjon be egy új `VAT` rekordot is! A metódus visszatérési értéke az új elem ID-ja legyen (amit természetesen az adatbázis generál).
+- A `Delete` törölje a termék rekordot a megadott id alapján. Csak a termék rekordot kell törölni, kapcsolódó sorokat nem. Ha a törlés külső kulcsok miatt nem hajtható végre, engedd a hívót értesülni a hibáról. Ha a termék nem létezik, a függvény _hamis_ visszatérési értékkel jelezze, a sikeres törlést pedig _igazzal_.
 - A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
 - A kódban a `ProductRepository.createDbContext()`-et használd a _DbContext_ létrehozásához (és **ne** a `TestConnectionStringHelper`-t).
 

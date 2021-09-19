@@ -29,7 +29,9 @@ Feladatok:
 
 1. Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy `HEAD` típusú HTTP kérést fogunk küldeni a `/api/product/{id}` URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).
 
-1. Készíts egy olyan API végpontot, ami egy terméket (`Product`) ad vissza az id-ja alapján; a kérés GET típusú legyen a `/api/product/{id}` címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.
+1. Készíts egy olyan API végpontot, ami egy terméket (`Product`) ad vissza az id-ja alapján; a kérés `GET` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.
+
+1. Készíts egy olyan API végpontot, ami töröl egy terméket (`Product`) az id-ja alapján; a kérés `DELETE` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
 
 1. Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy GET típusú kérés legyen a `/api/product/-/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
 
