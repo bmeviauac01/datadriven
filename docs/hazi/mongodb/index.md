@@ -4,22 +4,9 @@ A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** s
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
-## Szükséges eszközök
+A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok).
 
-- Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
-- MongoDB Community Server ([letöltés](https://www.mongodb.com/download-center/community))
-- Robo 3T ([letöltés](https://robomongo.org/download))
-- GitHub account és egy git kliens
-- Gyakorlatokon is használt minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
-    - Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../gyakorlat/mongodb/index.md) leírt módon.
-- Microsoft Visual Studio 2019 [az itt található beállításokkal](../VisualStudio.md)
-    - Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
-- [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-
-    !!! warning ".NET Core 3.1"
-        A feladat megoldásához **3.1**-es .NET Core SDK telepítése szükséges.
-
-        Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd [itt](../VisualStudio.md#net-core-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.
+Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../gyakorlat/mongodb/index.md) leírt módon.
 
 ## Feladat 0: Neptun kód
 
