@@ -180,11 +180,9 @@ join v in vat on p.VATID equals v.Id
 select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
 ```
 
-## LINQ kifejezések és az IQueryable
+## LINQ kifejezések és az IEnumerable/IQueryable
 
-Vegyünk egy egyszerű kifejezést: `products.Where(p => p.Price < 1000)`. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés **nem került végrehajtásra**. A LINQ kifejezések eredménye egy `IQueryable<T>` generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.
-
-Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:
+Annak függvényében, hogy a Linq műveleteket milyen adatforráson használjuk, a `products.Where(p => p.Price < 1000)` jellegű kifejezések eredménye `IEnumerable<T>` vagy `IQueryable<T>`. Mindkettőre igaz, hogy az eredményhalmaz _helyett_ csak leírók, azaz a művelet **még nem került végrehajtásra**. Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:
 
 - amikor elkezdünk iterálni az eredményhalmazon (pl. `foreach`),
 - amikor elkérjük az első elemet (lásd később, pl. `.First()`),
