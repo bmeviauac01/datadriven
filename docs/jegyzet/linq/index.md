@@ -21,33 +21,12 @@ List<Product> products = ...
 List<VAT> vat = ...
 ```
 
-## LINQ kifejezések és az IQueryable
+!!! important "`System.Linq`"
+    A Linq használatához a `System.Linq` névteret kell használnunk:
 
-Vegyünk egy egyszerű kifejezést: `products.Where(p => p.Price < 1000)`. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés **nem került végrehajtásra**. A LINQ kifejezések eredménye egy `IQueryable<T>` generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.
-
-Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:
-
-- amikor elkezdünk iterálni az eredményhalmazon (pl. foreach),
-- amikor elkérjük az első elemet (lásd később, pl. `.First()`),
-- amikor listát kérünk az eredményhalmazból (`.ToList()`).
-
-Ez a működés azért praktikus, mert így tudjuk szintaktikailag egymás után fűzni a LINQ műveleteket, mint például:
-
-```csharp
-var l = products.Where(p => p.Price < 1000)
-                .Where(p => p.Name.Contains('s'))
-                .OrderBy(p => p.Name)
-                .Select(p => p.Name)
-...
-
-// az l változó nem tartalmazza az eredményhalmazt
-
-foreach(var x in l) // itt fog lefutni a tényleges kiértékelés
-   { ... }
-```
-
-!!! note "Kiértékelés"
-    Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a `.ToList()`-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.
+    ```csharp
+    using System.Linq;
+    ```
 
 ## LINQ műveletek
 
@@ -200,6 +179,34 @@ from p in products
 join v in vat on p.VATID equals v.Id
 select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
 ```
+
+## LINQ kifejezések és az IQueryable
+
+Vegyünk egy egyszerű kifejezést: `products.Where(p => p.Price < 1000)`. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés **nem került végrehajtásra**. A LINQ kifejezések eredménye egy `IQueryable<T>` generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.
+
+Ezt _késői kiértékelésnek_ (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:
+
+- amikor elkezdünk iterálni az eredményhalmazon (pl. `foreach`),
+- amikor elkérjük az első elemet (lásd később, pl. `.First()`),
+- amikor listát kérünk az eredményhalmazból (`.ToList()`).
+
+Ez a működés azért praktikus, mert így tudjuk szintaktikailag egymás után fűzni a LINQ műveleteket, mint például:
+
+```csharp
+var l = products.Where(p => p.Price < 1000)
+                .Where(p => p.Name.Contains('s'))
+                .OrderBy(p => p.Name)
+                .Select(p => p.Name)
+...
+
+// az l változó nem tartalmazza az eredményhalmazt
+
+foreach(var x in l) // itt fog lefutni a tényleges kiértékelés
+   { ... }
+```
+
+!!! note "Kiértékelés"
+    Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a `.ToList()`-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.
 
 ## További információk és példák
 
