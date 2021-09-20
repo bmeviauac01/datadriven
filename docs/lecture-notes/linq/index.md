@@ -21,33 +21,12 @@ List<Product> products = ...
 List<VAT> vat = ...
 ```
 
-## LINQ expressions and IQueryable
+!!! important "`System.Linq`"
+    To access Linq functionality we need the `System.Linq` namespace:
 
-Let us consider a simple expression: `products.Where(p => p.Price < 1000)`. This expression is not yet a result set as it **has not yet been evaluated**. The result of a LINQ queries are represented as an `IQueryable<T>` generic interface, which does not hold the result, only the descriptor of the query.
-
-This is called _deferred execution_, as the execution will only happen when the result is effectively used:
-
-- when the result set is iterated (e.g. `foreach`),
-- when a specific item is accessed (see later, e.g. `.First()`),
-- when we as for a list instead (`.ToList()`).
-
-This operation is useful, because this allows us to chain LINQ operations after each other, such as:
-
-```csharp
-var l = products.Where(p => p.Price < 1000)
-                .Where(p => p.Name.Contains('s'))
-                .OrderBy(p => p.Name)
-                .Select(p => p.Name)
-...
-
-// variable l does not contain the result
-
-foreach(var x in l) // this is when the execution will happen
-   { ... }
-```
-
-!!! note "Force evaluation"
-    If we want to force the execution at any given moment, we usually use `.ToList()`. But this has to be considered first and only used when necessary.
+    ```csharp
+    using System.Linq;
+    ```
 
 ## LINQ operations
 
@@ -200,6 +179,34 @@ from p in products
 join v in vat on p.VATID equals v.Id
 select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
 ```
+
+## LINQ expressions and IQueryable
+
+Let us consider a simple expression: `products.Where(p => p.Price < 1000)`. This expression is not yet a result set as it **has not yet been evaluated**. The result of a LINQ queries are represented as an `IQueryable<T>` generic interface, which does not hold the result, only the descriptor of the query.
+
+This is called _deferred execution_, as the execution will only happen when the result is effectively used:
+
+- when the result set is iterated (e.g. `foreach`),
+- when a specific item is accessed (see later, e.g. `.First()`),
+- when we as for a list instead (`.ToList()`).
+
+This operation is useful, because this allows us to chain LINQ operations after each other, such as:
+
+```csharp
+var l = products.Where(p => p.Price < 1000)
+                .Where(p => p.Name.Contains('s'))
+                .OrderBy(p => p.Name)
+                .Select(p => p.Name)
+...
+
+// variable l does not contain the result
+
+foreach(var x in l) // this is when the execution will happen
+   { ... }
+```
+
+!!! note "Force evaluation"
+    If we want to force the execution at any given moment, we usually use `.ToList()`. But this has to be considered first and only used when necessary.
 
 ## More information and further examples
 
