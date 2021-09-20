@@ -123,8 +123,9 @@ Az értékelés végeztével:
 
 - Ha az automata értékelés helyénvaló volt, akkor le kell zárni a PR-t a `/ahk ok` parancs beírásával egy kommentbe. Ennek hatására a PR jóváhagyásra kerül és merge-elve lesz.
 - Ha az automata értékelést felülbírálod pontszámban, akkor az `/ahk ok 1.5 2` parancsot kell kiadni, ahol is a számok a feladatokra kapott pontszámok. Az első szám a nem iMsc feladat pontszáma, a második az iMsc pontszám - ez utóbbi elhagyható 0 esetén.
+- Ha a beadott megoldás nem fogadható el (határidőn túl érkezett, a képek nem támasztják alá a megoldást, a forráskód elfogadhatatlan, stb.), akkor ki **kell** adni a `/ahk ok 0 0` parancsot. Ezzel fogjuk rögzíteni, hogy az automata értékelő által adott pontszámokat felülírjuk.
 
-A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Ha nincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a parancssal.
+A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Érdemes a hallgatónak legalább egy mondatot írni, hogy lássa, elfogadtuk a megoldást. Ha még sincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a parancssal.
 
 ![](images/hazi-github-pr-ahkcommand.png)
 
