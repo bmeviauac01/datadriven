@@ -180,11 +180,9 @@ join v in vat on p.VATID equals v.Id
 select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
 ```
 
-## LINQ expressions and IQueryable
+## LINQ expressions and IEnumerable/IQueryable
 
-Let us consider a simple expression: `products.Where(p => p.Price < 1000)`. This expression is not yet a result set as it **has not yet been evaluated**. The result of a LINQ queries are represented as an `IQueryable<T>` generic interface, which does not hold the result, only the descriptor of the query.
-
-This is called _deferred execution_, as the execution will only happen when the result is effectively used:
+Depending on the data source we are using Linq on the result of a query, such as `products.Where(p => p.Price < 1000)` yields a variable of type `IEnumerable<T>` or `IQueryable<T>`. Neither of these contain the result sets; they are only descriptors, that is, the operation **has not yet been evaluated yet**. This is called _deferred execution_, as the execution will only happen when the result is effectively used:
 
 - when the result set is iterated (e.g. `foreach`),
 - when a specific item is accessed (see later, e.g. `.First()`),
