@@ -653,8 +653,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
-    LINQ kifejezések és az IQueryable
+  <a href="#linq-kifejezesek-es-az-ienumerableiqueryable" class="md-nav__link">
+    LINQ kifejezések és az IEnumerable/IQueryable
   </a>
   
 </li>
@@ -1142,8 +1142,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
-    LINQ kifejezések és az IQueryable
+  <a href="#linq-kifejezesek-es-az-ienumerableiqueryable" class="md-nav__link">
+    LINQ kifejezések és az IEnumerable/IQueryable
   </a>
   
 </li>
@@ -1296,9 +1296,8 @@
 <span class="k">join</span> <span class="n">v</span> <span class="k">in</span> <span class="n">vat</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">VATID</span> <span class="k">equals</span> <span class="n">v</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">select</span> <span class="k">new</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">FullPrice</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">*</span> <span class="n">v</span><span class="p">.</span><span class="n">Percentage</span> <span class="p">}</span>
 </code></pre></div>
-<h2 id="linq-kifejezesek-es-az-iqueryable">LINQ kifejezések és az IQueryable<a class="headerlink" href="#linq-kifejezesek-es-az-iqueryable" title="Permanent link">&para;</a></h2>
-<p>Vegyünk egy egyszerű kifejezést: <code>products.Where(p =&gt; p.Price &lt; 1000)</code>. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés <strong>nem került végrehajtásra</strong>. A LINQ kifejezések eredménye egy <code>IQueryable&lt;T&gt;</code> generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.</p>
-<p>Ezt <em>késői kiértékelésnek</em> (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:</p>
+<h2 id="linq-kifejezesek-es-az-ienumerableiqueryable">LINQ kifejezések és az IEnumerable/IQueryable<a class="headerlink" href="#linq-kifejezesek-es-az-ienumerableiqueryable" title="Permanent link">&para;</a></h2>
+<p>Annak függvényében, hogy a Linq műveleteket milyen adatforráson használjuk, a <code>products.Where(p =&gt; p.Price &lt; 1000)</code> jellegű kifejezések eredménye <code>IEnumerable&lt;T&gt;</code> vagy <code>IQueryable&lt;T&gt;</code>. Mindkettőre igaz, hogy az eredményhalmaz <em>helyett</em> csak leírók, azaz a művelet <strong>még nem került végrehajtásra</strong>. Ezt <em>késői kiértékelésnek</em> (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:</p>
 <ul>
 <li>amikor elkezdünk iterálni az eredményhalmazon (pl. <code>foreach</code>),</li>
 <li>amikor elkérjük az első elemet (lásd később, pl. <code>.First()</code>),</li>
