@@ -529,13 +529,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
-    LINQ kifejezések és az IQueryable
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#linq-muveletek" class="md-nav__link">
     LINQ műveletek
   </a>
@@ -656,6 +649,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
+    LINQ kifejezések és az IQueryable
+  </a>
   
 </li>
       
@@ -1018,13 +1018,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
-    LINQ kifejezések és az IQueryable
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#linq-muveletek" class="md-nav__link">
     LINQ műveletek
   </a>
@@ -1149,6 +1142,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#linq-kifejezesek-es-az-iqueryable" class="md-nav__link">
+    LINQ kifejezések és az IQueryable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tovabbi-informaciok-es-peldak" class="md-nav__link">
     További információk és példák
   </a>
@@ -1191,29 +1191,11 @@
 <span class="n">List</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">products</span> <span class="p">=</span> <span class="p">...</span>
 <span class="n">List</span><span class="p">&lt;</span><span class="n">VAT</span><span class="p">&gt;</span> <span class="n">vat</span> <span class="p">=</span> <span class="p">...</span>
 </code></pre></div>
-<h2 id="linq-kifejezesek-es-az-iqueryable">LINQ kifejezések és az IQueryable<a class="headerlink" href="#linq-kifejezesek-es-az-iqueryable" title="Permanent link">&para;</a></h2>
-<p>Vegyünk egy egyszerű kifejezést: <code>products.Where(p =&gt; p.Price &lt; 1000)</code>. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés <strong>nem került végrehajtásra</strong>. A LINQ kifejezések eredménye egy <code>IQueryable&lt;T&gt;</code> generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.</p>
-<p>Ezt <em>késői kiértékelésnek</em> (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:</p>
-<ul>
-<li>amikor elkezdünk iterálni az eredményhalmazon (pl. foreach),</li>
-<li>amikor elkérjük az első elemet (lásd később, pl. <code>.First()</code>),</li>
-<li>amikor listát kérünk az eredményhalmazból (<code>.ToList()</code>).</li>
-</ul>
-<p>Ez a működés azért praktikus, mert így tudjuk szintaktikailag egymás után fűzni a LINQ műveleteket, mint például:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">l</span> <span class="p">=</span> <span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">&lt;</span> <span class="m">1000</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="sc">&#39;s&#39;</span><span class="p">))</span>
-                <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
-<span class="p">...</span>
-
-<span class="c1">// az l változó nem tartalmazza az eredményhalmazt</span>
-
-<span class="k">foreach</span><span class="p">(</span><span class="kt">var</span> <span class="n">x</span> <span class="k">in</span> <span class="n">l</span><span class="p">)</span> <span class="c1">// itt fog lefutni a tényleges kiértékelés</span>
-   <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<div class="admonition important">
+<p class="admonition-title"><code>System.Linq</code></p>
+<p>A Linq használatához a <code>System.Linq</code> névteret kell használnunk:</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Kiértékelés</p>
-<p>Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a <code>.ToList()</code>-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.</p>
 </div>
 <h2 id="linq-muveletek">LINQ műveletek<a class="headerlink" href="#linq-muveletek" title="Permanent link">&para;</a></h2>
 <p>Az alábbi példáknál, ahol elérhető, mindkét szintaktikát mutatjuk. A két féle szintaktika teljesen egyenértékű.</p>
@@ -1314,6 +1296,30 @@
 <span class="k">join</span> <span class="n">v</span> <span class="k">in</span> <span class="n">vat</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">VATID</span> <span class="k">equals</span> <span class="n">v</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">select</span> <span class="k">new</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">FullPrice</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">*</span> <span class="n">v</span><span class="p">.</span><span class="n">Percentage</span> <span class="p">}</span>
 </code></pre></div>
+<h2 id="linq-kifejezesek-es-az-iqueryable">LINQ kifejezések és az IQueryable<a class="headerlink" href="#linq-kifejezesek-es-az-iqueryable" title="Permanent link">&para;</a></h2>
+<p>Vegyünk egy egyszerű kifejezést: <code>products.Where(p =&gt; p.Price &lt; 1000)</code>. Ezen kifejezés nem teljes abban az értelemben, hogy a szűrés <strong>nem került végrehajtásra</strong>. A LINQ kifejezések eredménye egy <code>IQueryable&lt;T&gt;</code> generikus interfész, amely nem tartalmazza az eredményeket, csupán egy leírót, hogy mi a kifejezés.</p>
+<p>Ezt <em>késői kiértékelésnek</em> (deferred execution) hívjuk, ugyanis a leírt művelet csak akkor fog végrehajtódni, amikor az eredményekre ténylegesen is szükség van:</p>
+<ul>
+<li>amikor elkezdünk iterálni az eredményhalmazon (pl. <code>foreach</code>),</li>
+<li>amikor elkérjük az első elemet (lásd később, pl. <code>.First()</code>),</li>
+<li>amikor listát kérünk az eredményhalmazból (<code>.ToList()</code>).</li>
+</ul>
+<p>Ez a működés azért praktikus, mert így tudjuk szintaktikailag egymás után fűzni a LINQ műveleteket, mint például:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">l</span> <span class="p">=</span> <span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">&lt;</span> <span class="m">1000</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="sc">&#39;s&#39;</span><span class="p">))</span>
+                <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+<span class="p">...</span>
+
+<span class="c1">// az l változó nem tartalmazza az eredményhalmazt</span>
+
+<span class="k">foreach</span><span class="p">(</span><span class="kt">var</span> <span class="n">x</span> <span class="k">in</span> <span class="n">l</span><span class="p">)</span> <span class="c1">// itt fog lefutni a tényleges kiértékelés</span>
+   <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Kiértékelés</p>
+<p>Ha mindenképpen szeretnénk kérni a lefuttatást, akkor tipikusan a <code>.ToList()</code>-et használjuk. Ezzel azonban vigyázzunk, fontoljuk meg, tényleg erre van-e szükségünk.</p>
+</div>
 <h2 id="tovabbi-informaciok-es-peldak">További információk és példák<a class="headerlink" href="#tovabbi-informaciok-es-peldak" title="Permanent link">&para;</a></h2>
 <p>Lambda kifejezések: <a href="https://www.tutorialsteacher.com/linq/linq-lambda-expression">https://www.tutorialsteacher.com/linq/linq-lambda-expression</a></p>
 <p>Linq: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/">https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/</a></p>
