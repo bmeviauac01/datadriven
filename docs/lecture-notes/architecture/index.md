@@ -1,4 +1,4 @@
-﻿# Data-driven systems and the thee- or multi-tier architecture
+﻿# Data-driven systems and the three- or multi-tier architecture
 
 ## What is a _data-driven_ system?
 
