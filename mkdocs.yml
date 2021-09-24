@@ -6,7 +6,6 @@ repo_url: https://github.com/bmeviauac01/adatvezerelt
 
 theme:
   name: material
-  custom_dir: theme-overrides
   language: hu
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -28,12 +27,15 @@ theme:
     - navigation.tabs
     - navigation.instant
     - navigation.top
-    - search.suggest
+    - search.suggest   
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
 extra_css:
   - extra-material-theme.css
+
+extra:
+  generator: false
 
 markdown_extensions:
   - admonition
