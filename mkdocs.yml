@@ -6,7 +6,6 @@ repo_url: https://github.com/bmeviauac01/datadriven-en
 
 theme:
   name: material
-  custom_dir: theme-overrides
   language: en
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -34,6 +33,9 @@ theme:
 
 extra_css:
   - extra-material-theme.css
+
+extra:
+  generator: false
 
 markdown_extensions:
   - admonition
