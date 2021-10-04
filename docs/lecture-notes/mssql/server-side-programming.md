@@ -636,7 +636,7 @@ create or alter trigger CustomerEmailSyntaxCheck
 as
 -- For both insertion and modification, the new data is in the inserted table
 -- Is there an item there for which the new email address is not valid?
-if exist (select 1 from inserted i where dbo.IsEmailValid(i.Email) = 0)
+if exists(select 1 from inserted i where dbo.IsEmailValid(i.Email) = 0)
   throw 51234, 'invalid email address', 1 -- abort the transaction by raising the error
 ```
 
