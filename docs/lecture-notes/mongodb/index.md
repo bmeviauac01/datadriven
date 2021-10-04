@@ -553,9 +553,9 @@ collection.UpdateMany(
 
 Update operators change the documents atomically. Using them can eliminate some of the problems caused by concurrent data access.
 
-#### _Upsert_: replacing a non-existent document
+#### _Upsert_: updating or inserting a document
 
-During update operations, we have the option _upsert (update/insert)_. This means that either an insertion or an update is made, depending on whether the item was in the database. The default behavior is _not_ to upsert, we must request it explicitly.
+During update operations, we have the option to _upsert (update/insert)_. This means that either an insertion or an update is made, depending on whether the item was in the database. The default behavior is _not_ to upsert, we must request it explicitly.
 
 ```csharp
 collection.ReplaceOne(
