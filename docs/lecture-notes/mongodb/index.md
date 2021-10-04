@@ -401,7 +401,7 @@ collection.Find(...)
 !!! question "Paging issue"
     The above paging mechanism is still not entirely correct. For example, if a product is deleted in between the query of the first and second pages, the products will shift by one, and there may be a product that will be skipped. This is, in fact, not a problem just with MongoDB. Consider how you would solve this problem.
 
-#### Number documents
+#### Number of documents
 
 There are two ways to query the number of documents that match a query:
 
