@@ -554,7 +554,7 @@ collection.UpdateMany(
 
 A módosító operátorok atomi módon teszik szerkeszthetővé a dokumentumainkat. Használatukkal kiküszöbölhető a konkurens adathozzáférésből eredő problémák egy része.
 
-#### _Upsert_: nemlétező dokumentum cseréje
+#### _Upsert_: beszúrás vagy mósosítás
 
 Módosító művelet során lehetőségünk van az un. _upsert (update/insert)_ jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés _nem_ upsert, azt külön kérnünk kell.
 
