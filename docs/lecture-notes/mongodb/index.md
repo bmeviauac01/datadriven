@@ -33,7 +33,7 @@ The document is the unit of storage in MongoDB. A document is a JSON (-like) fil
 }
 ```
 
-The keys can have arbitrary names with a few limitations, such that they have to be unique and cannot begin with the `$` character. The names are case sensitive. Values can be string, number, date, binary, embedded document, `null`, or even as the `groups` in the example shows, an array - a relational database cannot represent an array so simple.
+The keys can have arbitrary names with a few limitations, such that they have to be unique and cannot begin with the `$` character. The names are case sensitive. Values can be string, number, date, binary, embedded document, `null`, or even as the `groups` in the example shows, an array - a relational database cannot represent an array in such a simple way.
 
 Mapping to the object-oriented world, a document is an object. MongoDB documents have a maximum size of 16MB and this is not a configurable parameter.
 
@@ -82,7 +82,7 @@ The database does not need to exist in advance. The above call will automaticall
 
 ## Managing collections
 
-Unlike a relational database, **in MongoDB, our operations are always performed on a single collection**, so the selection of a collection is not part of the issued command (like `where` in SQL), but a prerequisite for the operation. You can get a specific collection by calling `GetCollection`; its generic parameter is the C# class implementing the document type.
+Unlike a relational database, **in MongoDB, our operations are always performed on a single collection**, so the selection of a collection is not part of the issued command (as in the `from` in SQL), but a prerequisite for the operation. You can get a specific collection by calling `GetCollection`; its generic parameter is the C# class implementing the document type.
 
 ```csharp
 var collection = db.GetCollection<BsonDocument>("products");
