@@ -82,7 +82,7 @@ Az adatbázisnak nem kell előzetesen létezni. A fenti hívás hatására, ha m
 
 ## Gyűjtemények kezelése
 
-Egy relációs adatbázistól eltérően **MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük**, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a `where`), hanem a művelet előfeltétele. Egy adott gyűjteményt a `GetCollection` hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.
+Egy relációs adatbázistól eltérően **MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük**, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a `join`), hanem a művelet előfeltétele. Egy adott gyűjteményt a `GetCollection` hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.
 
 ```csharp
 var collection = db.GetCollection<BsonDocument>("products");
