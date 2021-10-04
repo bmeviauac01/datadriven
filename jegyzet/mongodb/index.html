@@ -857,8 +857,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#upsert-nemletezo-dokumentum-csereje" class="md-nav__link">
-    Upsert: nemlétező dokumentum cseréje
+  <a href="#upsert-beszuras-vagy-mosositas" class="md-nav__link">
+    Upsert: beszúrás vagy mósosítás
   </a>
   
 </li>
@@ -1544,8 +1544,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#upsert-nemletezo-dokumentum-csereje" class="md-nav__link">
-    Upsert: nemlétező dokumentum cseréje
+  <a href="#upsert-beszuras-vagy-mosositas" class="md-nav__link">
+    Upsert: beszúrás vagy mósosítás
   </a>
   
 </li>
@@ -1962,7 +1962,7 @@
                                    <span class="p">.</span><span class="n">AddToSet</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span> <span class="s">&quot;Akciós termékek&quot;</span><span class="p">));</span>
 </code></pre></div>
 <p>A módosító operátorok atomi módon teszik szerkeszthetővé a dokumentumainkat. Használatukkal kiküszöbölhető a konkurens adathozzáférésből eredő problémák egy része.</p>
-<h4 id="upsert-nemletezo-dokumentum-csereje"><em>Upsert</em>: nemlétező dokumentum cseréje<a class="headerlink" href="#upsert-nemletezo-dokumentum-csereje" title="Permanent link">&para;</a></h4>
+<h4 id="upsert-beszuras-vagy-mosositas"><em>Upsert</em>: beszúrás vagy mósosítás<a class="headerlink" href="#upsert-beszuras-vagy-mosositas" title="Permanent link">&para;</a></h4>
 <p>Módosító művelet során lehetőségünk van az un. <em>upsert (update/insert)</em> jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés <em>nem</em> upsert, azt külön kérnünk kell.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">ReplaceOne</span><span class="p">(</span>
     <span class="n">filter</span><span class="p">:</span> <span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Id</span> <span class="p">==</span> <span class="k">new</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s">&quot;...&quot;</span><span class="p">),</span>
