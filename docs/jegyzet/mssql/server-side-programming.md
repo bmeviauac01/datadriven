@@ -637,7 +637,7 @@ create or alter trigger CustomerEmailSyntaxCheck
 as
 -- Mind a beszúrás mind módosítás esetén az inserted táblában lesz az új adat
 -- Létezik-e olyan elem ott, amire az új email cím nem érvényes
-if exist(select 1 from inserted i where dbo.IsEmailValid(i.Email)=0)
+if exists(select 1 from inserted i where dbo.IsEmailValid(i.Email)=0)
   throw 51234, 'invalid email address', 1 -- szakítsuk meg a tranzakciót a hiba eldobásával
 ```
 
