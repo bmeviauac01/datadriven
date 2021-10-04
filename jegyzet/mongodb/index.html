@@ -1625,7 +1625,7 @@
 </code></pre></div>
 <p>Az adatbázisnak nem kell előzetesen létezni. A fenti hívás hatására, ha még nem létezik az adatbázis, automatikusan létrejön.</p>
 <h2 id="gyujtemenyek-kezelese">Gyűjtemények kezelése<a class="headerlink" href="#gyujtemenyek-kezelese" title="Permanent link">&para;</a></h2>
-<p>Egy relációs adatbázistól eltérően <strong>MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük</strong>, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a <code>where</code>), hanem a művelet előfeltétele. Egy adott gyűjteményt a <code>GetCollection</code> hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.</p>
+<p>Egy relációs adatbázistól eltérően <strong>MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük</strong>, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a <code>join</code>), hanem a művelet előfeltétele. Egy adott gyűjteményt a <code>GetCollection</code> hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">GetCollection</span><span class="p">&lt;</span><span class="n">BsonDocument</span><span class="p">&gt;(</span><span class="s">&quot;products&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az un. <em>ODM (Object Document Mapping)</em> funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.</p>
