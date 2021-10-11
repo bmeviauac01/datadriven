@@ -611,7 +611,7 @@ How do we know what changes are handled in the trigger? Inside the trigger, we h
 When inserting, the inserted records can be found in the database table (but there, we do not "see" that they have been newly inserted), and they are also available in the `inserted` table. In the case of deletion, `deleted` contains the rows already deleted from the table. Finally, in the case of `update`, we see the states before and after the change in the two log tables. We need to work with these log tables as tables; we should always expect to have more than one record in them.
 
 !!! warning "The `inserted` and `deleted` are tables"
-    The `inserted` and `deleted` tables can only be treated as tables! For example, `inserted.Column` does not exist.
+    The `inserted` and `deleted` tables can only be treated as tables! For example, it does not make sense to use `select @id=inserted.ID`; instead, we can use a cursor on these tables or `join` them.
 
 We have already seen an example of audit logging implemented with a trigger. Let us look at other use-cases. Let us have a table with an email address column. When inserting and modifying, we need to check the email address value, and we must not accept text that does not look like an email address. Here **we validate a rule of consistency** with the trigger.
 
