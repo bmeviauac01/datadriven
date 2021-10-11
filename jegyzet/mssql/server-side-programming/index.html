@@ -1773,7 +1773,7 @@
 <p>Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (de ott nem "látjuk", hogy újonnan kerültek beszúrásra), és emellett az <code>inserted</code> táblában érhetőek el. Törlés esetén analóg módon a <code>deleted</code> táblában van a törlés előtti állapotuk, de a táblából már törölve vannak. Végezetül <code>update</code> esetén a módosítás előtti és utáni állapotokat látjuk a két naplótáblában. Ezen napló táblákkal tábla módjára kell dolgozni, tehát mindig arra kell számítanunk, hogy több rekord van bennük.</p>
 <div class="admonition warning">
 <p class="admonition-title">Az <code>inserted</code> és <code>deleted</code> táblák</p>
-<p>Az <code>inserted</code> és <code>deleted</code> tábla, csak táblaként kezelhetjük! Nem létezik például <code>inserted.Oszlop</code>.</p>
+<p>Az <code>inserted</code> és <code>deleted</code> tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: <code>select @id=inserted.ID</code>, viszont használhatjuk kurzorban vagy <code>join</code>-ban is ezen táblákat.</p>
 </div>
 <p>Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználást. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát <strong>máshogy nem leírható konzisztencia szabályt</strong> tartunk be a triggerrel.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Az email cím ellenőrzéshez készítsünk egy függvényt</span>
