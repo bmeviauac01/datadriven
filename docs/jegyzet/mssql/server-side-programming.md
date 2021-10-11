@@ -612,7 +612,7 @@ Honnan tudjuk meg a triggerben milyen módosítás történt? A trigger kódjáb
 Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (de ott nem "látjuk", hogy újonnan kerültek beszúrásra), és emellett az `inserted` táblában érhetőek el. Törlés esetén analóg módon a `deleted` táblában van a törlés előtti állapotuk, de a táblából már törölve vannak. Végezetül `update` esetén a módosítás előtti és utáni állapotokat látjuk a két naplótáblában. Ezen napló táblákkal tábla módjára kell dolgozni, tehát mindig arra kell számítanunk, hogy több rekord van bennük.
 
 !!! warning "Az `inserted` és `deleted` táblák"
-    Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Nem létezik például `inserted.Oszlop`.
+    Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: `select @id=inserted.ID`, viszont használhatjuk kurzorban vagy `join`-ban is ezen táblákat.
 
 Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználást. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
 
