@@ -6,7 +6,7 @@ To goal of this seminar is to practice working with JPA and Spring Data. Main to
 
 Required tools to complete the tasks:
 
-- Eclipse for Java EE
+- Spring Tool Suite (an IDE based on Eclipse)
 - Microsoft SQL Server Express edition (localdb does **not** work here)
 - SQL Server Management Studio
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -24,7 +24,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 !!! info ""
     This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!
 
-## Tips for using Eclipse
+## Tips for using the IDE
 
 - Search Type(class, interface, enum): Ctrl+Shift+T (instead of opening folders in Project explorer)
 - Search file: Ctrl+Shift+R
@@ -44,10 +44,10 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 1. Run the database initialization script on this database. If the database exists on this machine, run the script anyway to reset any changes made in the schema.
 
-## Exercise 1: Start Eclipse
+## Exercise 1: Start the IDE
 
-1. Start Eclipse from here: `C:\work\javaee\eclipse\eclipse.exe`. (There might be a `D:\eclipse` folder too, but do _not_ use that one.)
-1. It will ask for a workspace, select: `C:\work\javaee\workspaces\adatvez`
+1. Start Spring Tool Suite from here: `c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe`.
+1. It will ask for a workspace, select: `c:\Work\hatteralkalmazasok\workspaces\adatvez`
 1. If there is a **webshop** project in the Project Explorer already, delete it: right-click the project / _Delete_, and check _Delete project contents on disk_
 
 ## Exercise 2: Import project
@@ -58,18 +58,13 @@ The exercises are solved together with the instructor. A few exercises we can tr
     - Execute `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo.git`
 1. Import the downloaded project into the workspace:
     - Open _File / Import..._
-    - Start typing _Existing projects into workspace_ and choose it
+    - Start typing _Existing Maven Projects_ and choose it
     - Locate the downloaded webshop project (the `webshop` folder in the checked-out repository), OK, check the webshop project in the dialog
     - Finish
 1. Overview of the projects
     - It is a _maven_ based project. Maven is a command-line build tool that can be integrated with IDEs as well. It can download the libraries our projects depend on from public repositories. After opening the `pom.xml` file, the maven project's config file, you can see some dependency tags that will transitively download Hibernate, our JPA implementation, Spring Boot, Spring Data, Spring MVC and Thymeleaf.
-    - The application.properties file contains some basic settings. **Let us verify the user name and password for the DB access here.** The JNDI name of the database is set up via this line: `spring.datasource.jndi-name=jdbc/termekDB`. In classic Java EE web applications, this name should be defined in the `persistence.xml`, but Spring Boot supports XML-less configuration.
-    - The `ConnectionProperties` class is a Java representation of the user name/password pair in the previous config file.
-    - `WebshopApplication` is the entry point and configuration of the Spring Boot application. A traditional web application should be deployed to a web container (e.g., Tomcat, Jetty) running in a separate process. In the case of Spring Boot, however, Spring Boot itself will start an embedded web container (Tomcat, by default). The JDBC driver and JDBC URL is registered in the `tomcatFactory` method with the jdbc/ProductDB JNDI name so that JPA can find it.
-
-        !!! note ""
-            If the database name was changed, edit the JDBC URL: resource.setProperty("url", "jdbc:sqlserver://localhost;database=**adatvez**");
-
+    - The application.properties file contains some basic settings. **Let us verify the database name (spring.datasource.url), the user name (spring.datasource.username) and password (spring.datasource.password) for the DB access here.** In classic Java EE web applications, this JNDI name of the database should be defined in the `persistence.xml`, but Spring Boot supports XML-less configuration.
+    - `WebshopApplication` is the entry point and configuration of the Spring Boot application. A traditional web application should be deployed to a web container (e.g., Tomcat, Jetty) running in a separate process. In the case of Spring Boot, however, Spring Boot itself will start an embedded web container (Tomcat, by default).
     - The web interface is one page: `src\main\resources\templates\testPage.html`. We will not modify it. It contains standard HTML and some Thymeleaf attributes.
     - `WebshopController`: the controller class implementing the web layer (its methods handle the HTTP requests). These methods typically call a query implemented in a repository or a service method and put the result into the model with a name that we can reference via Thymeleaf. You should call the methods implementing the tasks at the `//TODO` comments.
 
@@ -97,7 +92,7 @@ When running the application, the SQL statements generated by Hibernate can be o
 
 ### Running the application
 
-The project contains the configuration file **webshop run.launch**. Right-click on it > Debug As > webshop run. This starts the Spring Boot maven plugin in debug mode, which starts an embedded web container, and the application is available at <http://localhost:9080> from a browser. Having done this once, we can do it more easily: Click on the Debug icon on the toolbar, and you will see the webshop run there.
+Right-click on the *webshop* project in the Project Explorer > Debug As > Spring Boot App. This starts the application in debug mode, which starts an embedded web container, and the application is available at <http://localhost:9080> from a browser. Having done this once, we can do it more easily: Click on the Debug icon on the toolbar, and you will see the webshop run there.
 
 ![Eclipse run](images/eclipse-run.png)
 
