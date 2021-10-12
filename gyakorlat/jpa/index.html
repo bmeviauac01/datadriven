@@ -770,8 +770,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tippek-az-eclipse-hasznalatahoz" class="md-nav__link">
-    Tippek az Eclipse használatához
+  <a href="#tippek-az-ide-hasznalatahoz" class="md-nav__link">
+    Tippek az IDE használatához
   </a>
   
 </li>
@@ -784,8 +784,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-1-eclipse-inditasa" class="md-nav__link">
-    Feladat 1: Eclipse indítása
+  <a href="#feladat-1-ide-inditasa" class="md-nav__link">
+    Feladat 1: IDE indítása
   </a>
   
 </li>
@@ -1074,8 +1074,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tippek-az-eclipse-hasznalatahoz" class="md-nav__link">
-    Tippek az Eclipse használatához
+  <a href="#tippek-az-ide-hasznalatahoz" class="md-nav__link">
+    Tippek az IDE használatához
   </a>
   
 </li>
@@ -1088,8 +1088,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-1-eclipse-inditasa" class="md-nav__link">
-    Feladat 1: Eclipse indítása
+  <a href="#feladat-1-ide-inditasa" class="md-nav__link">
+    Feladat 1: IDE indítása
   </a>
   
 </li>
@@ -1164,7 +1164,7 @@
 <h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
 <p>A labor elvégzéséhez szükséges eszközök:</p>
 <ul>
-<li>Eclipse for Java EE</li>
+<li>Spring Tool Suite (Eclipse alapú IDE)</li>
 <li>Microsoft SQL Server Express edition (localdb ezúttal <strong>nem</strong> jó)</li>
 <li>SQL Server Management Studio</li>
 <li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">mssql.sql</a></li>
@@ -1180,7 +1180,7 @@
 <div class="admonition info">
 <p>Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!</p>
 </div>
-<h2 id="tippek-az-eclipse-hasznalatahoz">Tippek az Eclipse használatához<a class="headerlink" href="#tippek-az-eclipse-hasznalatahoz" title="Permanent link">&para;</a></h2>
+<h2 id="tippek-az-ide-hasznalatahoz">Tippek az IDE használatához<a class="headerlink" href="#tippek-az-ide-hasznalatahoz" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Típus (osztály, interfész, enum) keresése: Ctrl+Shift+T (Nem érdemes a Project explorer-ben a mappákat nyitogatni)</li>
 <li>Fájl keresése: Ctrl+Shift+R</li>
@@ -1206,10 +1206,10 @@
 <p>Futtassuk le az adatbázis inicializáló sql szkriptet az adatbázisban. Akkor is futtassuk le a szkriptet, ha már létezne az adatbázis (hogy a kezdeti állapotot visszakapjuk.)</p>
 </li>
 </ol>
-<h2 id="feladat-1-eclipse-inditasa">Feladat 1: Eclipse indítása<a class="headerlink" href="#feladat-1-eclipse-inditasa" title="Permanent link">&para;</a></h2>
+<h2 id="feladat-1-ide-inditasa">Feladat 1: IDE indítása<a class="headerlink" href="#feladat-1-ide-inditasa" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Indítsuk el az Eclipse-et innen: <code>C:\work\javaee\eclipse\eclipse.exe</code>. (Fontos, hogy lehet egy <code>D:\eclipse</code> mappa is, nekünk <em>nem</em> az kell.)</li>
-<li>Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: <code>C:\work\javaee\workspaces\adatvez</code></li>
+<li>Indítsuk el a Spring Tool Suite-ot innen: <code>c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe</code>.</li>
+<li>Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: <code>c:\Work\hatteralkalmazasok\workspaces\adatvez</code></li>
 <li>Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a <strong>webshop</strong> nevű projekt, azt töröljük ki: a projekten jobb klikk / <em>Delete</em>, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.</li>
 </ol>
 <h2 id="feladat-2-projekt-importalasa">Feladat 2: Projekt importálása<a class="headerlink" href="#feladat-2-projekt-importalasa" title="Permanent link">&para;</a></h2>
@@ -1222,7 +1222,7 @@
 </li>
 <li>Importáljuk a letöltött forráskódot a workspace-be:<ul>
 <li>Nyissuk meg a <em>File / Import...</em>-ot</li>
-<li>Kezdjük el gépelni a textboxba, hogy <em>Existing projects into workspace</em>, így rá fog szűrni és válasszuk ki ezt</li>
+<li>Kezdjük el gépelni a textboxba, hogy <em>Existing Maven Projects</em>, így rá fog szűrni erre a típusra, és válasszuk ki ezt</li>
 <li>Keressük meg a letöltött webshop projektet (a <code>webshop</code> mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)</li>
 <li>Finish</li>
 </ul>
@@ -1234,16 +1234,10 @@
 <p>Ez egy <em>maven</em> alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében <code>pom.xml</code>-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a <em>Hibernate</em>-et mint JPA implementációt, a <em>Spring Boot</em>-ot, a <em>Spring Data</em>-t és a webréteghez szükséges <em>Spring MVC</em>-t és <em>Thymeleaf</em>-et. A laborban a maven offline működésre van konfigurálva, és előre le van töltve az összes függőség, így megelőzzük az esetleges hálózati problémákat.</p>
 </li>
 <li>
-<p>Az <em>application.properties</em>-ben van pár alapvető beállítás, itt a DB eléréshez <strong>ellenőrizzük a usernevet és jelszót</strong>. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: <code>spring.datasource.jndi-name=jdbc/termekDB</code>. Klasszikus Java EE alkalmazásban ezt a <code>persistence.xml</code>-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van <code>persistence.xml</code>, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)</p>
+<p>Az <em>application.properties</em>-ben van pár alapvető beállítás, itt a DB eléréshez <strong>ellenőrizzük az adatbázis URL-t (spring.datasource.url), a usernevet (spring.datasource.username) és jelszót (spring.datasource.password)</strong>. Klasszikus Java EE alkalmazásban a <code>persistence.xml</code>-be írnánk be az adatbázis JNDI nevét, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki.</p>
 </li>
 <li>
-<p>A <code>ConnectionProperties</code> az előző konfig fájl egy részének Java-beli reprezentációja</p>
-</li>
-<li>
-<p>A <code>WebshopApplication</code> a Spring Boot alkalmazás belépési pontja és konfigja is. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et). A <code>tomcatFactory</code> metódusban regisztráljuk be az SQL Server JDBC driverét jdbc/termekDB JNDI néven, hogy a JPA majd megtalálja.</p>
-<div class="admonition note">
-<p>Ha nem adatvez az adatbázisunk neve, akkor a JDBC URL-t módosítani kell a megfelelő sornál: resource.setProperty("url", "jdbc:sqlserver://localhost;database=<strong>adatvez</strong>");</p>
-</div>
+<p>A <code>WebshopApplication</code> a Spring Boot alkalmazás belépési pontja. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et).</p>
 </li>
 <li>
 <p>A webes felület egyetlen oldal, az <code>src\main\resources\templates\testPage.html</code>. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.</p>
@@ -1278,10 +1272,9 @@
 <p><strong>c)</strong> Listázd ki a legdrágább termék adatait! Módszer: Named query, amelyet Spring Data repository-ból hívunk meg, vagy custom implementációból, injektált EntityManagerrel hívunk meg, vagy a metódusnév és query név egyezése alapján.</p>
 <p>Futás közben a Console nézetben látszódnak a Hibernate által generált SQL utasítások az <em>application.properties</em>-beli <code>spring.jpa.show-sql=true</code> konfig miatt.</p>
 <h3 id="futtatas">Futtatás<a class="headerlink" href="#futtatas" title="Permanent link">&para;</a></h3>
-<p>A projektben megtalálható (a legalsó fájl a Project Explorerben) a <strong>webshop run.launch</strong> nevű konfig fájl. Ezen jobb klikk / <em>Debug As / webshop run</em>. Ez debug módban indítja a Spring Boot maven plugin-t, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <a href="http://localhost:9080">http://localhost:9080</a> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:</p>
+<p>Jobb klikk a webshop projekten &gt; <em>Debug As / Spring Boot App</em> Ez debug módban indítja az alkalmazást, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <a href="http://localhost:9080">http://localhost:9080</a> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:</p>
 <p><img alt="Eclipse futtatás" src="images/eclipse-run.png" /></p>
-<p>Ha a <em>Debug</em> ikon alatt már ott van a <em>webshop run</em>, akkor az egész fentebb leírt webshop <em>run.launch</em>-os módszer szükségtelen.</p>
-<p>A futó alkalmazást a <em>Console</em> nézet piros <em>Terminate</em> ikonjával lehet leállítani. Ha leállítás nélkül próbáljuk újra futtatni, akkor a második processz ütközést jelent a 8080-as porton, és leáll. Ilyenkor a sikertelen második futtatás látszik a <em>Console</em> nézetben, a <em>Terminate</em> gomb pedig inaktív, mivel ez a futás már leállt. Nyomjuk meg a Terminate ikon melletti dupla szürke X ikont, ez el fogja távolítani a már leállított futtatásokat, és csak az aktív futtatás látszik, amin viszont már tudunk <em>Terminate</em>-et nyomni.</p>
+<p>A futó alkalmazást a <em>Console</em> nézet piros <em>Terminate</em> ikonjával lehet leállítani. Ha leállítás nélkül próbáljuk újra futtatni, akkor a második processz ütközést jelent a 9080-as porton, és leáll. Ilyenkor a sikertelen második futtatás látszik a <em>Console</em> nézetben, a <em>Terminate</em> gomb pedig inaktív, mivel ez a futás már leállt. Nyomjuk meg a Terminate ikon melletti dupla szürke X ikont, ez el fogja távolítani a már leállított futtatásokat, és csak az aktív futtatás látszik, amin viszont már tudunk <em>Terminate</em>-et nyomni.</p>
 <p>Ha a teljes <em>Console</em> nézetet bezárjuk véletlenül, elő lehet szedni <em>Alt+Shift+Q, C</em> gyorsbillenytűvel, vagy <em>Window / Show View / Console</em> menüvel.</p>
 <p>A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.</p>
 <p>A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java kód módosítások azonnal életbe lépnek. (A böngészőt persze frissíteni kell.) Újra kell viszont indítani az alkalmazást, ha a Java kódban:</p>
