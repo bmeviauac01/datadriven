@@ -66,7 +66,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
     - The application.properties file contains some basic settings. **Let us verify the database name (spring.datasource.url), the user name (spring.datasource.username) and password (spring.datasource.password) for the DB access here.** In classic Java EE web applications, this JNDI name of the database should be defined in the `persistence.xml`, but Spring Boot supports XML-less configuration.
     - `WebshopApplication` is the entry point and configuration of the Spring Boot application. A traditional web application should be deployed to a web container (e.g., Tomcat, Jetty) running in a separate process. In the case of Spring Boot, however, Spring Boot itself will start an embedded web container (Tomcat, by default).
     - The web interface is one page: `src\main\resources\templates\testPage.html`. We will not modify it. It contains standard HTML and some Thymeleaf attributes.
-- `WebshopController`: the controller class implementing the web layer (its methods handle the HTTP requests). These methods typically call a query implemented in a repository or a service method and put the result into the model with a name that we can reference via Thymeleaf. You should call the methods implementing the tasks at the `//TODO` comments.
+    - `WebshopController`: the controller class implementing the web layer (its methods handle the HTTP requests). These methods typically call a query implemented in a repository or a service method and put the result into the model with a name that we can reference via Thymeleaf. You should call the methods implementing the tasks at the `//TODO` comments.
 
 ## Exercise 3: Overview of the entities
 
