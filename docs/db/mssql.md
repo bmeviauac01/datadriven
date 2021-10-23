@@ -37,7 +37,7 @@ Párhuzamos tranzakciók szimulálásához két _Query_ ablakra van szükség a 
 
 ### Táblák tartalmának listázása, egyszerűsített módosítás
 
-A táblák tartalmának listázásához az _Object Explorer_-ben bontsuk ki az adatbázisunk alatt a _Tables_ mappát. Bármely táblára jobb egérrel kattintva használjuk a _Select Top 1000 Rows_ elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az _Edit Top 200 Rows_ menüelemmel.
+A táblák tartalmának listázásához az _Object Explorer_-ben bontsuk ki az adatbázisunk alatt a _Tables_ mappát. Bármely táblára jobb egérrel kattintva használjuk a _Select Top 1000 Rows_ elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az _Edit Top 200 Rows_ menü elemmel.
 
 ![Tábla tartalmának gyors listázása](./images/select-top-1000.png)
 
@@ -49,11 +49,11 @@ Az SQL Management Studio query ablakban az intellisense első körben sosem műk
 
 Tárolt eljárás és trigger létrehozására a _Query_ ablak használható, amelyben a megfelelő létrehozó-módosító utasítást futtatjuk. Ügyeljünk rá, hogy ha már létrejött egyszer a trigger vagy tárolt eljárás, utána már csak módosítani tudjuk.
 
-A már létező tárolt eljárások az _Object Explorer_-ben az adatbázisunk alatti a _Programability/Stored Procedures_ mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a _Stored Procedures_ mappán jobb egérrel kattintva válasszuk a _Refresh_-t.)
+A már létező tárolt eljárások az _Object Explorer_-ben az adatbázisunk alatti a _Programmability/Stored Procedures_ mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a _Stored Procedures_ mappán jobb egérrel kattintva válasszuk a _Refresh_-t.)
 
 ![Tárolt eljárást](./images/tarolt-eljaras.png)
 
-A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a _Triggers_ mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti _Programability_ mappában).
+A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a _Triggers_ mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti _Programmability_ mappában).
 
 ![Trigger](./images/trigger.png)
 

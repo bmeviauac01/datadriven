@@ -41,7 +41,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | Name               | Vevő megnevezése.                                                                                                                    |
 |               | BankAccount        | Vevő bankszámla száma.                                                                                                               |
 |               | Login              | Vevő login neve a webes rendszerhez.                                                                                                 |
-|               | Password           | Vevő jelszava a webes rendszerhez.                                                                                                   |
+|               | Password           | Vevő jelszója a webes rendszerhez.                                                                                                   |
 |               | Email              | Vevő email címe.                                                                                                                     |
 |               | MainCustomerSiteID | A vevő központi telephelyének azonosítója, külső kulcs a CustomerSite táblára.                                                       |
 | CustomerSite  | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
@@ -59,7 +59,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | PaymentMethodID    | Külső kulcs a fizetési módra. A megrendeléshez tartozó számlát az itt megadott módon fogják kiegyenlíteni (PaymentMethod tábla).     |
 | OrderItem     | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
 |               | Amount             | Mennyiség, azaz az adott áruból ennyi darabot rendeltek meg.                                                                         |
-|               | Price              | Egy egység nettó ára. Alapértelmezésként az termékben található nettó ár másolódik ide, de ettől eltérhet az értékesítő.             |
+|               | Price              | Egy egység nettó ára. Alapértelmezésként a termékben található nettó ár másolódik ide, de ettől eltérhet az értékesítő.             |
 |               | OrderID            | Idegen kulcs a megrendelésre, azaz ez azonosítja, hogy az adott tétel mely megrendeléshez tartozik (Order tábla).                    |
 |               | ProductID          | Idegen kulcs a Product táblára, ez azonosítja a megrendelt terméket.                                                                 |
 |               | StatusID           | Idegen kulcs a Status táblára, ezzel lehet leírni a megrendelés tétel státuszát.                                                     |
@@ -99,7 +99,7 @@ Adatmodell sajátossága, a számlázási adatok tárolása. A számla adatait n
 
 #### Számla kiállító
 
-Speciális a `InvoiceIssuerID` attribútum az `Invoice` táblában, mivel a cég saját adatai ritkán változnak. Viszont a változtathatatlanság követelménye miatt a számla kiállító adatait nem lehet módosítani, ha már van hozzá számla. Ebben az esetben a számla kiállító táblába új rekordot kell felvenni, ebből adódóan az aktuális cégadatokat minidig a legmagasabb ID-vel rendelkező számla kiállító rekord tartalmazza.
+Speciális a `InvoiceIssuerID` attribútum az `Invoice` táblában, mivel a cég saját adatai ritkán változnak. Viszont a változtathatatlanság követelménye miatt a számla kiállító adatait nem lehet módosítani, ha már van hozzá számla. Ebben az esetben a számla kiállító táblába új rekordot kell felvenni, ebből adódóan az aktuális cégadatokat mindig a legmagasabb ID-vel rendelkező számla kiállító rekord tartalmazza.
 
 #### ÁFA
 

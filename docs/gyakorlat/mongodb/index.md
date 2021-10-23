@@ -42,7 +42,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
             A laborokban a MongoDB a `c:\tools\mongodb\bin` könyvtárban van. Navigáljunk el ide a `cd` utasítással.
 
-    - Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet.
+    - Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyű kombinációval lehet.
 
 1. Hozzuk létre az adatbázis.
 

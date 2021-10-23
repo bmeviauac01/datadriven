@@ -182,7 +182,7 @@ set identity_insert VAT off
 
 ## Rekordok módosítása
 
-A Legók árát emeljük meg 10%-kal és a raktrákészletüket 5 db-bal
+A Legók árát emeljük meg 10%-kal és a raktárkészletünket 5 db-bal
 
 ```sql
 update Product

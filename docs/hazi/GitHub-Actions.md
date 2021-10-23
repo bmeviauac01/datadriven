@@ -24,6 +24,6 @@ Néha előfordulhat azonban tranziens, időszakos hiba is. Például a .NET kör
 
 A feladat függvényében akár az alkalmazás naplókat is meg tudod nézni itt. Pl. amikor .NET alkalmazást készítesz, az alkalmazást elindítjuk, és minden, amit naplóz, itt megtekinthető.
 
-Az alábbi például egy Entity Framework-öt használó alkalmazás inicializását mutatja, köztük például a kiadott SQL parancsokat is. Debuggolás közben a Visual Studio _Output_ ablakában is hasonlókat láthatsz. Ez természetesen nagyban függ a konkrét feladattól.
+Az alábbi például egy Entity Framework-öt használó alkalmazás inicializálását mutatja, köztük például a kiadott SQL parancsokat is. Debuggolás közben a Visual Studio _Output_ ablakában is hasonlókat láthatsz. Ez természetesen nagyban függ a konkrét feladattól.
 
 ![GitHub Actions alkalmazás napló](images/github/github-actions-app-log.png)

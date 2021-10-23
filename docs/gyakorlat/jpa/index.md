@@ -69,7 +69,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
     - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et).
 
-    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.
+    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok láthatóak benne.
 
     - `WebshopController`: a webréteget megvalósító controller osztály, ennek metódusai kezelik az alkalmazáshoz érkező HTTP kéréseket. Jellemzően lekérdezések eredményét akarjuk megjeleníteni az oldalon, ezért a lekérdezés eredményét a modellbe tesszük valamilyen néven, amire hivatkozni tudunk a Thymeleaf segítségével. A `//TODO` részekre kell majd bekötni az egyes feladatokat megvalósító metódusok meghívását.
 
@@ -79,7 +79,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 - Az entitások közül nyissunk meg egyet, pl. `Vat`, látszik benne a `@Entity`, a `@Id` annotáció, illetve a kapcsolatok definiálására `@OneToMany` vagy `@ManyToOne`
 
-- Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a `target\generated-sources\apt` alatt (A `pom.xml`-ben látható maven-precessor-plugin generálja egyébként őket a build során.)
+- Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a `target\generated-sources\apt` alatt (A `pom.xml`-ben látható maven-processor-plugin generálja egyébként őket a build során.)
 
 ## Feladat 4: Lekérdezések
 
@@ -109,7 +109,7 @@ A futó alkalmazást a _Console_ nézet piros _Terminate_ ikonjával lehet leál
 
 Ha a teljes _Console_ nézetet bezárjuk véletlenül, elő lehet szedni _Alt+Shift+Q, C_ gyorsbillenytűvel, vagy _Window / Show View / Console_ menüvel.
 
-A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.
+A leállítás utáni újra futtatáshoz az F11-et is használhatjuk.
 
 A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java kód módosítások azonnal életbe lépnek. (A böngészőt persze frissíteni kell.) Újra kell viszont indítani az alkalmazást, ha a Java kódban:
 
@@ -173,7 +173,7 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     
     A dao package-ben lévő `ProductRepositoryImpl` osztály hibás lesz emiatt, mert nem implementálja a `ProductRepositoryCustom`-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:
     
-    ![Eclise interfész implementálása](images/eclipse-implement-methods.png)
+    ![Eclipse interfész implementálása](images/eclipse-implement-methods.png)
     
     Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)
     
