@@ -374,7 +374,7 @@ collection.Find(Builders<Product>.Filter.AnyNin(x => x.Categories, new[] { "Ball
 
 ## Query execution pipeline
 
-MongoDB queries executed through a pipeline. We won't go into details about this, but in addition to simple filtering, we'll see a few examples frequently used in queries.
+MongoDB queries are executed through a pipeline. We won't go into details about this, but in addition to simple filtering, we'll see a few examples frequently used in queries.
 
 #### Paging, sorting
 
