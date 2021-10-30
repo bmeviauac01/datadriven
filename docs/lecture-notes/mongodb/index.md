@@ -160,9 +160,9 @@ public class Product
     [BsonElement("price")]
     public string TotalPrice { get; set; }
 
-    // properties can be ignores
+    // properties can be ignored
     [BsonIgnore]
-    public string DoNotSace { get; set; }
+    public string DoNotSave { get; set; }
 }
 ```
 
