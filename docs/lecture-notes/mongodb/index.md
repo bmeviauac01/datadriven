@@ -171,7 +171,7 @@ Our other option is to register so-called _convention packs_ at a higher level. 
 For example, you can specify the following to map the field names to camel case and exclude data members with a default value (defined in the C# language) from the document.
 
 ```csharp
-// defince convention pack
+// define convention pack
 var pack = new ConventionPack();
 pack.Add(new CamelCaseElementNameConvention());
 pack.Add(new IgnoreIfDefaultConvention(true));
