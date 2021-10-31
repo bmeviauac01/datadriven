@@ -237,7 +237,7 @@ A műveletsorozat a korábban látott beolvasásokkal kezdődik, majd következi
 | Read(B) | 10 | 20 | 8 | 20 | |
 | Write(B) | 10 | 20 | 8 | **22** | **T1, B, 22** |
 
-A módosítások véglegesítéséhez a tranzakció elkezdni a kommit folyamatot, amely a tranzakciós naplót kiírja, és rögzíti a kommitálás tényét - de az adatbázis fájlban még nem módosultak az adatok. Így a tranzakciós napló fájlba történő írása egy műveletre redukálódott (szemben az undo típusú naplózással).
+A módosítások véglegesítéséhez a tranzakció elkezdi a kommit folyamatot, amely a tranzakciós naplót kiírja, és rögzíti a kommitálás tényét - de az adatbázis fájlban még nem módosultak az adatok. Így a tranzakciós napló fájlba történő írása egy műveletre redukálódott (szemben az undo típusú naplózással).
 
 | Művelet | A (adatbázis) | B (adatbázis) | A (buffer) | B (buffer) | Tranzakciós napló |
 |---|---|---|---|---|---|
