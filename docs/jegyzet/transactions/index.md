@@ -312,5 +312,5 @@ A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a v�
     - A holtpont elkerülhető a megfelelő izolációs szint használatával.
     - A *read committed* általában az alapértelmezett izolációs szint.
     - Ha nem használunk explicit indított tranzakciót, akkor (alapesetben) elkerüljük a piszkos olvasást.
-    - A tranzakciós napló véd minden féle adatvesztéssel szemben.
+    - A tranzakciós napló véd mindenféle adatvesztéssel szemben.
     - *Redo* tranzakciós naplózás esetén a *commit* jellel kezdődik a tranzakciós napló.
