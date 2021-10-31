@@ -184,7 +184,7 @@ Ebben a modellben a következő műveletek vannak:
 - Write(A): Tranzakció visszaírja az adatelemet a memória bufferbe
 - FLUSH_LOG: Tranzakciós napló lemezre írása
 
-A naplózás működését egy példán keresztük mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.
+A naplózás működését egy példán keresztül mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.
 
 ### Undo típusú naplózás
 
