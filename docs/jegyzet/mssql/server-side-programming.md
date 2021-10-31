@@ -614,7 +614,7 @@ Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (
 !!! warning "Az `inserted` és `deleted` táblák"
     Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: `select @id=inserted.ID`, viszont használhatjuk kurzorban vagy `join`-ban is ezen táblákat.
 
-Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználást. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
+Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználását. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
 
 ```sql
 -- Az email cím ellenőrzéshez készítsünk egy függvényt
