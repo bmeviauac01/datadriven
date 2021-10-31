@@ -593,7 +593,7 @@ AS
 sql_utasítás [ ...n ]
 ```
 
-Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `for update, insert`). Vegyük észre, hogy a három lehetőség minden féle módosítást lefed, és hogy `select` jellegű esemény nincs - hiszen az nem módosítás.
+Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `for update, insert`). Vegyük észre, hogy a három lehetőség mindenféle módosítást lefed, és hogy `select` jellegű esemény nincs - hiszen az nem módosítás.
 
 A trigger kódjában definiált utasításokat a rendszer az érintett tábla specifikált eseményei _után_ hajtja végre. Ez azt jelenti, hogy a módosításokat a rendszer elvégezte (például beszúrás esetén már szerepelnek az új sorok a táblában), azonban még a tranzakciót nem zárta le. Így tehát lehetőségünk van további módosításokat végezni a tranzakció részeként (és így egyben, atominak látva az "eredeti" utasítás és a trigger eredményét is), vagy akár megszakítani a tranzakciót. A triggerek egy speciális használati esete a (máshogy nem leírható) konzisztencia ellenőrzése és hiba esetén a módosítás megszakítása. Hamarosan látunk erre is példát.
 
