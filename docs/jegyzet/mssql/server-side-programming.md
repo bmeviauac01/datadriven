@@ -251,7 +251,7 @@ SELECT ISNULL(@a, @b)
 ```
 
 !!! important ""
-    Nem keveredendő össze az `is null` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price is null`
+    Nem keverendő össze az `is null` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price is null`
 
 ## Kurzor
 
