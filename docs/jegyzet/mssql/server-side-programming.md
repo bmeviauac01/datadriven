@@ -390,7 +390,7 @@ AS
 [END]
 ```
 
-A `CREATE OR ALTER` eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt `CREATE OR ALTER`, csak `CREATE PROC` és `ALTER PROC`. Egy tárolt eljárást a `DROP PROCECURE` utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.
+A `CREATE OR ALTER` eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt `CREATE OR ALTER`, csak `CREATE PROC` és `ALTER PROC`. Egy tárolt eljárást a `DROP PROCEDURE` utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.
 
 Lássuk például az ÁFA kulcs rögzítését a `VAT` táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:
 
