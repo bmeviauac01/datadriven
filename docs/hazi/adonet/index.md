@@ -12,7 +12,7 @@ Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Ne
 
 ## Feladat 1: Termék repository (2 pluszpont)
 
-Készíts a termékek (`Product`) kezeléséhez egy _repository_ osztályt **ADO.NET Connection** technológiát használva. Nyisd meg a kiinduló kódban az _sln_ fájlt Visual Studio-val. Keresd meg a `Repository.ProductRepository` és `Model.Product` osztályokat. Implementáld a `ProductRepository` osztályt alábbi funkcióit:
+Készíts a termékek (`Product`) kezeléséhez egy _repository_ osztályt **ADO.NET Connection** technológiát használva. Nyisd meg a kiinduló kódban az _sln_ fájlt Visual Studio-val. Keresd meg a `Repository.ProductRepository` és `Model.Product` osztályokat. Implementáld a `ProductRepository` osztály alábbi funkcióit:
 
 - A `Search(string name)` függvény keresse meg az adatbázisban a paraméterben kapott terméknévre illeszkedő találatokat, és adja őket vissza C# osztály példányaként. Ha a kapott szűrési paraméter `null`, akkor minden terméket adjon vissza, ellenkező esetben _case-insensitive_ módon a névben bárhol keressen!
 - A `FindById(int id)` adja vissza az ID alapján megtalált terméket, vagy `null` értéket, ha nem található ilyen.
@@ -39,11 +39,11 @@ A teszteléshez találsz unit teszteket a solution-ben. Ezeket a teszteket [Visu
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **repository kódja** (a releváns része, amennyi kifér) és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+    Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **repository kódja** (a releváns része, amennyi kifér) és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
-    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolód a részletesebb naplózáshoz.
+    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolót a részletesebb naplózáshoz.
 
-    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
+    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
 ## Feladat 2: Optimista konkurenciakezelés (2 iMsc pont)
 
@@ -60,18 +60,18 @@ A konkrét eset, amit el szeretnénk kerülni:
 1. _B_ felhasználó is módosítja a termék árát (vagy más tulajdonságát), és felülírja ezzel _A_ módosítását figyelmeztetés nélkül.
 
 !!! tip "Optimista konkurenciakezelés"
-    A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. **Ne használj tranzakciót**, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. **Ne használj több SQL utasítást** se, mert a lefutásuk között más adatbázis hozzáférések történhetnek elrontva a várt viselkedést. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
+    A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. **Ne használj tranzakciót**, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. **Ne használj több SQL utasítást** se, mert a lefutásuk között más adatbázis hozzáférések történhetnek, elrontva a várt viselkedést. A megoldást a `ProductRepository.UpdateWithConcurrencyCheck` függvényben írd meg, valamint adaptáld a `Model.Product` osztályt is. Az adatbázisba **nem** vehetsz fel új oszlopot.
 
 Ügyelj az alábbiakra:
 
-- Csak a `ProductRepository.UpdateWithConcurrencyCheck` függvény és a `Model.Product` osztályok kódját módosítsd!
-- A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurencia probléma).
+- Csak a `ProductRepository.UpdateWithConcurrencyCheck` függvény és a `Model.Product` osztály kódját módosítsd!
+- A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurenciaprobléma).
 - **Magyarázd el a viselkedést** az `UpdateWithConcurrencyCheck` függvényben egy kommentben (2-3 mondatban).
 - Egyetlen SQL parancs használatával oldd meg a feladatot!
 - Csak ADO.NET technológiát használhatsz!
 - Védekezz SQL injectionnel szemben!
 - A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvény törzsét írd meg.
-- A `Model.Product` osztályban konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.
+- A `Model.Product` osztály konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot töltsd fel. Ne felejtsd a magyarázatot a C# kódban!
+    A módosított C# forráskódot töltsd fel. Ne felejtsd el megírni a magyarázatot a C# kódban!
