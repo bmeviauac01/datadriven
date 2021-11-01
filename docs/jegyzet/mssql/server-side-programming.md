@@ -322,7 +322,7 @@ BEGIN
 END
 ```
 
-Vegyük észre, hogy a kódban kétszer szerepel a `FETCH` utasítás. Ennek oka, hogy az első, cikluson kívüli a legelső rekord lekérdezéséhez használatos, még a második, a ciklus belsejében minden további rekordot kér le egyesével.
+Vegyük észre, hogy a kódban kétszer szerepel a `FETCH` utasítás. Ennek oka, hogy az első, cikluson kívüli a legelső rekord lekérdezéséhez használatos, míg a második, a ciklus belsejében minden további rekordot kér le egyesével.
 
 ### Példa
 
