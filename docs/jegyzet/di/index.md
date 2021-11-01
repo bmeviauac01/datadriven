@@ -11,7 +11,7 @@ Célok
 * unit tesztelhetőség
 * kód újrafelhasználhatóság
 
-Természetesen a fenti definícóból önmagában nem derül ki, pontosan milyen problémákat és milyen módon old meg a függőséginjektálás. A következő fejezetekben egy példa segítségével helyezzük kontextusba a problémakört, illetve példa keretében megismerkedünk az ASP.NET Core beépített DI szolgáltatásának alapjaival.
+Természetesen a fenti definícióból önmagában nem derül ki, pontosan milyen problémákat és milyen módon old meg a függőséginjektálás. A következő fejezetekben egy példa segítségével helyezzük kontextusba a problémakört, illetve példa keretében megismerkedünk az ASP.NET Core beépített DI szolgáltatásának alapjaival.
 
 !!! example "Minta alkalmazás"
     A C# forráskód egész itt érhető el: <https://github.com/bmeviauac01/todoapi-di-sample>
