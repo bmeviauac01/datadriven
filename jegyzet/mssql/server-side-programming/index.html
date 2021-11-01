@@ -1476,7 +1476,7 @@
 <span class="c1">-- 5</span>
 </code></pre></div>
 <div class="admonition important">
-<p>Nem keveredendő össze az <code>is null</code> feltétellel, pl.: <code>UPDATE Product SET Price=111 WHERE Price is null</code></p>
+<p>Nem keverendő össze az <code>is null</code> feltétellel, pl.: <code>UPDATE Product SET Price=111 WHERE Price is null</code></p>
 </div>
 <h2 id="kurzor">Kurzor<a class="headerlink" href="#kurzor" title="Permanent link">&para;</a></h2>
 <p>A kurzor egy iterátor, amellyel egy rekord halmazon tudunk elemenként végiglépni. Akkor használjuk, amikor egy lekérdezés több elemmel tér vissza, és az elemekkel egyesével szeretnénk további feldolgozást végezni.</p>
@@ -1589,7 +1589,7 @@
   <span class="n">sql_utasítások</span> <span class="p">[</span> <span class="p">...</span><span class="n">n</span> <span class="p">]</span> 
 <span class="p">[</span><span class="k">END</span><span class="p">]</span>
 </code></pre></div>
-<p>A <code>CREATE OR ALTER</code> eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt <code>CREATE OR ALTER</code>, csak <code>CREATE PROC</code> és <code>ALTER PROC</code>. Egy tárolt eljárást a <code>DROP PROCECURE</code> utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.</p>
+<p>A <code>CREATE OR ALTER</code> eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt <code>CREATE OR ALTER</code>, csak <code>CREATE PROC</code> és <code>ALTER PROC</code>. Egy tárolt eljárást a <code>DROP PROCEDURE</code> utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.</p>
 <p>Lássuk például az ÁFA kulcs rögzítését a <code>VAT</code> táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:</p>
 <div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">or</span> <span class="k">alter</span> <span class="k">procedure</span> <span class="n">InsertNewVAT</span> <span class="c1">-- tárolt eljárás létrehozása, neve</span>
     <span class="o">@</span><span class="n">Percentage</span> <span class="nb">int</span>                    <span class="c1">-- tárolt eljárás paraméterei</span>
@@ -1738,7 +1738,7 @@
 <span class="k">AS</span> 
 <span class="n">sql_utasítás</span> <span class="p">[</span> <span class="p">...</span><span class="n">n</span> <span class="p">]</span>
 </code></pre></div>
-<p>Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. <code>for update, insert</code>). Vegyük észre, hogy a három lehetőség minden féle módosítást lefed, és hogy <code>select</code> jellegű esemény nincs - hiszen az nem módosítás.</p>
+<p>Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. <code>for update, insert</code>). Vegyük észre, hogy a három lehetőség mindenféle módosítást lefed, és hogy <code>select</code> jellegű esemény nincs - hiszen az nem módosítás.</p>
 <p>A trigger kódjában definiált utasításokat a rendszer az érintett tábla specifikált eseményei <em>után</em> hajtja végre. Ez azt jelenti, hogy a módosításokat a rendszer elvégezte (például beszúrás esetén már szerepelnek az új sorok a táblában), azonban még a tranzakciót nem zárta le. Így tehát lehetőségünk van további módosításokat végezni a tranzakció részeként (és így egyben, atominak látva az "eredeti" utasítás és a trigger eredményét is), vagy akár megszakítani a tranzakciót. A triggerek egy speciális használati esete a (máshogy nem leírható) konzisztencia ellenőrzése és hiba esetén a módosítás megszakítása. Hamarosan látunk erre is példát.</p>
 <p>A triggerek <em>utasítás szintűek</em>, ami azt jelenti, hogy DML utasításonként egyszer hívódnak meg. A trigger nem egyetlen rekord változását kezeli le, hanem egyetlen utasítás összes módosítását. Tehát ha például egy <code>update</code> utasítás 15 sort módosít, akkor a trigger egyetlen alkalommal kerül meghívásra és abban az egyetlen alkalomban mind a 15 módosítást egyszerre látja. Ez természetesen igaz a beszúrásra és törlésre is - egy törlés művelet törölhet egyszerre több sort, és beszúrni is lehet egyetlen utasítással több rekordot.</p>
 <div class="admonition warning">
@@ -1775,7 +1775,7 @@
 <p class="admonition-title">Az <code>inserted</code> és <code>deleted</code> táblák</p>
 <p>Az <code>inserted</code> és <code>deleted</code> tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: <code>select @id=inserted.ID</code>, viszont használhatjuk kurzorban vagy <code>join</code>-ban is ezen táblákat.</p>
 </div>
-<p>Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználást. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát <strong>máshogy nem leírható konzisztencia szabályt</strong> tartunk be a triggerrel.</p>
+<p>Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználását. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát <strong>máshogy nem leírható konzisztencia szabályt</strong> tartunk be a triggerrel.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Az email cím ellenőrzéshez készítsünk egy függvényt</span>
 <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="p">[</span><span class="n">IsEmailValid</span><span class="p">](</span><span class="o">@</span><span class="n">email</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>   
 <span class="k">RETURNS</span> <span class="nb">bit</span> <span class="c1">-- true/false visszatérési érték</span>

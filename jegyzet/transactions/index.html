@@ -1492,7 +1492,7 @@
 <li>Write(A): Tranzakció visszaírja az adatelemet a memória bufferbe</li>
 <li>FLUSH_LOG: Tranzakciós napló lemezre írása</li>
 </ul>
-<p>A naplózás működését egy példán keresztük mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.</p>
+<p>A naplózás működését egy példán keresztül mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.</p>
 <h3 id="undo-tipusu-naplozas">Undo típusú naplózás<a class="headerlink" href="#undo-tipusu-naplozas" title="Permanent link">&para;</a></h3>
 <p>Kezdetben a memória buffer üres, az adatok csak az adatbázis fájlban találhatóak meg. A végrehajtás ezért az adatok beolvasásával kezdődik.</p>
 <table>
@@ -1686,7 +1686,7 @@
 </tr>
 </tbody>
 </table>
-<p>A módosítások véglegesítéséhez a tranzakció elkezdni a kommit folyamatot, amely a tranzakciós naplót kiírja, és rögzíti a kommitálás tényét - de az adatbázis fájlban még nem módosultak az adatok. Így a tranzakciós napló fájlba történő írása egy műveletre redukálódott (szemben az undo típusú naplózással).</p>
+<p>A módosítások véglegesítéséhez a tranzakció elkezdi a kommit folyamatot, amely a tranzakciós naplót kiírja, és rögzíti a kommitálás tényét - de az adatbázis fájlban még nem módosultak az adatok. Így a tranzakciós napló fájlba történő írása egy műveletre redukálódott (szemben az undo típusú naplózással).</p>
 <table>
 <thead>
 <tr>
@@ -1880,7 +1880,7 @@
 <li>A holtpont elkerülhető a megfelelő izolációs szint használatával.</li>
 <li>A <em>read committed</em> általában az alapértelmezett izolációs szint.</li>
 <li>Ha nem használunk explicit indított tranzakciót, akkor (alapesetben) elkerüljük a piszkos olvasást.</li>
-<li>A tranzakciós napló véd minden féle adatvesztéssel szemben.</li>
+<li>A tranzakciós napló véd mindenféle adatvesztéssel szemben.</li>
 <li><em>Redo</em> tranzakciós naplózás esetén a <em>commit</em> jellel kezdődik a tranzakciós napló.</li>
 </ul>
 </li>
