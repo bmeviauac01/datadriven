@@ -251,7 +251,7 @@ SELECT ISNULL(@a, @b)
 ```
 
 !!! important ""
-    Nem keveredendő össze az `is null` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price is null`
+    Nem keverendő össze az `is null` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price is null`
 
 ## Kurzor
 
@@ -390,7 +390,7 @@ AS
 [END]
 ```
 
-A `CREATE OR ALTER` eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt `CREATE OR ALTER`, csak `CREATE PROC` és `ALTER PROC`. Egy tárolt eljárást a `DROP PROCECURE` utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.
+A `CREATE OR ALTER` eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt `CREATE OR ALTER`, csak `CREATE PROC` és `ALTER PROC`. Egy tárolt eljárást a `DROP PROCEDURE` utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.
 
 Lássuk például az ÁFA kulcs rögzítését a `VAT` táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:
 
@@ -593,7 +593,7 @@ AS
 sql_utasítás [ ...n ]
 ```
 
-Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `for update, insert`). Vegyük észre, hogy a három lehetőség minden féle módosítást lefed, és hogy `select` jellegű esemény nincs - hiszen az nem módosítás.
+Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `for update, insert`). Vegyük észre, hogy a három lehetőség mindenféle módosítást lefed, és hogy `select` jellegű esemény nincs - hiszen az nem módosítás.
 
 A trigger kódjában definiált utasításokat a rendszer az érintett tábla specifikált eseményei _után_ hajtja végre. Ez azt jelenti, hogy a módosításokat a rendszer elvégezte (például beszúrás esetén már szerepelnek az új sorok a táblában), azonban még a tranzakciót nem zárta le. Így tehát lehetőségünk van további módosításokat végezni a tranzakció részeként (és így egyben, atominak látva az "eredeti" utasítás és a trigger eredményét is), vagy akár megszakítani a tranzakciót. A triggerek egy speciális használati esete a (máshogy nem leírható) konzisztencia ellenőrzése és hiba esetén a módosítás megszakítása. Hamarosan látunk erre is példát.
 
@@ -614,7 +614,7 @@ Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (
 !!! warning "Az `inserted` és `deleted` táblák"
     Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: `select @id=inserted.ID`, viszont használhatjuk kurzorban vagy `join`-ban is ezen táblákat.
 
-Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználást. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
+Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználását. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
 
 ```sql
 -- Az email cím ellenőrzéshez készítsünk egy függvényt
