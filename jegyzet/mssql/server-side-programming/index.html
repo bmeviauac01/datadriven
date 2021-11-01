@@ -1533,7 +1533,7 @@
   <span class="k">FETCH</span> <span class="k">NEXT</span> <span class="k">FROM</span> <span class="n">cur</span> <span class="k">INTO</span> <span class="o">@</span><span class="n">var1</span><span class="p">,</span> <span class="o">@</span><span class="n">var2</span>
 <span class="k">END</span>
 </code></pre></div>
-<p>Vegyük észre, hogy a kódban kétszer szerepel a <code>FETCH</code> utasítás. Ennek oka, hogy az első, cikluson kívüli a legelső rekord lekérdezéséhez használatos, még a második, a ciklus belsejében minden további rekordot kér le egyesével.</p>
+<p>Vegyük észre, hogy a kódban kétszer szerepel a <code>FETCH</code> utasítás. Ennek oka, hogy az első, cikluson kívüli a legelső rekord lekérdezéséhez használatos, míg a második, a ciklus belsejében minden további rekordot kér le egyesével.</p>
 <h3 id="pelda">Példa<a class="headerlink" href="#pelda" title="Permanent link">&para;</a></h3>
 <p>Lássunk egy komplett példát. Keressük meg azon termékeket, amiből alig van raktáron, és ha a legutolsó eladás több, mint egy éve volt, akkor adjunk kedvezményt a termékre:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Ezekbe a változókba szedjük ki a kurzorból az adatokat</span>
