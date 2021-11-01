@@ -1028,7 +1028,7 @@
 <h2 id="feladat-0-neptun-kod">Feladat 0: Neptun kód<a class="headerlink" href="#feladat-0-neptun-kod" title="Permanent link">&para;</a></h2>
 <p>Első lépésként a gyökérben található <code>neptun.txt</code> fájlba írd bele a Neptun kódodat!</p>
 <h2 id="feladat-1-termek-repository-2-pluszpont">Feladat 1: Termék repository (2 pluszpont)<a class="headerlink" href="#feladat-1-termek-repository-2-pluszpont" title="Permanent link">&para;</a></h2>
-<p>Készíts a termékek (<code>Product</code>) kezeléséhez egy <em>repository</em> osztályt <strong>ADO.NET Connection</strong> technológiát használva. Nyisd meg a kiinduló kódban az <em>sln</em> fájlt Visual Studio-val. Keresd meg a <code>Repository.ProductRepository</code> és <code>Model.Product</code> osztályokat. Implementáld a <code>ProductRepository</code> osztályt alábbi funkcióit:</p>
+<p>Készíts a termékek (<code>Product</code>) kezeléséhez egy <em>repository</em> osztályt <strong>ADO.NET Connection</strong> technológiát használva. Nyisd meg a kiinduló kódban az <em>sln</em> fájlt Visual Studio-val. Keresd meg a <code>Repository.ProductRepository</code> és <code>Model.Product</code> osztályokat. Implementáld a <code>ProductRepository</code> osztály alábbi funkcióit:</p>
 <ul>
 <li>A <code>Search(string name)</code> függvény keresse meg az adatbázisban a paraméterben kapott terméknévre illeszkedő találatokat, és adja őket vissza C# osztály példányaként. Ha a kapott szűrési paraméter <code>null</code>, akkor minden terméket adjon vissza, ellenkező esetben <em>case-insensitive</em> módon a névben bárhol keressen!</li>
 <li>A <code>FindById(int id)</code> adja vissza az ID alapján megtalált terméket, vagy <code>null</code> értéket, ha nem található ilyen.</li>
@@ -1054,9 +1054,9 @@
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított C# forráskódot töltsd fel.</p>
-<p>Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár <code>dotnet cli</code> is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a <strong>repository kódja</strong> (a releváns része, amennyi kifér) és a <strong>tesztek futásának eredménye</strong>! A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
-<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolód a részletesebb naplózáshoz.</p>
-<p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
+<p>Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár <code>dotnet cli</code> is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a <strong>repository kódja</strong> (a releváns része, amennyi kifér) és a <strong>tesztek futásának eredménye</strong>! A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolót a részletesebb naplózáshoz.</p>
+<p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
 </div>
 <h2 id="feladat-2-optimista-konkurenciakezeles-2-imsc-pont">Feladat 2: Optimista konkurenciakezelés (2 iMsc pont)<a class="headerlink" href="#feladat-2-optimista-konkurenciakezeles-2-imsc-pont" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -1072,22 +1072,22 @@
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Optimista konkurenciakezelés</p>
-<p>A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. <strong>Ne használj tranzakciót</strong>, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. <strong>Ne használj több SQL utasítást</strong> se, mert a lefutásuk között más adatbázis hozzáférések történhetnek elrontva a várt viselkedést. A megoldást a <code>ProductRepository.UpdateWithConcurrencyCheck</code> függvényben írd meg, valamint adaptáld a <code>Model.Product</code> osztályt is. Az adatbázisba <strong>nem</strong> vehetsz fel új oszlopot.</p>
+<p>A megoldáshoz az optimista konkurenciakezelés koncepcióját alkalmazd. <strong>Ne használj tranzakciót</strong>, mert a lekérdezés és módosítás időben eltolva történik, közben az adatbázis kapcsolat megszűnik. <strong>Ne használj több SQL utasítást</strong> se, mert a lefutásuk között más adatbázis hozzáférések történhetnek, elrontva a várt viselkedést. A megoldást a <code>ProductRepository.UpdateWithConcurrencyCheck</code> függvényben írd meg, valamint adaptáld a <code>Model.Product</code> osztályt is. Az adatbázisba <strong>nem</strong> vehetsz fel új oszlopot.</p>
 </div>
 <p>Ügyelj az alábbiakra:</p>
 <ul>
-<li>Csak a <code>ProductRepository.UpdateWithConcurrencyCheck</code> függvény és a <code>Model.Product</code> osztályok kódját módosítsd!</li>
-<li>A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurencia probléma).</li>
+<li>Csak a <code>ProductRepository.UpdateWithConcurrencyCheck</code> függvény és a <code>Model.Product</code> osztály kódját módosítsd!</li>
+<li>A függvény visszatérési értékben jelezze, hogy sikeres volt-e a módosítás (vagyis, hogy nem volt konkurenciaprobléma).</li>
 <li><strong>Magyarázd el a viselkedést</strong> az <code>UpdateWithConcurrencyCheck</code> függvényben egy kommentben (2-3 mondatban).</li>
 <li>Egyetlen SQL parancs használatával oldd meg a feladatot!</li>
 <li>Csak ADO.NET technológiát használhatsz!</li>
 <li>Védekezz SQL injectionnel szemben!</li>
 <li>A <code>ProductRepository</code> osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvény törzsét írd meg.</li>
-<li>A <code>Model.Product</code> osztályban konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.</li>
+<li>A <code>Model.Product</code> osztály konstruktorának definícióját (paraméterek darabszáma, sorrendje, nevei) ne változtasd meg, de a kódját átírhatod. A meglevő property-ket ne változtasd meg, de újakat felvehetsz.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>A módosított C# forráskódot töltsd fel. Ne felejtsd a magyarázatot a C# kódban!</p>
+<p>A módosított C# forráskódot töltsd fel. Ne felejtsd el megírni a magyarázatot a C# kódban!</p>
 </div>
                 
               

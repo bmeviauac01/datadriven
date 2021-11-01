@@ -1054,7 +1054,7 @@
 <p>Menj a <code>ProductDbContext</code> osztályhoz és töröld a kommentet a <code>Products</code> property elől.</p>
 </li>
 <li>
-<p>Készíts egy <code>DbVat</code> osztályt a <code>VAT</code> tábla leképzésére a <code>DbProduct</code>-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t az <code>ProductDbContext</code>-be <code>Vat</code> néven.</p>
+<p>Készíts egy <code>DbVat</code> osztályt a <code>VAT</code> tábla leképzésére a <code>DbProduct</code>-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t a <code>ProductDbContext</code>-be <code>Vat</code> néven.</p>
 </li>
 <li>
 <p>Képezd le a Product - VAT kapcsolatot.</p>
@@ -1074,21 +1074,21 @@
 </div>
 <div class="admonition danger">
 <p class="admonition-title"><code>OnConfiguring</code></p>
-<p>A <em>DbContext</em> kódjában nincs szükséged connection stringre. A konstruktor intézi a kapcsolat felépítését. Ne írj <code>OnConfiguring</code> függvény az osztályba!</p>
+<p>A <em>DbContext</em> kódjában nincs szükséged connection stringre. A konstruktor intézi a kapcsolat felépítését. Ne írj <code>OnConfiguring</code> függvényt az osztályba!</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>A módosított C# forráskódot tölts fel.</p>
-<p>Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár <code>dotnet cli</code> is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a <strong>DbContext kódja</strong> és a <strong>tesztek futásának eredménye</strong>! A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
-<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolód a részletesebb naplózáshoz.</p>
-<p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
+<p>A módosított C# forráskódot töltsd fel.</p>
+<p>Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár <code>dotnet cli</code> is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a <strong>DbContext kódja</strong> és a <strong>tesztek futásának eredménye</strong>! A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolót a részletesebb naplózáshoz.</p>
+<p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
 </div>
 <h2 id="feladat-2-repository-megvalositas-entity-framework-kel-2-imsc-pont">Feladat 2: Repository megvalósítás Entity Framework-kel (2 iMsc pont)<a class="headerlink" href="#feladat-2-repository-megvalositas-entity-framework-kel-2-imsc-pont" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p>Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.</p>
 </div>
 <p>Az Entity Framework DbContext-je az előzőekben megírt módon nem használható kényelmesen. Például a kapcsolatok betöltését (<code>Include</code>) kézzel kell kezdeményezni, és a leképzett entitások túlságosan kötődnek az adatbázis sémájához. Egy komplex alkalmazás esetében ezért célszerű a DbContext-et a repository minta szerint becsomagolni, és ily módon nyújtani az adatelérési réteget.</p>
-<p>Implementáld a <code>ProductRepository</code> osztályt, amely megvalósítja a termékek listázását és beszúrását. Ehhez már rendelkezésre áll egy új, un. <em>modell</em> osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcs százalékos értékét is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Ez a <code>Model.Product</code> nevű osztály, ami tartalmazza a <code>DbProduct</code> leképzett tulajdonságait, de a <code>DbVat</code>-ra mutató navigation property <em>helyett</em> az int típusú áfakulcs (<code>VAT.Percentage</code>) százalékos értékét tartalmazza.</p>
+<p>Implementáld a <code>ProductRepository</code> osztályt, amely megvalósítja a termékek listázását és beszúrását. Ehhez már rendelkezésre áll egy új, ún. <em>modell</em> osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcs százalékos értékét is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Ez a <code>Model.Product</code> nevű osztály, ami tartalmazza a <code>DbProduct</code> leképzett tulajdonságait, de a <code>DbVat</code>-ra mutató navigation property <em>helyett</em> az int típusú áfakulcs (<code>VAT.Percentage</code>) százalékos értékét tartalmazza.</p>
 <p>Implementáld a <code>ProductRepository</code> osztály függvényeit.</p>
 <ul>
 <li>A <code>List</code> az összes terméket adja vissza <code>Model.Product</code> típusra leképezve.</li>
@@ -1099,7 +1099,7 @@
 </ul>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>A módosított C# forráskódot tölts fel.</p>
+<p>A módosított C# forráskódot töltsd fel.</p>
 </div>
                 
               
