@@ -30,7 +30,7 @@ A transaction combines operations into one unit, and the system guarantees the f
 Let us examine these basic properties to understand how concurrent data access issues are resolved with their help.
 
 !!! danger "A transaction is just a tool"
-    A transaction, similarly to mutexes provides by an operating system of programming framework, is just a tool provided to the software developer. The proper usage is the responsibility of the developer.
+    A transaction, similarly to mutexes provided by an operating system or programming framework, is just a tool provided to the software developer. The proper usage is the responsibility of the developer.
 
 ### Transactions basic properties
 

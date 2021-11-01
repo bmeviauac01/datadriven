@@ -160,9 +160,9 @@ public class Product
     [BsonElement("price")]
     public string TotalPrice { get; set; }
 
-    // properties can be ignores
+    // properties can be ignored
     [BsonIgnore]
-    public string DoNotSace { get; set; }
+    public string DoNotSave { get; set; }
 }
 ```
 
@@ -171,7 +171,7 @@ Our other option is to register so-called _convention packs_ at a higher level. 
 For example, you can specify the following to map the field names to camel case and exclude data members with a default value (defined in the C# language) from the document.
 
 ```csharp
-// defince convention pack
+// define convention pack
 var pack = new ConventionPack();
 pack.Add(new CamelCaseElementNameConvention());
 pack.Add(new IgnoreIfDefaultConvention(true));
@@ -374,7 +374,7 @@ collection.Find(Builders<Product>.Filter.AnyNin(x => x.Categories, new[] { "Ball
 
 ## Query execution pipeline
 
-MongoDB queries executed through a pipeline. We won't go into details about this, but in addition to simple filtering, we'll see a few examples frequently used in queries.
+MongoDB queries are executed through a pipeline. We won't go into details about this, but in addition to simple filtering, we'll see a few examples frequently used in queries.
 
 #### Paging, sorting
 
