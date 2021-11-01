@@ -2,7 +2,7 @@
 
 ## NoSQL adatbázisok
 
-A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak? Egy kis méretű adatbázis egyszerű sémával könnyen leírható relációs modellben, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, ezzel együtt komplexebbé válik a séma is, illetve egyre több adatot kell eltárolni és nő az adatbázis. Ez egy bizonyos határ felett komplikáltá válik.
+A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak? Egy kis méretű adatbázis egyszerű sémával könnyen leírható relációs modellben, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, ezzel együtt komplexebbé válik a séma is, illetve egyre több adatot kell eltárolni és nő az adatbázis. Ez egy bizonyos határ felett komplikálttá válik.
 
 A relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia- és skálázási problémákkal járhat, ha relációs adatbázist használunk - ezzel azonban nem foglalkozunk mélyebben.
 
@@ -348,7 +348,7 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 
 ### Szűrés beágyazott dokumentum mezőjére
 
-A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyaztott dokumentum (a példákban az _VAT_ nem létezik):
+A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyazott dokumentum (a példákban a _VAT_ nem létezik):
 
 ```csharp
 collection.Find(x => x.VAT.Percentage < 27);
@@ -404,7 +404,7 @@ collection.Find(...)
 
 #### Darabszám lekérdezés
 
-A lekérdezésre illeszkedő dokumentumok számát két féle módon is lekérdezhetjük:
+A lekérdezésre illeszkedő dokumentumok számát kétféle módon is lekérdezhetjük:
 
 ```csharp
 collection.CountDocuments(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"));
@@ -520,7 +520,7 @@ collection.UpdateOne(
     filter: x => x.Id == new ObjectId("..."),
     update: Builders<Product>.Update
                 .Set(x => x.Stock, 5) // raktárkészlet legyen 5
-                .CurrentDate(x => x.StockUpdated) // mai dátumot beírjuk, mint a frissítás ideje
+                .CurrentDate(x => x.StockUpdated) // mai dátumot beírjuk, mint a frissítés ideje
                 .Unset(x => x.NeedsUpdate) // töröljük a frissítendő jelzést
 );
 ```
