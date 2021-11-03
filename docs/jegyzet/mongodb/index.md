@@ -47,7 +47,7 @@ Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fog
 
 #### Kulcs
 
-Minden dokumentum egyértelmű azonosítója az `_id` mező, mást kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos `ObjectId`-t készít).
+Minden dokumentum egyértelmű azonosítója az `_id` mező, más kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos `ObjectId`-t készít).
 
 Az `_id` mezőtől függetlenül egyediséget indexek segítségével tudunk garantálni. Amennyiben szükséges, definiálhatunk tehát más, kulcs-szerű mezőket is. Az így definiált egyedi mezők lehetnek összetettek is (tehát lehet több mező együttes egyediségét előírni).
 
