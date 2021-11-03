@@ -177,7 +177,7 @@ Egy másik gyakori használati esete a névtelen típusnak, amikor nem egy rekor
 ```csharp
 from p in products
 join v in vat on p.VATID equals v.Id
-select new { Name = p.Name, FullPrice = p.Price * v.Percentage }
+select new { Name = p.Name, FullPrice = p.Price * (1 + v.Percentage / 100) }
 ```
 
 ## LINQ kifejezések és az IEnumerable/IQueryable
