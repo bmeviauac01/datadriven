@@ -1604,7 +1604,7 @@
 <h4 id="adatbazis">Adatbázis<a class="headerlink" href="#adatbazis" title="Permanent link">&para;</a></h4>
 <p>Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fogja össze az alkalmazás adatait logikailag. Illetve hozzáférési jogosultságokat adatbázis szinten tudunk adni. Az adatbázisok neve case sensitive és konvenció szerint tipikusan csupa kisbetű.</p>
 <h4 id="kulcs">Kulcs<a class="headerlink" href="#kulcs" title="Permanent link">&para;</a></h4>
-<p>Minden dokumentum egyértelmű azonosítója az <code>_id</code> mező, mást kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos <code>ObjectId</code>-t készít).</p>
+<p>Minden dokumentum egyértelmű azonosítója az <code>_id</code> mező, más kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos <code>ObjectId</code>-t készít).</p>
 <p>Az <code>_id</code> mezőtől függetlenül egyediséget indexek segítségével tudunk garantálni. Amennyiben szükséges, definiálhatunk tehát más, kulcs-szerű mezőket is. Az így definiált egyedi mezők lehetnek összetettek is (tehát lehet több mező együttes egyediségét előírni).</p>
 <p>Külső kulcs hivatkozások MongoDB-ben nincsenek. Tudunk hivatkozni más dokumentumokra azok kulcsainak bemásolásával, azonban ezekre a rendszer nem vállal garanciát (pl. a hivatkozott dokumentum törölhető).</p>
 <h2 id="mongodb-muveletek-es-a-mongodb-net-driver">MongoDB műveletek és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h2>
