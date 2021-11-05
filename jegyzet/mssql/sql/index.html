@@ -1157,11 +1157,11 @@
 <span class="k">where</span> <span class="n">City</span><span class="o">=</span><span class="s1">&#39;Budapest&#39;</span>
 </code></pre></div>
 <p>Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">oi</span><span class="p">.</span><span class="n">Amount</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="k">Sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
 <span class="k">from</span> <span class="n">Product</span> <span class="n">p</span>
      <span class="k">left</span> <span class="k">outer</span> <span class="k">join</span> <span class="n">OrderItem</span> <span class="n">oi</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
-     <span class="k">left</span> <span class="k">outer</span> <span class="k">join</span> <span class="p">[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
 <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span> <span class="k">like</span> <span class="s1">&#39;M%&#39;</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title"><code>[Order]</code></p>
