@@ -37,11 +37,11 @@ where City='Budapest'
 Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
 
 ```sql
-select p.Name, oi.Amount
+select p.Name, Sum(oi.Amount)
 from Product p
      left outer join OrderItem oi on p.id=oi.ProductID
-     left outer join [Order] o on o.ID=oi.OrderID
 where p.Name like 'M%'
+group by p.Name
 ```
 
 !!! info "`[Order]`"
