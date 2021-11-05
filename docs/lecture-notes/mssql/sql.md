@@ -37,11 +37,11 @@ where City='Budapest'
 List the products that start with letter M, the ordered amounts and deadlines. Include the products that have not been ordered yet.
 
 ```sql
-select p.Name, oi.Amount
+select p.Name, sum(oi.Amount)
 from Product p
      left outer join OrderItem oi on p.id=oi.ProductID
-     left outer join [Order] o on o.ID=oi.OrderID
 where p.Name like 'M%'
+group by p.Name
 ```
 
 !!! info "`[Order]`"
