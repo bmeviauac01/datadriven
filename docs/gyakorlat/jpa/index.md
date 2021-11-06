@@ -38,7 +38,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 ## Feladat 0: Adatbázis létrehozása
 
-1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk.
+1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk, a felhasználónév és a jelszó is `sa`.
 
 1. Hozzunk létre egy `adatvez` nevű adatbázist. **Ügyeljünk a névre, különben a Java projektben módosítanunk kell**. Az adatbázis létrehozásának mikéntjét lásd az [első gyakorlat anyagában](../transactions/index.md). Ha a gépen már létezik az adatbázis, akkor nem kell újat létrehozni.
 
