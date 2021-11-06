@@ -38,7 +38,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 ## Exercise 0: Create a database
 
-1. Use _Microsoft SQL Server Management Studio_ to connect to the database. We are not using _localdb_ here; the address is: `localhost\sqlexpress` and use _SQL Server Authentication_.
+1. Use _Microsoft SQL Server Management Studio_ to connect to the database. We are not using _localdb_ here; the address is: `localhost\sqlexpress` and use _SQL Server Authentication_ with username and password `sa`.
 
 1. Create a new database with the name `adatvez`. **You should this exact name or will have to update the Java project**. To create a new database see the instructions [in the first seminar material](../transactions/index.md). If a database with this name already exists, no need to re-create it.
 
