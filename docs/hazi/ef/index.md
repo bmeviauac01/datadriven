@@ -38,7 +38,7 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
 
     Menj a `ProductDbContext` osztályhoz és töröld a kommentet a `Products` property elől.
 
-1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t a `ProductDbContext`-be `Vat` néven.
+1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére az `ef` névtérbe a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t a `ProductDbContext`-be `Vat` néven.
 
 1. Képezd le a Product - VAT kapcsolatot.
 
