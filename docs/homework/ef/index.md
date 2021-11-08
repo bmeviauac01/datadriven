@@ -38,7 +38,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
 
     Open the source code of class `ProductDbContext` and uncomment the `Products` property.
 
-1. Create a new class with the name `DbVat` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with the name `Vat`.
+1. Create a new class with the name `DbVat` in namespace `ef` for mapping the `VAT` database table similarly as seen before. Do not forget to add a new DbSet property into `ProductContext` with the name `Vat`.
 
 1. Map the Product - VAT connection.
 
