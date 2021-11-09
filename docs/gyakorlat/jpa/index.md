@@ -59,7 +59,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 1. Importáljuk a letöltött forráskódot a workspace-be:
     - Nyissuk meg a _File / Import..._-ot
     - Kezdjük el gépelni a textboxba, hogy _Existing Maven Projects_, így rá fog szűrni erre a típusra, és válasszuk ki ezt
-    - Keressük meg a letöltött webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
+    - Keressük meg a letöltött webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), Open Folder, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva a pom.xml)
     - Finish
 1. Tekintsük át röviden a projektet:
 
@@ -109,7 +109,7 @@ A futó alkalmazást a _Console_ nézet piros _Terminate_ ikonjával lehet leál
 
 Ha a teljes _Console_ nézetet bezárjuk véletlenül, elő lehet szedni _Alt+Shift+Q, C_ gyorsbillenytűvel, vagy _Window / Show View / Console_ menüvel.
 
-A leállítás utáni újra futtatáshoz az F11-et is használhatjuk.
+A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.
 
 A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java kód módosítások azonnal életbe lépnek. (A böngészőt persze frissíteni kell.) Újra kell viszont indítani az alkalmazást, ha a Java kódban:
 
@@ -360,7 +360,7 @@ A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítás
     
     **5.c feladat**
     
-    A `dao` package-be új interfész, `CategoryRepository` néven, a `ProductRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
+    A `dao` package-ben hozzunk létre egy új interfészt `CategoryRepository` néven, a `ProductRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
     
     ```java
     public interface CategoryRepository extends JpaRepository<Category, Long>{
