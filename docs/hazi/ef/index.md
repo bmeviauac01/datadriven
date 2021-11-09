@@ -38,7 +38,7 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
 
     Menj a `ProductDbContext` osztályhoz és töröld a kommentet a `Products` property elől.
 
-1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t az `ProductDbContext`-be `Vat` néven.
+1. Készíts egy `DbVat` osztályt a `VAT` tábla leképzésére az `ef` névtérbe a `DbProduct`-hoz hasonlóan. Ne felejtsd el felvenni a DbSet property-t a `ProductDbContext`-be `Vat` néven.
 
 1. Képezd le a Product - VAT kapcsolatot.
 
@@ -57,16 +57,16 @@ A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van 
     Ha nem fordulna le a teszt kód, lehet, hogy egy-egy property névnek mást használtál. A **saját kódodban javítsd a nevet, ne a tesztekben**!
 
 !!! danger "`OnConfiguring`"
-    A _DbContext_ kódjában nincs szükséged connection stringre. A konstruktor intézi a kapcsolat felépítését. Ne írj `OnConfiguring` függvény az osztályba!
+    A _DbContext_ kódjában nincs szükséged connection stringre. A konstruktor intézi a kapcsolat felépítését. Ne írj `OnConfiguring` függvényt az osztályba!
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+    A módosított C# forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **DbContext kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+    Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **DbContext kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
-    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolód a részletesebb naplózáshoz.
+    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolót a részletesebb naplózáshoz.
 
-    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
+    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
 ## Feladat 2: Repository megvalósítás Entity Framework-kel (2 iMsc pont)
 
@@ -75,7 +75,7 @@ A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van 
 
 Az Entity Framework DbContext-je az előzőekben megírt módon nem használható kényelmesen. Például a kapcsolatok betöltését (`Include`) kézzel kell kezdeményezni, és a leképzett entitások túlságosan kötődnek az adatbázis sémájához. Egy komplex alkalmazás esetében ezért célszerű a DbContext-et a repository minta szerint becsomagolni, és ily módon nyújtani az adatelérési réteget.
 
-Implementáld a `ProductRepository` osztályt, amely megvalósítja a termékek listázását és beszúrását. Ehhez már rendelkezésre áll egy új, un. _modell_ osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcs százalékos értékét is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Ez a `Model.Product` nevű osztály, ami tartalmazza a `DbProduct` leképzett tulajdonságait, de a `DbVat`-ra mutató navigation property _helyett_ az int típusú áfakulcs (`VAT.Percentage`) százalékos értékét tartalmazza.
+Implementáld a `ProductRepository` osztályt, amely megvalósítja a termékek listázását és beszúrását. Ehhez már rendelkezésre áll egy új, ún. _modell_ osztályt, ami a terméket reprezentálja, de közvetlenül tartalmazza az áfa kulcs százalékos értékét is. Ez az osztály az adatbázis adataiból építkezik, de egységbe zárja az adatokat anélkül, hogy az adatbázishoz kellene fordulni a kapcsolódó áfa rekord lekérdezéséhez. Ez a `Model.Product` nevű osztály, ami tartalmazza a `DbProduct` leképzett tulajdonságait, de a `DbVat`-ra mutató navigation property _helyett_ az int típusú áfakulcs (`VAT.Percentage`) százalékos értékét tartalmazza.
 
 Implementáld a `ProductRepository` osztály függvényeit.
 
@@ -86,4 +86,4 @@ Implementáld a `ProductRepository` osztály függvényeit.
 - A kódban a `ProductRepository.createDbContext()`-et használd a _DbContext_ létrehozásához (és **ne** a `TestConnectionStringHelper`-t).
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+    A módosított C# forráskódot töltsd fel.

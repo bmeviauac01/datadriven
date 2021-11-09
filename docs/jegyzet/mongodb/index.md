@@ -47,7 +47,7 @@ Az adatbázis ugyanazt a célt szolgálja, mint relációs adatbázisban. Ez fog
 
 #### Kulcs
 
-Minden dokumentum egyértelmű azonosítója az `_id` mező, mást kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos `ObjectId`-t készít).
+Minden dokumentum egyértelmű azonosítója az `_id` mező, más kulcsot nem tudunk definiálni. Ezt a mezőt beszúráskor nem szükséges explicit megadni (de lehet), tipikusan a kliens driver vagy a szerver generálja (alapértelmezésben egy 12 bájtos `ObjectId`-t készít).
 
 Az `_id` mezőtől függetlenül egyediséget indexek segítségével tudunk garantálni. Amennyiben szükséges, definiálhatunk tehát más, kulcs-szerű mezőket is. Az így definiált egyedi mezők lehetnek összetettek is (tehát lehet több mező együttes egyediségét előírni).
 
@@ -348,7 +348,8 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 
 ### Szűrés beágyazott dokumentum mezőjére
 
-A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyazott dokumentum (a példákban az _VAT_ nem létezik):
+
+A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyazott dokumentum (a példákban a _VAT_ nem létezik):
 
 ```csharp
 collection.Find(x => x.VAT.Percentage < 27);
@@ -404,7 +405,7 @@ collection.Find(...)
 
 #### Darabszám lekérdezés
 
-A lekérdezésre illeszkedő dokumentumok számát két féle módon is lekérdezhetjük:
+A lekérdezésre illeszkedő dokumentumok számát kétféle módon is lekérdezhetjük:
 
 ```csharp
 collection.CountDocuments(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák"));
@@ -520,7 +521,7 @@ collection.UpdateOne(
     filter: x => x.Id == new ObjectId("..."),
     update: Builders<Product>.Update
                 .Set(x => x.Stock, 5) // raktárkészlet legyen 5
-                .CurrentDate(x => x.StockUpdated) // mai dátumot beírjuk, mint a frissítás ideje
+                .CurrentDate(x => x.StockUpdated) // mai dátumot beírjuk, mint a frissítés ideje
                 .Unset(x => x.NeedsUpdate) // töröljük a frissítendő jelzést
 );
 ```

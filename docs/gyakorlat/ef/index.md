@@ -94,11 +94,11 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
 1. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
 
-1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevet követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
+1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevét követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
 
 1. Listázd ki a legdrágább termék adatait!
 
-1. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár, csak egyszer szerepeljen a listában.
+1. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
 
 ??? example "Megoldás"
     ```csharp
@@ -182,7 +182,7 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
 
 1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
 
-1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
+1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 ??? example "Megoldás"
     ```csharp
@@ -245,10 +245,10 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
 
 ## Feladat 4: Tárolt eljárások használata
 
-Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolj eljárás vagy a DbContext függvényeként, vagy entitás módosító műveletére köthető be.
+Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
 
 !!! note "Tárolt eljárás az EDM-ben"
-    A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkesztenünk.
+    A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkeszthetjük.
 
     ![Tárolt eljárás mappelés beállításai](images/vs-storedproc-mapping.png)
 
@@ -278,7 +278,7 @@ Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A t
 
     - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext `PaymentMethod` gyűjteményéhez az `Add` metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
 
-1. Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolj eljárást C# kódból!
+1. Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
 
     - Hozd létre a tárolt eljárást az alábbi kóddal.
 
