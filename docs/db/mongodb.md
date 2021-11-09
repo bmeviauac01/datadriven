@@ -20,7 +20,7 @@ A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusa
 mongod.exe --dbpath="<munkakönyvtár>"
 ```
 
-A _munkakönyvtárban_ fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzult be nem zárjuk. Leállítani a _Ctrl + C_ billentyű kombinációval kell.
+A _munkakönyvtárban_ fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzult be nem zárjuk. Leállítani a _Ctrl + C_ billentyűkombinációval kell.
 
 ## Mongo shell
 

@@ -37,7 +37,7 @@ Párhuzamos tranzakciók szimulálásához két _Query_ ablakra van szükség a 
 
 ### Táblák tartalmának listázása, egyszerűsített módosítás
 
-A táblák tartalmának listázásához az _Object Explorer_-ben bontsuk ki az adatbázisunk alatt a _Tables_ mappát. Bármely táblára jobb egérrel kattintva használjuk a _Select Top 1000 Rows_ elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az _Edit Top 200 Rows_ menü elemmel.
+A táblák tartalmának listázásához az _Object Explorer_-ben bontsuk ki az adatbázisunk alatt a _Tables_ mappát. Bármely táblára jobb egérrel kattintva használjuk a _Select Top 1000 Rows_ elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az _Edit Top 200 Rows_ menüelemmel.
 
 ![Tábla tartalmának gyors listázása](./images/select-top-1000.png)
 

@@ -28,23 +28,6 @@ Visual Studio 2022 telepítésekor ki kell pipálni az alábbi workload-ot:
 
 ![Visual Studio 2022 workload](images/visual-studio-2022/vs-workload.png)
 
-#### NuGet Package Manager fix
-
-Ha telepítéskor nem jön létre forrásként a nuget.org weboldal, akkor ezt kézzel vegyük fel.
-
-Ehhez a fenti menüben navigáljunk: `Tools -> NuGet Package Manager -> Package Manager Settings`
-
-Innen válasszuk ki a `Package Sources`-t és ott adjuk hozzá az alábbi forrást:
-
-![NuGet Package Sources](images/visual-studio-2022/vs-nuget-source.png)
-
-Az alábbi értékeket használjuk:
-
-- Name: `nuget.org`
-- Source: `https://api.nuget.org/v3/index.json`
-
-Ezt követően ellenőrizzük le, hogy fel van-e telepítve a **3.1**-es .NET Core SDK.
-
 ## .NET Core SDK ellenőrzése és telepítése
 
 Visual Studio mellett bizonyos .NET Core SDK-k telepítésre kerülnek. A megfelelő verzió ellenőrzéséhez legegyszerűbb a `dotnet` CLI-t használni: konzolban add ki a `dotnet --list-sdks` parancsot. Ez a parancs Linux és Mac esetén is működik. A kimenete hasonló lesz:

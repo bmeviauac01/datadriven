@@ -41,7 +41,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | Name               | Vevő megnevezése.                                                                                                                    |
 |               | BankAccount        | Vevő bankszámla száma.                                                                                                               |
 |               | Login              | Vevő login neve a webes rendszerhez.                                                                                                 |
-|               | Password           | Vevő jelszója a webes rendszerhez.                                                                                                   |
+|               | Password           | Vevő jelszava a webes rendszerhez.                                                                                                   |
 |               | Email              | Vevő email címe.                                                                                                                     |
 |               | MainCustomerSiteID | A vevő központi telephelyének azonosítója, külső kulcs a CustomerSite táblára.                                                       |
 | CustomerSite  | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
