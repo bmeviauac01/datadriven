@@ -1332,7 +1332,7 @@
 <tr>
 <td></td>
 <td>Price</td>
-<td>Egy egység nettó ára. Alapértelmezésként az termékben található nettó ár másolódik ide, de ettől eltérhet az értékesítő.</td>
+<td>Egy egység nettó ára. Alapértelmezésként a termékben található nettó ár másolódik ide, de ettől eltérhet az értékesítő.</td>
 </tr>
 <tr>
 <td></td>
@@ -1490,7 +1490,7 @@
 <h4 id="szamlazas">Számlázás<a class="headerlink" href="#szamlazas" title="Permanent link">&para;</a></h4>
 <p>Adatmodell sajátossága, a számlázási adatok tárolása. A számla adatait nem lehet megváltoztatni kinyomtatás után, számlát nem lehet törölni csak sztornózni. Ebből adódón a számlához tartozó összes információt az <code>Invoice</code> és az <code>InvoiceItem</code> táblák tartalmazzák, a számlakiállítás során minden információt le kell másolni a vonatkozó megrendelésből. Valamint az első nyomtatást követően a számlából már csak másolatot lehet nyomtatni, eredeti példányt nem.</p>
 <h4 id="szamla-kiallito">Számla kiállító<a class="headerlink" href="#szamla-kiallito" title="Permanent link">&para;</a></h4>
-<p>Speciális a <code>InvoiceIssuerID</code> attribútum az <code>Invoice</code> táblában, mivel a cég saját adatai ritkán változnak. Viszont a változtathatatlanság követelménye miatt a számla kiállító adatait nem lehet módosítani, ha már van hozzá számla. Ebben az esetben a számla kiállító táblába új rekordot kell felvenni, ebből adódóan az aktuális cégadatokat minidig a legmagasabb ID-vel rendelkező számla kiállító rekord tartalmazza.</p>
+<p>Speciális a <code>InvoiceIssuerID</code> attribútum az <code>Invoice</code> táblában, mivel a cég saját adatai ritkán változnak. Viszont a változtathatatlanság követelménye miatt a számla kiállító adatait nem lehet módosítani, ha már van hozzá számla. Ebben az esetben a számla kiállító táblába új rekordot kell felvenni, ebből adódóan az aktuális cégadatokat mindig a legmagasabb ID-vel rendelkező számla kiállító rekord tartalmazza.</p>
 <h4 id="afa">ÁFA<a class="headerlink" href="#afa" title="Permanent link">&para;</a></h4>
 <p>Egy termék ÁFA kulcsa (<code>VAT</code>) bármikor megváltozhat, de ez a megrendelés során teljesen természetes, de a kiállított számlák ÁFA tartalma már nem változhat meg. Ezért a megrendelés során az ÁFÁ-ra idegen kulccsal kell hivatkozni, hogy a változást követni lehessen, viszont a kiállított számlában le kell tárolni a kiállítás pillanatában az aktuális ÁFA kulcsot.</p>
 <h4 id="termek-leiras">Termék leírás<a class="headerlink" href="#termek-leiras" title="Permanent link">&para;</a></h4>

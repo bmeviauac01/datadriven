@@ -1609,7 +1609,7 @@
 <p>Külső kulcs hivatkozások MongoDB-ben nincsenek. Tudunk hivatkozni más dokumentumokra azok kulcsainak bemásolásával, azonban ezekre a rendszer nem vállal garanciát (pl. a hivatkozott dokumentum törölhető).</p>
 <h2 id="mongodb-muveletek-es-a-mongodb-net-driver">MongoDB műveletek és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
-<p>Az alábbi, illusztrációra használt kódrészletek a hivatalos <a href="https://www.nuget.org/packages/mongodb.driver">MongoDB.Driver</a> Nuget csomagot használják.</p>
+<p>Az alábbi, illusztrációra használt kódrészletek a hivatalos <a href="https://www.nuget.org/packages/mongodb.driver">MongoDB.Driver</a> NuGet csomagot használják.</p>
 </div>
 <h2 id="kapcsolat-letesitese">Kapcsolat létesítése<a class="headerlink" href="#kapcsolat-letesitese" title="Permanent link">&para;</a></h2>
 <p>A MongoDB adatbázis eléréséhez első lépésben szükségünk van egy kapcsolatra. A kapcsolatot egy <code>MongoClient</code> osztály reprezentálja. A kapcsolathoz szükségünk van a szerver elérhetőségére (a connection stringről részletesebben lásd: <a href="https://docs.mongodb.com/manual/reference/connection-string/">https://docs.mongodb.com/manual/reference/connection-string/</a>).</p>
@@ -1654,7 +1654,7 @@
 </div>
 <h2 id="dokumentumok-lekepzese-c-objektumokra">Dokumentumok leképzése C# objektumokra<a class="headerlink" href="#dokumentumok-lekepzese-c-objektumokra" title="Permanent link">&para;</a></h2>
 <p>Ahogy a relációs adatbázisoknál láthattuk az objektum-relációs leképzést, MongoDB esetén is célszerű objektumokkal és osztályokkal dolgoznunk. A MongoDB .NET drivere ezt teljes mértékben biztosítja számunkra.</p>
-<p>Első lépésként definiálnunk kell a C# osztályt, ill. osztályokat, amikre az adatbázis tartalmát leképezzük. Mivel itt nincs az adatbázisnak és táblának sémája, nem tudjuk a séma alapján gerálni a C# kódot (mint Entity Framework esetén csináltuk). Így ebben a világban inkább a <em>Code First</em> elvet követjük, azaz a C# kódot készítjük el, és abból készül az adatbázis és gyűjtemény (habár tudjuk, hogy itt nincs szó az osztály alapján táblák létrehozásáról).</p>
+<p>Első lépésként definiálnunk kell a C# osztályt, ill. osztályokat, amikre az adatbázis tartalmát leképezzük. Mivel itt nincs az adatbázisnak és táblának sémája, nem tudjuk a séma alapján generálni a C# kódot (mint Entity Framework esetén csináltuk). Így ebben a világban inkább a <em>Code First</em> elvet követjük, azaz a C# kódot készítjük el, és abból készül az adatbázis és gyűjtemény (habár tudjuk, hogy itt nincs szó az osztály alapján táblák létrehozásáról).</p>
 <p>Definiáljuk a <em>Termékek</em> reprezentáláshoz az alábbi osztályokat.</p>
 <div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Product</span>
 <span class="p">{</span>

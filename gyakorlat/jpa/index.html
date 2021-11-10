@@ -1223,7 +1223,7 @@
 <li>Importáljuk a letöltött forráskódot a workspace-be:<ul>
 <li>Nyissuk meg a <em>File / Import...</em>-ot</li>
 <li>Kezdjük el gépelni a textboxba, hogy <em>Existing Maven Projects</em>, így rá fog szűrni erre a típusra, és válasszuk ki ezt</li>
-<li>Keressük meg a letöltött webshop projektet (a <code>webshop</code> mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)</li>
+<li>Keressük meg a letöltött webshop projektet (a <code>webshop</code> mappát a saját könyvtárunk alatt), Open Folder, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva a pom.xml)</li>
 <li>Finish</li>
 </ul>
 </li>
@@ -1240,7 +1240,7 @@
 <p>A <code>WebshopApplication</code> a Spring Boot alkalmazás belépési pontja. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et).</p>
 </li>
 <li>
-<p>A webes felület egyetlen oldal, az <code>src\main\resources\templates\testPage.html</code>. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.</p>
+<p>A webes felület egyetlen oldal, az <code>src\main\resources\templates\testPage.html</code>. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok láthatóak benne.</p>
 </li>
 <li>
 <p><code>WebshopController</code>: a webréteget megvalósító controller osztály, ennek metódusai kezelik az alkalmazáshoz érkező HTTP kéréseket. Jellemzően lekérdezések eredményét akarjuk megjeleníteni az oldalon, ezért a lekérdezés eredményét a modellbe tesszük valamilyen néven, amire hivatkozni tudunk a Thymeleaf segítségével. A <code>//TODO</code> részekre kell majd bekötni az egyes feladatokat megvalósító metódusok meghívását.</p>
@@ -1257,7 +1257,7 @@
 <p>Az entitások közül nyissunk meg egyet, pl. <code>Vat</code>, látszik benne a <code>@Entity</code>, a <code>@Id</code> annotáció, illetve a kapcsolatok definiálására <code>@OneToMany</code> vagy <code>@ManyToOne</code></p>
 </li>
 <li>
-<p>Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a <code>target\generated-sources\apt</code> alatt (A <code>pom.xml</code>-ben látható maven-precessor-plugin generálja egyébként őket a build során.)</p>
+<p>Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a <code>target\generated-sources\apt</code> alatt (A <code>pom.xml</code>-ben látható maven-processor-plugin generálja egyébként őket a build során.)</p>
 </li>
 </ul>
 <h2 id="feladat-4-lekerdezesek">Feladat 4: Lekérdezések<a class="headerlink" href="#feladat-4-lekerdezesek" title="Permanent link">&para;</a></h2>
@@ -1325,7 +1325,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>A dao package-ben lévő <code>ProductRepositoryImpl</code> osztály hibás lesz emiatt, mert nem implementálja a <code>ProductRepositoryCustom</code>-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:</p>
-<p><img alt="Eclise interfész implementálása" src="images/eclipse-implement-methods.png" /></p>
+<p><img alt="Eclipse interfész implementálása" src="images/eclipse-implement-methods.png" /></p>
 <p>Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">hu.bme.aut.adatvez.webshop.dao</span><span class="p">;</span>
 
@@ -1468,7 +1468,7 @@
 </code></pre></div>
 <p>Böngészőben a gomb megnyomása után látszódik a <em>Drága játékok</em> kategória tartalma</p>
 <p><strong>5.c feladat</strong></p>
-<p>A <code>dao</code> package-be új interfész, <code>CategoryRepository</code> néven, a <code>ProductRepository</code> mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:</p>
+<p>A <code>dao</code> package-ben hozzunk létre egy új interfészt <code>CategoryRepository</code> néven, a <code>ProductRepository</code> mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CategoryRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Category</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span><span class="p">{</span>
   <span class="n">List</span><span class="o">&lt;</span><span class="n">Category</span><span class="o">&gt;</span> <span class="nf">findByName</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">);</span>
 <span class="p">}</span>

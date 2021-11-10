@@ -1114,7 +1114,7 @@
 <ul>
 <li>elérhető az adatbázis szerver,</li>
 <li>gyors a kapcsolat a kliens és a kiszolgáló között,</li>
-<li>az adatokat az adabázis szerver gyorsan állítja elő.</li>
+<li>az adatokat az adatbázis szerver gyorsan állítja elő.</li>
 </ul>
 <p>Ezért fel kell készülni arra, hogy a kiszolgálás során kért adatokra várni kell. Erre kínál megoldást az <strong>aszinkronitás</strong>, amely hatékonyan használja ki a kiszolgáló erőforrásait - például nem foglal a web kiszolgálón erőforrást, amíg az az adatbázisra vár.</p>
 <div class="admonition warning">
@@ -1127,7 +1127,7 @@
 <div class="admonition note">
 <p>Az egyszerűség kedvéért a kosarakban a <em>UserID</em> nem idegen kulcsként szerepel egy <em>Users</em> táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a <em>UserID</em> idegen kulcs lenne.</p>
 </div>
-<p>A <em>Products</em> tábla reprezentál termékeket, a <em>Manufacturers</em> tábla gyártókat (ez gyorsíthatja a gyártónként szűrést), az <em>OrderItems</em> pedig kosárban levő termékeket.</p>
+<p>A <em>Products</em> tábla reprezentál termékeket, a <em>Manufacturers</em> tábla gyártókat (ez gyorsíthatja a gyártónkként szűrést), az <em>OrderItems</em> pedig kosárban levő termékeket.</p>
 <h2 id="kiszolgalo-alkalmazas-felepitese">Kiszolgáló alkalmazás felépítése<a class="headerlink" href="#kiszolgalo-alkalmazas-felepitese" title="Permanent link">&para;</a></h2>
 <p>ASP.NET Core WebApi és Entity Framework segítségével szeretnénk a fenti adatbázis adatait REST-kompatibilis szolgáltatáson keresztül elérhetővé tenni. Az adatbázis modellezéséhez, valamint a WebAPI kiszolgáláshoz alapvetően három (esetleg négy) feladatot kell elvégezni:</p>
 <ol>
