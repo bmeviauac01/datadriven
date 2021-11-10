@@ -300,7 +300,7 @@ Megoldásunkban a `NotificationService` függőségeit az osztály (közvetlen) 
  Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy __Inversion of Control (IoC)__ konténerre. Egy IoC konténerbe absztrakciós típus -> implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:
 
 1. __REGISTER (regisztráció)__: Az alkalmazás indulásakor egyszer, __központosítva__ egy Inversion of Control (IoC) konténerbe beregisztráljuk a függőségi leképezéseket (pl. ILogger->Logger, IMailSender->EMailSender). Ez a DI folyamat __REGISTER__ lépése.
-    * Megjegyzés: ezzel megoldottuk az előző fejezeben felvezetett 2. problémát, a leképezéseket egy központi helyen és nem az alkalmazásban szétszórva adjuk meg.
+    * Megjegyzés: ezzel megoldottuk az előző fejezetben felvezetett 2. problémát, a leképezéseket egy központi helyen és nem az alkalmazásban szétszórva adjuk meg.
 2. __RESOLVE (függőségfeloldás)__: Amikor az alkalmazás futásakor szükségünk van egy implementációs objektumra, a konténertől az absztrakció  (interfészt) típusát megadva kérünk egy implementációt (pl. ILoggert megadva egy Logger objektumot kapunk).
     * A resolve lépést az alkalmazás "__belépési pontjában__" tesszük meg (pl. WebApi esetén az egyes API kérések beérkezésekor). A feloldást a konténertől csak a "__ROOT OBJECT__"-re (pl. WebApi esetén a megfelelő Controller osztályra) kérjük explicit módon: ez legyártja a root objectet, illetve annak valamennyi függőségét, és valamennyi közvetett függőségét: előáll egy objektumgráf.  Ez az __AUTOWIRING__ folyamata.
     * Megjegyzés: Web API esetén a Resolve lépést a keretrendszer végzi el: mi csak annyit tapasztalunk, hogy a controller osztályunk automatikusan példányosítódik, és valamennyi konstruktor paramétere automatikusan kitöltésre kerül (a REGISTER lépés regisztrációi alapján).
@@ -338,7 +338,7 @@ sorral `ILogger` típusként a `Logger` implementációs típust regisztráljuk 
 services.AddTransient<INotificationService, NotificationService>();
 ```
 
-sorral `INotificationService` típusként a `NotificationService` implementációs típust regisztáljuk be (INotificationService->NotificationService leképzés), mégpedig az __AddTransient__ művelet hatására __tranziens__ módon. Ez azt jelenti, hogy ha később a konténertől egy `INotificationService` objektumot kérünk (resolve), a konténertől egy `NotificationService` objektumot kapunk, mégpedig minden lekérdezéskor egy __újonnan létrehozott példányt__. A
+sorral `INotificationService` típusként a `NotificationService` implementációs típust regisztráljuk be (INotificationService->NotificationService leképzés), mégpedig az __AddTransient__ művelet hatására __tranziens__ módon. Ez azt jelenti, hogy ha később a konténertől egy `INotificationService` objektumot kérünk (resolve), a konténertől egy `NotificationService` objektumot kapunk, mégpedig minden lekérdezéskor egy __újonnan létrehozott példányt__. A
 
 ```csharp
 services.AddScoped<IContactRepository, ContactRepository>();
@@ -499,7 +499,7 @@ Az `AddDbContext` egy a keretrendszer által az `IServiceCollection` interfészr
 services.AddScoped<TodoContext, TodoContext>();
 ```
 
-Mint a példában látható, a `TodoContext` __beregisztrálása nem egy absztrakcióval történik__ (nincs `ITodoContext` interfész), __hanem magával a__ TodoContext __implementációs típussal__. __A DI keretrendszerek/IoC konténerek támogatják, hogy a regisztráció során az absztrakció egy konkrét típus legyen, jellemzősen maga az implementációs típus__. Ezt a megközelítést csak indokolt esetben használjuk.
+Mint a példában látható, a `TodoContext` __beregisztrálása nem egy absztrakcióval történik__ (nincs `ITodoContext` interfész), __hanem magával a__ TodoContext __implementációs típussal__. __A DI keretrendszerek/IoC konténerek támogatják, hogy a regisztráció során az absztrakció egy konkrét típus legyen, jellemzően maga az implementációs típus__. Ezt a megközelítést csak indokolt esetben használjuk.
 
 ASP.NET Core környezetben a `DbContext` leszármazott osztályunk számára soha nem vezetünk be interfészt, hanem az osztályának a típusával kerül beregisztrálásra az IoC konténerbe (a példánkban is `TodoContext`->`TodoContext` leképezés történik). A `DbContext` önmagában is számos perzisztencial providerrel (pl. MSSQL, Oracle, memória, stb.) tud együtt működni, így alkalmazásfüggő, mennyire van értelme absztrahálni. Ha absztraháljuk az adathozzáférést, akkor nem a `DbContext`-hez vezetünk be interfészt, hanem a Repository tervezési mintát használjuk, és az egyes repository implementációkhoz vezetünk be interfészeket, valamint ezek vonatkozásában történik az IoC konténerben a leképezés (pl. `ITodoRepository`->`TodoRepository`). A repository osztályok pedig vagy maguk példányosítják a `DbContext` objektumokat, vagy konstruktor paraméterben kerül számukra beinjektálásra).
 

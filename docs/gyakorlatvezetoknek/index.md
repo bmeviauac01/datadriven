@@ -6,7 +6,7 @@ Gyakorlatvezető/demonstrátor lennél? Az alábbiakat érdemes tudnod.
 
 A gyakorlatvezető a tárgy oktatásában segít a gyakorlatok megtartása és a számonkérések során. A feladat az alábbiakból áll.
 
-**Félév során 12 gyakorlat megtartása.** A gyakorlatok a 2. oktatási héten kezdődnek és a 13. oktatási héten érnek véget. Egy gyakorlatvezető általában 2 gyakorlati csoport oktatásáért felel és mindkét csoportnak 6-6 gyakorlatot tart meg. A gyakorlat fix órarendi időben van, 90 perces, és számítógép laborban tartjuk. Szünetek miatt elmaradó laborokat nem pótolunk, így néha egy-kettővel kevesebb óra lehet. Lehetőség van többet is vállalni, tehát akár 4 csoportot is (4*6 gyakorlat a félév során).
+**Félév során 12 gyakorlat megtartása.** A gyakorlatok a 2. oktatási héten kezdődnek és a 13. oktatási héten érnek véget. Egy gyakorlatvezető általában 2 gyakorlati csoport oktatásáért felel és mindkét csoportnak 6-6 gyakorlatot tart meg. A gyakorlat fix órarendi időben van, 90 perces, és számítógép laborban tartjuk. Szünetek miatt elmaradó laborokat nem pótlunk, így néha egy-kettővel kevesebb óra lehet. Lehetőség van többet is vállalni, tehát akár 4 csoportot is (4*6 gyakorlat a félév során).
 
 A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető feladata a gyakorlatra való felkészülés, a gyakorlat megtartása, ennek során a szükséges háttérismeretek rövid átismétlése, a fontos részek kiemelése, és a hallgatók segítése a gyakorlat során. Egy gyakorlati órán 20 hallgató van a teremben.
 
@@ -125,7 +125,7 @@ Az értékelés végeztével:
 - Ha az automata értékelést felülbírálod pontszámban, akkor az `/ahk ok 1.5 2` parancsot kell kiadni, ahol is a számok a feladatokra kapott pontszámok. Az első szám a nem iMsc feladat pontszáma, a második az iMsc pontszám - ez utóbbi elhagyható 0 esetén.
 - Ha a beadott megoldás nem fogadható el (határidőn túl érkezett, a képek nem támasztják alá a megoldást, a forráskód elfogadhatatlan, stb.), akkor ki **kell** adni a `/ahk ok 0 0` parancsot. Ezzel fogjuk rögzíteni, hogy az automata értékelő által adott pontszámokat felülírjuk.
 
-A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Érdemes a hallgatónak legalább egy mondatot írni, hogy lássa, elfogadtuk a megoldást. Ha még sincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a parancssal.
+A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Érdemes a hallgatónak legalább egy mondatot írni, hogy lássa, elfogadtuk a megoldást. Ha még sincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a paranccsal.
 
 ![](images/hazi-github-pr-ahkcommand.png)
 

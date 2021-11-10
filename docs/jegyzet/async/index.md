@@ -11,7 +11,7 @@ A webes alkalmazásaink legnagyobb része valamilyen módon kommunikál adatbáz
 
 * elérhető az adatbázis szerver,
 * gyors a kapcsolat a kliens és a kiszolgáló között,
-* az adatokat az adabázis szerver gyorsan állítja elő.
+* az adatokat az adatbázis szerver gyorsan állítja elő.
 
 Ezért fel kell készülni arra, hogy a kiszolgálás során kért adatokra várni kell. Erre kínál megoldást az **aszinkronitás**, amely hatékonyan használja ki a kiszolgáló erőforrásait - például nem foglal a web kiszolgálón erőforrást, amíg az az adatbázisra vár.
 
@@ -27,7 +27,7 @@ Az alkalmazásunk a tárgy minta adatbázisához hasonló, de egyszerűbb adatb�
 !!! note ""
     Az egyszerűség kedvéért a kosarakban a _UserID_ nem idegen kulcsként szerepel egy _Users_ táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a _UserID_ idegen kulcs lenne.
 
-A _Products_ tábla reprezentál termékeket, a _Manufacturers_ tábla gyártókat (ez gyorsíthatja a gyártónként szűrést), az _OrderItems_ pedig kosárban levő termékeket.
+A _Products_ tábla reprezentál termékeket, a _Manufacturers_ tábla gyártókat (ez gyorsíthatja a gyártónkként szűrést), az _OrderItems_ pedig kosárban levő termékeket.
 
 ## Kiszolgáló alkalmazás felépítése
 

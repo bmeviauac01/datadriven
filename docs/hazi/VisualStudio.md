@@ -22,6 +22,12 @@ Meglevő telepítés a _Visual Studio Installer_-ben a [_Modify_](https://docs.m
 
 ![Visual Studio komponensek telepítése](images/visual-studio/vs-installer-modify.png)
 
+### Visual Studio 2022
+
+Visual Studio 2022 telepítésekor ki kell pipálni az alábbi workload-ot:
+
+![Visual Studio 2022 workload](images/visual-studio-2022/vs-workload.png)
+
 ## .NET Core SDK ellenőrzése és telepítése
 
 Visual Studio mellett bizonyos .NET Core SDK-k telepítésre kerülnek. A megfelelő verzió ellenőrzéséhez legegyszerűbb a `dotnet` CLI-t használni: konzolban add ki a `dotnet --list-sdks` parancsot. Ez a parancs Linux és Mac esetén is működik. A kimenete hasonló lesz:

@@ -49,11 +49,11 @@ Az SQL Management Studio query ablakban az intellisense első körben sosem műk
 
 Tárolt eljárás és trigger létrehozására a _Query_ ablak használható, amelyben a megfelelő létrehozó-módosító utasítást futtatjuk. Ügyeljünk rá, hogy ha már létrejött egyszer a trigger vagy tárolt eljárás, utána már csak módosítani tudjuk.
 
-A már létező tárolt eljárások az _Object Explorer_-ben az adatbázisunk alatti a _Programability/Stored Procedures_ mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a _Stored Procedures_ mappán jobb egérrel kattintva válasszuk a _Refresh_-t.)
+A már létező tárolt eljárások az _Object Explorer_-ben az adatbázisunk alatti a _Programmability/Stored Procedures_ mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a _Stored Procedures_ mappán jobb egérrel kattintva válasszuk a _Refresh_-t.)
 
 ![Tárolt eljárást](./images/tarolt-eljaras.png)
 
-A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a _Triggers_ mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti _Programability_ mappában).
+A triggerek az _Object Explorer_-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a _Triggers_ mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti _Programmability_ mappában).
 
 ![Trigger](./images/trigger.png)
 

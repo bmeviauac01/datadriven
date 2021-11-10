@@ -59,7 +59,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 1. Importáljuk a letöltött forráskódot a workspace-be:
     - Nyissuk meg a _File / Import..._-ot
     - Kezdjük el gépelni a textboxba, hogy _Existing Maven Projects_, így rá fog szűrni erre a típusra, és válasszuk ki ezt
-    - Keressük meg a letöltött webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
+    - Keressük meg a letöltött webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), Open Folder, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva a pom.xml)
     - Finish
 1. Tekintsük át röviden a projektet:
 
@@ -69,7 +69,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
     - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et).
 
-    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.
+    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok láthatóak benne.
 
     - `WebshopController`: a webréteget megvalósító controller osztály, ennek metódusai kezelik az alkalmazáshoz érkező HTTP kéréseket. Jellemzően lekérdezések eredményét akarjuk megjeleníteni az oldalon, ezért a lekérdezés eredményét a modellbe tesszük valamilyen néven, amire hivatkozni tudunk a Thymeleaf segítségével. A `//TODO` részekre kell majd bekötni az egyes feladatokat megvalósító metódusok meghívását.
 
@@ -79,7 +79,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 - Az entitások közül nyissunk meg egyet, pl. `Vat`, látszik benne a `@Entity`, a `@Id` annotáció, illetve a kapcsolatok definiálására `@OneToMany` vagy `@ManyToOne`
 
-- Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a `target\generated-sources\apt` alatt (A `pom.xml`-ben látható maven-precessor-plugin generálja egyébként őket a build során.)
+- Az entitásokhoz a Criteria API használatakor hasznos metamodel osztályok is generálódnak, ezekből nézzünk meg egyet a `target\generated-sources\apt` alatt (A `pom.xml`-ben látható maven-processor-plugin generálja egyébként őket a build során.)
 
 ## Feladat 4: Lekérdezések
 
@@ -173,7 +173,7 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     
     A dao package-ben lévő `ProductRepositoryImpl` osztály hibás lesz emiatt, mert nem implementálja a `ProductRepositoryCustom`-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:
     
-    ![Eclise interfész implementálása](images/eclipse-implement-methods.png)
+    ![Eclipse interfész implementálása](images/eclipse-implement-methods.png)
     
     Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)
     
@@ -360,7 +360,7 @@ A JPA nemcsak lekérdezéshez használható, hanem rajta keresztül módosítás
     
     **5.c feladat**
     
-    A `dao` package-be új interfész, `CategoryRepository` néven, a `ProductRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
+    A `dao` package-ben hozzunk létre egy új interfészt `CategoryRepository` néven, a `ProductRepository` mintájára (a Custom-os leszármazás nem kell, mert nem lesznek custom lekérdezéseink) egy metódussal:
     
     ```java
     public interface CategoryRepository extends JpaRepository<Category, Long>{

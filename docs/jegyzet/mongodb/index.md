@@ -56,7 +56,7 @@ Külső kulcs hivatkozások MongoDB-ben nincsenek. Tudunk hivatkozni más dokume
 ## MongoDB műveletek és a MongoDB .NET Driver
 
 !!! note ""
-    Az alábbi, illusztrációra használt kódrészletek a hivatalos [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver) Nuget csomagot használják.
+    Az alábbi, illusztrációra használt kódrészletek a hivatalos [MongoDB.Driver](https://www.nuget.org/packages/mongodb.driver) NuGet csomagot használják.
 
 
 ## Kapcsolat létesítése
@@ -119,7 +119,7 @@ foreach(var l in list)
 
 Ahogy a relációs adatbázisoknál láthattuk az objektum-relációs leképzést, MongoDB esetén is célszerű objektumokkal és osztályokkal dolgoznunk. A MongoDB .NET drivere ezt teljes mértékben biztosítja számunkra.
 
-Első lépésként definiálnunk kell a C# osztályt, ill. osztályokat, amikre az adatbázis tartalmát leképezzük. Mivel itt nincs az adatbázisnak és táblának sémája, nem tudjuk a séma alapján gerálni a C# kódot (mint Entity Framework esetén csináltuk). Így ebben a világban inkább a _Code First_ elvet követjük, azaz a C# kódot készítjük el, és abból készül az adatbázis és gyűjtemény (habár tudjuk, hogy itt nincs szó az osztály alapján táblák létrehozásáról).
+Első lépésként definiálnunk kell a C# osztályt, ill. osztályokat, amikre az adatbázis tartalmát leképezzük. Mivel itt nincs az adatbázisnak és táblának sémája, nem tudjuk a séma alapján generálni a C# kódot (mint Entity Framework esetén csináltuk). Így ebben a világban inkább a _Code First_ elvet követjük, azaz a C# kódot készítjük el, és abból készül az adatbázis és gyűjtemény (habár tudjuk, hogy itt nincs szó az osztály alapján táblák létrehozásáról).
 
 Definiáljuk a _Termékek_ reprezentáláshoz az alábbi osztályokat.
 
@@ -347,6 +347,7 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
     A létezik-e, azaz nem null szűrés azért különleges, mert a MongoDB szempontjából két módon is lehet null egy érték: ha a kulcs létezik a dokumentumban és értéke null; avagy, ha a kulcs nem is létezik.
 
 ### Szűrés beágyazott dokumentum mezőjére
+
 
 A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyazott dokumentum (a példákban a _VAT_ nem létezik):
 
