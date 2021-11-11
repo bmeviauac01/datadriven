@@ -1536,7 +1536,7 @@
 </ol>
 <p>Szerencsére a .NET Core rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.</p>
 <h3 id="1-register-lepes-fuggosegek-beregisztralasa">1) REGISTER lépés (függőségek beregisztrálása)<a class="headerlink" href="#1-register-lepes-fuggosegek-beregisztralasa" title="Permanent link">&para;</a></h3>
-<p>Asp.Net Core környezetben a függőségek beregisztrálása a <code>Startup</code> osztályunk <code>ConfigureServices(IServiceCollection services)</code> műveletében történik, mégpedig a IServiceCollection <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel. Első lépésben fókuszáljunk a <code>ConfigureServices</code> számunka legizgalmasabb részeire:</p>
+<p>Asp.Net Core környezetben a függőségek beregisztrálása a <code>Startup</code> osztályunk <code>ConfigureServices(IServiceCollection services)</code> műveletében történik, mégpedig az IServiceCollection <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel. Első lépésben fókuszáljunk a <code>ConfigureServices</code> számunka legizgalmasabb részeire:</p>
 <div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Startup</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>

@@ -1351,10 +1351,10 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: <code>SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin</code>. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont <code>org.hibernate.LazyInitializationException</code> dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és a orderitems listára hivatkozunk). Lehetséges megoldások:</p>
+<p>Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: <code>SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin</code>. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont <code>org.hibernate.LazyInitializationException</code> dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és az orderitems listára hivatkozunk). Lehetséges megoldások:</p>
 <ul>
 <li>Az <em>application.properties</em>-ben <code>spring.jpa.open-in-view=true</code> (ez lenne amúgy a default Spring Boot esetében, de a példa projektben direkt false-ra van állítva): Ilyenkor az EntityManager már a webes kérés legelején létrejön, és csak a view renderelése után záródik be, vagyis a Spring bean-beli metódusok visszatérése után is menedzselt állapotban lenne a Product entitás, és el lehetne kérni a kapcsolódó orderitems listát.</li>
-<li>vagy <code>@OneToMany(fetch=EAGER)</code> a orderitems változóra</li>
+<li>vagy <code>@OneToMany(fetch=EAGER)</code> az orderitems változóra</li>
 <li>vagy <em>EntityGraph</em> definiálása és annak alkalmazása a query létrehozásakor</li>
 <li>vagy <code>LEFT JOIN FETCH</code>, mi ezt választottuk a fenti megoldásban. E mellé a <code>DISTINCT</code> is kell, különben minden kapcsolódó Orderitem példányra külön Product sor is lesz.</li>
 </ul>
