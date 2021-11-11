@@ -203,10 +203,10 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     }
     ```
     
-    Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: `SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin`. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont `org.hibernate.LazyInitializationException` dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és a orderitems listára hivatkozunk). Lehetséges megoldások:
+    Megjegyzés a megoldáshoz: az első ötletünk ez lehetne: `SELECT p FROM Product p WHERE size(p.orderitems) /= :itemsMin`. Írjuk be és próbáljuk ki előbb ezt, ilyenkor viszont `org.hibernate.LazyInitializationException` dobódik teszteléskor, mert lecsatolt állapotban akarunk kapcsolódó entitást elérni (amikor a táblázatot generálja a webréteg, és az orderitems listára hivatkozunk). Lehetséges megoldások:
     
     - Az _application.properties_-ben `spring.jpa.open-in-view=true` (ez lenne amúgy a default Spring Boot esetében, de a példa projektben direkt false-ra van állítva): Ilyenkor az EntityManager már a webes kérés legelején létrejön, és csak a view renderelése után záródik be, vagyis a Spring bean-beli metódusok visszatérése után is menedzselt állapotban lenne a Product entitás, és el lehetne kérni a kapcsolódó orderitems listát.
-    - vagy `@OneToMany(fetch=EAGER)` a orderitems változóra
+    - vagy `@OneToMany(fetch=EAGER)` az orderitems változóra
     - vagy _EntityGraph_ definiálása és annak alkalmazása a query létrehozásakor
     - vagy `LEFT JOIN FETCH`, mi ezt választottuk a fenti megoldásban. E mellé a `DISTINCT` is kell, különben minden kapcsolódó Orderitem példányra külön Product sor is lesz.
     

@@ -309,7 +309,7 @@ Szerencsére a .NET Core rendelkezik IoC Container alapú dependency injection s
 
 ### 1) REGISTER lépés (függőségek beregisztrálása)
 
-Asp.Net Core környezetben a függőségek beregisztrálása a `Startup` osztályunk `ConfigureServices(IServiceCollection services)` műveletében történik, mégpedig a IServiceCollection __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel. Első lépésben fókuszáljunk a `ConfigureServices` számunka legizgalmasabb részeire:
+Asp.Net Core környezetben a függőségek beregisztrálása a `Startup` osztályunk `ConfigureServices(IServiceCollection services)` műveletében történik, mégpedig az IServiceCollection __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel. Első lépésben fókuszáljunk a `ConfigureServices` számunka legizgalmasabb részeire:
 
 ```csharp
 public class Startup
