@@ -1,6 +1,6 @@
 # Microsoft SQL Server programozása
 
-A gyakorlat célja, hogy a hallgatók megismerjék az Microsoft SQL Server platform szerver oldali programozásának alapjait, elsajátítsák az alapfogalmakat és a fejlesztőeszköz használatát.
+A gyakorlat célja, hogy a hallgatók megismerjék a Microsoft SQL Server platform szerver oldali programozásának alapjait, elsajátítsák az alapfogalmakat és a fejlesztőeszköz használatát.
 
 ## Előfeltételek
 

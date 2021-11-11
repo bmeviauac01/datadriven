@@ -34,7 +34,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 1. Várd meg, amíg elkészül a repository. A repository linkjét itt kapod meg.
 
     !!! note "Megjegyzés"
-        A repository privát lesz, azaz az senki nem látja, csak te, és az oktatók.
+        A repository privát lesz, azaz azt senki nem látja, csak te, és az oktatók.
 
     ![Repository created](images/github/github-repository-create-success.png)
 

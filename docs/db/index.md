@@ -88,7 +88,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | Amount             | A vásárolt mennyiség.                                                                                                                |
 |               | Price              | A tétel nettó egységára.                                                                                                             |
 |               | VATPercentage      | A tétel ÁFA kulcsa                                                                                                                   |
-|               | InvoiceID          | Idegen kulcs a számlára, melyhez a a számlatétel tartozik (Order tábla).                                                             |
+|               | InvoiceID          | Idegen kulcs a számlára, melyhez a számlatétel tartozik (Order tábla).                                                             |
 |               | OrderItemID        | Idegen kulcs a megrendelés tételre (OrderItem tábla), melyből a számlatétel keletkezett.                                             |
 
 ### Sajátosságok
