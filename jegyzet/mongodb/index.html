@@ -1583,10 +1583,10 @@
 <p>A relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia- és skálázási problémákkal járhat, ha relációs adatbázist használunk - ezzel azonban nem foglalkozunk mélyebben.</p>
 <p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.</p>
 <h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">&para;</a></h2>
-<p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az un. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
+<p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
 <p><img alt="A MongoDb architektúrája" src="images/mongodb_rendszer_architektura.png" /></p>
 <h3 id="logikai-felepites">Logikai felépítés<a class="headerlink" href="#logikai-felepites" title="Permanent link">&para;</a></h3>
-<p>Egy MongoDB-alapú adatbázis rendszer legfelső rétege az un. <em>klaszter</em>, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a <em>mongod</em> processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (<em>collection</em>) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt <em>dokumentumok</em> lesznek.</p>
+<p>Egy MongoDB-alapú adatbázis rendszer legfelső rétege az ún. <em>klaszter</em>, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a <em>mongod</em> processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (<em>collection</em>) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt <em>dokumentumok</em> lesznek.</p>
 <p>Nézzük ezeket pontosabban.</p>
 <h4 id="dokumentum">Dokumentum<a class="headerlink" href="#dokumentum" title="Permanent link">&para;</a></h4>
 <p>A dokumentum a MongoDB alap tárolási egysége. Egy dokumentum egy JSON (jellegű) fájl, tehát kulcs-érték párokat tartalmaz. Maga a MongoDB BSON-ként, bináris reprezentációként tárolja mindezt.</p>
@@ -1628,7 +1628,7 @@
 <p>Egy relációs adatbázistól eltérően <strong>MongoDB-ben a műveleteinket mindig egyetlen gyűjteményen végezzük</strong>, így a gyűjtemény kiválasztása nem a kiadott parancs része (mint az SQL nyelvben a <code>from</code>), hanem a művelet előfeltétele. Egy adott gyűjteményt a <code>GetCollection</code> hívással kaphatunk meg, generikus paramétere a dokumentum típust megvalósító C# osztály.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">GetCollection</span><span class="p">&lt;</span><span class="n">BsonDocument</span><span class="p">&gt;(</span><span class="s">&quot;products&quot;</span><span class="p">);</span>
 </code></pre></div>
-<p>A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az un. <em>ODM (Object Document Mapping)</em> funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.</p>
+<p>A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az ún. <em>ODM (Object Document Mapping)</em> funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.</p>
 <div class="admonition warning">
 <p class="admonition-title">"Nyers" json</p>
 <p>Más nyelveken és platformokon a MongoDB driverek nem mindig végzik el a leképezést objektumokra, így az interneten található példákban gyakran "nyers" JSON dokumentumokon keresztüli kommunikációt mutatnak. Igyekezzünk ezt elkerülni, ahogy az ORM témakörében megtanultuk, kényelmesebb és biztonságosabb az objektumorientált leképzés.</p>
@@ -1650,7 +1650,7 @@
 </code></pre></div>
 <div class="admonition important">
 <p class="admonition-title">Elnevezési konvenció</p>
-<p>A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint <code>price</code> vagy <code>categoryName</code> (ez az un. <em>camel case</em> írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.</p>
+<p>A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint <code>price</code> vagy <code>categoryName</code> (ez az ún. <em>camel case</em> írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.</p>
 </div>
 <h2 id="dokumentumok-lekepzese-c-objektumokra">Dokumentumok leképzése C# objektumokra<a class="headerlink" href="#dokumentumok-lekepzese-c-objektumokra" title="Permanent link">&para;</a></h2>
 <p>Ahogy a relációs adatbázisoknál láthattuk az objektum-relációs leképzést, MongoDB esetén is célszerű objektumokkal és osztályokkal dolgoznunk. A MongoDB .NET drivere ezt teljes mértékben biztosítja számunkra.</p>
@@ -1672,7 +1672,7 @@
     <span class="k">public</span> <span class="kt">float</span> <span class="n">Percentage</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Figyeljük meg, hogy korábban <code>price</code> néven használtuk a dokumentumban a kulcsot, de a C# osztályban az un. <em>Pascal Case</em> szerint nagybetűvel kezdjük: <code>Price</code>. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a <code>Price</code> osztály tulajdonságból <code>price</code> kulcs név lesz a dokumentumban.</p>
+<p>Figyeljük meg, hogy korábban <code>price</code> néven használtuk a dokumentumban a kulcsot, de a C# osztályban az ún. <em>Pascal Case</em> szerint nagybetűvel kezdjük: <code>Price</code>. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a <code>Price</code> osztály tulajdonságból <code>price</code> kulcs név lesz a dokumentumban.</p>
 <h3 id="a-lekepzes-testreszabasa">A leképzés testreszabása<a class="headerlink" href="#a-lekepzes-testreszabasa" title="Permanent link">&para;</a></h3>
 <p>A C# osztály - MongoDB dokumentum leképzés automatikus, de testreszabható. Amennyiben el szeretnénk térni az alap konvencióktól, több féle módon is megtehetjük.</p>
 <p>A legegyszerűbb, ha az osztály definíciójában attribútumokkal jelöljük a testreszabást:</p>
@@ -1691,7 +1691,7 @@
     <span class="k">public</span> <span class="kt">string</span> <span class="n">NemMentett</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Másik lehetőségünk magasabb szinten un. konvenció-csomagokat beregisztrálni. A konvenció-csomagok általánosan leírják, hogyan történjen a leképezés. (Az alap viselkedés is egy konvenció-csomag alapján definiált.)</p>
+<p>Másik lehetőségünk magasabb szinten ún. konvenció-csomagokat beregisztrálni. A konvenció-csomagok általánosan leírják, hogyan történjen a leképezés. (Az alap viselkedés is egy konvenció-csomag alapján definiált.)</p>
 <p>Például az alábbiakkal megadhatjuk, hogy camel case-re szeretnénk a mező neveket leképezni, valamint a default értékkel rendelkező adattagokat (C# nyelv szerint definiált default érték) szeretnénk kihagyni a dokumentumból.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// konvenciók definiálása</span>
 <span class="kt">var</span> <span class="n">pack</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ConventionPack</span><span class="p">();</span>
@@ -1732,7 +1732,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy <code>BsonDocument</code>-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a <code>&lt;</code> feltétel esetén. Ebben az <code>$lt</code> kulcs egy speciális kulcs, azt jelöli, hogy a <em>less than</em> operátorral kell a kiértékelés végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">JavaScript RegExp szintaktika</a> szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan <em>és</em> kapcsolatba kerülnek.</p>
-<p>A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy un. <strong><em>builder</em></strong> segítségével építsük fel a szűrési feltételt.</p>
+<p>A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy ún. <strong><em>builder</em></strong> segítségével építsük fel a szűrési feltételt.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
     <span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
         <span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="m">123</span><span class="p">),</span>
@@ -1763,7 +1763,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="szureshez-hasznalhato-operatorok">Szűréshez használható operátorok<a class="headerlink" href="#szureshez-hasznalhato-operatorok" title="Permanent link">&para;</a></h3>
-<p>A szűrési feltételek a dokumentumban található mezőkre vonatkoznak, és a szűrési feltétel mindig egy konstans. Tehát <strong>nem lehetséges például két mezőt összehasonlítani</strong>, és nem tudunk más gyűjteményekre se hivatkozni. Létezik a MongoDB-ben egy un. aggregációs pipeline, amely segítségével bonyolultabb lekérdezéseket is megfogalmazhatunk, most viszont az egyszerű lekérdezésekre koncentrálunk.</p>
+<p>A szűrési feltételek a dokumentumban található mezőkre vonatkoznak, és a szűrési feltétel mindig egy konstans. Tehát <strong>nem lehetséges például két mezőt összehasonlítani</strong>, és nem tudunk más gyűjteményekre se hivatkozni. Létezik a MongoDB-ben egy ún. aggregációs pipeline, amely segítségével bonyolultabb lekérdezéseket is megfogalmazhatunk, most viszont az egyszerű lekérdezésekre koncentrálunk.</p>
 <p>A szűrési feltétel tehát a dokumentum egy mezőjét egy általunk megadott konstanshoz hasonlítja. Az alábbi lehetőségek a leggyakrabban használtak.</p>
 <h4 id="osszehasonlitasi-operatorok">Összehasonlítási operátorok<a class="headerlink" href="#osszehasonlitasi-operatorok" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Price</span> <span class="p">==</span> <span class="m">123</span><span class="p">);</span>
@@ -1839,7 +1839,7 @@
 <p>Az <code>Any*</code> feltételek a tömb minden elemét vizsgálják, de a dokumentum szempontjából csak egyszer illeszkednek. Tehát, ha a tömb több eleme is illeszkedik egy feltételre, attól még csak egyszer kapjuk meg a dokumentumot az eredményhalmazban.</p>
 </div>
 <h2 id="lekerdezes-vegrehajto-pipeline">Lekérdezés-végrehajtó pipeline<a class="headerlink" href="#lekerdezes-vegrehajto-pipeline" title="Permanent link">&para;</a></h2>
-<p>A MongoDB lekérdezések egy un. pipeline-on haladnak végig. Ennek részleteivel nem fogunk megismerkedni, de az egyszerű szűréseken kívül pár további, lekérdezésekben használt elemet fogunk látni.</p>
+<p>A MongoDB lekérdezések egy ún. pipeline-on haladnak végig. Ennek részleteivel nem fogunk megismerkedni, de az egyszerű szűréseken kívül pár további, lekérdezésekben használt elemet fogunk látni.</p>
 <h4 id="lapozas-rendezes">Lapozás, rendezés<a class="headerlink" href="#lapozas-rendezes" title="Permanent link">&para;</a></h4>
 <p>A lapozáshoz megadatjuk, maximálisan hány illeszkedő dokumentumot kérünk:</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Limit</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
@@ -1963,7 +1963,7 @@
 </code></pre></div>
 <p>A módosító operátorok atomi módon teszik szerkeszthetővé a dokumentumainkat. Használatukkal kiküszöbölhető a konkurens adathozzáférésből eredő problémák egy része.</p>
 <h4 id="upsert-beszuras-vagy-modositas"><em>Upsert</em>: beszúrás vagy módosítás<a class="headerlink" href="#upsert-beszuras-vagy-modositas" title="Permanent link">&para;</a></h4>
-<p>Módosító művelet során lehetőségünk van az un. <em>upsert (update/insert)</em> jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés <em>nem</em> upsert, azt külön kérnünk kell.</p>
+<p>Módosító művelet során lehetőségünk van az ún. <em>upsert (update/insert)</em> jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés <em>nem</em> upsert, azt külön kérnünk kell.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">ReplaceOne</span><span class="p">(</span>
     <span class="n">filter</span><span class="p">:</span> <span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Id</span> <span class="p">==</span> <span class="k">new</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s">&quot;...&quot;</span><span class="p">),</span>
     <span class="n">replacement</span><span class="p">:</span> <span class="n">replacementObject</span><span class="p">,</span>

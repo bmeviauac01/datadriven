@@ -1300,7 +1300,7 @@
 <p>Az adatbázis terhelése nő. Nyilvánvaló, hogy ha több feladatot lát el egy szerver, akkor több erőforrást fog igényelni. Az adatbázisok egyébként is kritikus pontjai az adatvezérelt rendszereknek, főként, hogy a klasszikus relációs adatbázisok nem jól támogatják a horizontális skálázást (a terhelés megosztását több szerver között). Ha még több feladatot, még több felelősséget kap egy adatbázis szerver, hamar lassúvá válhat.</p>
 </li>
 <li>
-<p>A technológia ma már nem fejlődik tovább. Nevezhetjük akár kifutó technológiának is, amelyet leginkább az un. <em>legacy</em>, már régóta fejlesztett alkalmazásokban használnak leginkább. Új technológiai eszköztárat használó szoftverfejlesztési projektekben ritkábban jelenik meg ezen szerveroldali világ.</p>
+<p>A technológia ma már nem fejlődik tovább. Nevezhetjük akár kifutó technológiának is, amelyet leginkább az ún. <em>legacy</em>, már régóta fejlesztett alkalmazásokban használnak leginkább. Új technológiai eszköztárat használó szoftverfejlesztési projektekben ritkábban jelenik meg ezen szerveroldali világ.</p>
 </li>
 </ul>
 <h2 id="a-t-sql-nyelv-alapjai">A T-SQL nyelv alapjai<a class="headerlink" href="#a-t-sql-nyelv-alapjai" title="Permanent link">&para;</a></h2>
@@ -1335,7 +1335,7 @@
 <span class="k">SELECT</span> <span class="o">@</span><span class="n">num</span>
 <span class="c1">-- 3</span>
 </code></pre></div>
-<p>A változó scope-ja nem kötődik az utasítás blokkhoz (<code>BEGIN-END</code> között). A változó az un. <em>batch</em>-en belül vagy tárolt eljáráson belül érvényes:</p>
+<p>A változó scope-ja nem kötődik az utasítás blokkhoz (<code>BEGIN-END</code> között). A változó az ún. <em>batch</em>-en belül vagy tárolt eljáráson belül érvényes:</p>
 <div class="highlight"><pre><span></span><code><span class="k">BEGIN</span>
   <span class="k">DECLARE</span> <span class="o">@</span><span class="n">num</span> <span class="nb">int</span>
   <span class="k">SET</span> <span class="o">@</span><span class="n">num</span> <span class="o">=</span> <span class="mi">3</span>
@@ -1548,7 +1548,7 @@
 
 <span class="c1">-- Tipikus megnyitás, fetch, ciklus</span>
 <span class="k">OPEN</span> <span class="n">products_cur</span>
-<span class="k">FETCH</span> <span class="k">FROM</span> <span class="n">products_cur</span> <span class="k">INTO</span> <span class="o">@</span><span class="n">ProductID</span><span class="p">,</span> <span class="o">@</span><span class="n">ProductName</span>
+<span class="k">FETCH</span> <span class="k">NEXT</span> <span class="k">FROM</span> <span class="n">products_cur</span> <span class="k">INTO</span> <span class="o">@</span><span class="n">ProductID</span><span class="p">,</span> <span class="o">@</span><span class="n">ProductName</span>
 <span class="n">WHILE</span> <span class="o">@@</span><span class="n">FETCH_STATUS</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">BEGIN</span>
 
@@ -1571,7 +1571,7 @@
   <span class="k">END</span>
 
   <span class="c1">-- Következő rekord lekérdezése, majd ugrás a WHILE ciklushoz ellenőrizve, hogy sikeres volt-e</span>
-  <span class="k">FETCH</span> <span class="k">FROM</span> <span class="n">products_cur</span> <span class="k">INTO</span> <span class="o">@</span><span class="n">ProductID</span><span class="p">,</span> <span class="o">@</span><span class="n">ProductName</span>
+  <span class="k">FETCH</span> <span class="k">NEXT</span> <span class="k">FROM</span> <span class="n">products_cur</span> <span class="k">INTO</span> <span class="o">@</span><span class="n">ProductID</span><span class="p">,</span> <span class="o">@</span><span class="n">ProductName</span>
 <span class="k">END</span>
 <span class="c1">-- Kurzor használatának befejezése</span>
 <span class="k">CLOSE</span> <span class="n">products_cur</span>
@@ -1847,7 +1847,7 @@
 <p>Egy eseményre több trigger is definiálható, melyek lefutási sorrendje nem specifikált. Az első és utolsó triggert megadhatjuk, de más tekintetben nem építhetünk a sorrendre - és alapvetően nem is javasolt úgy dolgozni a triggerekkel, hogy azok egymásra építsenek.</p>
 </div>
 <h3 id="instead-of-trigger"><em>Instead of</em> trigger<a class="headerlink" href="#instead-of-trigger" title="Permanent link">&para;</a></h3>
-<p>A triggerek egy speciális fajtája az un. <em>instead of trigger</em>. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált <em>instead of</em> trigger, ahogy a neve sugallja, a végrehajtandó utasítás (<code>insert/update/delete</code>) <em>helyett</em> fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában <em>utasítás előtti</em> triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.</p>
+<p>A triggerek egy speciális fajtája az ún. <em>instead of trigger</em>. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált <em>instead of</em> trigger, ahogy a neve sugallja, a végrehajtandó utasítás (<code>insert/update/delete</code>) <em>helyett</em> fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában <em>utasítás előtti</em> triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.</p>
 <p>Tipikus felhasználási esete az <em>instead of</em> triggernek az ellenőrzési feladatokon túl például, ha egy törlést valójában nem akarunk végrehajtani. Ezt szokás <em>soft delete</em>-nek hívni, amikor törlés <em>helyett</em> csak töröltnek jelöljük a rekordokat:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel</span>
 <span class="k">alter</span> <span class="k">table</span> <span class="n">Product</span>

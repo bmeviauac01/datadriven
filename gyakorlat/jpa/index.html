@@ -1343,9 +1343,9 @@
 
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="nf">findProductsOrderedAtLeastTwice</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="n">em</span><span class="p">.</span><span class="na">createQuery</span><span class="p">(</span><span class="s">&quot;SELECT DISTINCT p FROM Product p</span>
-<span class="s">                          LEFT JOIN FETCH p.orderitems</span>
-<span class="s">                          WHERE size(p.orderitems) &gt;= :itemsMin&quot;</span><span class="p">,</span> <span class="n">Product</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">em</span><span class="p">.</span><span class="na">createQuery</span><span class="p">(</span><span class="s">&quot;SELECT DISTINCT p FROM Product p &quot;</span> <span class="o">+</span>
+                          <span class="s">&quot;LEFT JOIN FETCH p.orderitems &quot;</span> <span class="o">+</span>
+                          <span class="s">&quot;WHERE size(p.orderitems) &gt;= :itemsMin&quot;</span><span class="p">,</span> <span class="n">Product</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
           <span class="p">.</span><span class="na">setParameter</span><span class="p">(</span><span class="s">&quot;itemsMin&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
           <span class="p">.</span><span class="na">getResultList</span><span class="p">();</span>
   <span class="p">}</span>
