@@ -194,9 +194,9 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     
       @Override
       public List<Product> findProductsOrderedAtLeastTwice(){
-        return em.createQuery("SELECT DISTINCT p FROM Product p
-                              LEFT JOIN FETCH p.orderitems
-                              WHERE size(p.orderitems) >= :itemsMin", Product.class)
+        return em.createQuery("SELECT DISTINCT p FROM Product p " +
+                              "LEFT JOIN FETCH p.orderitems " +
+                              "WHERE size(p.orderitems) >= :itemsMin", Product.class)
               .setParameter("itemsMin", 2)
               .getResultList();
       }

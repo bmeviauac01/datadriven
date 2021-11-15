@@ -145,7 +145,7 @@ public class Startup
 
 ### Data Transfer Object létrehozása
 
-Az előző két lépés eredményeként rendelkezésünkre áll az adatbázis és tábláinak leképzése. Következő lépésként gondoljunk bele abba, hogyan néz ki egy webshopban a kosár: egy kosárban egyszerre több termék jelenik meg. Tehát míg az `OrderItem` osztályunk egy megrendelt terméket tud reprezentálni, a teljes kosarat ilyen elemek listája jelenti. Ez a termék lista egy un. _Data Transfer Object_ használatával írható le: ez egy olyan osztály, ami a **kliens számára használható** adatot gyűjt össze az adatbázisból.
+Az előző két lépés eredményeként rendelkezésünkre áll az adatbázis és tábláinak leképzése. Következő lépésként gondoljunk bele abba, hogyan néz ki egy webshopban a kosár: egy kosárban egyszerre több termék jelenik meg. Tehát míg az `OrderItem` osztályunk egy megrendelt terméket tud reprezentálni, a teljes kosarat ilyen elemek listája jelenti. Ez a termék lista egy ún. _Data Transfer Object_ használatával írható le: ez egy olyan osztály, ami a **kliens számára használható** adatot gyűjt össze az adatbázisból.
 
 !!! abstract "Definíció: Data Transfer Object"
     Egy olyan objektum, ami adatot szállít futó alkalmazások (itt: kliens és szerver) között.
@@ -237,7 +237,7 @@ Figyeljük meg a függvény deklarációjában az `async` kulcsszót és a `Task
 1. Amelyet a WebAPI kontrollernek megfelelően egy `ActionResult`-ba csomagolunk,
 1. És az egészet még egy `Task`-ba is tesszük. Ez az aszinkronitás miatt van.
 
-A fentiek mindegyike más miatt kell, de így, együtt adják a teljes megoldást. Nézzük ebből is az aszinkronitást, azaz a `Task` típust és az `await` kulcsszót. Ezzel a definícióval egy un. "promise"-t adunk vissza (más nyelvekben szokták így hívni), amely egy jövőben elvégzendő feladat eredményét (fogja) tartalmazni.
+A fentiek mindegyike más miatt kell, de így, együtt adják a teljes megoldást. Nézzük ebből is az aszinkronitást, azaz a `Task` típust és az `await` kulcsszót. Ezzel a definícióval egy ún. "promise"-t adunk vissza (más nyelvekben szokták így hívni), amely egy jövőben elvégzendő feladat eredményét (fogja) tartalmazni.
 
 Miért jó ez? Azért, mert a kontroller metódus elvégzése így lesz aszinkron. Amikor a rendszer egy `await` utasításhoz ér, a szál, ami eddig a feldolgozást végezte, abbahagyja ennek a kérésnek a kiszolgálását, és egy másik kérés végrehajtásával folytatja a munkát. Miért is? Mert az `await` "mögötti" feladatról tudjuk, hogy időigényes: az adatbázisra és a hálózatra várunk. Feleslegesen várakoztatnánk a kiszolgáló szálat, ha az itt "megállna" és bevárná az eredményt. Ehelyett a feladatot kiadjuk egy háttér rendszernek (az operációs rendszer és a .NET aszinkron I/O alrendszerének - ebbe azonban nem megyünk bele), és arról kérünk értesítést, amikor az itt várt végeredmény elkészült. Amint ez megtörténik, a korábban felfüggesztett kérés kiszolgálása folytatódik tovább.
 

@@ -109,7 +109,7 @@ Egy valódi API természetesen nem konstansokat ad vissza. Készítsünk API-t a
 - Készítsünk ehhez egy új controller-t.
 - Lehessen listázni a termékeket, de csak lapozva (max 5 elem minden lapon).
 - Lehessen keresni termék névre.
-- A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, un. _DTO_ (data transfer object) osztályt egy új, `Models` mappában.
+- A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) osztályt egy új, `Models` mappában.
 
 Teszteljük a megoldásunkat.
 

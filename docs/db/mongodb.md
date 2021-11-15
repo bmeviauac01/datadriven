@@ -1,6 +1,6 @@
 # MongoDB használata
 
-A MongoDB ingyenes, open-source adatbázis kiszolgáló. Mi az un. _community_ változatát használjuk, kliens szoftvernek pedig a _Robo 3T_ alkalmazást.
+A MongoDB ingyenes, open-source adatbázis kiszolgáló. Mi az ún. _community_ változatát használjuk, kliens szoftvernek pedig a _Robo 3T_ alkalmazást.
 
 Letöltési linkek:
 
