@@ -30,7 +30,7 @@ Természetesen a szerveroldali programozásnak **hátrányai** is vannak.
 
 - Az adatbázis terhelése nő. Nyilvánvaló, hogy ha több feladatot lát el egy szerver, akkor több erőforrást fog igényelni. Az adatbázisok egyébként is kritikus pontjai az adatvezérelt rendszereknek, főként, hogy a klasszikus relációs adatbázisok nem jól támogatják a horizontális skálázást (a terhelés megosztását több szerver között). Ha még több feladatot, még több felelősséget kap egy adatbázis szerver, hamar lassúvá válhat.
 
-- A technológia ma már nem fejlődik tovább. Nevezhetjük akár kifutó technológiának is, amelyet leginkább az un. _legacy_, már régóta fejlesztett alkalmazásokban használnak leginkább. Új technológiai eszköztárat használó szoftverfejlesztési projektekben ritkábban jelenik meg ezen szerveroldali világ.
+- A technológia ma már nem fejlődik tovább. Nevezhetjük akár kifutó technológiának is, amelyet leginkább az ún. _legacy_, már régóta fejlesztett alkalmazásokban használnak leginkább. Új technológiai eszköztárat használó szoftverfejlesztési projektekben ritkábban jelenik meg ezen szerveroldali világ.
 
 ## A T-SQL nyelv alapjai
 
@@ -73,7 +73,7 @@ SELECT @num
 -- 3
 ```
 
-A változó scope-ja nem kötődik az utasítás blokkhoz (`BEGIN-END` között). A változó az un. _batch_-en belül vagy tárolt eljáráson belül érvényes:
+A változó scope-ja nem kötődik az utasítás blokkhoz (`BEGIN-END` között). A változó az ún. _batch_-en belül vagy tárolt eljáráson belül érvényes:
 
 ```sql
 BEGIN
@@ -341,7 +341,7 @@ FOR UPDATE OF Price -- Szeretnénk frissíteni is a rekordokat
 
 -- Tipikus megnyitás, fetch, ciklus
 OPEN products_cur
-FETCH FROM products_cur INTO @ProductID, @ProductName
+FETCH NEXT FROM products_cur INTO @ProductID, @ProductName
 WHILE @@FETCH_STATUS = 0
 BEGIN
 
@@ -364,7 +364,7 @@ BEGIN
   END
 
   -- Következő rekord lekérdezése, majd ugrás a WHILE ciklushoz ellenőrizve, hogy sikeres volt-e
-  FETCH FROM products_cur INTO @ProductID, @ProductName
+  FETCH NEXT FROM products_cur INTO @ProductID, @ProductName
 END
 -- Kurzor használatának befejezése
 CLOSE products_cur
@@ -696,7 +696,7 @@ Ebben a triggerben érdemes észrevenni, hogy míg az esemény az `OrderItem` t�
 
 ### _Instead of_ trigger
 
-A triggerek egy speciális fajtája az un. _instead of trigger_. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált _instead of_ trigger, ahogy a neve sugallja, a végrehajtandó utasítás (`insert/update/delete`) _helyett_ fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában _utasítás előtti_ triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.
+A triggerek egy speciális fajtája az ún. _instead of trigger_. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált _instead of_ trigger, ahogy a neve sugallja, a végrehajtandó utasítás (`insert/update/delete`) _helyett_ fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában _utasítás előtti_ triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.
 
 Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési feladatokon túl például, ha egy törlést valójában nem akarunk végrehajtani. Ezt szokás _soft delete_-nek hívni, amikor törlés _helyett_ csak töröltnek jelöljük a rekordokat:
 

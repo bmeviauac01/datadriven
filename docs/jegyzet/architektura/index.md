@@ -56,7 +56,7 @@ Adatvezérelt rendszereket tipikusan a többrétegű-, avagy háromrétegű arch
 Ezen kívül az architektúrához kapcsolódik még:
 
 * az adatbázis, ill. külső adatforrások;
-* és az un. rétegfüggetlen szolgáltatások (lásd később).
+* és az ún. rétegfüggetlen szolgáltatások (lásd később).
 
 Az alkalmazásunkat úgy szervezzük meg, hogy az egyes komponensek (szoftver elemek) rétegekbe szerveződnek, és minden egyes réteg más-más funkcionalitásért felel. Ez a logikai szervezés megkönnyíti a szoftverfejlesztők munkáját azáltal, hogy egyértelmű felelősségi köröket és határokat jelöl ki a rétegekben.
 
@@ -78,7 +78,7 @@ Egy jó architektúrával rendelkező alkalmazás hosszú életciklusa során is
 A többrétegű architektúrával készülő alkalmazások kód szervezése is tükrözi a rétegek felépítését. Az adott programozási környezet lehetőségeit és szokásait figyelembe véve az egyes rétegeket külön projektekbe, csomagokba szokás elhelyezni. Ez egyértelművé teszi az egymásra épülést is, hiszen a projektek és csomagok között általában csak egyirányú hivatkozás lehetséges (tehát ha az üzleti logikai csomag használja az adatelérési réteget, akkor fordítva ez már nem történhet meg).
 
 !!! tip ""
-    A többrétegű architektúra nem az egyetlen lehetőség adatvezérelt alkalmazás megvalósítása esetén. Kis, egyszerű alkalmazásokra célszerű lehet a kétrétegű architektúra, míg sokkal komplexebb rendszerek esetén az alkalmazás további darabolása is szükséges lehet például un. mikroszolgáltatások architektúra irányába lépve.
+    A többrétegű architektúra nem az egyetlen lehetőség adatvezérelt alkalmazás megvalósítása esetén. Kis, egyszerű alkalmazásokra célszerű lehet a kétrétegű architektúra, míg sokkal komplexebb rendszerek esetén az alkalmazás további darabolása is szükséges lehet például ún. mikroszolgáltatások architektúra irányába lépve.
 
 ## A többrétegű architektúra rétegeinek felelőssége
 
@@ -93,14 +93,14 @@ A rétegeken "lentről felfelé" haladunk végig.
 
 ### Az adatforrások
 
-A leggyakoribb adatforrás az **adatbázis**. Ez lehet relációs, vagy akár NoSQL adatbázis is. Feladata az adataink hosszú távon megmaradó és megbízható (un. "perzisztens") tárolása. Tipikusan ez az adatbázis egy megbízható gyártótól származó szoftver, amely egy külön erre a célra üzemeltetett kiszolgálón fut, így az adatelérési réteg hálózaton keresztül éri el.
+A leggyakoribb adatforrás az **adatbázis**. Ez lehet relációs, vagy akár NoSQL adatbázis is. Feladata az adataink hosszú távon megmaradó és megbízható (ún. "perzisztens") tárolása. Tipikusan ez az adatbázis egy megbízható gyártótól származó szoftver, amely egy külön erre a célra üzemeltetett kiszolgálón fut, így az adatelérési réteg hálózaton keresztül éri el.
 
 Előfordulhat az is, hogy a rendszer által kezelt adatok nem mind a saját adatbázisunkban találhatóak, hanem olyan más **külső szolgáltatásokban**, amelyeket "adatbázisként" használunk. Például a Gmail esetén fájl csatolmányok tárolhatóak az emailekkel együtt egy adatbázisban, de lehetőségünk van Google Drive-ról is csatolni fájlokat. A Gmail ilyenkor a Google Drive-ról letölti az elérhető fájlok listáját, hogy a felhasználó kiválassza a csatolandó mellékletet. A Google Drive nem adatbázis, mégis, a használat szempontjából adatforrásként működik.
 
 Az ilyen jellegű külső szolgáltatásokat azért az adatbázisok mellett helyezzük el képzeletben, mert a mi alkalmazásunk számára csak adatokat szolgáltatnak (pl. listázd az elérhető fájlokat). A belső működésükbe nem látunk bele, és nem is célunk azt megérteni. Ilyen szempontból nem nagy a különbség egy relációs adatbázis és egy külső szolgáltatás között.
 
 !!! note ""
-    Ma már több modern adatbázis-kezelő rendszer is gyakran rendelkeznek a külső szolgáltatások eléréséhez használt HTTP/REST-jellegű interfésszel, és nem SQL nyelven kell velük kommunikálni. Így egyre kevesebb a különbség egy adatbázis és egy külső adatforrás között.
+    Ma már több modern adatbázis-kezelő rendszer is gyakran rendelkezik a külső szolgáltatások eléréséhez használt HTTP/REST-jellegű interfésszel, és nem SQL nyelven kell velük kommunikálni. Így egyre kevesebb a különbség egy adatbázis és egy külső adatforrás között.
 
 ### Adatelérési réteg
 
@@ -148,7 +148,7 @@ A fenti ábrán megkülönböztetésre került a *services* alréteg. Ezt az üz
 
 Minden eddig tárgyalt réteg ugyanígy biztosít egy interfészt a felsőbb rétegek számára. Az üzleti logikai réteg azért speciális, és azért szokás ezt a szolgáltatási interfész alréteget külön megemlíteni, mert manapság gyakran nem is egyetlen ilyen interfészt publikálnak az alkalmazások. Gyakori, hogy egy alkalmazás több megjelenítési réteggel is rendelkezik, gondoljunk csak bele a Gmail esetébe: webalkalmazás, és sok féle mobil platform. Mindegyik felhasználói felület hasonló, de nem teljesen azonos szolgáltatást nyújt, így gyakran elkülönülnek a különböző megjelenítési rétegek számára nyújtott interfészek.
 
-További gyakori eset, hogy az alkalmazásunk nem csak egy saját megjelenítési réteggel rendelkezik, hanem un. API-t (*application programming interface*) is elérhetővé tesz. Az API harmadik fél számára teszi elérhetővé az alkalmazásunk funkcióit. A saját felhasználói felületünk, és a harmadik fél számára nyújtott API funkcionalitása és elérése gyakran eltérő, és külön technológiát, így külön szolgáltatási interfészeket is igényel.
+További gyakori eset, hogy az alkalmazásunk nem csak egy saját megjelenítési réteggel rendelkezik, hanem ún. API-t (*application programming interface*) is elérhetővé tesz. Az API harmadik fél számára teszi elérhetővé az alkalmazásunk funkcióit. A saját felhasználói felületünk, és a harmadik fél számára nyújtott API funkcionalitása és elérése gyakran eltérő, és külön technológiát, így külön szolgáltatási interfészeket is igényel.
 
 !!! note ""
     Az API publikálással válhat a mi alkalmazásunk maga is külső adatforrássá más alkalmazások számára.
@@ -164,9 +164,9 @@ Az adatok prezentálása olyan módon kell történjen, ahogy az a felhasználó
 !!! info "Rendezés és keresés"
     A választott technológia függvényében a rendezés, keresés tipikusan igénybe veszi a többi réteget is. Nagy mennyiségű adat, több száz, vagy több ezer rekordot nem célszerű egyben eljuttatni a megjelenítési réteg számára, hogy ott legyen a keresés megvalósítva. Ez egyrészt terheli a hálózatot is, másrészt a UI technológiák limitációi miatt nem hatékony sok adatot itt memóriában tartani. Viszont, ha nem nagy mennyiségű adatról van szó, sokkal elegánsabb a megjelenítési rétegre bízni mindezt, mert sokkal gyorsabb lesz a visszajelzés a felhasználónak (hiszen ha mindezt a UI végzi, nem szükséges minden alkalommal a háttérrendszerhez fordulni).
 
-Az adatok megjelenítése során a UI felelős olyan egyszerű transzformációkért is, mint például a dátum felhasználóbarát megjelenítése. A korábban említett példa alapján tehát egy dátumot a felhasználói felület feladata a "15:23", 3:23 AM", vagy akár a "15 perccel ezelőtt" szöveges megjelenítésre átalakítani.
+Az adatok megjelenítése során a UI felelős olyan egyszerű transzformációkért is, mint például a dátum felhasználóbarát megjelenítése. A korábban említett példa alapján tehát egy dátumot a felhasználói felület feladata a "15:23", 3:23 PM", vagy akár a "15 perccel ezelőtt" szöveges megjelenítésre átalakítani.
 
-Továbbá, a felhasználói felület feladata az un. lokalizáció is. A lokalizáció a UI felhasználó által választott nyelven való megjelenítése, amely kiterjed a statikus szövegekre, feliratokra is, de egyben a kultúra függő adat transzformációkra is (mint a dátumok, számok, pénznemek megjelenítése is).
+Továbbá, a felhasználói felület feladata az ún. lokalizáció is. A lokalizáció a UI felhasználó által választott nyelven való megjelenítése, amely kiterjed a statikus szövegekre, feliratokra is, de egyben a kultúra függő adat transzformációkra is (mint a dátumok, számok, pénznemek megjelenítése is).
 
 A felhasználói felület felel még a végfelhasználó interakcióinak kezeléséért. Ha egy gombra kattintottak, akkor a UI kezdeményezi a kért funkció végrehajtását, és tájékoztatja a végeredményről a felhasználót.
 
@@ -205,7 +205,7 @@ Az üzemeltetési szempontok figyelembe vétele elősegíti, hogy a szoftver fej
 
 A kivételkezelés során egy olyan egységes módszert kell kialakítani, ami az alkalmazás futása során keletkező minden kivételt megfog. Mindenképpen rögzíteni kell a hibákat (pl. naplózással), és emellett a felhasználót is valamilyen módon tájékoztatni a hiba jellegéről (pl. hogy próbálja-e újra a műveletet, vagy várjon a javításig). Az egységes kivételkezelés azért nagyon fontos, mert az architektúra alsóbb rétegeiben előforduló hibákat az üzemeltetés és fejlesztés nem látja, csak ha azok megfelelően kezelve és rögzítve lesznek.
 
-A naplózás és monitorozás az üzemszerű és nem rendeltetésszerű viselkedés követéséhez is fontos. A naplózás általában szöveges formátumú rendszer üzenetek rögzítését jelenti. A monitorozás a rendszer állapotát meghatározott jellemzők (un. *KPI*-k, *key performance indicator*) követését jelenti. Ilyen KPI lehet a memória fogyasztás, a hibás kérések száma, a kiszolgált felhasználók száma, stb.
+A naplózás és monitorozás az üzemszerű és nem rendeltetésszerű viselkedés követéséhez is fontos. A naplózás általában szöveges formátumú rendszer üzenetek rögzítését jelenti. A monitorozás a rendszer állapotát meghatározott jellemzők (ún. *KPI*-k, *key performance indicator*) követését jelenti. Ilyen KPI lehet a memória fogyasztás, a hibás kérések száma, a kiszolgált felhasználók száma, stb.
 
 A konfiguráció kezelés pedig arról szól, hogy az alkalmazás működését befolyásoló beállításokat hol tároljuk, és hogyan kötjük be őket az alkalmazásba. Konfigurációnak minősülnek kiszolgálók elérési útvonalai (pl. az adatbázis szerver címe), de akár a megjelenítési rétegben használt háttérszín is. Alapelv, hogy a beállításokat minél kevésbé "égessük be" a forráskódba, hogy alkalmazkodni tudjunk az üzemeltetés során előforduló különböző környezetekhez. A konfiguráció történhet tipikusan konfigurációs fájlokkal, vagy kifejezetten konfiguráció-menedzsment célra szolgáló eszközökkel is.
 

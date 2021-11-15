@@ -10,13 +10,13 @@ Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a vilá
 
 ## A MongoDB alap koncepciói
 
-A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a _mongod_, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az un. _wire protocol_-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
+A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a _mongod_, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. _wire protocol_-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
 
 ![A MongoDb architektúrája](images/mongodb_rendszer_architektura.png)
 
 ### Logikai felépítés
 
-Egy MongoDB-alapú adatbázis rendszer legfelső rétege az un. _klaszter_, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a _mongod_ processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (_collection_) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt _dokumentumok_ lesznek.
+Egy MongoDB-alapú adatbázis rendszer legfelső rétege az ún. _klaszter_, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a _mongod_ processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (_collection_) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt _dokumentumok_ lesznek.
 
 Nézzük ezeket pontosabban.
 
@@ -88,7 +88,7 @@ Egy relációs adatbázistól eltérően **MongoDB-ben a műveleteinket mindig e
 var collection = db.GetCollection<BsonDocument>("products");
 ```
 
-A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az un. _ODM (Object Document Mapping)_ funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.
+A .NET MongoDB driver alap koncepciója szerint minden dokumentumot leképez egy .NET objektumra. Ezzel automatikusan megvalósítja az ún. _ODM (Object Document Mapping)_ funkciót. Az ODM az ORM megfelelője a NoSQL adatbázisok világában.
 
 !!! warning ""Nyers" json"
     Más nyelveken és platformokon a MongoDB driverek nem mindig végzik el a leképezést objektumokra, így az interneten található példákban gyakran "nyers" JSON dokumentumokon keresztüli kommunikációt mutatnak. Igyekezzünk ezt elkerülni, ahogy az ORM témakörében megtanultuk, kényelmesebb és biztonságosabb az objektumorientált leképzés.
@@ -113,7 +113,7 @@ foreach(var l in list)
 ```
 
 !!! important "Elnevezési konvenció"
-    A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `price` vagy `categoryName` (ez az un. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
+    A dokumentumban a kulcs nevek konvenció szerint kisbetűvel kezdődnek, mint `price` vagy `categoryName` (ez az ún. _camel case_ írásmód). Ez a szokás a MongoDB világának megfelelő szemlélet historikus okokból. Hacsak nincs jó okunk rá, ne térjünk el ettől.
 
 ## Dokumentumok leképzése C# objektumokra
 
@@ -141,7 +141,7 @@ public class VAT // mivel ez beágyazott entitás, így nem adunk neki egyedi az
 }
 ```
 
-Figyeljük meg, hogy korábban `price` néven használtuk a dokumentumban a kulcsot, de a C# osztályban az un. _Pascal Case_ szerint nagybetűvel kezdjük: `Price`. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a `Price` osztály tulajdonságból `price` kulcs név lesz a dokumentumban.
+Figyeljük meg, hogy korábban `price` néven használtuk a dokumentumban a kulcsot, de a C# osztályban az ún. _Pascal Case_ szerint nagybetűvel kezdjük: `Price`. A MongoDB .NET drivere beépül a C# nyelvbe és a .NET környezetbe, és annak szokásait tiszteletben tartja, így az osztály definícióban szereplő mező nevek és a MongoDB dokumentumaiban a kulcsok leképzése automatikusan meg fog történni, a `Price` osztály tulajdonságból `price` kulcs név lesz a dokumentumban.
 
 ### A leképzés testreszabása
 
@@ -166,7 +166,7 @@ public class Product
 }
 ```
 
-Másik lehetőségünk magasabb szinten un. konvenció-csomagokat beregisztrálni. A konvenció-csomagok általánosan leírják, hogyan történjen a leképezés. (Az alap viselkedés is egy konvenció-csomag alapján definiált.)
+Másik lehetőségünk magasabb szinten ún. konvenció-csomagokat beregisztrálni. A konvenció-csomagok általánosan leírják, hogyan történjen a leképezés. (Az alap viselkedés is egy konvenció-csomag alapján definiált.)
 
 Például az alábbiakkal megadhatjuk, hogy camel case-re szeretnénk a mező neveket leképezni, valamint a default értékkel rendelkező adattagokat (C# nyelv szerint definiált default érték) szeretnénk kihagyni a dokumentumból.
 
@@ -231,7 +231,7 @@ A MongoDB saját nyelvén az előbbi szűrés így néz ki:
 
 Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy `BsonDocument`-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a `<` feltétel esetén. Ebben az `$lt` kulcs egy speciális kulcs, azt jelöli, hogy a _less than_ operátorral kell a kiértékelés végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a [JavaScript RegExp szintaktika](https://www.w3schools.com/jsref/jsref_obj_regexp.asp) szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan _és_ kapcsolatba kerülnek.
 
-A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy un. **_builder_** segítségével építsük fel a szűrési feltételt.
+A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy ún. **_builder_** segítségével építsük fel a szűrési feltételt.
 
 ```csharp
 collection.Find(
@@ -278,7 +278,7 @@ while (cur.MoveNext()) // kurzor léptetése
 
 ### Szűréshez használható operátorok
 
-A szűrési feltételek a dokumentumban található mezőkre vonatkoznak, és a szűrési feltétel mindig egy konstans. Tehát **nem lehetséges például két mezőt összehasonlítani**, és nem tudunk más gyűjteményekre se hivatkozni. Létezik a MongoDB-ben egy un. aggregációs pipeline, amely segítségével bonyolultabb lekérdezéseket is megfogalmazhatunk, most viszont az egyszerű lekérdezésekre koncentrálunk.
+A szűrési feltételek a dokumentumban található mezőkre vonatkoznak, és a szűrési feltétel mindig egy konstans. Tehát **nem lehetséges például két mezőt összehasonlítani**, és nem tudunk más gyűjteményekre se hivatkozni. Létezik a MongoDB-ben egy ún. aggregációs pipeline, amely segítségével bonyolultabb lekérdezéseket is megfogalmazhatunk, most viszont az egyszerű lekérdezésekre koncentrálunk.
 
 A szűrési feltétel tehát a dokumentum egy mezőjét egy általunk megadott konstanshoz hasonlítja. Az alábbi lehetőségek a leggyakrabban használtak.
 
@@ -375,7 +375,7 @@ collection.Find(Builders<Product>.Filter.AnyNin(x => x.Categories, new[] { "Labd
 
 ## Lekérdezés-végrehajtó pipeline
 
-A MongoDB lekérdezések egy un. pipeline-on haladnak végig. Ennek részleteivel nem fogunk megismerkedni, de az egyszerű szűréseken kívül pár további, lekérdezésekben használt elemet fogunk látni.
+A MongoDB lekérdezések egy ún. pipeline-on haladnak végig. Ennek részleteivel nem fogunk megismerkedni, de az egyszerű szűréseken kívül pár további, lekérdezésekben használt elemet fogunk látni.
 
 #### Lapozás, rendezés
 
@@ -556,7 +556,7 @@ A módosító operátorok atomi módon teszik szerkeszthetővé a dokumentumaink
 
 #### _Upsert_: beszúrás vagy módosítás
 
-Módosító művelet során lehetőségünk van az un. _upsert (update/insert)_ jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés _nem_ upsert, azt külön kérnünk kell.
+Módosító művelet során lehetőségünk van az ún. _upsert (update/insert)_ jellegű működésre. Ez azt jelenti, hogy vagy beszúrás, vagy módosítás történik, annak függvényében, hogy megtalálható volt-e az elem az adatbázisban. Az alapvető viselkedés _nem_ upsert, azt külön kérnünk kell.
 
 ```csharp
 collection.ReplaceOne(

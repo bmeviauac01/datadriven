@@ -6,7 +6,7 @@ A lefutott kiértékelésről a pull request-ben fogsz értesítést kapni. Ha m
 
 ![GitHub Actions a webfelületen](images/github/github-actions-tab.png)
 
-Az _Actions_ felületén un. _Workflow_-kat látsz; minden egyes kiértékelés futtatás egy-egy elem lesz itt (tehát historikusan is visszakereshetőek).
+Az _Actions_ felületén ún. _Workflow_-kat látsz; minden egyes kiértékelés futtatás egy-egy elem lesz itt (tehát historikusan is visszakereshetőek).
 
 ![GitHub Actions workflow lista](images/github/github-actions-executions-list.png)
 
