@@ -91,7 +91,7 @@ Implement method `double GetAllProductsCumulativeVolume()` that returns a single
 The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the `[BsonElement(elementName: "...")]` attribute.
 
 !!! warning "Use Fluent Api"
-    You must use the C# Fluent Api! No not write the query using `BsonDocument`!
+    You must use the C# Fluent Api! Do not write the query using `BsonDocument`!
 
 You may test your implementation with the tests provided in class `TestExercise2`. The test presume that the database is in its initial state.
 
