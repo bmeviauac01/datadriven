@@ -93,7 +93,7 @@ The required parts of the products are not mapped to C# classes yet. You need to
 !!! warning "Use Fluent Api"
     You must use the C# Fluent Api! Do not write the query using `BsonDocument`!
 
-You may test your implementation with the tests provided in class `TestExercise2`. The test presume that the database is in its initial state.
+You may test your implementation with the tests provided in class `TestExercise2`. The tests presume that the database is in its initial state.
 
 !!! example "SUBMISSION"
     Upload the changed C# source code.
