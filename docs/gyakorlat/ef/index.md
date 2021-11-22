@@ -214,7 +214,7 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
         Console.WriteLine("\t3.2:");
         Category categoryExpensiveToys = (from c in db.Category
                                             where c.Name == "Expensive toys"
-                                            select c).SingleOrDefault();
+                                            select c.SingleOrDefault();
 
         if (categoryExpensiveToys == null)
         {
