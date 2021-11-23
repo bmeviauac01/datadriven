@@ -22,7 +22,7 @@ The task is to find the product that has the largest total value within a produc
 
 1. Let us check the test related to this exercise in file `TestExercise1.cs` to understand what is expected here.
 
-    - The method accepts a category name as an argument; products have to be filtered for this category.
+    - The method accepts a category filter as an argument; products have to be filtered for this category.
     - The return value should be the name of the product (with the largest total value) and the total value itself.
     - If there are no products in the specified category, the return value should be `(null, null)`.
 
