@@ -27,53 +27,37 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 ## Feladat 0: Adatbázis létrehozása, projekt megnyitása
 
-1. Hozzunk létre egy mappát, ahol dolgozni fogunk, például `c:\work\NEPTUN`.
+1. Nyiss egy _PowerShell_ konzolt (a Start menüben keress rá a PowerShell-re és indítsd el, de _ne_ az "ISE" végűt, az nem a konzol).
 
-    !!! important "Munkakönyvtár"
-        A továbbiakban kezeljük ezt **munkakönyvtárként**, tehát minden új mappát ebben hozzunk létre.
+1. Másold be az alábbi sorokat és futtasd le enterrel.
 
-1. Indítsuk el a MongoDB szervert.
+    ```powershell
+    Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
+    New-Item -Type Directory c:\work\mongodatabase
+    c:\tools\mongodb-win32-x86_64-windows-4.4.10\bin\mongod.exe --dbpath c:\work\mongodatabase
+    ```
 
-    - Hozzunk létre egy mappát az adatbázisfájloknak, például `db` néven. (Ezt a mappát az előbb létrehozott munkakönyvtárban hozzuk létre.)
-    - Nyissunk egy _command prompt_-ot és indítsuk el a MongoDB szervert: `mongod.exe --dbpath="c:\work\<NEPTUN>\db"`
+    Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.
 
-        !!! info ""
-            _Command prompt_ például a start menüben megkereshető a "cmd" kulcsszóval.
+1. Indítsuk el a Robo3T programot (a `c:\tools\robo3t...` könyvtárban találjuk) és csatlakozzunk a MongoDB szerverhez.
 
-            A laborokban a MongoDB a `c:\tools\mongodb\bin` könyvtárban van. Navigáljunk el ide a `cd` utasítással.
+    ![Robo3T Connection Settings](images/robo3t_connection.png)
 
-    - Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet.
+1. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Az adatbázis neve `datadriven` legyen:
 
-1. Hozzuk létre az adatbázis.
+    ![Robo3T Connection Settings](images/robo3t_newdb.png)
 
-    - Töltsük le az adatbázislétrehozó scriptet és mentsük el `mongo.js` néven a munkakönyvtárunkba.
-    - Nyissunk egy **új** _command prompt_-ot és hozzuk létre az adatbázist: `mongo.exe localhost:27017/datadriven c:\work\<NEPTUN>\mongo.js`
+1. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le a _Collections_ mappát ennek ellenőrzéséhez.
 
-        !!! note ""
-            Ez az exe most nem mongo&#8203;**d**, csak mongo. Ez egy kliensprogram, amivel a szerverhez csatlakozva parancsokat futtathatunk.
+    ![Robo3T Collections](images/robo3t_collections.png)
 
-            A laborokban ezt az exe-t is a `c:\tools\mongodb\bin` könyvtárban találjuk.
+1. Töltsük le a kiinduló projekt vázat!
 
-            Ügyeljünk a connection stringre, amiben a szerver elérése után az adatbázis neve is benne van!
-
-1. Ellenőrizzük, hogy létrejött az adatbázis Robo3T segítségével.
-
-    - Indítsuk el a Robo3T programot (laborokban a `c:\tools\robo3t` könyvtárban) és csatlakozzunk a MongoDB szerverhez.
-
-        ![Robo3T Connection Settings](images/robo3t_connection.png)
-
-    - Ellenőrizzük, hogy létrejöttek a megfelelő _Collection_-ök.
-
-        ![Robo3T Collections](images/robo3t_collections.png)
-
-1. Töltsük le a méréshez tartozó projekt vázat!
-
-    - Nyissunk egy **új** _command prompt_-ot a munkakönyvtárunkba.
+    - Nyissunk egy **új** _command prompt_-ot vagy PowerShell konzolt (ne azt használjuk, amelyikben a szerver fut)
+    - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
     - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
 
-1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val.
-
-1. Vizsgáljuk meg a projektet.
+1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val. Vizsgáljuk meg a projektet.
 
     - Ez egy .NET Core konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az `Entities` mappában találhatók az entitás osztályok, a megoldást pedig a `Program.cs` fájlba írjuk.
     - Nézzük meg a `Program.cs` tartalmát. Itt már megtalálható a MongoDB kommunikációhoz szükséges inicializáció.
