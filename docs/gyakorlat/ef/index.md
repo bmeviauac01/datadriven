@@ -176,6 +176,84 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
     }
     ```
 
+??? example "Megoldás method chain-nel"
+    ```csharp
+    using (var ctx = new AdatvezEntities())
+    {
+
+        //2.1
+        Console.WriteLine("\t2.1:");
+        var products = ctx.Product.Where(p => p.Stock > 30)
+            .Select(p => new { p.Name, p.Stock})
+            .ToList();
+
+        foreach (var item in products)
+        {
+            Console.WriteLine($"name: {item.Name}, stock: {item.Stock}");
+        };
+
+
+        //2.2
+        Console.WriteLine("\t2.2:");
+        var products2 = ctx.Product.Where(p => p.OrderItem.Count > 1)
+                                   .ToList();
+
+        foreach (var item in products2)
+        {
+            Console.WriteLine($"name: {item.Name}, orderNum: {item.OrderItem.Count}");
+        };
+
+
+        //2.3
+        Console.WriteLine("\t2.3:");
+        var products3 = ctx.Order
+            .Include(o => o.OrderItem)
+                .Include(o => o.OrderItem.Select(oi => oi.Product))
+                .Include(o => o.CustomerSite.MainCustomer)
+            .Where(o => o.OrderItem.Sum(oi => (oi.Amount * oi.Price)) > 30000)
+            .ToList();
+
+        foreach (var item in products3)
+        {
+            Console.WriteLine($"name: {item.CustomerSite.MainCustomer.Name}");
+
+            foreach (var oi in item.OrderItem)
+            {
+                Console.WriteLine($"\tname: {oi.Product.Name}, {oi.Amount}*{oi.Price}={oi.Amount*oi.Price}");
+
+            }
+        };
+
+
+        //2.4
+        Console.WriteLine("\t2.4:");
+        var maxPriceProd = ctx.Product
+            .Where(p => p.Price == ctx.Product.Max(p2 => p2.Price))
+                                              .FirstOrDefault();
+
+        Console.WriteLine($"{maxPriceProd.Name}");
+
+
+        //2.5
+        Console.WriteLine("\t2.5:");
+
+        var customers2 = (from cs in ctx.CustomerSite
+                            join cs2 in ctx.CustomerSite
+                            on cs.City equals cs2.City
+                            where cs.ID > cs2.ID
+                            select new { Name1 = cs.MainCustomer.Name, Name2 = cs2.MainCustomer.Name }).ToList();
+
+        foreach (var c in customers2)
+        {
+            Console.WriteLine($"{c.Name1} --- {c.Name2}");
+
+        }
+    }
+    ```
+
+
+
+
 ## Feladat 3: Adatmódosítások
 
 A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
@@ -243,6 +321,50 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
     }
     ```
 
+
+??? example "Megoldás method chain-nel"
+    ```csharp
+    using (var ctx = new AdatvezEntities())
+    {
+        //3.1
+        Console.WriteLine("\t3.1:");
+        var legos = ctx.Product
+            .Where(p => p.Category.Name == "LEGO")
+            .ToList();
+
+        foreach (var item in legos)
+        {
+            item.Price = item.Price * 1.1;
+        }
+
+        ctx.SaveChanges();
+
+
+        //3.2
+        Console.WriteLine("\t3.2:");
+        var catExits = ctx.Category.Where(c => c.Name == "Expensive Toys")
+                                   .SingleOrDefault();
+
+        if (catExits == null)
+        {
+            catExits = new Category()
+            {
+                Name = "Expensive Toys"
+            };
+        }
+
+        var products6000 = ctx.Product
+            .Where(p => p.Price > 8000).ToList();
+
+        foreach (var item in products6000)
+        {
+            item.Category = catExits;
+        }
+
+        ctx.SaveChanges();
+        
+    }
+    ```
 ## Feladat 4: Tárolt eljárások használata
 
 Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
