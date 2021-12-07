@@ -422,7 +422,8 @@ Az aggregációs (csoportosító) műveletek több dokumentumot dolgoznak fel é
   <li>Egycélú aggregációs műveletek (Single Purpose Aggregation Operations)</li>
   <li>Map-reduce függvények</li>
 </ol>
-<br>
+
+A MongoDB 5.0 verziója óta a **Map-reduce** elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.
 
 A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy aggregációs pipeline-t kell definiálnunk. Egy **aggregációs pipeline** több stage-ből épül fel, mindegyik valamilyen műveletet *(filter, group, count, calculate stb.)* végez a bemeneti dokumentumain. Egy pipeline képes több eredményt is visszaadni egy dokumentumhalmazról *(pl. total, average, maximum vagy minimum értékeket)*.
 
@@ -440,18 +441,13 @@ foreach (var g in collection.Aggregate()
         Console.WriteLine($"\tProduct: {p.Name}");
 }
 ```
-<br>
 
-Egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `db.collection.estimatedDocumentCount()`, `db.collection.count()` és `db.collection.distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
+Egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` és `IMongoCollection<TDocument>.Distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
 
 ![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
-https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg
+!!! cite "Forrás"
+    <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>
 
-<br>
-
-A MongoDB 5.0 verziója óta a **Map-reduce** elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.
-
-<br>
 
 ## Beszúrás, módosítás, törlés
 
