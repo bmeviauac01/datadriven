@@ -110,6 +110,8 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
         var qProductStock = from p in db.Product
                             where p.Stock > 30
                             select p;
+        // alternative syntax
+        // var qProductStock = ctx.Product.Where(p => p.Stock > 30);
         foreach (var p in qProductStock)
             Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
 
@@ -118,7 +120,8 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
         var qProductOrder = from p in db.Product
                             where p.OrderItems.Count >= 2
                             select p;
-
+        // alternative syntax
+        // var qProductOrder = ctx.Product.Where(p => p.OrderItem.Count >= 2);
         foreach (var p in qProductOrder)
             Console.WriteLine("\t\tName={0}", p.Name);
 
@@ -161,6 +164,8 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
         var qPriceMax = from p in db.Product
                         where p.Price == db.Product.Max(a => a.Price)
                         select p;
+        // alternative syntax
+        // var qPriceMax = ctx.Product.Where(p => p.Price == ctx.Product.Max(p2 => p2.Price));
         foreach (var t in qPriceMax)
             Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
 
@@ -193,6 +198,9 @@ The DbContext can also be used to modify the database.
         var qProductsLego = from p in db.Product
                             where p.Category.Name == "LEGO"
                             select p;
+        // alternative syntax
+        // var qProductsLego = db.Product.Where(p => p.Category.Name == "LEGO");
+
         Console.WriteLine("\tBefore change:");
         foreach (var p in qProductsLego)
         {
@@ -214,6 +222,9 @@ The DbContext can also be used to modify the database.
         Category categoryExpensiveToys = (from c in db.Category
                                             where c.Name == "Expensive toys"
                                             select c).SingleOrDefault();
+        // alternative syntax
+        // var categoryExpensiveToys = db.Category.Where(c => c.Name == "Expensive Toys")
+        //                                        .SingleOrDefault();
 
         if (categoryExpensiveToys == null)
         {
