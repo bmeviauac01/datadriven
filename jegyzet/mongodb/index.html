@@ -801,8 +801,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#csoportositas" class="md-nav__link">
-    Csoportosítás
+  <a href="#aggregacios-pipeline" class="md-nav__link">
+    Aggregációs pipeline
   </a>
   
 </li>
@@ -1488,8 +1488,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#csoportositas" class="md-nav__link">
-    Csoportosítás
+  <a href="#aggregacios-pipeline" class="md-nav__link">
+    Aggregációs pipeline
   </a>
   
 </li>
@@ -1862,8 +1862,22 @@
 
 <span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span> <span class="s">&quot;Labdák&quot;</span><span class="p">)).</span><span class="n">CountDocuments</span><span class="p">();</span>
 </code></pre></div>
-<h4 id="csoportositas">Csoportosítás<a class="headerlink" href="#csoportositas" title="Permanent link">&para;</a></h4>
-<p>A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy aggregációs pipeline-t kell definiálnunk. Ezzel részletesebben nem foglalkozunk, az alábbi példa mutatja a használatát.</p>
+<h4 id="aggregacios-pipeline">Aggregációs pipeline<a class="headerlink" href="#aggregacios-pipeline" title="Permanent link">&para;</a></h4>
+<p>Az aggregációs műveletek több dokumentumot dolgoznak fel és azokból valamilyen számítással előállított eredményt adnak vissza. A MongoDB három módot biztosít számunkra ilyen összesítő műveletek elvégzéséhez:</p>
+<ul>
+<li>Aggregációs pipelineok</li>
+<li>Egycélú aggregációs műveletek (Single Purpose Aggregation Operations)</li>
+<li>Map-reduce függvények</li>
+</ul>
+<p>A MongoDB 5.0 verziója óta a <strong>Map-reduce</strong> elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.</p>
+<p>Az egycélú aggregációs műveletek (<strong>Single Purpose Aggregation Operations</strong>) terén a MongoDB biztosítja számunkra a <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> és <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.</p>
+<p><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></p>
+<div class="admonition cite">
+<p class="admonition-title">Forrás</p>
+<p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
+</div>
+<p>Az általános aggregációkhoz pedig készíthetünk pipeline-okat. Egy <strong>aggregációs pipeline</strong> több stage-ből épül fel, mindegyik valamilyen műveletet <em>(filter, group, count, calculate stb.)</em> végez a bemeneti dokumentumain. Egy pipeline képes több eredményt is visszaadni egy dokumentumhalmazról <em>(pl. total, average, maximum vagy minimum értékeket)</em>.</p>
+<p>Nézzük ezt a csoportosítás példáján keresztül.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// A &quot;Labdák&quot; kategóriába tartozó termékek az ÁFA kulcs szerint csoportosítva</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">g</span> <span class="k">in</span> <span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
                             <span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">Builders</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span> <span class="s">&quot;Labdák&quot;</span><span class="p">))</span> <span class="c1">// szűrés</span>
