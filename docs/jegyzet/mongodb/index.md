@@ -348,7 +348,6 @@ collection.Find(Builders<Product>.Filter.Exists(x => x.VAT));
 
 ### Szűrés beágyazott dokumentum mezőjére
 
-
 A MongoDB szempontjából a beágyazott dokumentumok ugyanúgy használhatók szűrésre, tehát az alábbiak mind érvényesek, és az se okoz gondot, ha a beágyazott dokumentum (a példákban a _VAT_ nem létezik):
 
 ```csharp
@@ -413,21 +412,26 @@ collection.CountDocuments(Builders<Product>.Filter.AnyEq(x => x.Categories, "Lab
 collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák")).CountDocuments();
 ```
 
-#### Csoportosítás
+#### Aggregációs pipeline
 
-Az aggregációs (csoportosító) műveletek több dokumentumot dolgoznak fel és azokból valamilyen számítással előállított eredményt adnak vissza. A MongoDB három módot biztosít számunkra ilyen összesítő műveletek elvégzéséhez:
+Az aggregációs műveletek több dokumentumot dolgoznak fel és azokból valamilyen számítással előállított eredményt adnak vissza. A MongoDB három módot biztosít számunkra ilyen összesítő műveletek elvégzéséhez:
 
-<ol>
-  <li>Aggregációs pipelineok</li>
-  <li>Egycélú aggregációs műveletek (Single Purpose Aggregation Operations)</li>
-  <li>Map-reduce függvények</li>
-</ol>
+- Aggregációs pipelineok
+- Egycélú aggregációs műveletek (Single Purpose Aggregation Operations)
+- Map-reduce függvények
 
 A MongoDB 5.0 verziója óta a **Map-reduce** elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.
 
-A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy aggregációs pipeline-t kell definiálnunk. Egy **aggregációs pipeline** több stage-ből épül fel, mindegyik valamilyen műveletet *(filter, group, count, calculate stb.)* végez a bemeneti dokumentumain. Egy pipeline képes több eredményt is visszaadni egy dokumentumhalmazról *(pl. total, average, maximum vagy minimum értékeket)*.
+Az egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` és `IMongoCollection<TDocument>.Distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
 
-Az alábbi példa mutatja a használatát.
+![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
+
+!!! cite "Forrás"
+    <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>
+
+Az általános aggregációkhoz pedig készíthetünk pipeline-okat. Egy **aggregációs pipeline** több stage-ből épül fel, mindegyik valamilyen műveletet _(filter, group, count, calculate stb.)_ végez a bemeneti dokumentumain. Egy pipeline képes több eredményt is visszaadni egy dokumentumhalmazról _(pl. total, average, maximum vagy minimum értékeket)_.
+
+Nézzük ezt a csoportosítás példáján keresztül.
 
 ```csharp
 // A "Labdák" kategóriába tartozó termékek az ÁFA kulcs szerint csoportosítva
@@ -441,13 +445,6 @@ foreach (var g in collection.Aggregate()
         Console.WriteLine($"\tProduct: {p.Name}");
 }
 ```
-
-Egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` és `IMongoCollection<TDocument>.Distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
-
-![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
-!!! cite "Forrás"
-    <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>
-
 
 ## Beszúrás, módosítás, törlés
 
