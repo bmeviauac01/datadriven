@@ -415,7 +415,19 @@ collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Labdák")).Co
 
 #### Csoportosítás
 
-A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy aggregációs pipeline-t kell definiálnunk. Ezzel részletesebben nem foglalkozunk, az alábbi példa mutatja a használatát.
+Az aggregációs (csoportosító) műveletek több dokumentumot dolgoznak fel és azokból valamilyen számítással előállított eredményt adnak vissza. A MongoDB három módot biztosít számunkra ilyen összesítő műveletek elvégzéséhez:
+
+<ol>
+  <li>Aggregációs pipelineok</li>
+  <li>Egycélú aggregációs műveletek (Single Purpose Aggregation Operations)</li>
+  <li>Map-reduce függvények</li>
+</ol>
+
+A MongoDB 5.0 verziója óta a **Map-reduce** elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.
+
+A csoportosítás szintaktikailag bonyolult művelet. A csoportosításhoz egy aggregációs pipeline-t kell definiálnunk. Egy **aggregációs pipeline** több stage-ből épül fel, mindegyik valamilyen műveletet *(filter, group, count, calculate stb.)* végez a bemeneti dokumentumain. Egy pipeline képes több eredményt is visszaadni egy dokumentumhalmazról *(pl. total, average, maximum vagy minimum értékeket)*.
+
+Az alábbi példa mutatja a használatát.
 
 ```csharp
 // A "Labdák" kategóriába tartozó termékek az ÁFA kulcs szerint csoportosítva
@@ -429,6 +441,13 @@ foreach (var g in collection.Aggregate()
         Console.WriteLine($"\tProduct: {p.Name}");
 }
 ```
+
+Egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` és `IMongoCollection<TDocument>.Distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
+
+![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
+!!! cite "Forrás"
+    <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>
+
 
 ## Beszúrás, módosítás, törlés
 
