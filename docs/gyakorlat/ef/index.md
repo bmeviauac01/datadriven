@@ -110,35 +110,22 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
         var qProductStock = from p in db.Product
                             where p.Stock > 30
                             select p;
+        // alternatív szintaktika
+        // var qProductStock = ctx.Product.Where(p => p.Stock > 30);
+
         foreach (var p in qProductStock)
             Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
-
-        // 2.1 második megoldás
-        Console.WriteLine("\t2.1:");
-        var qProductStock = ctx.Product.Where(p => p.Stock > 30)
-
-        foreach (var item in qProductStock)
-        {
-            Console.WriteLine($"name: {item.Name}, stock: {item.Stock}");
-        };
 
         // 2.2
         Console.WriteLine("\t2.2:");
         var qProductOrder = from p in db.Product
                             where p.OrderItems.Count >= 2
                             select p;
+        // alternatív szintaktika
+        // var qProductOrder = ctx.Product.Where(p => p.OrderItem.Count >= 2);
 
         foreach (var p in qProductOrder)
             Console.WriteLine("\t\tName={0}", p.Name);
-
-        // 2.2 második megoldás
-        Console.WriteLine("\t2.2:");
-        var qProductOrder = ctx.Product.Where(p => p.OrderItem.Count > 1)
-
-        foreach (var item in qProductOrder)
-        {
-            Console.WriteLine($"name: {item.Name}, orderNum: {item.OrderItem.Count}");
-        };
 
         // 2.3
         Console.WriteLine("\t2.3:");
@@ -180,16 +167,10 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
         var qPriceMax = from p in db.Product
                         where p.Price == db.Product.Max(a => a.Price)
                         select p;
+        // alternatív szintaktika
+        // var qPriceMax = ctx.Product.Where(p => p.Price == ctx.Product.Max(p2 => p2.Price));
         foreach (var t in qPriceMax)
             Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
-
-        // 2.4 második megoldás
-        Console.WriteLine("\t2.4:");
-        var qPriceMax = ctx.Product
-            .Where(p => p.Price == ctx.Product.Max(p2 => p2.Price))
-                                              .FirstOrDefault();
-
-        Console.WriteLine($"{qPriceMax.Name}");
 
         // 2.5
         Console.WriteLine("\t2.5:");
@@ -220,6 +201,9 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
         var qProductsLego = from p in db.Product
                             where p.Category.Name == "LEGO"
                             select p;
+        // alternatív szintaktika
+        // var qProductsLego = db.Product.Where(p => p.Category.Name == "LEGO");
+
         Console.WriteLine("\tMódosítás előtt:");
         foreach (var p in qProductsLego)
         {
@@ -236,17 +220,14 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
         foreach (var p in qProductsLego)
             Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
 
-        // 3.1 második megoldás
-        Console.WriteLine("\t3.1:");
-        var legos = db.Product
-            .Where(p => p.Category.Name == "LEGO")
-            .ToList();
-
         // 3.2
         Console.WriteLine("\t3.2:");
         Category categoryExpensiveToys = (from c in db.Category
                                             where c.Name == "Expensive toys"
                                             select c).SingleOrDefault();
+        // alternatív szintaktika
+        // var categoryExpensiveToys = db.Category.Where(c => c.Name == "Expensive Toys")
+        //                                        .SingleOrDefault();
 
         if (categoryExpensiveToys == null)
         {
@@ -272,12 +253,6 @@ A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módo
 
         foreach (var t in qProductExpensive)
             Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
-
-
-        // 3.2 második megoldás
-        Console.WriteLine("\t3.2:");
-        var catExits = db.Category.Where(c => c.Name == "Expensive Toys")
-                                   .SingleOrDefault();        
     }
     ```
 
