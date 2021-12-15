@@ -1,24 +1,9 @@
 # ADO&#46;NET #
-- [ADO&#46;NET](#adonet)
-  - [Mi is az az **ADO&#46;NET**?](#mi-is-az-az-adonet)
-  - [Connection](#connection)
-  - [Command](#command)
-    - [Előkészítés](#előkészítés)
-    - [Végrehajtás](#végrehajtás)
-      - [Tranzakciók](#tranzakciók)
-    - [NULL](#null)
-  - [Az eredmény](#az-eredmény)
-    - [DataReader](#datareader)
-    - [DataSet](#dataset)
-  - [Veszélyforrások](#veszélyforrások)
-    - [Connection string](#connection-string)
-    - [SQL injection](#sql-injection)
-    - [Connection leak](#connection-leak)
 
 ## Mi is az az **ADO&#46;NET**? ##
 Adatvezérelt alkalmazásokban fontos, hogy az adatelérési réteg *kényelmes, egyszerű metodikákat* biztosítson az adatbázissal való kommunikációra, összetett lekérdezések könnyebb megfogalmazására, mindezt magától az *adatbázistól függetlenül*.
 
-A Microsoft által fejlesztett **ADO** (*ActiveX Data Object*) egy **adatelérési osztálykönyvtár**, mely pont ezeket az igényeket hivatott kielégíteni. A **.NET Framework** részeként gazdag eszköztárat szolgáltat adatvezérelt alkalmazások készítéséhez, egyszerű hozzáférést biztosítva az alkalmazásból relációs adatbázisokhoz, *függetlenül az adatbázis konkrét példányától és típusától*.
+A Microsoft által fejlesztett **ADO&#46;NET** (*ActiveX Data Object*) egy **adatelérési osztálykönyvtár**, mely pont ezeket az igényeket hivatott kielégíteni. A **.NET** részeként gazdag eszköztárat szolgáltat adatvezérelt alkalmazások készítéséhez, egyszerű hozzáférést biztosítva az alkalmazásból relációs adatbázisokhoz, *függetlenül az adatbázis konkrét példányától és típusától*.
 
 Az **ADO&#46;NET** mindezek mellett azért lenyűgözően erős eszköz, mert egységes, adatbázisfüggetlen kódolást tesz lehetővé. A könyvtár interfészeket és absztrakt osztályokat tartalmaz, amiknek többféle implementációja (*pl. Microsoft SQL Server-hez, vagy OleDB*) létezik.  Ezen implementációk megvalósítják az alap funkciókat, de ki is bővíthetik azokat.
 
@@ -34,9 +19,9 @@ Az adatelérési könyvtárak tipikus elemei:
 Az elemeket a következő fejezetekben részletesebben is tárgyaljuk.
 
 ## Connection ##
-Az **ADO&#46;NET** könyvtár az `IDbConnection` interfészt biztosítja adatbázis kapcsolatok reprezentálására. Ebben találhatóak azok a függvények, amik szükségesek valamilyen adatbázissal való kapcsolat létrehozásához, mint például az `open()`, a `close()`, vagy a `beginTransaction()`. Ettől az interfésztől örökölnek az adatbázis specifikus kapcsolatok, mint például az `SqlConnection`.
+Az **ADO&#46;NET** könyvtár az `IDbConnection` interfészt biztosítja adatbázis kapcsolatok reprezentálására. Ebben találhatóak azok a függvények, amik szükségesek valamilyen adatbázissal való kapcsolat létrehozásához, mint például az `Open()`, a `Close()`, vagy a `BeginTransaction()`. Ettől az interfésztől örökölnek az adatbázis specifikus kapcsolatok, mint például az `SqlConnection`.
 
-Ha az adatbázissal való összes kommunikációt, és ennek megfelelően egy kapcsolat felépítését is költségesnek tekintjük, akkor máris értelmet nyer a **connection pooling** kifejezés: **connection pooling**-nak nevezzük azt, amikor egy kapcsolat létrehozása, használása, majd bezárása után a kapcsolatot nem eldobjuk, hanem egy gyűjtőbe, egy "pool"-ba helyezzük (*cache-eljük*), hogy később újra fel tudjuk használni, ha az adatbázishoz szeretnénk szólni. Ennek használata implementáció kérdése, de az *MS SQL Server* és *OleDD* implementációk is alkalmazzák. **Connection pool**-ok **Connection string-enként** jönnek létre. Ezen kontextushoz tartozik még a [**Connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (*nem hívunk* `close()`*-t*), ezáltal az nem kerül bele a pool-ba, és nem tudjuk újrafelhasználni!
+Ha az adatbázissal való összes kommunikációt, és ennek megfelelően egy kapcsolat felépítését is költségesnek tekintjük, akkor máris értelmet nyer a **connection pooling** kifejezés: **connection pooling**-nak nevezzük azt, amikor egy kapcsolat létrehozása, használása, majd bezárása után a kapcsolatot nem eldobjuk, hanem egy gyűjtőbe, egy "pool"-ba helyezzük (*cache-eljük*), hogy később újra fel tudjuk használni, ha az adatbázishoz szeretnénk szólni. Ennek használata implementáció kérdése, de az *MS SQL Server* és *OleDD* implementációk is alkalmazzák. **Connection pool**-ok **Connection string-enként** jönnek létre. Ezen kontextushoz tartozik még a [**Connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (*nem hívunk* `Close()`*-t*), ezáltal az nem kerül bele a pool-ba, és nem tudjuk újrafelhasználni!
 
 Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett **Connection string**-re! Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! 
 
@@ -57,14 +42,14 @@ conn.Close(); //nem felejtjük el bezárni, hogy elkerüljük a Connection leak-
 ```
 
 ## Command ##
-Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál.
+Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO&#46;NET** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál.
 
 ### Előkészítés ###
 Az `IDbCommand` alábbi főbb *property*-jeit beállítva tudjuk megmondani, hogy a megadott parancs, hogyan legyen értelmezve, és miként viselkedjen az utasítás:
 - `CommandType`:  háromféle lehet
--- Tárolt eljárás (*StoredProcedure*)
--- Tábla teljes tartalmához hozzáférés (*TableDirect, nem minden implementáció használja, pl. OleDB igen*)
--- SQL query (*Text*) - alapértelmezett
+    - Tárolt eljárás (*StoredProcedure*)
+    - Tábla teljes tartalmához hozzáférés (*TableDirect, nem minden implementáció használja, pl. OleDB igen*)
+    - SQL query (*Text*) - alapértelmezett
 - `CommandText`: maga a parancs szövege
 - `Connection`: az adatbázis kapcsolat
 - `Transaction`: a tranzakció
@@ -90,6 +75,14 @@ command.Connection = connection;
 command.CommandType = CommandType.StoredProcedure;
 command.CommandText = "salesByCategory"; //StoredProcedure, ezért elég a tárolt eljárás nevét megadni
 
+/* egyenértékű, de "C#-osabb" szintaxis:
+var command = new SqlCommand()
+{
+    Connection = connection,
+    CommandType = CommandType.StoredProcedure,
+    CommandText = "salesByCategory"
+}*/
+
 
 var parameter = new SqlParameter();
 parameter.ParameterName = "@CategoryName"; //ilyen néven kerül bele a lekérdezésbe
@@ -109,29 +102,36 @@ Lehetőség van "hagyományos" **SQL** tranzakciók használatára is, erre az a
 ```cs
 //Connection string megalkotása
 ...
-using (SqlConnection connection = new SqlConnection(connectionString)){
+using (SqlConnection connection = new SqlConnection(connectionString))
+{
     connection.Open();
     
-    SqlCommand command = connection.CreateCommand();
     SqlTransaction transaction = connection.BeginTransaction("TemplateTransaction"); //a BeginTransaction paramétere az induló tranzakció neve, de megadható az izolációs szint is, vagy akár mindkettő
     
-    command.Connection = connection;
-    command.Transaction = transaction;
-    try{
-        command.CommandText = "INSERT into CarTable (Description) VALUES('valamifele leíras')";
+    var command = new SqlCommand()
+    {
+        Connection = connection,
+        CommandText = "INSERT into CarTable (Description) VALUES('valamifele leíras')";
+        Transaction = transaction,
+    }
+    try
+    {
         command.ExecuteNonQuery();
-        
-        transaction.commit();
+        transaction.Commit();
+
         Console.WriteLine("Sikeres tranzakció!");
-    }catch(Exception commitException){
-        Console.WriteLine("Commit Exception Type: {0}", commitException.GetType());
-        Console.WriteLine("  Message: {0}", commitException.Message);
+    }
+    catch(Exception commitException)
+    {
+        Console.WriteLine("Commit Exception: ", commitException.ToString());
         
-        try{
+        try
+        {
             transaction.RollBack();
-        }catch(Exception rollBackException){
-            Console.WriteLine("Rollback Exception Type: {0}", rollBackException.GetType());
-                Console.WriteLine("  Message: {0}", rollBackException.Message);
+        }
+        catch(Exception rollBackException)
+        {
+            Console.WriteLine("Rollback Exception: ", rollBackException.ToString());
         }
     }
 }
@@ -139,7 +139,7 @@ using (SqlConnection connection = new SqlConnection(connectionString)){
 
 Timeout is tartozik a tranzakciókhoz, ami a [MachineConfig](https://docs.microsoft.com/en-us/dotnet/api/system.transactions.configuration.machinesettingssection.maxtimeout?view=netframework-4.8)-ban van rögzítve.
 
-Fontos, hogy egy tranzakció egy `Connection` objektumhoz tartozzon, különben MSDTC (*Microsoft Distributed Transaction Coordinator*) használata szükséges!
+Egy tranzakció általában egy `Connection` objektumhoz tartozik, de készíthető olyan tranzakció is, melyben több perzisztens erőforráskezelő is érintett lehet. Innentől elosztott tranzakciókezelésről beszélünk, amihez valamiféle tranzakciókezelő, mint például **Microsoft Distributed Transaction Coordinator** (*MS DTC*) szükséges.
 
 ### NULL ###
 Logikus lenne azt gondolni, hogy ha a lekérdezésünk eredménye üres halmaz, akkor azt az `== null` kifejezéssel tudjuk ellenőrizni. Az is logikus lenne, hogy ha egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat, azt is az `== null` kifejezéssel tudjuk vizsgálni.
@@ -148,7 +148,7 @@ Logikus lenne azt gondolni, hogy ha a lekérdezésünk eredménye üres halmaz, 
  
  Nem szabad elfelejtenünk, hogy adatbázis kontextusban tárgyaljuk a korábban említetteket és az adatbázisok `Null` értéke korántsem ekvivalens a **C#**-os `null`-al! Sőt! A `Null` adatbázis típusonként is eltérő értéket vehet fel, az oszlop típusától függően akár! 
  
- 1) Ha a lekérdezés által visszaadott sorok számát akarjuk vizsgálni, akkor felhasználhatjuk, hogy az `ExecuteReader` egy `DataReader` objektumot ad vissza: `if(reader.HasRows);` 
+ 1) Ha azt akarjuk megvizsgálni, hogy a lekérdezés eredmény halmaza tartalmaz-e rekordokat, akkor a `DataReader.HasRows` `bool` property-jének vizsgálatával tehetjük ezt meg. 
  2) Ha az eredmény halmaz adott oszlopának értékét szeretnénk vizsgálni: `reader["oszlopnev"].IsNull;`
  3) Ha `Null` értéket akarunk manuálisan beszúrni egy új rekordba: pl. `SqlString.Null;`
  
@@ -171,12 +171,19 @@ A kapcsolat fennálása alatt aktuális adatok érkeznek az adatbázisból, röv
 
 **Példa** `DataReader` használatára: 
 ```cs
-using(var conn = new SqlConnection(connectionString){
-  var command = new SqlCommand("SELECT ID, NAME FROM Product", conn);
+using(var conn = new SqlConnection(connectionString)
+{
+  var command = new SqlCommand()
+  {
+    Connection = conn,
+    CommandText = "SELECT ID, NAME FROM Product"
+  }
   
   conn.Open();
-  using(var reader = command.ExecuteReader()){
-      while(reader.Read()){
+  using(var reader = command.ExecuteReader())
+  {
+      while(reader.Read())
+      {
           Console.WriteLine("{0}\t{0}", reader["ID"], reader["Name"]);
       }
       //a using miatt nem kell reader.Close();
@@ -225,7 +232,8 @@ var dataSet = new DataSet();
 var adapter = new SqlDataAdapter();
 
 //kapcsolatot nyitunk, feltöltjük a DataSet-et az adatbázisból, majd zárjuk a kapcsolatot
-using(var conn = new SqlConnection(connectionString)){
+using(var conn = new SqlConnection(connectionString))
+{
     adapter.SelectCommand = new SqlCommand("SELECT * FROM Product", conn);
     
     conn.Open();
@@ -237,7 +245,8 @@ foreach(var row in dataSet.Tables["Product"].Rows)
     Console.WriteLine("{0}\t{1}", row["ID"], row["Name"]);
 -------------------------------------------------------
 //kapcsolatot nyitunk, update-eljük az adatbázist, majd zárjuk a kapcsolatot
-using(var conn = new SqlConnection(connectionString)){
+using(var conn = new SqlConnection(connectionString))
+{
     conn.Open();
     adapter.Update(dataSet);
     //dataSet.AcceptChanges(); -- így csak az adapter frissülne, az adatbázis nem
