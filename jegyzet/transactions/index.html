@@ -695,6 +695,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" class="md-nav__link">
+    Deadlock információ kinyerése MSSQL adatbázisból
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+    Ellenőrző kérdések
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1316,6 +1330,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" class="md-nav__link">
+    Deadlock információ kinyerése MSSQL adatbázisból
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+    Ellenőrző kérdések
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1855,67 +1883,65 @@
 <div class="admonition note">
 <p>Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.</p>
 </div>
-<hr />
-<h1 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">&para;</a></h1>
-<h2 id="deadlock-holtpont">Deadlock (holtpont)<a class="headerlink" href="#deadlock-holtpont" title="Permanent link">&para;</a></h2>
-<p>A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat. </p>
-<p>Van <strong>A</strong> és <strong>B</strong> tranzakció, illetve <strong>a</strong> és <strong>b</strong> erőforrás. <strong>A</strong> tranzakció zárolta <strong>a</strong> erőforrást, <strong>B</strong> tranzakció zárolta <strong>b</strong> erőforrást. Viszont <strong>A</strong> tranzakció szeretné zárolni <strong>b</strong> erőforrást és <strong>B</strong> tranzakció szeretné zárolni <strong>a</strong> erőforrást. Ebben az esetben ki fog alakulni egy holtpont.</p>
-<h2 id="holtpont-egy-sql-szerveren">Holtpont egy SQL szerveren<a class="headerlink" href="#holtpont-egy-sql-szerveren" title="Permanent link">&para;</a></h2>
-<h4 id="tablak-letrehozasa">Táblák létrehozása<a class="headerlink" href="#tablak-letrehozasa" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>Létrehozzuk az első táblát Lefty néven, amelynek egy attribútuma lesz, a Numbers:
+<h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Deadlock (holtpont)</p>
+<p>A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat.</p>
+</div>
+<p>Legyen adott az <strong>A</strong> és <strong>B</strong> tranzakció, illetve <strong>a</strong> és <strong>b</strong> erőforrás. <strong>A</strong> tranzakció zárolja <strong>a</strong> erőforrást, <strong>B</strong> tranzakció zárolja <strong>b</strong> erőforrást. Viszont <strong>A</strong> tranzakció szeretné zárolni <strong>b</strong> erőforrást is és <strong>B</strong> tranzakció szeretné zárolni <strong>a</strong> erőforrást is. Ebben az esetben ki fog alakulni egy holtpont.</p>
+<p>Nézzük meg az előbbi példán keresztül, hogyan tudjuk diagnosztizálni a holtpontot, ha előáll egy rendszerben. Ehhez először is állítsuk elő a holtpontot.</p>
+<ol>
+<li>
+<p>Hozzunk létre két táblát, amin mesterségesen előállítjuk a holtpontot.</p>
+<p>Létrehozzuk az első táblát <code>Lefty</code> néven, amelynek egy attribútuma lesz, a <code>Numbers</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span> <span class="p">(</span><span class="n">Numbers</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">CLUSTERED</span><span class="p">);</span>
 <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">);</span> 
-</code></pre></div></p>
-<p>Létrehozzuk a második táblát Righty néven, amelynek szintén egy attribútuma lesz, a Numbers:
+</code></pre></div>
+<p>Létrehozzuk a második táblát <code>Righty</code> néven, amelynek szintén egy attribútuma lesz, a <code>Numbers</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span> <span class="p">(</span><span class="n">Numbers</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">CLUSTERED</span><span class="p">);</span>
 <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">);</span> 
-</code></pre></div></p>
-</blockquote>
-<h4 id="tranzakciok-vegrehajtasa">Tranzakciók végrehajtása<a class="headerlink" href="#tranzakciok-vegrehajtasa" title="Permanent link">&para;</a></h4>
-<p>A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:
-1. Az első tranzakcióból az első <code>UPDATE</code> utasítást hajtjuk végre
-2. A második tranzakcióból mindkettő <code>UPDATE</code> utasítást végrehajtuk
-3. Az első tranzakcióból végrehajtjuk a második <code>UPDATE</code> utasítást</p>
-<blockquote>
+</code></pre></div>
+</li>
+<li>
+<p>A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:</p>
+<ol>
+<li>Az első tranzakcióból az első <code>UPDATE</code> utasítást hajtjuk végre</li>
+<li>A második tranzakcióból mindkettő <code>UPDATE</code> utasítást végrehajtuk</li>
+<li>Az első tranzakcióból végrehajtjuk a második <code>UPDATE</code> utasítást</li>
+</ol>
 <p>Első tranzakció:</p>
-</blockquote>
 <div class="highlight"><pre><span></span><code><span class="k">BEGIN</span> <span class="n">TRAN</span>
 <span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
-  <span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
 <span class="k">GO</span>
 
 <span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
-  <span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
 <span class="k">GO</span>
 </code></pre></div>
-<blockquote>
 <p>Második tranzakció:</p>
-</blockquote>
 <div class="highlight"><pre><span></span><code><span class="k">BEGIN</span> <span class="n">TRAN</span>
 <span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
-  <span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="k">GO</span>
 
 <span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
-  <span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="k">GO</span>
 </code></pre></div>
-<h4 id="a-zarak-lekerdezese">A zárak lekérdezése<a class="headerlink" href="#a-zarak-lekerdezese" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő SQL lekérdezéssel:</p>
-</blockquote>
+</li>
+</ol>
+<p>Ezzel elő is állt a holtpont. A rendszer fel fogja oldani ezt a holtpontot egy kis idő elteltével. Mielőtt ez megtörténik, megnézhetjük, hogy mit is látunk a rendszerben.</p>
+<p>A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő lekérdezéssel:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
     <span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">TableName</span><span class="p">,</span>
-    <span class="n">Resource_type</span><span class="p">,</span> <span class="n">request_status</span><span class="p">,</span>  <span class="n">request_session_id</span>  
+    <span class="n">Resource_type</span><span class="p">,</span> <span class="n">request_status</span><span class="p">,</span>  <span class="n">request_session_id</span>
 <span class="k">FROM</span>
     <span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span> <span class="n">dtl</span>
     <span class="k">join</span> <span class="n">sys</span><span class="p">.</span><span class="n">partitions</span> <span class="n">P</span>
 <span class="k">ON</span> <span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
 </code></pre></div>
-<blockquote>
 <p>Példánk során ennek a lekérdezésnek az eredménye:</p>
-</blockquote>
 <table>
 <thead>
 <tr>
@@ -1943,21 +1969,16 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Tehát az első tranzakció a Lefty táblán helyezett el egy zárat, míg a második tranzakció a Righty táblán</p>
-</blockquote>
-<h4 id="blokkolt-tranzakciok-lekerdezese">Blokkolt tranzakciók lekérdezése<a class="headerlink" href="#blokkolt-tranzakciok-lekerdezese" title="Permanent link">&para;</a></h4>
-<blockquote>
+<p>Tehát az első tranzakció a <code>Lefty</code> táblán helyezett el egy zárat, míg a második tranzakció a <code>Righty</code> táblán</p>
 <p>A blokkolt tranzakciókról szintén számos adatot szolgáltat az adatbázis, amelyeket a következő SQL utasítással lehet lekérdezni:</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="n">blocking_session_id</span> <span class="k">AS</span> <span class="n">BlockingSessionID</span><span class="p">,</span> <span class="n">session_id</span> <span class="k">AS</span> <span class="n">VictimSessionID</span><span class="p">,</span> <span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span> <span class="k">AS</span> <span class="n">WaitDurationSecond</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="n">blocking_session_id</span> <span class="k">AS</span> <span class="n">BlockingSessionID</span><span class="p">,</span>
+       <span class="n">session_id</span> <span class="k">AS</span> <span class="n">VictimSessionID</span><span class="p">,</span>
+       <span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span> <span class="k">AS</span> <span class="n">WaitDurationSecond</span>
 <span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
 <span class="k">CROSS</span> <span class="n">APPLY</span> <span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">([</span><span class="n">sql_handle</span><span class="p">])</span>
 <span class="k">WHERE</span> <span class="n">blocking_session_id</span> <span class="o">&gt;</span> <span class="mi">0</span> 
 </code></pre></div>
-<blockquote>
 <p>Példánk során ennek a lekérdezésnek az eredménye:</p>
-</blockquote>
 <table>
 <thead>
 <tr>
@@ -1982,15 +2003,8 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce
-Illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce</p>
-</blockquote>
-<h4 id="a-deadlock-megszuntetese">A deadlock megszüntetése<a class="headerlink" href="#a-deadlock-megszuntetese" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>A holtpontot az adatbázis 1-2 másodpercen belül megszűntette, miután az utolsó <code>UPDATE</code> utasítást is kiadtam, viszont ezen diagnosztikai lekérdezések segítségével egy utasítás segítségével meg lehet szüntetni
-Esetünkben mind a <code>kill 53</code>, mind a <code>kill 54</code> utasítás megszüntette volna, mivel a megadott ID-val rendelkező tranzakciót így abortálhatjuk</p>
-</blockquote>
+<p>Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce, illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce.</p>
+<p>A holtpontot az adatbázis rövid időn belül magától megszűntette. Ha manuálisan szeretnénk beavatkozni, akkor ezt a <code>kill</code> paranccsal tehetjük meg kiválasztva azt a tranzakciót, amit le akarunk állítani (pl. <code>kill 53</code>).</p>
 <h2 id="ellenorzo-kerdesek">Ellenőrző kérdések<a class="headerlink" href="#ellenorzo-kerdesek" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Milyen konkurens adathozzáférési problémákat ismersz?</li>
