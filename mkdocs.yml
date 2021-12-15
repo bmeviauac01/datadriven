@@ -76,6 +76,7 @@ nav:
       - jegyzet/mssql/sql.md
       - jegyzet/mssql/server-side-programming.md
       - jegyzet/linq/index.md
+      - jegyzet/ef/index.md
       - jegyzet/mongodb/index.md
       - jegyzet/di/index.md
       - jegyzet/async/index.md
