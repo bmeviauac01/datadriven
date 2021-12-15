@@ -16,7 +16,7 @@
     
     
       
-        <title>Kapcsolatok definiálása EF Core-ban, Navigation property - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+        <title>Kapcsolatok definiálása Entity Framework-ben - BMEVIAUAC01 Adatvezérelt rendszerek</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kapcsolatok-definialasa-ef-core-ban-navigation-property" class="md-skip">
+        <a href="#kapcsolatok-definialasa-entity-framework-ben" class="md-skip">
           Kihagyás
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kapcsolatok definiálása EF Core-ban, Navigation property
+              Kapcsolatok definiálása Entity Framework-ben
             
           </span>
         </div>
@@ -226,13 +226,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../architektura/" class="md-tabs__link">
+      <a href="../architektura/" class="md-tabs__link md-tabs__link--active">
         Jegyzetek
       </a>
     </li>
@@ -440,12 +442,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -527,6 +531,87 @@
       <a href="../linq/" class="md-nav__link">
         LINQ: Language Integrated Query
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Kapcsolatok definiálása Entity Framework-ben
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Kapcsolatok definiálása Entity Framework-ben
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kapcsolatok-definialasa" class="md-nav__link">
+    Kapcsolatok definiálása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-join" class="md-nav__link">
+    Explicit join
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-property" class="md-nav__link">
+    Navigation property
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigation property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#include" class="md-nav__link">
+    Include
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -926,21 +1011,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ef-core" class="md-nav__link">
-    EF Core
-  </a>
-  
-    <nav class="md-nav" aria-label="EF Core">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#kapcsolatok-definialasa" class="md-nav__link">
     Kapcsolatok definiálása
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
+  <a href="#explicit-join" class="md-nav__link">
+    Explicit join
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#navigation-property" class="md-nav__link">
     Navigation property
   </a>
@@ -949,28 +1033,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#join" class="md-nav__link">
-    Join:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#navigacio" class="md-nav__link">
-    Navigáció:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#include" class="md-nav__link">
     Include
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -991,20 +1056,18 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/relations/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/ef/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="kapcsolatok-definialasa-ef-core-ban-navigation-property">Kapcsolatok definiálása EF Core-ban, Navigation property<a class="headerlink" href="#kapcsolatok-definialasa-ef-core-ban-navigation-property" title="Permanent link">&para;</a></h1>
-<p>SQL adatbázisokban entitásokat és az őket összekötő kapcsolatokat tárolunk. Így egyes egyedeken keresztül elérhetünk más hozzájuk valamilyen módon kapcsolodó egyedeket is.
-Alapvetően ezt a táblák összekapcsolásával tesszük amelyet SQL nyelven join-nak hívunk. 
-Entitások között több féle kapcsolat lehet, az egyik ilyen jellemző a kapcsolat kardinalitása. Ez lehet egy-egy, egy-több, és több-több kapcsolat.</p>
-<h2 id="ef-core">EF Core<a class="headerlink" href="#ef-core" title="Permanent link">&para;</a></h2>
-<p>Az adatbázist a kódunkal összeköttetni Object Relation Mapping (ORM)-el lehet, amelyekre más jegyzetek bővebben kitérnek.
-Entity Framework Core az egyik legújabb ORM eszköz. A mappelést Code First modellel oldja meg, ami annyit tesz, hogy az entitásokat kódban definiáljuk, és onnan szinkronizálhatjuk (migráljuk) az adatbázisba.</p>
-<h3 id="kapcsolatok-definialasa">Kapcsolatok definiálása<a class="headerlink" href="#kapcsolatok-definialasa" title="Permanent link">&para;</a></h3>
-<p>!!! note "" EF Coreban-ban vannak alapvető konvenciók amelyekket a rendszer le tud kezelni és autómatikusan létrehoz, de erre most nem térünk ki, hiszen megérteni szeretnénk a kapcsolatokat és a manuális felkonfigurálással sokkal láthatóbbá válnak azok.</p>
+                <h1 id="kapcsolatok-definialasa-entity-framework-ben">Kapcsolatok definiálása Entity Framework-ben<a class="headerlink" href="#kapcsolatok-definialasa-entity-framework-ben" title="Permanent link">&para;</a></h1>
+<p>Relációs adatbázisokban entitásokat és az őket összekötő kapcsolatokat tárolunk. Így egyes egyedeken keresztül elérhetünk más, hozzájuk valamilyen módon kapcsolódó egyedeket is. A relációs modellben ezt a táblák összekapcsolásával tesszük, amelyet SQL nyelven <code>join</code>-nak hívunk. Az Entity Framework, mint ORM keretrendszer, a kapcsolatok kezelésére is ad kész és kényelmes megoldást számunkra.</p>
+<h2 id="kapcsolatok-definialasa">Kapcsolatok definiálása<a class="headerlink" href="#kapcsolatok-definialasa" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Konvenciók kapcsolatok leképezésére</p>
+<p>Az Entity Framework rendelkezik alapvető <a href="https://docs.microsoft.com/en-us/ef/core/modeling/relationships#conventions">konvenciókkal</a>, amelyekkel a rendszer automatikusan, explicit konfiguráció nélkül képes kapcsolatokat leképezni. Az alábbiakban erre nem térünk ki, helyette explicit definiáljuk a kapcsolatokat. A manuális felkonfigurálással nem mellesleg láthatóbbá válnak a szándékaink is.</p>
+</div>
 <p>Nézzük is tehát a példa objektumainkat, majd vizsgáljuk meg a rajtuk megjelenő kapcsolatot:</p>
 <div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Product</span>
 <span class="p">{</span>
@@ -1023,76 +1086,87 @@ Entity Framework Core az egyik legújabb ORM eszköz. A mappelést Code First mo
     <span class="k">public</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">Product</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>A konfigurálást a DBContext, OnModelCreating függvényében telhetjük meg ahol egy entitásra a következő függvényeket definiálhatjuk:</p>
+<p>A konfigurálást a <code>DBContext</code> leszármazott, <code>OnModelCreating</code> függvényében tehetjük meg, ahol egy entitásra a következő függvényeket használhatjuk:</p>
 <div class="highlight"><pre><span></span><code><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Példa</span><span class="p">&gt;</span>
     <span class="p">.</span><span class="n">HasOne</span><span class="p">()/.</span><span class="n">HasMany</span><span class="p">()</span>
     <span class="p">.</span><span class="n">WithOne</span><span class="p">()/.</span><span class="n">WithMany</span><span class="p">()</span>
 </code></pre></div>
-<p>A példánkban egy egy-több kacsolattot láthatunk amit a következő módon írhatunk le:</p>
-<p><div class="highlight"><pre><span></span><code><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span>
+<p>A példánkban egy egy-több kapcsolatot láthatunk, amit a következő módon írhatunk le:</p>
+<div class="highlight"><pre><span></span><code><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span>
             <span class="p">.</span><span class="n">HasOne</span><span class="p">(</span><span class="n">d</span> <span class="p">=&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
             <span class="p">.</span><span class="n">WithMany</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Product</span><span class="p">)</span>
             <span class="p">.</span><span class="n">HasForeignKey</span><span class="p">(</span><span class="n">d</span> <span class="p">=&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">VatId</span><span class="p">);</span>
 </code></pre></div>
-Így a két entitás között létrejövő navigációt a Product VAT-ra mutató külső kulcsa adja, ami az adatbázisban is megjelenik, de kód szinten a konkét VAT objektum is megjelenik a Product objektumon, ahogy a VAt objektum-hoz tartozó Product lista is elérhetővé válik számunkra.</p>
-<p>Ezzel el is érkeztünk a köveztkező témánkhoz:</p>
-<h3 id="navigation-property">Navigation property<a class="headerlink" href="#navigation-property" title="Permanent link">&para;</a></h3>
-<p>A DBContext-ünk az Entitások lekérdezéséhez DBSet-eket (IQueryable) kinál amiken végrehajthatünk LINQ- műveleteket. A LINQ részletes ismertetését egy másik fejezet tartalmazza, így itt arra építhetünk. Nézzük meg hogy, eddig hogyan kapcsoltunk össze két relációt és, hogy milyen más lehetőségünk van még erre:</p>
-<h4 id="join">Join:<a class="headerlink" href="#join" title="Permanent link">&para;</a></h4>
-<p>A két DBSet összekapcsolása joinnal a külső kulcson keresztül történik. A linq kifejezés az sql-hez hasonlóan deklerativan leírja, hogy mint szeretnénk megkapni és még kiérékelés előtt el is kérhetjük tőle, hogy milyen query fog lefutni az adatbázisban.</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">products</span> <span class="p">=</span> <span class="n">_dbContext</span><span class="p">.</span><span class="n">Product</span><span class="p">;</span>
-<span class="kt">var</span> <span class="n">vat</span> <span class="p">=</span> <span class="n">_dbContext</span><span class="p">.</span><span class="n">Vat</span><span class="p">;</span>
-
-<span class="kt">var</span> <span class="n">query</span> <span class="p">=</span> 
-    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span>
-    <span class="k">join</span> <span class="n">v</span> <span class="k">in</span> <span class="n">vat</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">VatId</span> <span class="k">equals</span> <span class="n">v</span><span class="p">.</span><span class="n">Id</span>
+<p>Így a két entitás között létrejövő kapcsolatot a <code>Product</code> tábla <code>VAT</code>-ra mutató külső kulcsa adja (ami természetesen az adatbázisban is megjelenik egy oszlop formájában), de emellett kód szinten a konkrét <code>VAT</code> referencia is megjelenik a <code>Product</code> osztályban, ahogy a <code>VAT</code> objektumhoz tartozó <code>Product</code> lista is elérhetővé válik számunkra egy C# property formájában. Ezeket hívjuk <em>navigation propertynek</em>.</p>
+<h2 id="explicit-join">Explicit join<a class="headerlink" href="#explicit-join" title="Permanent link">&para;</a></h2>
+<p>A <code>DBContext</code>-ünk az entitások lekérdezéséhez <code>DBSet</code>-eket kínál, amiken LINQ műveleteket hajthatunk végre. Az egyik ilyen művelet a <code>join</code> összekapcsolás. A két <code>DBSet</code> összekapcsolása a külső kulcson keresztül történhet. Az alábbi LINQ kifejezés az SQL megfelelőjéhez hasonlóan deklaratívan leírja, hogy mit szeretnénk megkapni.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query</span> <span class="p">=</span> 
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">dbContext</span><span class="p">.</span><span class="n">Product</span>
+    <span class="k">join</span> <span class="n">v</span> <span class="k">in</span> <span class="n">dbContext</span><span class="p">.</span><span class="n">Vat</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">VatId</span> <span class="k">equals</span> <span class="n">v</span><span class="p">.</span><span class="n">Id</span>
     <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
     <span class="k">select</span> <span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">;</span>
 
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>   
+<span class="c1">// Megmutatja a generált SQL utasítást</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>    
 </code></pre></div>
-<p>A kiírt eredmény: </p>
+<p>A háttérben az alábbi lesz a generált SQL utasítás:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
 <span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
 <span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
 <span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
 </code></pre></div>
-<h4 id="navigacio">Navigáció:<a class="headerlink" href="#navigacio" title="Permanent link">&para;</a></h4>
-<p>Miután az első részben pontosan felkonfiguráltuk, hogy a Product és VAT entitások között milyen kapcsolat van használhatjuk a Product osztályban felvet VAT property-t amit ezesetben navigation propertynek is nevezhetünk. Így az előző lekérdezésünk a köveztekőre egyszerűsödik:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query2</span> <span class="p">=</span>
-    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span>
+<p>Az ilyen módú kapcsolásra azonban ritkán van szükségünk - sőt, kerülendő is, amikor rendelkezésünkre állnak a <em>navigation propertyk</em>.</p>
+<h2 id="navigation-property">Navigation property<a class="headerlink" href="#navigation-property" title="Permanent link">&para;</a></h2>
+<p>Mivel a <code>DbContext</code>-ben pontosan felkonfiguráltuk, hogy a <code>Product</code> és <code>VAT</code> entitások között milyen kapcsolat van, használhatjuk a <code>Product</code> osztályban található <code>VAT</code> property-t: ezt nevezzük <em>navigation propertynek</em>. A <em>navigation property</em> "mögötti" kapcsolatot az EF automatikusan kezeli, és végrehajtja az (általunk explicit le nem írt) összekapcsolást. Így az előző lekérdezésünk a következőre egyszerűsödik:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query</span> <span class="p">=</span>
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">dbContext</span><span class="p">.</span><span class="n">Product</span>
     <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
     <span class="k">select</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">;</span>
 
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query2</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+<span class="c1">// Megmutatja a generált SQL utasítást</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
 </code></pre></div>
-<p>Láthatjuk, hogy a kiírt eredmény csak a join típusában tér el, de egyebként ugyan arra a megoldásra jutunk.</p>
+<p>Alább láthatjuk a generált lekérdezés, ami csak a join típusában tér el a korábbitől, de egyébként érdemben ugyan arra a megoldásra jutunk.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
 <span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
 <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
 <span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
 </code></pre></div>
-<h4 id="include">Include<a class="headerlink" href="#include" title="Permanent link">&para;</a></h4>
-<p>A jól felvett Navigation property konkrét objektum ként is megjelenhet a tartalmazó objektumban, ehhez egy egyszerű include utasítást kell meghívnunk:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query3</span> <span class="p">=</span>
-    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
+<div class="admonition important">
+<p class="admonition-title">Használjuk a <em>navigation property</em>-ket</p>
+<p>EF-ben mindig használjuk a <em>navigation propertyket</em> ott, ahol rendelkezésre állnak. Kerüljük az explicit <code>join</code> végrehajtását.</p>
+</div>
+<h3 id="include">Include<a class="headerlink" href="#include" title="Permanent link">&para;</a></h3>
+<p>Az előző példákban csak egy-egy skalár eredményt kérdeztünk le. De mi történik a <em>navigation property</em>-kkel, amikor egy egész entitást kérdezünk le? Például:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">prod</span> <span class="p">=</span> <span class="n">dbContext</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)).</span><span class="n">First</span><span class="p">();</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span> <span class="c1">// ez működik, kiírja a nevet</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span> <span class="c1">// a navigation property elérése</span>
+</code></pre></div>
+<p>A példában az utolsó sorban futási idejű hibát kapnánk. Miért is? Ugyan a <em>navigation property</em>-t felkonfiguráltuk, de alapesetben az EF nem tölti be a hivatkozott entitásokat. Tehát a lekérdezésekben dolgozhatunk velük (ahogy korábban tettük a hivatkozott <code>v.Percentage</code> lekérdezésével), viszont amennyiben egy <code>Product</code> entitást kérünk a rendszertől, abban nem szerepel a hivatkozott <code>VAT</code> entitás. A rendszer képes lenne a hivatkozott rekordo(ka)t is letölteni, de nem teszi. A fejlesztő feladata eldönteni, hogy szüksége van-e a hivatkozott entitásokra. Gondoljunk csak bele, ha minden hivatkozott entitást automatikusan letöltene a rendszer (tranzitívan is), akkor egyetlen rekord elérésével akár százakat, ezreket kellene megkeresnie az adatbázisnak. Ez a legtöbb esetben felesleges.</p>
+<p>Ha mégis szükségünk van a hivatkozott entitásokra, akkor a fejlesztő a kódban ezt specifikálja az <code>Include</code> használatával, és a rendszer betölti a kért hivatkozásokat is.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query</span> <span class="p">=</span>
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">dbContext</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
     <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
     <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
 
 <span class="c1">// vagy ebben az esetben talán egy jobban látható de teljesen ekvivalens megoldás:</span>
+<span class="c1">// var query = products</span>
+<span class="c1">//               .Include(p =&gt; p.VAT)</span>
+<span class="c1">//               .Where(p =&gt; p.Name.Contains(&quot;teszt&quot;));</span>
 
-<span class="kt">var</span> <span class="n">query3</span> <span class="p">=</span> <span class="n">products</span>
-                <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">));</span>
-
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query3</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
 </code></pre></div>
-<p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Id</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">CategoryId</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Description</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Price</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Stock</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
+<p>Ha megnézzük a generált SQL utasítást, látható benne a <code>join</code> és az is, hogy a <code>select</code> minden szükséges adatot lekérdez.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Id</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">CategoryId</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Description</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Price</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Stock</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
 <span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
 <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
 <span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
 </code></pre></div>
-Látható, hogy minden szükséges értéket lekérdez az utasítás, és a legjobb, hogy azok helyrerakásával nekünk nem is kell foglalkoznunk.</p>
+<div class="admonition note">
+<p class="admonition-title">Hivatkozott entitások automatikus <em>lazy</em> betöltése</p>
+<p>Entity Frameworkben lehetőség van a <a href="https://docs.microsoft.com/en-us/ef/core/querying/related-data/lazy"><em>lazy loading</em></a> bekapcsolására, aminek hatására a <em>navigation property</em>-ken keresztül hivatkozott entitásokat a rendszer <em>lazy</em> módon (azaz: amikor szükség van rá) betölti külön <code>Include</code> nélkül is. Ez a megoldás ugyan kényelmes a fejlesztő szempontjából, de ára van: a betöltés akkor történik meg, amikor szükség lesz rá (amikor a property-t eléri a kód), ami tipikusan több külön adatbázis lekérdezést fog eredményezni. Az <code>Include</code> megoldásban fentebb látható, hogy egyetlen lekérdezés betölti a <code>Product</code> és <code>VAT</code> adatokat is. Ha ezt <em>lazy loading</em>-gal csinálnánk, akkor lenne egy lekérdezés a <code>Product</code> adataihoz, majd időben később még egy a hivatkozott <code>VAT</code> lekérdezéséhez. Ez tehát teljesítményben jelentősen rosszabb.</p>
+</div>
                 
               
               
@@ -1113,6 +1187,41 @@ Látható, hogy minden szükséges értéket lekérdez az utasítás, és a legj
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Élőláb">
+      
+        
+        <a href="../linq/" class="md-footer__link md-footer__link--prev" aria-label="Előző: LINQ: Language Integrated Query" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Előző
+              </span>
+              LINQ: Language Integrated Query
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../mongodb/" class="md-footer__link md-footer__link--next" aria-label="Következő: MongoDB alapok, műveletek, és a MongoDB .NET Driver" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Következő
+              </span>
+              MongoDB alapok, műveletek, és a MongoDB .NET Driver
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
