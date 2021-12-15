@@ -300,112 +300,107 @@ A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a v�
 !!! note ""
     Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.
 
----
+## Deadlock információ kinyerése MSSQL adatbázisból
 
-# Deadlock információ kinyerése MSSQL adatbázisból
+!!! abstract "Deadlock (holtpont)"
+    A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat.
 
-## Deadlock (holtpont)
-A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat. 
+Legyen adott az **A** és **B** tranzakció, illetve **a** és **b** erőforrás. **A** tranzakció zárolja **a** erőforrást, **B** tranzakció zárolja **b** erőforrást. Viszont **A** tranzakció szeretné zárolni **b** erőforrást is és **B** tranzakció szeretné zárolni **a** erőforrást is. Ebben az esetben ki fog alakulni egy holtpont.
 
-Van __A__ és __B__ tranzakció, illetve __a__ és __b__ erőforrás. __A__ tranzakció zárolta __a__ erőforrást, __B__ tranzakció zárolta __b__ erőforrást. Viszont __A__ tranzakció szeretné zárolni __b__ erőforrást és __B__ tranzakció szeretné zárolni __a__ erőforrást. Ebben az esetben ki fog alakulni egy holtpont.
+Nézzük meg az előbbi példán keresztül, hogyan tudjuk diagnosztizálni a holtpontot, ha előáll egy rendszerben. Ehhez először is állítsuk elő a holtpontot.
 
-## Holtpont egy SQL szerveren
+1. Hozzunk létre két táblát, amin mesterségesen előállítjuk a holtpontot.
 
-#### Táblák létrehozása
+    Létrehozzuk az első táblát `Lefty` néven, amelynek egy attribútuma lesz, a `Numbers`:
 
-> Létrehozzuk az első táblát Lefty néven, amelynek egy attribútuma lesz, a Numbers:
-```sql 
-CREATE TABLE dbo.Lefty (Numbers INT PRIMARY KEY CLUSTERED);
-INSERT INTO dbo.Lefty VALUES (1), (2), (3); 
-```
+    ```sql
+    CREATE TABLE dbo.Lefty (Numbers INT PRIMARY KEY CLUSTERED);
+    INSERT INTO dbo.Lefty VALUES (1), (2), (3); 
+    ```
 
-> Létrehozzuk a második táblát Righty néven, amelynek szintén egy attribútuma lesz, a Numbers:
-```sql 
-CREATE TABLE dbo.Righty (Numbers INT PRIMARY KEY CLUSTERED);
-INSERT INTO dbo.Righty VALUES (1), (2), (3); 
-```
+    Létrehozzuk a második táblát `Righty` néven, amelynek szintén egy attribútuma lesz, a `Numbers`:
 
-#### Tranzakciók végrehajtása
+    ```sql
+    CREATE TABLE dbo.Righty (Numbers INT PRIMARY KEY CLUSTERED);
+    INSERT INTO dbo.Righty VALUES (1), (2), (3); 
+    ```
 
-A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:
-1. Az első tranzakcióból az első ```UPDATE``` utasítást hajtjuk végre
-2. A második tranzakcióból mindkettő ```UPDATE``` utasítást végrehajtuk
-3. Az első tranzakcióból végrehajtjuk a második ```UPDATE``` utasítást
+1. A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:
 
-> Első tranzakció:
+    1. Az első tranzakcióból az első `UPDATE` utasítást hajtjuk végre
+    1. A második tranzakcióból mindkettő `UPDATE` utasítást végrehajtuk
+    1. Az első tranzakcióból végrehajtjuk a második `UPDATE` utasítást
 
-```sql 
-BEGIN TRAN
-UPDATE dbo.Lefty
-  SET Numbers = Numbers * 2;
-GO
- 
-UPDATE dbo.Righty
-  SET Numbers = Numbers * 2;
-GO
-```
+    Első tranzakció:
 
-> Második tranzakció:
+    ```sql
+    BEGIN TRAN
+    UPDATE dbo.Lefty
+    SET Numbers = Numbers * 2;
+    GO
+    
+    UPDATE dbo.Righty
+    SET Numbers = Numbers * 2;
+    GO
+    ```
 
-```sql 
-BEGIN TRAN
-UPDATE dbo.Righty
-  SET Numbers = Numbers + 1;
-GO
+    Második tranzakció:
 
-UPDATE dbo.Lefty
-  SET Numbers = Numbers + 1;
-GO
-```
+    ```sql
+    BEGIN TRAN
+    UPDATE dbo.Righty
+    SET Numbers = Numbers + 1;
+    GO
 
-#### A zárak lekérdezése
+    UPDATE dbo.Lefty
+    SET Numbers = Numbers + 1;
+    GO
+    ```
 
-> A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő SQL lekérdezéssel:
+Ezzel elő is állt a holtpont. A rendszer fel fogja oldani ezt a holtpontot egy kis idő elteltével. Mielőtt ez megtörténik, megnézhetjük, hogy mit is látunk a rendszerben.
+
+A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő lekérdezéssel:
 
 ```sql
 SELECT
     OBJECT_NAME(P.object_id) AS TableName,
-    Resource_type, request_status,  request_session_id	
+    Resource_type, request_status,  request_session_id
 FROM
     sys.dm_tran_locks dtl
     join sys.partitions P
 ON dtl.resource_associated_entity_id = p.hobt_id
 ```
 
-> Példánk során ennek a lekérdezésnek az eredménye:
+Példánk során ennek a lekérdezésnek az eredménye:
 
 || TableName | Resource_type | request_status | request_session_id |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Righty | KEY | GRANT | 54 |
 | 2 | Lefty | KEY | GRANT | 53 |
 
-> Tehát az első tranzakció a Lefty táblán helyezett el egy zárat, míg a második tranzakció a Righty táblán
+Tehát az első tranzakció a `Lefty` táblán helyezett el egy zárat, míg a második tranzakció a `Righty` táblán
 
-#### Blokkolt tranzakciók lekérdezése
-
-> A blokkolt tranzakciókról szintén számos adatot szolgáltat az adatbázis, amelyeket a következő SQL utasítással lehet lekérdezni:
+A blokkolt tranzakciókról szintén számos adatot szolgáltat az adatbázis, amelyeket a következő SQL utasítással lehet lekérdezni:
 
 ```sql
-SELECT blocking_session_id AS BlockingSessionID, session_id AS VictimSessionID, wait_time/1000 AS WaitDurationSecond
+SELECT blocking_session_id AS BlockingSessionID,
+       session_id AS VictimSessionID,
+       wait_time/1000 AS WaitDurationSecond
 FROM sys.dm_exec_requests
 CROSS APPLY sys.dm_exec_sql_text([sql_handle])
 WHERE blocking_session_id > 0 
 ```
 
-> Példánk során ennek a lekérdezésnek az eredménye:
+Példánk során ennek a lekérdezésnek az eredménye:
 
 || BlockingSessionID | VictimSessionID | WaitDurationSecond |
 | :---: | :---: | :---: | :---: |
 | 1 | 54 | 53 | 0 |
 | 2 | 53 | 54 | 72 |
 
-> Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce
-Illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce
+Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce, illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce.
 
-#### A deadlock megszüntetése
-
-> A holtpontot az adatbázis 1-2 másodpercen belül megszűntette, miután az utolsó ```UPDATE``` utasítást is kiadtam, viszont ezen diagnosztikai lekérdezések segítségével egy utasítás segítségével meg lehet szüntetni
-Esetünkben mind a ```kill 53```, mind a ```kill 54``` utasítás megszüntette volna, mivel a megadott ID-val rendelkező tranzakciót így abortálhatjuk
+A holtpontot az adatbázis rövid időn belül magától megszűntette. Ha manuálisan szeretnénk beavatkozni, akkor ezt a `kill` paranccsal tehetjük meg kiválasztva azt a tranzakciót, amit le akarunk állítani (pl. `kill 53`).
 
 ## Ellenőrző kérdések
 
