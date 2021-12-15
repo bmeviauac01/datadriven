@@ -17,22 +17,33 @@ Az OpenAPI a specifikáció hivatalos neve. A specifikáció fejlesztését az O
  - **Swagger Inspector** (ingyenes): API-tesztelő eszköz, amely lehetővé teszi az API-k validálását és OpenAPI-definíciók generálását egy meglévő API-ból.
  - **SwaggerHub** (ingyenes és kereskedelmi): API-tervezés és dokumentáció, az OpenAPI-val dolgozó csapatok számára készült.
  
+A Swagger számtalan lehetőséget nyújt a fejlesztők számára a leírások elkészítéséhez. Ezeket a leírásokat általában JSON vagy YAML nyelveken készítjük. A hivatalos források mind a YAML nyelvet ajánlják, ugyanis könnyebben olvasható és gyorsabban megérthető. 
+ 
 Mélyedjünk el egy kicsit az OpenAPI 3.0 használatában.
 
- ## Swagger 2.0
+ ## OpenAPI 3.0
  ### _Meta információk:_
  A metainformációk szakaszban adhatsz meg információkat az általános API-ról. Ebben a szakaszban olyan információkat lehet megadni, mint például, hogy mit csinál az API, mi az API alap URL címe és milyen webes protokollt követ.
 ```yaml
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 1.0.0
   title: Simple Artist API
-  description: A simple API to understand the Swagger Specification in greater detail
+  description: A simple API to illustrate OpenAPI concepts
 
-schemes:
-    - https
-host: example.io
-basePath: /v1
+servers:
+  - url: https://example.io/v1
+
+# Basic authentication
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
+
+paths: {}
 ...
 ```
 
@@ -65,30 +76,35 @@ paths:
 paths:
     ...
     responses:
-        200:
-          description: Successfully returned a list of artists 
-          schema:
-            type: array
-            items:
-              type: object
-              required:
-               - username
-              properties:
-                artist_name:
-                  type: string
-                artist_genre:
-                  type: string
-                albums_recorded:
-                  type: integer
-                username:
-                  type: string
-        400:
-          description: Invalid request 
-          schema:
-            type: object
-            properties:   
-              message:
-                type: string
+        '200':
+          description: Successfully returned a list of artists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - username
+                  properties:
+                    artist_name:
+                      type: string
+                    artist_genre:
+                      type: string
+                    albums_recorded:
+                      type: integer
+                    username:
+                      type: string
+
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
 ...
  ```
  
@@ -105,15 +121,15 @@ paths:
  ...
     get:
     ...
-    parameters:
+   parameters:
         - name: limit
           in: query
-          type: integer
           description: Limits the number of items on a page
+          schema:
+            type: integer
         - name: offset
           in: query
-          type: integer
-          description: Specifies the page number of the artists to be displayed 
+          description: Specifies the page number of the artists to be displayed
 ...
  ```
  
@@ -121,43 +137,49 @@ paths:
    ```cs
  ASP.NET contorller:
  [HttpGet("-/artists/{username}")]
- public IEnumerable<Artist> GetByUsername(string uname){
-     return artistRepository.GetByUname(uname);
+ public IEnumerable<Artist> GetByUsername(string username){
+     return artistRepository.GetByUname(username);
  }
  ```
  ```yaml
- /artists/{username}:
+/artists/{username}:
     get:
       description: Obtain information about an artist from his or her unique username
       parameters:
         - name: username
-          in: path 
-          type: string
-          required: true 
+          in: path
+          required: true
+          schema:
+            type: string
+          
       responses:
-        200:
+        '200':
           description: Successfully returned an artist
-          schema:
-            type: object
-            properties:
-              artist_name:
-                type: string
-              artist_genre:
-                type: string
-              albums_recorded:
-                type: integer
-        400:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  artist_name:
+                    type: string
+                  artist_genre:
+                    type: string
+                  albums_recorded:
+                    type: integer
+                
+        '400':
           description: Invalid request
-          schema:
-            type: object 
-            properties:           
-              message:
-                type: string
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:           
+                  message:
+                    type: string
  ```
 
 Példakódjaink egy alap API kezdetleges változatát állították elő. Jól látható, hogy ez a kód egy komolyabb API leírásnál hatalmas mennyiséget is elérhet. Fontos tisztázni azt, hogy az API leírásához egy már logikailag összerakott adatbázist és egy azt reprezentáló modellt kell alkotnunk így megkönnyítve a dolgunk. 
 
-A Swagger számtalan lehetőséget nyújt a fejlesztők számára, a szabványos OpenAPI leírásokat figyelembe véve nagyjából egyezik is velük. Ezeket a leírásokat általában JSON vagy YAML nyelveken készítjük. A hivatalos források mind a YAML nyelvet ajánlják, ugyanis könnyebben olvasható és gyorsabban megérthető. 
 
  ## Polimorfizmus és öröklés OpenAPI 3.0 alatt
 Az OpenAPI specifikációja lehetőséget biztosít arra, hogy a közös tulajdonságok ne alkossanak sormintát, ezzel csúnyává téve az amúgy is elég nagy kódot. Nézzünk erre egy példát: 
