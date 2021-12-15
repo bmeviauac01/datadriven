@@ -1,0 +1,1144 @@
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Dudás Ákos">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+    
+    
+      
+        <title>Kapcsolatok definiálása EF Core-ban, Navigation property - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8b42a75e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kapcsolatok-definialasa-ef-core-ban-navigation-property" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Élőfej">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kapcsolatok definiálása EF Core-ban, Navigation property
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Váltás sötét témára"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Váltás világos témára"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Törlés" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Adatvezérelt rendszerek
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../db/" class="md-tabs__link">
+        Adatbázis
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architektura/" class="md-tabs__link">
+        Jegyzetek
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../gyakorlat/transactions/" class="md-tabs__link">
+        Gyakorlatok
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hazi/" class="md-tabs__link">
+        Házi feladatok
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Adatvezérelt rendszerek
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Adatbázis
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/" class="md-nav__link">
+        Minta adatbázis sémája
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mssql/" class="md-nav__link">
+        Microsoft SQL Server használata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mongodb/" class="md-nav__link">
+        MongoDB használata
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" class="md-nav__link">
+        Minta adatbázis: mssql.sql
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" class="md-nav__link">
+        Minta adatbázis: mongo.js
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Jegyzetek
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architektura/" class="md-nav__link">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transactions/" class="md-nav__link">
+        Tranzakciókezelés adatbázisokban
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/sql/" class="md-nav__link">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/server-side-programming/" class="md-nav__link">
+        Microsoft SQL Server programozása
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linq/" class="md-nav__link">
+        LINQ: Language Integrated Query
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb/" class="md-nav__link">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../di/" class="md-nav__link">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async/" class="md-nav__link">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Gyakorlatok
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/transactions/" class="md-nav__link">
+        Tranzakciókezelés
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/mssql/" class="md-nav__link">
+        Microsoft SQL Server programozása
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/ef/" class="md-nav__link">
+        Entity Framework
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/mongodb/" class="md-nav__link">
+        MongoDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/jpa/" class="md-nav__link">
+        JPA & Spring Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gyakorlat/rest/" class="md-nav__link">
+        REST API & ASP.NET Web API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Házi feladatok
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/" class="md-nav__link">
+        Szorgalmi házi feladatok
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/mssql/" class="md-nav__link">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/adonet/" class="md-nav__link">
+        Feladat: ADO.NET adatelérés
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/ef/" class="md-nav__link">
+        Feladat: Entity Framework
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/mongodb/" class="md-nav__link">
+        Feladat: MongoDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/rest/" class="md-nav__link">
+        Feladat: REST API Web API technológiával
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/GitHub/" class="md-nav__link">
+        Feladatok beadása (GitHub)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/GitHub-Actions/" class="md-nav__link">
+        GitHub Actions ismertető
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hazi/VisualStudio/" class="md-nav__link">
+        Visual Studio & .NET Core SDK telepítése
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ef-core" class="md-nav__link">
+    EF Core
+  </a>
+  
+    <nav class="md-nav" aria-label="EF Core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kapcsolatok-definialasa" class="md-nav__link">
+    Kapcsolatok definiálása
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation-property" class="md-nav__link">
+    Navigation property
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigation property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    Join:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigacio" class="md-nav__link">
+    Navigáció:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#include" class="md-nav__link">
+    Include
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/relations/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="kapcsolatok-definialasa-ef-core-ban-navigation-property">Kapcsolatok definiálása EF Core-ban, Navigation property<a class="headerlink" href="#kapcsolatok-definialasa-ef-core-ban-navigation-property" title="Permanent link">&para;</a></h1>
+<p>SQL adatbázisokban entitásokat és az őket összekötő kapcsolatokat tárolunk. Így egyes egyedeken keresztül elérhetünk más hozzájuk valamilyen módon kapcsolodó egyedeket is.
+Alapvetően ezt a táblák összekapcsolásával tesszük amelyet SQL nyelven join-nak hívunk. 
+Entitások között több féle kapcsolat lehet, az egyik ilyen jellemző a kapcsolat kardinalitása. Ez lehet egy-egy, egy-több, és több-több kapcsolat.</p>
+<h2 id="ef-core">EF Core<a class="headerlink" href="#ef-core" title="Permanent link">&para;</a></h2>
+<p>Az adatbázist a kódunkal összeköttetni Object Relation Mapping (ORM)-el lehet, amelyekre más jegyzetek bővebben kitérnek.
+Entity Framework Core az egyik legújabb ORM eszköz. A mappelést Code First modellel oldja meg, ami annyit tesz, hogy az entitásokat kódban definiáljuk, és onnan szinkronizálhatjuk (migráljuk) az adatbázisba.</p>
+<h3 id="kapcsolatok-definialasa">Kapcsolatok definiálása<a class="headerlink" href="#kapcsolatok-definialasa" title="Permanent link">&para;</a></h3>
+<p>!!! note "" EF Coreban-ban vannak alapvető konvenciók amelyekket a rendszer le tud kezelni és autómatikusan létrehoz, de erre most nem térünk ki, hiszen megérteni szeretnénk a kapcsolatokat és a manuális felkonfigurálással sokkal láthatóbbá válnak azok.</p>
+<p>Nézzük is tehát a példa objektumainkat, majd vizsgáljuk meg a rajtuk megjelenő kapcsolatot:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Product</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Price</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">VATID</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">VAT</span> <span class="n">VAT</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">VAT</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">ID</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Percentage</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">Product</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A konfigurálást a DBContext, OnModelCreating függvényében telhetjük meg ahol egy entitásra a következő függvényeket definiálhatjuk:</p>
+<div class="highlight"><pre><span></span><code><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Példa</span><span class="p">&gt;</span>
+    <span class="p">.</span><span class="n">HasOne</span><span class="p">()/.</span><span class="n">HasMany</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">WithOne</span><span class="p">()/.</span><span class="n">WithMany</span><span class="p">()</span>
+</code></pre></div>
+<p>A példánkban egy egy-több kacsolattot láthatunk amit a következő módon írhatunk le:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span>
+            <span class="p">.</span><span class="n">HasOne</span><span class="p">(</span><span class="n">d</span> <span class="p">=&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">WithMany</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Product</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">HasForeignKey</span><span class="p">(</span><span class="n">d</span> <span class="p">=&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">VatId</span><span class="p">);</span>
+</code></pre></div>
+Így a két entitás között létrejövő navigációt a Product VAT-ra mutató külső kulcsa adja, ami az adatbázisban is megjelenik, de kód szinten a konkét VAT objektum is megjelenik a Product objektumon, ahogy a VAt objektum-hoz tartozó Product lista is elérhetővé válik számunkra.</p>
+<p>Ezzel el is érkeztünk a köveztkező témánkhoz:</p>
+<h3 id="navigation-property">Navigation property<a class="headerlink" href="#navigation-property" title="Permanent link">&para;</a></h3>
+<p>A DBContext-ünk az Entitások lekérdezéséhez DBSet-eket (IQueryable) kinál amiken végrehajthatünk LINQ- műveleteket. A LINQ részletes ismertetését egy másik fejezet tartalmazza, így itt arra építhetünk. Nézzük meg hogy, eddig hogyan kapcsoltunk össze két relációt és, hogy milyen más lehetőségünk van még erre:</p>
+<h4 id="join">Join:<a class="headerlink" href="#join" title="Permanent link">&para;</a></h4>
+<p>A két DBSet összekapcsolása joinnal a külső kulcson keresztül történik. A linq kifejezés az sql-hez hasonlóan deklerativan leírja, hogy mint szeretnénk megkapni és még kiérékelés előtt el is kérhetjük tőle, hogy milyen query fog lefutni az adatbázisban.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">products</span> <span class="p">=</span> <span class="n">_dbContext</span><span class="p">.</span><span class="n">Product</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">vat</span> <span class="p">=</span> <span class="n">_dbContext</span><span class="p">.</span><span class="n">Vat</span><span class="p">;</span>
+
+<span class="kt">var</span> <span class="n">query</span> <span class="p">=</span> 
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span>
+    <span class="k">join</span> <span class="n">v</span> <span class="k">in</span> <span class="n">vat</span> <span class="k">on</span> <span class="n">p</span><span class="p">.</span><span class="n">VatId</span> <span class="k">equals</span> <span class="n">v</span><span class="p">.</span><span class="n">Id</span>
+    <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
+    <span class="k">select</span> <span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">;</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>   
+</code></pre></div>
+<p>A kiírt eredmény: </p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
+<span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
+</code></pre></div>
+<h4 id="navigacio">Navigáció:<a class="headerlink" href="#navigacio" title="Permanent link">&para;</a></h4>
+<p>Miután az első részben pontosan felkonfiguráltuk, hogy a Product és VAT entitások között milyen kapcsolat van használhatjuk a Product osztályban felvet VAT property-t amit ezesetben navigation propertynek is nevezhetünk. Így az előző lekérdezésünk a köveztekőre egyszerűsödik:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query2</span> <span class="p">=</span>
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span>
+    <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
+    <span class="k">select</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">;</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query2</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+</code></pre></div>
+<p>Láthatjuk, hogy a kiírt eredmény csak a join típusában tér el, de egyebként ugyan arra a megoldásra jutunk.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
+<span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
+</code></pre></div>
+<h4 id="include">Include<a class="headerlink" href="#include" title="Permanent link">&para;</a></h4>
+<p>A jól felvett Navigation property konkrét objektum ként is megjelenhet a tartalmazó objektumban, ehhez egy egyszerű include utasítást kell meghívnunk:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">query3</span> <span class="p">=</span>
+    <span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
+    <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">)</span>
+    <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
+
+<span class="c1">// vagy ebben az esetben talán egy jobban látható de teljesen ekvivalens megoldás:</span>
+
+<span class="kt">var</span> <span class="n">query3</span> <span class="p">=</span> <span class="n">products</span>
+                <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;teszt&quot;</span><span class="p">));</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query3</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Id</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">CategoryId</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Description</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Price</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Stock</span><span class="p">],</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">],</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>
+<span class="k">WHERE</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">Name</span><span class="p">]</span> <span class="k">LIKE</span> <span class="n">N</span><span class="s1">&#39;%teszt%&#39;</span>
+</code></pre></div>
+Látható, hogy minden szükséges értéket lekérdez az utasítás, és a legjobb, hogy azok helyrerakásával nekünk nem is kell foglalkoznunk.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; BME VIK AUT
+          </div>
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.term.missing": "\u00dcres", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      
+    
+  </body>
+</html>
