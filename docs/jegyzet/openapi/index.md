@@ -199,7 +199,7 @@ Példakódjaink egy alap API kezdetleges változatát állították elő. Jól l
 
 ## Polimorfizmus és öröklés OpenAPI 3.0 alatt
 
-Az öröklés egy objektumorientált fogalom. Az OpenAPI viszont nem objektumorientált - hiszen nem programozási nyelv. Mégis, az OpenAPI-ban is felmerül a kérdés, hogy ismétlődő adatrészeket hogyan lehet kiemelni. Objektumorientált nyelvben erre természetesen a leszármazás a megoldás. Az OpenAPI specifikációja is lehetőséget biztosít arra, hogy a közös tulajdonságok ne alkossanak sormintát, ezzel csúnyává téve az amúgy is elég nagy kódot. Nézzünk erre egy példát.
+Az öröklés és polimorfizmus is objektumorientált fogalmak. Az OpenAPI viszont nem objektumorientált - hiszen nem programozási nyelv. Mégis, az OpenAPI-ban is felmerül a kérdés, hogyan lehet ismétlődő adatrészeket "kiemelni", azaz, hogy a "közös" sémát ne kell sokszor ismételni. Objektumorientált nyelvben erre természetesen a leszármazás a megoldás. Az OpenAPI specifikációja is lehetőséget biztosít arra, hogy a közös tulajdonságok ne alkossanak sormintát, ezzel csúnyává téve az amúgy is hosszú OpenAPI definíciót. Nézzünk erre egy példát.
 
 Tegyük fel, hogy két féle hibaüzenetet tudunk visszaadni, az egyik "részhalmaza" a másiknak. C#-ben mindez így nézne ki:
 
@@ -215,7 +215,7 @@ class ExtendedErrorModel : BasicErrorModel
 }
 ```
 
-Ennek az OpenApi leírása így néz ki:
+Ez OpenApi-ban az `allOf` kulcsszó használatával írható le, és így néz ki:
 
 ```yaml
     components:
@@ -243,9 +243,9 @@ Ennek az OpenApi leírása így néz ki:
                   type: string
 ```
 
-Itt a legfontosabb elem az `allOf` kulcsszó. Az `allOf` segít abban, hogy egy relatív elérési út megadásával egyesítsük az általunk készített leszármazott attribútumait az elérési út túloldalán álló model attribútumaival. Van egy szabály, amelyet ajánlott követnünk az `allOf` parancsnál, ez pedig nem más mint,hogy ne használjunk azonos attribútum neveket különböző adattípusokkal. Ha ilyen előfordul a kódban az számtalan hibához vezethet.
+Az `allOf` segít abban, hogy egy relatív elérési út megadásával egyesítsük az általunk készített "leszármazott" attribútumait az elérési út túloldalán álló modell attribútumaival. Van egy szabály, amelyet ajánlott követnünk az `allOf` parancsnál, ez pedig nem más mint,hogy ne használjunk azonos attribútum neveket különböző adattípusokkal. Ha ilyen előfordul a kódban az számtalan hibához vezethet.
 
-Másik, objektumorientált világban gyakran használt eszköz a _polimorfizmus_, azaz amikor a konkrét példány egy leszármazási hierarchia bármely típusa lehet. A polimorfizmus megoldásához az `allOf`-hoz hasonló `oneOf` és `anyOf` kulcsszavakat tudjuk használni.
+Másik, objektumorientált világban gyakran használt eszköz a _polimorfizmus_, azaz amikor a konkrét példány egy leszármazási hierarchia bármely típusa lehet. A polimorfizmus megoldásához az `allOf`-hoz hasonló `oneOf` kulcsszót tudjuk használni. Az alábbi példában a `oneOf` parancs lehetővé teszi, hogy az adat `simpleObject` vagy `complexObject` sémát is tartalmazhasson, de midig csak az egyiket.
 
 ```yaml
 ...
@@ -267,14 +267,16 @@ Másik, objektumorientált világban gyakran használt eszköz a _polimorfizmus_
           ...
 ```
 
-Használatát tekintve a `oneOf` parancs lehetővé teszi, hogy a válaszban érkezett csomagok tartalmazhatnak `simpleObject` és `complexObject` objektum sémát is, de midig csak egyiket. Az `anyOf` parancs ettől eltérően több objektum séma detektálását is biztosítja.
+Amennyiben ezt C#-ban próbáljuk elképzelni, akkor `SimpleObject` és `ComplexObject` is osztályok, amelyek tipikusan (de nem szükségszerűen) rendelkeznek egy közös őssel.
 
 !!! note ""
-    A szakirodalom véleménye megoszlik a a polimorfizmusról mint lehetséges `edge-case`-ről. Az OpenAPI 3.0 kiadásával megjelentek a már fent említett parancsok, viszont még 2019-ben is számtalan olyan szolgáltatás volt, amely nem támogatta ezek használatát.
+    Azon túl, hogy a polimorfizmust a fentiekben a sémában kifejeztük, valóban még nem vagyunk készen. Az OpenAPI ugyanis csak a sémáról szól. Arról nem, hogy a C#/Java/stb. kódban a tényleges adatból hogyan keletkezhet objektum. Hiszen ez nem az OpenAPI felelőssége - ez a sorosításra tartozik. A deszerializálás (JSON -> objektum) során kell majd valójában eldönteni, hogy az adat, ami érkezik, az melyik típusnak felel meg. Ezt a tipikus JSON sorosító könyvtárak csak külön konfiguráció árán tudják elvégezni. Ezzel tehát érdemes vizsgázni, az OpenAPI csak a probléma felét oldotta meg.
+
+    A szakirodalom véleménye ezért is megoszlik a a polimorfizmusról mint lehetséges `edge-case`-ről. Az OpenAPI 3.0 kiadásával megjelentek a már fent említett parancsok, viszont még 2019-ben is számtalan olyan szolgáltatás volt, amely nem támogatta ezek használatát.
 
 ## OpenAPI vs Swagger, mik is a különbségek?
 
-Az OpenAPI és a Swagger a szakmában többnyire szinonimaként jelenik meg, de mást jelentenek hivatalosan. Az OpenAPI a "Swaggerből jött létre", annak szabványosított változata, míg a Swagger egy szoftvercsomag. 2017-ben az OpenAPI 3.0 megjelenése elég nagy mérföldkőnek számított. Ez volt az első hivatalos kiadás 2015 óta, amikor is a _SmartBear Software_ az _OpenAPI Intiative_-nek ajándékozta a jogokat, illetve megtörtént a _Swagger Specification_ -> _OpenAPI Specification_ névváltás.
+Az OpenAPI és a Swagger a szakmában többnyire szinonimaként jelenik meg, de mást jelentenek hivatalosan. Az OpenAPI a "Swaggerből jött létre", annak szabványosított változata, míg a Swagger egy szoftvercsomag. 2017-ben az OpenAPI 3.0 megjelenése elég nagy mérföldkőnek számított. Ez volt az első hivatalos kiadás 2015 óta, amikor is a _SmartBear Software_ az _OpenAPI Initiative_-nek ajándékozta a jogokat, illetve megtörtént a _Swagger Specification_ -> _OpenAPI Specification_ névváltás.
 
 A különbség legegyszerűbben így érthető meg:
 
