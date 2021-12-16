@@ -81,6 +81,7 @@ nav:
       - jegyzet/mongodb/index.md
       - jegyzet/di/index.md
       - jegyzet/async/index.md
+      - jegyzet/openapi/index.md
       - "REST és WebAPI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
       - "ASP.NET Core DI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/todoapi-di-sample
       - "Minta többrétegű webalkalmazás (GitHub)": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
