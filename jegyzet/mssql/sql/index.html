@@ -1458,9 +1458,9 @@
 <span class="k">order</span> <span class="k">by</span> <span class="n">Name</span>
 </code></pre></div>
 <h2 id="xml-dokumentumok-lekerdezese">XML dokumentumok lekérdezése<a class="headerlink" href="#xml-dokumentumok-lekerdezese" title="Permanent link">&para;</a></h2>
-<p>Egy relációs adatbázisban a relációs adatok mellett félig strukturált adatokat (pl.: XML) is eltárolhatunk, viszont a relációs a fő tartalom. A <a href="../../../db/">minta adatbázisban</a> a Product tábla Description mezője XML formátumú.</p>
+<p>Egy relációs adatbázisban a relációs adatok mellett félig strukturált adatokat (pl.: XML) is eltárolhatunk, viszont a relációs a fő tartalom. A <a href="../../../db/">minta adatbázisban</a> a <code>Product</code> tábla <code>Description</code> mezője XML formátumú.</p>
 <h3 id="xpath">XPath<a class="headerlink" href="#xpath" title="Permanent link">&para;</a></h3>
-<p>Egy XML dokumntum fa strukturájú. Az XPath nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján.</p>
+<p>Egy XML dokumentum fa strukturájú. Az <a href="https://www.w3schools.com/xml/xpath_intro.asp"><strong>XPath</strong></a> nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az <em>XPath</em> nyelv működését és képességeit</p>
 <table>
 <thead>
 <tr>
@@ -1519,8 +1519,13 @@
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">XQuery és XPath</p>
+<p>Az <em>XPath</em> a fentiek mellett még sok más képességgel is rendelkezik, sokkal bonyolultabb lekérdezésekre is képes.</p>
+<p>A további példákban <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml"><em>XQuery</em></a> nyelvet használva fogjuk megadni a lekérdezendő adatokat. Az <em>XQuery</em> az <em>XPath</em>-re épül és egészíti ki azt további funkciókkal. Mind az <em>XPath</em>, mind az <em>XQuery</em> platformfüggetlen, W3C standardokra épülő nyelv.</p>
+</div>
 <h3 id="lekerdezesek">Lekérdezések<a class="headerlink" href="#lekerdezesek" title="Permanent link">&para;</a></h3>
-<p>XML dokumentumokban való lekérdezéshez az XML adattípuson definiált query(XQuery), value(XQuery, SQLType) és exist(XQuery) metódusokat, módosításhoz a modify(XML_DML) metódust használhatjuk.</p>
+<p>Adott tehát egy olyan tábla, amiben van egy XML típusú mező. Amellett, hogy a mező teljes értékét lekérdezhetjük, a tartalmára is képesek vagyunk lekérdezéseket megfogalmazni. Az XML dokumentumokban való lekérdezéshez az XML adattípuson definiált <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/query-method-xml-data-type"><code>query(XQuery)</code></a>, <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type"><code>value(XQuery, SQLType)</code></a> és <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/exist-method-xml-data-type"><code>exist(XQuery)</code></a> T-SQL függvényt használhatjuk. Nézzünk ezekre pár példát.</p>
 <p>Kérdezzük le, hogy hány csomagból állnak a termékek!</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/product/package_parameters/number_of_packages&#39;</span><span class="p">)</span>
 <span class="k">from</span> <span class="n">Product</span>
@@ -1528,28 +1533,28 @@
 <p>Ennek az eredménye például a következő lehet:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;number_of_packages&gt;</span>1<span class="nt">&lt;/number_of_packages&gt;</span>
 </code></pre></div>
-<p>A query() XML-lel tér vissza, ha csak az értékre van szükség, akkor a value() metódust kell használni. A value() metódusnak meg kell adni a lekérdezett adat típusát is string literálként.</p>
+<p>A <code>query()</code> XML-lel tér vissza, ha csak az értékre van szükség, akkor a <code>value()</code> metódust használhatjuk. A <code>value()</code> metódusnak meg kell adni a lekérdezett adat típusát is string literálként.</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;(/product/package_parameters/number_of_packages)[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">)</span>
 <span class="k">from</span> <span class="n">Product</span>
 </code></pre></div>
-<p>Ennek az eredménye már 1.</p>
+<p>Ennek az eredménye már az 1 lesz számként.</p>
 <div class="admonition info">
 <p class="admonition-title">SQLType</p>
-<p>A paraméterként átadott típus nem lehet xml. A megadott típusra való konvertálás T-SQL CONVERT operátorral történik.</p>
+<p>A paraméterként átadott típus nem lehet xml. A megadott típusra való konvertálás T-SQL <a href="https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql"><code>CONVERT</code></a> függvénnyel történik.</p>
 </div>
 <p>Kérdezzük le azoknak a termékeknek a nevét, amelyek a 0-18 hónapos korosztálynak ajánlottak.</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span>
 <span class="k">from</span> <span class="n">Product</span>
 <span class="k">where</span> <span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">&#39;(/product)[(./recommended_age)[1] eq &quot;0-18 m&quot;]&#39;</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
-<p>Az exist() 1-gyel tér visza, ha a megadott XQuery kifejezéssel futtatott lekérdezés nemüres eredménnyel tér vissza, 0-val a lekérdezés eredménye üres.</p>
-<p>A lekérdezést exist() helyett value() metódus segítségével is megfogalmazhattuk volna.</p>
+<p>Az <code>exist()</code> 1-gyel tér visza, ha a megadott <em>XQuery</em> kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.</p>
+<p>A lekérdezést <code>exist()</code> helyett <code>value()</code> metódus segítségével is megfogalmazhatjuk.</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span>
 <span class="k">from</span> <span class="n">Product</span>
 <span class="k">where</span> <span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;(/product/recommended_age)[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;varchar(max)&#39;</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;0-18 m&#39;</span>
 </code></pre></div>
 <h3 id="manipulalo-lekerdezesek">Manipuláló lekérdezések<a class="headerlink" href="#manipulalo-lekerdezesek" title="Permanent link">&para;</a></h3>
-<p>Az adatmódosító lekérdezéseket a modify() metódussal hajthatjuk végre.</p>
+<p>Nem csak lekérdezni tudunk XML adatokat, hanem módosítani is. A módosítás az adatbázisban atomi módon történik, azaz nem kell kliens oldalra letölteni az XML-t, módosítani, majd visszatölteni. Helyette a szerveroldali programozás filozófiáját követve a logikát (itt: módosítás) visszük az adatbázisba. Az adatmódosító lekérdezéseket a <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type"><code>modify(XML_DML)</code></a> függvénnyel hajthatjuk végre, ahol is az ún. <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml">XML DML</a> nyelven kell megfogalmaznunk a módosításunkat. Nézzünk erre is pár példát.</p>
 <p>Az Lego City harbour nevű terméknél az ajánlott életkort írjuk át 6-99 évre.</p>
 <div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
 <span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
@@ -1557,21 +1562,21 @@
 <span class="s1">with &quot;6-99 y&quot;&#39;</span><span class="p">)</span>
 <span class="k">where</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;Lego City harbour&#39;</span>
 </code></pre></div>
-<p>A megadandó kifejezés két részből áll, az elsőben (replace value of) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (with) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen, ezért szerepel a végén a [1].</p>
-<p>Szúrjunk be a Lego City harbour termékhez a package_size tag után egy weigth tag-et a súly megadására.</p>
+<p>A megadandó kifejezés két részből áll: az elsőben (<code>replace value of</code>) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (<code>with</code>) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, így az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen - ezért szerepel példában a végén az <code>[1]</code>.</p>
+<p>Szúrjunk be a Lego City harbour termékhez a <code>package_size</code> tag után egy <code>weigth</code> tag-et a súly megadására.</p>
 <div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
 <span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
 <span class="s1">&#39;insert &lt;weight&gt;2.28&lt;/weight&gt;</span>
 <span class="s1">after (/product/package_parameters/package_size)[1]&#39;</span><span class="p">)</span>
 <span class="k">where</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;Lego City harbour&#39;</span>
 </code></pre></div>
-<p>A megadandó kifejezés itt is két részből áll, az elsőben (insert) kell megadni az új elemet, másodikban kell leírni azt, hogy hova szúrja be az új elemet. Az új elemet fel lehet venni a megadott elem testvéreként vagy gyerekeként.</p>
-<p>Töröljük minden termék leírásából a description tag(ek)-et.</p>
+<p>A megadandó kifejezés itt is két részből áll: az elsőben (<code>insert</code>) kell megadni az új elemet, másodikban kell leírni azt, hogy hova szúrja be az új elemet. Az új elemet fel lehet venni a megadott elem testvéreként vagy gyerekeként.</p>
+<p>Töröljük minden termék leírásából a <code>description</code> tag(ek)-et.</p>
 <div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
 <span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">&#39;delete /product/description&#39;</span><span class="p">)</span>
 <span class="k">where</span> <span class="n">Description</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span>
 </code></pre></div>
-<p>A törlésnél a delete után meg kell adni a törlendő elemek útvonalát.</p>
+<p>A törlésnél a <code>delete</code> után meg kell adni a törlendő elemek útvonalát.</p>
                 
               
               
