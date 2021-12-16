@@ -609,6 +609,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#xml-dokumentumok-lekerdezese" class="md-nav__link">
+    XML dokumentumok lekérdezése
+  </a>
+  
+    <nav class="md-nav" aria-label="XML dokumentumok lekérdezése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xpath" class="md-nav__link">
+    XPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lekerdezesek" class="md-nav__link">
+    Lekérdezések
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulalo-lekerdezesek" class="md-nav__link">
+    Manipuláló lekérdezések
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1144,6 +1178,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#xml-dokumentumok-lekerdezese" class="md-nav__link">
+    XML dokumentumok lekérdezése
+  </a>
+  
+    <nav class="md-nav" aria-label="XML dokumentumok lekérdezése">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xpath" class="md-nav__link">
+    XPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lekerdezesek" class="md-nav__link">
+    Lekérdezések
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulalo-lekerdezesek" class="md-nav__link">
+    Manipuláló lekérdezések
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1389,6 +1457,121 @@
 <span class="k">from</span> <span class="n">Product</span>
 <span class="k">order</span> <span class="k">by</span> <span class="n">Name</span>
 </code></pre></div>
+<h2 id="xml-dokumentumok-lekerdezese">XML dokumentumok lekérdezése<a class="headerlink" href="#xml-dokumentumok-lekerdezese" title="Permanent link">&para;</a></h2>
+<p>Egy relációs adatbázisban a relációs adatok mellett félig strukturált adatokat (pl.: XML) is eltárolhatunk, viszont a relációs a fő tartalom. A <a href="../../../db/">minta adatbázisban</a> a Product tábla Description mezője XML formátumú.</p>
+<h3 id="xpath">XPath<a class="headerlink" href="#xpath" title="Permanent link">&para;</a></h3>
+<p>Egy XML dokumntum fa strukturájú. Az XPath nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján.</p>
+<table>
+<thead>
+<tr>
+<th><strong>XPath kifejezés</strong></th>
+<th><strong>Jelentés</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tagnév</td>
+<td>Csomópont névvel megadva</td>
+</tr>
+<tr>
+<td>/</td>
+<td>A gyökértől kezdődik a keresés</td>
+</tr>
+<tr>
+<td>//</td>
+<td>Aktuális csomóponttól kezdve bármely lezármazottban</td>
+</tr>
+<tr>
+<td>.</td>
+<td>Aktuális csomópont</td>
+</tr>
+<tr>
+<td>..</td>
+<td>Szülő csomópont</td>
+</tr>
+<tr>
+<td>@nev</td>
+<td>Adott nevű attribútum</td>
+</tr>
+<tr>
+<td>/konyvtar/konyv[k]</td>
+<td>A k. konyv gyerek a konyvtar elemen belül (1-től kezdődik az indexelés)</td>
+</tr>
+<tr>
+<td>/konyvtar/konyv[last()]</td>
+<td>Utolsó gyerek</td>
+</tr>
+<tr>
+<td>/konyvtar/konyv[position()&lt;k]</td>
+<td>Az első k-1 gyerek</td>
+</tr>
+<tr>
+<td>//cim[@nyelv="hu"]</td>
+<td>Azok a cim elemek, amelyeknek van "hu" értékű nyelv attribútuma</td>
+</tr>
+<tr>
+<td>//cim[text()]</td>
+<td>A cim elemek szövege (a tag-ek közötti rész)</td>
+</tr>
+<tr>
+<td>/konyvtar/konyv[ar&gt;5000]</td>
+<td>Azok a konyvtar elemek belüli konyv elemek, amelyeknek az ar gyereke legalább 5000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lekerdezesek">Lekérdezések<a class="headerlink" href="#lekerdezesek" title="Permanent link">&para;</a></h3>
+<p>XML dokumentumokban való lekérdezéshez az XML adattípuson definiált query(XQuery), value(XQuery, SQLType) és exist(XQuery) metódusokat, módosításhoz a modify(XML_DML) metódust használhatjuk.</p>
+<p>Kérdezzük le, hogy hány csomagból állnak a termékek!</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/product/package_parameters/number_of_packages&#39;</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">Product</span>
+</code></pre></div>
+<p>Ennek az eredménye például a következő lehet:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;number_of_packages&gt;</span>1<span class="nt">&lt;/number_of_packages&gt;</span>
+</code></pre></div>
+<p>A query() XML-lel tér vissza, ha csak az értékre van szükség, akkor a value() metódust kell használni. A value() metódusnak meg kell adni a lekérdezett adat típusát is string literálként.</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;(/product/package_parameters/number_of_packages)[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">Product</span>
+</code></pre></div>
+<p>Ennek az eredménye már 1.</p>
+<div class="admonition info">
+<p class="admonition-title">SQLType</p>
+<p>A paraméterként átadott típus nem lehet xml. A megadott típusra való konvertálás T-SQL CONVERT operátorral történik.</p>
+</div>
+<p>Kérdezzük le azoknak a termékeknek a nevét, amelyek a 0-18 hónapos korosztálynak ajánlottak.</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span>
+<span class="k">from</span> <span class="n">Product</span>
+<span class="k">where</span> <span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">&#39;(/product)[(./recommended_age)[1] eq &quot;0-18 m&quot;]&#39;</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+<p>Az exist() 1-gyel tér visza, ha a megadott XQuery kifejezéssel futtatott lekérdezés nemüres eredménnyel tér vissza, 0-val a lekérdezés eredménye üres.</p>
+<p>A lekérdezést exist() helyett value() metódus segítségével is megfogalmazhattuk volna.</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span>
+<span class="k">from</span> <span class="n">Product</span>
+<span class="k">where</span> <span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;(/product/recommended_age)[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;varchar(max)&#39;</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;0-18 m&#39;</span>
+</code></pre></div>
+<h3 id="manipulalo-lekerdezesek">Manipuláló lekérdezések<a class="headerlink" href="#manipulalo-lekerdezesek" title="Permanent link">&para;</a></h3>
+<p>Az adatmódosító lekérdezéseket a modify() metódussal hajthatjuk végre.</p>
+<p>Az Lego City harbour nevű terméknél az ajánlott életkort írjuk át 6-99 évre.</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
+<span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<span class="s1">&#39;replace value of (/product/recommended_age/text())[1]</span>
+<span class="s1">with &quot;6-99 y&quot;&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;Lego City harbour&#39;</span>
+</code></pre></div>
+<p>A megadandó kifejezés két részből áll, az elsőben (replace value of) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (with) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen, ezért szerepel a végén a [1].</p>
+<p>Szúrjunk be a Lego City harbour termékhez a package_size tag után egy weigth tag-et a súly megadására.</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
+<span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<span class="s1">&#39;insert &lt;weight&gt;2.28&lt;/weight&gt;</span>
+<span class="s1">after (/product/package_parameters/package_size)[1]&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;Lego City harbour&#39;</span>
+</code></pre></div>
+<p>A megadandó kifejezés itt is két részből áll, az elsőben (insert) kell megadni az új elemet, másodikban kell leírni azt, hogy hova szúrja be az új elemet. Az új elemet fel lehet venni a megadott elem testvéreként vagy gyerekeként.</p>
+<p>Töröljük minden termék leírásából a description tag(ek)-et.</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
+<span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">&#39;delete /product/description&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">Description</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span>
+</code></pre></div>
+<p>A törlésnél a delete után meg kell adni a törlendő elemek útvonalát.</p>
                 
               
               
