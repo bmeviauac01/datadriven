@@ -223,7 +223,7 @@ Encryption is also a factor in communication. Communication over public networks
 
 When we are talking about data-driven systems we often speak about **backend** and **frontend**. The frontend is mostly the user interface, that is, the presentation layer (a web application hosted in a browser, a native mobile app, a thick-client desktop app, etc). This is what the user interacts with. The backend is the service that provides the data to the UI: the APIs, the business layer, the data access, and the databases.
 
-Depending on the chosen frontend technology, though, parts of the user interface might be created by the backend, though. This is called *server-side rendering*.
+Depending on the chosen frontend technology, parts of the user interface might be created by the backend, though. This is called *server-side rendering*.
 
 In this course, we will talk about backend technologies.
 
