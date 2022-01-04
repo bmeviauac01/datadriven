@@ -300,7 +300,107 @@ The transaction log needs to be emptied periodically. Transactions that are comm
 !!! note ""
     Long-running transactions can significantly increase the size of the log. The larger the log is, the longer the purging process will take.
 
----
+## Extracting deadlock information from MSSQL database
+
+!!! abstract "Deadlock"
+    A deadlock in a system can occur if there are locks. A deadlock can occur if at least two transactions want to obtain the same locks simultaneously.
+
+Let there be transactions **A** and **B** and resources **a** and **b**. Transaction **A** already locks resource **a**, while transaction **B** locks resource **b**. Then, let us assume that transaction **A** wants to lock resource **b** and transaction **B** also wants to lock resource **a**. In this case, a deadlock will occur.
+
+Let us take the previous example and see how we can diagnose the deadlock once it occurs in MSSQL. To do this, first, we need to cause the deadlock artificially.
+
+1. Let us create two tables on which to generate the deadlock artificially.
+
+    Create the first table called `Lefty`, which will have an attribute called `Numbers`:
+
+    ```sql
+    CREATE TABLE dbo.Lefty (Numbers INT PRIMARY KEY CLUSTERED);
+    INSERT INTO dbo.Lefty VALUES (1), (2), (3); 
+    ```
+
+    Create a second table called `Righty`, which will also have an attribute, `Numbers`:
+
+    ```sql
+    CREATE TABLE dbo.Righty (Numbers INT PRIMARY KEY CLUSTERED);
+    INSERT INTO dbo.Righty VALUES (1), (2), (3); 
+    ```
+
+1. The two transactions must run simultaneously for a deadlock to occur. If we test manually, this is difficult to achieve, so the order of execution is:
+
+    1. Execute the first `UPDATE` statement from the first transaction
+    1. From the second transaction, executed both `UPDATE` statements
+    1. Execute the second `UPDATE` statement from the first transaction
+
+    First transaction:
+
+    ```sql
+    BEGIN TRAN
+    UPDATE dbo.Lefty
+    SET Numbers = Numbers * 2;
+    GO
+    
+    UPDATE dbo.Righty
+    SET Numbers = Numbers * 2;
+    GO
+    ```
+
+    Second transaction:
+
+    ```sql
+    BEGIN TRAN
+    UPDATE dbo.Righty
+    SET Numbers = Numbers + 1;
+    GO
+
+    UPDATE dbo.Lefty
+    SET Numbers = Numbers + 1;
+    GO
+    ```
+
+Now we have a deadlock. The system will automatically resolve this soon. Before that happens, we can check what we see in the system.
+
+The locks placed by the transactions can be queried in the database with the following query:
+
+```sql
+SELECT
+    OBJECT_NAME(P.object_id) AS TableName,
+    Resource_type, request_status,  request_session_id
+FROM
+    sys.dm_tran_locks dtl
+    join sys.partitions P
+ON dtl.resource_associated_entity_id = p.hobt_id
+```
+
+In our example, the result of this query is:
+
+|| TableName | Resource_type | request_status | request_session_id |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | Righty | KEY | GRANT | 54 |
+| 2 | Lefty | KEY | GRANT | 53 |
+
+So the first transaction placed a lock on the `Lefty` table, while the second transaction placed it on table `Righty`.
+
+The database also provides information data about blocked transactions that we can query with the following SQL statement:
+
+```sql
+SELECT blocking_session_id AS BlockingSessionID,
+       session_id AS VictimSessionID,
+       wait_time/1000 AS WaitDurationSecond
+FROM sys.dm_exec_requests
+CROSS APPLY sys.dm_exec_sql_text([sql_handle])
+WHERE blocking_session_id > 0 
+```
+
+In our example, the result of this query is:
+
+|| BlockingSessionID | VictimSessionID | WaitDurationSecond |
+| :---: | :---: | :---: | :---: |
+| 1 | 54 | 53 | 0 |
+| 2 | 53 | 54 | 72 |
+
+This means that the transaction with ID 53 waits for the transaction with ID 54, and the transaction with ID 54 waits for the transaction with ID 53.
+
+The deadlock is soon eliminated automatically by the database. If we want to intervene manually, we can do so with the `kill` command, selecting the transaction to stop (e.g., `kill 53`).
 
 ## Questions to test your knowledge
 
