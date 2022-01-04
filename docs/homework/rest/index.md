@@ -33,7 +33,7 @@ Exercises:
 
 1. Create a new API endpoint that deletes a `Product` specified by its ID; the query is a `DELETE` query at URL `/api/product/{id}` and the response should be either 204 with no content, or 404 when the product is not found.
 
-1. Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a GET HTTP request to URL `/api/product/-/count`. The returned result should be a JSON serialized `CountResult` object with the correct count.
+1. Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a `GET` HTTP request to URL `/api/product/-/count`. The returned result should be a JSON serialized `CountResult` object with the correct count.
 
     ??? question "Why is there a `/-` in the URL?"
         In order to understand the need for this, let us consider what the URL should look like: we are querying products, so `/api/product` is the prefix, but what is the end of the URL? It could be `/api/product/count`. However, this clashes with `/api/product/123` where we can get a particular product. In practice, the two URLs could work side-by-side here since the product ID is an integer, and the framework would recognize that an URL ending in `/123` is to get a product and the `/count` is to get the counts. But this works only as long as the ID is an integer. If the product ID were a string, this would be more problematic. Our solution makes sure that the URLs do not clash. The `/-` is to indicate that there is _no_ product ID.
