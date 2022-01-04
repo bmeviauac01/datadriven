@@ -411,9 +411,26 @@ collection.CountDocuments(Builders<Product>.Filter.AnyEq(x => x.Categories, "Bal
 collection.Find(Builders<Product>.Filter.AnyEq(x => x.Categories, "Balls")).CountDocuments();
 ```
 
-#### Grouping
+#### Aggregation pipeline
 
-Grouping is a syntactically complex operation. For grouping, we need to define an aggregation pipeline. We will not discuss this in more detail, but the following example shows its use.
+Aggregation operations process multiple documents and return some calculated results from them. MongoDB provides three ways to perform aggregation operations:
+
+- Aggregation pipelines,
+- Single Purpose Aggregation Operations,
+- and Map-reduce functions.
+
+Since MongoDB version 5.0, **Map-reduce** is an obsolete method because the aggregation pipeline is better in terms of usability and speed.
+
+For **Single Purpose Aggregation Operations**, MongoDB provides us with `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` and `IMongoCollection<TDocument>.Distinct()` functions, which all perform simple aggregation on a single collection.
+
+![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
+
+!!! citation "Source"
+    <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>
+
+General aggregations can be performed by defining a pipeline manually. An **aggregation pipeline** is built up from stages, each serving a specific action _(filter, group, count, calculate, etc.)_ on its input documents. A pipeline can also return multiple results from a set of documents _(e.g., total, average, maximum, or minimum values)_.
+
+Let's look at this through an example of grouping.
 
 ```csharp
 // products in the "Balls" category grouped by VAT percentage
