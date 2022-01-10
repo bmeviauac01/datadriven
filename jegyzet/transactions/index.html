@@ -1928,7 +1928,7 @@
 <h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">&para;</a></h2>
 <div class="admonition abstract">
 <p class="admonition-title">Deadlock (holtpont)</p>
-<p>A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat.</p>
+<p>Holtpont akkor alakulhat ki, ha adott két tranzakció illetve két zár. Az egyik tranzakció rendelkezik az egyik zárral, míg a másik a másikkal. Ekkor holtpont alakul ki, ha mindkét tranzakció meg szeretné szerezni a másik által már megszerezett zárat.</p>
 </div>
 <p>Legyen adott az <strong>A</strong> és <strong>B</strong> tranzakció, illetve <strong>a</strong> és <strong>b</strong> erőforrás. <strong>A</strong> tranzakció zárolja <strong>a</strong> erőforrást, <strong>B</strong> tranzakció zárolja <strong>b</strong> erőforrást. Viszont <strong>A</strong> tranzakció szeretné zárolni <strong>b</strong> erőforrást is és <strong>B</strong> tranzakció szeretné zárolni <strong>a</strong> erőforrást is. Ebben az esetben ki fog alakulni egy holtpont.</p>
 <p>Nézzük meg az előbbi példán keresztül, hogyan tudjuk diagnosztizálni a holtpontot, ha előáll egy rendszerben. Ehhez először is állítsuk elő a holtpontot.</p>
