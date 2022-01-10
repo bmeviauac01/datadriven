@@ -303,7 +303,7 @@ A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a v�
 ## Deadlock információ kinyerése MSSQL adatbázisból
 
 !!! abstract "Deadlock (holtpont)"
-    A deadlock egy rendszerben, akkor fordulhat elő, ha vannak zárak. A holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné megszerezni ugyanazon zárakat.
+    Holtpont akkor alakulhat ki, ha adott két tranzakció illetve két zár. Az egyik tranzakció rendelkezik az egyik zárral, míg a másik a másikkal. Ekkor holtpont alakul ki, ha mindkét tranzakció meg szeretné szerezni a másik által már megszerezett zárat.
 
 Legyen adott az **A** és **B** tranzakció, illetve **a** és **b** erőforrás. **A** tranzakció zárolja **a** erőforrást, **B** tranzakció zárolja **b** erőforrást. Viszont **A** tranzakció szeretné zárolni **b** erőforrást is és **B** tranzakció szeretné zárolni **a** erőforrást is. Ebben az esetben ki fog alakulni egy holtpont.
 
