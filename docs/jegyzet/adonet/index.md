@@ -34,9 +34,9 @@ Az adatbázissal történő kapcsolat felépítéséről tudunk kell, hogy relat
 
 A _connection pool_ elérhetősége implementációfüggő, de az *MS SQL Server* és *OleDD* implementációk is automatikusan támogatják. A _connection pool_-ok _connection string_-enként jönnek létre (tehát nem adatbázisonként). Ennek akkor van jelentősége, ha az alkalmazás nem egy _connection string_-et használ (hanem pl. felhasználónként külön-külön kapcsolódik a felhasználó nevében).
 
-Ezen kontextushoz tartozik még a [**connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk `Close()`-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni!
+Ezen kontextushoz tartozik még a [**connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk `Close()`-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni. Amennyiben nem figyelünk erre, akkor hamar elfogynak a felhasználható kapcsolatok (a pool kiürül), aminke hatására az egész alklamazásunk használhatatlanná válik, lévén, hogy nem tud az adatbázissal kommunikálni.
 
-Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett **connection string**-re! Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A **connection string**-eknek [adatbázis szerver típusonként eltérő szintaktikájuk](https://www.connectionstrings.com/) lehet, és [veszélyforrásokat](#connection-string) is rejthetnek magukban.
+Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett **connection string**-re. Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A **connection string**-eknek [adatbázis szerver típusonként eltérő szintaktikájuk](https://www.connectionstrings.com/) lehet, és [veszélyforrásokat](#connection-string) is rejthetnek magukban.
 
 A _connection string_ tárolható konfigurációs fájlban szövegesen, avagy az alkalmazás kódja is össze tudja állítani. **Példa** kapcsolat létrehozására és a `ConnectionStringBuilder` használatára:
 
@@ -57,7 +57,7 @@ conn.Close(); // nem felejtjük el bezárni - jobb megoldást lásd később
 
 ## Command
 
-Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO.NET** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál.
+Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO.NET** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az `SqlComman` az MSSQL szerverhez.
 
 ### Előkészítés
 
@@ -70,26 +70,26 @@ Az `IDbCommand` alábbi főbb *property*-jeit beállítva tudjuk megmondani, hog
 - `CommandText`: a parancs szövege, avagy tárolt eljárást neve
 - `Connection`: az adatbázis kapcsolat
 - `Transaction`: a tranzakció
-- `CommandTimeout`: timeout arra az esetre, ha valami elakad (*alapértelmezetten 30s*)
+- `CommandTimeout`: parancs ereményére való várakozás maximális ideje (*alapértelmezetten 30s*)
 - `Parameters`: paraméterek, az [SQL injection támadás](#veszelyforrasok) kivédéséhez
 
-Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének tekinti-e.
+Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.
 
 ### Végrehajtás
 
 Miután előkészítettük a `Command`-ot, végre is hajthatjuk azt. Ehhez többféle lehetőség közül is választhatunk, attól függően, hogy mit várunk visszatérési értéknek.
 
 - `ExecuteReader`: több rekord lekérdezése
-- `ExecuteScalar`: skalár érték lekérdezése
+- `ExecuteScalar`: egyetlen skalár érték lekérdezése
 - `ExecuteNonQuery`: olyan lekérdezés, amit nem eredményhalmazt ad vissza (pl. `INSERT`) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)
 - `ExecuteXmlReader` (MS SQL Server): XML dokumentumot (`XmlReader` *objektum*) ad vissza, az eredmény egy rekord egyetlen XML oszlopa
 
-Parancsokat újrafelhasználni is tudunk, a `Command.Prepare()` (*szerver oldalon előkészíti a parancs futtatását*) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást, mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.
+Parancsokat újrafelhasználni is tudunk, a `Command.Prepare()` (*szerver oldalon előkészíti a parancs futtatását*) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást (esetleg más-más paraméterekkel), mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.
 
 **Példa** parancs használatára:
 
 ```csharp
-//kapcsolatot létrehozása, megnyitása
+// kapcsolatot létrehozása, megnyitása
 ...
 var command = new SqlCommand();
 command.Connection = connection;
@@ -134,7 +134,7 @@ using (var connection = new SqlConnection(connectionString))
     var command = new SqlCommand()
     {
         Connection = connection,
-        CommandText = "INSERT into CarTable (Description) VALUES('...')";
+        CommandText = "INSERT into CarTable (Description) VALUES('...')",
         Transaction = transaction,
     }
 
@@ -171,11 +171,11 @@ Egy tranzakció általában egy `Connection` objektumhoz tartozik, de készíthe
 
 ### NULL értékek
 
-Honnan tudjuk meg, hogy a lekérdezésünk eredménye üres halmaz? És honnan tudjuk meg, hogy egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat? .NET-ben a `null` értéket szoktuk vizsgálni, de nem szabad elfelejtenünk, hogy adatbázis kontextusban tárgyaljuk a korábban említetteket és az adatbázisok `NULL` értéke korántsem ekvivalens a **C#**-os `null`-al. Sőt! A `NULL` adatbázis típusonként is eltérő értéket vehet fel, az oszlop típusától függően akár! Tehát, hogyan ellenőrizzük, hogy van-e érték a lekérdezés eredményében?
+Honnan tudjuk meg, hogy a lekérdezésünk eredménye üres halmaz? És honnan tudjuk meg, hogy egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat? .NET-ben a `null` értéket szoktuk vizsgálni, de egy adatbázis `NULL` eltérő értéket vehet fel az oszlop típusától (int, string, stb.) függően. Tehát, hogyan ellenőrizzük, hogy van-e érték a lekérdezés eredményében?
 
 - Ha azt akarjuk megvizsgálni, hogy a lekérdezés eredményhalmaza tartalmaz-e rekordokat, akkor a `DataReader.HasRows` `bool` property-jének vizsgálatával tehetjük ezt meg.
-- Ha az eredményhalmaz adott oszlopának értékét szeretnénk vizsgálni: `reader["oszlopnev"].IsNull;` vagy `reader.IsDbNull(index)`
-- Ha `NULL` értéket akarunk manuálisan beszúrni egy új rekordba: pl. `SqlString.Null` vagy `DBNull.Value`
+- Ha az eredményhalmaz adott oszlopának értékét szeretnénk vizsgálni: `reader["oszlopnev"].IsNull;` vagy `reader.IsDbNull(index)`.
+- Ha `NULL` értéket akarunk manuálisan beszúrni egy új rekordba: pl. `SqlString.Null` vagy `DBNull.Value`.
 
 ## A lekérdezés eredménye
 
@@ -183,12 +183,12 @@ Az **ADO.NET** kétféle módot is biztosít az adatok adatbázisból való olva
 
 ### DataReader
 
-A kapcsolat fennálása alatt aktuális adatok érkeznek az adatbázisból, rövid ideig, de folyamatosan nyitva marad a kapcsolat.
+Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennálása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.
 
 **Feldolgozás lépései:**
 
 1. kapcsolat megnyitása
-1. parancs futtatása
+1. parancs futtatása az adatok lekérdezéséhez
 1. eredmény feldolgozása (tipikusan: üzleti logikai entitásokra átfordítás)
 1. reader lezárása
 1. kapcsolat lezárása
@@ -200,35 +200,36 @@ A `DataReader` kapcsolati lánc az adatbázisig:
 **Példa** `DataReader` használatára:
 
 ```csharp
-using(var conn = new SqlConnection(connectionString)
+using(var conn = new SqlConnection(connectionString))
 {
-  var command = new SqlCommand()
-  {
-    Connection = conn,
-    CommandText = "SELECT ID, NAME FROM Product"
-  }
-  
-  conn.Open();
-  using(var reader = command.ExecuteReader())
-  {
-      while(reader.Read())
-      {
-          Console.WriteLine("{0}\t{0}", reader["ID"], reader["Name"]);
-      }
-      // a using miatt nem kell reader.Close();
-  }
-  // a using miatt nem kell conn.Close();
+    var command = new SqlCommand()
+    {
+      Connection = conn,
+      CommandText = "SELECT ID, NAME FROM Product"
+    }
+
+    conn.Open();
+    using(var reader = command.ExecuteReader())
+    {
+        while(reader.Read())
+        {
+            Console.WriteLine("{0}\t{0}", reader["ID"], reader["Name"]);
+            // tipikusan üzleti logikai entitást készítünk, amit egy memóriabeli listához adunk
+        }
+        // a using miatt nem kell reader.Close()
+    }
+    // a using miatt nem kell conn.Close()
 }
 ```
 
 !!! warning "Pár dologra azért érdemes odafigyelni!"
-    - A `reader["ID"]` object lesz, a példában szereplő helyen nem típusos. Helyettesíthető `reader.Get***(lekérdezésben_az_oszlop_indexe);` hívással, ahol is a típust (`String`, `Int32`, stb. is meg kell adnunk).
+    - A `reader["ID"]` eredménye `object` lesz, nem string vagy int. Helyettesíthető `reader.Get***(lekérdezésben_az_oszlop_indexe)` hívással, ahol is a típust (`String`, `Int32`, stb. is meg kell adnunk).
     - Ha nem kompatibilisek a típusok (pl. az adatbázisban `nvarchar` és mi `int32`-ként akarjuk olvasni), **futás idejű hibát** fogunk kapni.
-    - Ha az adatbázisban valamelyik oszlopban `Null` érték van a `reader.Get***` hívásra szintén **futás idejű hibát** kapunk. Helyette `reader.IsDBNull(lekérdezésben_az_oszlop_indexe);` ha ez `false`, akkor értékül adhatjuk, egyébként típusnak megfelelő `Null`-t adjunk értékül.
+    - Ha az adatbázisban valamelyik oszlopban `NULL` érték van a `reader.Get***` hívásra szintén **futás idejű hibát** kapunk. Helyette ellenőrizzük a `reader.IsDBNull(lekérdezésben_az_oszlop_indexe)` segítségével, és ha ez `true`, akkor használjuk a típusnak megfelelő `null` értéket.
 
 **Előnyők**
 
-- [x] az adatok mindenkor a legfrissebbek, az adatbázisból kérdezzük le
+- [x] az adatok mindenkor a legfrissebbek, hiszen frissen az adatbázisból kérdezzük le
 - [x] egyszerűbb konkurenciakezelés, mert mindig friss adatokkal dolgozunk
 - [x] kisebb memória igény (lásd majd a DataSet-et)
 
@@ -244,20 +245,20 @@ A `DataSet` egyfajta *cache*-nek, vagy memóriabeli adattárnak tekinthető. Egy
 **Feldolgozás lépései:**
 
 1. kapcsolat megnyitása
-1. `DataSet` feltöltése
+1. `DataSet` feltöltése az adatbázis egy részével
 1. kapcsolat lezárása
-1. `DataSet` feldolgozása (pl. felhasználó felületen megjeleníteni, szerkeszteni)
+1. `DataSet` feldolgozása (pl. felhasználó felületen megjeleníteni, szerkeszteni) - ez hosszabb ideig is tarthat
 1. kapcsolat megnyitása
 1. változtatások visszatöltése
 1. kapcsolat lezárása
 
-Az adatelérés működése `adapter`-rel kapcsolat nélküli modellben az alábbi ábrán látható. A kép érzékelteti, hogy könnyen történhet módosítás az adatbázison egy kiolvasás és egy update között.
+Az adatelérés működése `adapter`-rel kapcsolat nélküli modellben az alábbi ábrán látható.
 
-![Struktúra](./images/adapter.png)
+![Data adapter haszálata](./images/adapter.png)
 
 `DataSet` kapcsolati lánc az adatbázisig:
 
-![Struktúra](./images/dataset.png)
+![DataSet kapcsolati lánc](./images/dataset.png)
 
 **Példa** `DataSet` használatára:
 
@@ -290,7 +291,7 @@ using(var conn = new SqlConnection(connectionString))
 {
     conn.Open();
     adapter.Update(dataSet);
-    //dataSet.AcceptChanges(); -- így csak az adapter frissülne, az adatbázis nem
+    //dataSet.AcceptChanges(); -- így csak a DataSet frissülne, az adatbázis nem
 }
 ```
 
@@ -304,31 +305,31 @@ using(var conn = new SqlConnection(connectionString))
 **Hátrányok**
 
 - ütközések lehetnek a visszamentés során
-- az adatok nem mindig a legfrissebbek
-- kliens memóriát foglal - szerver oldalon nem ezért nem is használjuk
+- a `DataSet` adatai nem mindig a legfrissebbek
+- memóriát foglal - szerver oldalon nem ezért nem is használjuk
 
 ## Veszélyforrások
 
-### Connection string
-
-A **connection string** megalkotása nagyon hasonló hibát rejt magában, mint az **SQL injection**. Tegyük fel, hogy a felhasználótól kérünk valamiféle adatot (*pl. felhasználónév, jelszó*). Ilyenkor nem tudhatjuk, hogy pontosan mit fogunk kapni. A **connection string** kulcs-érték párokból áll és sok adatbázis *last-wins* elvet alkalmaz ezekre. Ez a gyakorlatban azt jelenti, hogy ha egy kulcsra több érték is meg van adva a string-ben, akkor az jut érvényre, ami később szerepel benne. Vagyis, ha a begépelt felhasználónév, és jelszó után, jön egy olyan kulcs-érték pár, ami már szerepelt a string-ben, akkor az új felülírja a régit, ez pedig nagy kockázatot rejt magában, hiszen egy rossz indulatú felhasználó így saját maga által megadott paramétereket injektálhat a connection stringbe.
-
-!!! important "**MEGOLDÁS**"
-    `ConnectionStringBuilder` használata (***lásd: [Connection rész](#connection)***)
-
 ### SQL injection
 
-Az **SQL injection** az a **súlyos hiba**, amikor úgy kreálunk egy lekérdezést, hogy a benne szereplő paraméterek értékét nem ellenőrizzük futtatás előtt. A paraméterek érkezhetnek kliens oldalról, felhasználó által kiválasztott, vagy megadott adatokkal. Ebből akkor származhat probléma, ha egy rosszindulatú felhasználó SQL parancsot ír egy olyan mezőbe, ahonnan mást várnánk. Például egy felhasználónevet várnánk, de helyette a `Monkey92); DROP TABLE Users;--` érték érkezik. Ha ezt a szöveget befogadnánk és beillesztenénk az SQL utasításunkba, azzal a `delete`-et is végrehajtanánk, ezzel törölve egy táblánkat. Ez kifejezetten **súlyos hiba**!
+Az **SQL injection** az a **súlyos hiba**, amikor úgy futtatunk egy lekérdezést, hogy a benne szereplő paraméterek értékét nem ellenőrizzük futtatás előtt. A paraméterek érkezhetnek kliens oldalról, felhasználó által kiválasztott, vagy megadott adatokkal. Ebből akkor származhat probléma, ha egy rosszindulatú felhasználó SQL parancsot ír egy olyan mezőbe, ahonnan mást várnánk. Például egy felhasználónevet várnánk, de helyette a `Monkey92); DROP TABLE Users;--` érték érkezik. Ha ezt a szöveget befogadnánk és beillesztenénk az SQL utasításunkba, azzal a `drop table`-t is végrehajtanánk, ezzel törölve egy táblánkat. Ez kifejezetten **súlyos hiba**!
 
 !!! important "**MEGOLDÁS**"
-    Paraméterek használata (***lásd: [Command rész parancs létrehozása példa](#command)***).
+    Paraméterek használata (lásd: [Command rész](#command) parancs létrehozása példa).
+
+### Connection string
+
+A **connection string** megalkotása nagyon hasonló hibát rejt magában, mint az **SQL injection**. Tegyük fel, hogy a felhasználótól kérünk valamiféle adatot (*pl. felhasználónév, jelszó*). Ilyenkor nem tudhatjuk, hogy pontosan mit fogunk kapni. A **connection string** kulcs-érték párokból áll és sok adatbázis *last-wins* elvet alkalmaz ezekre. Ez a gyakorlatban azt jelenti, hogy ha egy kulcsra több érték is meg van adva a string-ben, akkor az jut érvényre, ami később szerepel benne. Vagyis, ha a begépelt felhasználónév és jelszó után jön egy olyan kulcs-érték pár, ami már szerepelt a string-ben, akkor az új felülírja a régit, ez pedig nagy kockázatot rejt magában, hiszen egy rossz indulatú felhasználó így saját maga által megadott paramétereket injektálhat a connection stringbe.
+
+!!! important "**MEGOLDÁS**"
+    `ConnectionStringBuilder` használata (lásd: [Connection rész](#connection))
 
 ### Connection leak
 
 Amennyiben nem zárunk le minden `Connection`-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy `Connection`-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.
 
 !!! important "**MEGOLDÁS**"
-    `using` blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (**lásd: [Tranzakció rész példa](#tranzakciok)**, vagy [DataReader](#datareader), vagy [DataSet](#dataset))
+    `using` blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (lásd: [Tranzakció rész példa](#tranzakciok), vagy [DataReader](#datareader), vagy [DataSet](#dataset))
 
 !!! note ""
     A `DataReader`-t hasonlóan le kell zárni, és ugyanúgy használható rá a `using` is.
