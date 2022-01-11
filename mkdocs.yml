@@ -75,6 +75,7 @@ nav:
       - lecture-notes/transactions/index.md
       - lecture-notes/mssql/sql.md
       - lecture-notes/mssql/server-side-programming.md
+      - lecture-notes/adonet/index.md
       - lecture-notes/linq/index.md
       - lecture-notes/ef/index.md
       - lecture-notes/mongodb/index.md
