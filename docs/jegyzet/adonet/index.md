@@ -57,7 +57,7 @@ conn.Close(); // nem felejtjük el bezárni - jobb megoldást lásd később
 
 ## Command
 
-Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO.NET** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az `SqlComman` az MSSQL szerverhez.
+Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az **ADO.NET** az `IDbCommand` interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az `SqlCommand` az MSSQL szerverhez.
 
 ### Előkészítés
 
