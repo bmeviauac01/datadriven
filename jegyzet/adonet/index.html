@@ -657,15 +657,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#connection-string" class="md-nav__link">
-    Connection string
+  <a href="#sql-injection" class="md-nav__link">
+    SQL injection
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sql-injection" class="md-nav__link">
-    SQL injection
+  <a href="#connection-string" class="md-nav__link">
+    Connection string
   </a>
   
 </li>
@@ -1223,15 +1223,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#connection-string" class="md-nav__link">
-    Connection string
+  <a href="#sql-injection" class="md-nav__link">
+    SQL injection
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sql-injection" class="md-nav__link">
-    SQL injection
+  <a href="#connection-string" class="md-nav__link">
+    Connection string
   </a>
   
 </li>
@@ -1288,8 +1288,8 @@
 <p>Az <strong>ADO.NET</strong> könyvtár az <code>IDbConnection</code> interfészt biztosítja adatbázis kapcsolatok reprezentálására. Ebben találhatóak azok a függvények, amik szükségesek valamilyen adatbázissal való kapcsolat létrehozásához, mint például az <code>Open()</code>, a <code>Close()</code>, vagy a <code>BeginTransaction()</code>. Ezt az interfészt implementálják az adatbázismotor-specifikus kapcsolatok, mint például az <code>SqlConnection</code>, amely a Microsoft SQL Server felé történő kapcsolatot valósítja meg.</p>
 <p>Az adatbázissal történő kapcsolat felépítéséről tudunk kell, hogy relatíve költséges (új hálózati kapcsolatot kell nyitni, egyeztetni a szerverrel a protokollokat, bejelentkezni, stb.). Ezért használjuk a <strong>connection pooling</strong>-ot, ahol is egy kapcsolat létrehozása, használása, majd bezárása után a kapcsolatot nem eldobjuk, hanem egy gyűjtőbe, egy "pool"-ba helyezzük vissza, hogy később újra fel tudjuk használni, ha az adatbázishoz szeretnénk szólni.</p>
 <p>A <em>connection pool</em> elérhetősége implementációfüggő, de az <em>MS SQL Server</em> és <em>OleDD</em> implementációk is automatikusan támogatják. A <em>connection pool</em>-ok <em>connection string</em>-enként jönnek létre (tehát nem adatbázisonként). Ennek akkor van jelentősége, ha az alkalmazás nem egy <em>connection string</em>-et használ (hanem pl. felhasználónként külön-külön kapcsolódik a felhasználó nevében).</p>
-<p>Ezen kontextushoz tartozik még a <a href="#connection-leak"><strong>connection leak</strong></a> fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk <code>Close()</code>-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni!</p>
-<p>Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett <strong>connection string</strong>-re! Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A <strong>connection string</strong>-eknek <a href="https://www.connectionstrings.com/">adatbázis szerver típusonként eltérő szintaktikájuk</a> lehet, és <a href="#connection-string">veszélyforrásokat</a> is rejthetnek magukban.</p>
+<p>Ezen kontextushoz tartozik még a <a href="#connection-leak"><strong>connection leak</strong></a> fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk <code>Close()</code>-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni. Amennyiben nem figyelünk erre, akkor hamar elfogynak a felhasználható kapcsolatok (a pool kiürül), aminke hatására az egész alklamazásunk használhatatlanná válik, lévén, hogy nem tud az adatbázissal kommunikálni.</p>
+<p>Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett <strong>connection string</strong>-re. Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A <strong>connection string</strong>-eknek <a href="https://www.connectionstrings.com/">adatbázis szerver típusonként eltérő szintaktikájuk</a> lehet, és <a href="#connection-string">veszélyforrásokat</a> is rejthetnek magukban.</p>
 <p>A <em>connection string</em> tárolható konfigurációs fájlban szövegesen, avagy az alkalmazás kódja is össze tudja állítani. <strong>Példa</strong> kapcsolat létrehozására és a <code>ConnectionStringBuilder</code> használatára:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnectionStringBuilder</span><span class="p">();</span>
 <span class="n">builder</span><span class="p">.</span><span class="n">UserID</span> <span class="p">=</span> <span class="s">&quot;User&quot;</span><span class="p">;</span>
@@ -1305,7 +1305,7 @@
 <span class="n">conn</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span> <span class="c1">// nem felejtjük el bezárni - jobb megoldást lásd később</span>
 </code></pre></div>
 <h2 id="command">Command<a class="headerlink" href="#command" title="Permanent link">&para;</a></h2>
-<p>Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az <strong>ADO.NET</strong> az <code>IDbCommand</code> interfészt biztosítja, ami egy utasítást reprezentál.</p>
+<p>Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az <strong>ADO.NET</strong> az <code>IDbCommand</code> interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az <code>SqlComman</code> az MSSQL szerverhez.</p>
 <h3 id="elokeszites">Előkészítés<a class="headerlink" href="#elokeszites" title="Permanent link">&para;</a></h3>
 <p>Az <code>IDbCommand</code> alábbi főbb <em>property</em>-jeit beállítva tudjuk megmondani, hogy a megadott parancs, hogyan legyen értelmezve, és miként viselkedjen az utasítás:</p>
 <ul>
@@ -1318,21 +1318,21 @@
 <li><code>CommandText</code>: a parancs szövege, avagy tárolt eljárást neve</li>
 <li><code>Connection</code>: az adatbázis kapcsolat</li>
 <li><code>Transaction</code>: a tranzakció</li>
-<li><code>CommandTimeout</code>: timeout arra az esetre, ha valami elakad (<em>alapértelmezetten 30s</em>)</li>
+<li><code>CommandTimeout</code>: parancs ereményére való várakozás maximális ideje (<em>alapértelmezetten 30s</em>)</li>
 <li><code>Parameters</code>: paraméterek, az <a href="#veszelyforrasok">SQL injection támadás</a> kivédéséhez</li>
 </ul>
-<p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének tekinti-e.</p>
+<p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.</p>
 <h3 id="vegrehajtas">Végrehajtás<a class="headerlink" href="#vegrehajtas" title="Permanent link">&para;</a></h3>
 <p>Miután előkészítettük a <code>Command</code>-ot, végre is hajthatjuk azt. Ehhez többféle lehetőség közül is választhatunk, attól függően, hogy mit várunk visszatérési értéknek.</p>
 <ul>
 <li><code>ExecuteReader</code>: több rekord lekérdezése</li>
-<li><code>ExecuteScalar</code>: skalár érték lekérdezése</li>
+<li><code>ExecuteScalar</code>: egyetlen skalár érték lekérdezése</li>
 <li><code>ExecuteNonQuery</code>: olyan lekérdezés, amit nem eredményhalmazt ad vissza (pl. <code>INSERT</code>) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)</li>
 <li><code>ExecuteXmlReader</code> (MS SQL Server): XML dokumentumot (<code>XmlReader</code> <em>objektum</em>) ad vissza, az eredmény egy rekord egyetlen XML oszlopa</li>
 </ul>
-<p>Parancsokat újrafelhasználni is tudunk, a <code>Command.Prepare()</code> (<em>szerver oldalon előkészíti a parancs futtatását</em>) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást, mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.</p>
+<p>Parancsokat újrafelhasználni is tudunk, a <code>Command.Prepare()</code> (<em>szerver oldalon előkészíti a parancs futtatását</em>) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást (esetleg más-más paraméterekkel), mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.</p>
 <p><strong>Példa</strong> parancs használatára:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//kapcsolatot létrehozása, megnyitása</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// kapcsolatot létrehozása, megnyitása</span>
 <span class="p">...</span>
 <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">();</span>
 <span class="n">command</span><span class="p">.</span><span class="n">Connection</span> <span class="p">=</span> <span class="n">connection</span><span class="p">;</span>
@@ -1373,7 +1373,7 @@
     <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="n">Connection</span> <span class="p">=</span> <span class="n">connection</span><span class="p">,</span>
-        <span class="n">CommandText</span> <span class="p">=</span> <span class="s">&quot;INSERT into CarTable (Description) VALUES(&#39;...&#39;)&quot;</span><span class="p">;</span>
+        <span class="n">CommandText</span> <span class="p">=</span> <span class="s">&quot;INSERT into CarTable (Description) VALUES(&#39;...&#39;)&quot;</span><span class="p">,</span>
         <span class="n">Transaction</span> <span class="p">=</span> <span class="n">transaction</span><span class="p">,</span>
     <span class="p">}</span>
 
@@ -1408,20 +1408,20 @@
 </div>
 <p>Egy tranzakció általában egy <code>Connection</code> objektumhoz tartozik, de készíthető olyan tranzakció is, melyben több perzisztens erőforráskezelő (más adatbázisok, üzenetsorok, bármi, ami támogat tranzakciókat) is érintett lehet. Innentől elosztott tranzakciókezelésről beszélünk, amihez valamiféle külső tranzakciókezelő, mint például <strong>Microsoft Distributed Transaction Coordinator</strong> (<em>MS DTC</em>) szükséges. Az ilyen esetek szintén kerülendők, hacsak nem komplex esetről és jól átgondolt rendszerről van szó.</p>
 <h3 id="null-ertekek">NULL értékek<a class="headerlink" href="#null-ertekek" title="Permanent link">&para;</a></h3>
-<p>Honnan tudjuk meg, hogy a lekérdezésünk eredménye üres halmaz? És honnan tudjuk meg, hogy egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat? .NET-ben a <code>null</code> értéket szoktuk vizsgálni, de nem szabad elfelejtenünk, hogy adatbázis kontextusban tárgyaljuk a korábban említetteket és az adatbázisok <code>NULL</code> értéke korántsem ekvivalens a <strong>C#</strong>-os <code>null</code>-al. Sőt! A <code>NULL</code> adatbázis típusonként is eltérő értéket vehet fel, az oszlop típusától függően akár! Tehát, hogyan ellenőrizzük, hogy van-e érték a lekérdezés eredményében?</p>
+<p>Honnan tudjuk meg, hogy a lekérdezésünk eredménye üres halmaz? És honnan tudjuk meg, hogy egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat? .NET-ben a <code>null</code> értéket szoktuk vizsgálni, de egy adatbázis <code>NULL</code> eltérő értéket vehet fel az oszlop típusától (int, string, stb.) függően. Tehát, hogyan ellenőrizzük, hogy van-e érték a lekérdezés eredményében?</p>
 <ul>
 <li>Ha azt akarjuk megvizsgálni, hogy a lekérdezés eredményhalmaza tartalmaz-e rekordokat, akkor a <code>DataReader.HasRows</code> <code>bool</code> property-jének vizsgálatával tehetjük ezt meg.</li>
-<li>Ha az eredményhalmaz adott oszlopának értékét szeretnénk vizsgálni: <code>reader["oszlopnev"].IsNull;</code> vagy <code>reader.IsDbNull(index)</code></li>
-<li>Ha <code>NULL</code> értéket akarunk manuálisan beszúrni egy új rekordba: pl. <code>SqlString.Null</code> vagy <code>DBNull.Value</code></li>
+<li>Ha az eredményhalmaz adott oszlopának értékét szeretnénk vizsgálni: <code>reader["oszlopnev"].IsNull;</code> vagy <code>reader.IsDbNull(index)</code>.</li>
+<li>Ha <code>NULL</code> értéket akarunk manuálisan beszúrni egy új rekordba: pl. <code>SqlString.Null</code> vagy <code>DBNull.Value</code>.</li>
 </ul>
 <h2 id="a-lekerdezes-eredmenye">A lekérdezés eredménye<a class="headerlink" href="#a-lekerdezes-eredmenye" title="Permanent link">&para;</a></h2>
 <p>Az <strong>ADO.NET</strong> kétféle módot is biztosít az adatok adatbázisból való olvasására: <code>DataReader</code> és <code>DataSet</code>. A két megoldás közti fő különbség a kapcsolat használatában és az adatokkal való bánásmódban van. Ennek megfelelően két modellt különböztetünk meg: <strong>kapcsolat alapút</strong> (<code>DataReader</code>) és <strong>kapcsolat nélkülit</strong> (<code>DataSet</code>). A kapcsolat alapú modellben a kapcsolat az adatbázissal végig fennmarad, miközben lekérdezéseket hajtunk végre, míg a kapcsolat nélküli modellben egy <code>DataSet</code>-en végzünk módosításokat és ezt szinkronizáljuk időnként az adatbázissal, de a kapcsolat csak a szinkronizáció idejére jön létre. Mindegyiknek megvannak a maga előnyei és hátrányai, amiket a következő részekben fogunk tárgyalni.</p>
 <h3 id="datareader">DataReader<a class="headerlink" href="#datareader" title="Permanent link">&para;</a></h3>
-<p>A kapcsolat fennálása alatt aktuális adatok érkeznek az adatbázisból, rövid ideig, de folyamatosan nyitva marad a kapcsolat.</p>
+<p>Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennálása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.</p>
 <p><strong>Feldolgozás lépései:</strong></p>
 <ol>
 <li>kapcsolat megnyitása</li>
-<li>parancs futtatása</li>
+<li>parancs futtatása az adatok lekérdezéséhez</li>
 <li>eredmény feldolgozása (tipikusan: üzleti logikai entitásokra átfordítás)</li>
 <li>reader lezárása</li>
 <li>kapcsolat lezárása</li>
@@ -1429,37 +1429,38 @@
 <p>A <code>DataReader</code> kapcsolati lánc az adatbázisig:</p>
 <p><img alt="Struktúra" src="images/datareader.png" /></p>
 <p><strong>Példa</strong> <code>DataReader</code> használatára:</p>
-<div class="highlight"><pre><span></span><code><span class="n">using</span><span class="p">(</span><span class="kt">var</span> <span class="n">conn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">using</span><span class="p">(</span><span class="kt">var</span> <span class="n">conn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
 <span class="p">{</span>
-  <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">()</span>
-  <span class="p">{</span>
-    <span class="n">Connection</span> <span class="p">=</span> <span class="n">conn</span><span class="p">,</span>
-    <span class="n">CommandText</span> <span class="p">=</span> <span class="s">&quot;SELECT ID, NAME FROM Product&quot;</span>
-  <span class="p">}</span>
+    <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlCommand</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="n">Connection</span> <span class="p">=</span> <span class="n">conn</span><span class="p">,</span>
+      <span class="n">CommandText</span> <span class="p">=</span> <span class="s">&quot;SELECT ID, NAME FROM Product&quot;</span>
+    <span class="p">}</span>
 
-  <span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
-  <span class="n">using</span><span class="p">(</span><span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">command</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">())</span>
-  <span class="p">{</span>
-      <span class="k">while</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">())</span>
-      <span class="p">{</span>
-          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;{0}\t{0}&quot;</span><span class="p">,</span> <span class="n">reader</span><span class="p">[</span><span class="s">&quot;ID&quot;</span><span class="p">],</span> <span class="n">reader</span><span class="p">[</span><span class="s">&quot;Name&quot;</span><span class="p">]);</span>
-      <span class="p">}</span>
-      <span class="c1">// a using miatt nem kell reader.Close();</span>
-  <span class="p">}</span>
-  <span class="c1">// a using miatt nem kell conn.Close();</span>
+    <span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+    <span class="n">using</span><span class="p">(</span><span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">command</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;{0}\t{0}&quot;</span><span class="p">,</span> <span class="n">reader</span><span class="p">[</span><span class="s">&quot;ID&quot;</span><span class="p">],</span> <span class="n">reader</span><span class="p">[</span><span class="s">&quot;Name&quot;</span><span class="p">]);</span>
+            <span class="c1">// tipikusan üzleti logikai entitást készítünk, amit egy memóriabeli listához adunk</span>
+        <span class="p">}</span>
+        <span class="c1">// a using miatt nem kell reader.Close()</span>
+    <span class="p">}</span>
+    <span class="c1">// a using miatt nem kell conn.Close()</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Pár dologra azért érdemes odafigyelni!</p>
 <ul>
-<li>A <code>reader["ID"]</code> object lesz, a példában szereplő helyen nem típusos. Helyettesíthető <code>reader.Get***(lekérdezésben_az_oszlop_indexe);</code> hívással, ahol is a típust (<code>String</code>, <code>Int32</code>, stb. is meg kell adnunk).</li>
+<li>A <code>reader["ID"]</code> eredménye <code>object</code> lesz, nem string vagy int. Helyettesíthető <code>reader.Get***(lekérdezésben_az_oszlop_indexe)</code> hívással, ahol is a típust (<code>String</code>, <code>Int32</code>, stb. is meg kell adnunk).</li>
 <li>Ha nem kompatibilisek a típusok (pl. az adatbázisban <code>nvarchar</code> és mi <code>int32</code>-ként akarjuk olvasni), <strong>futás idejű hibát</strong> fogunk kapni.</li>
-<li>Ha az adatbázisban valamelyik oszlopban <code>Null</code> érték van a <code>reader.Get***</code> hívásra szintén <strong>futás idejű hibát</strong> kapunk. Helyette <code>reader.IsDBNull(lekérdezésben_az_oszlop_indexe);</code> ha ez <code>false</code>, akkor értékül adhatjuk, egyébként típusnak megfelelő <code>Null</code>-t adjunk értékül.</li>
+<li>Ha az adatbázisban valamelyik oszlopban <code>NULL</code> érték van a <code>reader.Get***</code> hívásra szintén <strong>futás idejű hibát</strong> kapunk. Helyette ellenőrizzük a <code>reader.IsDBNull(lekérdezésben_az_oszlop_indexe)</code> segítségével, és ha ez <code>true</code>, akkor használjuk a típusnak megfelelő <code>null</code> értéket.</li>
 </ul>
 </div>
 <p><strong>Előnyők</strong></p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> az adatok mindenkor a legfrissebbek, az adatbázisból kérdezzük le</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> az adatok mindenkor a legfrissebbek, hiszen frissen az adatbázisból kérdezzük le</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> egyszerűbb konkurenciakezelés, mert mindig friss adatokkal dolgozunk</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> kisebb memória igény (lásd majd a DataSet-et)</li>
 </ul>
@@ -1473,17 +1474,17 @@
 <p><strong>Feldolgozás lépései:</strong></p>
 <ol>
 <li>kapcsolat megnyitása</li>
-<li><code>DataSet</code> feltöltése</li>
+<li><code>DataSet</code> feltöltése az adatbázis egy részével</li>
 <li>kapcsolat lezárása</li>
-<li><code>DataSet</code> feldolgozása (pl. felhasználó felületen megjeleníteni, szerkeszteni)</li>
+<li><code>DataSet</code> feldolgozása (pl. felhasználó felületen megjeleníteni, szerkeszteni) - ez hosszabb ideig is tarthat</li>
 <li>kapcsolat megnyitása</li>
 <li>változtatások visszatöltése</li>
 <li>kapcsolat lezárása</li>
 </ol>
-<p>Az adatelérés működése <code>adapter</code>-rel kapcsolat nélküli modellben az alábbi ábrán látható. A kép érzékelteti, hogy könnyen történhet módosítás az adatbázison egy kiolvasás és egy update között.</p>
-<p><img alt="Struktúra" src="images/adapter.png" /></p>
+<p>Az adatelérés működése <code>adapter</code>-rel kapcsolat nélküli modellben az alábbi ábrán látható.</p>
+<p><img alt="Data adapter haszálata" src="images/adapter.png" /></p>
 <p><code>DataSet</code> kapcsolati lánc az adatbázisig:</p>
-<p><img alt="Struktúra" src="images/dataset.png" /></p>
+<p><img alt="DataSet kapcsolati lánc" src="images/dataset.png" /></p>
 <p><strong>Példa</strong> <code>DataSet</code> használatára:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">dataSet</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DataSet</span><span class="p">();</span>
 <span class="kt">var</span> <span class="n">adapter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlDataAdapter</span><span class="p">();</span>
@@ -1513,7 +1514,7 @@
 <span class="p">{</span>
     <span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
     <span class="n">adapter</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
-    <span class="c1">//dataSet.AcceptChanges(); -- így csak az adapter frissülne, az adatbázis nem</span>
+    <span class="c1">//dataSet.AcceptChanges(); -- így csak a DataSet frissülne, az adatbázis nem</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
@@ -1526,27 +1527,27 @@
 <p><strong>Hátrányok</strong></p>
 <ul>
 <li>ütközések lehetnek a visszamentés során</li>
-<li>az adatok nem mindig a legfrissebbek</li>
-<li>kliens memóriát foglal - szerver oldalon nem ezért nem is használjuk</li>
+<li>a <code>DataSet</code> adatai nem mindig a legfrissebbek</li>
+<li>memóriát foglal - szerver oldalon nem ezért nem is használjuk</li>
 </ul>
 <h2 id="veszelyforrasok">Veszélyforrások<a class="headerlink" href="#veszelyforrasok" title="Permanent link">&para;</a></h2>
-<h3 id="connection-string">Connection string<a class="headerlink" href="#connection-string" title="Permanent link">&para;</a></h3>
-<p>A <strong>connection string</strong> megalkotása nagyon hasonló hibát rejt magában, mint az <strong>SQL injection</strong>. Tegyük fel, hogy a felhasználótól kérünk valamiféle adatot (<em>pl. felhasználónév, jelszó</em>). Ilyenkor nem tudhatjuk, hogy pontosan mit fogunk kapni. A <strong>connection string</strong> kulcs-érték párokból áll és sok adatbázis <em>last-wins</em> elvet alkalmaz ezekre. Ez a gyakorlatban azt jelenti, hogy ha egy kulcsra több érték is meg van adva a string-ben, akkor az jut érvényre, ami később szerepel benne. Vagyis, ha a begépelt felhasználónév, és jelszó után, jön egy olyan kulcs-érték pár, ami már szerepelt a string-ben, akkor az új felülírja a régit, ez pedig nagy kockázatot rejt magában, hiszen egy rossz indulatú felhasználó így saját maga által megadott paramétereket injektálhat a connection stringbe.</p>
-<div class="admonition important">
-<p class="admonition-title"><strong>MEGOLDÁS</strong></p>
-<p><code>ConnectionStringBuilder</code> használata (<strong><em>lásd: <a href="#connection">Connection rész</a></em></strong>)</p>
-</div>
 <h3 id="sql-injection">SQL injection<a class="headerlink" href="#sql-injection" title="Permanent link">&para;</a></h3>
-<p>Az <strong>SQL injection</strong> az a <strong>súlyos hiba</strong>, amikor úgy kreálunk egy lekérdezést, hogy a benne szereplő paraméterek értékét nem ellenőrizzük futtatás előtt. A paraméterek érkezhetnek kliens oldalról, felhasználó által kiválasztott, vagy megadott adatokkal. Ebből akkor származhat probléma, ha egy rosszindulatú felhasználó SQL parancsot ír egy olyan mezőbe, ahonnan mást várnánk. Például egy felhasználónevet várnánk, de helyette a <code>Monkey92); DROP TABLE Users;--</code> érték érkezik. Ha ezt a szöveget befogadnánk és beillesztenénk az SQL utasításunkba, azzal a <code>delete</code>-et is végrehajtanánk, ezzel törölve egy táblánkat. Ez kifejezetten <strong>súlyos hiba</strong>!</p>
+<p>Az <strong>SQL injection</strong> az a <strong>súlyos hiba</strong>, amikor úgy futtatunk egy lekérdezést, hogy a benne szereplő paraméterek értékét nem ellenőrizzük futtatás előtt. A paraméterek érkezhetnek kliens oldalról, felhasználó által kiválasztott, vagy megadott adatokkal. Ebből akkor származhat probléma, ha egy rosszindulatú felhasználó SQL parancsot ír egy olyan mezőbe, ahonnan mást várnánk. Például egy felhasználónevet várnánk, de helyette a <code>Monkey92); DROP TABLE Users;--</code> érték érkezik. Ha ezt a szöveget befogadnánk és beillesztenénk az SQL utasításunkba, azzal a <code>drop table</code>-t is végrehajtanánk, ezzel törölve egy táblánkat. Ez kifejezetten <strong>súlyos hiba</strong>!</p>
 <div class="admonition important">
 <p class="admonition-title"><strong>MEGOLDÁS</strong></p>
-<p>Paraméterek használata (<strong><em>lásd: <a href="#command">Command rész parancs létrehozása példa</a></em></strong>).</p>
+<p>Paraméterek használata (lásd: <a href="#command">Command rész</a> parancs létrehozása példa).</p>
+</div>
+<h3 id="connection-string">Connection string<a class="headerlink" href="#connection-string" title="Permanent link">&para;</a></h3>
+<p>A <strong>connection string</strong> megalkotása nagyon hasonló hibát rejt magában, mint az <strong>SQL injection</strong>. Tegyük fel, hogy a felhasználótól kérünk valamiféle adatot (<em>pl. felhasználónév, jelszó</em>). Ilyenkor nem tudhatjuk, hogy pontosan mit fogunk kapni. A <strong>connection string</strong> kulcs-érték párokból áll és sok adatbázis <em>last-wins</em> elvet alkalmaz ezekre. Ez a gyakorlatban azt jelenti, hogy ha egy kulcsra több érték is meg van adva a string-ben, akkor az jut érvényre, ami később szerepel benne. Vagyis, ha a begépelt felhasználónév és jelszó után jön egy olyan kulcs-érték pár, ami már szerepelt a string-ben, akkor az új felülírja a régit, ez pedig nagy kockázatot rejt magában, hiszen egy rossz indulatú felhasználó így saját maga által megadott paramétereket injektálhat a connection stringbe.</p>
+<div class="admonition important">
+<p class="admonition-title"><strong>MEGOLDÁS</strong></p>
+<p><code>ConnectionStringBuilder</code> használata (lásd: <a href="#connection">Connection rész</a>)</p>
 </div>
 <h3 id="connection-leak">Connection leak<a class="headerlink" href="#connection-leak" title="Permanent link">&para;</a></h3>
 <p>Amennyiben nem zárunk le minden <code>Connection</code>-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy <code>Connection</code>-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.</p>
 <div class="admonition important">
 <p class="admonition-title"><strong>MEGOLDÁS</strong></p>
-<p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (<strong>lásd: <a href="#tranzakciok">Tranzakció rész példa</a></strong>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
+<p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (lásd: <a href="#tranzakciok">Tranzakció rész példa</a>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
 </div>
 <div class="admonition note">
 <p>A <code>DataReader</code>-t hasonlóan le kell zárni, és ugyanúgy használható rá a <code>using</code> is.</p>
