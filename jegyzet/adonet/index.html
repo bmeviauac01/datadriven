@@ -1305,7 +1305,7 @@
 <span class="n">conn</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span> <span class="c1">// nem felejtjük el bezárni - jobb megoldást lásd később</span>
 </code></pre></div>
 <h2 id="command">Command<a class="headerlink" href="#command" title="Permanent link">&para;</a></h2>
-<p>Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az <strong>ADO.NET</strong> az <code>IDbCommand</code> interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az <code>SqlComman</code> az MSSQL szerverhez.</p>
+<p>Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az <strong>ADO.NET</strong> az <code>IDbCommand</code> interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az <code>SqlCommand</code> az MSSQL szerverhez.</p>
 <h3 id="elokeszites">Előkészítés<a class="headerlink" href="#elokeszites" title="Permanent link">&para;</a></h3>
 <p>Az <code>IDbCommand</code> alábbi főbb <em>property</em>-jeit beállítva tudjuk megmondani, hogy a megadott parancs, hogyan legyen értelmezve, és miként viselkedjen az utasítás:</p>
 <ul>
