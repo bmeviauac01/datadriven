@@ -1239,7 +1239,7 @@
                         <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span> <span class="p">&gt;</span> <span class="m">30</span>
                         <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
     <span class="c1">// alternatív szintaktika</span>
-    <span class="c1">// var qProductStock = ctx.Product.Where(p =&gt; p.Stock &gt; 30);</span>
+    <span class="c1">// var qProductStock = db.Product.Where(p =&gt; p.Stock &gt; 30);</span>
 
     <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductStock</span><span class="p">)</span>
         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tStock={1}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">);</span>
@@ -1250,7 +1250,7 @@
                         <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;=</span> <span class="m">2</span>
                         <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
     <span class="c1">// alternatív szintaktika</span>
-    <span class="c1">// var qProductOrder = ctx.Product.Where(p =&gt; p.OrderItem.Count &gt;= 2);</span>
+    <span class="c1">// var qProductOrder = db.Product.Where(p =&gt; p.OrderItem.Count &gt;= 2);</span>
 
     <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">qProductOrder</span><span class="p">)</span>
         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
@@ -1296,7 +1296,7 @@
                     <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">==</span> <span class="n">db</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Max</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
                     <span class="k">select</span> <span class="n">p</span><span class="p">;</span>
     <span class="c1">// alternatív szintaktika</span>
-    <span class="c1">// var qPriceMax = ctx.Product.Where(p =&gt; p.Price == ctx.Product.Max(p2 =&gt; p2.Price));</span>
+    <span class="c1">// var qPriceMax = db.Product.Where(p =&gt; p.Price == db.Product.Max(p2 =&gt; p2.Price));</span>
     <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">qPriceMax</span><span class="p">)</span>
         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t\tName={0}\tPrice={1}&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">Price</span><span class="p">);</span>
 
