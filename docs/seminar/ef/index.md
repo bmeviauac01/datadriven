@@ -111,7 +111,7 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
                             where p.Stock > 30
                             select p;
         // alternative syntax
-        // var qProductStock = ctx.Product.Where(p => p.Stock > 30);
+        // var qProductStock = db.Product.Where(p => p.Stock > 30);
         foreach (var p in qProductStock)
             Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
 
@@ -121,7 +121,7 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
                             where p.OrderItems.Count >= 2
                             select p;
         // alternative syntax
-        // var qProductOrder = ctx.Product.Where(p => p.OrderItem.Count >= 2);
+        // var qProductOrder = db.Product.Where(p => p.OrderItem.Count >= 2);
         foreach (var p in qProductOrder)
             Console.WriteLine("\t\tName={0}", p.Name);
 
@@ -165,7 +165,7 @@ You can check the SQL query generated in runtime: hover over the IQueryable vari
                         where p.Price == db.Product.Max(a => a.Price)
                         select p;
         // alternative syntax
-        // var qPriceMax = ctx.Product.Where(p => p.Price == ctx.Product.Max(p2 => p2.Price));
+        // var qPriceMax = db.Product.Where(p => p.Price == ctx.Product.Max(p2 => p2.Price));
         foreach (var t in qPriceMax)
             Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
 
