@@ -399,7 +399,7 @@ create or alter procedure InsertNewVAT -- tárolt eljárás létrehozása, neve
     @Percentage int                    -- tárolt eljárás paraméterei
 as
   begin
-  -- innen kezdődik a kód, amit az eljárás meghívásakor végehajt a rendszer
+  -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer
   begin tran                            -- nem megismételhető olvasás elkerülése végett
   set transaction isolation level repeatable read
 
