@@ -23,7 +23,7 @@ The model of the whole database is depicted below.
 | VAT           | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Percentage         | The percentage of the value-added tax.                                                                                               |
 | PaymentMethod | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Mode               | Short name of the payment method, e.g., cash or wire transfer.                                                                        |
+|               | Method             | Short name of the payment method, e.g., cash or wire transfer.                                                                        |
 |               | Deadline           | The deadline of the payment method, that is, the deadline for completing the transaction after the invoice is received.              |
 | Status        | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Name               | Short name of the status (e.g., new, processed).                                                                                      |
@@ -45,7 +45,7 @@ The model of the whole database is depicted below.
 |               | Email              | Email address of the customer.                                                                                                       |
 |               | MainCustomerSiteID | The main site of the customer; a foreign key to the CustomerSite table.                                                                |
 | CustomerSite  | ID                 | Auto-generated primary key.                                                                                                          |
-|               | Zip                | The zip code of the address.                                                                                                         |
+|               | ZipCode            | The zip code of the address.                                                                                                         |
 |               | City               | The city part of the address.                                                                                                        |
 |               | Street             | The street and house number part of the address.                                                                                     |
 |               | Tel                | Telephone number.                                                                                                                    |
@@ -65,7 +65,7 @@ The model of the whole database is depicted below.
 |               | StatusID           | Foreign key to the Status table; the actual status of the item.                                                                      |
 | InvoiceIssuer | ID                 | Auto-generated primary key.                                                                                                          |
 |               | Name               | Name of the company selling the products.                                                                                            |
-|               | Zip                | The zip code of the address.                                                                                                         |
+|               | ZipCode            | The zip code of the address.                                                                                                         |
 |               | City               | The city part of the address.                                                                                                        |
 |               | Street             | The street and house number part of the address.                                                                                     |
 |               | TaxIdentifier      | Tax identifier of the company.                                                                                                       |

@@ -211,7 +211,7 @@ using(var conn = new SqlConnection(connectionString))
     {
         while(reader.Read())
         {
-            Console.WriteLine("{0}\t{0}", reader["ID"], reader["Name"]);
+            Console.WriteLine("{0}\t{1}", reader["ID"], reader["Name"]);
             // typically rather create a business entity and add it to a list in memory
         }
         // no need for reader.Close() thanks to the using block
