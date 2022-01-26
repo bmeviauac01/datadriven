@@ -23,7 +23,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 | VAT           | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
 |               | Percentage         | ÁFA kulcs értéke százalékban megadva.                                                                                                |
 | PaymentMethod | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
-|               | Mode               | Fizetési mód megnevezése (pl.: Készpénz, Átutalás 8 napon belül).                                                                    |
+|               | Method               | Fizetési mód megnevezése (pl.: Készpénz, Átutalás 8 napon belül).                                                                    |
 |               | Deadline           | A fizetési módhoz tartozó határidő, azaz a számla teljesítési dátumához képest, hány nappal van később a fizetési határidő.          |
 | Status        | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
 |               | Name               | Megrendelés státusz megnevezése (pl.: új, feldolgozva, árura vár, csomagolva,…).                                                     |
@@ -45,7 +45,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | Email              | Vevő email címe.                                                                                                                     |
 |               | MainCustomerSiteID | A vevő központi telephelyének azonosítója, külső kulcs a CustomerSite táblára.                                                       |
 | CustomerSite  | ID                 | Automatikusan generált azonosító, elsődleges kulcs.                                                                                  |
-|               | Zip                | A cím irányítószám része.                                                                                                            |
+|               | ZipCode                | A cím irányítószám része.                                                                                                            |
 |               | City               | A cím város része.                                                                                                                   |
 |               | Street             | A cím utca és házszám része.                                                                                                         |
 |               | Tel                | A telephelyhez kapcsolódó telefonszám.                                                                                               |
@@ -65,7 +65,7 @@ Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 |               | StatusID           | Idegen kulcs a Status táblára, ezzel lehet leírni a megrendelés tétel státuszát.                                                     |
 | InvoiceIssuer | ID                 | Automatikusan generált azonosító, elsődleges kulcs                                                                                   |
 |               | Name               | Cégnév, aki a kereskedést folytatja, ez szerepel a számlán.                                                                          |
-|               | Zip                | A cím irányítószám része.                                                                                                            |
+|               | ZipCode                | A cím irányítószám része.                                                                                                            |
 |               | City               | A cím város része.                                                                                                                   |
 |               | Street             | A cím utca része.                                                                                                                    |
 |               | TaxIdentifier      | A cég adószáma.                                                                                                                      |

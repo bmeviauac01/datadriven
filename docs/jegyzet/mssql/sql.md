@@ -275,7 +275,7 @@ as
 )
 select *
 from q1
-where q1.dr<3
+where q1.dr<=3
 ```
 
 Hány darabot adtak el a második legdrágább termékből?

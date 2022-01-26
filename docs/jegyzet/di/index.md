@@ -140,7 +140,7 @@ Mint látható, a `SendEmailReminder` műveletet egy objektumgráf szolgálja ki
 ![Object graph 1](./images/object-graph-1.svg)
 
 !!! note "Megjegyzés"
-    Felmerülhet bennünk a kérdés, mért a `NotificationService`-t, és nem a `ToDoService`-t tekintjük gyökérobjektumnak. Valójában ez csak a nézőpontunkon múlik: az egyszerűség kedvéért a `ToDoService`-t egyfajta belépési pontnak ("kliensnek") tekintjük a kérés vonatkozásában annak érdekében, hogy kevesebb osztályt kelljen a következőkben megvizsgálnunk és átalakítanunk. Egy való életbeli alkalmazásban a `ToDoService`-t is jó eséllyel a függőségi gráf részének tekintenénk.
+    Felmerülhet bennünk a kérdés, miért a `NotificationService`-t, és nem a `ToDoService`-t tekintjük gyökérobjektumnak. Valójában ez csak a nézőpontunkon múlik: az egyszerűség kedvéért a `ToDoService`-t egyfajta belépési pontnak ("kliensnek") tekintjük a kérés vonatkozásában annak érdekében, hogy kevesebb osztályt kelljen a következőkben megvizsgálnunk és átalakítanunk. Egy való életbeli alkalmazásban a `ToDoService`-t is jó eséllyel a függőségi gráf részének tekintenénk.
 
 Tekintsük át a megoldás legfontosabb jellemzőit:
 

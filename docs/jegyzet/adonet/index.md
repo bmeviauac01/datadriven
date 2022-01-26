@@ -34,7 +34,7 @@ Az adatbázissal történő kapcsolat felépítéséről tudunk kell, hogy relat
 
 A _connection pool_ elérhetősége implementációfüggő, de az *MS SQL Server* és *OleDD* implementációk is automatikusan támogatják. A _connection pool_-ok _connection string_-enként jönnek létre (tehát nem adatbázisonként). Ennek akkor van jelentősége, ha az alkalmazás nem egy _connection string_-et használ (hanem pl. felhasználónként külön-külön kapcsolódik a felhasználó nevében).
 
-Ezen kontextushoz tartozik még a [**connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk `Close()`-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni. Amennyiben nem figyelünk erre, akkor hamar elfogynak a felhasználható kapcsolatok (a pool kiürül), aminke hatására az egész alklamazásunk használhatatlanná válik, lévén, hogy nem tud az adatbázissal kommunikálni.
+Ezen kontextushoz tartozik még a [**connection leak**](#connection-leak) fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk `Close()`-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni. Amennyiben nem figyelünk erre, akkor hamar elfogynak a felhasználható kapcsolatok (a pool kiürül), aminek hatására az egész alkalmazásunk használhatatlanná válik, lévén, hogy nem tud az adatbázissal kommunikálni.
 
 Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett **connection string**-re. Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A **connection string**-eknek [adatbázis szerver típusonként eltérő szintaktikájuk](https://www.connectionstrings.com/) lehet, és [veszélyforrásokat](#connection-string) is rejthetnek magukban.
 
@@ -213,7 +213,7 @@ using(var conn = new SqlConnection(connectionString))
     {
         while(reader.Read())
         {
-            Console.WriteLine("{0}\t{0}", reader["ID"], reader["Name"]);
+            Console.WriteLine("{0}\t{1}", reader["ID"], reader["Name"]);
             // tipikusan üzleti logikai entitást készítünk, amit egy memóriabeli listához adunk
         }
         // a using miatt nem kell reader.Close()
