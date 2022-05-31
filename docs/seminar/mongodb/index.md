@@ -29,7 +29,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 1. Open a _PowerShell_ console (search for PowerShell in the Start menu and start it, but _not_ the one with "ISE" in the same - that is not the console).
 
-1. Copy and paste the script into the console and run it by pressing enter. Please note, that you might need to change the the directory nam in the last command, e.g., if the app version is different.
+1. Copy and paste the script into the console and run it by pressing enter. Please note, that you might need to change the the directory name in the last command, e.g., if the app version is different.
 
     ```powershell
     Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
