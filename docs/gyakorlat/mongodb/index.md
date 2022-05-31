@@ -29,7 +29,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 1. Nyiss egy _PowerShell_ konzolt (a Start menüben keress rá a PowerShell-re és indítsd el, de _ne_ az "ISE" végűt, az nem a konzol).
 
-1. Másold be az alábbi sorokat és futtasd le enterrel.
+1. Másold be az alábbi sorokat és futtasd le enterrel. Az utolsó utasításban az eléséri út lehet, hogy kisebb javítást igényel, pl. más verziószám miatt.
 
     ```powershell
     Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
