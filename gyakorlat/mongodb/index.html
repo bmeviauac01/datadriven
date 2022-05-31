@@ -1130,67 +1130,38 @@
 <h2 id="feladat-0-adatbazis-letrehozasa-projekt-megnyitasa">Feladat 0: Adatbázis létrehozása, projekt megnyitása<a class="headerlink" href="#feladat-0-adatbazis-letrehozasa-projekt-megnyitasa" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Hozzunk létre egy mappát, ahol dolgozni fogunk, például <code>c:\work\NEPTUN</code>.</p>
-<div class="admonition important">
-<p class="admonition-title">Munkakönyvtár</p>
-<p>A továbbiakban kezeljük ezt <strong>munkakönyvtárként</strong>, tehát minden új mappát ebben hozzunk létre.</p>
-</div>
+<p>Nyiss egy <em>PowerShell</em> konzolt (a Start menüben keress rá a PowerShell-re és indítsd el, de <em>ne</em> az "ISE" végűt, az nem a konzol).</p>
 </li>
 <li>
-<p>Indítsuk el a MongoDB szervert.</p>
-<ul>
-<li>Hozzunk létre egy mappát az adatbázisfájloknak, például <code>db</code> néven. (Ezt a mappát az előbb létrehozott munkakönyvtárban hozzuk létre.)</li>
-<li>
-<p>Nyissunk egy <em>command prompt</em>-ot és indítsuk el a MongoDB szervert: <code>mongod.exe --dbpath="c:\work\&lt;NEPTUN&gt;\db"</code></p>
-<div class="admonition info">
-<p><em>Command prompt</em> például a start menüben megkereshető a "cmd" kulcsszóval.</p>
-<p>A laborokban a MongoDB a <code>c:\tools\mongodb\bin</code> könyvtárban van. Navigáljunk el ide a <code>cd</code> utasítással.</p>
-</div>
+<p>Másold be az alábbi sorokat és futtasd le enterrel. Az utolsó utasításban az eléséri út lehet, hogy kisebb javítást igényel, pl. más verziószám miatt.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-Item</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span> <span class="n">-Recurse</span> <span class="n">-ErrorAction</span> <span class="n">Ignore</span>
+<span class="nb">New-Item</span> <span class="n">-Type</span> <span class="n">Directory</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
+<span class="n">c</span><span class="p">:\</span><span class="n">tools</span><span class="p">\</span><span class="n">mongodb-win32-x86_64-windows</span><span class="p">-</span><span class="n">4</span><span class="p">.</span><span class="n">4</span><span class="p">.</span><span class="n">10</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="n">mongod</span><span class="p">.</span><span class="n">exe</span> <span class="p">-</span><span class="n">-dbpath</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
+</code></pre></div>
+<p>Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.</p>
 </li>
 <li>
-<p>Ezt a command promptot ne zárjuk be, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Hozzuk létre az adatbázis.</p>
-<ul>
-<li>Töltsük le az adatbázislétrehozó scriptet és mentsük el <code>mongo.js</code> néven a munkakönyvtárunkba.</li>
-<li>
-<p>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot és hozzuk létre az adatbázist: <code>mongo.exe localhost:27017/datadriven c:\work\&lt;NEPTUN&gt;\mongo.js</code></p>
-<div class="admonition note">
-<p>Ez az exe most nem mongo&#8203;<strong>d</strong>, csak mongo. Ez egy kliensprogram, amivel a szerverhez csatlakozva parancsokat futtathatunk.</p>
-<p>A laborokban ezt az exe-t is a <code>c:\tools\mongodb\bin</code> könyvtárban találjuk.</p>
-<p>Ügyeljünk a connection stringre, amiben a szerver elérése után az adatbázis neve is benne van!</p>
-</div>
-</li>
-</ul>
-</li>
-<li>
-<p>Ellenőrizzük, hogy létrejött az adatbázis Robo3T segítségével.</p>
-<ul>
-<li>
-<p>Indítsuk el a Robo3T programot (laborokban a <code>c:\tools\robo3t</code> könyvtárban) és csatlakozzunk a MongoDB szerverhez.</p>
+<p>Indítsuk el a Robo3T programot (a <code>c:\tools\robo3t...</code> könyvtárban találjuk) és csatlakozzunk a MongoDB szerverhez.</p>
 <p><img alt="Robo3T Connection Settings" src="images/robo3t_connection.png" /></p>
 </li>
 <li>
-<p>Ellenőrizzük, hogy létrejöttek a megfelelő <em>Collection</em>-ök.</p>
-<p><img alt="Robo3T Collections" src="images/robo3t_collections.png" /></p>
-</li>
-</ul>
+<p>Hozzuk létre az adatbázist a kapcsolat nevén (<em>localhost</em>) jobb egérrel kattintva. Az adatbázis neve <code>datadriven</code> legyen:</p>
+<p><img alt="Robo3T Connection Settings" src="images/robo3t_newdb.png" /></p>
 </li>
 <li>
-<p>Töltsük le a méréshez tartozó projekt vázat!</p>
+<p>Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az <em>Open Shell</em> parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">innen</a>, és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a <em>collection</em>-öknek - nyissuk le a <em>Collections</em> mappát ennek ellenőrzéséhez.</p>
+<p><img alt="Robo3T Collections" src="images/robo3t_collections.png" /></p>
+</li>
+<li>
+<p>Töltsük le a kiinduló projekt vázat!</p>
 <ul>
-<li>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot a munkakönyvtárunkba.</li>
+<li>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot vagy PowerShell konzolt (ne azt használjuk, amelyikben a szerver fut)</li>
+<li>Navigáljunk el egy tetszőleges mappába, például <code>c:\work\NEPTUN</code></li>
 <li>Adjuk ki a következő parancsot: <code>git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git</code></li>
 </ul>
 </li>
 <li>
-<p>Nyissuk meg a forrásban az <em>sln</em> fájlt Visual Studio-val.</p>
-</li>
-<li>
-<p>Vizsgáljuk meg a projektet.</p>
+<p>Nyissuk meg a forrásban az <em>sln</em> fájlt Visual Studio-val. Vizsgáljuk meg a projektet.</p>
 <ul>
 <li>Ez egy .NET Core konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az <code>Entities</code> mappában találhatók az entitás osztályok, a megoldást pedig a <code>Program.cs</code> fájlba írjuk.</li>
 <li>Nézzük meg a <code>Program.cs</code> tartalmát. Itt már megtalálható a MongoDB kommunikációhoz szükséges inicializáció.<ul>
