@@ -27,55 +27,39 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 ## Exercise 0: Create database, open starter code
 
-1. Create a new working directory, e.g., `c:\work\NEPTUN`.
+1. Open a _PowerShell_ console (search for PowerShell in the Start menu and start it, but _not_ the one with "ISE" in the same - that is not the console).
 
-    !!! important "Working directory"
-        This folder will be our **working directory**, that is, everything is created within this folder.
+1. Copy and paste the script into the console and run it by pressing enter. Please note, that you might need to change the the directory nam in the last command, e.g., if the app version is different.
 
-1. Start the MongoDB server.
+    ```powershell
+    Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
+    New-Item -Type Directory c:\work\mongodatabase
+    c:\tools\mongodb-win32-x86_64-windows-4.4.10\bin\mongod.exe --dbpath c:\work\mongodatabase
+    ```
 
-    - Create a new folder for the database files, e.g., use name `db`. (Create this within the working directory.)
-    - Open a _command prompt_ and start MongoDB server: `mongod.exe --dbpath="c:\work\<NEPTUN>\db"`
+    Keep this window open because the server is running here. You can stop it by pressing Ctrl+C at the end of the class.
 
-        !!! info ""
-            _Command prompt_ can be located in the start menu by typing "cmd".
+1. Launch Robo3, which you find in directory `c:\tools\robo3t...` and connect to the MongoDB server.
 
-            In the university computer laboratories, MongoDB is in folder `c:\tools\mongodb\bin`. Navigate to this directory using the `cd` command.
+    ![Robo3T Connection Settings](images/robo3t_connection.png)
 
-    - Keep this command prompt open because it hosts our server. To stop the server at the end of the seminar, press Ctrl+C.
+1. Let us create a new database by right-clicking the connection (_localhost_). Let the database name be `datadriven`.
 
-1. Create the database.
+    ![Robo3T Connection Settings](images/robo3t_newdb.png)
 
-    - Download the database initialization script and save it as `mongo.js` in the working directory.
-    - Open a **new** _command prompt_ and initialize database: `mongo.exe localhost:27017/datadriven c:\work\<NEPTUN>\mongo.js`
+1. Open a new shell into the database by right-clicking it and choosing the _Open Shell_ command. This will open a single-line textbox to the right. Copy the database initialization script from [here](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js) into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the _Collections_ item to check them.
 
-        !!! note ""
-            The executable is not mongo&#8203;**d** but simply mongo. This is a client software to connect to the server and execute queries.
+    ![Robo3T Collections](images/robo3t_collections.png)
 
-            In the university computer laboratories, this executable is located at `c:\tools\mongodb\bin`.
+1. Download the starter solution!
 
-            Let us note the connection string that contains the name of the database too!
-
-1. Check the database using Robo3T.
-
-    - Start Robo3T (in the university computer laboratories, it is located at `c:\tools\robo3t`) and connect to the server.
-
-        ![Robo3T Connection Settings](images/robo3t_connection.png)
-
-    - Check if the _Collections_ were created.
-
-        ![Robo3T Collections](images/robo3t_collections.png)
-
-1. Download the starter code!
-
-    - Open yet another **new** _command prompt_ into our working directory.
+    - Open a **new** _command prompt_ or PowerShell console (do not use the one the server is running in)
+    - Navigate to a folder, e.g. `c:\work\NEPTUN`
     - Execute the following command: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
 
-1. Open the _sln_ file from the newly created folder using Visual Studio.
+1. Open the _sln_ file from the newly created folder using Visual Studio. Let us examine this project.
 
-1. Let us examine this project.
-
-    - This is a .NET Core console application. The structure resembles the structure of the Entity Framework project seen before: directory `Entities` contains the database entities while our code will be written to `Program.cs`.
+    - This is a .NET Core console application. The structure resembles the structure of the Entity Framework project seen before: directory `Entities` contains the database entities while our code will be written into `Program.cs`.
     - `Program.cs` already contains the initialization of the connection to MongoDB.
         - Interface `IMongoClient` is used for all communication with the database. We will not use this directly.
         - Interface `IMongoDatabase` represents the database `datadriven` within the MongoDB server.
