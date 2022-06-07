@@ -6,7 +6,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a _MongoDB_ általános cél�
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2019 (_nem_ VS Code)
+- Microsoft Visual Studio 2022 (_nem_ VS Code)
 - MongoDB Community Edition
 - Robo 3T
 - Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
@@ -59,7 +59,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val. Vizsgáljuk meg a projektet.
 
-    - Ez egy .NET Core konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az `Entities` mappában találhatók az entitás osztályok, a megoldást pedig a `Program.cs` fájlba írjuk.
+    - Ez egy .NET konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az `Entities` mappában találhatók az entitás osztályok, a megoldást pedig a `Program.cs` fájlba írjuk.
     - Nézzük meg a `Program.cs` tartalmát. Itt már megtalálható a MongoDB kommunikációhoz szükséges inicializáció.
         - Az `IMongoClient` interfész tartalmazza az adatbázissal való kommunikációhoz szükséges metódusokat. Ezeket nem fogjuk közvetlenül használni.
         - Az `IMongoDatabase` interfész reprezentálja a `datadriven` adatbázist a MongoDB-n belül.

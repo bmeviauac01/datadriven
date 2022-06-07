@@ -49,7 +49,7 @@ A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó t
 
 1. Készítsd el a függvény implementációját. A repository osztály konstruktorban megkapja az adatbázist és elmenti magának a használandó gyűjteményt, ezen keresztül érheted el az adatbázist.
 
-A teszteléshez találsz unit teszteket a solution-ben. A teszteket [Visual Studio-ban egyszerűen tudod futtatni](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), de ha mást használsz fejlesztéshez (pl. VS Code és/vagy `dotnet cli`), akkor is [tudsz teszteket futtatni](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). Az adatbázis eléréséhez a `TestDbFactory` osztályban módosíthatod a connection stringet.
+A teszteléshez találsz unit teszteket a solution-ben. A teszteket [Visual Studio-ban egyszerűen tudod futtatni](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2022), de ha mást használsz fejlesztéshez (pl. VS Code és/vagy `dotnet cli`), akkor is [tudsz teszteket futtatni](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). Az adatbázis eléréséhez a `TestDbFactory` osztályban módosíthatod a connection stringet.
 
 !!! important "Tesztek"
     A tesztek az adatbázis kiinduló állapotát feltételezik. Futtasd le az adatbázis scriptet a kiinduló állapot visszaállításához.
@@ -77,7 +77,7 @@ Ebből kell kiszámolni a teljes raktárkészlet térfogatát:
 
 - Az adatot a `package_parameters`-ből vedd (és **ne** a `product_size`-ból).
 - Egy termék lehet, hogy több csomagból áll, ezt a `package_parameters.number_of_packages`-ben találod. Ez csak egy szorzó, tehát egyetlen mérete van minden terméknek, legfeljebb több, ugyanakkora csomagból áll.
-- A végeredmény: minden termékre Σ (termék raktárkészlet * csomag darabszám * szélesség * hosszússág * mélység).
+- A végeredmény: minden termékre Σ (termék raktárkészlet *csomag darabszám* szélesség *hosszússág* mélység).
 - Amely terméknél nincs meg ez az információ, ott 0 térfogattal számolj.
 - Ügyelj rá, hogy a térfogat számítás mértékegység helyes legyen: a termékek mérete vagy _cm_ vagy _m_ mértékegységben lehet megadva, de a végeredményben a térfogat köbméterben kell!
 

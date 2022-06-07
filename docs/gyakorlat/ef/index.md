@@ -9,7 +9,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a Linq lekérdezések haszná
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2015/2017/2019 (_nem_ VS Code)
+- Microsoft Visual Studio 2022 (_nem_ VS Code)
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -32,14 +32,9 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS 2019 esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS-ben esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.
 
 ![VS projekt típus](images/vs-create-project.png)
-
-!!! important ""
-    **Ne** .NET _Core_ alkalmazást hozzunk létre, mert abban nincs vizuális _Database First_ leképzés, amit használni fogunk.
-
-    Ügyeljünk a projekt nyelvére is, C# nyelvű projekt legyen.
 
 Hozd létre a projektet. A `c:\work` mappába dolgozz.
 

@@ -38,7 +38,7 @@ Feladatok:
     ??? question "Miért van a `/-` rész az URL-ben?"
         Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehene az URL: termékek darabszámára vagyunk kíváncsiak, tehát `/api/product/`, de utána mi? Lehetne `/api/product/count`. Viszont ez "összekeveredik" a `/api/product/123` jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha `/123` az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig `/count` az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A `/-` rész azt jelzi, hogy ott _nem_ termék azonosító utazik.
 
-        Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute?view=aspnetcore-3.1#properties).
+        Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
@@ -50,9 +50,9 @@ Feladatok:
 !!! note ""
     Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.
 
-Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts [OpenAPI specifikációt és dokumentációt](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1) a REST API leírásához.
+Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts [OpenAPI specifikációt és dokumentációt](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger) a REST API leírásához.
 
-1. A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio>
+1. A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle>
 
     - Mindenképpen a **Swashbuckle** opciót használd.
     - A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v1/swagger.json` címen legyen elérhető.

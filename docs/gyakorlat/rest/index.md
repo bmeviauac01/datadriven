@@ -6,7 +6,7 @@ A gyakorlat célja, hogy a hallgatók gyakorolják a REST API-k tervezését, é
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2019 (_nem_ VS Code)
+- Microsoft Visual Studio 2022 (_nem_ VS Code)
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Postman: <https://www.getpostman.com/downloads/>
@@ -206,6 +206,7 @@ Mindegyik végpontot teszteljük!
 - POST kérés a helyes URL-re
 - A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
 - Az alábbi _body_ json:
+
   ```json
   {
     "name": "BME-s kardigán",
@@ -221,6 +222,7 @@ A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szüks
 - PUT kérés a helyes URL-re
 - A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
 - Az alábbi _body_ json:
+
   ```json
   {
     "id": 10,

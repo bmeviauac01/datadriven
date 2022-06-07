@@ -34,22 +34,22 @@ A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részér
 - Windows, Linux vagy MacOS: Minden szükséges program platform független, vagy van platformfüggetlen alternatívája.
 - GitHub account és egy git kliens.
 - MSSQL adatbázist használó feladatokhoz:
-    - Microsoft SQL Server. Az _Express_ változat ingyenesen használható, avagy Visual Studio mellett feltelepülő _localdb_ változat is megfelelő. Van [Linux változata](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is. MacOS-en Docker-rel futtatható.
-    - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), vagy kipróbálható a platformfüggetlen [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is.
-    - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+  - Microsoft SQL Server. Az _Express_ változat ingyenesen használható, avagy Visual Studio mellett feltelepülő _localdb_ változat is megfelelő. Van [Linux változata](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is. MacOS-en Docker-rel futtatható.
+  - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), vagy kipróbálható a platformfüggetlen [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is.
+  - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 - MongoDB adatbázist használó feladathoz:
-    - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
-    - [Robo 3T](https://robomongo.org/download)
-    - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+  - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
+  - [Robo 3T](https://robomongo.org/download)
+  - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
 - REST API feladatokhoz: [Postman](https://www.getpostman.com/)
 - Az első házi kivételével a C# programozós feladatokhoz:
-    - Microsoft Visual Studio 2019/2022 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET Core SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) használható.
-    - [.NET Core **3.1** SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+  - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/) használható.
+  - [.NET **6.0** SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 
-        !!! warning ".NET Core 3.1"
-            A feladat megoldásához **3.1**-es .NET Core SDK telepítése szükséges.
+        !!! warning ".NET 6.0"
+            A feladat megoldásához **6.0**-es .NET SDK telepítése szükséges.
 
-            Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd [itt](VisualStudio.md#net-core-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.
+            Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd [itt](VisualStudio.md#net-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.
 
 ## A feladatok kiértékelése
 
