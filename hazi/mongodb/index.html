@@ -1136,7 +1136,7 @@
 <ul>
 <li>Az adatot a <code>package_parameters</code>-ből vedd (és <strong>ne</strong> a <code>product_size</code>-ból).</li>
 <li>Egy termék lehet, hogy több csomagból áll, ezt a <code>package_parameters.number_of_packages</code>-ben találod. Ez csak egy szorzó, tehát egyetlen mérete van minden terméknek, legfeljebb több, ugyanakkora csomagból áll.</li>
-<li>A végeredmény: minden termékre Σ (termék raktárkészlet <em>csomag darabszám</em> szélesség <em>hosszússág</em> mélység).</li>
+<li>A végeredmény: minden termékre Σ (termék raktárkészlet * csomag darabszám * szélesség * hosszússág * mélység).</li>
 <li>Amely terméknél nincs meg ez az információ, ott 0 térfogattal számolj.</li>
 <li>Ügyelj rá, hogy a térfogat számítás mértékegység helyes legyen: a termékek mérete vagy <em>cm</em> vagy <em>m</em> mértékegységben lehet megadva, de a végeredményben a térfogat köbméterben kell!</li>
 </ul>
