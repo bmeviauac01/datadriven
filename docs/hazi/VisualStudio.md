@@ -22,4 +22,4 @@ C:\>dotnet --list-sdks
 6.0.300 [C:\Program Files\dotnet\sdk]
 ```
 
-Ha ebben a listában látsz **6.0**-es verziót, akkor jó. Ha nem, akkor telepíteni kell az SDK-t [innen](https://dotnet.microsoft.com/download/dotnet/6.0).
+Ha ebben a listában látsz **6.0**-ás verziót, akkor jó. Ha nem, akkor telepíteni kell az SDK-t [innen](https://dotnet.microsoft.com/download/dotnet/6.0).
