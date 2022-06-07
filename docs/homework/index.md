@@ -34,18 +34,18 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 - Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.
 - GitHub account and a git client.
 - For homework using the MSSQL platform:
-  - Microsoft SQL Server. The free _Express_ version is sufficient, or you may also use _localdb_ installed with Visual Studio. A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available. On macOS, you can use Docker.
-  - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
-  - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+    - Microsoft SQL Server. The free _Express_ version is sufficient, or you may also use _localdb_ installed with Visual Studio. A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available. On macOS, you can use Docker.
+    - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
+    - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
 - For homework using a MongoDB database:
-  - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
-  - [Robo 3T](https://robomongo.org/download)
-  - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+    - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
+    - [Robo 3T](https://robomongo.org/download)
+    - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
 - For the REST API homework: [Postman](https://www.getpostman.com/)
 - For writing C# code (most homework, except the first one):
-  - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md)
-    - When using Linux or macOS, you can use Visual Studio Code, the .NET SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/).
-  - [.NET **6.0** SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+    - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md)
+        - When using Linux or macOS, you can use Visual Studio Code, the .NET SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/).
+    - [.NET **6.0** SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 
         !!! warning ".NET 6.0"
             Mind the version! You need .NET SDK version **6.0** to solve these exercises.
