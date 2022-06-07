@@ -29,7 +29,7 @@ You should mind the following requirements:
 - Make no changes to `Model.Product` in this exercise!
 - Do not change the definition of class `ProductRepository` (do not change the class's name, nor the constructor or method declarations); only write the method bodies.
 
-There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code and `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
+There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2022), or if you are using another IDE (e.g., VS Code and `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
 
 !!! important "Tests"
     The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.

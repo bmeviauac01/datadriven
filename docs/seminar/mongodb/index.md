@@ -6,7 +6,7 @@ The seminar's goal is to understand the concepts of the _MongoDB_ document datab
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2019 (_not_ VS Code)
+- Microsoft Visual Studio 2022 (_not_ VS Code)
 - MongoDB Community Edition
 - Robo 3T
 - Database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
@@ -59,7 +59,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 1. Open the _sln_ file from the newly created folder using Visual Studio. Let us examine this project.
 
-    - This is a .NET Core console application. The structure resembles the structure of the Entity Framework project seen before: directory `Entities` contains the database entities while our code will be written into `Program.cs`.
+    - This is a .NET console application. The structure resembles the structure of the Entity Framework project seen before: directory `Entities` contains the database entities while our code will be written into `Program.cs`.
     - `Program.cs` already contains the initialization of the connection to MongoDB.
         - Interface `IMongoClient` is used for all communication with the database. We will not use this directly.
         - Interface `IMongoDatabase` represents the database `datadriven` within the MongoDB server.

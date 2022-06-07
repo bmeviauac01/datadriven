@@ -9,7 +9,7 @@ The goal of the seminar is to practice writing Linq queries and working with Ent
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2015/2017/2019 (_not_ VS Code)
+- Microsoft Visual Studio 2022 (_not_ VS Code)
 - Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -32,14 +32,9 @@ The database resides on each machine; thus, the database you created previously 
 
 ## Exercise 1: Create a project and map the database
 
-Let us create a new C# console application in Visual Studio. In VS 2019 search for "console framework"; this will yield the project template we are looking for.
+Let us create a new C# console application in Visual Studio. In VS search for "console framework"; this will yield the project template we are looking for.
 
 ![VS projext type](images/vs-create-project.png)
-
-!!! important ""
-    Do **not** create a .NET _Core_ application because it does not support the visual _Database First_ code generation we will use.
-
-    Mind the project language: it shall be C#.
 
 Create a new project; you may work in directory `c:\work`.
 

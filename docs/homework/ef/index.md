@@ -46,7 +46,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
 
     Create the “other side” of this one-to-many connection from class `DbVat` to `DbProduct`. This should be a new property of type `System.Collections.Generic.List` with name `Products`. (See an example in the link above.)
 
-There are unit tests available in the solution. The test codes are commented out because it does not compile until you write the code. Select the whole test code and use _Edit / Advanced / Uncomment Selection_. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code, or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
+There are unit tests available in the solution. The test codes are commented out because it does not compile until you write the code. Select the whole test code and use _Edit / Advanced / Uncomment Selection_. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2022), or if you are using another IDE (e.g., VS Code, or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestConnectionStringHelper` if needed.
 
 !!! important "Tests"
     The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.

@@ -6,7 +6,7 @@ The seminar's goal is to practice working with REST APIs and the .NET Web API te
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2019 (_not_ VS Code)
+- Microsoft Visual Studio 2022 (_not_ VS Code)
 - Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Postman: <https://www.getpostman.com/downloads/>
@@ -359,7 +359,7 @@ When creating the new product, we have to specify the category, as well as the v
             // ...
             // Also extend the constructor!
             // Important note: It's important how constructor parameters are named.
-            // Our properties have private setters, and thanks to this json deserialization 
+            // Our properties have private setters, and thanks to this json deserialization
             // maps JSON object field names to constructor parameter names (in a case
             // insensitive manner).
 

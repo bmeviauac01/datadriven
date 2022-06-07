@@ -49,7 +49,7 @@ The task is to find the product that has the largest total value within a produc
 
 1. Implement the repository method. The repository class receives the database as a parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.
 
-There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2019), or if you are using another IDE (e.g., VS Code or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestDbFactory` if needed.
+There are unit tests available in the solution. You can [run the unit tests in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2022), or if you are using another IDE (e.g., VS Code or `dotnet cli`), then [run the tests using the cli](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test). You may update the database connection string in class `TestDbFactory` if needed.
 
 !!! important "Tests"
     The tests presume that the database is in its initial state. Re-run the database initialization script to restore this state.
@@ -77,7 +77,7 @@ Use this to calculate the total volume of all items:
 
 - Use the information from `package_parameters` (and **not** from `product_size`).
 - A product might have multiple packages; this information is available in `package_parameters.number_of_packages`. This number shall be used as a multiplicator. Each product has a single size, and if it has multiple packages, then all packages are of the same size.
-- The final total: for all products Σ (product stock * number of packages * width * height * depth).
+- The final total: for all products Σ (product stock *number of packages* width *height* depth).
 - If a product does not have these information, it's volume should be calculated as 0.
 - Mind, that the size also has a unit: either _cm_ or _m_, but the final value is expected in cubic meter.
 
