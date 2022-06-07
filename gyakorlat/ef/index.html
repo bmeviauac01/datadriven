@@ -1015,7 +1015,7 @@
   
     <li class="md-nav__item">
       <a href="../../hazi/VisualStudio/" class="md-nav__link">
-        Visual Studio & .NET Core SDK telepítése
+        Visual Studio & .NET SDK telepítése
       </a>
     </li>
   
@@ -1128,7 +1128,7 @@
 <h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
 <p>A labor elvégzéséhez szükséges eszközök:</p>
 <ul>
-<li>Microsoft Visual Studio 2015/2017/2019 (<em>nem</em> VS Code)</li>
+<li>Microsoft Visual Studio 2022 (<em>nem</em> VS Code)</li>
 <li>Microsoft SQL Server (LocalDB vagy Express edition)</li>
 <li>SQL Server Management Studio</li>
 <li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">mssql.sql</a></li>
@@ -1146,12 +1146,8 @@
 <h2 id="feladat-0-adatbazis-letrehozasa-ellenorzese">Feladat 0: Adatbázis létrehozása, ellenőrzése<a class="headerlink" href="#feladat-0-adatbazis-letrehozasa-ellenorzese" title="Permanent link">&para;</a></h2>
 <p>Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az <a href="../transactions/">első gyakorlat anyagában</a>.)</p>
 <h2 id="feladat-1-projekt-letrehozasa-adatbazis-lekepzese">Feladat 1: Projekt létrehozása, adatbázis leképzése<a class="headerlink" href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" title="Permanent link">&para;</a></h2>
-<p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS 2019 esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.</p>
+<p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS-ben esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.</p>
 <p><img alt="VS projekt típus" src="images/vs-create-project.png" /></p>
-<div class="admonition important">
-<p><strong>Ne</strong> .NET <em>Core</em> alkalmazást hozzunk létre, mert abban nincs vizuális <em>Database First</em> leképzés, amit használni fogunk.</p>
-<p>Ügyeljünk a projekt nyelvére is, C# nyelvű projekt legyen.</p>
-</div>
 <p>Hozd létre a projektet. A <code>c:\work</code> mappába dolgozz.</p>
 <ol>
 <li>

@@ -1029,7 +1029,7 @@
   
     <li class="md-nav__item">
       <a href="../../hazi/VisualStudio/" class="md-nav__link">
-        Visual Studio & .NET Core SDK telepítése
+        Visual Studio & .NET SDK telepítése
       </a>
     </li>
   
@@ -1152,7 +1152,7 @@
 <h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
 <p>A labor elvégzéséhez szükséges eszközök:</p>
 <ul>
-<li>Microsoft Visual Studio 2019 (<em>nem</em> VS Code)</li>
+<li>Microsoft Visual Studio 2022 (<em>nem</em> VS Code)</li>
 <li>Microsoft SQL Server (LocalDB vagy Express edition)</li>
 <li>SQL Server Management Studio</li>
 <li>Postman: <a href="https://www.getpostman.com/downloads/">https://www.getpostman.com/downloads/</a></li>
@@ -1345,28 +1345,28 @@
 <ul>
 <li>POST kérés a helyes URL-re</li>
 <li>A <em>Body</em> fül alatt a <code>raw</code> és jobb oldalon a <code>JSON</code> kiválasztása</li>
-<li>Az alábbi <em>body</em> json:
-  <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<li>Az alábbi <em>body</em> json:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;BME-s kardigán&quot;</span><span class="p">,</span>
   <span class="nt">&quot;price&quot;</span><span class="p">:</span> <span class="mi">8900</span><span class="p">,</span>
   <span class="nt">&quot;stock&quot;</span><span class="p">:</span> <span class="mi">100</span>
 <span class="p">}</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div>
 <p>Megjegyzés: Esetünkben a JSON objektum egy <code>Models.NewProduct</code> objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
 <p>A <strong>módosítás</strong> teszteléséhez pedig az alábbi beállításokra lesz szükség:</p>
 <ul>
 <li>PUT kérés a helyes URL-re</li>
 <li>A <em>Body</em> fül alatt a <code>raw</code> és jobb oldalon a <code>JSON</code> kiválasztása</li>
-<li>Az alábbi <em>body</em> json:
-  <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<li>Az alábbi <em>body</em> json:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Egy óra csend&quot;</span><span class="p">,</span>
   <span class="nt">&quot;price&quot;</span><span class="p">:</span> <span class="mi">440</span><span class="p">,</span>
   <span class="nt">&quot;stock&quot;</span><span class="p">:</span> <span class="mi">10</span>
 <span class="p">}</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div>
 <p>Megjegyzés: Esetünkben a JSON objektum egy <code>Models.Product</code> objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!</p>
 <p><img alt="Postman PUT kérés" src="images/postman-put-query.png" /></p>
 <p>A tesztelés során nézzük meg a kapott válasz <em>Header</em>-jeit is! A szerkesztés és beszúrás esetén keressük meg benne a <em>Location</em> kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény.</p>

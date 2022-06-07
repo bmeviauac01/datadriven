@@ -987,7 +987,7 @@
   
     <li class="md-nav__item">
       <a href="../VisualStudio/" class="md-nav__link">
-        Visual Studio & .NET Core SDK telepítése
+        Visual Studio & .NET SDK telepítése
       </a>
     </li>
   
@@ -1098,7 +1098,7 @@
 <li>
 <p>Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy <code>GET</code> típusú kérés legyen a <code>/api/product/-/count</code> címre. A visszaadott adat a <code>CountResult</code> osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).</p>
 <details class="question"><summary>Miért van a <code>/-</code> rész az URL-ben?</summary><p>Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehene az URL: termékek darabszámára vagyunk kíváncsiak, tehát <code>/api/product/</code>, de utána mi? Lehetne <code>/api/product/count</code>. Viszont ez "összekeveredik" a <code>/api/product/123</code> jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha <code>/123</code> az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig <code>/count</code> az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A <code>/-</code> rész azt jelzi, hogy ott <em>nem</em> termék azonosító utazik.</p>
-<p>Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute?view=aspnetcore-3.1#properties"><code>[Http*]</code> attribútumok <code>Order</code> tulajdonságával</a>.</p>
+<p>Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute"><code>[Http*]</code> attribútumok <code>Order</code> tulajdonságával</a>.</p>
 </details>
 </li>
 </ol>
@@ -1111,10 +1111,10 @@
 <div class="admonition note">
 <p>Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.</p>
 </div>
-<p>Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1">OpenAPI specifikációt és dokumentációt</a> a REST API leírásához.</p>
+<p>Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger">OpenAPI specifikációt és dokumentációt</a> a REST API leírásához.</p>
 <ol>
 <li>
-<p>A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&amp;tabs=visual-studio">https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&amp;tabs=visual-studio</a></p>
+<p>A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle">https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle</a></p>
 <ul>
 <li>Mindenképpen a <strong>Swashbuckle</strong> opciót használd.</li>
 <li>A <code>swagger.json</code>-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a <code>/swagger/v1/swagger.json</code> címen legyen elérhető.</li>
