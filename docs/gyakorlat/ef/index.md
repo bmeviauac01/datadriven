@@ -1,9 +1,13 @@
 # Entity Framework
 
-A gyakorlat célja, hogy a hallgatók megismerjék a Linq lekérdezések használatát, valamint az Entity Framework működését.
+A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.
 
-!!! important "Entity Framework ~~Core~~"
-    A gyakorlat során a .NET Framework-ben használt Entity Framework-öt használjuk, nem a platformfüggetlen Core változatot. A Linq lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de az alább használt vizuális kód generálás és szerkesztő csak .NET Framework és Entity Framework esetén érhető el.
+!!! important "Entity Framework Core"
+    A gyakorlat során az Entity Framework Core 6.0-át használjuk, amely már platformfüggetlen.
+    
+    A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core tovább is vitte és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
+    
+    A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt.
 
 ## Előfeltételek
 
@@ -17,7 +21,7 @@ A labor elvégzéséhez szükséges eszközök:
 Amit érdemes átnézned:
 
 - C# nyelv
-- Entity Framework és Linq
+- Entity Framework Core és LINQ
 
 ## Gyakorlat menete
 
@@ -32,35 +36,44 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS-ben esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).
 
 ![VS projekt típus](images/vs-create-project.png)
 
 Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
-1. Adj a projekthez egy _ADO.NET Entity Data Model_-t.
+1. Hozzuk létre a kiinduló EF Core Code First modellünket. Ehhez most egy úgynevezett _Reverse Engineering Code First_ megoldást fogunk alkalmazni, aminek a lényege, hogy mivel már van egy kiinduló adatbázisunk abból generálunk egy Code-First modellt, de ezután a továbbiakban Code-First módon dolgozunk.
 
-    - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_. Az ablak alján a Name mezőben `AdatvezEntities`-t adj meg.
-    - A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").
-    - A kapcsolatok megadásánál a saját adatbázishoz kapcsolódj. Hozz létre egy új kapcsolatot a varázsló segítségével, és mentsd el a kapcsolódási adatokat a config fájlba.
-        - _Data source_: Microsoft SQL Server
-        - _Server name_: `(localdb)\mssqllocaldb`
-        - _Select or enter database name_: adjuk meg az adatbázis nevét
-        - _Save connection settings in App.Config_:
-            - igen (pipa)
-            - alatta a szerkesztőmezőben az `AdatvezEntities`-t add meg (ilyen néven fog a DbContext osztály legenerálódni)
-    - Entity Framework 6.0-as leképzést használj.
-    - Az összes táblát képezzük le (ki kell pipálni a _Tables_-t).
-    - _Model namespace_: pl. `AdatvezEntitiesModel`
+    - Telepítsük az EF Core alábbi csomagjait a projektbe a NuGet UI-ról (project jobb gomb / Manage NuGet Packages) vagy a projektfájlba másoljuk be a következőt
 
-1. Várjuk meg, amíg elkészül a modell. Ha közben a VS kérdezne "template" futtatásáról, engedélyezzük.
+    ```xml
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    ```
 
-1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
+    - Futtassuk le az alábbi EF Core PowerShell parancsot a projekt mappájában, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
+
+    ```powershell
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
+    ```
+
+    !!! note 
+
+2. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
 
     !!! note "`app.config`"
         Azért jó, ha ide kerül a _connection string_, mert az alkalmazáshoz tartozó adatbázis helye telepítésenként változhat. Ha a forráskódban van a szerver elérhetősége, akkor újra kell fordítani az alkalmazást minden telepítéshez. Az `app.config` fájl viszont az exe mellett része az alkalmazásnak, és szerkeszthető. Ha szükséges, kiemelhető a fájl más konfigurációs állományba is.
 
-1. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
+3. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
 
     - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
     - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
@@ -74,7 +87,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
     Mentsük a változtatások után a modellt.
 
-1. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
+4. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
 
     !!! note ""
         Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály `partial`-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
