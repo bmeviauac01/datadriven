@@ -40,6 +40,10 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 1. Ellenőrizze, hogy létrejöttek-e a táblák. Ha a _Tables_ mappa ki volt már nyitva, akkor frissíteni kell.
 
     ![Adatbázis kiválasztása](images/sql-managment-tablak.png).
+    
+1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítotárát frissítsük.
+
+    ![IntelliSense](images/intellisense.png).
 
 ## Feladat 2: Párhuzamos tranzakciók
 
