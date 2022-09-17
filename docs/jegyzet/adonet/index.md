@@ -306,7 +306,7 @@ using(var conn = new SqlConnection(connectionString))
 
 - ütközések lehetnek a visszamentés során
 - a `DataSet` adatai nem mindig a legfrissebbek
-- memóriát foglal - szerver oldalon nem ezért nem is használjuk
+- memóriát foglal - szerver oldalon ezért is nem használjuk
 
 ## Veszélyforrások
 
