@@ -66,207 +66,253 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
     Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
     ```
 
-    !!! note 
+2. Vizsgáljuk meg a generált code-first modellt.
 
-2. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
+    * Az adatbázis elérése az `AdatvezDbContext` osztályon keresztül történik
+      * Adatbázis táblák `DbSet` tulajdonságokon keresztül érhetőek el.
+      * A kapcsolat konfigurációja az `OnConfiguring` metódusban történik. Éles alkalmazásban ez tipikusan konfigurációs állományból érkezik, ezért is került legenerálásra a `AdatvezDbContext(DbContextOptions<AdatvezDbContext> options)` konstruktor
+      * Az adatbázis modell az `OnModelCreating` metódusban került konfigurálásra.
 
-    !!! note "`app.config`"
-        Azért jó, ha ide kerül a _connection string_, mert az alkalmazáshoz tartozó adatbázis helye telepítésenként változhat. Ha a forráskódban van a szerver elérhetősége, akkor újra kell fordítani az alkalmazást minden telepítéshez. Az `app.config` fájl viszont az exe mellett része az alkalmazásnak, és szerkeszthető. Ha szükséges, kiemelhető a fájl más konfigurációs állományba is.
+3. Módosítsunk a modellen 
+   
+    1. Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjént `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
 
-3. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
+    ```cs title="CustomerSite.cs"
+    public virtual Customer? MainCustomer { get; set; }
+    ```
 
-    - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
-    - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
+    ```cs title="AdatvezDbContext.cs"
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // ...
 
-        - Customer.CustomerSite1 -> **.Sites**
-        - CustomerSite.Customer1 -> **.MainCustomer**
-        - Order.OrderItem -> .OrderItem&#8203;**s**
-        - Product.OrderItem -> .OrderItem&#8203;**s**
-        - VAT.Product -> .Product&#8203;**s**
-        - Category.Product -> .Product&#8203;**s**
+        modelBuilder.Entity<CustomerSite>(entity =>
+        {
+            // ...
 
-    Mentsük a változtatások után a modellt.
+            entity.HasOne(d => d.MainCustomer)
+                .WithMany(p => p.CustomerSites)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK__CustomerS__Custo__32E0915F");
+        });
 
-4. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
+        // ...
+    }
+    ```
 
-    !!! note ""
-        Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály `partial`-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
+    2. Migration
+
+        TODO
 
 ## Feladat 2: Lekérdezések
 
-A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket Linq használatával. Írd ki konzolra az eredményeket.
+A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.
 
-Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az IQueryable típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
+Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az `IQueryable` típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
 
 1. Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!
 
-1. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
+2. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
 
-1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevét követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
+3. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevét követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
 
-1. Listázd ki a legdrágább termék adatait!
+4. Listázd ki a legdrágább termék adatait!
 
-1. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
+5. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
 
 ??? example "Megoldás"
     ```csharp
+    using ConsoleApp3.Entities;
+
+    using Microsoft.EntityFrameworkCore;
+
     Console.WriteLine("***** Második feladat *****");
-    using (var db = new AdatvezEntities())
+    using (var db = new AdatvezDbContext())
     {
         // 2.1
         Console.WriteLine("\t2.1:");
-        var qProductStock = from p in db.Product
-                            where p.Stock > 30
-                            select p;
-        // alternatív szintaktika
-        // var qProductStock = db.Product.Where(p => p.Stock > 30);
+        // Query szintaktika
+        var productStockQuery = from p in db.Products
+                                where p.Stock > 30
+                                select p;
 
-        foreach (var p in qProductStock)
-            Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
+        // Fluent / Method Chaining szintaktika
+        // var productStockQuery = db.Products.Where(p => p.Stock > 30);
+
+        foreach (var p in productStockQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
+        }
 
         // 2.2
         Console.WriteLine("\t2.2:");
-        var qProductOrder = from p in db.Product
-                            where p.OrderItems.Count >= 2
-                            select p;
-        // alternatív szintaktika
-        // var qProductOrder = db.Product.Where(p => p.OrderItem.Count >= 2);
+        var productOrderQuery = db.Products.Where(p => p.OrderItems.Count >= 2);
 
-        foreach (var p in qProductOrder)
-            Console.WriteLine("\t\tName={0}", p.Name);
+        // query szintaktika
+        //var productOrderQuery = from p in db.Products
+        //                        where p.OrderItems.Count >= 2
+        //                        select p;
 
-        // 2.3
-        Console.WriteLine("\t2.3:");
-        var qOrderTotal = from o in db.Order
-                            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-                            select o;
-        foreach (var o in qOrderTotal)
+        foreach (var p in productOrderQuery)
         {
-            Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
-            foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            Console.WriteLine($"\t\tName={p.Name}");
         }
 
+        // 2.3
+        Console.WriteLine("\t2.3 helytelen megoldás");
+        var orderTotalQuery = db.Orders.Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
+
+        // query szintaktika
+        //var orderTotalQuery = from o in db.Orders
+        //                      where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        //                      select o;
+
+        //foreach (var o in orderTotalQuery)
+        //{
+        //    Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        //    foreach (var oi in o.OrderItems)
+        //    {
+        //        Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+        //    }
+        //}
+
         // 2.3 második megoldás
-        // Ehhez szükség van a következő névtér importálására: innen vegyük ki és tegyük be
-        // a fájl elejére !!!
-        // using System.Data.Entity;
+        // Exptession alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
+        // using Microsoft.EntityFrameworkCore;
 
         // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
-        Console.WriteLine("\tc 2.3 alternatív megoldás:");
-        var qOrderTotal2 =
-            from o in db.Order
-                .Include(o => o.OrderItems)                          // vagy .Include("OrderItem")
-                .Include(o => o.OrderItems.Select(oi => oi.Product)) // vagy .Include("OrderItem.Product")
-                .Include(o => o.CustomerSite)                        // vagy .Include("CustomerSite")
-                .Include(o => o.CustomerSite.MainCustomer)           // vagy .Include("CustomerSite.Customer")
-            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-            select o;
+        Console.WriteLine("\tc 2.3 helyes megoldás:");
+        var orderTotalQuery2 = db.Orders
+            .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+            .Include(o => o.CustomerSite)
+            .Include(o => o.CustomerSite.MainCustomer)
+            .Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
 
-        foreach (var o in qOrderTotal2)
+        // query szintaktika
+        //var orderTotalQuery2 = from o in db.Orders
+        //                       .Include(o => o.OrderItems)
+        //                           .ThenInclude(oi => oi.Product)
+        //                       .Include(o => o.CustomerSite)
+        //                       .Include(o => o.CustomerSite.MainCustomer)
+        //                   where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        //                   select o;
+
+        foreach (var o in orderTotalQuery2)
         {
             Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
             foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            {
+                Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+            }
         }
 
         // 2.4
         Console.WriteLine("\t2.4:");
-        var qPriceMax = from p in db.Product
-                        where p.Price == db.Product.Max(a => a.Price)
-                        select p;
-        // alternatív szintaktika
-        // var qPriceMax = db.Product.Where(p => p.Price == db.Product.Max(p2 => p2.Price));
-        foreach (var t in qPriceMax)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        var maxPriceQuery = db.Products.Where(p => p.Price == db.Products.Max(a => a.Price));
+
+        // query szintaktika
+        //var maxPriceQuery = from p in db.Products
+        //                    where p.Price == db.Products.Max(a => a.Price)
+        //                    select p;
+
+        foreach (var t in maxPriceQuery)
+        {
+            Console.WriteLine($"\t\tName={t.Name}\tPrice={t.Price}");
+        }
 
         // 2.5
         Console.WriteLine("\t2.5:");
-        var qJoin = from s1 in db.CustomerSite
-                    join s2 in db.CustomerSite on s1.City equals s2.City
-                    where s1.CustomerID > s2.CustomerID
-                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
-        foreach (var v in qJoin)
-            Console.WriteLine("\t\tCustomer 1={0}\tCustomer 2={1}", v.c1.Name, v.c2.Name);
+        var cityJoinQuery = db.CustomerSites
+            .Join(db.CustomerSites, s1 => s1.City, s2 => s2.City, (s1, s2) => new { s1, s2 })
+            .Where(x => x.s1.CustomerId > x.s2.CustomerId)
+            .Select(x => new { c1 = x.s1.MainCustomer, c2 = x.s2.MainCustomer });
+
+        // query szintaktika
+        //var cityJoinQuery = from s1 in db.CustomerSites
+        //                    join s2 in db.CustomerSites on s1.City equals s2.City
+        //                    where s1.CustomerId > s2.CustomerId
+        //                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
+
+        foreach (var v in cityJoinQuery)
+        {
+            Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
+        }
     }
     ```
 
 ## Feladat 3: Adatmódosítások
 
-A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
+A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
-1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
+1. Írj olyan LINQ-ra épülő C# kódot, amely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
 
 1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 ??? example "Megoldás"
     ```csharp
     Console.WriteLine("***** Harmadik feladat *****");
-    using (var db = new AdatvezEntities())
+    using (var db = new AdatvezDbContext())
     {
         // 3.1
         Console.WriteLine("\t3.1:");
-        var qProductsLego = from p in db.Product
-                            where p.Category.Name == "LEGO"
-                            select p;
-        // alternatív szintaktika
-        // var qProductsLego = db.Product.Where(p => p.Category.Name == "LEGO");
+        var legoProductsQiery = db.Products.Where(p => p.Category.Name == "LEGO");
 
         Console.WriteLine("\tMódosítás előtt:");
-        foreach (var p in qProductsLego)
+        foreach (var p in legoProductsQiery.ToList())
         {
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
             p.Price = 1.1 * p.Price;
         }
 
         db.SaveChanges();
 
-        qProductsLego = from p in db.Product
-                        where p.Category.Name == "LEGO"
-                        select p;
         Console.WriteLine("\tMódosítás után:");
-        foreach (var p in qProductsLego)
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        // A ToList adatbázis kérést indukál
+        foreach (var p in legoProductsQiery.ToList())
+        {
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+        }
 
         // 3.2
         Console.WriteLine("\t3.2:");
-        Category categoryExpensiveToys = (from c in db.Category
-                                            where c.Name == "Expensive toys"
-                                            select c).SingleOrDefault();
-        // alternatív szintaktika
-        // var categoryExpensiveToys = db.Category.Where(c => c.Name == "Expensive Toys")
-        //                                        .SingleOrDefault();
+        var expensiveToysCategory = db.Categories
+            .Where(c => c.Name == "Expensive Toys")
+            .SingleOrDefault();
 
-        if (categoryExpensiveToys == null)
+        if (expensiveToysCategory == null)
         {
-            categoryExpensiveToys = new Category { Name = "Expensive toys" };
+            expensiveToysCategory = new Category { Name = "Expensive toys" };
 
             // Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast
             // es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban
             // kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.
-            db.Category.Add(categoryExpensiveToys);
+            db.Categories.Add(expensiveToysCategory);
         }
 
-        var qProductExpensive = from p in db.Product
-                                where p.Price > 8000
-                                select p;
+        var expensiveProductsQuery = db.Products.Where(p => p.Price > 8000);
 
-        foreach (var p in qProductExpensive)
-            p.Category = categoryExpensiveToys;
+        foreach (var p in expensiveProductsQuery.ToList())
+        {
+            p.Category = expensiveToysCategory;
+        }
+
         db.SaveChanges();
 
-        qProductExpensive = from p in db.Product
-                            where p.Category.Name == "Expensive toys"
-                            select p;
+        expensiveProductsQuery = db.Products
+            .Include(p => p.Category)
+            .Where(p => p.Category.Name == "Expensive toys");
 
-        foreach (var t in qProductExpensive)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        foreach (var p in expensiveProductsQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tPrice={p.Price}\tCategory={p.Category.Name}");
+        }
     }
     ```
 
 ## Feladat 4: Tárolt eljárások használata
 
-Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
+Tárolt eljárások is hívhatóak a code-first modellből. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
 
 !!! note "Tárolt eljárás az EDM-ben"
     A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkeszthetjük.
