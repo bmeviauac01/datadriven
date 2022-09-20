@@ -3,17 +3,17 @@
 A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.
 
 !!! important "Entity Framework Core"
-    A gyakorlat során az Entity Framework Core 6.0-át használjuk, amely már platformfüggetlen.
+    A gyakorlat során a .NET 6-ot (régebben .NET Core) és Entity Framework Core 6-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
     
-    A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core tovább is vitte és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
+    A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
     
-    A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt.
+    A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de apróbb szintaktikai eltérések adódhatnak, illetve az EF Core funkcionálisan már gazdagabb.
 
 ## Előfeltételek
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2022 (_nem_ VS Code)
+- Microsoft Visual Studio 2022
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -22,6 +22,9 @@ Amit érdemes átnézned:
 
 - C# nyelv
 - Entity Framework Core és LINQ
+
+!!! note "Windows mentes fejlesztés"
+    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 6 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
 
 ## Gyakorlat menete
 
@@ -60,28 +63,31 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
     </ItemGroup>
     ```
 
-    - Futtassuk le az alábbi EF Core PowerShell parancsot a projekt mappájában, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
+    - Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a _Package Manager Console_-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
 
     ```powershell
     Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
     ```
 
+    !!! note "EF Core .NET CLI"
+        A továbbiakban is a _Package Manager Console_-ból elérhető paracsokat fogjuk használni, ami egyébként a `Microsoft.EntityFrameworkCore.Tools` csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi [linken](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) megtalálja a dokumentációt.
+
 2. Vizsgáljuk meg a generált code-first modellt.
 
-    * Az adatbázis elérése az `AdatvezDbContext` osztályon keresztül történik
-      * Adatbázis táblák `DbSet` tulajdonságokon keresztül érhetőek el.
-      * A kapcsolat konfigurációja az `OnConfiguring` metódusban történik. Éles alkalmazásban ez tipikusan konfigurációs állományból érkezik, ezért is került legenerálásra a `AdatvezDbContext(DbContextOptions<AdatvezDbContext> options)` konstruktor
-      * Az adatbázis modell az `OnModelCreating` metódusban került konfigurálásra.
+    - Az adatbázis elérése az `AdatvezDbContext` osztályon keresztül történik
+      - Adatbázis táblák `DbSet` tulajdonságokon keresztül érhetőek el.
+      - A kapcsolat konfigurációja az `OnConfiguring` metódusban történik. Éles alkalmazásban ez tipikusan konfigurációs állományból érkezik, ezért is került legenerálásra a `AdatvezDbContext(DbContextOptions<AdatvezDbContext> options)` konstruktor
+      - Az adatbázis modell az `OnModelCreating` metódusban került konfigurálásra.
 
-3. Módosítsunk a modellen 
+3. Módosítsunk a modellen
    
-    1. Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjént `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
+    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjént `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
 
-    ```cs title="CustomerSite.cs"
+    ```csharp title="CustomerSite.cs"
     public virtual Customer? MainCustomer { get; set; }
     ```
 
-    ```cs title="AdatvezDbContext.cs"
+    ```csharp title="AdatvezDbContext.cs"
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // ...
@@ -100,9 +106,68 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
     }
     ```
 
-    2. Migration
+4. Módosítsunk az adatbázis sémán - Migrációk
 
-        TODO
+    Jelenleg a code-first modellünket scaffoldoltuk a meglévő adatbázisból, de nem szeretnénk a továbbiakban database-first megközelítéssel karbantartani a sémát. Helyette használjunk code-first migrációkat az adatbázis séma módosításához.
+
+    - Hozzunk létre egy kiinduló migrációt `Init` néven, ami a kiinduló sémánkat fogja tartalmazni. A _Package Manager Console_-ban adjuk ki a következő parancsot.
+
+        ```powershell
+        Add-Migration Init
+        ```
+
+    - Próbáljuk meg lefuttatni ezt a migrációt az adatbázison a következő paranccsal.
+
+        ```powershell
+        Update-Database
+        ```
+
+        Ez értelemszerűen nem sikerül, mert a migrációban lévő utasítások egy üres adatbázishoz képest szeretné migrálni a sémát, viszont nekünk az adatbázisunkban már ez a séma létezik. 
+        Az EF egy spoeciális táblában az `__EFMigrationHitory`-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.
+            
+    - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell.
+
+        ![VS Migration History](images/vs-migration-history.png)
+
+    - Módosítsunk az adatbázis sémán a code-first modellünkben.
+
+        - Legyen a `Product` entitásunk `Price` tulajdonsága `double` helyett `decimal`, ami hasznosabb pénzmennyiségek tárolására. Illetve legyen kötelező (nem nullozható).
+
+            ```csharp title="Pruduct.cs"
+            public decimal Price { get; set; }
+            ```
+            
+        - Kötelezőséget és az SQL mező pontosságát állítsuk be a `modelBuilder`rel.
+
+            ```csharp title="AdatvezDbContext.cs"
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                // ...
+
+                modelBuilder.Entity<Product>(entity =>
+                {
+                    // ...
+
+                    entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
+
+                    // ...
+                }
+
+                // ...
+            }
+            ```
+
+        - Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt
+
+            ```powershell
+            Add-Migration PruductPriceDecimal
+            ```
+
+        - Futtassuk le a migrációt az adatbázison és ellenőrízzük a hatását az adatbázisban
+
+            ```powershell
+            Update-Database
+            ```
 
 ## Feladat 2: Lekérdezések
 
@@ -121,6 +186,7 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 5. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
 
 ??? example "Megoldás"
+
     ```csharp
     using ConsoleApp3.Entities;
 
@@ -243,13 +309,14 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
 ## Feladat 3: Adatmódosítások
 
-A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
+A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül beszúrások, módosítások és törlések is végrehajthatóak.
 
 1. Írj olyan LINQ-ra épülő C# kódot, amely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
 
 1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 ??? example "Megoldás"
+
     ```csharp
     Console.WriteLine("***** Harmadik feladat *****");
     using (var db = new AdatvezDbContext())
@@ -262,7 +329,7 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül mó
         foreach (var p in legoProductsQiery.ToList())
         {
             Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
-            p.Price = 1.1 * p.Price;
+            p.Price = 1.1m * p.Price;
         }
 
         db.SaveChanges();
@@ -312,84 +379,64 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül mó
 
 ## Feladat 4: Tárolt eljárások használata
 
-Tárolt eljárások is hívhatóak a code-first modellből. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
+Készíts egy tárolt eljárást egy új code first migráción keresztül, amely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
 
-!!! note "Tárolt eljárás az EDM-ben"
-    A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkeszthetjük.
+1. Készítsd egy új üres migrációt `PopularProducts_SP` néven.
 
-    ![Tárolt eljárás mappelés beállításai](images/vs-storedproc-mapping.png)
+    ```powershell
+    Add-Migration PopularProducts_SP
+    ```
 
-1. Készíts egy tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját! Használd ezt a tárolt eljárást új entitás felvételéhez!
+2. Hozd létre a tárolt eljárást az alábbi kóddal. A vissza irányú migráció megírásától most tekintsünk el, ahol egyébként törölni kellene a tárolt eljárást.
 
-    - Hozd létre a tárolt eljárást SQL Management Studio segítségével.
-
-        ```sql
-        CREATE PROCEDURE CreateNewPaymentMethod
-        (
-        @Method nvarchar(20),
-        @Deadline int
-        )
-        AS
-        insert into PaymentMethod
-        values(@Method,@Deadline)
-        select scope_identity() as NewId
-        ```
-
-    - A tárolt eljárást állítsd be a `PaymentMethod` entitás _insert_ metódusának.
-
-        - Add hozzá a tárolt eljárást az EDM-hez. Az EDM Browser-ben jobb kantitással hozd elő a kontextus menüt, használd az "Update model from database"-t, és importáld (_Add_) az új tárolt eljárást.
-        - Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.
-        - Állítsd be ezt a metódust a `PaymentMethod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `PaymentMethod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
-
-            ![Tárolt eljárás entitásra mappelése](images/vs-insert-storedproc.png)
-
-    - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext `PaymentMethod` gyűjteményéhez az `Add` metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
-
-1. Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
-
-    - Hozd létre a tárolt eljárást az alábbi kóddal.
-
-        ```sql
-        CREATE PROCEDURE dbo.PopularProducts (
-        @MinAmount int = 10
-        )
-        AS
-        SELECT Product.* FROM Product INNER JOIN
-        (
+    ```csharp
+    public partial class PopularProducts_SP : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(
+    @"CREATE OR ALTER PROCEDURE dbo.PopularProducts (@MinAmount int = 10)
+    AS
+    SELECT Product.* 
+    FROM Product 
+    INNER JOIN
+    (
         SELECT OrderItem.ProductID
         FROM OrderItem
         GROUP BY OrderItem.ProductID
         HAVING SUM(OrderItem.Amount) > @MinAmount
-        ) a ON Product.ID = a.ProductID
-        ```
+    ) a ON Product.ID = a.ProductID");
+        }
 
-    - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Product` típusúra. Mentsd el a modell változásait.
-
-        ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
-
-    - Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!
-
-??? example "Megoldás"
-    ```csharp
-    Console.WriteLine("***** Negyedik feladat *****");
-    using (var db = new AdatvezEntities())
-    {
-        // 4.3
-        Console.WriteLine("\t4.3:");
-
-        var pm = new PaymentMethod
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
-            Method = "Apple pay",
-            Deadline = 99999
-        };
-
-        db.PaymentMethod.Add(pm);
-        db.SaveChanges();
-
-        // 4.6
-        Console.WriteLine("\t4.6:");
-        var qPopularProducts = db.PopularProducts(5);
-        foreach (var p in qPopularProducts)
-            Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        }
     }
     ```
+
+3. Frissítsd az adatbázist és ellenőrízd az eredményét!
+
+    ```powershell
+    Update-Database
+    ```
+
+4. Hívd meg a tárolt eljárást a kontextus `Product` `DbSet`-jéről indulva a `FromSqlInterpolated` vagy `FromSqlRaw` metódusokkal
+
+    ??? example "Megoldás"
+
+        ```csharp
+        Console.WriteLine("***** Negyedik feladat *****");
+        using (var db = new AdatvezDbContext())
+        {
+            var popularProducts = db.Products.FromSqlInterpolated($"EXECUTE dbo.PopularProducts @MinAmount={5}");
+            foreach (var p in popularProducts)
+            {
+                Console.WriteLine($"\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+            }
+        }
+        ```
+
+    !!! danger "`FromSqlInterpolated` vs. `FromSqlRaw`"
+        A fenti megoldásban a `FromSqlInterpolated` függvénnyel kerül definiálásra a hívás, ahol a nevéből is adódóan az interpolálandó stringet még az EF feldolgozza és az interpolációt nem hagyományosan stringként végzi el, hanem `SqlParameter`eket helyettesít be az SQL injection elleni védelem érdekében.
+
+        Ezzel szemben a `FromSqlraw` függvény használata során **tilos** string interpolációt használni, helyette nekünk kézzel kell az `SqlParameter`eket létrehozni és placeholdereket definiálni az utasításban
