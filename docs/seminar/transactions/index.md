@@ -227,7 +227,7 @@ Let us have two concurrent transactions, both placing an order. We must allow an
 ??? question "What did you experience? Why?"
     A deadlock will occur due to the _serializable_ isolation level, as both transactions require exclusive access to the table `OrderItem`. The query `select sum` - with the requirement to protect from unrepeatable reads - adds reader locks to the records. Thus the  `insert` cannot complete, as it needs write access. This effectively means that both transactions are waiting for a lock that the other one holds.
 
-    The result of the deadlock is the abortion of one of the transactions. This is the expected and the correct behavior under the circumstances since it prohibits the very problem we are trying to avoid (to sell more products than we have in stock).
+    The result of the deadlock is the abortion of one of the transactions. This is the expected and correct behavior in these cases because it prevents the same problem we are trying to avoid (to sell more products than we have in stock).
 
 Let us repeat the same sequence of steps, but this time, the products should be different. This simulates two concurrent orders for different products.
 
