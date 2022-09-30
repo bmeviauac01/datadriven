@@ -1,15 +1,19 @@
 # Entity Framework
 
-A gyakorlat célja, hogy a hallgatók megismerjék a Linq lekérdezések használatát, valamint az Entity Framework működését.
+A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.
 
-!!! important "Entity Framework ~~Core~~"
-    A gyakorlat során a .NET Framework-ben használt Entity Framework-öt használjuk, nem a platformfüggetlen Core változatot. A Linq lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de az alább használt vizuális kód generálás és szerkesztő csak .NET Framework és Entity Framework esetén érhető el.
+!!! important "Entity Framework Core"
+    A gyakorlat során a .NET 6-ot (régebben .NET Core) és Entity Framework Core 6-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
+    
+    A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
+    
+    A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de apróbb szintaktikai eltérések adódhatnak, illetve az EF Core funkcionálisan már gazdagabb.
 
 ## Előfeltételek
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2022 (_nem_ VS Code)
+- Microsoft Visual Studio 2022
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -17,7 +21,10 @@ A labor elvégzéséhez szükséges eszközök:
 Amit érdemes átnézned:
 
 - C# nyelv
-- Entity Framework és Linq
+- Entity Framework Core és LINQ
+
+!!! note "Windows mentes fejlesztés"
+    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 6 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
 
 ## Gyakorlat menete
 
@@ -32,305 +39,404 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást. VS-ben esetén keressünk rá a "console framework" szavakra, így a legegyszerűbb megtalálni a projekt típust.
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).
 
 ![VS projekt típus](images/vs-create-project.png)
 
 Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
-1. Adj a projekthez egy _ADO.NET Entity Data Model_-t.
+1. Hozzuk létre a kiinduló EF Core Code First modellünket. Ehhez most egy úgynevezett _Reverse Engineering Code First_ megoldást fogunk alkalmazni, aminek a lényege, hogy mivel már van egy kiinduló adatbázisunk abból generálunk egy Code-First modellt, de ezután a továbbiakban Code-First módon dolgozunk.
 
-    - Solution Explorer-ben a projektre jobb egér / _Add / New Item / Data / ADO.NET Entity Data Model_. Az ablak alján a Name mezőben `AdatvezEntities`-t adj meg.
-    - A modellt meglévő adatbázis alapján építsd fel (a varázslóban "EF designer from database").
-    - A kapcsolatok megadásánál a saját adatbázishoz kapcsolódj. Hozz létre egy új kapcsolatot a varázsló segítségével, és mentsd el a kapcsolódási adatokat a config fájlba.
-        - _Data source_: Microsoft SQL Server
-        - _Server name_: `(localdb)\mssqllocaldb`
-        - _Select or enter database name_: adjuk meg az adatbázis nevét
-        - _Save connection settings in App.Config_:
-            - igen (pipa)
-            - alatta a szerkesztőmezőben az `AdatvezEntities`-t add meg (ilyen néven fog a DbContext osztály legenerálódni)
-    - Entity Framework 6.0-as leképzést használj.
-    - Az összes táblát képezzük le (ki kell pipálni a _Tables_-t).
-    - _Model namespace_: pl. `AdatvezEntitiesModel`
+    - Telepítsük az EF Core alábbi csomagjait a projektbe a NuGet UI-ról (project jobb gomb / Manage NuGet Packages) vagy a projektfájlba másoljuk be a következőt
 
-1. Várjuk meg, amíg elkészül a modell. Ha közben a VS kérdezne "template" futtatásáról, engedélyezzük.
+    ```xml
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    ```
 
-1. Keressük meg a _connection stringet_ az `app.config` fájlban. Nézzük meg a tartalmát.
+    - Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a _Package Manager Console_-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
 
-    !!! note "`app.config`"
-        Azért jó, ha ide kerül a _connection string_, mert az alkalmazáshoz tartozó adatbázis helye telepítésenként változhat. Ha a forráskódban van a szerver elérhetősége, akkor újra kell fordítani az alkalmazást minden telepítéshez. Az `app.config` fájl viszont az exe mellett része az alkalmazásnak, és szerkeszthető. Ha szükséges, kiemelhető a fájl más konfigurációs állományba is.
+    ```powershell
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
+    ```
 
-1. Nyissuk meg az EF adatmodellt (dupla kattintás a Solution Explorer-ben). Vizsgáljuk meg: nézzük meg az entitásokat és kapcsolatokat.
+    !!! note "EF Core .NET CLI"
+        A továbbiakban is a _Package Manager Console_-ból elérhető paracsokat fogjuk használni, ami egyébként a `Microsoft.EntityFrameworkCore.Tools` csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi [linken](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) megtalálja a dokumentációt.
 
-    - Ha szerkeszteni akarjuk a modellt, az _Entity Data Model Browser_ és _Entity Data Model Mapping Details_ ablakokon keresztül lehet szerkeszteni (ezek a _View_ menü, _Other windows_ menüponton keresztül érhetők el).
-    - Javítsuk ki az alábbi entitás tulajdonság neveket, hogy jobban illeszkedjenek a valósághoz:
+2. Vizsgáljuk meg a generált code-first modellt.
 
-        - Customer.CustomerSite1 -> **.Sites**
-        - CustomerSite.Customer1 -> **.MainCustomer**
-        - Order.OrderItem -> .OrderItem&#8203;**s**
-        - Product.OrderItem -> .OrderItem&#8203;**s**
-        - VAT.Product -> .Product&#8203;**s**
-        - Category.Product -> .Product&#8203;**s**
+    - Az adatbázis elérése az `AdatvezDbContext` osztályon keresztül történik
+      - Adatbázis táblák `DbSet` tulajdonságokon keresztül érhetőek el.
+      - A kapcsolat konfigurációja az `OnConfiguring` metódusban történik. Éles alkalmazásban ez tipikusan konfigurációs állományból érkezik, ezért is került legenerálásra a `AdatvezDbContext(DbContextOptions<AdatvezDbContext> options)` konstruktor
+      - Az adatbázis modell az `OnModelCreating` metódusban került konfigurálásra.
 
-    Mentsük a változtatások után a modellt.
+3. Módosítsunk a modellen
+   
+    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjént `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
 
-1. Nézzük meg a _DbContext_ és egy választott entitás osztály C# kódját. Bontsd ki a _Solution Explorer_-ben az EDM modell fájlját, és alatta ott találhatóak a C# fájlok.
+    ```csharp title="CustomerSite.cs"
+    public virtual Customer? MainCustomer { get; set; }
+    ```
 
-    !!! note ""
-        Ezen fájlokba _nem_ szerkesztünk bele, mert minden EDM módosítás után újragenerálódnak. Viszont figyeljük meg, hogy minden osztály `partial`-ként van definiálva, így ha szükséges, tudunk a meglevő kód "mellé" új forrásfájlokba sajátot is írni.
+    ```csharp title="AdatvezDbContext.cs"
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // ...
+
+        modelBuilder.Entity<CustomerSite>(entity =>
+        {
+            // ...
+
+            entity.HasOne(d => d.MainCustomer)
+                .WithMany(p => p.CustomerSites)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK__CustomerS__Custo__32E0915F");
+        });
+
+        // ...
+    }
+    ```
+
+4. Módosítsunk az adatbázis sémán - Migrációk
+
+    Jelenleg a code-first modellünket scaffoldoltuk a meglévő adatbázisból, de nem szeretnénk a továbbiakban database-first megközelítéssel karbantartani a sémát. Helyette használjunk code-first migrációkat az adatbázis séma módosításához.
+
+    - Hozzunk létre egy kiinduló migrációt `Init` néven, ami a kiinduló sémánkat fogja tartalmazni. A _Package Manager Console_-ban adjuk ki a következő parancsot.
+
+        ```powershell
+        Add-Migration Init
+        ```
+
+    - Próbáljuk meg lefuttatni ezt a migrációt az adatbázison a következő paranccsal.
+
+        ```powershell
+        Update-Database
+        ```
+
+        Ez értelemszerűen nem sikerül, mert a migrációban lévő utasítások egy üres adatbázishoz képest szeretné migrálni a sémát, viszont nekünk az adatbázisunkban már ez a séma létezik. 
+        Az EF egy spoeciális táblában az `__EFMigrationHitory`-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.
+            
+    - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell.
+
+        ![VS Migration History](images/vs-migration-history.png)
+
+    - Módosítsunk az adatbázis sémán a code-first modellünkben.
+
+        - Legyen a `Product` entitásunk `Price` tulajdonsága `double` helyett `decimal`, ami hasznosabb pénzmennyiségek tárolására. Illetve legyen kötelező (nem nullozható).
+
+            ```csharp title="Pruduct.cs"
+            public decimal Price { get; set; }
+            ```
+            
+        - Kötelezőséget és az SQL mező pontosságát állítsuk be a `modelBuilder`rel.
+
+            ```csharp title="AdatvezDbContext.cs"
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                // ...
+
+                modelBuilder.Entity<Product>(entity =>
+                {
+                    // ...
+
+                    entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
+
+                    // ...
+                }
+
+                // ...
+            }
+            ```
+
+        - Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt
+
+            ```powershell
+            Add-Migration PruductPriceDecimal
+            ```
+
+        - Futtassuk le a migrációt az adatbázison és ellenőrízzük a hatását az adatbázisban
+
+            ```powershell
+            Update-Database
+            ```
 
 ## Feladat 2: Lekérdezések
 
-A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket Linq használatával. Írd ki konzolra az eredményeket.
+A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.
 
-Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az IQueryable típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
+Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az `IQueryable` típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
 
 1. Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!
 
-1. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
+2. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
 
-1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevét követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
+3. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30.000 Ft! Az eredményhalmaz kiírásakor a vevő nevét követően soronként szerepeljenek az egyes tételek (Termék név, mennyiség, nettó ár).
 
-1. Listázd ki a legdrágább termék adatait!
+4. Listázd ki a legdrágább termék adatait!
 
-1. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
+5. Listázd ki azokat a vevő párokat, akiknek ugyanabban a városban van telephelyük. Egy pár csak egyszer szerepeljen a listában.
 
 ??? example "Megoldás"
+
     ```csharp
+    using ConsoleApp3.Entities;
+
+    using Microsoft.EntityFrameworkCore;
+
     Console.WriteLine("***** Második feladat *****");
-    using (var db = new AdatvezEntities())
+    using (var db = new AdatvezDbContext())
     {
         // 2.1
         Console.WriteLine("\t2.1:");
-        var qProductStock = from p in db.Product
-                            where p.Stock > 30
-                            select p;
-        // alternatív szintaktika
-        // var qProductStock = db.Product.Where(p => p.Stock > 30);
+        // Query szintaktika
+        var productStockQuery = from p in db.Products
+                                where p.Stock > 30
+                                select p;
 
-        foreach (var p in qProductStock)
-            Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
+        // Fluent / Method Chaining szintaktika
+        // var productStockQuery = db.Products.Where(p => p.Stock > 30);
+
+        foreach (var p in productStockQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
+        }
 
         // 2.2
         Console.WriteLine("\t2.2:");
-        var qProductOrder = from p in db.Product
-                            where p.OrderItems.Count >= 2
-                            select p;
-        // alternatív szintaktika
-        // var qProductOrder = db.Product.Where(p => p.OrderItem.Count >= 2);
+        var productOrderQuery = db.Products.Where(p => p.OrderItems.Count >= 2);
 
-        foreach (var p in qProductOrder)
-            Console.WriteLine("\t\tName={0}", p.Name);
+        // query szintaktika
+        //var productOrderQuery = from p in db.Products
+        //                        where p.OrderItems.Count >= 2
+        //                        select p;
 
-        // 2.3
-        Console.WriteLine("\t2.3:");
-        var qOrderTotal = from o in db.Order
-                            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-                            select o;
-        foreach (var o in qOrderTotal)
+        foreach (var p in productOrderQuery)
         {
-            Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
-            foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            Console.WriteLine($"\t\tName={p.Name}");
         }
 
+        // 2.3
+        Console.WriteLine("\t2.3 helytelen megoldás");
+        var orderTotalQuery = db.Orders.Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
+
+        // query szintaktika
+        //var orderTotalQuery = from o in db.Orders
+        //                      where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        //                      select o;
+
+        //foreach (var o in orderTotalQuery)
+        //{
+        //    Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        //    foreach (var oi in o.OrderItems)
+        //    {
+        //        Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+        //    }
+        //}
+
         // 2.3 második megoldás
-        // Ehhez szükség van a következő névtér importálására: innen vegyük ki és tegyük be
-        // a fájl elejére !!!
-        // using System.Data.Entity;
+        // Exptession alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
+        // using Microsoft.EntityFrameworkCore;
 
         // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
-        Console.WriteLine("\tc 2.3 alternatív megoldás:");
-        var qOrderTotal2 =
-            from o in db.Order
-                .Include(o => o.OrderItems)                          // vagy .Include("OrderItem")
-                .Include(o => o.OrderItems.Select(oi => oi.Product)) // vagy .Include("OrderItem.Product")
-                .Include(o => o.CustomerSite)                        // vagy .Include("CustomerSite")
-                .Include(o => o.CustomerSite.MainCustomer)           // vagy .Include("CustomerSite.Customer")
-            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-            select o;
+        Console.WriteLine("\tc 2.3 helyes megoldás:");
+        var orderTotalQuery2 = db.Orders
+            .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+            .Include(o => o.CustomerSite)
+            .Include(o => o.CustomerSite.MainCustomer)
+            .Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
 
-        foreach (var o in qOrderTotal2)
+        // query szintaktika
+        //var orderTotalQuery2 = from o in db.Orders
+        //                       .Include(o => o.OrderItems)
+        //                           .ThenInclude(oi => oi.Product)
+        //                       .Include(o => o.CustomerSite)
+        //                       .Include(o => o.CustomerSite.MainCustomer)
+        //                   where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        //                   select o;
+
+        foreach (var o in orderTotalQuery2)
         {
             Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
             foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            {
+                Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+            }
         }
 
         // 2.4
         Console.WriteLine("\t2.4:");
-        var qPriceMax = from p in db.Product
-                        where p.Price == db.Product.Max(a => a.Price)
-                        select p;
-        // alternatív szintaktika
-        // var qPriceMax = db.Product.Where(p => p.Price == db.Product.Max(p2 => p2.Price));
-        foreach (var t in qPriceMax)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        var maxPriceQuery = db.Products.Where(p => p.Price == db.Products.Max(a => a.Price));
+
+        // query szintaktika
+        //var maxPriceQuery = from p in db.Products
+        //                    where p.Price == db.Products.Max(a => a.Price)
+        //                    select p;
+
+        foreach (var t in maxPriceQuery)
+        {
+            Console.WriteLine($"\t\tName={t.Name}\tPrice={t.Price}");
+        }
 
         // 2.5
         Console.WriteLine("\t2.5:");
-        var qJoin = from s1 in db.CustomerSite
-                    join s2 in db.CustomerSite on s1.City equals s2.City
-                    where s1.CustomerID > s2.CustomerID
-                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
-        foreach (var v in qJoin)
-            Console.WriteLine("\t\tCustomer 1={0}\tCustomer 2={1}", v.c1.Name, v.c2.Name);
+        var cityJoinQuery = db.CustomerSites
+            .Join(db.CustomerSites, s1 => s1.City, s2 => s2.City, (s1, s2) => new { s1, s2 })
+            .Where(x => x.s1.CustomerId > x.s2.CustomerId)
+            .Select(x => new { c1 = x.s1.MainCustomer, c2 = x.s2.MainCustomer });
+
+        // query szintaktika
+        //var cityJoinQuery = from s1 in db.CustomerSites
+        //                    join s2 in db.CustomerSites on s1.City equals s2.City
+        //                    where s1.CustomerId > s2.CustomerId
+        //                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
+
+        foreach (var v in cityJoinQuery)
+        {
+            Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
+        }
     }
     ```
 
 ## Feladat 3: Adatmódosítások
 
-A DbContext nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
+A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül beszúrások, módosítások és törlések is végrehajthatóak.
 
-1. Írj olyan Linq-ra épülő C# kódot, mely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
+1. Írj olyan LINQ-ra épülő C# kódot, amely az "LEGO" kategóriás termékek árát megemeli 10 százalékkal!
 
 1. Hozz létre egy új kategóriát _Expensive toys_ néven, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 ??? example "Megoldás"
+
     ```csharp
     Console.WriteLine("***** Harmadik feladat *****");
-    using (var db = new AdatvezEntities())
+    using (var db = new AdatvezDbContext())
     {
         // 3.1
         Console.WriteLine("\t3.1:");
-        var qProductsLego = from p in db.Product
-                            where p.Category.Name == "LEGO"
-                            select p;
-        // alternatív szintaktika
-        // var qProductsLego = db.Product.Where(p => p.Category.Name == "LEGO");
+        var legoProductsQiery = db.Products.Where(p => p.Category.Name == "LEGO");
 
         Console.WriteLine("\tMódosítás előtt:");
-        foreach (var p in qProductsLego)
+        foreach (var p in legoProductsQiery.ToList())
         {
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
-            p.Price = 1.1 * p.Price;
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+            p.Price = 1.1m * p.Price;
         }
 
         db.SaveChanges();
 
-        qProductsLego = from p in db.Product
-                        where p.Category.Name == "LEGO"
-                        select p;
         Console.WriteLine("\tMódosítás után:");
-        foreach (var p in qProductsLego)
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        // A ToList adatbázis kérést indukál
+        foreach (var p in legoProductsQiery.ToList())
+        {
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+        }
 
         // 3.2
         Console.WriteLine("\t3.2:");
-        Category categoryExpensiveToys = (from c in db.Category
-                                            where c.Name == "Expensive toys"
-                                            select c).SingleOrDefault();
-        // alternatív szintaktika
-        // var categoryExpensiveToys = db.Category.Where(c => c.Name == "Expensive Toys")
-        //                                        .SingleOrDefault();
+        var expensiveToysCategory = db.Categories
+            .Where(c => c.Name == "Expensive Toys")
+            .SingleOrDefault();
 
-        if (categoryExpensiveToys == null)
+        if (expensiveToysCategory == null)
         {
-            categoryExpensiveToys = new Category { Name = "Expensive toys" };
+            expensiveToysCategory = new Category { Name = "Expensive toys" };
 
             // Erre nem feltetlenul van szukseg: ha van atrendelt termek, ahhoz hozzakotjuk a kategoria entitast
             // es bekerul automatikusan a kategoria tablaba is. Igy viszont, hogy explicit felvesszuk, (1) jobban
             // kifejezi a szandekunkat; es (2) akkor is felvesszuk a kategoriat, ha vegul nincs atrendelt termek.
-            db.Category.Add(categoryExpensiveToys);
+            db.Categories.Add(expensiveToysCategory);
         }
 
-        var qProductExpensive = from p in db.Product
-                                where p.Price > 8000
-                                select p;
+        var expensiveProductsQuery = db.Products.Where(p => p.Price > 8000);
 
-        foreach (var p in qProductExpensive)
-            p.Category = categoryExpensiveToys;
+        foreach (var p in expensiveProductsQuery.ToList())
+        {
+            p.Category = expensiveToysCategory;
+        }
+
         db.SaveChanges();
 
-        qProductExpensive = from p in db.Product
-                            where p.Category.Name == "Expensive toys"
-                            select p;
+        expensiveProductsQuery = db.Products
+            .Include(p => p.Category)
+            .Where(p => p.Category.Name == "Expensive toys");
 
-        foreach (var t in qProductExpensive)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        foreach (var p in expensiveProductsQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tPrice={p.Price}\tCategory={p.Category.Name}");
+        }
     }
     ```
 
 ## Feladat 4: Tárolt eljárások használata
 
-Tárolt eljárások is felvehetők az EDM modellbe modellfrissítés során. A tárolt eljárás vagy a DbContext függvényeként, vagy az entitás módosító műveletére köthető be.
+Készíts egy tárolt eljárást egy új code first migráción keresztül, amely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
 
-!!! note "Tárolt eljárás az EDM-ben"
-    A tárolt eljárás leképzésének beállításait (pl. a tárolt eljárás visszatérési típusát) az _Entity Data Model Browser_-ben, az adott függvény _Function Import_-jához tartozó tulajdonságainál szerkeszthetjük.
+1. Készítsd egy új üres migrációt `PopularProducts_SP` néven.
 
-    ![Tárolt eljárás mappelés beállításai](images/vs-storedproc-mapping.png)
+    ```powershell
+    Add-Migration PopularProducts_SP
+    ```
 
-1. Készíts egy tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját! Használd ezt a tárolt eljárást új entitás felvételéhez!
+2. Hozd létre a tárolt eljárást az alábbi kóddal. A vissza irányú migráció megírásától most tekintsünk el, ahol egyébként törölni kellene a tárolt eljárást.
 
-    - Hozd létre a tárolt eljárást SQL Management Studio segítségével.
-
-        ```sql
-        CREATE PROCEDURE CreateNewPaymentMethod
-        (
-        @Method nvarchar(20),
-        @Deadline int
-        )
-        AS
-        insert into PaymentMethod
-        values(@Method,@Deadline)
-        select scope_identity() as NewId
-        ```
-
-    - A tárolt eljárást állítsd be a `PaymentMethod` entitás _insert_ metódusának.
-
-        - Add hozzá a tárolt eljárást az EDM-hez. Az EDM Browser-ben jobb kantitással hozd elő a kontextus menüt, használd az "Update model from database"-t, és importáld (_Add_) az új tárolt eljárást.
-        - Mentsd el a modell változásait. Ekkor generálódik a háttérben a C# kód.
-        - Állítsd be ezt a metódust a `PaymentMethod` entitás _insert_ metódusaként: kiválasztva az EDM-ben a `PaymentMethod` elemet a _Mapping Details_ ablakban válts át a _Map Entity to Functions_ nézetre, és állítsd be _Insert_ metódusnak. A visszatérési értéket feleltesd meg az _ID_ tulajdonságnak. Mentsd el a modell változásait.
-
-            ![Tárolt eljárás entitásra mappelése](images/vs-insert-storedproc.png)
-
-    - Próbáld ki a működést: C# kódból adj hozzá egy új fizetési módot a DbContext `PaymentMethod` gyűjteményéhez az `Add` metódussal. Ellenőrizd az adatbázisban a rekord létrejöttét.
-
-1. Készíts egy tárolt eljárást, mely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
-
-    - Hozd létre a tárolt eljárást az alábbi kóddal.
-
-        ```sql
-        CREATE PROCEDURE dbo.PopularProducts (
-        @MinAmount int = 10
-        )
-        AS
-        SELECT Product.* FROM Product INNER JOIN
-        (
+    ```csharp
+    public partial class PopularProducts_SP : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(
+    @"CREATE OR ALTER PROCEDURE dbo.PopularProducts (@MinAmount int = 10)
+    AS
+    SELECT Product.* 
+    FROM Product 
+    INNER JOIN
+    (
         SELECT OrderItem.ProductID
         FROM OrderItem
         GROUP BY OrderItem.ProductID
         HAVING SUM(OrderItem.Amount) > @MinAmount
-        ) a ON Product.ID = a.ProductID
-        ```
+    ) a ON Product.ID = a.ProductID");
+        }
 
-    - Importáld az EDM-be a tárolt eljárást. Az eljárás beállításainál (_EDM Model Browser_-ben a _function_-re dupla kattintással nyílik) állítsd be a visszatérési értéket `Product` típusúra. Mentsd el a modell változásait.
-
-        ![Tárolt eljárás mappelése](images/vs-storedproc-mapping.png)
-
-    - Használd a DbContext-en generált új függvényt a tárolt eljárás meghívásához, és írasd ki a termékek nevét!
-
-??? example "Megoldás"
-    ```csharp
-    Console.WriteLine("***** Negyedik feladat *****");
-    using (var db = new AdatvezEntities())
-    {
-        // 4.3
-        Console.WriteLine("\t4.3:");
-
-        var pm = new PaymentMethod
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
-            Method = "Apple pay",
-            Deadline = 99999
-        };
-
-        db.PaymentMethod.Add(pm);
-        db.SaveChanges();
-
-        // 4.6
-        Console.WriteLine("\t4.6:");
-        var qPopularProducts = db.PopularProducts(5);
-        foreach (var p in qPopularProducts)
-            Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        }
     }
     ```
+
+3. Frissítsd az adatbázist és ellenőrízd az eredményét!
+
+    ```powershell
+    Update-Database
+    ```
+
+4. Hívd meg a tárolt eljárást a kontextus `Product` `DbSet`-jéről indulva a `FromSqlInterpolated` vagy `FromSqlRaw` metódusokkal
+
+    ??? example "Megoldás"
+
+        ```csharp
+        Console.WriteLine("***** Negyedik feladat *****");
+        using (var db = new AdatvezDbContext())
+        {
+            var popularProducts = db.Products.FromSqlInterpolated($"EXECUTE dbo.PopularProducts @MinAmount={5}");
+            foreach (var p in popularProducts)
+            {
+                Console.WriteLine($"\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+            }
+        }
+        ```
+
+    !!! danger "`FromSqlInterpolated` vs. `FromSqlRaw`"
+        A fenti megoldásban a `FromSqlInterpolated` függvénnyel kerül definiálásra a hívás, ahol a nevéből is adódóan az interpolálandó stringet még az EF feldolgozza és az interpolációt nem hagyományosan stringként végzi el, hanem `SqlParameter`eket helyettesít be az SQL injection elleni védelem érdekében.
+
+        Ezzel szemben a `FromSqlraw` függvény használata során **tilos** string interpolációt használni, helyette nekünk kézzel kell az `SqlParameter`eket létrehozni és placeholdereket definiálni az utasításban
