@@ -2,14 +2,14 @@
 
 The goal of the seminar is to practice writing Linq queries and working with Entity Framework.
 
-!!! important "Entity Framework ~~Core~~"
-    In this seminar, we are using Entity Framework available in the .NET Framework and not the cross-platform Core version. The usage of Linq is very similar, if not identical in both technologies. The visual code generation technology, however, is only available in the .NET Framework and Entity Framework.
+!!! important "Entity Framework Core"
+    In this seminar, we are using .NET 6 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.
 
 ## Pre-requisites
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2022 (_not_ VS Code)
+- Microsoft Visual Studio 2022
 - Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
@@ -17,7 +17,7 @@ Required tools to complete the tasks:
 Recommended to review:
 
 - C# language
-- Entity Framework and Linq
+- Entity Framework Core and LINQ
 
 ## How to work during the seminar
 
@@ -32,303 +32,406 @@ The database resides on each machine; thus, the database you created previously 
 
 ## Exercise 1: Create a project and map the database
 
-Let us create a new C# console application in Visual Studio. In VS search for "console framework"; this will yield the project template we are looking for.
+Let us create a new C# .NET console application in Visual Studio. (NOT the ".NET Framework" version!)
 
 ![VS projext type](images/vs-create-project.png)
 
 Create a new project; you may work in directory `c:\work`.
 
-1. Add a new _ADO.NET Entity Data Model_ to the project.
+1. Create the initial EF Core Code First model. We will do _Reverse Engineering Code First_ as we already have a database and we generate C# Code-First model.
 
-    - In Solution Explorer right-click the project / _Add / New Item / Data / ADO.NET Entity Data Model_. At the bottom of the dialog, use the name `DataDrivenEntities`.
-    - The model shall be created based on an existing database: in the wizard, choose the "EF designer from database" option.
-    - Specify the connection to the database. Create a new connection and save the connection string into the app config file.
-        - _Data source_: Microsoft SQL Server
-        - _Server name_: `(localdb)\mssqllocaldb`
-        - _Select or enter database name_: let us chose our database
-        - _Save connection settings in App.Config_:
-            - yes (check)
-            - use the name `DataDrivenEntities` (this will be the name of the DbContext class)
-    - Use Entity Framework 6.0 mapping.
-    - Map all tables: make a check next to the _Tables_ folder.
-    - _Model namespace_: e.g. `DataDrivenEntitiesModel`
+    - Install the EF Core NuGet package from the UI or copy these lines in the project file:
 
-1. Wait for the code generation. If VS asks about running a "template" let us allow it.
+    ```xml
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    ```
+    
+    - Run this EF Core PowerShell script in VS in the _Package Manager Console_ which generates the database context and entity model:
 
-1. Locate the _connection string_ in `app.config` and check its contents.
+    ```powershell
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
+    ```
+    
+    !!! note "EF Core .NET CLI"
+        In the future, we will continue to use the commands available from the _Package Manager Console_, which is installed with the `Microsoft.EntityFrameworkCore.Tools` package. If anyone wants to use the conventional CLI outside of VS, the documentation can be found at [link](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) below.
 
-    !!! note "`app.config`"
-        It is advisable to put configuration, such as the _connection string_ here, because the database access information may be different for each installation of an application. If the connection string is hard-wired into the source code, the application needs to be recompiled to change it. However, the `app.config` file is part of the application next to the executable is an editable xml format.
+2. Let's examine the generated code-first model.
 
-1. Open the EF data model (double-click in the Solution Explorer). Let us examine the entities and the connections.
+    - The database is accessed through the ``AdatvezDbContext'' class
+       - Database tables are accessible via `DbSet` properties.
+       - The connection is configured in the ``OnConfiguring`' method. In a live application, this typically comes from a configuration file, which is why the `AdatvezDbContext(DbContextOptions<AdatvezDbContext> options)` constructor was generated
+       - The database model was configured in the ``OnModelCreating`' method.
 
-    - The model can be changed using the _Entity Data Model Browser_ and _Entity Data Model Mapping Details_ windows (if not visible open them through _View_ / _Other windows_).
-    - Let us make a few corrections in the generated names:
+3. Make changes to the model
+   
+    Rename the `Customer` navigation property of the `CustomerSite` entity to `MainCustomer` both in the entity and in `OnModelCreating`. This modification to the code-first model does not change the database schema.
 
-        - Customer.CustomerSite1 -> **.Sites**
-        - CustomerSite.Customer1 -> **.MainCustomer**
-        - Order.OrderItem -> .OrderItem&#8203;**s**
-        - Product.OrderItem -> .OrderItem&#8203;**s**
-        - VAT.Product -> .Product&#8203;**s**
-        - Category.Product -> .Product&#8203;**s**
+    ```csharp title="CustomerSite.cs"
+    public virtual Customer? MainCustomer { get; set; }
+    ```
 
-    Save the model using Ctrl-S.
+    ```csharp title="AdatvezDbContext.cs"
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // ...
 
-1. Let us examine the C# source code of the _DbContext_ any one of the entity classes. In _Solution Explorer_ expand the EDM model file, and the C# source files will be listed underneath.
+        modelBuilder.Entity<CustomerSite>(entity =>
+        {
+            // ...
 
-    !!! note ""
-        You should _not_ make changes to these files, as these are generated by the EDM model. Any change we make is lost when the EDM is re-generated. We may note, however, that all classes are declared as `partial`; thus we can extend them by creating new source files and using the same namespace and class name.
+            entity.HasOne(d => d.MainCustomer)
+                .WithMany(p => p.CustomerSites)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK__CustomerS__Custo__32E0915F");
+        });
 
-## Exercise 2: Queries
+        // ...
+    }
+    ```
 
-In the following exercises, write C# code using Linq to Entities. The results should be printed to console.
+4. Change the database schema - Migrations
 
-You can check the SQL query generated in runtime: hover over the IQueryable variable once the iteration of the list is underway; it will show you the generated command.
+    Currently, we have scaffolded our code-first model from the existing database, but we no longer want to maintain the schema with a database-first approach. Instead, use code-first migrations to change the database schema.
 
-1. List the names and the amount of stock of all products that we have more than 30 in stock!
+    - Let's create an initial migration called `Init', which will contain our initial schema. In the _Package Manager Console_, issue the following command.
 
-1. List the products that have been ordered at least twice!
+        ```powershell
+        Add-Migration Init
+        ```
 
-1. List the orders that have a total value of at least 30.000! For each order, print the customer name and list all items of the order (with the product name, amount, and price).
+    - Let's try to run this migration on the database with the following command.
 
-1. Find the most expensive product!
+        ```powershell
+        Update-Database
+        ```
 
-1. List all customer record pairs that have their main site of business in the same city. Each pair should only be listed once.
+        This fails by definition, because the commands in the migration want to migrate the schema compared to an empty database, but we already have this schema in our database.
+        EF keeps track of which migrations are already applied to the database in a special table called `__EFMigrationHistory`.
+            
+    - Let's manually add the ``Init'' migration to this table, with which we indicate to EF that it has essentially already run. Pay attention to the name of the migration, which must also include the date.
+
+        ![VS Migration History](images/vs-migration-history.png)
+
+    - Let's change the database schema in our code-first model.
+
+        - Let the `Price' property of our `Product' entity be `decimal' instead of `double', which is more useful for storing amounts of money. It should also be mandatory (cannot be null).
+
+            ```csharp title="Product.cs"
+            public decimal Price { get; set; }
+            ```
+            
+        - Set the constraint and precision of the SQL field with `modelBuilder`.
+
+            ```csharp title="DatavezDbContext.cs"
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                // ...
+
+                modelBuilder.Entity<Product>(entity =>
+                {
+                    // ...
+
+                    entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
+
+                    // ...
+                }
+
+                // ...
+            }
+            ```
+
+        - Create a migration of our change and check the generated migration
+
+            ```powershell
+            Add-Migration ProductPriceDecimal
+            ```
+
+        - Run the migration on the database and check its effect in the database
+
+            ```powershell
+            Update-Database
+            ```
+
+## Task 2: Queries
+
+Formulate the following queries using LINQ on the mapped data model. Print the results to the console.
+
+Use the debugger to see what kind of SQL statement is generated: by dragging the mouse over the variable of type `IQueryable', you can see the generated SQL as soon as the iteration of the result set begins.
+
+1. List the names and stock of products of which there are more than 30 in stock!
+
+2. Write a query that lists the products that have been ordered at least twice!
+
+3. Create a query that lists orders with a total value of more than HUF 30,000! When listing the result set, the individual items (Product name, amount, net price) should be listed line by line after the customer's name.
+
+4. List the data of the most expensive product!
+
+5. List the buyer pairs that have locations in the same city. A pair should be listed only once.
 
 ??? example "Solution"
-    ```csharp
-    Console.WriteLine("***** Exercise two *****");
-    using (var db = new DataDrivenEntities())
+
+    ```sharp
+    using ConsoleApp3.Entities;
+
+    using Microsoft.EntityFrameworkCore;
+
+    Console.WriteLine("***** Second Task *****");
+    using (var db = new AdatvezDbContext())
     {
         // 2.1
         Console.WriteLine("\t2.1:");
-        var qProductStock = from p in db.Product
-                            where p.Stock > 30
-                            select p;
-        // alternative syntax
-        // var qProductStock = db.Product.Where(p => p.Stock > 30);
-        foreach (var p in qProductStock)
-            Console.WriteLine("\t\tName={0}\tStock={1}", p.Name, p.Stock);
+        // Query syntax
+        var productStockQuery = from p in db.Products
+                                where p.Stock > 30
+                                select p;
+
+        // Fluent / Method Chaining syntax
+        // var productStockQuery = db.Products.Where(p => p.Stock > 30);
+
+        foreach (var p in productStockQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
+        }
 
         // 2.2
         Console.WriteLine("\t2.2:");
-        var qProductOrder = from p in db.Product
-                            where p.OrderItems.Count >= 2
-                            select p;
-        // alternative syntax
-        // var qProductOrder = db.Product.Where(p => p.OrderItem.Count >= 2);
-        foreach (var p in qProductOrder)
-            Console.WriteLine("\t\tName={0}", p.Name);
+        var productOrderQuery = db.Products.Where(p => p.OrderItems.Count >= 2);
 
-        // 2.3
-        Console.WriteLine("\t2.3:");
-        var qOrderTotal = from o in db.Order
-                            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-                            select o;
-        foreach (var o in qOrderTotal)
+        // query syntax
+        //var productOrderQuery = from p in db.Products
+        // where p.OrderItems.Count >= 2
+        // select p;
+
+        foreach (var p in productOrderQuery)
         {
-            Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
-            foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            Console.WriteLine($"\t\tName={p.Name}");
         }
 
-        // 2.3 alternative solution
-        // A new namespace import is needed; copy the following line to the top of this file!
-        // using System.Data.Entity;
+        // 2.3
+        Console.WriteLine("\t2.3 incorrect solution");
+        var orderTotalQuery = db.Orders.Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
 
-        // Generates a single query and populates the Navigation Properties too
-        Console.WriteLine("\tc 2.3 alternative solution:");
-        var qOrderTotal2 =
-            from o in db.Order
-                .Include(o => o.OrderItems)                          // or .Include("OrderItem")
-                .Include(o => o.OrderItems.Select(oi => oi.Product)) // or .Include("OrderItem.Product")
-                .Include(o => o.CustomerSite)                        // or .Include("CustomerSite")
-                .Include(o => o.CustomerSite.MainCustomer)           // or .Include("CustomerSite.Customer")
-            where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-            select o;
+        // query syntax
+        //var orderTotalQuery = from o in db.Orders
+        // where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        // select o;
 
-        foreach (var o in qOrderTotal2)
+        //foreach (var o in orderTotalQuery)
+        //{
+        // Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        // foreach (var oi in o.OrderItems)
+        // {
+        // Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+        // }
+        //}
+
+        // 2.3 second solution
+        // Expression-based Include requires importing the following namespace: (CTRL + . is also offering it during use)
+        // using Microsoft.EntityFrameworkCore;
+
+        // It will generate only one query, it will also load the Navigation Properties immediately
+        Console.WriteLine("\tc 2.3 correct solution:");
+        var orderTotalQuery2 = db.Orders
+            .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+            .Include(o => o.CustomerSite)
+            .Include(o => o.CustomerSite.MainCustomer)
+            .Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
+
+        // query syntax
+        //var orderTotalQuery2 = from o in db.Orders
+        //                       .Include(o => o.OrderItems)
+        //                           .ThenInclude(oi => oi.Product)
+        //                       .Include(o => o.CustomerSite)
+        //                       .Include(o => o.CustomerSite.MainCustomer)
+        //                   where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+        //                   select o;
+
+        foreach (var o in orderTotalQuery2)
         {
             Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
             foreach (var oi in o.OrderItems)
-                Console.WriteLine("\t\t\tProduct={0}\tPrice={1}\tAmount={2}", oi.Product.Name, oi.Price, oi.Amount);
+            {
+                Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+            }
         }
 
         // 2.4
         Console.WriteLine("\t2.4:");
-        var qPriceMax = from p in db.Product
-                        where p.Price == db.Product.Max(a => a.Price)
-                        select p;
-        // alternative syntax
-        // var qPriceMax = db.Product.Where(p => p.Price == ctx.Product.Max(p2 => p2.Price));
-        foreach (var t in qPriceMax)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        var maxPriceQuery = db.Products.Where(p => p.Price == db.Products.Max(a => a.Price));
+
+        // query syntax
+        //var maxPriceQuery = from p in db.Products
+        //                    where p.Price == db.Products.Max(a => a.Price)
+        //                    select p;
+
+        foreach (var t in maxPriceQuery)
+        {
+            Console.WriteLine($"\t\tName={t.Name}\tPrice={t.Price}");
+        }
 
         // 2.5
         Console.WriteLine("\t2.5:");
-        var qJoin = from s1 in db.CustomerSite
-                    join s2 in db.CustomerSite on s1.City equals s2.City
-                    where s1.CustomerID > s2.CustomerID
-                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
-        foreach (var v in qJoin)
-            Console.WriteLine("\t\tCustomer 1={0}\tCustomer 2={1}", v.c1.Name, v.c2.Name);
+        var cityJoinQuery = db.CustomerSites
+            .Join(db.CustomerSites, s1 => s1.City, s2 => s2.City, (s1, s2) => new { s1, s2 })
+            .Where(x => x.s1.CustomerId
+
+        // query syntax
+        //var cityJoinQuery = from s1 in db.CustomerSites
+        //                    join s2 in db.CustomerSites on s1.City equals s2.City
+        //                    where s1.CustomerId > s2.CustomerId
+        //                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
+
+        foreach (var v in cityJoinQuery)
+        {
+            Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
+        }
     }
     ```
 
-## Exercise 3: Data modification
+## Task 3: Data changes
 
-The DbContext can also be used to modify the database.
+The `DbContext` can be used not only for queries, but also for insertions, modifications and deletions.
 
-1. Write C# code that increases the price of all products in category "LEGO" by 10 percent!
+1. Write a LINQ-based C# code that increases the price of "LEGO" products by 10 percent!
 
-1. Create a new category named _Expensive toys_ and move all products here that cost more than 8000!
+1. Create a new category called _Expensive toys_ and reclassify here all the products whose price is greater than HUF 8,000!
 
 ??? example "Solution"
-    ```csharp
-    Console.WriteLine("***** Exercise three *****");
-    using (var db = new DataDrivenEntities())
+
+    ```sharp
+    Console.WriteLine("***** Third Task *****");
+    using (var db = new DatavezDbContext())
     {
         // 3.1
         Console.WriteLine("\t3.1:");
-        var qProductsLego = from p in db.Product
-                            where p.Category.Name == "LEGO"
-                            select p;
-        // alternative syntax
-        // var qProductsLego = db.Product.Where(p => p.Category.Name == "LEGO");
+        var legoProductsQiery = db.Products.Where(p => p.Category.Name == "LEGO");
 
         Console.WriteLine("\tBefore change:");
-        foreach (var p in qProductsLego)
+        foreach (var p in legoProductsQiery.ToList())
         {
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
-            p.Price = 1.1 * p.Price;
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+            p.Price = 1.1m * p.Price;
         }
 
         db.SaveChanges();
 
-        qProductsLego = from p in db.Product
-                        where p.Category.Name == "LEGO"
-                        select p;
-        Console.WriteLine("\tAfter change:");
-        foreach (var p in qProductsLego)
-            Console.WriteLine("\t\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        Console.WriteLine("\tAfter modification:");
+        // ToList induces a database request
+        foreach (var p in legoProductsQiery.ToList())
+        {
+            Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+        }
 
         // 3.2
         Console.WriteLine("\t3.2:");
-        Category categoryExpensiveToys = (from c in db.Category
-                                            where c.Name == "Expensive toys"
-                                            select c).SingleOrDefault();
-        // alternative syntax
-        // var categoryExpensiveToys = db.Category.Where(c => c.Name == "Expensive Toys")
-        //                                        .SingleOrDefault();
+        var expensiveToysCategory = db.Categories
+            .Where(c => c.Name == "Expensive Toys")
+            .SingleOrDefault();
 
-        if (categoryExpensiveToys == null)
+        if (expensiveToysCategory == null)
         {
-            categoryExpensiveToys = new Category { Name = "Expensive toys" };
+            expensiveToysCategory = new Category { Name = "Expensive toys" };
 
-            // The following line is not always necessary. If there is any product assigned to this
-            // new category, when saving the changes, a new category record will automatically be
-            // created. If we add this explicitly though, it better reflects our way of thinking,
-            // and if there are no assigned products, the new category record is created regardless.
-            db.Category.Add(categoryExpensiveToys);
+            // This is not necessary: if there is an unordered product, we add the category entity to it
+            // and it is automatically included in the category table. However, if we take it explicitly, (1) it better
+            // expresses our intention; and (2) we insert the category even if there are no reclassified product.
+            db.Categories.Add(expensiveToysCategory);
         }
 
-        var qProductExpensive = from p in db.Product
-                                where p.Price > 8000
-                                select p;
+        var expensiveProductsQuery = db.Products.Where(p => p.Price > 8000);
 
-        foreach (var p in qProductExpensive)
-            p.Category = categoryExpensiveToys;
+        foreach (var p in expensiveProductsQuery.ToList())
+        {
+            p.Category = expensiveToysCategory;
+        }
+
         db.SaveChanges();
 
-        qProductExpensive = from p in db.Product
-                            where p.Category.Name == "Expensive toys"
-                            select p;
+        expensiveProductsQuery = db.Products
+            .Include(p => p.Category)
+            .Where(p => p.Category.Name == "Expensive toys");
 
-        foreach (var t in qProductExpensive)
-            Console.WriteLine("\t\tName={0}\tPrice={1}", t.Name, t.Price);
+        foreach (var p in expensiveProductsQuery)
+        {
+            Console.WriteLine($"\t\tName={p.Name}\tPrice={p.Price}\tCategory={p.Category.Name}");
+        }
     }
     ```
 
-## Exercise 4: Using stored procedures
 
-Stored procedures can be mapped into the EDM model either as a method on the DbContext or an entity's operation.
 
-!!! note "Procedure mapping in the EDM"
-    The mapping properties of the stored procedure (e.g., the return value) usually has to be manually altered using the _Entity Data Model Browser_: find the _Function Import_ and open its properties.
+## Task 4: Using stored procedures
 
-    ![Mapping properties of a stored procedure](images/vs-storedproc-mapping.png)
+Create a stored procedure using a new code first migration that lists the products of which at least a specified number of units have been sold. Call the stored procedure from C# code!
 
-1. Create a new stored procedure that can be used to register a new payment method. Map this stored procedure as the insert operation of the `PaymentMethod` entity!
+1. Create a new empty migration named `PopularProducts_SP`.
 
-    - Create the stored procedure using SQL Management Studio.
+    ```powershell
+    Add-Migration PopularProducts_SP
+    ```
 
-        ```sql
-        CREATE PROCEDURE CreateNewPaymentMethod
-        (
-        @Method nvarchar(20),
-        @Deadline int
-        )
-        AS
-        insert into PaymentMethod
-        values(@Method,@Deadline)
-        select scope_identity() as NewId
-        ```
+2. Create the stored procedure with the code below. Let's ignore the writing of the backward migration for now, where the stored procedure should to be deleted.
 
-    - Set this procedure as the `PaymentMethod` entity _insert_ operation.
-
-        - Add the stored procedure to the EDM. In the EDM Browser right-click to open the context menu and use "Update model from database" to _Add_ the previously created procedure.
-        - Save the model changes to generate the required C# code in the background.
-        - Set this procedure on the `PaymentMethod` entity as the _insert_ operation: select the `PaymentMethod` entity in the EDM and in the _Mapping Details_ window change to the _Map Entity to Functions_ tab, then chose the procedure for _Insert_ operation. The return value shall be mapped to the _ID_ property. Save the model.
-
-            ![Mapping procedure to entity](images/vs-insert-storedproc.png)
-
-    - Test the behavior: in C# code, create a new `PaymentMethod` entity and add it to the appropriate list of the DbContext using `Add`. Verify the creation of the new record in the database.
-
-1. Create a stored procedure that lists all products that have been sold more than a specified amount of times. Call this method from C# code!
-
-    - Create the stored procedure with the T-SQL command below.
-
-        ```sql
-        CREATE PROCEDURE dbo.PopularProducts (
-        @MinAmount int = 10
-        )
-        AS
-        SELECT Product.* FROM Product INNER JOIN
-        (
+    ```sharp
+    public partial class PopularProducts_SP : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(
+    @"CREATE OR ALTER PROCEDURE dbo.PopularProducts (@MinAmount int = 10)
+    DIG
+    SELECT Product.*
+    FROM Product
+    INNER JOIN
+    (
         SELECT OrderItem.ProductID
         FROM OrderItem
         GROUP BY OrderItem.ProductID
         HAVING SUM(OrderItem.Amount) > @MinAmount
-        ) a ON Product.ID = a.ProductID
-        ```
+    ) a ON Product.ID = a.ProductID");
+        }
 
-    - Import the procedure into the EDM. Open the function properties (in the _EDM Model Browser_ double click _function_) and set return value as type `Product`. Save the model changes.
-
-        ![Map return value of a stored procedure](images/vs-storedproc-mapping.png)
-
-    - Use the new method available on the DbContext class to call this method and print the returned product names to console!
-
-??? example "Solution"
-    ```csharp
-    Console.WriteLine("***** Exercise four *****");
-    using (var db = new DataDrivenEntities())
-    {
-        // 4.3
-        Console.WriteLine("\t4.3:");
-
-        var pm = new PaymentMethod
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
-            Method = "Apple pay",
-            Deadline = 99999
-        };
-
-        db.PaymentMethod.Add(pm);
-        db.SaveChanges();
-
-        // 4.6
-        Console.WriteLine("\t4.6:");
-        var qPopularProducts = db.PopularProducts(5);
-        foreach (var p in qPopularProducts)
-            Console.WriteLine("\t\tName={0}\tStock={1}\tPrice={2}", p.Name, p.Stock, p.Price);
+        }
     }
     ```
+
+3. Update the database and check the result!
+
+    ```powershell
+    Update-Database
+    ```
+
+4. Call the stored procedure starting from the `Product` `DbSet` of the context using the `FromSqlInterpolated` or `FromSqlRaw` methods
+
+    ??? example "Solution"
+
+        ```sharp
+        Console.WriteLine("***** Fourth Task *****");
+        using (var db = new DatavezDbContext())
+        {
+            var popularProducts = db.Products.FromSqlInterpolated($"EXECUTE dbo.PopularProducts @MinAmount={5}");
+            foreach (var p in popularProducts)
+            {
+                Console.WriteLine($"\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
+            }
+        }
+        ```
+
+    !!! danger "`FromSqlInterpolated` vs. `FromSqlRaw`"
+        In the above solution, the call is defined with the `FromSqlInterpolated` function, where, due to its name, the string to be interpolated is still processed by EF and the interpolation is not performed traditionally as a string, but replaces `SqlParameters` in order to protect against SQL injection.
+
+        On the other hand, when using the `FromSqlraw` function it is **prohibited** to use string interpolation, instead we have to manually create the `SqlParameters' and define placeholders in the instruction
+
