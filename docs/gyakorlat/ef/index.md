@@ -243,7 +243,7 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
         //}
 
         // 2.3 második megoldás
-        // Exptession alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
+        // Expression alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
         // using Microsoft.EntityFrameworkCore;
 
         // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
