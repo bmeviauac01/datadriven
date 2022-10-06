@@ -379,7 +379,7 @@ A MongoDB lekérdezések egy ún. pipeline-on haladnak végig. Ennek részleteiv
 
 #### Lapozás, rendezés
 
-A lapozáshoz megadatjuk, maximálisan hány illeszkedő dokumentumot kérünk:
+A lapozáshoz megadhatjuk, maximálisan hány illeszkedő dokumentumot kérünk:
 
 ```csharp
 collection.Find(...).Limit(100);
