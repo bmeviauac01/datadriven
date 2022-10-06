@@ -1887,7 +1887,7 @@
 <h2 id="lekerdezes-vegrehajto-pipeline">Lekérdezés-végrehajtó pipeline<a class="headerlink" href="#lekerdezes-vegrehajto-pipeline" title="Permanent link">&para;</a></h2>
 <p>A MongoDB lekérdezések egy ún. pipeline-on haladnak végig. Ennek részleteivel nem fogunk megismerkedni, de az egyszerű szűréseken kívül pár további, lekérdezésekben használt elemet fogunk látni.</p>
 <h4 id="lapozas-rendezes">Lapozás, rendezés<a class="headerlink" href="#lapozas-rendezes" title="Permanent link">&para;</a></h4>
-<p>A lapozáshoz megadatjuk, maximálisan hány illeszkedő dokumentumot kérünk:</p>
+<p>A lapozáshoz megadhatjuk, maximálisan hány illeszkedő dokumentumot kérünk:</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Limit</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
 </code></pre></div>
 <p>A következő lapon található elemekhez pedig kihagyjuk az első lapon már látott elemeket:</p>
