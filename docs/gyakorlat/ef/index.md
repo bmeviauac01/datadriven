@@ -4,7 +4,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések haszná
 
 !!! important "Entity Framework Core"
     A gyakorlat során a .NET 6-ot (régebben .NET Core) és Entity Framework Core 6-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
-    
+
     A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
     
     A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de apróbb szintaktikai eltérések adódhatnak, illetve az EF Core funkcionálisan már gazdagabb.
@@ -66,7 +66,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
     - Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a _Package Manager Console_-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
 
     ```powershell
-    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun];Integrated Security=True' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
     ```
 
     !!! note "EF Core .NET CLI"
@@ -80,8 +80,8 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
       - Az adatbázis modell az `OnModelCreating` metódusban került konfigurálásra.
 
 3. Módosítsunk a modellen
-   
-    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjént `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
+
+    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyként `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
 
     ```csharp title="CustomerSite.cs"
     public virtual Customer? MainCustomer { get; set; }
@@ -124,8 +124,8 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
         Ez értelemszerűen nem sikerül, mert a migrációban lévő utasítások egy üres adatbázishoz képest szeretné migrálni a sémát, viszont nekünk az adatbázisunkban már ez a séma létezik. 
         Az EF egy spoeciális táblában az `__EFMigrationHitory`-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.
-            
-    - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell.
+
+    - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, **ezért a Solution Explorerből a fájl nevét másoljuk ki**!
 
         ![VS Migration History](images/vs-migration-history.png)
 
@@ -136,7 +136,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
             ```csharp title="Pruduct.cs"
             public decimal Price { get; set; }
             ```
-            
+
         - Kötelezőséget és az SQL mező pontosságát állítsuk be a `modelBuilder`rel.
 
             ```csharp title="AdatvezDbContext.cs"
@@ -235,6 +235,8 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
 
         //foreach (var o in orderTotalQuery)
         //{
+        //    // Ez azért fog elszállni, mert EF Core-ban nincs alapértelmezetten Lazy Loading,
+        //    // így a navigációs propertyk nem lesznek feltöltve
         //    Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
         //    foreach (var oi in o.OrderItems)
         //    {
@@ -243,6 +245,7 @@ Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az
         //}
 
         // 2.3 második megoldás
+        // Include-oljuk a hiányzó navigációs tulajdonságokat.
         // Expression alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
         // using Microsoft.EntityFrameworkCore;
 
@@ -323,10 +326,11 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül bes
     {
         // 3.1
         Console.WriteLine("\t3.1:");
-        var legoProductsQiery = db.Products.Where(p => p.Category.Name == "LEGO");
+        var legoProductsQuery = db.Products.Where(p => p.Category.Name == "LEGO");
 
         Console.WriteLine("\tMódosítás előtt:");
-        foreach (var p in legoProductsQiery.ToList())
+        // A ToList, de simán a foreach is adatbázis kérést indukál
+        foreach (var p in legoProductsQuery.ToList())
         {
             Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
             p.Price = 1.1m * p.Price;
@@ -335,8 +339,7 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül bes
         db.SaveChanges();
 
         Console.WriteLine("\tMódosítás után:");
-        // A ToList adatbázis kérést indukál
-        foreach (var p in legoProductsQiery.ToList())
+        foreach (var p in legoProductsQuery.ToList())
         {
             Console.WriteLine($"\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}");
         }
