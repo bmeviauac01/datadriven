@@ -183,11 +183,11 @@ Use the debugger to see what kind of SQL statement is generated: by dragging the
     ```sharp
     using ConsoleApp3.Entities;
 
-using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-Console.WriteLine("***** Második feladat *****");
-using (var db = new AdatvezDbContext())
-{
+    Console.WriteLine("***** Második feladat *****");
+    using (var db = new AdatvezDbContext())
+    {
     // 2.1
     Console.WriteLine("\t2.1:");
     // Query szintaktika
