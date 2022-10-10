@@ -426,6 +426,9 @@ Create a stored procedure using a new code first migration that lists the produc
     ??? example "Solution"
 
         ```sharp
+        using Microsoft.EntityFrameworkCore;
+        using [project name].Entities;
+        
         Console.WriteLine("***** Fourth Task *****");
         using (var db = new DatavezDbContext())
         {
