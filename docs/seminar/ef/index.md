@@ -7,7 +7,7 @@ The goal of the seminar is to practice writing Linq queries and working with Ent
 
 ## Pre-requisites
 
-Required tools to complete the tasks:
+Required tools to complete the tasks: 
 
 - Microsoft Visual Studio 2022
 - Microsoft SQL Server (LocalDB or Express edition)
