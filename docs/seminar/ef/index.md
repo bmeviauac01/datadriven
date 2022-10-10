@@ -183,120 +183,124 @@ Use the debugger to see what kind of SQL statement is generated: by dragging the
     ```sharp
     using ConsoleApp3.Entities;
 
-    using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-    Console.WriteLine("***** Second Task *****");
-    using (var db = new AdatvezDbContext())
+Console.WriteLine("***** Második feladat *****");
+using (var db = new AdatvezDbContext())
+{
+    // 2.1
+    Console.WriteLine("\t2.1:");
+    // Query szintaktika
+    var productStockQuery = from p in db.Products
+                            where p.Stock > 30
+                            select p;
+
+    // Fluent / Method Chaining szintaktika
+    // var productStockQuery = db.Products.Where(p => p.Stock > 30);
+
+    foreach (var p in productStockQuery)
     {
-        // 2.1
-        Console.WriteLine("\t2.1:");
-        // Query syntax
-        var productStockQuery = from p in db.Products
-                                where p.Stock > 30
-                                select p;
+        Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
+    }
 
-        // Fluent / Method Chaining syntax
-        // var productStockQuery = db.Products.Where(p => p.Stock > 30);
+    // 2.2
+    Console.WriteLine("\t2.2:");
+    var productOrderQuery = db.Products.Where(p => p.OrderItems.Count >= 2);
 
-        foreach (var p in productStockQuery)
+    // query szintaktika
+    //var productOrderQuery = from p in db.Products
+    //                        where p.OrderItems.Count >= 2
+    //                        select p;
+
+    foreach (var p in productOrderQuery)
+    {
+        Console.WriteLine($"\t\tName={p.Name}");
+    }
+
+    // 2.3
+    Console.WriteLine("\t2.3 helytelen megoldás");
+    var orderTotalQuery = db.Orders.Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
+
+    // query szintaktika
+    //var orderTotalQuery = from o in db.Orders
+    //                      where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+    //                      select o;
+
+    //foreach (var o in orderTotalQuery)
+    //{
+    //    // Ez azért fog elszállni, mert EF Core-ban nincs alapértelmezetten Lazy Loading,
+    //    // így a navigációs propertyk nem lesznek feltöltve
+    //    Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+    //    foreach (var oi in o.OrderItems)
+    //    {
+    //        Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
+    //    }
+    //}
+
+    // 2.3 második megoldás
+    // Include-oljuk a hiányzó navigációs tulajdonságokat.
+    // Expression alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)
+    // using Microsoft.EntityFrameworkCore;
+
+    // Csak egy lekérdezést fog generálni, a Navigation Propertyket is feltölti rögtön
+    Console.WriteLine("\tc 2.3 helyes megoldás:");
+    var orderTotalQuery2 = db.Orders
+        .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Product)
+        .Include(o => o.CustomerSite)
+        .Include(o => o.CustomerSite.MainCustomer)
+        .Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
+
+    // query szintaktika
+    //var orderTotalQuery2 = from o in db.Orders
+    //                       .Include(o => o.OrderItems)
+    //                           .ThenInclude(oi => oi.Product)
+    //                       .Include(o => o.CustomerSite)
+    //                       .Include(o => o.CustomerSite.MainCustomer)
+    //                   where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
+    //                   select o;
+
+    foreach (var o in orderTotalQuery2)
+    {
+        Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
+        foreach (var oi in o.OrderItems)
         {
-            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}");
-        }
-
-        // 2.2
-        Console.WriteLine("\t2.2:");
-        var productOrderQuery = db.Products.Where(p => p.OrderItems.Count >= 2);
-
-        // query syntax
-        //var productOrderQuery = from p in db.Products
-        // where p.OrderItems.Count >= 2
-        // select p;
-
-        foreach (var p in productOrderQuery)
-        {
-            Console.WriteLine($"\t\tName={p.Name}");
-        }
-
-        // 2.3
-        Console.WriteLine("\t2.3 incorrect solution");
-        var orderTotalQuery = db.Orders.Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
-
-        // query syntax
-        //var orderTotalQuery = from o in db.Orders
-        // where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-        // select o;
-
-        //foreach (var o in orderTotalQuery)
-        //{
-        // Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
-        // foreach (var oi in o.OrderItems)
-        // {
-        // Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
-        // }
-        //}
-
-        // 2.3 second solution
-        // Expression-based Include requires importing the following namespace: (CTRL + . is also offering it during use)
-        // using Microsoft.EntityFrameworkCore;
-
-        // It will generate only one query, it will also load the Navigation Properties immediately
-        Console.WriteLine("\tc 2.3 correct solution:");
-        var orderTotalQuery2 = db.Orders
-            .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-            .Include(o => o.CustomerSite)
-            .Include(o => o.CustomerSite.MainCustomer)
-            .Where(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000);
-
-        // query syntax
-        //var orderTotalQuery2 = from o in db.Orders
-        //                       .Include(o => o.OrderItems)
-        //                           .ThenInclude(oi => oi.Product)
-        //                       .Include(o => o.CustomerSite)
-        //                       .Include(o => o.CustomerSite.MainCustomer)
-        //                   where o.OrderItems.Sum(oi => oi.Amount * oi.Price) > 30000
-        //                   select o;
-
-        foreach (var o in orderTotalQuery2)
-        {
-            Console.WriteLine("\t\tName={0}", o.CustomerSite.MainCustomer.Name);
-            foreach (var oi in o.OrderItems)
-            {
-                Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
-            }
-        }
-
-        // 2.4
-        Console.WriteLine("\t2.4:");
-        var maxPriceQuery = db.Products.Where(p => p.Price == db.Products.Max(a => a.Price));
-
-        // query syntax
-        //var maxPriceQuery = from p in db.Products
-        //                    where p.Price == db.Products.Max(a => a.Price)
-        //                    select p;
-
-        foreach (var t in maxPriceQuery)
-        {
-            Console.WriteLine($"\t\tName={t.Name}\tPrice={t.Price}");
-        }
-
-        // 2.5
-        Console.WriteLine("\t2.5:");
-        var cityJoinQuery = db.CustomerSites
-            .Join(db.CustomerSites, s1 => s1.City, s2 => s2.City, (s1, s2) => new { s1, s2 })
-            .Where(x => x.s1.CustomerId
-
-        // query syntax
-        //var cityJoinQuery = from s1 in db.CustomerSites
-        //                    join s2 in db.CustomerSites on s1.City equals s2.City
-        //                    where s1.CustomerId > s2.CustomerId
-        //                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
-
-        foreach (var v in cityJoinQuery)
-        {
-            Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
+            Console.WriteLine($"\t\t\tProduct={oi.Product.Name}\tPrice={oi.Price}\tAmount={oi.Amount}");
         }
     }
+
+    // 2.4
+    Console.WriteLine("\t2.4:");
+    var maxPriceQuery = db.Products.Where(p => p.Price == db.Products.Max(a => a.Price));
+
+    // query szintaktika
+    //var maxPriceQuery = from p in db.Products
+    //                    where p.Price == db.Products.Max(a => a.Price)
+    //                    select p;
+
+    foreach (var t in maxPriceQuery)
+    {
+        Console.WriteLine($"\t\tName={t.Name}\tPrice={t.Price}");
+    }
+
+    // 2.5
+    Console.WriteLine("\t2.5:");
+    var cityJoinQuery = db.CustomerSites
+        .Join(db.CustomerSites, s1 => s1.City, s2 => s2.City, (s1, s2) => new { s1, s2 })
+        .Where(x => x.s1.CustomerId > x.s2.CustomerId)
+        .Select(x => new { c1 = x.s1.MainCustomer, c2 = x.s2.MainCustomer });
+
+    // query szintaktika
+    //var cityJoinQuery = from s1 in db.CustomerSites
+    //                    join s2 in db.CustomerSites on s1.City equals s2.City
+    //                    where s1.CustomerId > s2.CustomerId
+    //                    select new { c1 = s1.MainCustomer, c2 = s2.MainCustomer };
+
+    foreach (var v in cityJoinQuery)
+    {
+        Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
+    }
+}
     ```
 
 ## Task 3: Data changes
