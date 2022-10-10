@@ -300,7 +300,7 @@ Use the debugger to see what kind of SQL statement is generated: by dragging the
     {
         Console.WriteLine($"\t\tCustomer 1={v.c1.Name}\tCustomer 2={v.c2.Name}");
     }
-}
+    }
     ```
 
 ## Task 3: Data changes
