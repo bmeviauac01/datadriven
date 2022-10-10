@@ -314,6 +314,9 @@ The `DbContext` can be used not only for queries, but also for insertions, modif
 ??? example "Solution"
 
     ```sharp
+    using Microsoft.EntityFrameworkCore;
+    using [project name].Entities;
+    
     Console.WriteLine("***** Third Task *****");
     using (var db = new DatavezDbContext())
     {
@@ -394,9 +397,9 @@ Create a stored procedure using a new code first migration that lists the produc
         {
             migrationBuilder.Sql(
     @"CREATE OR ALTER PROCEDURE dbo.PopularProducts (@MinAmount int = 10)
-    DIG
-    SELECT Product.*
-    FROM Product
+    AS
+    SELECT Product.* 
+    FROM Product 
     INNER JOIN
     (
         SELECT OrderItem.ProductID
