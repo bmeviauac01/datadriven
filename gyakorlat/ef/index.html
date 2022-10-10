@@ -1180,7 +1180,7 @@
 <ul>
 <li>Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a <em>Package Manager Console</em>-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">Scaffold-DbContext</span> <span class="s1">&#39;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun]&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="n">-Context</span> <span class="n">AdatvezDbContext</span> <span class="n">-OutputDir</span> <span class="n">Entities</span>
+<div class="highlight"><pre><span></span><code><span class="n">Scaffold-DbContext</span> <span class="s1">&#39;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun];Integrated Security=True&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="n">-Context</span> <span class="n">AdatvezDbContext</span> <span class="n">-OutputDir</span> <span class="n">Entities</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">EF Core .NET CLI</p>
@@ -1198,7 +1198,7 @@
 </li>
 <li>
 <p>Módosítsunk a modellen</p>
-<p>Nevezzük át a <code>CustomerSite</code> entitás <code>Customer</code> navigációs propertyjént <code>MainCustomer</code>-re az entitásban és az <code>OnModelCreating</code>-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.</p>
+<p>Nevezzük át a <code>CustomerSite</code> entitás <code>Customer</code> navigációs propertyként <code>MainCustomer</code>-re az entitásban és az <code>OnModelCreating</code>-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.</p>
 <div class="highlight"><span class="filename">CustomerSite.cs</span><pre><span></span><code><span class="k">public</span> <span class="k">virtual</span> <span class="n">Customer</span><span class="p">?</span> <span class="n">MainCustomer</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">AdatvezDbContext.cs</span><pre><span></span><code><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span> <span class="n">modelBuilder</span><span class="p">)</span>
@@ -1236,7 +1236,7 @@
 Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.</p>
 </li>
 <li>
-<p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell.</p>
+<p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, <strong>ezért a Solution Explorerből a fájl nevét másoljuk ki</strong>!</p>
 <p><img alt="VS Migration History" src="images/vs-migration-history.png" /></p>
 </li>
 <li>
@@ -1348,6 +1348,8 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 
     <span class="c1">//foreach (var o in orderTotalQuery)</span>
     <span class="c1">//{</span>
+    <span class="c1">//    // Ez azért fog elszállni, mert EF Core-ban nincs alapértelmezetten Lazy Loading,</span>
+    <span class="c1">//    // így a navigációs propertyk nem lesznek feltöltve</span>
     <span class="c1">//    Console.WriteLine(&quot;\t\tName={0}&quot;, o.CustomerSite.MainCustomer.Name);</span>
     <span class="c1">//    foreach (var oi in o.OrderItems)</span>
     <span class="c1">//    {</span>
@@ -1356,6 +1358,7 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
     <span class="c1">//}</span>
 
     <span class="c1">// 2.3 második megoldás</span>
+    <span class="c1">// Include-oljuk a hiányzó navigációs tulajdonságokat.</span>
     <span class="c1">// Expression alapú Include-hoz szükség van a következő névtér importálására: (CTRL + . is felajánlja a használat során)</span>
     <span class="c1">// using Microsoft.EntityFrameworkCore;</span>
 
@@ -1435,10 +1438,11 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 <span class="p">{</span>
     <span class="c1">// 3.1</span>
     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\t3.1:&quot;</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">legoProductsQiery</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;LEGO&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">legoProductsQuery</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;LEGO&quot;</span><span class="p">);</span>
 
     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\tMódosítás előtt:&quot;</span><span class="p">);</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">legoProductsQiery</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
+    <span class="c1">// A ToList, de simán a foreach is adatbázis kérést indukál</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">legoProductsQuery</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
     <span class="p">{</span>
         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}&quot;</span><span class="p">);</span>
         <span class="n">p</span><span class="p">.</span><span class="n">Price</span> <span class="p">=</span> <span class="m">1.1</span><span class="n">m</span> <span class="p">*</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">;</span>
@@ -1447,8 +1451,7 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
     <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
 
     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\tMódosítás után:&quot;</span><span class="p">);</span>
-    <span class="c1">// A ToList adatbázis kérést indukál</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">legoProductsQiery</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">legoProductsQuery</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
     <span class="p">{</span>
         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;\t\t\tName={p.Name}\tStock={p.Stock}\tPrice={p.Price}&quot;</span><span class="p">);</span>
     <span class="p">}</span>
