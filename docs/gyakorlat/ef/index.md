@@ -43,11 +43,12 @@ Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keret
 
 ![VS projekt típus](images/vs-create-project.png)
 
-Hozd létre a projektet. A `c:\work` mappába dolgozz.
+Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába dolgozz.
 
 1. Hozzuk létre a kiinduló EF Core Code First modellünket. Ehhez most egy úgynevezett _Reverse Engineering Code First_ megoldást fogunk alkalmazni, aminek a lényege, hogy mivel már van egy kiinduló adatbázisunk abból generálunk egy Code-First modellt, de ezután a továbbiakban Code-First módon dolgozunk.
 
     - Telepítsük az EF Core alábbi csomagjait a projektbe a NuGet UI-ról (project jobb gomb / Manage NuGet Packages) vagy a projektfájlba másoljuk be a következőt
+    - Érdemes a kódot másolni, gyorsabb!
 
     ```xml
     <ItemGroup>
@@ -63,10 +64,10 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
     </ItemGroup>
     ```
 
-    - Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a _Package Manager Console_-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:
+    - Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a _Package Manager Console_-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt, a connection stringbe írjuk bele az adatbázis nevét a 'NEPTUN' helyére:
 
     ```powershell
-    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun];Integrated Security=True' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NEPTUN;Integrated Security=True' Microsoft.EntityFrameworkCore.SqlServer -Context AdatvezDbContext -OutputDir Entities
     ```
 
     !!! note "EF Core .NET CLI"
@@ -81,7 +82,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
 3. Módosítsunk a modellen
 
-    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyként `MainCustomer`-re az entitásban és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
+    Nevezzük át a `CustomerSite` entitás `Customer` navigációs propertyjét `MainCustomer`-re az entitásban, és az `OnModelCreating`-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.
 
     ```csharp title="CustomerSite.cs"
     public virtual Customer? MainCustomer { get; set; }
@@ -127,6 +128,8 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 
     - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, **ezért a Solution Explorerből a fájl nevét másoljuk ki**!
 
+        ![VS Solution Explorer, migration file](images/migration_codefile.png)
+
         ![VS Migration History](images/vs-migration-history.png)
 
     - Módosítsunk az adatbázis sémán a code-first modellünkben.
@@ -137,7 +140,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
             public decimal Price { get; set; }
             ```
 
-        - Kötelezőséget és az SQL mező pontosságát állítsuk be a `modelBuilder`rel.
+        - Kötelezőséget és az SQL mező pontosságát állítsuk be a `modelBuilder`rel, ez egy új sor lesz.
 
             ```csharp title="AdatvezDbContext.cs"
             protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -160,7 +163,7 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
         - Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt
 
             ```powershell
-            Add-Migration PruductPriceDecimal
+            Add-Migration ProductPriceDecimal
             ```
 
         - Futtassuk le a migrációt az adatbázison és ellenőrízzük a hatását az adatbázisban
@@ -174,6 +177,11 @@ Hozd létre a projektet. A `c:\work` mappába dolgozz.
 A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.
 
 Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az `IQueryable` típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
+![SQL megnézése Debuggerben](images/View_SQL_in_Debugger.png)
+A naplózás is bekapcsolható az alábbi paranccsal:
+![SQL naplózás bekapcsolása](images/EFlogging.png)
+
+Feladatok:
 
 1. Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!
 
