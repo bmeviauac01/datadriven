@@ -1625,13 +1625,17 @@
                 
                 <h1 id="mongodb-alapok-muveletek-es-a-mongodb-net-driver">MongoDB alapok, műveletek, és a MongoDB .NET Driver<a class="headerlink" href="#mongodb-alapok-muveletek-es-a-mongodb-net-driver" title="Permanent link">&para;</a></h1>
 <h2 id="nosql-adatbazisok">NoSQL adatbázisok<a class="headerlink" href="#nosql-adatbazisok" title="Permanent link">&para;</a></h2>
-<p>A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak?
-1. Skálázás lehet kihívás a relációs adatbázisok esetén
-    - Bizonyos méret fölé
-    - Globális elérhetőség
-    - Rendelkezésreállás biztosítása  <br />
-2. Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek</p>
-<p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával hoz új kihívásokat is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.</p>
+<p>A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak?</p>
+<ol>
+<li>Skálázás lehet kihívás a relációs adatbázisok esetén<ul>
+<li>Bizonyos méret fölé</li>
+<li>Globális elérhetőség</li>
+<li>Rendelkezésreállás biztosítása    </li>
+</ul>
+</li>
+<li>Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek</li>
+</ol>
+<p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával <strong>hoz új kihívásokat</strong> is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.</p>
 <h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">&para;</a></h2>
 <p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
 <p><img alt="A MongoDb architektúrája" src="images/mongodb_rendszer_architektura.png" /></p>
