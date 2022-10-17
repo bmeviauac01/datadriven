@@ -1083,6 +1083,7 @@
 </ul>
 <p>Ügyelj az alábbiakra:</p>
 <ul>
+<li><strong>A megoldásban csak adatbázis-szerver oldali szűrést alkalmazz!</strong></li>
 <li>Csak a <code>ProductRepository</code> osztály kódját módosítsd!</li>
 <li>A repository kódjában az ADO.NET kapcsolat megnyitásához a <code>connectionString</code> változót használd (és <strong>ne</strong> a <code>TestConnectionStringHelper</code>-t).</li>
 <li>A termék áfakulcsát is ki kell keresni, tehát nem a kapcsolódó rekord id-ját kell a <code>Model.Product</code> osztálynak átadni, hanem az áfakulcs százalékos értékét! A termék kategóriájának nevét hasonlóan ki kell keresni.</li>
