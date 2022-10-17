@@ -21,6 +21,7 @@ Készíts a termékek (`Product`) kezeléséhez egy _repository_ osztályt **ADO
 
 Ügyelj az alábbiakra:
 
+- **A megoldásban csak adatbázis-szerver oldali szűrést alkalmazz!**
 - Csak a `ProductRepository` osztály kódját módosítsd!
 - A repository kódjában az ADO.NET kapcsolat megnyitásához a `connectionString` változót használd (és **ne** a `TestConnectionStringHelper`-t).
 - A termék áfakulcsát is ki kell keresni, tehát nem a kapcsolódó rekord id-ját kell a `Model.Product` osztálynak átadni, hanem az áfakulcs százalékos értékét! A termék kategóriájának nevét hasonlóan ki kell keresni.
