@@ -1158,12 +1158,13 @@
 <h2 id="feladat-1-projekt-letrehozasa-adatbazis-lekepzese">Feladat 1: Projekt létrehozása, adatbázis leképzése<a class="headerlink" href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" title="Permanent link">&para;</a></h2>
 <p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).</p>
 <p><img alt="VS projekt típus" src="images/vs-create-project.png" /></p>
-<p>Hozd létre a projektet. A <code>c:\work</code> mappába dolgozz.</p>
+<p>Hozd létre a projektet, a neve legyen a neptun kódod és a <code>c:\work</code> mappába dolgozz.</p>
 <ol>
 <li>
 <p>Hozzuk létre a kiinduló EF Core Code First modellünket. Ehhez most egy úgynevezett <em>Reverse Engineering Code First</em> megoldást fogunk alkalmazni, aminek a lényege, hogy mivel már van egy kiinduló adatbázisunk abból generálunk egy Code-First modellt, de ezután a továbbiakban Code-First módon dolgozunk.</p>
 <ul>
 <li>Telepítsük az EF Core alábbi csomagjait a projektbe a NuGet UI-ról (project jobb gomb / Manage NuGet Packages) vagy a projektfájlba másoljuk be a következőt</li>
+<li>Érdemes a kódot másolni, gyorsabb!</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;ItemGroup&gt;</span>
     <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.SqlServer&quot;</span> <span class="na">Version=</span><span class="s">&quot;6.0.8&quot;</span> <span class="nt">/&gt;</span>
@@ -1178,9 +1179,9 @@
 <span class="nt">&lt;/ItemGroup&gt;</span>
 </code></pre></div>
 <ul>
-<li>Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a <em>Package Manager Console</em>-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt:</li>
+<li>Futtassuk le az alábbi EF Core PowerShell parancsot a VS-en belül a <em>Package Manager Console</em>-ban, ami legenerálja nekünk az adatbázis kontextust és az entitás modellt, a connection stringbe írjuk bele az adatbázis nevét a 'NEPTUN' helyére:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">Scaffold-DbContext</span> <span class="s1">&#39;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=[neptun];Integrated Security=True&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="n">-Context</span> <span class="n">AdatvezDbContext</span> <span class="n">-OutputDir</span> <span class="n">Entities</span>
+<div class="highlight"><pre><span></span><code><span class="n">Scaffold-DbContext</span> <span class="s1">&#39;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NEPTUN;Integrated Security=True&#39;</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">EntityFrameworkCore</span><span class="p">.</span><span class="n">SqlServer</span> <span class="n">-Context</span> <span class="n">AdatvezDbContext</span> <span class="n">-OutputDir</span> <span class="n">Entities</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">EF Core .NET CLI</p>
@@ -1198,7 +1199,7 @@
 </li>
 <li>
 <p>Módosítsunk a modellen</p>
-<p>Nevezzük át a <code>CustomerSite</code> entitás <code>Customer</code> navigációs propertyként <code>MainCustomer</code>-re az entitásban és az <code>OnModelCreating</code>-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.</p>
+<p>Nevezzük át a <code>CustomerSite</code> entitás <code>Customer</code> navigációs propertyjét <code>MainCustomer</code>-re az entitásban, és az <code>OnModelCreating</code>-ben is. Ez a módosítás az adatbázis sémán nem változtat csupán a code-first modellen.</p>
 <div class="highlight"><span class="filename">CustomerSite.cs</span><pre><span></span><code><span class="k">public</span> <span class="k">virtual</span> <span class="n">Customer</span><span class="p">?</span> <span class="n">MainCustomer</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">AdatvezDbContext.cs</span><pre><span></span><code><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span> <span class="n">modelBuilder</span><span class="p">)</span>
@@ -1237,6 +1238,7 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 </li>
 <li>
 <p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, <strong>ezért a Solution Explorerből a fájl nevét másoljuk ki</strong>!</p>
+<p><img alt="VS Solution Explorer, migration file" src="images/migration_codefile.png" /></p>
 <p><img alt="VS Migration History" src="images/vs-migration-history.png" /></p>
 </li>
 <li>
@@ -1248,7 +1250,7 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 </code></pre></div>
 </li>
 <li>
-<p>Kötelezőséget és az SQL mező pontosságát állítsuk be a <code>modelBuilder</code>rel.</p>
+<p>Kötelezőséget és az SQL mező pontosságát állítsuk be a <code>modelBuilder</code>rel, ez egy új sor lesz.</p>
 <div class="highlight"><span class="filename">AdatvezDbContext.cs</span><pre><span></span><code><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span> <span class="n">modelBuilder</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// ...</span>
@@ -1268,7 +1270,7 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 </li>
 <li>
 <p>Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Add-Migration</span> <span class="n">PruductPriceDecimal</span>
+<div class="highlight"><pre><span></span><code><span class="nb">Add-Migration</span> <span class="n">ProductPriceDecimal</span>
 </code></pre></div>
 </li>
 <li>
@@ -1283,7 +1285,11 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 </ol>
 <h2 id="feladat-2-lekerdezesek">Feladat 2: Lekérdezések<a class="headerlink" href="#feladat-2-lekerdezesek" title="Permanent link">&para;</a></h2>
 <p>A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.</p>
-<p>Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az <code>IQueryable</code> típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.</p>
+<p>Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az <code>IQueryable</code> típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
+<img alt="SQL megnézése Debuggerben" src="images/View_SQL_in_Debugger.png" />
+A naplózás is bekapcsolható az alábbi paranccsal:
+<img alt="SQL naplózás bekapcsolása" src="images/EFlogging.png" /></p>
+<p>Feladatok:</p>
 <ol>
 <li>
 <p>Listázd azon termékek nevét és raktárkészletét, melyből több mint 30 darab van raktáron!</p>
