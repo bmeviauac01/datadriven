@@ -3,13 +3,14 @@
 ## NoSQL adatbázisok
 
 A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak?
+
 1. Skálázás lehet kihívás a relációs adatbázisok esetén
     - Bizonyos méret fölé
     - Globális elérhetőség
     - Rendelkezésreállás biztosítása    
 2. Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek
 
-Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával hoz új kihívásokat is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.
+Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával **hoz új kihívásokat** is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.
 
 ## A MongoDB alap koncepciói
 
