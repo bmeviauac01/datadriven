@@ -2,11 +2,14 @@
 
 ## NoSQL adatbázisok
 
-A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak? Egy kis méretű adatbázis egyszerű sémával könnyen leírható relációs modellben, még kényelmes is. De az alkalmazásaink fejlődnek, egyre több funkciót kell ellátniuk, ezzel együtt komplexebbé válik a séma is, illetve egyre több adatot kell eltárolni és nő az adatbázis. Ez egy bizonyos határ felett komplikálttá válik.
+A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok összefoglaló neve. A név valamennyire megtévesztő, mert a fogalomnak kevés köze van az SQL nyelvhez - ehelyett a releváns különbség az adatreprezentációban és a sémában van. De mégis miért van szükségünk új fajta adatbázisokra, amikor a relációs adatbázisok régóta jól használhatóak?
+1. Skálázás lehet kihívás a relációs adatbázisok esetén
+    - Bizonyos méret fölé
+    - Globális elérhetőség
+    - Rendelkezésreállás biztosítása    
+2. Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek
 
-A relációs adatbázisok hátránya, hogy a folyamatos változások, séma változtatást igényelnek. Ahhoz, hogy ezt karban tudjuk tartani folyamatosan migrálni kell az adatokat és ez nem egyszerű feladat. Továbbá teljesítmény problémákkal, azaz inkább konzisztencia- és skálázási problémákkal járhat, ha relációs adatbázist használunk - ezzel azonban nem foglalkozunk mélyebben.
-
-Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben.
+Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával hoz új kihívásokat is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.
 
 ## A MongoDB alap koncepciói
 
@@ -470,7 +473,7 @@ Figyeljük meg, hogy az `Id` mezőt nem töltöttük ki. Ezt a kliens oldali dri
 
 Emlékezzünk rá, hogy a MongoDB-ben nincs séma, így a beszúrt dokumentum lehet teljesen eltérő a gyűjteményben található többi elemtől. Illetve figyeljük meg, hogy nem adtunk minden mezőnek értéket. Mivel nincsenek integritási kritériumok, így minden beszúrás sikerrel fog járni, viszont a lekérdezésnél lehetnek belőle problémák (pl. ha feltételezzük, hogy a raktárkészlet mindig ki van töltve).
 
-Több dokumentum beszúrására az `InsertMany` függvény használható, azonban ne felejtkezzünk el arról, hogy nincsenek tranzakciók, így a több dokumentum beszúrása egyenként független művelet. Ha a beszúrások végrehajtása közben valamely okból hiba történik, az addig sikeresen beszúrt dokumentumok az adatbázisban maradnak. Az egyes dokumentumok azonban atomi módon kerülnek mentésre, tehát egy hiba során se kerülhet egy "fél" dokumentum az adatbázisba.
+Több dokumentum beszúrására az `InsertMany` függvény használható, azonban ne felejtkezzünk el arról, hogy alapértelmezetten nincsenek tranzakciók, így a több dokumentum beszúrása egyenként független művelet. Ha a beszúrások végrehajtása közben valamely okból hiba történik, az addig sikeresen beszúrt dokumentumok az adatbázisban maradnak. Az egyes dokumentumok azonban atomi módon kerülnek mentésre, tehát egy hiba során se kerülhet egy "fél" dokumentum az adatbázisba.
 
 ### Dokumentumok törlése
 
@@ -588,7 +591,7 @@ Nem csak a teljes dokumentum cseréje esetén van lehetőségünk upsert-re. A d
 collection.UpdateOne(filter: ..., update: ..., options: new UpdateOptions() { IsUpsert = true });
 ```
 
-Az upsert művelet egy eszköz a konkurens módosítások terén a tranzakció hiányára. Mivel nincs tranzakciónk, ezért nem tudunk meggyőződni arról a beszúrás előtt, hogy még nem létezik egy adott rekord. Helyette használhatjuk az upsert módszert, ami atomi lekérdezést és beszúrást/módosítást tesz lehetővé.
+Az upsert művelet egy eszköz a konkurens módosítások terén a tranzakció hiányára. Mivel alapértelmezetten nincs tranzakciónk, ezért nem tudunk meggyőződni arról a beszúrás előtt, hogy még nem létezik egy adott rekord. Helyette használhatjuk az upsert módszert, ami atomi lekérdezést és beszúrást/módosítást tesz lehetővé.
 
 !!! note "`merge`"
     SQL nyelvben a `merge` parancs nyújt erre hasonló megoldást.
