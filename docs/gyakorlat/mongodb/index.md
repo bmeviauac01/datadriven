@@ -34,7 +34,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
     ```powershell
     Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
     New-Item -Type Directory c:\work\mongodatabase
-    c:\tools\mongodb-win32-x86_64-windows-4.4.10\bin\mongod.exe --dbpath c:\work\mongodatabase
+    c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
     ```
 
     Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.
