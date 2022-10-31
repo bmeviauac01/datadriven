@@ -135,7 +135,7 @@ using (var connection = new SqlConnection(connectionString))
     {
         Connection = connection,
         CommandText = "INSERT into CarTable (Description) VALUES('...')",
-        Transaction = transaction,
+        Transaction = transaction
     }
 
     try
