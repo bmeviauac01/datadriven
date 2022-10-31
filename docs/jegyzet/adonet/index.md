@@ -70,7 +70,7 @@ Az `IDbCommand` alábbi főbb *property*-jeit beállítva tudjuk megmondani, hog
 - `CommandText`: a parancs szövege, avagy tárolt eljárást neve
 - `Connection`: az adatbázis kapcsolat
 - `Transaction`: a tranzakció
-- `CommandTimeout`: parancs ereményére való várakozás maximális ideje (*alapértelmezetten 30s*)
+- `CommandTimeout`: parancs eredményére való várakozás maximális ideje (*alapértelmezetten 30s*)
 - `Parameters`: paraméterek, az [SQL injection támadás](#veszelyforrasok) kivédéséhez
 
 Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.
