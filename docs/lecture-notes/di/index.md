@@ -1,5 +1,7 @@
 # Dependency Injection ASP.NET Core environment
 
+Zoltán Benedek, 11.19.2022
+
 !!! abstract "Definition"
     __Dependency Injection__ (DI) is programming technique that makes a class independent of its dependencies. It's a key enabler for decomposing an application into loosely coupled components. More precisely: __Dependency Injection is a mechanism to decouple the creation of dependency graphs for a class from its class definition__.
 
@@ -164,7 +166,7 @@ The most important principles of transformation are the following:
 * __Dependencies will be based on abstractions/interfaces__
 * __Classes will no longer instantiate their dependencies themselves__
   
-Let's jump right into the code of the improved solution and analyze the differences:
+Let's jump right into the code of the improved solution and then analyze the differences:
 
 ```csharp
 public class ToDoService
@@ -303,9 +305,9 @@ In our current solution, `NotificationService` dependencies are instantiated by 
     * This would allow us to easily review our abstraction-to-implementation mappings at one place.
     * Moreover, if we want to change one of the mappings (e.g. using `AdvancedLogger` instead of `Logger` for `ILogger`) we could achieve that by making a single change at a central location.
 
-## Example phase 3 - dependency injection based on .NET Core Dependency Injection
+## Example phase 3 - dependency injection based on .NET Dependency Injection
 
-We need some extra help from our framework to solve the two problems we concluded the previous chapter with: an __Inversion of Control (IoC)__ container. __Dependency Injection container__ is a widely used alternative name for the same tool/technique. In an IoC container we can store abstraction type -> implementation type mappings, such as ILogger->Logger, IMailSender->EMailSender, etc. This is called the REGISTER step. And then based on these mappings create an implementation type for a specific abstraction type (e.g. `Logger` for an `ILogger`). This is called the RESOLVE step. In more detail:
+We need some extra help from our framework to solve the two problems we concluded the previous chapter with: an __Inversion of Control (IoC)__ container (also called as Dependency Injection container). __Dependency Injection container__ is a widely used alternative name for the same tool/technique. In an IoC container we can store abstraction type -> implementation type mappings, such as ILogger->Logger, IMailSender->EMailSender, etc. This is called the REGISTER step. And then based on these mappings create an implementation type for a specific abstraction type (e.g. `Logger` for an `ILogger`). This is called the RESOLVE step. In more detail:
 
 1. __REGISTER__: Register dependency mappings (e.g. `ILogger`-> `Logger`, `IMailSender`-> `EMailSender`) into an IoC container, once, at a centralized location, at application startup. This is the __REGISTER__ step of the DI process.
    * Note: This solves "problem 2" pointed out at the end of the previous chapter: the mappings are centralized, and not scattered all over the application code base.
@@ -313,49 +315,51 @@ We need some extra help from our framework to solve the two problems we conclude
     * The resolve step is typically done at the "__entry point__" of the application (e.g. in case of WebApi on the receival of web requests, we will look into this later). The __resolve step is performed only for the ROOT OBJECT__ (e.g. for the appropriate Controller class in case of WebApi). The container creates and returns a root object and all its dependencies and all its indirect dependencies: an entire object graph is generated. This process is called __AUTOWIRING__.
     * Note: In case of Web API calls, the Resolve step is executed by the Asp.Net framework and is mostly hidden from the developer: all we see is that our controller class is automatically instantiated and all constructor parameters are automatically populated (with the help of the IoC container based on the mappings of the REGISTER step).
 
-Fortunately, .NET Core has a built in IoC container based dependency injection service.
+Fortunately, .NET has a built in IoC container based dependency injection service.
 Now we elucidate and illustrate the complete mechanism (register and resolve steps) using our enhanced e-mail notification solution as an example.
 
 ### 1) REGISTER step (registering dependencies)
 
-In an Asp.Net Core environment, dependencies are registered by the `ConfigureServices (IServiceCollection services)` function of our `Startup` class, namely by the __AddSingleton__, __AddTransient__ and __AddScoped__ operations of `IServiceCollection`. First, let's focus on the most exciting parts of `ConfigureServices`:
+In an Asp.Net Core environment, dependencies are registered in the 'Program.cs' file. This file has code that is executed at application startup. The code parts located here and which are relevant for us:
 
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // ...
-        services.AddSingleton<ILogger, Logger>();
-        services.AddTransient<INotificationService, NotificationService>();
-        services.AddScoped<IContactRepository, ContactRepository>();
-        services.AddSingleton<IEMailSender, EMailSender>(
-            sp => new EMailSender(sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
-        // ...
-    }
+var builder = WebApplication.CreateBuilder(args);
+
+// ...
+builder.Services.AddSingleton<ILogger, Logger>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddSingleton<IEMailSender, EMailSender>(
+    sp => new EMailSender(sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
+// ...
 ```
 
-`Startup.ConfigureServices` is called by the framework at application startup. We receive an `IServiceCollection services` object as parameter: this represents the IoC container created and initialized by the framework. We can register our own dependency mappings into this container. The
+The first line creates a `builder` object, whose `Services` property is an object implementing the `IServiceCollection`  interface. This represents the IoC container created by the framework, this can be used to register our dependency mappings as well, namely the  __AddSingleton__, __AddTransient__ and __AddScoped__ operations of `IServiceCollection` interface can be used to register them.
+
+!!! note "Note"
+    In .NET versions prior to .NET 6 the instead of `Program.cs` the `ConfigureServices` operation of the `Startup` class was used to register these dependencies.
+
+The
 
 ```csharp
-services.AddSingleton<ILogger, Logger>();
+builder.Services.AddSingleton<ILogger, Logger>();
 ```
 
 line registers an `ILogger`-> `Logger` type mapping, and the `Logger` is registered as a singleton, as we used the __AddSingleton__ operation for registration. This means that if we later ask the container for an `ILogger` object (provide `ILogger` as key at the resolve step), we will get a `Logger` object from the container, and always __the same instance__. The
 
 ```csharp
-services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 ```
 
 line registers an `INotificationService`-> `NotificationService` transient type mapping, as we used the __AddTransient__ operation for registration. This means that if we later ask the container for an `INotificationService` object (provide `INotificationService` as key at the resolve step), we will get a __separate newly created instance__ of `NotificationService` object from the container, for each query/resolve.
 
 ```csharp
-services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 ```
 
 line registers an `IContactRepository`-> `ContactRepository` scoped type mapping, as we used the __AddScoped__ operation for registration. This means that if we later ask the container for an `IContactRepository` object (provide `IContactRepository` as key at the resolve step), we will get a `NotificationService` object, which will be the  __same instance for the same scope__, and a different instance for different scopes. For a Web API based application one web request is handled within one scope. Consequently, we receive the same instance of a class turning to the container multiple times within the same web request, but different ones when the web requests are different.
 
-We can see additional registrations in the sample application's `Startup.ConfigureServices` method, which we will return to later.
+We can see additional registrations in the sample application, which we will return to later.
 
 ### 2) RESOLVE step (resolving dependencies)
 
@@ -383,6 +387,7 @@ void SimpleResolve(IServiceProvider sp)
     // namespace via the using statement.
     // Returns an instance of the Logger class, see explanation above.
     var logger2 = sp.GetService<ILogger>();
+
     // GetService returns null if no type mapping is found for the specific type (ILogger)
     // GetRequiredService throws an exception instead.
     var logger3 = sp.GetRequiredService<ILogger>();
@@ -424,7 +429,7 @@ Besides making our solution IoC container based, we make a few further changes t
 
 ![Object graph 3](./images/object-graph-3.svg)
 
-In the previous two chapters, we have assumed that a `IServiceProvider` object is available to call `GetService`. If we create a container ourselves, then this assumption is valid. However, only in the rarest cases do we create a container directly. In a typical ASP.NET Web API application, the container is created by the framework and is not directly accessible to us. Consequently, access to `IServiceProvider ', with the exception of a few startup and configuration points, is not available. The good news is that actually we don't need access to the container. __The core concept of DI is that we perform dependency resolution only at the application entry point for the "root object".__ In case of Web API apps, the entry point is a call to an operation of a Controller class serving the specific API request. When a request is received, the framework determines and creates the Controller / ControllerBase child class based on the Url and rooting rules. If the controller class has dependencies (has constructor parameters), they are also resolved based on the container registration mappings, including indirect dependencies. The complete object graph is created, __the root object is the controller class__.
+In the previous two chapters, we have assumed that a `IServiceProvider` object is available to call `GetService`. If we create a container ourselves, then this assumption is valid. However, only in the rarest cases do we create a container directly. In a typical ASP.NET Web API application, the container is created by the framework and is not directly accessible to us. Consequently, access to `IServiceProvider ', with the exception of a few startup and configuration points, is not available. The good news is that actually we don't need access to the container. __The core concept of DI is that we perform dependency resolution only at the application entry point for the "root object".__ In case of Web API apps, the entry point is a call to an operation of a Controller class serving the specific API request. When a request is received, the framework determines and creates the Controller / ControllerBase child class based on the Url and routing rules. If the controller class has dependencies (has constructor parameters), they are also resolved based on the container registration mappings, including indirect dependencies. The complete object graph is created, __the root object is the controller class__.
 
 Let's take a look at this in practice by refining our previous example with the addition of a `TodoController` class:
 
@@ -490,15 +495,12 @@ In applications, especially in Asp.Net Core based ones, there are two ways to us
 
 To accomplish this latter approach, ASP.NET Core provides a handy built-in DI based solution: when we configure our container with the type mappings at startup, we also register our DbContext class, which is then later automatically injected for our __Controller__ and other (typically repository) dependencies.
 
-Let's see how our `TodoContext` (`DbContext` derived) class is registered in our example. The place of the registration is the usual `Startup.ConfigureServices`:
+Let's see how our `TodoContext` (`DbContext` derived) class is registered in our example. The place of the registration is the usual `Program.cs` file (`Startup.ConfigureServices` for .NET versions prior to .NET 6):
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    // ...
-    services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
-    // ...
-}
+// ...
+builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+// ...
 ```
 
 `AddDbContext` is an extension method defined by the framework for the `IServiceCollection` interface. This allows convenient registration of our `DbContext` class. We do not see into the implementation of `AddDbContext`, but actually it simply performs a scoped registration of our context type into the container:
@@ -527,12 +529,12 @@ This lambda expression is called by the container later at the resolve step - th
 !!! note ""
     Not compulsory material.
 
-Let's cover code parts of `Startup.ConfigureServices` we skipped previously.
+Let's cover code service registration related parts of `Program.cs` we skipped previously.
 
 The registration of `EMailSender` looks quite tricky:
 
 ```csharp
-services.AddSingleton<IEMailSender, EMailSender>(
+builder.Services.AddSingleton<IEMailSender, EMailSender>(
     sp => new EMailSender(sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
 ```
 
@@ -556,10 +558,10 @@ The particularities of the DI container built in ASP.NET Core:
 
 * It provides basic services required by most applications (e.g., does not support property injection).
     * If you need more DI related functionality, you can use another IoC container Asp.Net Core can work with.
-    * Several Dependecy Injection / IoC container class libraries exist that can be used with .NET Core, with .NET Framework, or with both. A few examples: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF, ...
+    * Several Dependecy Injection / IoC container class libraries exist that can be used with .NET, with .NET Framework, or with both. A few examples: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF, ...
 * It's implemented in the __Microsoft.Extensions.DependencyInjection__ NuGet package.
     * For Asp.Net Core applications, it is automatically installed when the Asp.Net project is created. In fact, as we have seen, Asp.Net Core middleware heavily relies on it, it's a key pillar of runtime configuration and extensibility.
-    * For other .NET Core applications (e.g. a simple .NET Core based console app), you need to add it manually by installing the Microsoft.Extensions.DependencyInjection NuGet package for the project.
+    * For other .NET applications (e.g. a simple .NET Core based console app), you need to add it manually by installing the Microsoft.Extensions.DependencyInjection NuGet package for the project.
     * Note: the NuGet package can be used with the (full) .NET Framework as well as it supports .NET Standard.
 
 ### The Service Locator antipattern
@@ -570,16 +572,18 @@ Dependency injection is not the only way of using an IoC container. Another tech
 
 Asp.Net Core has several built in services. E.g. it has support for Web API, and support for Razor Pages or MVC based web applications. These all rely on the DI services of Asp.Net Core.
 
-The `Startup.ConfigureServices` method of an Asp.Net Web API application has to have this piece of code:
+In case of an Asp.Net Web API application at application startup we have to run this piece of code (this is automatically added by VS at project creation):
 
 ```csharp
-services.AddMvc()
-    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+builder.Services.AddControllers();
 ```
 
-`AddMvc` is a built in extension method for the `IServiceProvider` interface, which registers numerous (far more than 100!) service and configuration classes into the container required by the internals of the Web API middleware/pipeline.
+!!! note
+    In case of .NET version preceding .NET 6 `services.AddMvc()` had to be called from the `ConfigureServices` operation of our `Startup` class.
 
-Starting from .NET Core 3.0 the situation is different: instead of calling AddMvc() we typically call AddControllers(), which is a more lightweight option, resulting in significantly less container registrations.
+`AddControllers` is a built in extension method for the `IServiceProvider` interface, which registers numerous (far more than 100!) service and configuration classes into the container required by the internals of the Web API middleware/pipeline.
+
+
 
 ### Disposing service objects
 
