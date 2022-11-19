@@ -633,11 +633,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pelda-3-fazis-fuggosegek-injektalasa-net-core-dependency-injection-alapokon" class="md-nav__link">
-    Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon
+  <a href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon" class="md-nav__link">
+    Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon
   </a>
   
-    <nav class="md-nav" aria-label="Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon">
+    <nav class="md-nav" aria-label="Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1153,11 +1153,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pelda-3-fazis-fuggosegek-injektalasa-net-core-dependency-injection-alapokon" class="md-nav__link">
-    Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon
+  <a href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon" class="md-nav__link">
+    Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon
   </a>
   
-    <nav class="md-nav" aria-label="Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon">
+    <nav class="md-nav" aria-label="Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1286,6 +1286,7 @@
                 
                 
                 <h1 id="fuggoseginjektalas-aspnet-core-kornyezetben">Függőséginjektálás ASP.NET Core környezetben<a class="headerlink" href="#fuggoseginjektalas-aspnet-core-kornyezetben" title="Permanent link">&para;</a></h1>
+<p>Benedek Zoltán, 2022.11.19</p>
 <div class="admonition abstract">
 <p class="admonition-title">Definíció</p>
 <p>Függőséginjektálás (<strong>Dependency Injection</strong>, röviden DI) egy tervezési minta. A fejlesztőket segíti abban, hogy az alkalmazás egyes részei laza csatolással kerüljenek kialakításra.</p>
@@ -1432,7 +1433,7 @@
 </ol>
 <p>A következő lépésben úgy alakítjuk át a megoldásunkat, hogy a negatívumok többségétől meg tudjunk szabadulni.</p>
 <h2 id="pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal">Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással<a class="headerlink" href="#pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal" title="Permanent link">&para;</a></h2>
-<p>A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a <strong>függőségeket absztrakciókra, "interfész alapokra" helyezzük</strong>, és <strong>az osztályok nem maguk példányosítják a függőségeiket</strong>.</p>
+<p>A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a <strong>függőségeket absztrakciókra, "interfész alapokra" helyezzük</strong>, és <strong>az osztályok nem maguk példányosítják a függőségeiket</strong> (a változtatások részletesebb kifejtése a kódblokk után olvasható).</p>
 <div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ToDoService</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="kt">string</span> <span class="n">smtpAddress</span> <span class="p">=</span> <span class="s">&quot;smtp.myserver.com&quot;</span><span class="p">;</span>
@@ -1567,8 +1568,8 @@
 <li>Ezáltal egyrészt egy helyen, könnyen át tudnánk tekinteni a leképezéseinket.</li>
 <li>Másrészt ha meg akarjuk változtatni az egyik leképezést (pl. ILogger esetén Logger helyett AdvancedLogger használata), azt elég egy központi helyen megtenni.</li>
 </ol>
-<h2 id="pelda-3-fazis-fuggosegek-injektalasa-net-core-dependency-injection-alapokon">Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon<a class="headerlink" href="#pelda-3-fazis-fuggosegek-injektalasa-net-core-dependency-injection-alapokon" title="Permanent link">&para;</a></h2>
-<p>Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy <strong>Inversion of Control (IoC)</strong> konténerre. Egy IoC konténerbe absztrakciós típus -&gt; implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:</p>
+<h2 id="pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon">Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon<a class="headerlink" href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon" title="Permanent link">&para;</a></h2>
+<p>Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy <strong>Inversion of Control (IoC)</strong> konténerre (melyre DI, Dependency Injection konténerként is szokás hivatkozni). Egy IoC konténerbe absztrakciós típus -&gt; implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:</p>
 <ol>
 <li><strong>REGISTER (regisztráció)</strong>: Az alkalmazás indulásakor egyszer, <strong>központosítva</strong> egy Inversion of Control (IoC) konténerbe beregisztráljuk a függőségi leképezéseket (pl. ILogger-&gt;Logger, IMailSender-&gt;EMailSender). Ez a DI folyamat <strong>REGISTER</strong> lépése.<ul>
 <li>Megjegyzés: ezzel megoldottuk az előző fejezetben felvezetett 2. problémát, a leképezéseket egy központi helyen és nem az alkalmazásban szétszórva adjuk meg.</li>
@@ -1580,33 +1581,35 @@
 </ul>
 </li>
 </ol>
-<p>Szerencsére a .NET Core rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.</p>
+<p>Szerencsére a .NET rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.</p>
 <h3 id="1-register-lepes-fuggosegek-beregisztralasa">1) REGISTER lépés (függőségek beregisztrálása)<a class="headerlink" href="#1-register-lepes-fuggosegek-beregisztralasa" title="Permanent link">&para;</a></h3>
-<p>Asp.Net Core környezetben a függőségek beregisztrálása a <code>Startup</code> osztályunk <code>ConfigureServices(IServiceCollection services)</code> műveletében történik, mégpedig az IServiceCollection <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel. Első lépésben fókuszáljunk a <code>ConfigureServices</code> számunka legizgalmasabb részeire:</p>
-<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Startup</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// ...</span>
-        <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">,</span> <span class="n">Logger</span><span class="p">&gt;();</span>
-        <span class="n">services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">INotificationService</span><span class="p">,</span> <span class="n">NotificationService</span><span class="p">&gt;();</span>
-        <span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span> <span class="n">ContactRepository</span><span class="p">&gt;();</span>
-        <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span> <span class="n">EMailSender</span><span class="p">&gt;(</span>
-            <span class="n">sp</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">EMailSender</span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;(),</span> <span class="s">&quot;smtp.myserver.com&quot;</span><span class="p">)</span> <span class="p">);</span>
-        <span class="c1">// ...</span>
-    <span class="p">}</span>
+<p>Asp.Net Core környezetben a függőségek beregisztrálása a 'Program.cs' fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">WebApplication</span><span class="p">.</span><span class="n">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">,</span> <span class="n">Logger</span><span class="p">&gt;();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">INotificationService</span><span class="p">,</span> <span class="n">NotificationService</span><span class="p">&gt;();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span> <span class="n">ContactRepository</span><span class="p">&gt;();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span> <span class="n">EMailSender</span><span class="p">&gt;(</span>
+    <span class="n">sp</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">EMailSender</span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;(),</span> <span class="s">&quot;smtp.myserver.com&quot;</span><span class="p">)</span> <span class="p">);</span>
+<span class="c1">// ...</span>
 </code></pre></div>
-<p>A <code>Startup.ConfigureServices</code>-t a keretrendszer hívja az alkalmazás indulásakor. Paraméterben egy <code>IServiceCollection</code> services objektumot kapunk, számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A</p>
-<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">,</span> <span class="n">Logger</span><span class="p">&gt;();</span>
+<p>Az első sor egy <code>builder</code> objektumot hozd létre, ennek <code>Services</code> propertyje egy <code>IServiceCollection</code> típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen <code>IServiceCollection</code> interfész <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel történik.</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>.NET 6-ot megelőző verziókban nem a <code>Program.cs</code> fájlban, hanem egy <code>Startup</code> nevű osztály <code>ConfigureServices</code> műveletében történt a függőségek beregisztrálása.</p>
+</div>
+<p>A</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">,</span> <span class="n">Logger</span><span class="p">&gt;();</span>
 </code></pre></div>
 <p>sorral <code>ILogger</code> típusként a <code>Logger</code> implementációs típust regisztráljuk be (ILogger-&gt;Logger leképzés), mégpedig az <strong>AddSingleton</strong> művelet hatására <strong>singleton</strong>-ként. Ez azt jelenti, hogy ha később a konténertől egy <code>ILogger</code> objektumot kérünk (resolve), a konténertől egy <code>Logger</code> objektumot kapunk, mégpedig mindig <strong>ugyanazt a példányt</strong>. A</p>
-<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">INotificationService</span><span class="p">,</span> <span class="n">NotificationService</span><span class="p">&gt;();</span>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">INotificationService</span><span class="p">,</span> <span class="n">NotificationService</span><span class="p">&gt;();</span>
 </code></pre></div>
 <p>sorral <code>INotificationService</code> típusként a <code>NotificationService</code> implementációs típust regisztráljuk be (INotificationService-&gt;NotificationService leképzés), mégpedig az <strong>AddTransient</strong> művelet hatására <strong>tranziens</strong> módon. Ez azt jelenti, hogy ha később a konténertől egy <code>INotificationService</code> objektumot kérünk (resolve), a konténertől egy <code>NotificationService</code> objektumot kapunk, mégpedig minden lekérdezéskor egy <strong>újonnan létrehozott példányt</strong>. A</p>
-<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span> <span class="n">ContactRepository</span><span class="p">&gt;();</span>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span> <span class="n">ContactRepository</span><span class="p">&gt;();</span>
 </code></pre></div>
 <p>sor <code>IContactRepository</code> típusként a <code>ContactRepository</code> implementációs típust regisztrálja be (IContactRepository-&gt;ContactRepository leképzés), mégpedig az <strong>AddScoped</strong> művelet hatására <strong>scope-olt</strong> módon. Ez azt jelenti, hogy ha később a konténertől <code>IContactRepository</code> objektumot kérünk (resolve),  <code>ContactRepository</code> objektumot kapunk, mégpedig <strong>adott hatókörön belül ugyanazt</strong>, eltérő hatókörökben másokat. A Web API alkalmazásoknál egy-egy API kérés kiszolgálása számít egy-egy megfelelő hatókörnek: vagyis a konténertől egy kérés kiszolgálása során ugyanazt az objektumpéldányt, eltérő kérések esetén másokat kapunk.</p>
-<p>A mintaalkalmazás <code>Startup.ConfigureServices</code>-ben további regisztrációkkal is találkozunk, ezekre később térünk vissza.</p>
+<p>A mintaalkalmazásunkban további regisztrációkkal is találkozunk, ezekre később térünk vissza.</p>
 <h3 id="2-resolve-lepes-fuggosegek-feloldasa">2) RESOLVE lépés (függőségek feloldása)<a class="headerlink" href="#2-resolve-lepes-fuggosegek-feloldasa" title="Permanent link">&para;</a></h3>
 <h4 id="alapok">Alapok<a class="headerlink" href="#alapok" title="Permanent link">&para;</a></h4>
 <p>Jelen pillanatban ott tartunk, hogy az alkalmazás indulásakor beregisztráltuk a szolgáltatás típusok függőségi leképezéseit az ASP.NET Core IoC konténerébe. A típusleképezéseink a következők:</p>
@@ -1629,6 +1632,7 @@
     <span class="c1">// Mivel az ILogger típushoz a Logger osztályt regisztráltuk,</span>
     <span class="c1">// egy Logger példánnyal tér vissza.</span>
     <span class="kt">var</span> <span class="n">logger2</span> <span class="p">=</span> <span class="n">sp</span><span class="p">.</span><span class="n">GetService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;();</span>
+
     <span class="c1">// Míg a GetService null-t ad vissza, ha nem sikerül feloldani a</span>
     <span class="c1">// konténer alapján a hivatkozást, a GetRequiredService kivételt dob.</span>
     <span class="kt">var</span> <span class="n">logger3</span> <span class="p">=</span> <span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;();</span>
@@ -1666,9 +1670,9 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
 <p><img alt="Object graph 2" src="images/object-graph-2.svg" /></p>
 <p>A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével (a gyakorlatban jellemzően a konstruktor paraméterek felderítésével) a beregisztrált absztrakció-&gt;implementáció leképezések alapján képes objektumgráfokat előállítani <strong>autowiring</strong>-nek nevezzük.</p>
 <h4 id="fuggosegfeloldas-aspnet-web-api-osztalyok-eseten">Függőségfeloldás ASP.NET Web API osztályok esetén<a class="headerlink" href="#fuggosegfeloldas-aspnet-web-api-osztalyok-eseten" title="Permanent link">&para;</a></h4>
-<p>Azon túl, hogy a megoldásunkat konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A <code>ToDoService</code> osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core <code>ControllerBase</code> leszármazott <code>TodoController</code> osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A <code>ToDoService</code> osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework <code>DbContext</code> leszármazott <code>TodoContext</code> osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:</p>
+<p>Azon túl, hogy a megoldásunkat IoC konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A <code>ToDoService</code> osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core <code>ControllerBase</code> leszármazott <code>TodoController</code> osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A <code>ToDoService</code> osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework <code>DbContext</code> leszármazott <code>TodoContext</code> osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:</p>
 <p><img alt="Object graph 3" src="images/object-graph-3.svg" /></p>
-<p>Az előző két fejezetben feltettük, hogy a <code>GetService</code> hívásához egy <code>IServiceProvider</code> objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében <code>IServiceProvider</code>hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. <strong>A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.</strong>  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a rooting szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, <strong>a root object maga a controller osztály</strong>.</p>
+<p>Az előző két fejezetben feltettük, hogy a <code>GetService</code> hívásához egy <code>IServiceProvider</code> objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében <code>IServiceProvider</code>hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. <strong>A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.</strong>  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a routing szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, <strong>a root object maga a controller osztály</strong>.</p>
 <p>Nézzük ezt a gyakorlatban a korábbi példánk továbbfejlesztésével, melyet egy <code>TodoController</code> osztállyal egészítettünk ki:</p>
 <div class="highlight"><pre><span></span><code><span class="na">[Route(&quot;api/[controller]</span><span class="s">&quot;)]</span>
 <span class="na">[ApiController]</span>
@@ -1727,13 +1731,10 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
 <li>A <code>DbContext</code>-et beérkező kérésenként hozzuk létre, egy kérésen belül viszont megosztottan ugyanazt az objektumpéldányt használják az osztályaink. Ez esetben a <code>DbContext</code>-re mint egy osztályok között megosztott repository-ra, pontosabban unit of work-re gondolunk. A bejövő kérés során egy <code>DbContext</code> objektumot hozunk létre, és ezt injektáljuk be az erre építő osztályoknak.</li>
 </ul>
 <p>Ez utóbbi megközelítés megvalósítására remek kézre eső beépített DI alapú megoldást nyújt az ASP.NET Core:  a konténerbe induláskor beregisztráljuk a DbContext osztályunkat, mely így a <strong>Controller</strong> és egyéb függőségei számára automatikusan beinjektálásra kerül.</p>
-<p>Nézzük meg, hogyan is történik a <code>TodoContext</code> <code>DbContext</code> leszármazott osztályunk beregisztrálása a példánkban. A regisztráció helye a szokásos <code>Startup.ConfigureServices</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">TodoContext</span><span class="p">&gt;(</span><span class="n">opt</span> <span class="p">=&gt;</span> <span class="n">opt</span><span class="p">.</span><span class="n">UseInMemoryDatabase</span><span class="p">(</span><span class="s">&quot;TodoList&quot;</span><span class="p">));</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<p>Nézzük meg, hogyan is történik a <code>TodoContext</code> <code>DbContext</code> leszármazott osztályunk beregisztrálása a példánkban. A regisztráció helye a szokásos <code>Program.cs</code> fájl (.NET 6 előtt a szokásos <code>Startup.ConfigureServices</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ...</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">TodoContext</span><span class="p">&gt;(</span><span class="n">opt</span> <span class="p">=&gt;</span> <span class="n">opt</span><span class="p">.</span><span class="n">UseInMemoryDatabase</span><span class="p">(</span><span class="s">&quot;TodoList&quot;</span><span class="p">));</span>
+<span class="c1">// ...</span>
 </code></pre></div>
 <p>Az <code>AddDbContext</code> egy a keretrendszer által az <code>IServiceCollection</code> interfészre definiált extension method. Ez a <code>DbContext</code> osztályunk kényelmes beregisztrációját teszi lehetővé. Ennek belsejébe nem látunk bele, mindenesetre lelke a scope-ot regisztráció. "Pszeudokóddal":</p>
 <div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">TodoContext</span><span class="p">,</span> <span class="n">TodoContext</span><span class="p">&gt;();</span>
@@ -1752,9 +1753,9 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
 <div class="admonition note">
 <p>Nem kötelező tananyag.</p>
 </div>
-<p>Térjünk ki a <code>Startup.ConfigureServices</code> korábban nem ismertetett részeire.</p>
+<p>Térjünk ki a <code>Program.cs</code> fájl korábban nem ismertetett szolgáltatásregisztrációs részeire.</p>
 <p>Az <code>EMailSender</code> beregisztrálása első ránézésre egészen trükkösnek tűnik:</p>
-<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span> <span class="n">EMailSender</span><span class="p">&gt;(</span>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span> <span class="n">EMailSender</span><span class="p">&gt;(</span>
     <span class="n">sp</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">EMailSender</span>   <span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;(),</span> <span class="s">&quot;smtp.myserver.com&quot;</span><span class="p">)</span> <span class="p">);</span>
 </code></pre></div>
 <p>A jobb megértés érdekében nézzük meg az EMailSender konstruktorát:</p>
@@ -1767,26 +1768,28 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
 <p>Az <code>EMailSender</code>t a konténernek kell majd a feloldás során példányosítania, ehhez a konstruktor paramétereket megfelelően meg kell tudni adnia. A logger paraméter teljesen "rendben van", a konténer ILogger-&gt;Logger regisztrációja alapján a konténer fel tudja oldani. Az <code>smtpAddress</code> paraméter értékét viszont nem tudja kitalálni. Az ASP.NET Core a probléma megoldására a keretrendszer "options" mechanizmusát javasolja, mely lehetővé teszi, hogy az értéket valamilyen konfigurációból olvassuk be. Ez számunkra egy messzire vezető szál lenne, így egyszerűsítésképpen más megoldáshoz folyamodtunk. Az <code>AddSingleton</code> (és a többi Add... műveletnek) van olyan overloadja, melyben egy lambda kifejezést tudunk megadni. Ezt a lambdát a konténer a későbbiekben a resolve során (vagyis amikor egy <code>IEMailSender</code> alapján egy <code>EMailSender</code>t kérünk a konténertől) hívja, minden egyes példányosítás során: ebben mi magunk példányosítjuk az <code>EMailSender</code> objektumot, a konstruktor paramétereket az igényeink szerint meghatározva. Sőt, a konténer "van olyan kedves", hogy lambda paraméterben kapunk egy <code>IServiceCollection</code> objektumot (példánkban ez az <code>sp</code>), és ezzel a konténerben már meglévő regisztrációk alapján a <code>GetRequiredService</code> és <code>GetService</code> hívásokkal kényelmesen tudunk típusokat feloldani, amennyiben szükség van rá.</p>
 <h2 id="tovabbi-temakorok">További témakörök<a class="headerlink" href="#tovabbi-temakorok" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-injectionioc-kontenerek-altalanossagaban">Dependency Injection/IoC konténerek általánosságában<a class="headerlink" href="#dependency-injectionioc-kontenerek-altalanossagaban" title="Permanent link">&para;</a></h3>
-<p>A .NET Core beépített DI konténer jellemzői:</p>
+<p>A .NET beépített DI konténer jellemzői:</p>
 <ul>
 <li>Alapszolgáltatásokat nyújt (pl. property injection-t nem támogat).</li>
 <li>Ha ennél többre van szükség, használhatunk más IoC konténert is, az ASP.NET Core együtt tud működni vele.</li>
 <li>Számos .NET (legyen az .NET Core, .NET Framework vagy mindkettő) környezetben használható Dependecy Injection/IoC konténer osztálykönyvtár létezik, pl.: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF.</li>
 <li>Microsoft.Extensions.DependencyInjection NuGet package-ben van implementálva (az alapnévtér is ez)</li>
 <li>ASP.NET Core alkalmazások esetén már a .NET projekt létrehozásakor telepítve van. Sőt, mint láttuk: az ASP.NET Core middleware intenzíven használja és épít rá, a runtime konfiguráció/kiterjeszthetőség alappillére.</li>
-<li>Egyéb .NET Core alkalmazások esetén (pl. Console) a Microsoft.Extensions.DependencyInjection NuGet package-dzsel manuálisan kell telepíteni.</li>
+<li>Egyéb .NET alkalmazások esetén (pl. Console) a Microsoft.Extensions.DependencyInjection NuGet package-dzsel manuálisan kell telepíteni.</li>
 <li>Megjegyzés: a NuGet package használható (teljes) .NET Frameworkkel is, mivel .NET Standard-et támogat.</li>
 </ul>
 <h3 id="service-locator-antipattern">Service Locator antipattern<a class="headerlink" href="#service-locator-antipattern" title="Permanent link">&para;</a></h3>
 <p>Az IoC konténerek használatának a dependency injectionnel szemben van egy másik használati módja. Ennek az a lényege, hogy az osztályok számára nem konstruktor paraméterekben adjuk át/injektáljuk be a függőségeiket, hanem azokat az osztályok a metódusaikban az IoC konténertől a GetService művelettel magunk kérdezik le. Ezt a megközelítést <strong>Service Locator</strong> mintának nevezzük. Ez <strong>antipattern</strong>-nek tekintendő, ugyanis a kódban szétszórtan, minden egyes függőség feloldásakor használjuk a konténert, így a kódunk nagy része függeni fog magától a konténertől! Ezzel szemben a dependency injection esetében a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-ekre végezzük el, a kódunk többi része teljesen független a konténertől. Vegyük észre, hogy a korábbi példánkban a  TodoController, NotificationService, EMailSender, Logger és ContactRepository osztályainkban sehol nem hivatkoztunk a konténerre (sem IServiceProvider-ként, sem más módon).</p>
 <h3 id="aspnet-core-keretrendszer-szolgaltatasok">ASP.NET Core keretrendszer szolgáltatások<a class="headerlink" href="#aspnet-core-keretrendszer-szolgaltatasok" title="Permanent link">&para;</a></h3>
-<p>Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen az (MVC) alapú Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás.Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.</p>
-<p>ASP.NET Web API esetén a <code>Startup.ConfigureServices</code>-ben szerepelnie kell az alábbi sornak:</p>
-<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">SetCompatibilityVersion</span><span class="p">(</span><span class="n">CompatibilityVersion</span><span class="p">.</span><span class="n">Version_2_1</span><span class="p">);</span>
+<p>Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen a Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás.Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.</p>
+<p>ASP.NET Web API esetén az alkalmazás indulásakor be kell regisztráljunk számos Web API-hoz tartozó "segéd" szolgáltatást a DI konténerbe az alábbi módon (ezt a Program.cs fájlba a VS automatikusan beteszi a projekt létrehozásakor):</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddControllers</span><span class="p">();</span>
 </code></pre></div>
-<p>Az <code>AddMvc</code> egy beépített extension metod az <code>IServiceProvider</code> interfészre vonatkozóan, mely számos (messze 100 feletti darabszámú!), a Wep API middleware/pipeline belső működéséhez és konfigurációjához szükséges szolgáltatás és konfigurációs objektumot regisztrál a konténerbe.</p>
-<p>.NET Core 3.0-tól kezdve a helyzet némiképp más. Az <code>AddMvc()</code> hívása helyett jellemzően az <code>AddControllers()</code> műveletet hívjuk, mely jelentősen kevesebb konténerregisztrációt von magával.</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>.NET 6 előtti .NET verziókban a <code>Startup.cs</code> fájl <code>Startup.ConfigureServices</code>-ben a <code>services.AddMvc()</code> sort kellett beszúrni.</p>
+</div>
+<p>Az <code>AddControllers</code> egy beépített extension method az <code>IServiceProvider</code> interfészre vonatkozóan, mely számos, a Wep API middleware/pipeline belső működéséhez és konfigurációjához szükséges szolgáltatás és konfigurációs objektumot regisztrál a konténerbe.</p>
 <h3 id="szolgaltatas-objektumok-dispose-olasa">Szolgáltatás objektumok dispose-olása<a class="headerlink" href="#szolgaltatas-objektumok-dispose-olasa" title="Permanent link">&para;</a></h3>
 <p>A konténer az általa létrehozott objektumokra <code>Dispose</code>-t hív, amennyiben az objektumok osztálya implementálja az <code>IDisposable</code> interfészt.</p>
 <h3 id="irodalom">Irodalom<a class="headerlink" href="#irodalom" title="Permanent link">&para;</a></h3>
