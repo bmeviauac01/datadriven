@@ -311,7 +311,7 @@ Szerencsére a .NET rendelkezik IoC Container alapú dependency injection szolg�
 
 ### 1) REGISTER lépés (függőségek beregisztrálása)
 
-Asp.Net Core környezetben a függőségek beregisztrálása a 'Program.cs' fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:
+Asp.Net Core környezetben a függőségek beregisztrálása a `Program.cs` fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -325,7 +325,7 @@ builder.Services.AddSingleton<IEMailSender, EMailSender>(
 // ...
 ```
 
-Az első sor egy `builder` objektumot hozd létre, ennek `Services` propertyje egy `IServiceCollection` típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen `IServiceCollection` interfész __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel történik.
+Az első sor egy `builder` objektumot hoz létre, ennek `Services` propertyje egy `IServiceCollection` típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen `IServiceCollection` interfész __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel történik.
 
 !!! note "Megjegyzés"
     .NET 6-ot megelőző verziókban nem a `Program.cs` fájlban, hanem egy `Startup` nevű osztály `ConfigureServices` műveletében történt a függőségek beregisztrálása.
