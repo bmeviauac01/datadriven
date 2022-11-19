@@ -1,5 +1,7 @@
 # Függőséginjektálás ASP.NET Core környezetben
 
+Benedek Zoltán, 2022.11.19
+
 !!! abstract "Definíció"
     Függőséginjektálás (__Dependency Injection__, röviden DI) egy tervezési minta. A fejlesztőket segíti abban, hogy az alkalmazás egyes részei laza csatolással kerüljenek kialakításra.
 
@@ -157,7 +159,7 @@ A következő lépésben úgy alakítjuk át a megoldásunkat, hogy a negatívum
 
 ## Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással
 
-A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a __függőségeket absztrakciókra, "interfész alapokra" helyezzük__, és __az osztályok nem maguk példányosítják a függőségeiket__.
+A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a __függőségeket absztrakciókra, "interfész alapokra" helyezzük__, és __az osztályok nem maguk példányosítják a függőségeiket__ (a változtatások részletesebb kifejtése a kódblokk után olvasható).
 
 ```csharp
 public class ToDoService
@@ -295,9 +297,9 @@ Megoldásunkban a `NotificationService` függőségeit az osztály (közvetlen) 
    * Ezáltal egyrészt egy helyen, könnyen át tudnánk tekinteni a leképezéseinket.
    * Másrészt ha meg akarjuk változtatni az egyik leképezést (pl. ILogger esetén Logger helyett AdvancedLogger használata), azt elég egy központi helyen megtenni.
 
-## Példa 3. fázis - függőségek injektálása .NET Core Dependency Injection alapokon
+## Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon
 
- Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy __Inversion of Control (IoC)__ konténerre. Egy IoC konténerbe absztrakciós típus -> implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:
+ Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy __Inversion of Control (IoC)__ konténerre (melyre DI, Dependency Injection konténerként is szokás hivatkozni). Egy IoC konténerbe absztrakciós típus -> implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:
 
 1. __REGISTER (regisztráció)__: Az alkalmazás indulásakor egyszer, __központosítva__ egy Inversion of Control (IoC) konténerbe beregisztráljuk a függőségi leképezéseket (pl. ILogger->Logger, IMailSender->EMailSender). Ez a DI folyamat __REGISTER__ lépése.
     * Megjegyzés: ezzel megoldottuk az előző fejezetben felvezetett 2. problémát, a leképezéseket egy központi helyen és nem az alkalmazásban szétszórva adjuk meg.
@@ -305,48 +307,50 @@ Megoldásunkban a `NotificationService` függőségeit az osztály (közvetlen) 
     * A resolve lépést az alkalmazás "__belépési pontjában__" tesszük meg (pl. WebApi esetén az egyes API kérések beérkezésekor). A feloldást a konténertől csak a "__ROOT OBJECT__"-re (pl. WebApi esetén a megfelelő Controller osztályra) kérjük explicit módon: ez legyártja a root objectet, illetve annak valamennyi függőségét, és valamennyi közvetett függőségét: előáll egy objektumgráf.  Ez az __AUTOWIRING__ folyamata.
     * Megjegyzés: Web API esetén a Resolve lépést a keretrendszer végzi el: mi csak annyit tapasztalunk, hogy a controller osztályunk automatikusan példányosítódik, és valamennyi konstruktor paramétere automatikusan kitöltésre kerül (a REGISTER lépés regisztrációi alapján).
 
-Szerencsére a .NET Core rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.
+Szerencsére a .NET rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.
 
 ### 1) REGISTER lépés (függőségek beregisztrálása)
 
-Asp.Net Core környezetben a függőségek beregisztrálása a `Startup` osztályunk `ConfigureServices(IServiceCollection services)` műveletében történik, mégpedig az IServiceCollection __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel. Első lépésben fókuszáljunk a `ConfigureServices` számunka legizgalmasabb részeire:
+Asp.Net Core környezetben a függőségek beregisztrálása a 'Program.cs' fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:
 
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // ...
-        services.AddSingleton<ILogger, Logger>();
-        services.AddTransient<INotificationService, NotificationService>();
-        services.AddScoped<IContactRepository, ContactRepository>();
-        services.AddSingleton<IEMailSender, EMailSender>(
-            sp => new EMailSender(sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
-        // ...
-    }
+var builder = WebApplication.CreateBuilder(args);
+
+// ...
+builder.Services.AddSingleton<ILogger, Logger>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddSingleton<IEMailSender, EMailSender>(
+    sp => new EMailSender(sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
+// ...
 ```
 
-A `Startup.ConfigureServices`-t a keretrendszer hívja az alkalmazás indulásakor. Paraméterben egy `IServiceCollection` services objektumot kapunk, számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A
+Az első sor egy `builder` objektumot hozd létre, ennek `Services` propertyje egy `IServiceCollection` típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen `IServiceCollection` interfész __AddSingleton__, __AddTransient__ és __AddScoped__ műveleteivel történik.
+
+!!! note "Megjegyzés"
+    .NET 6-ot megelőző verziókban nem a `Program.cs` fájlban, hanem egy `Startup` nevű osztály `ConfigureServices` műveletében történt a függőségek beregisztrálása.
+
+A
 
 ```csharp
-services.AddSingleton<ILogger, Logger>();
+builder.Services.AddSingleton<ILogger, Logger>();
 ```
 
 sorral `ILogger` típusként a `Logger` implementációs típust regisztráljuk be (ILogger->Logger leképzés), mégpedig az __AddSingleton__ művelet hatására __singleton__-ként. Ez azt jelenti, hogy ha később a konténertől egy `ILogger` objektumot kérünk (resolve), a konténertől egy `Logger` objektumot kapunk, mégpedig mindig __ugyanazt a példányt__. A
 
 ```csharp
-services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 ```
 
 sorral `INotificationService` típusként a `NotificationService` implementációs típust regisztráljuk be (INotificationService->NotificationService leképzés), mégpedig az __AddTransient__ művelet hatására __tranziens__ módon. Ez azt jelenti, hogy ha később a konténertől egy `INotificationService` objektumot kérünk (resolve), a konténertől egy `NotificationService` objektumot kapunk, mégpedig minden lekérdezéskor egy __újonnan létrehozott példányt__. A
 
 ```csharp
-services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 ```
 
 sor `IContactRepository` típusként a `ContactRepository` implementációs típust regisztrálja be (IContactRepository->ContactRepository leképzés), mégpedig az __AddScoped__ művelet hatására __scope-olt__ módon. Ez azt jelenti, hogy ha később a konténertől `IContactRepository` objektumot kérünk (resolve),  `ContactRepository` objektumot kapunk, mégpedig __adott hatókörön belül ugyanazt__, eltérő hatókörökben másokat. A Web API alkalmazásoknál egy-egy API kérés kiszolgálása számít egy-egy megfelelő hatókörnek: vagyis a konténertől egy kérés kiszolgálása során ugyanazt az objektumpéldányt, eltérő kérések esetén másokat kapunk.
 
-A mintaalkalmazás `Startup.ConfigureServices`-ben további regisztrációkkal is találkozunk, ezekre később térünk vissza.
+A mintaalkalmazásunkban további regisztrációkkal is találkozunk, ezekre később térünk vissza.
 
 ### 2) RESOLVE lépés (függőségek feloldása)
 
@@ -374,6 +378,7 @@ void SimpleResolve(IServiceProvider sp)
     // Mivel az ILogger típushoz a Logger osztályt regisztráltuk,
     // egy Logger példánnyal tér vissza.
     var logger2 = sp.GetService<ILogger>();
+    
     // Míg a GetService null-t ad vissza, ha nem sikerül feloldani a
     // konténer alapján a hivatkozást, a GetRequiredService kivételt dob.
     var logger3 = sp.GetRequiredService<ILogger>();
@@ -413,11 +418,11 @@ A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok füg
 
 #### Függőségfeloldás ASP.NET Web API osztályok esetén
 
-Azon túl, hogy a megoldásunkat konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A `ToDoService` osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core `ControllerBase` leszármazott `TodoController` osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A `ToDoService` osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework `DbContext` leszármazott `TodoContext` osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:
+Azon túl, hogy a megoldásunkat IoC konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A `ToDoService` osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core `ControllerBase` leszármazott `TodoController` osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A `ToDoService` osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework `DbContext` leszármazott `TodoContext` osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:
 
 ![Object graph 3](./images/object-graph-3.svg)
 
-Az előző két fejezetben feltettük, hogy a `GetService` hívásához egy `IServiceProvider` objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében `IServiceProvider`hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. __A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.__  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a rooting szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, __a root object maga a controller osztály__.
+Az előző két fejezetben feltettük, hogy a `GetService` hívásához egy `IServiceProvider` objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében `IServiceProvider`hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. __A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.__  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a routing szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, __a root object maga a controller osztály__.
 
 Nézzük ezt a gyakorlatban a korábbi példánk továbbfejlesztésével, melyet egy `TodoController` osztállyal egészítettünk ki:
 
@@ -482,15 +487,12 @@ Alkalmazásokban - különösen Asp.Net Core esetében - a DbContext használat�
 
 Ez utóbbi megközelítés megvalósítására remek kézre eső beépített DI alapú megoldást nyújt az ASP.NET Core:  a konténerbe induláskor beregisztráljuk a DbContext osztályunkat, mely így a __Controller__ és egyéb függőségei számára automatikusan beinjektálásra kerül.
 
-Nézzük meg, hogyan is történik a `TodoContext` `DbContext` leszármazott osztályunk beregisztrálása a példánkban. A regisztráció helye a szokásos `Startup.ConfigureServices`:
+Nézzük meg, hogyan is történik a `TodoContext` `DbContext` leszármazott osztályunk beregisztrálása a példánkban. A regisztráció helye a szokásos `Program.cs` fájl (.NET 6 előtt a szokásos `Startup.ConfigureServices`):
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    // ...
-    services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
-    // ...
-}
+// ...
+builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+// ...
 ```
 
 Az `AddDbContext` egy a keretrendszer által az `IServiceCollection` interfészre definiált extension method. Ez a `DbContext` osztályunk kényelmes beregisztrációját teszi lehetővé. Ennek belsejébe nem látunk bele, mindenesetre lelke a scope-ot regisztráció. "Pszeudokóddal":
@@ -519,12 +521,12 @@ Ezen a lambda kifejezésünket a konténer a későbbiekben a resolve során - v
 !!! note ""
     Nem kötelező tananyag.
 
-Térjünk ki a `Startup.ConfigureServices` korábban nem ismertetett részeire.
+Térjünk ki a `Program.cs` fájl korábban nem ismertetett szolgáltatásregisztrációs részeire.
 
 Az `EMailSender` beregisztrálása első ránézésre egészen trükkösnek tűnik:
 
 ```csharp
-services.AddSingleton<IEMailSender, EMailSender>(
+builder.Services.AddSingleton<IEMailSender, EMailSender>(
     sp => new EMailSender   (sp.GetRequiredService<ILogger>(), "smtp.myserver.com") );
 ```
 
@@ -544,14 +546,14 @@ Az `EMailSender`t a konténernek kell majd a feloldás során példányosítania
 
 ### Dependency Injection/IoC konténerek általánosságában
 
-A .NET Core beépített DI konténer jellemzői:
+A .NET beépített DI konténer jellemzői:
 
 * Alapszolgáltatásokat nyújt (pl. property injection-t nem támogat).
   * Ha ennél többre van szükség, használhatunk más IoC konténert is, az ASP.NET Core együtt tud működni vele.
   * Számos .NET (legyen az .NET Core, .NET Framework vagy mindkettő) környezetben használható Dependecy Injection/IoC konténer osztálykönyvtár létezik, pl.: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF.
 * Microsoft.Extensions.DependencyInjection NuGet package-ben van implementálva (az alapnévtér is ez)
   * ASP.NET Core alkalmazások esetén már a .NET projekt létrehozásakor telepítve van. Sőt, mint láttuk: az ASP.NET Core middleware intenzíven használja és épít rá, a runtime konfiguráció/kiterjeszthetőség alappillére.
-  * Egyéb .NET Core alkalmazások esetén (pl. Console) a Microsoft.Extensions.DependencyInjection NuGet package-dzsel manuálisan kell telepíteni.
+  * Egyéb .NET alkalmazások esetén (pl. Console) a Microsoft.Extensions.DependencyInjection NuGet package-dzsel manuálisan kell telepíteni.
   * Megjegyzés: a NuGet package használható (teljes) .NET Frameworkkel is, mivel .NET Standard-et támogat.
 
 ### Service Locator antipattern
@@ -560,18 +562,18 @@ Az IoC konténerek használatának a dependency injectionnel szemben van egy má
 
 ### ASP.NET Core keretrendszer szolgáltatások
 
-Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen az (MVC) alapú Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás.Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.
+Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen a Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás.Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.
 
-ASP.NET Web API esetén a `Startup.ConfigureServices`-ben szerepelnie kell az alábbi sornak:
+ASP.NET Web API esetén az alkalmazás indulásakor be kell regisztráljunk számos Web API-hoz tartozó "segéd" szolgáltatást a DI konténerbe az alábbi módon (ezt a Program.cs fájlba a VS automatikusan beteszi a projekt létrehozásakor):
 
 ```csharp
-services.AddMvc()
-    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+builder.Services.AddControllers();
 ```
 
-Az `AddMvc` egy beépített extension metod az `IServiceProvider` interfészre vonatkozóan, mely számos (messze 100 feletti darabszámú!), a Wep API middleware/pipeline belső működéséhez és konfigurációjához szükséges szolgáltatás és konfigurációs objektumot regisztrál a konténerbe.
+!!! note "Megjegyzés"
+    .NET 6 előtti .NET verziókban a `Startup.cs` fájl `Startup.ConfigureServices`-ben a `services.AddMvc()` sort kellett beszúrni.
 
-.NET Core 3.0-tól kezdve a helyzet némiképp más. Az `AddMvc()` hívása helyett jellemzően az `AddControllers()` műveletet hívjuk, mely jelentősen kevesebb konténerregisztrációt von magával.
+Az `AddControllers` egy beépített extension method az `IServiceProvider` interfészre vonatkozóan, mely számos, a Wep API middleware/pipeline belső működéséhez és konfigurációjához szükséges szolgáltatás és konfigurációs objektumot regisztrál a konténerbe.
 
 ### Szolgáltatás objektumok dispose-olása
 
