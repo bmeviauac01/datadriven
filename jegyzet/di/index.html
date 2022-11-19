@@ -1583,7 +1583,7 @@
 </ol>
 <p>Szerencsére a .NET rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.</p>
 <h3 id="1-register-lepes-fuggosegek-beregisztralasa">1) REGISTER lépés (függőségek beregisztrálása)<a class="headerlink" href="#1-register-lepes-fuggosegek-beregisztralasa" title="Permanent link">&para;</a></h3>
-<p>Asp.Net Core környezetben a függőségek beregisztrálása a 'Program.cs' fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:</p>
+<p>Asp.Net Core környezetben a függőségek beregisztrálása a <code>Program.cs</code> fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">WebApplication</span><span class="p">.</span><span class="n">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
 
 <span class="c1">// ...</span>
@@ -1594,7 +1594,7 @@
     <span class="n">sp</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">EMailSender</span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">ILogger</span><span class="p">&gt;(),</span> <span class="s">&quot;smtp.myserver.com&quot;</span><span class="p">)</span> <span class="p">);</span>
 <span class="c1">// ...</span>
 </code></pre></div>
-<p>Az első sor egy <code>builder</code> objektumot hozd létre, ennek <code>Services</code> propertyje egy <code>IServiceCollection</code> típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen <code>IServiceCollection</code> interfész <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel történik.</p>
+<p>Az első sor egy <code>builder</code> objektumot hoz létre, ennek <code>Services</code> propertyje egy <code>IServiceCollection</code> típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen <code>IServiceCollection</code> interfész <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel történik.</p>
 <div class="admonition note">
 <p class="admonition-title">Megjegyzés</p>
 <p>.NET 6-ot megelőző verziókban nem a <code>Program.cs</code> fájlban, hanem egy <code>Startup</code> nevű osztály <code>ConfigureServices</code> műveletében történt a függőségek beregisztrálása.</p>
