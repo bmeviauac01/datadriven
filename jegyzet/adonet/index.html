@@ -1322,7 +1322,7 @@
 <li><code>CommandText</code>: a parancs szövege, avagy tárolt eljárást neve</li>
 <li><code>Connection</code>: az adatbázis kapcsolat</li>
 <li><code>Transaction</code>: a tranzakció</li>
-<li><code>CommandTimeout</code>: parancs ereményére való várakozás maximális ideje (<em>alapértelmezetten 30s</em>)</li>
+<li><code>CommandTimeout</code>: parancs eredményére való várakozás maximális ideje (<em>alapértelmezetten 30s</em>)</li>
 <li><code>Parameters</code>: paraméterek, az <a href="#veszelyforrasok">SQL injection támadás</a> kivédéséhez</li>
 </ul>
 <p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.</p>
@@ -1378,7 +1378,7 @@
     <span class="p">{</span>
         <span class="n">Connection</span> <span class="p">=</span> <span class="n">connection</span><span class="p">,</span>
         <span class="n">CommandText</span> <span class="p">=</span> <span class="s">&quot;INSERT into CarTable (Description) VALUES(&#39;...&#39;)&quot;</span><span class="p">,</span>
-        <span class="n">Transaction</span> <span class="p">=</span> <span class="n">transaction</span><span class="p">,</span>
+        <span class="n">Transaction</span> <span class="p">=</span> <span class="n">transaction</span>
     <span class="p">}</span>
 
     <span class="k">try</span>
