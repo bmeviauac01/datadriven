@@ -540,8 +540,8 @@ builder.Services.AddSingleton<IEMailSender, EMailSender>(
 
 Let's take a look at the constructor of `EMailSender` to be able to better understand the situation:
 
- ```csharp
- public EMailSender(ILogger logger, string smtpAddress)
+```csharp
+public EMailSender(ILogger logger, string smtpAddress)
 {
     _logger = logger;
     _smtpAddress = smtpAddress;
