@@ -69,7 +69,7 @@ Csoportonként külön jelenléti alkalom van. Érdemes a heti nézetet választ
 
 ![](images/moodle-jelenlet-kivalasztas.png)
 
-A jelenlét beírásánál a a "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)
+A jelenlét beírásánál a "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)
 
 ![](images/moodle-jelenlet-eredmeny.png)
 
@@ -91,7 +91,7 @@ A **labor termekhez** kulcsra és/vagy kártyára van szükség. Ezeket a titká
 - localdb: nincs jelszó, Windows Authentication-t használjunk
 - JPA labornál sqlexpress van, SQL Server Authentication kell: `sa` / `sa`
 
-**MongoDB**: nincs authentikáció
+**MongoDB**: nincs autentikáció
 
 ## Tudnivalók a házi feladatokkal kapcsolatban
 
@@ -135,7 +135,7 @@ A parancs hatását látjuk is utána PR-ben:
 
 - a kommentre a parancs felismerésének megerősítésére érkezik egy reakció,
 - a PR változtatásai jóváhagyásra kerülnek (ez szükséges a mergeléshez a protected branch miatt),
-- a a PR mergelésre kerül - ezzel lezárt állapotba kerül a PR és így eltűnik a teendők listájáról,
+- a PR mergelésre kerül - ezzel lezárt állapotba kerül a PR és így eltűnik a teendők listájáról,
 - és végül elmentésre kerül az eredmény a háttérben - ezt már közvetlenül nem látjuk.
 
 ![](images/hazi-github-pr-ahkmerge.png)
@@ -145,7 +145,7 @@ A parancs hatását látjuk is utána PR-ben:
 **Nem futott le az automata értékelés.**
 
 - Lehet, hogy a hallgató _draft_ módban hagyta a PR-t, ezt vissza kell állítani. A PR alján megjelenik ilyenkor egy _Ready for review_ gomb.
-- Ha sikertelen volt a kiértékelés, meg lehet ismételni. Ez segít a tranziens hibákon (ritka eset). Ehhez tegyél egy _eval_ nevű labelt-t a PR-re (új label-ként kell létrehozni).
+- Ha sikertelen volt a kiértékelés, meg lehet ismételni. Ez segít a tranziens hibákon (ritka eset). Ehhez tegyél egy _eval_ nevű label-t a PR-re (új label-ként kell létrehozni).
 
 **Több, mint 5-ször futott a kiértékelés.** Ezt pontlevonással szankcionáljuk. Első alkalommal eltekinthetünk tőle, de mindenképpen tájékoztassuk a hallgatót.
 
@@ -155,4 +155,4 @@ A parancs hatását látjuk is utána PR-ben:
 
 - A hallgató kifelejtett valamit. Kötelező elemek hiánya szándékosan blokkolja a folyamatot. Az ilyen házit nem értékeljük (amennyiben valóban a hallgató tévedett).
 - Tranziens hiba, pl. nem sikerül egy konténer pull, vagy egy .NET SDK setup. Lásd az újrafuttatást fentebb.
-- Hiba van a kiértékelő avagy a feldolgozó alkalmazásban. A kiértékelő alkalmazások elég stabilak, hibás megoldásra nem szabad elessenek. Azért megtörténhet. A feldolgozó alkalmazás is sokat futott már, de természetesen lehet benne nem várt eset. Szólj erről, az ilyet meg kell nézzük.
+- Hiba van a kiértékelő, avagy a feldolgozó alkalmazásban. A kiértékelő alkalmazások elég stabilak, hibás megoldásra nem szabad elessenek. Azért megtörténhet. A feldolgozó alkalmazás is sokat futott már, de természetesen lehet benne nem várt eset. Szólj erről, az ilyet meg kell nézzük.
