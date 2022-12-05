@@ -158,7 +158,7 @@ Teszteljük a megoldásunkat.
             private readonly Dal.DataDrivenDbContext dbContext;
 
             // Az adatbazist igy kaphatjuk meg. A kornyezet adja a Dependency Injection szolgaltatast.
-            // A DbContext automatikusan megszunik a keres veges (DI beallitas).
+            // A DbContext automatikusan megszunik a keres vegen (DI beallitas).
             public ProductsController(Dal.DataDrivenDbContext dbContext)
             {
                 this.dbContext = dbContext;
@@ -178,7 +178,7 @@ Teszteljük a megoldásunkat.
                         .Skip(from) // lapozashoz: hanyadik termektol kezdve
                         .Take(5) // egy lapon max 5 termek
                         .Select(p => new Models.Product(p.Id, p.Name, p.Price, p.Stock)) // adatbazis entitas -> DTO
-                        .ToArray(); // a fenti IQueryable kiertekelesesen kieroltetese, kulonben hibara futnank
+                        .ToArray(); // a fenti IQueryable kiertekelesenek kieroltetese, kulonben hibara futnank
             }
         }
     }
@@ -340,7 +340,7 @@ A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkeszt�
                 dbContext.Product.Remove(dbProduct);
                 dbContext.SaveChanges();
 
-                return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk an entitast)
+                return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk az entitast)
             }
         }
     }

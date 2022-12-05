@@ -57,13 +57,13 @@ A teszteléshez találsz unit teszteket a solution-ben. A teszteket [Visual Stud
     A tesztek kódját **NE** módosítsd. Ha a teszteléshez szükséges, ideiglenesen beleszerkeszthetsz, de ügyelj rá, hogy az eredeti állapottal kommitold a megoldásod.
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+    A módosított C# forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközból, akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **repository osztály kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
+    Emellett készíts egy képernyőképet Visual Studio-ból (vagy a fejlesztéshez használt eszközből, akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **repository osztály kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
-    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolód a részletesebb naplózáshoz.
+    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-v n` kapcsolót a részletesebb naplózáshoz.
 
-    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
+    A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
 ## Feladat 2: Raktár méret becslés (2 iMsc pont)
 
@@ -96,4 +96,4 @@ A szükséges adatok nincsenek leképezve C# entitásra, ezeket neked kell elké
 Ha sikerült implementálni a metódust, akkor a korábban már látott módon a `TestExercise2` osztályban található teszt metódussal ellenőrizni tudod a működést. A teszt az adatbázis kiinduló állapotát feltételezi.
 
 !!! example "BEADANDÓ"
-    A módosított C# forráskódot tölts fel.
+    A módosított C# forráskódot töltsd fel.

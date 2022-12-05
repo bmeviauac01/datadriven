@@ -201,7 +201,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         }
         ```
 
-        A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregácós pipeline-jának használatával a fenti módszerhez hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)
+        A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregációs pipeline-jának használatával a fenti módszerhez hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)
 
 ## Feladat 2: Entitásosztály létrehozása
 
@@ -216,7 +216,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
         Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
 
-        ![Kategódia dokumentumok](images/categories.png)
+        ![Kategória dokumentumok](images/categories.png)
 
         Ez alapján létre tudjuk hozni a `Category` osztályt an `Entities` mappában.
 

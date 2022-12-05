@@ -71,7 +71,7 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
     ```
 
     !!! note "EF Core .NET CLI"
-        A továbbiakban is a _Package Manager Console_-ból elérhető paracsokat fogjuk használni, ami egyébként a `Microsoft.EntityFrameworkCore.Tools` csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi [linken](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) megtalálja a dokumentációt.
+        A továbbiakban is a _Package Manager Console_-ból elérhető parancsokat fogjuk használni, ami egyébként a `Microsoft.EntityFrameworkCore.Tools` csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi [linken](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) megtalálja a dokumentációt.
 
 2. Vizsgáljuk meg a generált code-first modellt.
 
@@ -124,7 +124,7 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
         ```
 
         Ez értelemszerűen nem sikerül, mert a migrációban lévő utasítások egy üres adatbázishoz képest szeretné migrálni a sémát, viszont nekünk az adatbázisunkban már ez a séma létezik. 
-        Az EF egy spoeciális táblában az `__EFMigrationHitory`-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.
+        Az EF egy speciális táblában az `__EFMigrationHitory`-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.
 
     - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, **ezért a Solution Explorerből a fájl nevét másoljuk ki**!
 
@@ -160,13 +160,13 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
             }
             ```
 
-        - Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt
+        - Készítsünk migrációt a változtatásunkról és ellenőrizzük a generált migrációt
 
             ```powershell
             Add-Migration ProductPriceDecimal
             ```
 
-        - Futtassuk le a migrációt az adatbázison és ellenőrízzük a hatását az adatbázisban
+        - Futtassuk le a migrációt az adatbázison és ellenőrizzük a hatását az adatbázisban
 
             ```powershell
             Update-Database
@@ -425,7 +425,7 @@ Készíts egy tárolt eljárást egy új code first migráción keresztül, amel
     }
     ```
 
-3. Frissítsd az adatbázist és ellenőrízd az eredményét!
+3. Frissítsd az adatbázist és ellenőrizd az eredményét!
 
     ```powershell
     Update-Database

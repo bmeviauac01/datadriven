@@ -12,7 +12,7 @@ Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Ne
 
 ## Feladat 1: Termék műveletek (2 pluszpont)
 
-A létrehozott és klónozott repository-ban megtalálható a kiinduló kód váz. Nyitsd meg Visual Studio-val és indítsd el. Egy konzol alkalmazásnak kell elindulnia, amely hosztolja a web alkalmazást. Próbáld ki (miközben fut a program): böngészőben nyitsd meg a <http://localhost:5000/api/product> oldalt, ahol a termékek listáját kell lásd JSON formában.
+A létrehozott és klónozott repository-ban megtalálható a kiinduló kód váz. Nyisd meg Visual Studio-val és indítsd el. Egy konzol alkalmazásnak kell elindulnia, amely hosztolja a web alkalmazást. Próbáld ki (miközben fut a program): böngészőben nyisd meg a <http://localhost:5000/api/product> oldalt, ahol a termékek listáját kell lásd JSON formában.
 
 Nézd meg a rendelkezésre álló kódot.
 
@@ -36,7 +36,7 @@ Feladatok:
 1. Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy `GET` típusú kérés legyen a `/api/product/-/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
 
     ??? question "Miért van a `/-` rész az URL-ben?"
-        Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehene az URL: termékek darabszámára vagyunk kíváncsiak, tehát `/api/product/`, de utána mi? Lehetne `/api/product/count`. Viszont ez "összekeveredik" a `/api/product/123` jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha `/123` az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig `/count` az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A `/-` rész azt jelzi, hogy ott _nem_ termék azonosító utazik.
+        Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehetne az URL: termékek darabszámára vagyunk kíváncsiak, tehát `/api/product/`, de utána mi? Lehetne `/api/product/count`. Viszont ez "összekeveredik" a `/api/product/123` jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha `/123` az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig `/count` az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A `/-` rész azt jelzi, hogy ott _nem_ termék azonosító utazik.
 
         Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
 

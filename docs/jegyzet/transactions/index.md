@@ -328,7 +328,7 @@ Nézzük meg az előbbi példán keresztül, hogyan tudjuk diagnosztizálni a ho
 1. A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:
 
     1. Az első tranzakcióból az első `UPDATE` utasítást hajtjuk végre
-    1. A második tranzakcióból mindkettő `UPDATE` utasítást végrehajtuk
+    1. A második tranzakcióból mindkettő `UPDATE` utasítást végrehajtjuk
     1. Az első tranzakcióból végrehajtjuk a második `UPDATE` utasítást
 
     Első tranzakció:
