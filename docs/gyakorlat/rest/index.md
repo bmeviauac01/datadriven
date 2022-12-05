@@ -111,10 +111,10 @@ Egy valódi API természetesen nem konstansokat ad vissza. Készítsünk API-t a
 
 ### DTO-k használata
 
-A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) osztályt egy új, `Dtos` mappában. Készítsünk Product néven egy rekord osztályt a DTO számára.
+A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) osztályt egy új, `Dtos` mappában. Készítsünk `Product` néven egy rekord osztályt a DTO számára.
 
 !!! tip "Rekordok C#-ban"
-    A `record` kulcsszó egy olyan típust reprezentál (alapértelmezetten class), ami a fejlécben meghatározott kostruktorral és (`init` only setterrel)[https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init] rendelkező tulajdonságokkal rendelkezik. Ezáltal egy record immutable viselkedéssel bír, ami jobban illeszkedik egy DTO viselkedéséhez. A rekordok ezen kívül egyéb kényelmi szolgáltatásokkal is rendelkeznek ([lásd bővebben](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record)), de ezeket mi nem fogjuk itt kihasználni.
+    A `record` kulcsszó egy olyan típust reprezentál (alapértelmezetten class), ami a fejlécben meghatározott konstruktorral és [`init` only setterrel](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init) rendelkező tulajdonságokkal rendelkezik. Ezáltal egy record immutable viselkedéssel bír, ami jobban illeszkedik egy DTO viselkedéséhez. A rekordok ezen kívül egyéb kényelmi szolgáltatásokkal is rendelkeznek ([lásd bővebben](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record)), de ezeket mi nem fogjuk itt kihasználni.
 
 ??? example "Megoldás"
 
@@ -174,7 +174,7 @@ Lapozást azért érdemes beiktatni, hogy korlátozzuk a visszaadott választ (a
 
 A metódus eredménye a `ToList`-et megelőzően egy `IQueryable<T>`. Emlékezzünk arra, hogy az `IQueryable<T>` nem tartalmazza az eredményt, az csak egy leíró.
 
-!!! warning "IQueryable visszatérés és DbContext életcikkus"
+!!! warning "`IQueryable<T> `visszatérési érték és `DbContext` életciklus"
     Ha nem lenne a végén `ToList`, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból **soha ne** adjunk emiatt `IQueryable` visszatérési értéket!
 
     Az okok arra vezethetőek vissza, hogy alapértelmezetten a `DbContext` típusok `Scoped` életciklussal kerülnek beregisztrálásra a DI konténerbe, és ASP.NET Core esetében alapértelmezetten egy HTTP kérés során keletkezik egy scope. Viszont a sorosítás már kívül esne ezen a scope-on.
@@ -247,7 +247,7 @@ A lekérés során gondoljuk arra is, ha a kérésben olyan ID érkezik, amely n
 
 - Készítsük el a szerver irányába érkező DTO osztályt rekordként, és a beszúró végpontot.
 - A beszúrás tipikusan a listás erőforrás URL-jére küldött POST kérés
-- Válaszként térjünk vissza a beszúrt adatokkal és a `Location` headrben a beszúrt erőforrás URL-jével. Ehhez a `CreatedAtAction` metódus lesz segítségünkre.
+- Válaszként térjünk vissza a beszúrt adatokkal és a `Location` headerben a beszúrt erőforrás URL-jével. Ehhez a `CreatedAtAction` metódus lesz segítségünkre.
 
 ??? example "Megoldás"
 
@@ -296,7 +296,7 @@ A lekérés során gondoljuk arra is, ha a kérésben olyan ID érkezik, amely n
     }
     ```
 
-A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A beszúrás esetén keressük meg benne a _Location_ kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény. Emellett általában a POST kérés a válaszban is vissza szokta adni a beszúrt adatokat.
+A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A beszúrás esetén keressük meg benne a `Location` kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény. Emellett általában a POST kérés a válaszban is vissza szokta adni a beszúrt adatokat.
 
 ### Termék módosítása
 
@@ -353,7 +353,7 @@ A módosítás teszteléséhez az alábbi beállításokra lesz szükség:
 
 Próbáljuk ki a kérést úgyis, hogy nem egyezik a path-ban és a body-ban lévő két ID. Ilyenkor 400-as Bad Requestet kell kapjunk a hiba részleteivel.
 
-!!! tip "DTO-k validációja"
+!!! note "DTO-k validációja"
     A DTO-kat egyéb validációknak is alávethetjük, amire használhatjuk az ASP.NET Core beépített [validációs attribútumait](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-7.0#validation-attributes) vagy akár egyéb külső osztálykönyvtárakat, mint a [FluentValidation](https://docs.fluentvalidation.net/en/latest/).
 
 !!! note "PUT vs PATCH"
