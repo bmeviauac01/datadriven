@@ -45,7 +45,7 @@ group by p.Name
 ```
 
 !!! info "`[Order]`"
-    Az `[Order]` azért szerepel szögeletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
+    Az `[Order]` azért szerepel szögletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
 
 ## Rendezés
 
@@ -73,7 +73,7 @@ order by Stock desc, Price
 
 ## Allekérdezések
 
-Listázzuk ki a megrendelések Statuszát határidejét és dátumát
+Listázzuk ki a megrendelések Status-át határidejét és dátumát
 
 ```sql
 select o.Date, o.Deadline, s.Name
@@ -330,13 +330,13 @@ Egy relációs adatbázisban a relációs adatok mellett félig strukturált ada
 
 ### XPath
 
-Egy XML dokumentum fa strukturájú. Az [**XPath**](https://www.w3schools.com/xml/xpath_intro.asp) nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az _XPath_ nyelv működését és képességeit
+Egy XML dokumentum fa struktúrájú. Az [**XPath**](https://www.w3schools.com/xml/xpath_intro.asp) nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az _XPath_ nyelv működését és képességeit
 
 | **XPath kifejezés**           | **Jelentés**                                                                       |
 | ----------------------------- | ---------------------------------------------------------------------------------- |
 | tagnév                        | Csomópont névvel megadva                                                           |
 | /                             | A gyökértől kezdődik a keresés                                                     |
-| //                            | Aktuális csomóponttól kezdve bármely lezármazottban                                |
+| //                            | Aktuális csomóponttól kezdve bármely leszármazottban                               |
 | .                             | Aktuális csomópont                                                                 |
 | ..                            | Szülő csomópont                                                                    |
 | @nev                          | Adott nevű attribútum                                                              |
@@ -389,7 +389,7 @@ from Product
 where Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
 ```
 
-Az `exist()` 1-gyel tér visza, ha a megadott _XQuery_ kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.
+Az `exist()` 1-gyel tér vissza, ha a megadott _XQuery_ kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.
 
 A lekérdezést `exist()` helyett `value()` metódus segítségével is megfogalmazhatjuk.
 
@@ -415,7 +415,7 @@ where Name='Lego City harbour'
 
 A megadandó kifejezés két részből áll: az elsőben (`replace value of`) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (`with`) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, így az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen - ezért szerepel példában a végén az `[1]`.
 
-Szúrjunk be a Lego City harbour termékhez a `package_size` tag után egy `weigth` tag-et a súly megadására.
+Szúrjunk be a Lego City harbour termékhez a `package_size` tag után egy `weight` tag-et a súly megadására.
 
 ```sql
 update Product
