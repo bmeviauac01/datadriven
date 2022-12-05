@@ -274,7 +274,7 @@ public async Task<ActionResult<UserCart>> GetCart(int id)
     var productsquery =
         from p1 in _context.Products
         join m1 in _context.Manufacturers on p1.ManufacturerID equals m1.ID
-        select new Product(p1.ID, m1.Name, p1.Name, p1.Price); // felépítjuk a DTO Product-okat
+        select new Product(p1.ID, m1.Name, p1.Name, p1.Price); // felépítjük a DTO Product-okat
     // aszinkron kiértékelés
     var products = await productsquery.ToListAsync().ConfigureAwait(false);
 
