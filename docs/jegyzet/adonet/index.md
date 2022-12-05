@@ -164,7 +164,7 @@ using (var connection = new SqlConnection(connectionString))
 }
 ```
 
-!!! note "Trankakció timeout"
+!!! note "Tranzakció timeout"
     Minden ADO.NET tranzakció futási ideje limitálva van a [MachineConfig](https://docs.microsoft.com/en-us/dotnet/api/system.transactions.configuration.machinesettingssection.maxtimeout?view=netframework-4.8)-ban rögzített időintervallummal. Ez egy olyan rendszerszintű beállítás, amely **minden**, a rendszeren futó .NET alkalmazásra érvényes, ezért az értékét nem célszerű állítani. A hosszan futó tranzakciók egyébként is problémásak, ezért kerüljük használatukat.
 
 Egy tranzakció általában egy `Connection` objektumhoz tartozik, de készíthető olyan tranzakció is, melyben több perzisztens erőforráskezelő (más adatbázisok, üzenetsorok, bármi, ami támogat tranzakciókat) is érintett lehet. Innentől elosztott tranzakciókezelésről beszélünk, amihez valamiféle külső tranzakciókezelő, mint például **Microsoft Distributed Transaction Coordinator** (*MS DTC*) szükséges. Az ilyen esetek szintén kerülendők, hacsak nem komplex esetről és jól átgondolt rendszerről van szó.
@@ -183,7 +183,7 @@ Az **ADO.NET** kétféle módot is biztosít az adatok adatbázisból való olva
 
 ### DataReader
 
-Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennálása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.
+Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennállása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.
 
 **Feldolgozás lépései:**
 
@@ -227,7 +227,7 @@ using(var conn = new SqlConnection(connectionString))
     - Ha nem kompatibilisek a típusok (pl. az adatbázisban `nvarchar` és mi `int32`-ként akarjuk olvasni), **futás idejű hibát** fogunk kapni.
     - Ha az adatbázisban valamelyik oszlopban `NULL` érték van a `reader.Get***` hívásra szintén **futás idejű hibát** kapunk. Helyette ellenőrizzük a `reader.IsDBNull(lekérdezésben_az_oszlop_indexe)` segítségével, és ha ez `true`, akkor használjuk a típusnak megfelelő `null` értéket.
 
-**Előnyők**
+**Előnyök**
 
 - [x] az adatok mindenkor a legfrissebbek, hiszen frissen az adatbázisból kérdezzük le
 - [x] egyszerűbb konkurenciakezelés, mert mindig friss adatokkal dolgozunk
@@ -254,7 +254,7 @@ A `DataSet` egyfajta *cache*-nek, vagy memóriabeli adattárnak tekinthető. Egy
 
 Az adatelérés működése `adapter`-rel kapcsolat nélküli modellben az alábbi ábrán látható.
 
-![Data adapter haszálata](./images/adapter.png)
+![Data adapter használata](./images/adapter.png)
 
 `DataSet` kapcsolati lánc az adatbázisig:
 
@@ -298,7 +298,7 @@ using(var conn = new SqlConnection(connectionString))
 !!! warning ""
     Érdemes megfigyelni, hogy az `adapter` csak a `Command`-on keresztül kommunikál az adatbázissal. Egy `adapter` több ilyen `Command`-ot is használhat, ezáltal több `Connection`-nel akár több adatbázison is dolgozhatunk ugyanazon `DataSet`-tel.
 
-**Előnyők**
+**Előnyök**
 
 - [x] nem szükséges folyamatos hálózati kapcsolat
 
@@ -329,7 +329,7 @@ A **connection string** megalkotása nagyon hasonló hibát rejt magában, mint 
 Amennyiben nem zárunk le minden `Connection`-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy `Connection`-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.
 
 !!! important "**MEGOLDÁS**"
-    `using` blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (lásd: [Tranzakció rész példa](#tranzakciok), vagy [DataReader](#datareader), vagy [DataSet](#dataset))
+    `using` blokk használata a kapcsolat megnyitására, mert így a blokk végén mindig lezáródik a kapcsolat (lásd: [Tranzakció rész példa](#tranzakciok), vagy [DataReader](#datareader), vagy [DataSet](#dataset))
 
 !!! note ""
     A `DataReader`-t hasonlóan le kell zárni, és ugyanúgy használható rá a `using` is.
