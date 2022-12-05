@@ -1185,7 +1185,7 @@
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">EF Core .NET CLI</p>
-<p>A továbbiakban is a <em>Package Manager Console</em>-ból elérhető paracsokat fogjuk használni, ami egyébként a <code>Microsoft.EntityFrameworkCore.Tools</code> csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi <a href="https://learn.microsoft.com/en-us/ef/core/cli/dotnet">linken</a> megtalálja a dokumentációt.</p>
+<p>A továbbiakban is a <em>Package Manager Console</em>-ból elérhető parancsokat fogjuk használni, ami egyébként a <code>Microsoft.EntityFrameworkCore.Tools</code> csomaggal települ fel. Ha valaki a konvencionális CLI-t szeretné használni VS-en kívül, az alábbi <a href="https://learn.microsoft.com/en-us/ef/core/cli/dotnet">linken</a> megtalálja a dokumentációt.</p>
 </div>
 </li>
 <li>
@@ -1234,7 +1234,7 @@
 <div class="highlight"><pre><span></span><code><span class="nb">Update-Database</span>
 </code></pre></div>
 <p>Ez értelemszerűen nem sikerül, mert a migrációban lévő utasítások egy üres adatbázishoz képest szeretné migrálni a sémát, viszont nekünk az adatbázisunkban már ez a séma létezik. 
-Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.</p>
+Az EF egy speciális táblában az <code>__EFMigrationHitory</code>-ban követi azt, hogy melyik migráció van már érvényesítve az adatbázison.</p>
 </li>
 <li>
 <p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, <strong>ezért a Solution Explorerből a fájl nevét másoljuk ki</strong>!</p>
@@ -1269,12 +1269,12 @@ Az EF egy spoeciális táblában az <code>__EFMigrationHitory</code>-ban követi
 </code></pre></div>
 </li>
 <li>
-<p>Készítsünk migrációt a változtatásunkról és ellenőrízzük a generált migrációt</p>
+<p>Készítsünk migrációt a változtatásunkról és ellenőrizzük a generált migrációt</p>
 <div class="highlight"><pre><span></span><code><span class="nb">Add-Migration</span> <span class="n">ProductPriceDecimal</span>
 </code></pre></div>
 </li>
 <li>
-<p>Futtassuk le a migrációt az adatbázison és ellenőrízzük a hatását az adatbázisban</p>
+<p>Futtassuk le a migrációt az adatbázison és ellenőrizzük a hatását az adatbázisban</p>
 <div class="highlight"><pre><span></span><code><span class="nb">Update-Database</span>
 </code></pre></div>
 </li>
@@ -1533,7 +1533,7 @@ A naplózás is bekapcsolható az alábbi paranccsal:
 </code></pre></div>
 </li>
 <li>
-<p>Frissítsd az adatbázist és ellenőrízd az eredményét!</p>
+<p>Frissítsd az adatbázist és ellenőrizd az eredményét!</p>
 <div class="highlight"><pre><span></span><code><span class="nb">Update-Database</span>
 </code></pre></div>
 </li>

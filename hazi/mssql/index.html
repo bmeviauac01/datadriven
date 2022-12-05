@@ -1129,7 +1129,7 @@
 <p>Szeretnénk a <code>recommended_age</code> tag tartalmát könnyebb elérhetőség végett egy saját oszlopba helyezni.</p>
 <ol>
 <li>
-<p>Adj hozzá egy új oszlopot a <code>Product</code> táblához <code>RecommendedAge</code> néven, ami egy szöveget tartalmaz tartalmaz: <code>alter table [Product] add [RecommendedAge] nvarchar(200)</code>. (Ezt a kódot nem kell beadni a megoldásban.)</p>
+<p>Adj hozzá egy új oszlopot a <code>Product</code> táblához <code>RecommendedAge</code> néven, ami egy szöveget tartalmaz: <code>alter table [Product] add [RecommendedAge] nvarchar(200)</code>. (Ezt a kódot nem kell beadni a megoldásban.)</p>
 </li>
 <li>
 <p>Írj T-SQL szkriptet, amely minden termék esetén az xml leírásból az <code>&lt;recommended_age&gt;</code> elemet kiemelve feltölti az előbb létrehozott <code>RecommendedAge</code> oszlopot. Ha az xml leírás üres, vagy nincs benne a keresett elem, akkor maradjon <code>NULL</code> az új oszlop tartalma. Ellenkező esetben az xml tag szöveges tartalma kerüljön átmásolásra, és az xml dokumentumból töröld ezt az elemet. Feltételezheted, hogy csak egyetlen <code>&lt;recommended_age&gt;</code> elem van az xml-ben.</p>

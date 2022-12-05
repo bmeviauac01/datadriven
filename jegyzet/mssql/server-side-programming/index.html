@@ -1923,7 +1923,7 @@
 <span class="k">instead</span> <span class="k">of</span> <span class="k">insert</span>
 <span class="k">as</span>
   <span class="c1">-- A beszúrás a Product táblába kerül, minden inserted rekordnak egy új sora keletkezik</span>
-  <span class="c1">-- És közben kikeressük a százaléknek megfelelő áfa rekordot</span>
+  <span class="c1">-- És közben kikeressük a százaléknak megfelelő áfa rekordot</span>
   <span class="c1">-- A megoldás nem teljes, mert nem kezeli, ha nincs még ilyen áfa rekord</span>
   <span class="k">insert</span> <span class="k">into</span> <span class="n">Product</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span> <span class="n">Price</span><span class="p">,</span> <span class="n">Stock</span><span class="p">,</span> <span class="n">VATID</span><span class="p">,</span> <span class="n">CategoryID</span><span class="p">)</span>
   <span class="k">select</span> <span class="n">i</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span> <span class="mi">1</span>

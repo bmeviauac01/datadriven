@@ -1307,7 +1307,7 @@
         <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dal</span><span class="p">.</span><span class="n">DataDrivenDbContext</span> <span class="n">dbContext</span><span class="p">;</span>
 
         <span class="c1">// Az adatbazist igy kaphatjuk meg. A kornyezet adja a Dependency Injection szolgaltatast.</span>
-        <span class="c1">// A DbContext automatikusan megszunik a keres veges (DI beallitas).</span>
+        <span class="c1">// A DbContext automatikusan megszunik a keres vegen (DI beallitas).</span>
         <span class="k">public</span> <span class="nf">ProductsController</span><span class="p">(</span><span class="n">Dal</span><span class="p">.</span><span class="n">DataDrivenDbContext</span> <span class="n">dbContext</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="n">dbContext</span> <span class="p">=</span> <span class="n">dbContext</span><span class="p">;</span>
@@ -1327,7 +1327,7 @@
                     <span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="k">from</span><span class="p">)</span> <span class="c1">// lapozashoz: hanyadik termektol kezdve</span>
                     <span class="p">.</span><span class="n">Take</span><span class="p">(</span><span class="m">5</span><span class="p">)</span> <span class="c1">// egy lapon max 5 termek</span>
                     <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">Models</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">))</span> <span class="c1">// adatbazis entitas -&gt; DTO</span>
-                    <span class="p">.</span><span class="n">ToArray</span><span class="p">();</span> <span class="c1">// a fenti IQueryable kiertekelesesen kieroltetese, kulonben hibara futnank</span>
+                    <span class="p">.</span><span class="n">ToArray</span><span class="p">();</span> <span class="c1">// a fenti IQueryable kiertekelesenek kieroltetese, kulonben hibara futnank</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1474,7 +1474,7 @@
             <span class="n">dbContext</span><span class="p">.</span><span class="n">Product</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">dbProduct</span><span class="p">);</span>
             <span class="n">dbContext</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
 
-            <span class="k">return</span> <span class="nf">NoContent</span><span class="p">();</span> <span class="c1">// a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk an entitast)</span>
+            <span class="k">return</span> <span class="nf">NoContent</span><span class="p">();</span> <span class="c1">// a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk az entitast)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>

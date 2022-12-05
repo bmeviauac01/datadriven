@@ -1279,7 +1279,7 @@
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title"><code>[Order]</code></p>
-<p>Az <code>[Order]</code> azért szerepel szögeletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az <code>order by</code> parancs kezdete.</p>
+<p>Az <code>[Order]</code> azért szerepel szögletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az <code>order by</code> parancs kezdete.</p>
 </div>
 <h2 id="rendezes">Rendezés<a class="headerlink" href="#rendezes" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span>
@@ -1297,7 +1297,7 @@
 <span class="k">order</span> <span class="k">by</span> <span class="n">Stock</span> <span class="k">desc</span><span class="p">,</span> <span class="n">Price</span>
 </code></pre></div>
 <h2 id="allekerdezesek">Allekérdezések<a class="headerlink" href="#allekerdezesek" title="Permanent link">&para;</a></h2>
-<p>Listázzuk ki a megrendelések Statuszát határidejét és dátumát</p>
+<p>Listázzuk ki a megrendelések Status-át határidejét és dátumát</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">from</span> <span class="p">[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">Status</span> <span class="n">s</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
@@ -1478,7 +1478,7 @@
 <h2 id="xml-dokumentumok-lekerdezese">XML dokumentumok lekérdezése<a class="headerlink" href="#xml-dokumentumok-lekerdezese" title="Permanent link">&para;</a></h2>
 <p>Egy relációs adatbázisban a relációs adatok mellett félig strukturált adatokat (pl.: XML) is eltárolhatunk, viszont a relációs a fő tartalom. A <a href="../../../db/">minta adatbázisban</a> a <code>Product</code> tábla <code>Description</code> mezője XML formátumú.</p>
 <h3 id="xpath">XPath<a class="headerlink" href="#xpath" title="Permanent link">&para;</a></h3>
-<p>Egy XML dokumentum fa strukturájú. Az <a href="https://www.w3schools.com/xml/xpath_intro.asp"><strong>XPath</strong></a> nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az <em>XPath</em> nyelv működését és képességeit</p>
+<p>Egy XML dokumentum fa struktúrájú. Az <a href="https://www.w3schools.com/xml/xpath_intro.asp"><strong>XPath</strong></a> nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az <em>XPath</em> nyelv működését és képességeit</p>
 <table>
 <thead>
 <tr>
@@ -1497,7 +1497,7 @@
 </tr>
 <tr>
 <td>//</td>
-<td>Aktuális csomóponttól kezdve bármely lezármazottban</td>
+<td>Aktuális csomóponttól kezdve bármely leszármazottban</td>
 </tr>
 <tr>
 <td>.</td>
@@ -1565,7 +1565,7 @@
 <span class="k">from</span> <span class="n">Product</span>
 <span class="k">where</span> <span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">&#39;(/product)[(./recommended_age)[1] eq &quot;0-18 m&quot;]&#39;</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
-<p>Az <code>exist()</code> 1-gyel tér visza, ha a megadott <em>XQuery</em> kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.</p>
+<p>Az <code>exist()</code> 1-gyel tér vissza, ha a megadott <em>XQuery</em> kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.</p>
 <p>A lekérdezést <code>exist()</code> helyett <code>value()</code> metódus segítségével is megfogalmazhatjuk.</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">Name</span>
 <span class="k">from</span> <span class="n">Product</span>
@@ -1581,7 +1581,7 @@
 <span class="k">where</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;Lego City harbour&#39;</span>
 </code></pre></div>
 <p>A megadandó kifejezés két részből áll: az elsőben (<code>replace value of</code>) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (<code>with</code>) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, így az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen - ezért szerepel példában a végén az <code>[1]</code>.</p>
-<p>Szúrjunk be a Lego City harbour termékhez a <code>package_size</code> tag után egy <code>weigth</code> tag-et a súly megadására.</p>
+<p>Szúrjunk be a Lego City harbour termékhez a <code>package_size</code> tag után egy <code>weight</code> tag-et a súly megadására.</p>
 <div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">Product</span>
 <span class="k">set</span> <span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
 <span class="s1">&#39;insert &lt;weight&gt;2.28&lt;/weight&gt;</span>

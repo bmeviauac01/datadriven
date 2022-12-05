@@ -1158,7 +1158,7 @@
 <span class="c1">// Megmutatja a generált SQL utasítást</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
 </code></pre></div>
-<p>Alább láthatjuk a generált lekérdezés, ami csak a join típusában tér el a korábbitől, de egyébként érdemben ugyan arra a megoldásra jutunk.</p>
+<p>Alább láthatjuk a generált lekérdezés, ami csak a join típusában tér el a korábbitól, de egyébként érdemben ugyan arra a megoldásra jutunk.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">Percentage</span><span class="p">]</span>
 <span class="k">FROM</span> <span class="p">[</span><span class="n">Product</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>
 <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">VAT</span><span class="p">]</span> <span class="k">AS</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">p</span><span class="p">].[</span><span class="n">VatId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">].[</span><span class="n">ID</span><span class="p">]</span>

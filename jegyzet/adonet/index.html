@@ -1407,7 +1407,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Trankakció timeout</p>
+<p class="admonition-title">Tranzakció timeout</p>
 <p>Minden ADO.NET tranzakció futási ideje limitálva van a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.transactions.configuration.machinesettingssection.maxtimeout?view=netframework-4.8">MachineConfig</a>-ban rögzített időintervallummal. Ez egy olyan rendszerszintű beállítás, amely <strong>minden</strong>, a rendszeren futó .NET alkalmazásra érvényes, ezért az értékét nem célszerű állítani. A hosszan futó tranzakciók egyébként is problémásak, ezért kerüljük használatukat.</p>
 </div>
 <p>Egy tranzakció általában egy <code>Connection</code> objektumhoz tartozik, de készíthető olyan tranzakció is, melyben több perzisztens erőforráskezelő (más adatbázisok, üzenetsorok, bármi, ami támogat tranzakciókat) is érintett lehet. Innentől elosztott tranzakciókezelésről beszélünk, amihez valamiféle külső tranzakciókezelő, mint például <strong>Microsoft Distributed Transaction Coordinator</strong> (<em>MS DTC</em>) szükséges. Az ilyen esetek szintén kerülendők, hacsak nem komplex esetről és jól átgondolt rendszerről van szó.</p>
@@ -1421,7 +1421,7 @@
 <h2 id="a-lekerdezes-eredmenye">A lekérdezés eredménye<a class="headerlink" href="#a-lekerdezes-eredmenye" title="Permanent link">&para;</a></h2>
 <p>Az <strong>ADO.NET</strong> kétféle módot is biztosít az adatok adatbázisból való olvasására: <code>DataReader</code> és <code>DataSet</code>. A két megoldás közti fő különbség a kapcsolat használatában és az adatokkal való bánásmódban van. Ennek megfelelően két modellt különböztetünk meg: <strong>kapcsolat alapút</strong> (<code>DataReader</code>) és <strong>kapcsolat nélkülit</strong> (<code>DataSet</code>). A kapcsolat alapú modellben a kapcsolat az adatbázissal végig fennmarad, miközben lekérdezéseket hajtunk végre, míg a kapcsolat nélküli modellben egy <code>DataSet</code>-en végzünk módosításokat és ezt szinkronizáljuk időnként az adatbázissal, de a kapcsolat csak a szinkronizáció idejére jön létre. Mindegyiknek megvannak a maga előnyei és hátrányai, amiket a következő részekben fogunk tárgyalni.</p>
 <h3 id="datareader">DataReader<a class="headerlink" href="#datareader" title="Permanent link">&para;</a></h3>
-<p>Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennálása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.</p>
+<p>Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennállása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.</p>
 <p><strong>Feldolgozás lépései:</strong></p>
 <ol>
 <li>kapcsolat megnyitása</li>
@@ -1462,7 +1462,7 @@
 <li>Ha az adatbázisban valamelyik oszlopban <code>NULL</code> érték van a <code>reader.Get***</code> hívásra szintén <strong>futás idejű hibát</strong> kapunk. Helyette ellenőrizzük a <code>reader.IsDBNull(lekérdezésben_az_oszlop_indexe)</code> segítségével, és ha ez <code>true</code>, akkor használjuk a típusnak megfelelő <code>null</code> értéket.</li>
 </ul>
 </div>
-<p><strong>Előnyők</strong></p>
+<p><strong>Előnyök</strong></p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> az adatok mindenkor a legfrissebbek, hiszen frissen az adatbázisból kérdezzük le</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> egyszerűbb konkurenciakezelés, mert mindig friss adatokkal dolgozunk</li>
@@ -1486,7 +1486,7 @@
 <li>kapcsolat lezárása</li>
 </ol>
 <p>Az adatelérés működése <code>adapter</code>-rel kapcsolat nélküli modellben az alábbi ábrán látható.</p>
-<p><img alt="Data adapter haszálata" src="images/adapter.png" /></p>
+<p><img alt="Data adapter használata" src="images/adapter.png" /></p>
 <p><code>DataSet</code> kapcsolati lánc az adatbázisig:</p>
 <p><img alt="DataSet kapcsolati lánc" src="images/dataset.png" /></p>
 <p><strong>Példa</strong> <code>DataSet</code> használatára:</p>
@@ -1524,7 +1524,7 @@
 <div class="admonition warning">
 <p>Érdemes megfigyelni, hogy az <code>adapter</code> csak a <code>Command</code>-on keresztül kommunikál az adatbázissal. Egy <code>adapter</code> több ilyen <code>Command</code>-ot is használhat, ezáltal több <code>Connection</code>-nel akár több adatbázison is dolgozhatunk ugyanazon <code>DataSet</code>-tel.</p>
 </div>
-<p><strong>Előnyők</strong></p>
+<p><strong>Előnyök</strong></p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> nem szükséges folyamatos hálózati kapcsolat</li>
 </ul>
@@ -1551,7 +1551,7 @@
 <p>Amennyiben nem zárunk le minden <code>Connection</code>-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy <code>Connection</code>-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.</p>
 <div class="admonition important">
 <p class="admonition-title"><strong>MEGOLDÁS</strong></p>
-<p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén midíg lezáródik a kapcsolat (lásd: <a href="#tranzakciok">Tranzakció rész példa</a>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
+<p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén mindig lezáródik a kapcsolat (lásd: <a href="#tranzakciok">Tranzakció rész példa</a>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
 </div>
 <div class="admonition note">
 <p>A <code>DataReader</code>-t hasonlóan le kell zárni, és ugyanúgy használható rá a <code>using</code> is.</p>
