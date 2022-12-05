@@ -372,7 +372,7 @@ void SimpleResolve(IServiceProvider sp)
     // egy Logger példánnyal tér vissza.
     var logger1 = sp.GetService(typeof(ILogger));
 
-    // A típus generikus paraméterben is megadhatjuk, kényelmesebb, ezt szoktuk  használni.
+    // A típus generikus paraméterben is megadhatjuk, kényelmesebb, ezt szoktuk használni.
     // Ehhez szükség van a Microsoft.Extensions.DependencyInjection névtér using-olására,
     // mert ez a GetService forma ott definiált extension methodként.
     // Mivel az ILogger típushoz a Logger osztályt regisztráltuk,
@@ -441,7 +441,7 @@ public class TodoController : ControllerBase
         _context = context;
         _notificationService = notificationService;
 
-        // Fill wit some initial data
+        // Fill with some initial data
         if (_context.TodoItems.Count() == 0)
         {
             _context.TodoItems.Add(new TodoItem { Name = "Item1" });
@@ -503,7 +503,7 @@ services.AddScoped<TodoContext, TodoContext>();
 
 Mint a példában látható, a `TodoContext` __beregisztrálása nem egy absztrakcióval történik__ (nincs `ITodoContext` interfész), __hanem magával a__ TodoContext __implementációs típussal__. __A DI keretrendszerek/IoC konténerek támogatják, hogy a regisztráció során az absztrakció egy konkrét típus legyen, jellemzően maga az implementációs típus__. Ezt a megközelítést csak indokolt esetben használjuk.
 
-ASP.NET Core környezetben a `DbContext` leszármazott osztályunk számára soha nem vezetünk be interfészt, hanem az osztályának a típusával kerül beregisztrálásra az IoC konténerbe (a példánkban is `TodoContext`->`TodoContext` leképezés történik). A `DbContext` önmagában is számos perzisztencial providerrel (pl. MSSQL, Oracle, memória, stb.) tud együtt működni, így alkalmazásfüggő, mennyire van értelme absztrahálni. Ha absztraháljuk az adathozzáférést, akkor nem a `DbContext`-hez vezetünk be interfészt, hanem a Repository tervezési mintát használjuk, és az egyes repository implementációkhoz vezetünk be interfészeket, valamint ezek vonatkozásában történik az IoC konténerben a leképezés (pl. `ITodoRepository`->`TodoRepository`). A repository osztályok pedig vagy maguk példányosítják a `DbContext` objektumokat, vagy konstruktor paraméterben kerül számukra beinjektálásra).
+ASP.NET Core környezetben a `DbContext` leszármazott osztályunk számára soha nem vezetünk be interfészt, hanem az osztályának a típusával kerül beregisztrálásra az IoC konténerbe (a példánkban is `TodoContext`->`TodoContext` leképezés történik). A `DbContext` önmagában is számos perzisztencia providerrel (pl. MSSQL, Oracle, memória, stb.) tud együtt működni, így alkalmazásfüggő, mennyire van értelme absztrahálni. Ha absztraháljuk az adathozzáférést, akkor nem a `DbContext`-hez vezetünk be interfészt, hanem a Repository tervezési mintát használjuk, és az egyes repository implementációkhoz vezetünk be interfészeket, valamint ezek vonatkozásában történik az IoC konténerben a leképezés (pl. `ITodoRepository`->`TodoRepository`). A repository osztályok pedig vagy maguk példányosítják a `DbContext` objektumokat, vagy konstruktor paraméterben kerül számukra beinjektálásra).
 
 !!! note "Megjegyzés"
     Jelen dokumentumnak nem célja állást foglalni abban, mely esetben célszerű Repository vagy egyéb minták segítségével a controller illetve service osztályok számára az EF/DbContext alapú adathozzáférést egy DAL rétegben elrejteni, illetve ezzel szemben mely esetben használjuk a DbContext osztályt közvetlenül a controller/szolgáltatás objektumainkban (vagyis a BLL-ben). Az illusztráció kedvéért a TodoApi alkalmazásunk ebben az értelemben vegyes megoldást alkalmaz: a TodoItem objektumok perzisztálására a szolgáltatás osztályok közvetlenül a DbContext-et használják, míg a Contact-ok kezelésére a Repository mintát használjuk.
@@ -562,7 +562,7 @@ Az IoC konténerek használatának a dependency injectionnel szemben van egy má
 
 ### ASP.NET Core keretrendszer szolgáltatások
 
-Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen a Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás.Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.
+Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen a Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás. Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.
 
 ASP.NET Web API esetén az alkalmazás indulásakor be kell regisztráljunk számos Web API-hoz tartozó "segéd" szolgáltatást a DI konténerbe az alábbi módon (ezt a Program.cs fájlba a VS automatikusan beteszi a projekt létrehozásakor):
 
