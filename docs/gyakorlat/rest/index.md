@@ -44,8 +44,8 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
     - Nézzük meg a `Program.cs` tartalmát. Lényegében két részből áll:
-      - Létrehoz egy `WebApplicationBuilder` objektumot, amelynek a `Services` tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.
-      - `Build` után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.
+        - Létrehoz egy `WebApplicationBuilder` objektumot, amelynek a `Services` tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.
+        - `Build` után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.
     - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. - A _connection string_ az alkalmazás konfigurációs állományában az `appsettings.json`-ben található.
     - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
 
