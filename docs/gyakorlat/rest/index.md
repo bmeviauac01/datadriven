@@ -66,7 +66,7 @@ Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget
     ```csharp
     [Route("api/[controller]")]
     [ApiController]
-    public class HelloController
+    public class HelloController : ControllerBase
     {
         // 2. alfeladat
         //[HttpGet]
@@ -96,6 +96,7 @@ Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget
     Foglaljuk össze, mi kell ahhoz, hogy egy WebAPI végpontot készítsünk:
 
     - Leszármazni a `ControllerBase`-ből és az `[ApiController]` attribútumot rátenni az osztályra.
+        - Ebben a példában nem lenne fontos leszármazni a `CotrollerBase`-ből, mert a keretrendszer nem követeli meg, és nem használjuk az ősben lévő függvényeket sem itt.
     - Megadni, milyen http kérésre válaszol a végpont a megfelelő `[Http*]` attribútummal.
     - Megadni a route-ot, akár az osztályon, akár a metóduson (vagy mindkettőn) a `[Route]` vagy a `[HttpXXX]` attribútummal.
     - Megfelelő formájú metódust készíteni (pl. visszatérési érték, paraméterek).
