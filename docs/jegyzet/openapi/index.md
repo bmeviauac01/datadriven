@@ -243,7 +243,7 @@ Ez OpenApi-ban az `allOf` kulcsszó használatával írható le, és így néz k
                   type: string
 ```
 
-Az `allOf` segít abban, hogy egy relatív elérési út megadásával egyesítsük az általunk készített "leszármazott" attribútumait az elérési út túloldalán álló modell attribútumaival. Van egy szabály, amelyet ajánlott követnünk az `allOf` parancsnál, ez pedig nem más mint,hogy ne használjunk azonos attribútum neveket különböző adattípusokkal. Ha ilyen előfordul a kódban az számtalan hibához vezethet.
+Az `allOf` segít abban, hogy egy relatív elérési út megadásával egyesítsük az általunk készített "leszármazott" attribútumait az elérési út túloldalán álló modell attribútumaival. Van egy szabály, amelyet ajánlott követnünk az `allOf` parancsnál, ez pedig nem más mint, hogy ne használjunk azonos attribútum neveket különböző adattípusokkal. Ha ilyen előfordul a kódban az számtalan hibához vezethet.
 
 Másik, objektumorientált világban gyakran használt eszköz a _polimorfizmus_, azaz amikor a konkrét példány egy leszármazási hierarchia bármely típusa lehet. A polimorfizmus megoldásához az `allOf`-hoz hasonló `oneOf` kulcsszót tudjuk használni. Az alábbi példában a `oneOf` parancs lehetővé teszi, hogy az adat `simpleObject` vagy `complexObject` sémát is tartalmazhasson, de midig csak az egyiket.
 
@@ -272,7 +272,7 @@ Amennyiben ezt C#-ban próbáljuk elképzelni, akkor `SimpleObject` és `Complex
 !!! note ""
     Azon túl, hogy a polimorfizmust a fentiekben a sémában kifejeztük, valóban még nem vagyunk készen. Az OpenAPI ugyanis csak a sémáról szól. Arról nem, hogy a C#/Java/stb. kódban a tényleges adatból hogyan keletkezhet objektum. Hiszen ez nem az OpenAPI felelőssége - ez a sorosításra tartozik. A deszerializálás (JSON -> objektum) során kell majd valójában eldönteni, hogy az adat, ami érkezik, az melyik típusnak felel meg. Ezt a tipikus JSON sorosító könyvtárak csak külön konfiguráció árán tudják elvégezni. Ezzel tehát érdemes vizsgázni, az OpenAPI csak a probléma felét oldotta meg.
 
-    A szakirodalom véleménye ezért is megoszlik a a polimorfizmusról mint lehetséges `edge-case`-ről. Az OpenAPI 3.0 kiadásával megjelentek a már fent említett parancsok, viszont még 2019-ben is számtalan olyan szolgáltatás volt, amely nem támogatta ezek használatát.
+    A szakirodalom véleménye ezért is megoszlik a polimorfizmusról mint lehetséges `edge-case`-ről. Az OpenAPI 3.0 kiadásával megjelentek a már fent említett parancsok, viszont még 2019-ben is számtalan olyan szolgáltatás volt, amely nem támogatta ezek használatát.
 
 ## OpenAPI vs Swagger, mik is a különbségek?
 
@@ -283,7 +283,7 @@ A különbség legegyszerűbben így érthető meg:
 - **OpenAPI** = specifikáció
 - **Swagger** = eszközök a specifikáció megvalósításához
 
-Az **OpenAPI** a specifikáció hivatalos neve. A specifikáció fejlesztését az _OpenAPI Initiative_ segíti, amelyben több mint 30 szervezet vesz részt az IT világ különböző területeiről - köztük a Microsoft, a Google, az IBM és a CapitalOne. A Swagger eszközök fejlesztését vezető Smartbear Software szintén tagja az OpenAPI Initiative-nek, és segíti a specifikáció fejlődését.A Swagger eszköztár nyílt forráskódú, ingyenes és kereskedelmi eszközök keverékét tartalmazza, amelyek az API életciklus különböző szakaszaiban használhatók:
+Az **OpenAPI** a specifikáció hivatalos neve. A specifikáció fejlesztését az _OpenAPI Initiative_ segíti, amelyben több mint 30 szervezet vesz részt az IT világ különböző területeiről - köztük a Microsoft, a Google, az IBM és a CapitalOne. A Swagger eszközök fejlesztését vezető Smartbear Software szintén tagja az OpenAPI Initiative-nek, és segíti a specifikáció fejlődését. A Swagger eszköztár nyílt forráskódú, ingyenes és kereskedelmi eszközök keverékét tartalmazza, amelyek az API életciklus különböző szakaszaiban használhatók:
 
 - **Swagger Editor**:  lehetővé teszi az OpenAPI-specifikációk YAML-ben történő szerkesztését a böngészőben, valamint a dokumentációk valós idejű előnézetét.
 - **Swagger UI**: egy HTML, JavaScript és CSS eszközökből álló gyűjtemény, amely dinamikusan gyönyörű dokumentációt generál egy OAS-kompatibilis API-ból.

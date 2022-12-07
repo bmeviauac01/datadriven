@@ -41,7 +41,7 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 
     ![Adatbázis kiválasztása](images/sql-managment-tablak.png).
     
-1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítotárát frissítsük.
+1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítótárát frissítsük.
 
     ![IntelliSense](images/intellisense.png).
 

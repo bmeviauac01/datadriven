@@ -61,7 +61,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 1. Ezen a megoldás ágon dolgozva készítsd el a beadandókat. Akárhányszor kommitolhatsz és pusholhatsz.
 
     !!! warning "Kommit név ellenőrzése"
-        Mielőtt a git repository-val dolgozol, ellenőrízd, hogy a megfelelő névvel és email címmel kommitolsz-e. Ezt a következő command line paranccsal tudod megtenni.
+        Mielőtt a git repository-val dolgozol, ellenőrizd, hogy a megfelelő névvel és email címmel kommitolsz-e. Ezt a következő command line paranccsal tudod megtenni.
 
         ```bash
         git config user.name

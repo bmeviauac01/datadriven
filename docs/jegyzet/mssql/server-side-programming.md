@@ -732,7 +732,7 @@ on ProductWithVatPercentage
 instead of insert
 as
   -- A beszúrás a Product táblába kerül, minden inserted rekordnak egy új sora keletkezik
-  -- És közben kikeressük a százaléknek megfelelő áfa rekordot
+  -- És közben kikeressük a százaléknak megfelelő áfa rekordot
   -- A megoldás nem teljes, mert nem kezeli, ha nincs még ilyen áfa rekord
   insert into Product(Name, Price, Stock, VATID, CategoryID)
   select i.Name, i.Price, i.Stock, v.ID, 1
