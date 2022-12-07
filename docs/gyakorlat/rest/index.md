@@ -238,7 +238,7 @@ A lekérés során gondoljuk arra is, ha a kérésben olyan ID érkezik, amely n
 
     Még egy egyszerűsítést ad a keretrendszer, mégpedig akkor is visszatérhetünk a natúr DTO-val, ha a controller action visszatérési értéke `ActionResult<T>` pl.:
 
-    ```csharp hl_lines=2
+    ```csharp hl_lines="2"
     return dbProduct != null
         ? new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)
         : NotFound();
