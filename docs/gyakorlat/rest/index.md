@@ -21,16 +21,16 @@ Amit érdemes átnézned:
 
 ## Gyakorlat menete
 
-A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.
+A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó és utolsó előtti feladat opcionális, ha belefér az időbe.
 
 !!! info ""
     Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
-## Feladat 0: Adatbázis létrehozása, ellenőrzése
+## 0. Feladat: Adatbázis létrehozása, ellenőrzése
 
 Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az [első gyakorlat anyagában](../transactions/index.md).)
 
-## Feladat 1: Projekt megnyitása
+## 1. Feladat: Projekt megnyitása
 
 1. Töltsük le a méréshez tartozó projekt vázat!
 
@@ -38,22 +38,22 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
     - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
     - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-rest-kiindulo.git`
 
-1. Nyissuk meg a `rest` könyvtár alatti _sln_ fájlt Visual Studio-val.
+1. Nyissuk meg a leklónozott könyvtár alatti _sln_ fájlt Visual Studio-val.
 
 1. Vizsgáljuk meg a projektet.
 
     - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
-    - Nézzük meg a `Program.cs` tartalmát. Nem kell értenünk, hogy mi történik itt pontosan, csak lássuk, hogy ez olyan, mint egy konzol alkalmazás: a `Main` függvényben elindít egy webszervert.
-    - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. A _connection stringet_ javítsuk ki szükség esetén ebben az osztályban az `OnConfiguring` függvényben.
-
-        !!! note ""
-            A connection stringet természetesen nem célszerű beégetni a forráskódba. Mi ezt csupán egyszerűsítésként alkalmazzuk.
-
+    - Nézzük meg a `Program.cs` tartalmát. Lényegében két részből áll:
+        - Létrehoz egy `WebApplicationBuilder` objektumot, amelynek a `Services` tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.
+        - `Build` után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.
+    - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. - A _connection string_ az alkalmazás konfigurációs állományában az `appsettings.json`-ben található.
     - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
 
-1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el, ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy _Ctrl-C_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
+1. Írjuk át az `appsettings.json` állományban az adatbázisunk nevét a connection string-ben a neptun kódunkra.
 
-## Feladat 2: Első Controller és metódus, tesztelés Postmannel
+1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy _Ctrl-C_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
+
+## 2. Feladat: Első Controller és metódus, tesztelés Postmannel
 
 Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget. Próbáljuk ki a működést Postman használatával.
 
@@ -64,31 +64,29 @@ Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget
 
 ??? example "Megoldás"
     ```csharp
-    [Route("api/hello")]
+    [Route("api/[controller]")]
     [ApiController]
     public class HelloController : ControllerBase
     {
         // 2. alfeladat
         //[HttpGet]
-        //public ActionResult<string> Hello()
+        //public string Hello()
         //{
         //    return "Hello!";
         //}
 
         // 3. alfeladat
         [HttpGet]
-        public ActionResult<string> Hello([FromQuery] string name)
+        public string Hello([FromQuery] string name)
         {
-            if(string.IsNullOrEmpty(name))
-                return "Hello noname!";
-            else
-                return "Hello " + name;
+            return string.IsNullOrEmpty(name)
+                ? "Hello noname!"
+                : $"Hello {name}";
         }
 
         // 4. alfeladat
-        [HttpGet]
-        [Route("{personName}")] // a route-ban a {} közötti név meg kell egyezzen a paraméter nevével
-        public ActionResult<string> HelloRoute(string personName)
+        [HttpGet("{personName}")] // a route-ban a {} közötti név meg kell egyezzen a paraméter nevével
+        public string HelloRoute(string personName)
         {
             return "Hello route " + personName;
         }
@@ -98,99 +96,91 @@ Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget
     Foglaljuk össze, mi kell ahhoz, hogy egy WebAPI végpontot készítsünk:
 
     - Leszármazni a `ControllerBase`-ből és az `[ApiController]` attribútumot rátenni az osztályra.
-    - Megadni a route-ot, akár az osztályon, akár a metóduson (vagy mindkettőn) a `[Route]` attribútummal.
-    - Megfelelő formájú metódust készíteni (pl. visszatérési érték, paraméterek).
+        - Ebben a példában nem lenne fontos leszármazni a `CotrollerBase`-ből, mert a keretrendszer nem követeli meg, és nem használjuk az ősben lévő függvényeket sem itt.
     - Megadni, milyen http kérésre válaszol a végpont a megfelelő `[Http*]` attribútummal.
+    - Megadni a route-ot, akár az osztályon, akár a metóduson (vagy mindkettőn) a `[Route]` vagy a `[HttpXXX]` attribútummal.
+    - Megfelelő formájú metódust készíteni (pl. visszatérési érték, paraméterek).
 
-## Feladat 3: Termékek keresése API
+## 3. Feladat: Termékek keresése API
 
 Egy valódi API természetesen nem konstansokat ad vissza. Készítsünk API-t a webshopban árult termékek közötti kereséshez.
 
 - Készítsünk ehhez egy új controller-t.
 - Lehessen listázni a termékeket, de csak lapozva (max 5 elem minden lapon).
 - Lehessen keresni termék névre.
-- A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) osztályt egy új, `Models` mappában.
+- A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) `record` osztályt egy új, `Dtos` mappában.
 
-Teszteljük a megoldásunkat.
+### DTO-k használata
+
+A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás legyen, hanem készítsünk egy új, ún. _DTO_ (data transfer object) osztályt egy új, `Dtos` mappában. Készítsünk `Product` néven egy rekord osztályt a DTO számára.
+
+!!! tip "Rekordok C#-ban"
+    A `record` kulcsszó egy olyan típust reprezentál (alapértelmezetten class), ami a fejlécben meghatározott konstruktorral és [`init` only setterrel](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init) rendelkező tulajdonságokkal rendelkezik. Ezáltal egy record immutable viselkedéssel bír, ami jobban illeszkedik egy DTO viselkedéséhez. A rekordok ezen kívül egyéb kényelmi szolgáltatásokkal is rendelkeznek ([lásd bővebben](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record)), de ezeket mi nem fogjuk itt kihasználni.
 
 ??? example "Megoldás"
+
+    ```csharp title="Dtos/Product.cs"
+    namespace Bme.DataDriven.Rest.Dtos;
+
+    public record Product(int Id, string Name, double? Price, int? Stock);
+    ```
+### Listázó végpont készítése
+
+Készítsük el a követelményeknek megfelelő végpontot egy új `ProductController` osztályban, majd próbáljuk ki az alkalmazást.
+
+??? example "Megoldás"
+
     ```csharp
-    // *********************************
-    // Models/Product.cs
-
-    namespace BME.DataDriven.REST.Models
-    {
-        public class Product
-        {
-            public Product(int id, string name, double? price, int? stock)
-            {
-                Id = id;
-                Name = name;
-                Price = price;
-                Stock = stock;
-            }
-
-            // Csak a lenyeges tulajdonsagokat tartalmazza, pl. az adatbazis kulso kulcsokat nem.
-            // Ertekadas csak a konstruktoron keresztul lehetseges, ezzel jelezve, hogy a peldany
-            // egy pillanatkep alapjan jon letre, es nem modosithato.
-
-            public int Id { get; private set; }
-            public string Name { get; private set; }
-            public double? Price { get; private set; }
-            public int? Stock { get; private set; }
-        }
-    }
-
-
-
-    // *********************************
-    // Controllers/ProductsController.cs
-
-    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
 
-    namespace BME.DataDriven.REST.Controllers
+    namespace Bme.DataDriven.Rest.Controllers;
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductController : ControllerBase
     {
-        [Route("api/products")] // adjunk meg explicit urlt inkabb
-        [ApiController]
-        public class ProductsController : ControllerBase
+        private readonly Dal.DataDrivenDbContext _dbContext;
+
+        // Az adatbazist igy kaphatjuk meg. A kornyezet adja a Dependency Injection szolgaltatast.
+        // A DbContext automatikusan megszunik a keres veges (DI beallitas).
+        public ProductController(Dal.DataDrivenDbContext dbContext)
         {
-            private readonly Dal.DataDrivenDbContext dbContext;
+            _dbContext = dbContext;
+        }
 
-            // Az adatbazist igy kaphatjuk meg. A kornyezet adja a Dependency Injection szolgaltatast.
-            // A DbContext automatikusan megszunik a keres vegen (DI beallitas).
-            public ProductsController(Dal.DataDrivenDbContext dbContext)
-            {
-                this.dbContext = dbContext;
-            }
+        [HttpGet]
+        public List<Dtos.Product> List([FromQuery] string search = null, [FromQuery] int from = 0)
+        {
+            var filteredList = string.IsNullOrEmpty(search)
+                ? _dbContext.Product // ha nincs nev alapu kereses, az osszes termek
+                : _dbContext.Product.Where(p => p.Name.Contains(search)); // nev alapjan kereses
 
-            [HttpGet]
-            public ActionResult<Models.Product[]> List([FromQuery] string search = null, [FromQuery] int from = 0)
-            {
-                IQueryable<Dal.Product> filteredList;
-
-                if (string.IsNullOrEmpty(search)) // ha nincs nev alapu kereses, az osszes termek
-                    filteredList = dbContext.Product;
-                else // nev alapjan kereses
-                    filteredList = dbContext.Product.Where(p => p.Name.Contains(search));
-
-                return filteredList
-                        .Skip(from) // lapozashoz: hanyadik termektol kezdve
-                        .Take(5) // egy lapon max 5 termek
-                        .Select(p => new Models.Product(p.Id, p.Name, p.Price, p.Stock)) // adatbazis entitas -> DTO
-                        .ToArray(); // a fenti IQueryable kiertekelesenek kieroltetese, kulonben hibara futnank
-            }
+            return filteredList
+                .Skip(from) // lapozashoz: hanyadik termektol kezdve
+                .Take(5) // egy lapon max 5 termek
+                .Select(p => new Dtos.Product(p.Id, p.Name, p.Price, p.Stock)) // adatbazis entitas -> DTO
+                .ToList(); // a fenti IQueryable kiertekelesesen kieroltetese, kulonben hibara futnank
         }
     }
     ```
 
-    Vegyük észre, hogy a JSON sorosítással nem kellett foglalkoznunk. Az API csak entitást ad vissza. A sorosításról automatikusan gondoskodik a keretrendszer.
+Az adatbázis kontextust DI-on keresztük konstruktor paraméterként kérhetjük el egyszerűen.
 
-    Lapozást azért érdemes beiktatni, hogy korlátozzuk a visszaadott választ (ahogy a felhasználói felületeken is szokás lapozni). Erre tipikus megoldás ez a "-tól" jellegű megoldás.
+Vegyük észre, hogy a JSON sorosítással nem kellett foglalkoznunk. Az API csak DTO-t ad vissza, a sorosításról automatikusan gondoskodik a keretrendszer.
 
-    A metódus eredménye a `ToArray`-t megelőzően egy `IQueryable`. Emlékezzünk arra, hogy az `IQueryable` nem tartalmazza az eredményt, az csak egy leíró. Ha nem lenne a végén `ToArray`, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból soha ne adjunk emiatt `IQueryable` vagy `IEnumerable` visszatérési értéket!
+Lapozást azért érdemes beiktatni, hogy korlátozzuk a visszaadott választ (ahogy a felhasználói felületeken is szokás lapozni). Erre tipikus megoldás ez a "-tól" jellegű megoldás.
 
-## Feladat 4: Termékek adatainak szerkesztés API
+!!! note "Lapozás másképpen"
+    Lapozást sok fajta módon tervezhetjük a REST API-k esetében. A fenti megoldás a legegyszerűbb, de elképzelhető olyan megközelítés is, hogy a kliens meghatározhassa a lapméretet és az abszolút `from` offset helyett a kért lap indexét adja meg a kérésben.
+
+A metódus eredménye a `ToList`-et megelőzően egy `IQueryable<T>`. Emlékezzünk arra, hogy az `IQueryable<T>` nem tartalmazza az eredményt, az csak egy leíró.
+
+!!! warning "`IQueryable<T> `visszatérési érték és `DbContext` életciklus"
+    Ha nem lenne a végén `ToList`, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból **soha ne** adjunk emiatt `IQueryable` visszatérési értéket!
+
+    Az okok arra vezethetőek vissza, hogy alapértelmezetten a `DbContext` típusok `Scoped` életciklussal kerülnek beregisztrálásra a DI konténerbe, és ASP.NET Core esetében alapértelmezetten egy HTTP kérés során keletkezik egy scope. Viszont a sorosítás már kívül esne ezen a scope-on.
+
+## 4. Feladat: Termékek adatainak szerkesztés API
 
 Egészítsük ki a termékek kereséséhez született API-t az alábbi funkciókkal:
 
@@ -201,224 +191,223 @@ Egészítsük ki a termékek kereséséhez született API-t az alábbi funkciók
 
 Mindegyik végpontot teszteljük!
 
-**Új termék beszúrásához** Postman-ben az alábbi beállításokra lesz szükség:
+??? tip "REST API tervezési konvenciók cheatsheet"
+
+    REST API-k esetében minden URL (path része) egy-egy erőforrást reprezentál, amelyeken HTTP igékkel tudunk műveleteket végezni, a szerver pedig HTTP státuszkódok és DTO-k formájában válaszol.
+
+    **Tipikus CRUD erőforrások, és műveleteik**
+
+    | Ige        | URL                    | Sikeres válaszkód | Leírás                                      |
+    |------------|------------------------|-------------------|---------------------------------------------|
+    | GET        | /api/product           | 200 OK            | erőforrások listája                         |
+    | GET        | /api/product?name=Test | 200 OK            | erőforrások listája (szűrt)                 |
+    | POST       | /api/product           | 201 Created       | listába beszúrás                            |
+    | GET        | /api/product/1         | 200 OK            | egy adott azonosítójú erőforrás lekérdezése |
+    | PUT, PATCH | /api/product/1         | 200 OK            | egy adott azonosítójú erőforrás módosítása  |
+    | DELETE     | /api/product/1         | 204 NoContent     | egy adott azonosítójú erőforrás törlése     |
+
+    **Tipikus hibaági válaszkódok REST API-k esetében**
+
+    | Ki hibázott | Válaszkód                 | Leírás                                              |
+    |-------------|---------------------------|-----------------------------------------------------|
+    | Kliens      | 400 Bad Request           | Kliens szemantikailag hibás adatokat küldött        |
+    | Kliens      | 401 Unauthorized          | Bejelentkezés szükséges                             |
+    | Kliens      | 403 Forbidden             | Van bejelentkezett user, de nincs joga a művelethez |
+    | Kliens      | 404 Not Found             | Erőforrás nem található                             |
+    | Szerver     | 500 Internal Server Error | Nem várt hiba történt                               |
+
+### Lekérés ID szerint
+
+A lekérés során gondoljuk arra is, ha a kérésben olyan ID érkezik, amely nem létezik az adatbázisban. Ilyenkor `404 Not Found` HTTP státuszkóddal térjünk vissza. Ehhez használjuk az `ActionResult<T>` visszatérési értéket, és a `ControllerBase`-ben lévő segédfüggvényeket.
+
+??? example "Megoldás"
+
+    ```csharp
+    [HttpGet("{id}")]
+    public ActionResult<Dtos.Product> Get(int id)
+    {
+        var dbProduct = _dbContext.Product.SingleOrDefault(p => p.Id == id);
+        return dbProduct != null
+            ? Ok(new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)) // siker eseten visszaadjuk az adatot magat
+            : NotFound(); // 404 http valasz, ha nem talalhato a keresett elem
+    }
+    ```
+
+!!! tip "ActionResult<T> alapértelmezett módon"
+    A válaszkód testreszabása az `ActionResult<T>` osztály és segédfüggvényei segítségével egyértelmű. Viszont gondoljunk bele, hogy az előző feladatokban csak DTO-val tértünk vissza, ahol a keretrendszer a 200 OK alapértelmezéssel élt, így nem volt fontos explicit `ActionResult<T>`-vel visszatérni.
+
+    Még egy egyszerűsítést ad a keretrendszer, mégpedig akkor is visszatérhetünk a natúr DTO-val, ha a controller action visszatérési értéke `ActionResult<T>` pl.:
+
+    ```csharp hl_lines="2"
+    return dbProduct != null
+        ? new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)
+        : NotFound();
+    ```
+
+### Új termék beszúrása
+
+- Készítsük el a szerver irányába érkező DTO osztályt rekordként, és a beszúró végpontot.
+- A beszúrás tipikusan a listás erőforrás URL-jére küldött POST kérés
+- Válaszként térjünk vissza a beszúrt adatokkal és a `Location` headerben a beszúrt erőforrás URL-jével. Ehhez a `CreatedAtAction` metódus lesz segítségünkre.
+
+??? example "Megoldás"
+
+    ```csharp
+    namespace Bme.DataDriven.Rest.Dtos;
+
+    public record NewProduct(string Name, double? Price, int? Stock);
+    ```
+
+    ```csharp
+    [HttpPost]
+    public ActionResult<Dtos.Product> Add([FromBody] Dtos.NewProduct newProduct)
+    {
+        var dbProduct = new Dal.Product()
+        {
+            Name = newProduct.Name,
+            Price = newProduct.Price,
+            Stock = newProduct.Stock,
+            CategoryId = 1, // nem szep, ideiglenes megoldas
+            VatId = 1 // nem szep, ideiglenes megoldas
+        };
+
+        // mentes az adatbazisba
+        _dbContext.Product.Add(dbProduct);
+        _dbContext.SaveChanges();
+
+        // igy mondjuk meg, hol kerdezheto le a beszurt elem
+        return CreatedAtAction(
+            nameof(Get),
+            new { id = dbProduct.Id },
+            new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); 
+    }
+    ```
+
+Új termék beszúrásához Postman-ben az alábbi beállításokra lesz szükség:
 
 - POST kérés a helyes URL-re
 - A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
 - Az alábbi _body_ json:
 
-  ```json
-  {
-    "name": "BME-s kardigán",
-    "price": 8900,
-    "stock": 100
-  }
-  ```
+    ```json
+    {
+        "name": "BME-s kardigán",
+        "price": 8900,
+        "stock": 100
+    }
+    ```
 
-Megjegyzés: Esetünkben a JSON objektum egy `Models.NewProduct` objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
+A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A beszúrás esetén keressük meg benne a `Location` kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény. Emellett általában a POST kérés a válaszban is vissza szokta adni a beszúrt adatokat.
 
-A **módosítás** teszteléséhez pedig az alábbi beállításokra lesz szükség:
+### Termék módosítása
+
+- A módosítást tipikusan a PUT ige reprezentálja.
+- Nem létező erőforrás módosítása 404-es hibakódot eredményezzen.
+- A módosítás megvalósítása során használjuk a meglévő `Product` DTO-t és validáljuk le, hogy azonos-e a path-ba és a body-ban kapott ID. Ehhez a `ModelState` tulajdonságot és a `BadRequest` függvényeket tudjuk használni.
+- A módosítás szokásos módon EF-en keresztül zajlik.
+- A módosító függvény is tipikusan vissza szokott térni a módosított adatokkal.
+
+??? example "Megoldás"
+
+    ```csharp
+    [HttpPut("{id}")]
+    public ActionResult<Dtos.Product> Modify([FromRoute]int id, [FromBody]Dtos.Product updated)
+    {
+        if (id != updated.Id)
+        {
+            ModelState.AddModelError(nameof(id), "Nem megfelelő a kapott ID");
+            return BadRequest(ModelState);
+        }
+
+        var dbProduct = _dbContext.Product.SingleOrDefault(p => p.Id == id);
+        if (dbProduct == null)
+            return NotFound();
+
+        // modositasok elvegzese
+        dbProduct.Name = updated.Name;
+        dbProduct.Price = updated.Price;
+        dbProduct.Stock = updated.Stock;
+
+        // mentes az adatbazisban
+        _dbContext.SaveChanges();
+
+        return new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock);
+    }
+    ```
+
+A módosítás teszteléséhez az alábbi beállításokra lesz szükség:
 
 - PUT kérés a helyes URL-re
 - A _Body_ fül alatt a `raw` és jobb oldalon a `JSON` kiválasztása
 - Az alábbi _body_ json:
 
-  ```json
-  {
-    "id": 10,
-    "name": "Egy óra csend",
-    "price": 440,
-    "stock": 10
-  }
-  ```
-
-Megjegyzés: Esetünkben a JSON objektum egy `Models.Product` objektumba deszerializálódik. Mivel ebben az osztályban a property setter-ek védettek, a JSON deszerializáció során a JSON mezőnevek leképezése a konstruktor paraméter nevekre történik (case insensitive módon): így lényeges, hogyan nevezzük el a konstruktor paramétereket!
-
-![Postman PUT kérés](images/postman-put-query.png)
-
-A tesztelés során nézzük meg a kapott válasz _Header_-jeit is! A szerkesztés és beszúrás esetén keressük meg benne a _Location_ kulcsot. Itt adja vissza a rendszer, hol kérdezhető le az eredmény.
-
-??? example "Megoldás"
-    ```csharp
-    // *********************************
-    // Models/NewProduct.cs
-
-    namespace BME.DataDriven.REST.Models
+    ```json
     {
-        public class NewProduct
-        {
-            public NewProduct(string name, double? price, int? stock)
-            {
-                Name = name;
-                Price = price;
-                Stock = stock;
-            }
-
-            public string Name { get; private set; }
-            public double? Price { get; private set; }
-            public int? Stock { get; private set; }
-        }
-    }
-
-
-
-    // *********************************
-    // Controllers/ProductsController.cs
-    namespace BME.DataDriven.REST.Controllers
-    {
-        public class ProductsController : ControllerBase
-        {
-            // ...
-
-            // GET api/products/id
-            [HttpGet]
-            [Route("{id}")]
-            public ActionResult<Models.Product> Get(int id)
-            {
-                var dbProduct = dbContext.Product.SingleOrDefault(p => p.Id == id);
-
-                if (dbProduct == null)
-                    return NotFound(); // helyes http valasz, ha nem talalhato a keresett elem
-                else
-                    return new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock); // siker eseten visszaadjuk az adatot magat
-            }
-
-            // PUT api/products/id
-            [HttpPut]
-            [Route("{id}")]
-            public ActionResult Modify([FromRoute] int id, [FromBody] Models.Product updated)
-            {
-                if (id != updated.Id)
-                    return BadRequest();
-
-                var dbProduct = dbContext.Product.SingleOrDefault(p => p.Id == id);
-
-                if (dbProduct == null)
-                    return NotFound();
-
-                // modositasok elvegzese
-                dbProduct.Name = updated.Name;
-                dbProduct.Price = updated.Price;
-                dbProduct.Stock = updated.Stock;
-
-                // mentes az adatbazisban
-                dbContext.SaveChanges();
-
-                return NoContent(); // 204 NoContent valasz
-            }
-
-            // POST api/products
-            [HttpPost]
-            public ActionResult Create([FromBody] Models.NewProduct newProduct)
-            {
-                var dbProduct = new Dal.Product()
-                {
-                    Name = newProduct.Name,
-                    Price = newProduct.Price,
-                    Stock = newProduct.Stock,
-                    CategoryId = 1, // nem szep, ideiglenes megoldas
-                    VatId = 1 // nem szep, ideiglenes megoldas
-                };
-
-                // mentes az adatbazisba
-                dbContext.Product.Add(dbProduct);
-                dbContext.SaveChanges();
-
-                return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
-            }
-
-            // DELETE api/products/id
-            [HttpDelete]
-            [Route("{id}")]
-            public ActionResult Delete(int id)
-            {
-                var dbProduct = dbContext.Product.SingleOrDefault(p => p.Id == id);
-
-                if (dbProduct == null)
-                    return NotFound();
-
-                dbContext.Product.Remove(dbProduct);
-                dbContext.SaveChanges();
-
-                return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk az entitast)
-            }
-        }
+        "id": 10,
+        "name": "Egy óra csend",
+        "price": 440,
+        "stock": 10
     }
     ```
 
-## Feladat 5: Új termék létrehozása: kategória és áfakulcs
+![Postman PUT kérés](images/postman-put-query.png)
+
+Próbáljuk ki a kérést úgyis, hogy nem egyezik a path-ban és a body-ban lévő két ID. Ilyenkor 400-as Bad Requestet kell kapjunk a hiba részleteivel.
+
+!!! note "DTO-k validációja"
+    A DTO-kat egyéb validációknak is alávethetjük, amire használhatjuk az ASP.NET Core beépített [validációs attribútumait](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-7.0#validation-attributes) vagy akár egyéb külső osztálykönyvtárakat, mint a [FluentValidation](https://docs.fluentvalidation.net/en/latest/).
+
+!!! note "PUT vs PATCH"
+    A módosítás műveletre a PUT vagy a PATCH igéket szokás használni, amelyek között a fő különbség, hogy a PUT a teljes módosított erőforrást várja bemenetként, a PATCH viszont csak egy részleges adathalmazt (tipikusan kulcs érték párokat). .NET környezetben a PUT-ot egyszerűbb implementálni, de a PATCH-re is van [beépített támogatás](https://learn.microsoft.com/en-us/aspnet/core/web-api/jsonpatch?view=aspnetcore-7.0).
+
+### Termék törlése
+
+- A törléshez a DELETE HTTP igét használjuk, válaszként 204 No Content választ állítson elő sikeres ágon.
+- Nem létező erőforrás itt is 404-et eredményezzen.
+
+??? example "Megoldás"
+
+    ```csharp
+    [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
+    {
+        var dbProduct = _dbContext.Product.SingleOrDefault(p => p.Id == id);
+        if (dbProduct == null)
+            return NotFound();
+
+        _dbContext.Product.Remove(dbProduct);
+        _dbContext.SaveChanges();
+
+        return NoContent(); // a sikeres torlest 204 NoContent valasszal jelezzuk (lehetne meg 200 OK is, ha beletennenk an entitast)
+    }
+    ```
+
+!!! note "Idempotens törlés művelet"
+    Egy tipikus tervezői döntés szokott az lenni, hogy a törlés művelet legyen idempotens, tehát egymás után többször lefuttatva is azonos eredményt adjon. Ez a mi esetünkben nem lesz igaz, mert nem létező erőforrásra 404-et küldünk, míg létezőre 204-et. Ezt a műveletet úgy lehetne idempotenssé tenni, ha minden esetben 204-es státuszkóddal térnénk vissza, még akkor is, ha nem csináltunk semmit.
+
+## 5. Feladat (opcionális): Új termék létrehozása: kategória és áfakulcs
 
 Az új termék létrehozása során meg kellene adnunk még a kategóriát és az áfakulcsot is. Módosítsuk a fenti termék beszúrást úgy, hogy a kategória nevét és az áfakulcs számértékét is meg lehessen adni. A kapott adatok alapján keresd ki a megfelelő `VAT` és `Category` rekordokat az adatbázisból, vagy hozz létre újat, ha nem léteznek.
 
 ??? example "Megoldás"
-    ```csharp
-    // *********************************
-    // Models/NewProduct.cs
-    namespace BME.DataDriven.REST.Models
-    {
-        public class NewProduct
-        {
-            // ...
-            // A konstruktort is ki kell egesziteni!
-            // Lenyeges, hogyan nevezzuk el a konstruktor parametereket:
-            // Mivel a property setter-ek vedettek, a JSON deszerializacio
-            // soran a JSON mezonevek lekepezese a konstruktor parameter
-            // nevekre tortenik (case insensitive modon).
 
-            public int VATPercentage { get; private set; }
-            public string CategoryName { get; private set; }
-        }
-    }
-
-    // *********************************
-    // Controllers/ProductsController.cs
-    namespace BME.DataDriven.REST.Controllers
-    {
-        // ...
-
-        [HttpPost]
-        public ActionResult Create([FromBody] Models.NewProduct newProduct)
-        {
-            var dbVat = dbContext.Vat.FirstOrDefault(v => v.Percentage == newProduct.VATPercentage);
-            if (dbVat == null)
-                dbVat = new Dal.VAT() { Percentage = newProduct.VATPercentage };
-
-            var dbCat = dbContext.Category.FirstOrDefault(c => c.Name == newProduct.CategoryName);
-            if (dbCat == null)
-                dbCat = new Dal.Category() { Name = newProduct.CategoryName };
-
-            var dbProduct = new Dal.Product()
-            {
-                Name = newProduct.Name,
-                Price = newProduct.Price,
-                Stock = newProduct.Stock,
-                Category = dbCat,
-                VAT = dbVat
-            };
-
-            // mentes az adatbazisba
-            dbContext.Product.Add(dbProduct);
-            dbContext.SaveChanges();
-
-            return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
-        }
-    }
+    ```csharp title="NewProduct.cs" hl_lines="5-6"
+    public record NewProduct(
+        string Name,
+        double? Price,
+        int? Stock,
+        int VatPercentage,
+        string CategoryName);
     ```
-
-## Feladat 6: Aszinkron kontroller metódus
-
-Az előbbi feladatot írjuk át [**aszinkronra**](../../jegyzet/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
-
-??? example "Megoldás"
-    ```csharp hl_lines="2 4 8 23"
+    ```csharp title="ProductController.cs" hl_lines="4-10 17-18"
     [HttpPost]
-    public async Task<ActionResult> Create([FromBody] Models.NewProduct newProduct)
+    public ActionResult<Dtos.Product> Add([FromBody]Dtos.NewProduct newProduct)
     {
-        var dbVat = await dbContext.Vat.FirstOrDefaultAsync(v => v.Percentage == newProduct.VATPercentage);
+        var dbVat = _dbContext.Vat.SingleOrDefault(v => v.Percentage == newProduct.VatPercentage);
         if (dbVat == null)
-            dbVat = new Dal.VAT() { Percentage = newProduct.VATPercentage };
+            dbVat = new Dal.VAT() { Percentage = newProduct.VatPercentage };
 
-        var dbCat = await dbContext.Category.FirstOrDefaultAsync(c => c.Name == newProduct.CategoryName);
+        var dbCat = _dbContext.Category.SingleOrDefault(c => c.Name == newProduct.CategoryName);
         if (dbCat == null)
             dbCat = new Dal.Category() { Name = newProduct.CategoryName };
 
@@ -428,17 +417,63 @@ Az előbbi feladatot írjuk át [**aszinkronra**](../../jegyzet/async/index.md),
             Price = newProduct.Price,
             Stock = newProduct.Stock,
             Category = dbCat,
-            VAT = dbVat
+            VAT = dbVat,
         };
 
         // mentes az adatbazisba
-        dbContext.Product.Add(dbProduct);
-        await dbContext.SaveChangesAsync();
+        _dbContext.Product.Add(dbProduct);
+        _dbContext.SaveChanges();
 
-        return CreatedAtAction(nameof(Get), new { id = dbProduct.Id }, new Models.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); // igy mondjuk meg, hol kerdezheto le a beszurt elem
+        // igy mondjuk meg, hol kerdezheto le a beszurt elem
+        return CreatedAtAction(
+            nameof(Get),
+            new { id = dbProduct.Id },
+            new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); 
     }
     ```
 
-    Vegyük észre, mennyire egyszerű volt a dolgunk. Az Entity Framework által biztosított `...Async` metódusokat használjuk, mindegyiket `await`-elve, és a metódus szignatúráját kellett kicsit átírnunk. Minden másról továbbra is a keretrendszer gondoskodik.
+## Feladat 6 (opcionális): Aszinkron kontroller metódus
 
-    Megjegyzés. Az `async-await` .NET keretrendszer képesség, amelyet az ASP.NET Core és az Entity Framework is támogat. Számos más helyen is találkozhatunk azonban vele.
+Az előbbi feladatot írjuk át [**aszinkronra**](../../jegyzet/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
+
+??? example "Megoldás"
+
+    ```csharp hl_lines="2 4 8 23"
+    [HttpPost]
+    public async Task<ActionResult<Dtos.Product>> Add([FromBody]Dtos.NewProduct newProduct)
+    {
+        var dbVat = await _dbContext.Vat.SingleOrDefaultAsync(v => v.Percentage == newProduct.VatPercentage);
+        if (dbVat == null)
+            dbVat = new Dal.VAT() { Percentage = newProduct.VatPercentage };
+
+        var dbCat = await _dbContext.Category.SingleOrDefaultAsync(c => c.Name == newProduct.CategoryName);
+        if (dbCat == null)
+            dbCat = new Dal.Category() { Name = newProduct.CategoryName };
+
+        var dbProduct = new Dal.Product()
+        {
+            Name = newProduct.Name,
+            Price = newProduct.Price,
+            Stock = newProduct.Stock,
+            Category = dbCat,
+            VAT = dbVat,
+        };
+
+        // mentes az adatbazisba
+        _dbContext.Product.Add(dbProduct);
+        await _dbContext.SaveChangesAsync();
+
+        // igy mondjuk meg, hol kerdezheto le a beszurt elem
+        return CreatedAtAction(
+            nameof(Get),
+            new { id = dbProduct.Id },
+            new Dtos.Product(dbProduct.Id, dbProduct.Name, dbProduct.Price, dbProduct.Stock)); 
+    }
+    ```
+
+Vegyük észre, mennyire egyszerű volt a dolgunk. Az Entity Framework által biztosított `...Async` metódusokat használjuk, mindegyiket `await`-elve, és a metódus szignatúráját kellett átírnunk `Task<T>` visszatérési értékűre (hogy kívülről bevárható legyen aszinkron) és ellátni `async` kulcsszúval (hogy `await`-et tudjunk benne használni). Minden másról továbbra is a keretrendszer gondoskodik.
+
+!!! note "Aszinkronitás szerveralkalmazásokban"
+    Az `async-await` .NET keretrendszer képesség, amelyet az ASP.NET Core és az Entity Framework is támogat. Számos más helyen is találkozhatunk azonban vele, például kliensalkalmazások esetében.
+
+    Szerveralkalmazásoknál elsődleges célunk az áteresztőképesség növelése azáltal, hogy az aszinkron várakozás közben (esetünkben DB művelet), a kiszolgáló szál másik HTTP kéréssel is tudjon foglalkozni.
