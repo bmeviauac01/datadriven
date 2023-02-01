@@ -11,10 +11,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      # HOTFIX for https://github.com/actions/runner/issues/2033
+      - name: Fix git safe.directory in container
+        run: mkdir -p /home/runner/work/_temp/_github_home && printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
 
       - name: Build docs
-        uses: docker://squidfunk/mkdocs-material:7.3.6
+        uses: ./
         with:
           args: build
 
@@ -23,3 +29,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
+

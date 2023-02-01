@@ -1,16 +1,17 @@
 site_name: BMEVIAUAC01 Adatvezérelt rendszerek
-site_author: Dudás Ákos
+site_author: Albert István, Tóth Tibor
 copyright: Copyright &copy; BME VIK AUT
 repo_name: bmeviauac01/adatvezerelt
 repo_url: https://github.com/bmeviauac01/adatvezerelt
 
 theme:
   name: material
+  custom_dir: overrides
   language: hu
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: aut
-      primary: red
+      primary: aut
       accent: red
       toggle:
         icon: material/lightbulb-outline
@@ -28,7 +29,7 @@ theme:
     - navigation.tabs
     - navigation.instant
     - navigation.top
-    - search.suggest   
+    - search.suggest
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
@@ -58,10 +59,21 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tabbed
   - pymdownx.tilde
+  - md_in_html
+  - pymdownx.keys
 
 plugins:
   - search:
       prebuild_index: true
+  - glightbox
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      timezone: Europe/Budapest
+      locale: hu
+  - git-committers:
+      repository: bmeviauac01/adatvezerelt
+      branch: master
 
 nav:
   - index.md
