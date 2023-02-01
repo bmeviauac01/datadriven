@@ -1,1418 +1,725 @@
 
-<!doctype html>
-<html lang="hu" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-        <meta name="author" content="Dudás Ákos">
-      
-      
-      <link rel="icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
-    
-    
-      
-        <title>Tranzakciókezelés adatbázisokban - BMEVIAUAC01 Adatvezérelt rendszerek</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
-        
-      
-    
-    
-    
-      
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
-      
-    
-    
-    
-      <link rel="stylesheet" href="../../extra-material-theme.css">
-    
-    
-      
+<!DOCTYPE html>
 
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="aut" data-md-color-primary="red" data-md-color-accent="red">
-  
-    
-    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
-    
-      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#tranzakciokezeles-adatbazisokban" class="md-skip">
+<html class="no-js" lang="hu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Albert István, Tóth Tibor" name="author"/>
+<link href="../architektura/" rel="prev"/>
+<link href="../mssql/sql/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>Tranzakciókezelés adatbázisokban - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#tranzakciokezeles-adatbazisokban">
           Kihagyás
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-      
-
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Élőfej">
-    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
-      
-  <img src="../../img/logo-bme-aut.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Élőfej" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             BMEVIAUAC01 Adatvezérelt rendszerek
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Tranzakciókezelés adatbázisokban
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      <form class="md-header__option" data-md-component="palette">
-        
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="aut" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Váltás sötét témára"  type="radio" name="__palette" id="__palette_1">
-          
-            <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Váltás világos témára"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
-            </label>
-          
-        
-      </form>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Törlés" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Keresés" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Keresés" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Keresés" class="md-search__options">
+<button aria-label="Törlés" class="md-search__icon md-icon" tabindex="-1" title="Törlés" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Keresés inicializálása
           </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-    
-    
-      <div class="md-header__source">
-        
-<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
     bmeviauac01/adatvezerelt
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
+</div>
+</nav>
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-            
-<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
+<div class="md-container" data-md-component="container">
+<nav aria-label="Lapok" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
       Adatvezérelt rendszerek
     </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../db/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
         Adatbázis
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-    
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../architektura/" class="md-tabs__link md-tabs__link--active">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../architektura/">
         Jegyzetek
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../gyakorlat/transactions/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../gyakorlat/transactions/">
         Gyakorlatok
       </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../hazi/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../hazi/">
         Házi feladatok
       </a>
-    </li>
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
-      
-  <img src="../../img/logo-bme-aut.png" alt="logo">
-
-    </a>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigáció" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
     BMEVIAUAC01 Adatvezérelt rendszerek
   </label>
-  
-    <div class="md-nav__source">
-      
-<a href="https://github.com/bmeviauac01/adatvezerelt/" title="Főoldalra ugrás" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
     bmeviauac01/adatvezerelt
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
         Adatvezérelt rendszerek
       </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2">
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Adatbázis
           <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Adatbázis" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
-          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
           Adatbázis
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../db/" class="md-nav__link">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
         Minta adatbázis sémája
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../db/mssql/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
         Microsoft SQL Server használata
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../db/mongodb/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
         MongoDB használata
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">
         Minta adatbázis: mssql.sql
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">
         Minta adatbázis: mongo.js
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3">
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Jegyzetek
           <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Jegyzetek" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
           Jegyzetek
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../architektura/" class="md-nav__link">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architektura/">
         Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
           Tranzakciókezelés adatbázisokban
           <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
         Tranzakciókezelés adatbázisokban
       </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Tartalomjegyzék
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#konkurens-adathozzaferes" class="md-nav__link">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konkurens-adathozzaferes">
     Konkurens adathozzáférés
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakciok" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
     Tranzakciók
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciók">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tranzakciok-alaptulajdonsagai" class="md-nav__link">
+<nav aria-label="Tranzakciók" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok-alaptulajdonsagai">
     Tranzakciók alaptulajdonságai
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciók alaptulajdonságai">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#atomi-vegrehajtas" class="md-nav__link">
+<nav aria-label="Tranzakciók alaptulajdonságai" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#atomi-vegrehajtas">
     Atomi végrehajtás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#konzisztencia" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konzisztencia">
     Konzisztencia
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#tartossag" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tartossag">
     Tartósság
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#izolacio" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacio">
     Izoláció
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#izolacios-problemak-es-izolacios-szintek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-problemak-es-izolacios-szintek">
     Izolációs problémák és izolációs szintek
   </a>
-  
-    <nav class="md-nav" aria-label="Izolációs problémák és izolációs szintek">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#problemak" class="md-nav__link">
+<nav aria-label="Izolációs problémák és izolációs szintek" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problemak">
     Problémák
   </a>
-  
-    <nav class="md-nav" aria-label="Problémák">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#piszkos-olvasas-dirty-read" class="md-nav__link">
+<nav aria-label="Problémák" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#piszkos-olvasas-dirty-read">
     Piszkos olvasás (dirty read)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#elveszett-modositas-lost-update" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elveszett-modositas-lost-update">
     Elveszett módosítás (lost update)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#nem-megismetelheto-olvasas-nonrepeatable-read" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nem-megismetelheto-olvasas-nonrepeatable-read">
     Nem megismételhető olvasás (nonrepeatable read)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#fantom-rekordok-phantom-recordsphantom-read" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fantom-rekordok-phantom-recordsphantom-read">
     Fantom rekordok (phantom records/phantom read)
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#izolacios-szintek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-szintek">
     Izolációs szintek
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#utemezes-biztositasa-zarolas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utemezes-biztositasa-zarolas">
     Ütemezés biztosítása: zárolás
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakcios-hatarok" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-hatarok">
     Tranzakciós határok
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakcios-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplozas">
     Tranzakciós naplózás
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciós naplózás">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#undo-tipusu-naplozas" class="md-nav__link">
+<nav aria-label="Tranzakciós naplózás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undo-tipusu-naplozas">
     Undo típusú naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#redo-tipusu-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redo-tipusu-naplozas">
     Redo típusú naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#undoredo-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undoredo-naplozas">
     Undo/redo naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#tranzakcios-naplo-meretenek-csokkentese" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplo-meretenek-csokkentese">
     Tranzakciós napló méretének csökkentése
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol">
     Deadlock információ kinyerése MSSQL adatbázisból
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ellenorzo-kerdesek">
     Ellenőrző kérdések
   </a>
-  
 </li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mssql/sql/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/sql/">
         SQL nyelv, MSSQL platformfüggő SQL utasítások
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mssql/server-side-programming/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/server-side-programming/">
         Microsoft SQL Server programozása
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../adonet/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../adonet/">
         ADO.NET adatelérés
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../linq/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../linq/">
         LINQ: Language Integrated Query
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ef/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
         Kapcsolatok definiálása Entity Framework-ben
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mongodb/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mongodb/">
         MongoDB alapok, műveletek, és a MongoDB .NET Driver
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../di/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../di/">
         Függőséginjektálás ASP.NET Core környezetben
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../async/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../async/">
         Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../openapi/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi/">
         OpenAPI 3 és a Swagger
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
         REST és WebAPI demó alkalmazás (GitHub)
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
         ASP.NET Core DI demó alkalmazás (GitHub)
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
         Minta többrétegű webalkalmazás (GitHub)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4">
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Gyakorlatok
           <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Gyakorlatok" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
           Gyakorlatok
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/transactions/" class="md-nav__link">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/transactions/">
         Tranzakciókezelés
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/mssql/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mssql/">
         Microsoft SQL Server programozása
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/ef/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/ef/">
         Entity Framework
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/mongodb/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mongodb/">
         MongoDB
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/jpa/" class="md-nav__link">
-        JPA & Spring Data
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/jpa/">
+        JPA &amp; Spring Data
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gyakorlat/rest/" class="md-nav__link">
-        REST API & ASP.NET Web API
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/rest/">
+        REST API &amp; ASP.NET Web API
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_5">
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Házi feladatok
           <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Házi feladatok" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
           Házi feladatok
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/" class="md-nav__link">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/">
         Szorgalmi házi feladatok
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/mssql/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mssql/">
         Feladat: MSSQL szerveroldali programozás
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/adonet/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/adonet/">
         Feladat: ADO.NET adatelérés
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/ef/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/ef/">
         Feladat: Entity Framework
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/mongodb/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mongodb/">
         Feladat: MongoDB
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/rest/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/rest/">
         Feladat: REST API Web API technológiával
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/GitHub/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub/">
         Feladatok beadása (GitHub)
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/GitHub-Actions/" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub-Actions/">
         GitHub Actions ismertető
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../hazi/VisualStudio/" class="md-nav__link">
-        Visual Studio & .NET SDK telepítése
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/VisualStudio/">
+        Visual Studio &amp; .NET SDK telepítése
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-  </ul>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
       Tartalomjegyzék
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#konkurens-adathozzaferes" class="md-nav__link">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konkurens-adathozzaferes">
     Konkurens adathozzáférés
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakciok" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
     Tranzakciók
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciók">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tranzakciok-alaptulajdonsagai" class="md-nav__link">
+<nav aria-label="Tranzakciók" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok-alaptulajdonsagai">
     Tranzakciók alaptulajdonságai
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciók alaptulajdonságai">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#atomi-vegrehajtas" class="md-nav__link">
+<nav aria-label="Tranzakciók alaptulajdonságai" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#atomi-vegrehajtas">
     Atomi végrehajtás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#konzisztencia" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konzisztencia">
     Konzisztencia
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#tartossag" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tartossag">
     Tartósság
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#izolacio" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacio">
     Izoláció
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#izolacios-problemak-es-izolacios-szintek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-problemak-es-izolacios-szintek">
     Izolációs problémák és izolációs szintek
   </a>
-  
-    <nav class="md-nav" aria-label="Izolációs problémák és izolációs szintek">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#problemak" class="md-nav__link">
+<nav aria-label="Izolációs problémák és izolációs szintek" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problemak">
     Problémák
   </a>
-  
-    <nav class="md-nav" aria-label="Problémák">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#piszkos-olvasas-dirty-read" class="md-nav__link">
+<nav aria-label="Problémák" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#piszkos-olvasas-dirty-read">
     Piszkos olvasás (dirty read)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#elveszett-modositas-lost-update" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elveszett-modositas-lost-update">
     Elveszett módosítás (lost update)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#nem-megismetelheto-olvasas-nonrepeatable-read" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nem-megismetelheto-olvasas-nonrepeatable-read">
     Nem megismételhető olvasás (nonrepeatable read)
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#fantom-rekordok-phantom-recordsphantom-read" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fantom-rekordok-phantom-recordsphantom-read">
     Fantom rekordok (phantom records/phantom read)
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#izolacios-szintek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-szintek">
     Izolációs szintek
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#utemezes-biztositasa-zarolas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utemezes-biztositasa-zarolas">
     Ütemezés biztosítása: zárolás
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakcios-hatarok" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-hatarok">
     Tranzakciós határok
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#tranzakcios-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplozas">
     Tranzakciós naplózás
   </a>
-  
-    <nav class="md-nav" aria-label="Tranzakciós naplózás">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#undo-tipusu-naplozas" class="md-nav__link">
+<nav aria-label="Tranzakciós naplózás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undo-tipusu-naplozas">
     Undo típusú naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#redo-tipusu-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redo-tipusu-naplozas">
     Redo típusú naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#undoredo-naplozas" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undoredo-naplozas">
     Undo/redo naplózás
   </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#tranzakcios-naplo-meretenek-csokkentese" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplo-meretenek-csokkentese">
     Tranzakciós napló méretének csökkentése
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol">
     Deadlock információ kinyerése MSSQL adatbázisból
   </a>
-  
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ellenorzo-kerdesek" class="md-nav__link">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ellenorzo-kerdesek">
     Ellenőrző kérdések
   </a>
-  
 </li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
-                
-                  <a href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/transactions/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
-                <h1 id="tranzakciokezeles-adatbazisokban">Tranzakciókezelés adatbázisokban<a class="headerlink" href="#tranzakciokezeles-adatbazisokban" title="Permanent link">&para;</a></h1>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="tranzakciokezeles-adatbazisokban">Tranzakciókezelés adatbázisokban<a class="headerlink" href="#tranzakciokezeles-adatbazisokban" title="Permanent link">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Kontextus</p>
 <p>Az alábbiak alapvetően <strong>relációs adatbázisokra</strong> vonatkozóan ismertetik a tranzakciókat. Azonban a problémák és megoldások egy része általános, és más jellegű adatbázis rendszerekben is megtalálhatóak.</p>
 </div>
-<h2 id="konkurens-adathozzaferes">Konkurens adathozzáférés<a class="headerlink" href="#konkurens-adathozzaferes" title="Permanent link">&para;</a></h2>
+<h2 id="konkurens-adathozzaferes">Konkurens adathozzáférés<a class="headerlink" href="#konkurens-adathozzaferes" title="Permanent link">¶</a></h2>
 <p>Az adatbázis-kezelő rendszerek kliens-szerver üzemmódban működnek. A kliensek (az általunk írt szoftverek) csatlakoznak az adatbázishoz és kéréseket hajtatnak végre. Ebben a felállásban egy adatbázis-kezelő rendszer és több kliens vesz részt. Az adatbázis rendszer célja, hogy minél több kérést szolgáljon ki, ezért a <strong>kéréseket egymással párhuzamosan hajtja végre</strong>. Egy ilyen rendszerben az alábbi konkurens (egy időben történő) adathozzáférési esetek lehetségesek.</p>
 <ul>
 <li>Amennyiben a hozzáférések, akár írás, akár olvasás, eltérő adatra vonatkoznak, nincs probléma, a műveletek egyszerre is történhetnek.</li>
@@ -1421,7 +728,7 @@
 </ul>
 <p>Ez a konkurencia probléma nem különbözik az operációs rendszerek és változatos programozási nyelvek esetén megismert konkurencia és kölcsönös kizárás problémájától. Ott többnyire memória hozzáférésről, azonos memóriaterület írás-olvasásáról van szó, és a megoldás a kölcsönös kizárás, azaz a programozó védelmi vonallal látja el az adat hozzáférés helyét.</p>
 <p>Adatbázis-kezelő rendszerekben a konkurens hozzáférés az adatbázisban található rekordokra (sorokra) vonatkozik, és a védelmi vonalat a tranzakciók adják.</p>
-<h2 id="tranzakciok">Tranzakciók<a class="headerlink" href="#tranzakciok" title="Permanent link">&para;</a></h2>
+<h2 id="tranzakciok">Tranzakciók<a class="headerlink" href="#tranzakciok" title="Permanent link">¶</a></h2>
 <div class="admonition abstract">
 <p class="admonition-title">Definíció</p>
 <p>A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.</p>
@@ -1438,8 +745,8 @@
 <p class="admonition-title">A tranzakció csak eszköz</p>
 <p>A tranzakciók (a kölcsönös kizárás biztosításához használt mutexekhez hasonlóan) csak eszközt adnak a programozó kezébe, de a helyes használat a fejlesztő felelőssége.</p>
 </div>
-<h3 id="tranzakciok-alaptulajdonsagai">Tranzakciók alaptulajdonságai<a class="headerlink" href="#tranzakciok-alaptulajdonsagai" title="Permanent link">&para;</a></h3>
-<h4 id="atomi-vegrehajtas">Atomi végrehajtás<a class="headerlink" href="#atomi-vegrehajtas" title="Permanent link">&para;</a></h4>
+<h3 id="tranzakciok-alaptulajdonsagai">Tranzakciók alaptulajdonságai<a class="headerlink" href="#tranzakciok-alaptulajdonsagai" title="Permanent link">¶</a></h3>
+<h4 id="atomi-vegrehajtas">Atomi végrehajtás<a class="headerlink" href="#atomi-vegrehajtas" title="Permanent link">¶</a></h4>
 <p>Az atomi végrehajtás azt jelenti, hogy a művelet sorozatunk több utasítást tartalmaz, azonban ezen utasítás sorozat csak egyben értelmes, a részleges végrehajtást meg kell akadályozni. Erre azért van szükség, mert gyakran az adatbázisban végrehajtott műveleteinket több utasítás segítségével tudjuk csak kifejezni, de az utasítások között nem szakítható meg a művelet.</p>
 <p>Képzeljük el egy webshopban a vásárlás végét lezáró műveletet:</p>
 <ol>
@@ -1448,19 +755,19 @@
 </ol>
 <p>Ez a műveletsorozat csak egyben értelmes. Amennyiben a megrendelést rögzítettük, muszáj a raktárkészletet is csökkenteni, különben többet adhatunk el a termékből, mint amennyi rendelkezésre áll. A két lépés között tehát a művelet nem szakítható félbe.</p>
 <p>Ezt garantálja az atomi végrehajtás: <strong>ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vagy vissza kell állnia a végrehajtást megelőző állapotba</strong>.</p>
-<h4 id="konzisztencia">Konzisztencia<a class="headerlink" href="#konzisztencia" title="Permanent link">&para;</a></h4>
+<h4 id="konzisztencia">Konzisztencia<a class="headerlink" href="#konzisztencia" title="Permanent link">¶</a></h4>
 <p>Az adatbázis konzisztenciájának szabályait részben az integritási kritériumokkal írhatjuk le: például egy külső kulcs által hivatkozott rekordnak léteznie kell. Ezen kívül az adatok közötti összefüggéseket is beleértjük a konzisztenciába: például a Neptun rendszerben nem lehet több jelentkező a vizsgára, mint a vizsga létszámkorlátja.</p>
 <p>Tranzakciók használata biztosítja számunkra, hogy az adatbázisunk mindig konzisztens állapotban van. Egy megkezdett tranzakció lefutása során előfordulhat ideiglenesen inkonzisztens állapot, mint a fenti példában az egyes lépések között. Azonban a tranzakció végére a konzisztenciának helyre kell állnia. Más szóval: <strong>a tranzakciók az adatbázist konzisztens állapotból konzisztens állapotba viszik</strong>.</p>
-<h4 id="tartossag">Tartósság<a class="headerlink" href="#tartossag" title="Permanent link">&para;</a></h4>
+<h4 id="tartossag">Tartósság<a class="headerlink" href="#tartossag" title="Permanent link">¶</a></h4>
 <p>A tartósság tulajdonsága azt írja elő, hogy a <strong>tranzakció hatása tartósan megmarad</strong>, azaz a tranzakció által végzett műveletek eredménye nem veszhet el. Praktikusan ez azt jelenti, hogy a tranzakció által végzett módosítások nem csak memóriában kerülnek elvégzésre, hanem tartós tárra (merevlemezre) is kiírásra kerülnek.</p>
 <p>Az adatbázisban két féle hibát különböztetünk meg, amikor adatvesztés következhet be: soft crash és hard crash. <strong>Soft crash</strong> esetén az adatbázis szerver leáll, így a memória tartalma elveszik. Ez ellen védenek a tranzakciók. <strong>Hard crash</strong> esetén a merevlemez is sérül; ez ellen csak a biztonsági mentés tud védeni.</p>
-<h4 id="izolacio">Izoláció<a class="headerlink" href="#izolacio" title="Permanent link">&para;</a></h4>
+<h4 id="izolacio">Izoláció<a class="headerlink" href="#izolacio" title="Permanent link">¶</a></h4>
 <p>Az izoláció a tranzakciók egymástól való "elszigetelését" jelenti. A tranzakcióinkat úgy írhatjuk meg, hogy annak helyes lefuttatásáról a rendszer fog gondoskodni. A fejlesztő tehát úgy írhatja meg a tranzakciót, <em>mintha</em> az a rendszerben egyedül futna, és az adatbázis rendszer garantálja, hogy <strong>megadott szabályrendszer szerint nem fog előfordulni konkurens adathozzáférési probléma</strong>.</p>
 <p>Valójában a rendszerben egyszerre sok tranzakció fut, azonban az adatbázis-kezelő rendszer garantálja, hogy olyan ütemezésben futtatja tranzakciókat, amelyek nem sértik a tranzakciók által elvárt izolációs szintet. Ehhez a tranzakciónak specifikálnia kell az <em>izolációs szintet</em>.</p>
-<h2 id="izolacios-problemak-es-izolacios-szintek">Izolációs problémák és izolációs szintek<a class="headerlink" href="#izolacios-problemak-es-izolacios-szintek" title="Permanent link">&para;</a></h2>
+<h2 id="izolacios-problemak-es-izolacios-szintek">Izolációs problémák és izolációs szintek<a class="headerlink" href="#izolacios-problemak-es-izolacios-szintek" title="Permanent link">¶</a></h2>
 <p>Az izolációs szintek megismeréséhez először meg kell ismernünk, hogy pontosan milyen konkurens adathozzáférési problémák merülhetnek fel.</p>
-<h3 id="problemak">Problémák<a class="headerlink" href="#problemak" title="Permanent link">&para;</a></h3>
-<h4 id="piszkos-olvasas-dirty-read">Piszkos olvasás (<em>dirty read</em>)<a class="headerlink" href="#piszkos-olvasas-dirty-read" title="Permanent link">&para;</a></h4>
+<h3 id="problemak">Problémák<a class="headerlink" href="#problemak" title="Permanent link">¶</a></h3>
+<h4 id="piszkos-olvasas-dirty-read">Piszkos olvasás (<em>dirty read</em>)<a class="headerlink" href="#piszkos-olvasas-dirty-read" title="Permanent link">¶</a></h4>
 <p>A piszkos olvasás során egy tranzakció egy másik tranzakció nem kommitált adatait használja:</p>
 <ol>
 <li>Egy tranzakció futása során módosít egy értéket, de még nem kommitál.</li>
@@ -1468,7 +775,7 @@
 <li>Az első tranzakció megszakításra kerül, és a rendszer visszaállítja a módosítás előtti értéket.</li>
 </ol>
 <p>A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna szabad felhasználni.</p>
-<p><img alt="Piszkos olvasás" src="images/dirty-read.png" /></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/dirty-read.png"><img alt="Piszkos olvasás" src="images/dirty-read.png"/></a></p>
 <div class="admonition quote">
 <p class="admonition-title">Forrás</p>
 <p>A képek forrása: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
@@ -1476,23 +783,23 @@
 <div class="admonition note">
 <p>A piszkos olvasást szinte minden esetben el akarjuk kerülni.</p>
 </div>
-<h4 id="elveszett-modositas-lost-update">Elveszett módosítás (<em>lost update</em>)<a class="headerlink" href="#elveszett-modositas-lost-update" title="Permanent link">&para;</a></h4>
+<h4 id="elveszett-modositas-lost-update">Elveszett módosítás (<em>lost update</em>)<a class="headerlink" href="#elveszett-modositas-lost-update" title="Permanent link">¶</a></h4>
 <p>Az elveszett módosítás során két írás kerül konfliktusba:</p>
 <ol>
 <li>Egy tranzakció megváltoztat egy értéket.</li>
 <li>Egy másik tranzakció ugyanazon értéket felülírja.</li>
 </ol>
 <p>Végeredményben csak a második írás eredménye marad meg, mintha az első módosítás nem is történt volna meg.</p>
-<p><img alt="Elveszett módosítás" src="images/lost-update.png" /></p>
-<h4 id="nem-megismetelheto-olvasas-nonrepeatable-read">Nem megismételhető olvasás (<em>nonrepeatable read</em>)<a class="headerlink" href="#nem-megismetelheto-olvasas-nonrepeatable-read" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/lost-update.png"><img alt="Elveszett módosítás" src="images/lost-update.png"/></a></p>
+<h4 id="nem-megismetelheto-olvasas-nonrepeatable-read">Nem megismételhető olvasás (<em>nonrepeatable read</em>)<a class="headerlink" href="#nem-megismetelheto-olvasas-nonrepeatable-read" title="Permanent link">¶</a></h4>
 <p>A nem megismételhető olvasás során a lekérdezés eredménye függ attól, hogy időben mikor adták ki egy tranzakcióban:</p>
 <ol>
 <li>Egy tranzakció lekérdez egy adatot.</li>
 <li>Egy másik tranzakció módosítja ugyanazt az adatelemet.</li>
 <li>Ha az első tranzakció megismétli a korábbi lekérdezést, más eredményt kap.</li>
 </ol>
-<p><img alt="Nem megismételhető olvasás" src="images/nonrepeatable-read.png" /></p>
-<h4 id="fantom-rekordok-phantom-recordsphantom-read">Fantom rekordok (<em>phantom records</em>/<em>phantom read</em>)<a class="headerlink" href="#fantom-rekordok-phantom-recordsphantom-read" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/nonrepeatable-read.png"><img alt="Nem megismételhető olvasás" src="images/nonrepeatable-read.png"/></a></p>
+<h4 id="fantom-rekordok-phantom-recordsphantom-read">Fantom rekordok (<em>phantom records</em>/<em>phantom read</em>)<a class="headerlink" href="#fantom-rekordok-phantom-recordsphantom-read" title="Permanent link">¶</a></h4>
 <p>A fantom rekordok problémája akkor jelentkezik, amikor rekord halmazokkal dolgozunk:</p>
 <ol>
 <li>Egy tranzakció lekérdez egy eredményhalmazt, amelyben több rekord van.</li>
@@ -1500,8 +807,8 @@
 <li>Az első tranzakció elkezdi feldolgozni az eredményhalmazt, például iterátor-szerűen egyesével megy végig a rekordhalmazon.</li>
 </ol>
 <p>A törölt rekord ilyenkor része a lekérdezett eredményhalmaznak, vagy sem? Hasonlóan elképzelhető az is, hogy egy rekord módosul a 2. lépésben. Ilyenkor a 3. lépésben a korábbi, vagy a módosult állapotát kellene látni?</p>
-<p><img alt="Fantom rekordok" src="images/phantom-records.png" /></p>
-<h3 id="izolacios-szintek">Izolációs szintek<a class="headerlink" href="#izolacios-szintek" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/phantom-records.png"><img alt="Fantom rekordok" src="images/phantom-records.png"/></a></p>
+<h3 id="izolacios-szintek">Izolációs szintek<a class="headerlink" href="#izolacios-szintek" title="Permanent link">¶</a></h3>
 <p>A fenti problémák mindegyike elkerülhető a megfelelő izolációs szint megválasztásával. Azonban minél "magasabb" izolációs szintet választunk, annál kisebb az adatbázis-kezelő rendszer átbocsátóképessége, és annál nagyobb a lehetősége a holtpont kialakulásának (lásd alább). Ezért a cél egy megfelelő <em>kompromisszum</em> megtalálása a lehetséges problémák és a teljesítmény között.</p>
 <p>Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.</p>
 <ul>
@@ -1513,16 +820,16 @@
 <div class="admonition note">
 <p>A <em>read uncommitted</em> szintet általában nem használjuk. A <em>serializable-t</em> pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a <em>read committed</em>.</p>
 </div>
-<h3 id="utemezes-biztositasa-zarolas">Ütemezés biztosítása: zárolás<a class="headerlink" href="#utemezes-biztositasa-zarolas" title="Permanent link">&para;</a></h3>
+<h3 id="utemezes-biztositasa-zarolas">Ütemezés biztosítása: zárolás<a class="headerlink" href="#utemezes-biztositasa-zarolas" title="Permanent link">¶</a></h3>
 <p>Az izoláció biztosításának módja a zárolás: az adatbázis-kezelő rendszer a rekordok olvasása és írása során megjelöli (zárolja) az érintett elemeket. A zár elhelyezése a hozzáférés idejében történik, míg az elengedése a tranzakció végeztével. Azt, hogy milyen művelet esetében milyen zárolásra van szükség (kizárólagos, vagy megosztott zár), az izolációs szint és az adott adatbázis-kezelő rendszer implementációja határozza meg.</p>
 <p>A zárak segítségével valójában a tranzakciókat ütemezi a rendszer. Amikor egy zár nem érhető el, mert a mögöttes adatelemet más tranzakció használja és a konkurens elérés a választott izolációs szint szerint nem engedhető meg, a tranzakció várakoztatásra kerül.</p>
 <p>Ha egy rendszerben zárak vannak, akkor tudjuk, hogy <strong>holtpontok</strong> (<em>deadlock</em>) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.</p>
-<p><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png" /></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/holtpont-eroforras-graf.png"><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png"/></a></p>
 <p>Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az <strong>egyik érintett tranzakciót megszakítja</strong> és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.</p>
 <div class="admonition note">
 <p>Holtpont után, ha a tranzakció megszakításra került, nem igazán tehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.</p>
 </div>
-<h2 id="tranzakcios-hatarok">Tranzakciós határok<a class="headerlink" href="#tranzakcios-hatarok" title="Permanent link">&para;</a></h2>
+<h2 id="tranzakcios-hatarok">Tranzakciós határok<a class="headerlink" href="#tranzakcios-hatarok" title="Permanent link">¶</a></h2>
 <p>A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez szükség van a tranzakció elejének és végének jelöléséhez. A tranzakció határok platform függően jelölhetőek, de alapvetően érvényesek az alábbiak.</p>
 <ol>
 <li>
@@ -1538,11 +845,11 @@
 </div>
 </li>
 </ol>
-<h2 id="tranzakcios-naplozas">Tranzakciós naplózás<a class="headerlink" href="#tranzakcios-naplozas" title="Permanent link">&para;</a></h2>
+<h2 id="tranzakcios-naplozas">Tranzakciós naplózás<a class="headerlink" href="#tranzakcios-naplozas" title="Permanent link">¶</a></h2>
 <p>Eddigiekben csak arról beszéltünk, mit biztosít az adatbázis-kezelő rendszer a tranzakciók használatával. Ismerjük meg ennek működését is.</p>
 <p>A <strong>tranzakciós naplózás</strong> segítségével az adatbázis rendszer nyomon tudja követni a futó tranzakciók által végzett módosításokat, vissza tudja állítani a tranzakció megkezdése előtti állapotot, és soft crash esetén a félbeszakadt tranzakciókat visszagörgeti (rollback).</p>
 <p>Ahhoz, hogy megértsük a tranzakciós naplózást, az alábbi koncepcionális rendszermodellel dolgozunk.</p>
-<p><img alt="Tranzakciós naplózás koncepcionális modellje" src="images/tranzakcios-naplozas-io-modell.png" /></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/tranzakcios-naplozas-io-modell.png"><img alt="Tranzakciós naplózás koncepcionális modellje" src="images/tranzakcios-naplozas-io-modell.png"/></a></p>
 <p>Ebben a modellben a következő műveletek vannak:</p>
 <ul>
 <li>Begin T(x): Tranzakció kezdete</li>
@@ -1553,7 +860,7 @@
 <li>FLUSH_LOG: Tranzakciós napló lemezre írása</li>
 </ul>
 <p>A naplózás működését egy példán keresztül mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.</p>
-<h3 id="undo-tipusu-naplozas">Undo típusú naplózás<a class="headerlink" href="#undo-tipusu-naplozas" title="Permanent link">&para;</a></h3>
+<h3 id="undo-tipusu-naplozas">Undo típusú naplózás<a class="headerlink" href="#undo-tipusu-naplozas" title="Permanent link">¶</a></h3>
 <p>Kezdetben a memória buffer üres, az adatok csak az adatbázis fájlban találhatóak meg. A végrehajtás ezért az adatok beolvasásával kezdődik.</p>
 <table>
 <thead>
@@ -1698,7 +1005,7 @@
 <li>és commit jelet csak az adatbázis írás után lehet kitenni a naplóba.</li>
 </ul>
 <p>A működés kulcsa, hogy a tranzakciós naplót előbb kell kiírni, mint a módosításokat az adatbázis fájlban elvégezné a rendszer. A megoldás hátránya, hogy kétszer is kell a tranzakciós naplót fájlba írni (amely a diszk írás miatt költséges művelet).</p>
-<h3 id="redo-tipusu-naplozas">Redo típusú naplózás<a class="headerlink" href="#redo-tipusu-naplozas" title="Permanent link">&para;</a></h3>
+<h3 id="redo-tipusu-naplozas">Redo típusú naplózás<a class="headerlink" href="#redo-tipusu-naplozas" title="Permanent link">¶</a></h3>
 <p>A műveletsorozat a korábban látott beolvasásokkal kezdődik, majd következik a módosítások elvégzése, de ezúttal a tranzakciós naplóban a <em>módosítás utáni érték</em> kerül rögzítésre.</p>
 <table>
 <thead>
@@ -1819,7 +1126,7 @@
 <li>és commit jelet az adatbázis írás előtt kell kitenni a naplóba.</li>
 </ul>
 <p>Az undo naplózáshoz képest tehát kevesebb a tranzakciós napló szinkronizálása, de hosszabb a visszaállítási folyamat.</p>
-<h3 id="undoredo-naplozas">Undo/redo naplózás<a class="headerlink" href="#undoredo-naplozas" title="Permanent link">&para;</a></h3>
+<h3 id="undoredo-naplozas">Undo/redo naplózás<a class="headerlink" href="#undoredo-naplozas" title="Permanent link">¶</a></h3>
 <p>A nevéből adódóan ez a megoldás az előző kettő kombinációja. A példa műveletsor ugyanúgy kezdődik, mint korábban. A különbség a tranzakciós naplóba való írásnál jelentkezik: mind a változás előtti, mind a változás utáni érték kiírásra kerül.</p>
 <table>
 <thead>
@@ -1924,12 +1231,12 @@
 <li>kevesebb szinkronizáció szükséges a belső működésben (a tranzakciós napló írása és az adatbázis fájlok írása tekintetében),</li>
 <li>valamint a módosítás hamarabb rögzíthető az adatbázis fájlban (nem kell a tranzakciós naplóban megvárni a commit jel rögzítését).</li>
 </ul>
-<h3 id="tranzakcios-naplo-meretenek-csokkentese">Tranzakciós napló méretének csökkentése<a class="headerlink" href="#tranzakcios-naplo-meretenek-csokkentese" title="Permanent link">&para;</a></h3>
+<h3 id="tranzakcios-naplo-meretenek-csokkentese">Tranzakciós napló méretének csökkentése<a class="headerlink" href="#tranzakcios-naplo-meretenek-csokkentese" title="Permanent link">¶</a></h3>
 <p>A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a végtelenségig. Olyan tranzakciók bejegyzései törölhetőek belőle, amelyek valóban kommitálásra kerültek (az adatbázis fájlba beírásra került minden eredményük), vagy amelyek megszakadtak, és nem kell őket visszaállítani. Ez a folyamat általában automatikus, de kezdeményezhető manuálisan is.</p>
 <div class="admonition note">
 <p>Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.</p>
 </div>
-<h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">&para;</a></h2>
+<h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">¶</a></h2>
 <div class="admonition abstract">
 <p class="admonition-title">Deadlock (holtpont)</p>
 <p>Holtpont akkor alakulhat ki, ha adott két tranzakció illetve két zár. Az egyik tranzakció rendelkezik az egyik zárral, míg a másik a másikkal. Ekkor holtpont alakul ki, ha mindkét tranzakció meg szeretné szerezni a másik által már megszerezett zárat.</p>
@@ -1940,12 +1247,12 @@
 <li>
 <p>Hozzunk létre két táblát, amin mesterségesen előállítjuk a holtpontot.</p>
 <p>Létrehozzuk az első táblát <code>Lefty</code> néven, amelynek egy attribútuma lesz, a <code>Numbers</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span> <span class="p">(</span><span class="n">Numbers</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">CLUSTERED</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">);</span> 
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span><span class="w"> </span><span class="p">(</span><span class="n">Numbers</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">CLUSTERED</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span>
 </code></pre></div>
 <p>Létrehozzuk a második táblát <code>Righty</code> néven, amelynek szintén egy attribútuma lesz, a <code>Numbers</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span> <span class="p">(</span><span class="n">Numbers</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">CLUSTERED</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">);</span> 
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span><span class="w"> </span><span class="p">(</span><span class="n">Numbers</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">CLUSTERED</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
@@ -1956,23 +1263,23 @@
 <li>Az első tranzakcióból végrehajtjuk a második <code>UPDATE</code> utasítást</li>
 </ol>
 <p>Első tranzakció:</p>
-<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span> <span class="n">TRAN</span>
-<span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
-<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="k">GO</span>
 
-<span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
-<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="k">GO</span>
 </code></pre></div>
 <p>Második tranzakció:</p>
-<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span> <span class="n">TRAN</span>
-<span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
-<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="k">GO</span>
 
-<span class="k">UPDATE</span> <span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
-<span class="k">SET</span> <span class="n">Numbers</span> <span class="o">=</span> <span class="n">Numbers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="k">GO</span>
 </code></pre></div>
 </li>
@@ -1980,12 +1287,12 @@
 <p>Ezzel elő is állt a holtpont. A rendszer fel fogja oldani ezt a holtpontot egy kis idő elteltével. Mielőtt ez megtörténik, megnézhetjük, hogy mit is látunk a rendszerben.</p>
 <p>A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő lekérdezéssel:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
-    <span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">TableName</span><span class="p">,</span>
-    <span class="n">Resource_type</span><span class="p">,</span> <span class="n">request_status</span><span class="p">,</span>  <span class="n">request_session_id</span>
+<span class="w">    </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TableName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">request_status</span><span class="p">,</span><span class="w">  </span><span class="n">request_session_id</span>
 <span class="k">FROM</span>
-    <span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span> <span class="n">dtl</span>
-    <span class="k">join</span> <span class="n">sys</span><span class="p">.</span><span class="n">partitions</span> <span class="n">P</span>
-<span class="k">ON</span> <span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
 </code></pre></div>
 <p>Példánk során ennek a lekérdezésnek az eredménye:</p>
 <table>
@@ -2017,12 +1324,12 @@
 </table>
 <p>Tehát az első tranzakció a <code>Lefty</code> táblán helyezett el egy zárat, míg a második tranzakció a <code>Righty</code> táblán</p>
 <p>A blokkolt tranzakciókról szintén számos adatot szolgáltat az adatbázis, amelyeket a következő SQL utasítással lehet lekérdezni:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="n">blocking_session_id</span> <span class="k">AS</span> <span class="n">BlockingSessionID</span><span class="p">,</span>
-       <span class="n">session_id</span> <span class="k">AS</span> <span class="n">VictimSessionID</span><span class="p">,</span>
-       <span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span> <span class="k">AS</span> <span class="n">WaitDurationSecond</span>
-<span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
-<span class="k">CROSS</span> <span class="n">APPLY</span> <span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">([</span><span class="n">sql_handle</span><span class="p">])</span>
-<span class="k">WHERE</span> <span class="n">blocking_session_id</span> <span class="o">&gt;</span> <span class="mi">0</span> 
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">BlockingSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">VictimSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">WaitDurationSecond</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">([</span><span class="n">sql_handle</span><span class="p">])</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span>
 </code></pre></div>
 <p>Példánk során ennek a lekérdezésnek az eredménye:</p>
 <table>
@@ -2051,7 +1358,7 @@
 </table>
 <p>Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce, illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce.</p>
 <p>A holtpontot az adatbázis rövid időn belül magától megszűntette. Ha manuálisan szeretnénk beavatkozni, akkor ezt a <code>kill</code> paranccsal tehetjük meg kiválasztva azt a tranzakciót, amit le akarunk állítani (pl. <code>kill 53</code>).</p>
-<h2 id="ellenorzo-kerdesek">Ellenőrző kérdések<a class="headerlink" href="#ellenorzo-kerdesek" title="Permanent link">&para;</a></h2>
+<h2 id="ellenorzo-kerdesek">Ellenőrző kérdések<a class="headerlink" href="#ellenorzo-kerdesek" title="Permanent link">¶</a></h2>
 <ul>
 <li>Milyen konkurens adathozzáférési problémákat ismersz?</li>
 <li>Milyen izolációs szintek vannak? Milyen problémákra adnak megoldást?</li>
@@ -2066,87 +1373,76 @@
 </ul>
 </li>
 </ul>
-                
-              
-              
-                
-
-
-              
-            </article>
-          </div>
-        </div>
-        
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
-            Back to top
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="2022. december 5. 16:24:57">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-12-05T16:24:57+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-12-05</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Létrehozva"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 1. 10:11:24">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-01T10:11:24+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-01</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Szerzők</span>
+<nav><a class="md-author" href="https://github.com/akosdudas" rel="noopener noreferrer" target="_blank" title="@akosdudas">
+<img alt="@akosdudas" src="https://avatars.githubusercontent.com/u/11335181?size=72"/>
+</a><a class="md-author" href="https://github.com/tamasgal55" rel="noopener noreferrer" target="_blank" title="@tamasgal55">
+<img alt="@tamasgal55" src="https://avatars.githubusercontent.com/u/79400429?size=72"/>
+</a><a class="md-author" href="https://github.com/gergoradeczki" rel="noopener noreferrer" target="_blank" title="@gergoradeczki">
+<img alt="@gergoradeczki" src="https://avatars.githubusercontent.com/u/4851436?size=72"/>
+</a><a class="md-author" href="https://github.com/vargus1111" rel="noopener noreferrer" target="_blank" title="@vargus1111">
+<img alt="@vargus1111" src="https://avatars.githubusercontent.com/u/79314333?size=72"/>
+</a><a class="md-author" href="https://github.com/abdullahmusa" rel="noopener noreferrer" target="_blank" title="@abdullahmusa">
+<img alt="@abdullahmusa" src="https://avatars.githubusercontent.com/u/63659188?size=72"/>
+</a><a class="md-author" href="https://github.com/MarcellHarmaci" rel="noopener noreferrer" target="_blank" title="@MarcellHarmaci">
+<img alt="@MarcellHarmaci" src="https://avatars.githubusercontent.com/u/47602777?size=72"/>
+</a></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
           </a>
-        
-      </main>
-      
-        
+</main>
 <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Élőláb">
-      
-        
-        <a href="../architektura/" class="md-footer__link md-footer__link--prev" aria-label="Előző: Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Előző
-              </span>
-              Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../mssql/sql/" class="md-footer__link md-footer__link--next" aria-label="Következő: SQL nyelv, MSSQL platformfüggő SQL utasítások" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Következő
-              </span>
-              SQL nyelv, MSSQL platformfüggő SQL utasítások
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; BME VIK AUT
-          </div>
-        
-        
-        
-      </div>
-      
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
     </div>
-  </div>
+</div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "search.config.lang": "hu", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Keres\u00e9s", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.term.missing": "\u00dcres", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
