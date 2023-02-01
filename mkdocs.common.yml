@@ -6,6 +6,8 @@ repo_url: https://github.com/bmeviauac01/adatvezerelt
 theme:
   name: material
   custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: aut
