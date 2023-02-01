@@ -30,6 +30,7 @@ theme:
     - navigation.instant
     - navigation.top
     - search.suggest
+    - content.action.edit
   logo: img/logo-bme-aut.png
   favicon: img/favicon.ico
 
