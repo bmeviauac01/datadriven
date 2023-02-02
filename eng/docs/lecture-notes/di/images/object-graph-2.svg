@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Készült a Microsoft Visio programban, SVG-exportálás object-graph-2.svg Oldal-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="4.85592in" height="1.86654in"
+		viewBox="0 0 349.626 134.391" xml:space="preserve" color-interpolation-filters="sRGB" class="st5">
+	<v:documentProperties v:langID="1038" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#92cddc;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:#000000;font-family:Calibri;font-size:0.833336em}
+		.st3 {marker-end:url(#mrkr12-16);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st4 {fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.22935779816514}
+		.st5 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Markers">
+		<g id="lend12">
+			<path d="M 3 1 L 0 0 L 3 -1 " style="stroke-linecap:round;stroke-linejoin:round;fill:none"/>
+		</g>
+		<marker id="mrkr12-16" class="st4" v:arrowType="12" v:arrowSize="2" orient="auto" markerUnits="strokeWidth"
+				overflow="visible">
+			<use xlink:href="#lend12" transform="scale(-4.36,-4.36) "/>
+		</marker>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Oldal-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Összekötő" v:index="0"/>
+		<g id="shape10-1" v:mID="10" v:groupContext="shape" transform="translate(62.8429,-69.6637)">
+			<title>Csomag (összecsukva).10</title>
+			<desc>NotificationService</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.6626" cy="120.412" width="103.33" height="27.9586"/>
+			<rect x="0" y="106.432" width="103.325" height="27.9586" class="st1"/>
+			<text x="13.17" y="123.41" class="st2" v:langID="1038"><v:paragraph v:horizAlign="1"/><v:tabList/>NotificationService</text>		</g>
+		<g id="shape11-4" v:mID="11" v:groupContext="shape" transform="translate(123.285,-0.375)">
+			<title>Csomag (összecsukva).11</title>
+			<desc>EMailSender</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.6626" cy="120.412" width="103.33" height="27.9586"/>
+			<rect x="0" y="106.432" width="103.325" height="27.9586" class="st1"/>
+			<text x="25.99" y="123.41" class="st2" v:langID="1038"><v:paragraph v:horizAlign="1"/><v:tabList/>EMailSender</text>		</g>
+		<g id="shape12-7" v:mID="12" v:groupContext="shape" transform="translate(245.926,-0.375)">
+			<title>Csomag (összecsukva).12</title>
+			<desc>Logger</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.6626" cy="120.412" width="103.33" height="27.9586"/>
+			<rect x="0" y="106.432" width="103.325" height="27.9586" class="st1"/>
+			<text x="37.99" y="123.41" class="st2" v:langID="1038"><v:paragraph v:horizAlign="1"/><v:tabList/>Logger</text>		</g>
+		<g id="group13-10" transform="translate(114.505,-69.6637)" v:mID="13" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.029527559055118):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.029527559055118):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.021624575763261):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-8.8817841970013E-16):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.021624575763257):1"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+			</v:userDefs>
+			<title>Irányított társítás</title>
+			<g id="shape13-11" v:mID="13" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M0 134.39 L0 152.39 L-62.47 152.39 L-62.47 175.72" class="st3"/>
+			</g>
+		</g>
+		<g id="shape20-17" v:mID="20" v:groupContext="shape" transform="translate(0.375,-0.375)">
+			<title>Csomag (összecsukva).20</title>
+			<desc>ContactRepository</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.6626" cy="120.412" width="103.33" height="27.9586"/>
+			<rect x="0" y="106.432" width="103.325" height="27.9586" class="st1"/>
+			<text x="13.99" y="123.41" class="st2" v:langID="1038"><v:paragraph v:horizAlign="1"/><v:tabList/>ContactRepository</text>		</g>
+		<g id="group21-20" transform="translate(226.61,-7.26768)" v:mID="21" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.029527559055118):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.029527559055118):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0.0040242062762426):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-1.6653345369377E-16):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.0040242062762426):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-4.1382931754002E-14):32"/>
+			</v:userDefs>
+			<title>Irányított társítás.21</title>
+			<g id="shape21-21" v:mID="21" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M0 127.3 L19.32 127.3" class="st3"/>
+			</g>
+		</g>
+		<g id="group31-26" transform="translate(166.168,-83.643)" v:mID="31" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.029527559055118):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.029527559055118):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0.038902100597951):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-3.5527136788005E-15):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.038902100597949):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-4.5662234483395E-14):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.570796326795):32"/>
+			</v:userDefs>
+			<title>Irányított társítás.31</title>
+			<g id="shape31-27" v:mID="31" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M0 134.39 L131.42 134.39 L131.42 189.7" class="st3"/>
+			</g>
+		</g>
+		<g id="group36-32" transform="translate(114.505,-69.6637)" v:mID="36" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.029527559055118):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.029527559055118):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.021202495695014):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.02120249569501):1"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+			</v:userDefs>
+			<title>Irányított társítás.36</title>
+			<g id="shape36-33" v:mID="36" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M0 134.39 L0 152.39 L60.44 152.39 L60.44 175.72" class="st3"/>
+			</g>
+		</g>
+		<g id="group46-38" transform="translate(107.365,-124.05)" v:mID="46" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.029527559055118):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.029527559055118):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(2.2266313788988E-05):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.0055058177587917):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(2.2266313789432E-05):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.0055058177587919):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5667522059437):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.5667522059437):32"/>
+			</v:userDefs>
+			<title>Irányított társítás.46</title>
+			<g id="shape46-39" v:mID="46" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M7.03 134.39 L7.14 160.82" class="st3"/>
+			</g>
+		</g>
+	</g>
+</svg>
