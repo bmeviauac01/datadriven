@@ -2,6 +2,7 @@ INHERIT: mkdocs.common.yml
 
 site_author: Albert István, Tóth Tibor
 site_name: BMEVIAUAC01 Adatvezérelt rendszerek
+site_url: https://bmeviauac01.github.io/datadriven/hu/
 base_url: /datadriven/hu/
 docs_dir: 'docs/hu'
 site_dir: 'site/hu'
