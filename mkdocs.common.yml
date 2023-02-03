@@ -39,10 +39,10 @@ extra_css:
 extra:
   alternate:  
     - name: English
-      link: /en/
+      link: datadriven/en/
       lang: en
     - name: Magyar
-      link: /hu/
+      link: datadriven/hu/
       lang: hu
 
 markdown_extensions:
