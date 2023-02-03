@@ -13,6 +13,8 @@ plugins:
     lang: hu
   git-revision-date-localized:
     locale: hu
+  git-committers:
+    docs_path: docs/hu
 
 nav:
   - index.md

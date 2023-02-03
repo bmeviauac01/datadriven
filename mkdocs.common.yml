@@ -78,4 +78,4 @@ plugins:
     timezone: Europe/Budapest
   git-committers:
     repository: bmeviauac01/adatvezerelt
-    branch: master  
+    branch: master
