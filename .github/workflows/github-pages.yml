@@ -19,10 +19,15 @@ jobs:
       - name: Fix git safe.directory in container
         run: mkdir -p /home/runner/work/_temp/_github_home && printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
 
-      - name: Build docs
+      - name: Build HU docs
         uses: ./
         with:
-          args: build
+          args: --entrypoint=mkdocs build --configuration-file=mkdocs.hu.yml
+
+      - name: Build EN docs
+        uses: ./
+        with:
+          args: --entrypoint=mkdocs build --configuration-file=mkdocs.en.yml
 
       - name: Deploy docs to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
