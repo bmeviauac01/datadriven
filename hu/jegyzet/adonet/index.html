@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="hu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Albert István, Tóth Tibor" name="author"/>
+<link href="../mssql/server-side-programming/" rel="prev"/>
+<link href="../linq/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>ADO.NET adatelérés - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#adonet-adateleres">
+          Kihagyás
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Élőfej" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              ADO.NET adatelérés
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Nyelvváltás" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Keresés" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Keresés" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Keresés" class="md-search__options">
+<button aria-label="Törlés" class="md-search__icon md-icon" tabindex="-1" title="Törlés" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Lapok" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Adatvezérelt rendszerek
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
+        Adatbázis
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../architektura/">
+        Jegyzetek
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../gyakorlat/transactions/">
+        Gyakorlatok
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../hazi/">
+        Házi feladatok
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigáció" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Adatvezérelt rendszerek
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Adatbázis
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
+        Minta adatbázis sémája
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
+        Microsoft SQL Server használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
+        MongoDB használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">
+        Minta adatbázis: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">
+        Minta adatbázis: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Jegyzetek
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architektura/">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../transactions/">
+        Tranzakciókezelés adatbázisokban
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/sql/">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/server-side-programming/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          ADO.NET adatelérés
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        ADO.NET adatelérés
+      </a>
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mi-is-az-az-adonet">
+    Mi is az az ADO.NET?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection">
+    Connection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#command">
+    Command
+  </a>
+<nav aria-label="Command" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elokeszites">
+    Előkészítés
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vegrehajtas">
+    Végrehajtás
+  </a>
+<nav aria-label="Végrehajtás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
+    Tranzakciók
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#null-ertekek">
+    NULL értékek
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a-lekerdezes-eredmenye">
+    A lekérdezés eredménye
+  </a>
+<nav aria-label="A lekérdezés eredménye" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#datareader">
+    DataReader
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dataset">
+    DataSet
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#veszelyforrasok">
+    Veszélyforrások
+  </a>
+<nav aria-label="Veszélyforrások" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sql-injection">
+    SQL injection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-string">
+    Connection string
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-leak">
+    Connection leak
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
+        Kapcsolatok definiálása Entity Framework-ben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mongodb/">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../di/">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../async/">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi/">
+        OpenAPI 3 és a Swagger
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Gyakorlatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/transactions/">
+        Tranzakciókezelés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mssql/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Házi feladatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/">
+        Szorgalmi házi feladatok
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mssql/">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/adonet/">
+        Feladat: ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/ef/">
+        Feladat: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mongodb/">
+        Feladat: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/rest/">
+        Feladat: REST API Web API technológiával
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub/">
+        Feladatok beadása (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub-Actions/">
+        GitHub Actions ismertető
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/VisualStudio/">
+        Visual Studio &amp; .NET SDK telepítése
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mi-is-az-az-adonet">
+    Mi is az az ADO.NET?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection">
+    Connection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#command">
+    Command
+  </a>
+<nav aria-label="Command" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elokeszites">
+    Előkészítés
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vegrehajtas">
+    Végrehajtás
+  </a>
+<nav aria-label="Végrehajtás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
+    Tranzakciók
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#null-ertekek">
+    NULL értékek
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a-lekerdezes-eredmenye">
+    A lekérdezés eredménye
+  </a>
+<nav aria-label="A lekérdezés eredménye" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#datareader">
+    DataReader
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dataset">
+    DataSet
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#veszelyforrasok">
+    Veszélyforrások
+  </a>
+<nav aria-label="Veszélyforrások" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sql-injection">
+    SQL injection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-string">
+    Connection string
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-leak">
+    Connection leak
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/adonet/index.md" title="Oldal szerkesztése">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="adonet-adateleres">ADO.NET adatelérés<a class="headerlink" href="#adonet-adateleres" title="Permanent link">¶</a></h1>
+<h2 id="mi-is-az-az-adonet">Mi is az az <strong>ADO.NET</strong>?<a class="headerlink" href="#mi-is-az-az-adonet" title="Permanent link">¶</a></h2>
+<p>Adatvezérelt alkalmazásokban fontos, hogy az adatelérési réteg <em>kényelmes, egyszerű metodikákat</em> biztosítson az adatbázissal való kommunikációra, összetett lekérdezések könnyebb megfogalmazására, mindezt magától az <em>adatbázismotortól minél függetlenebbül</em>.</p>
+<p>A Microsoft által fejlesztett <strong>ADO.NET</strong> (<em>ActiveX Data Object</em>) egy <strong>adatelérési osztálykönyvtár</strong>, mely pont ezeket az igényeket hivatott kielégíteni. A <strong>.NET</strong> részeként gazdag eszköztárat szolgáltat adatvezérelt alkalmazások készítéséhez, egyszerű hozzáférést biztosítva az alkalmazásból relációs adatbázisokhoz, <em>függetlenül az adatbázis konkrét példányától és típusától</em>.</p>
+<p>Az <strong>ADO.NET</strong> mindezek mellett azért erős eszköz, mert egységes, adatbázismotor-független kódolást tesz lehetővé. A könyvtár interfészeket és absztrakt osztályokat tartalmaz, amiknek többféle implementációja (<em>pl. Microsoft SQL Server-hez, vagy OleDB</em>-hez) létezik. Ezen implementációk megvalósítják az alap funkciókat, de ki is bővíthetik azokat.</p>
+<div class="admonition note">
+<p>Az Entity Framework is a háttérben ADO.NET-re épül.</p>
+</div>
+<p>Az <strong>ADO.NET</strong> osztálykönyvtár elhelyezkedése az adatvezérelt alkalmazás struktúrájában:</p>
+<p>![Struktúra]((/assets/lecture-notes/adonet/images/adonet-arch.png)</p>
+<p>Az ADO.NET tehát az adatelérési rétegben nyújt szolgáltatásokat, és a háttérben kezeli az adatbázismotor kommunikációt a rendszerre telepített driverek és az operációs rendszer szolgáltatásainak (pl. hálózati kapcsolat) igénybevételével.</p>
+<p>Az adatelérési könyvtárak tipikus elemei:</p>
+<ul>
+<li><a href="#connection">Connection</a> - <em>adatbázis meghajtók, maga a kapcsolat</em></li>
+<li><a href="#command">Command</a> - <em>paraméter-biztos utasítás</em></li>
+<li><a href="#a-lekerdezes-eredmenye">ResultSet</a> - <em>eredmény halmaz</em></li>
+<li><strong>Exception</strong> - <em>kivételek, melyek a lekérdezések, végrehajtások során dobódhatnak</em></li>
+</ul>
+<p>Az elemeket a következő fejezetekben részletesebben is tárgyaljuk.</p>
+<h2 id="connection">Connection<a class="headerlink" href="#connection" title="Permanent link">¶</a></h2>
+<p>Az <strong>ADO.NET</strong> könyvtár az <code>IDbConnection</code> interfészt biztosítja adatbázis kapcsolatok reprezentálására. Ebben találhatóak azok a függvények, amik szükségesek valamilyen adatbázissal való kapcsolat létrehozásához, mint például az <code>Open()</code>, a <code>Close()</code>, vagy a <code>BeginTransaction()</code>. Ezt az interfészt implementálják az adatbázismotor-specifikus kapcsolatok, mint például az <code>SqlConnection</code>, amely a Microsoft SQL Server felé történő kapcsolatot valósítja meg.</p>
+<p>Az adatbázissal történő kapcsolat felépítéséről tudunk kell, hogy relatíve költséges (új hálózati kapcsolatot kell nyitni, egyeztetni a szerverrel a protokollokat, bejelentkezni, stb.). Ezért használjuk a <strong>connection pooling</strong>-ot, ahol is egy kapcsolat létrehozása, használása, majd bezárása után a kapcsolatot nem eldobjuk, hanem egy gyűjtőbe, egy "pool"-ba helyezzük vissza, hogy később újra fel tudjuk használni, ha az adatbázishoz szeretnénk szólni.</p>
+<p>A <em>connection pool</em> elérhetősége implementációfüggő, de az <em>MS SQL Server</em> és <em>OleDD</em> implementációk is automatikusan támogatják. A <em>connection pool</em>-ok <em>connection string</em>-enként jönnek létre (tehát nem adatbázisonként). Ennek akkor van jelentősége, ha az alkalmazás nem egy <em>connection string</em>-et használ (hanem pl. felhasználónként külön-külön kapcsolódik a felhasználó nevében).</p>
+<p>Ezen kontextushoz tartozik még a <a href="#connection-leak"><strong>connection leak</strong></a> fogalma is, ami azt jelenti, hogy egy kapcsolatot használat után nyitva hagyunk (nem hívunk <code>Close()</code>-t), ezáltal az nem kerül vissza a pool-ba, és nem tudjuk újrafelhasználni. Amennyiben nem figyelünk erre, akkor hamar elfogynak a felhasználható kapcsolatok (a pool kiürül), aminek hatására az egész alkalmazásunk használhatatlanná válik, lévén, hogy nem tud az adatbázissal kommunikálni.</p>
+<p>Az adatbázissal való kapcsolat létrehozásához szükségünk van egy az előbb említett <strong>connection string</strong>-re. Ez a szöveges változó írja le, hogy milyen paraméterekkel szeretnénk az adatbázishoz csatlakozni! Ilyen például a felhasználónév, jelszó, vagy éppen a szerver címe! A <strong>connection string</strong>-eknek <a href="https://www.connectionstrings.com/">adatbázis szerver típusonként eltérő szintaktikájuk</a> lehet, és <a href="#connection-string">veszélyforrásokat</a> is rejthetnek magukban.</p>
+<p>A <em>connection string</em> tárolható konfigurációs fájlban szövegesen, avagy az alkalmazás kódja is össze tudja állítani. <strong>Példa</strong> kapcsolat létrehozására és a <code>ConnectionStringBuilder</code> használatára:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnectionStringBuilder</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">UserID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"User"</span><span class="p">;</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Pw"</span><span class="p">;</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">DataSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"database.server.hu"</span><span class="p">;</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">InitialCatalog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Adatvez"</span><span class="p">;</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">ConnectionString</span><span class="p">);</span>
+<span class="c1">// connectionstring jöhet konfigurációs fájlból is</span>
+
+<span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+<span class="p">...</span><span class="w"> </span><span class="c1">// lekérdezések, eljárások végrehajtása</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span><span class="w"> </span><span class="c1">// nem felejtjük el bezárni - jobb megoldást lásd később</span>
+</code></pre></div>
+<h2 id="command">Command<a class="headerlink" href="#command" title="Permanent link">¶</a></h2>
+<p>Az adatbázis kapcsolat létrehozása után szeretnénk az adatbázissal kommunikálni, lekérdezéseket, eljárásokat futtatni. Ehhez az <strong>ADO.NET</strong> az <code>IDbCommand</code> interfészt biztosítja, ami egy utasítást reprezentál. A kapcsolathoz hasonlóan az interfészt specifikus osztályok valósítják meg, mint amilyen az <code>SqlCommand</code> az MSSQL szerverhez.</p>
+<h3 id="elokeszites">Előkészítés<a class="headerlink" href="#elokeszites" title="Permanent link">¶</a></h3>
+<p>Az <code>IDbCommand</code> alábbi főbb <em>property</em>-jeit beállítva tudjuk megmondani, hogy a megadott parancs, hogyan legyen értelmezve, és miként viselkedjen az utasítás:</p>
+<ul>
+<li><code>CommandType</code>:  háromféle lehet<ul>
+<li>Tárolt eljárás (<em>StoredProcedure</em>)</li>
+<li>Tábla teljes tartalmához hozzáférés (<em>TableDirect, nem minden implementáció használja, pl. OleDB igen</em>)</li>
+<li>SQL query (<em>Text</em>) - alapértelmezett</li>
+</ul>
+</li>
+<li><code>CommandText</code>: a parancs szövege, avagy tárolt eljárást neve</li>
+<li><code>Connection</code>: az adatbázis kapcsolat</li>
+<li><code>Transaction</code>: a tranzakció</li>
+<li><code>CommandTimeout</code>: parancs eredményére való várakozás maximális ideje (<em>alapértelmezetten 30s</em>)</li>
+<li><code>Parameters</code>: paraméterek, az <a href="#veszelyforrasok">SQL injection támadás</a> kivédéséhez</li>
+</ul>
+<p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.</p>
+<h3 id="vegrehajtas">Végrehajtás<a class="headerlink" href="#vegrehajtas" title="Permanent link">¶</a></h3>
+<p>Miután előkészítettük a <code>Command</code>-ot, végre is hajthatjuk azt. Ehhez többféle lehetőség közül is választhatunk, attól függően, hogy mit várunk visszatérési értéknek.</p>
+<ul>
+<li><code>ExecuteReader</code>: több rekord lekérdezése</li>
+<li><code>ExecuteScalar</code>: egyetlen skalár érték lekérdezése</li>
+<li><code>ExecuteNonQuery</code>: olyan lekérdezés, amit nem eredményhalmazt ad vissza (pl. <code>INSERT</code>) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)</li>
+<li><code>ExecuteXmlReader</code> (MS SQL Server): XML dokumentumot (<code>XmlReader</code> <em>objektum</em>) ad vissza, az eredmény egy rekord egyetlen XML oszlopa</li>
+</ul>
+<p>Parancsokat újrafelhasználni is tudunk, a <code>Command.Prepare()</code> (<em>szerver oldalon előkészíti a parancs futtatását</em>) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást (esetleg más-más paraméterekkel), mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.</p>
+<p><strong>Példa</strong> parancs használatára:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// kapcsolatot létrehozása, megnyitása</span>
+<span class="p">...</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlCommand</span><span class="p">();</span>
+<span class="n">command</span><span class="p">.</span><span class="n">Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">;</span>
+<span class="c1">// a command.Connection beállítás nem szükséges, ha a connection-ön</span>
+<span class="c1">// hozzuk létre a parancsot: command = connection.CreateCommand()</span>
+<span class="n">command</span><span class="p">.</span><span class="n">CommandType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CommandType</span><span class="p">.</span><span class="n">StoredProcedure</span><span class="p">;</span>
+<span class="n">command</span><span class="p">.</span><span class="n">CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SalesByCategory"</span><span class="p">;</span><span class="w"> </span><span class="c1">// tárolt eljárás neve</span>
+
+<span class="cm">/* egyenértékű, de "C#-osabb" szintaxis:</span>
+<span class="cm">var command = new SqlCommand()</span>
+<span class="cm">{</span>
+<span class="cm">    Connection = connection,</span>
+<span class="cm">    CommandType = CommandType.StoredProcedure,</span>
+<span class="cm">    CommandText = "SalesByCategory"</span>
+<span class="cm">}*/</span>
+
+<span class="c1">// SQL injection elleni védelem</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlParameter</span><span class="p">();</span>
+<span class="n">parameter</span><span class="p">.</span><span class="n">ParameterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"@CategoryName"</span><span class="p">;</span><span class="w"> </span><span class="c1">// ilyen néven kerül bele a lekérdezésbe</span>
+<span class="n">parameter</span><span class="p">.</span><span class="n">SqlDbType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SqlDbType</span><span class="p">.</span><span class="n">NVarChar</span><span class="p">;</span>
+<span class="n">parameter</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">categoryName</span><span class="p">;</span><span class="w"> </span><span class="c1">// C# változó értéke</span>
+<span class="n">command</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">parameter</span><span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">();</span>
+<span class="c1">// ennek feldoglozását lásd később</span>
+</code></pre></div>
+<h4 id="tranzakciok">Tranzakciók<a class="headerlink" href="#tranzakciok" title="Permanent link">¶</a></h4>
+<p>Tranzakciókat ADO.NET-ben nem a <code>begin tran</code> SQL utasítással kell kezdeményezni. Az ADO.NET objektumokat biztosít a tranzakció indítására és kezelésére, erre az alábbi kódrészlet mutat példát. Figyeljük meg a <code>using</code> blokkok használatát is az erőforrások megfelelő és biztonságos lezárása érdekében.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Connection string megalkotása</span>
+<span class="p">...</span>
+<span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span><span class="w"> </span><span class="c1">// ne felejtsük, a new nem nyitja meg a kapcsolatot</span>
+
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">.</span><span class="n">BeginTransaction</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// paraméter az induló tranzakció neve és/vagy az izolációs szint</span>
+
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlCommand</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">,</span>
+<span class="w">        </span><span class="n">CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"INSERT into CarTable (Description) VALUES('...')"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">try</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">command</span><span class="p">.</span><span class="n">ExecuteNonQuery</span><span class="p">();</span>
+<span class="w">        </span><span class="c1">// a sikeres tranzakciós kommitolni KELL</span>
+<span class="w">        </span><span class="n">transaction</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Sikeres tranzakció!"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">commitException</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Commit Exception: "</span><span class="p">,</span><span class="w"> </span><span class="n">commitException</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// A rollback nem feltétlenül szükséges, a rendszer automatikusan elvégzi</span>
+<span class="w">        </span><span class="c1">// a nem kommitált tranzakción. Az alábbi szemléltető példa csupán.</span>
+<span class="w">        </span><span class="k">try</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">transaction</span><span class="p">.</span><span class="n">RollBack</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">catch</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">rollBackException</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Rollback Exception: "</span><span class="p">,</span><span class="w"> </span><span class="n">rollBackException</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Tranzakció timeout</p>
+<p>Minden ADO.NET tranzakció futási ideje limitálva van a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.transactions.configuration.machinesettingssection.maxtimeout?view=netframework-4.8">MachineConfig</a>-ban rögzített időintervallummal. Ez egy olyan rendszerszintű beállítás, amely <strong>minden</strong>, a rendszeren futó .NET alkalmazásra érvényes, ezért az értékét nem célszerű állítani. A hosszan futó tranzakciók egyébként is problémásak, ezért kerüljük használatukat.</p>
+</div>
+<p>Egy tranzakció általában egy <code>Connection</code> objektumhoz tartozik, de készíthető olyan tranzakció is, melyben több perzisztens erőforráskezelő (más adatbázisok, üzenetsorok, bármi, ami támogat tranzakciókat) is érintett lehet. Innentől elosztott tranzakciókezelésről beszélünk, amihez valamiféle külső tranzakciókezelő, mint például <strong>Microsoft Distributed Transaction Coordinator</strong> (<em>MS DTC</em>) szükséges. Az ilyen esetek szintén kerülendők, hacsak nem komplex esetről és jól átgondolt rendszerről van szó.</p>
+<h3 id="null-ertekek">NULL értékek<a class="headerlink" href="#null-ertekek" title="Permanent link">¶</a></h3>
+<p>Honnan tudjuk meg, hogy a lekérdezésünk eredménye üres halmaz? És honnan tudjuk meg, hogy egy visszaadott eredmény halmaz valamely rekordjának oszlopában nem szerepel adat? .NET-ben a <code>null</code> értéket szoktuk vizsgálni, de egy adatbázis <code>NULL</code> eltérő értéket vehet fel az oszlop típusától (int, string, stb.) függően. Tehát, hogyan ellenőrizzük, hogy van-e érték a lekérdezés eredményében?</p>
+<ul>
+<li>Ha azt akarjuk megvizsgálni, hogy a lekérdezés eredményhalmaza tartalmaz-e rekordokat, akkor a <code>DataReader.HasRows</code> <code>bool</code> property-jének vizsgálatával tehetjük ezt meg.</li>
+<li>Ha az eredményhalmaz adott oszlopának értékét szeretnénk vizsgálni: <code>reader["oszlopnev"].IsNull;</code> vagy <code>reader.IsDbNull(index)</code>.</li>
+<li>Ha <code>NULL</code> értéket akarunk manuálisan beszúrni egy új rekordba: pl. <code>SqlString.Null</code> vagy <code>DBNull.Value</code>.</li>
+</ul>
+<h2 id="a-lekerdezes-eredmenye">A lekérdezés eredménye<a class="headerlink" href="#a-lekerdezes-eredmenye" title="Permanent link">¶</a></h2>
+<p>Az <strong>ADO.NET</strong> kétféle módot is biztosít az adatok adatbázisból való olvasására: <code>DataReader</code> és <code>DataSet</code>. A két megoldás közti fő különbség a kapcsolat használatában és az adatokkal való bánásmódban van. Ennek megfelelően két modellt különböztetünk meg: <strong>kapcsolat alapút</strong> (<code>DataReader</code>) és <strong>kapcsolat nélkülit</strong> (<code>DataSet</code>). A kapcsolat alapú modellben a kapcsolat az adatbázissal végig fennmarad, miközben lekérdezéseket hajtunk végre, míg a kapcsolat nélküli modellben egy <code>DataSet</code>-en végzünk módosításokat és ezt szinkronizáljuk időnként az adatbázissal, de a kapcsolat csak a szinkronizáció idejére jön létre. Mindegyiknek megvannak a maga előnyei és hátrányai, amiket a következő részekben fogunk tárgyalni.</p>
+<h3 id="datareader">DataReader<a class="headerlink" href="#datareader" title="Permanent link">¶</a></h3>
+<p>Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövid fennállása alatt friss, aktuális adatok érkeznek az adatbázisból, amiket tipikusan valamilyen belső reprezentációvá alakítunk.</p>
+<p><strong>Feldolgozás lépései:</strong></p>
+<ol>
+<li>kapcsolat megnyitása</li>
+<li>parancs futtatása az adatok lekérdezéséhez</li>
+<li>eredmény feldolgozása (tipikusan: üzleti logikai entitásokra átfordítás)</li>
+<li>reader lezárása</li>
+<li>kapcsolat lezárása</li>
+</ol>
+<p>A <code>DataReader</code> kapcsolati lánc az adatbázisig:</p>
+<p>![Struktúra]((/assets/lecture-notes/adonet/images/datareader.png)</p>
+<p><strong>Példa</strong> <code>DataReader</code> használatára:</p>
+<div class="highlight"><pre><span></span><code><span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlCommand</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conn</span><span class="p">,</span>
+<span class="w">      </span><span class="n">CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SELECT ID, NAME FROM Product"</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+<span class="w">    </span><span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="n">ExecuteReader</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">())</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"{0}\t{1}"</span><span class="p">,</span><span class="w"> </span><span class="n">reader</span><span class="p">[</span><span class="s">"ID"</span><span class="p">],</span><span class="w"> </span><span class="n">reader</span><span class="p">[</span><span class="s">"Name"</span><span class="p">]);</span>
+<span class="w">            </span><span class="c1">// tipikusan üzleti logikai entitást készítünk, amit egy memóriabeli listához adunk</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="c1">// a using miatt nem kell reader.Close()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// a using miatt nem kell conn.Close()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Pár dologra azért érdemes odafigyelni!</p>
+<ul>
+<li>A <code>reader["ID"]</code> eredménye <code>object</code> lesz, nem string vagy int. Helyettesíthető <code>reader.Get***(lekérdezésben_az_oszlop_indexe)</code> hívással, ahol is a típust (<code>String</code>, <code>Int32</code>, stb. is meg kell adnunk).</li>
+<li>Ha nem kompatibilisek a típusok (pl. az adatbázisban <code>nvarchar</code> és mi <code>int32</code>-ként akarjuk olvasni), <strong>futás idejű hibát</strong> fogunk kapni.</li>
+<li>Ha az adatbázisban valamelyik oszlopban <code>NULL</code> érték van a <code>reader.Get***</code> hívásra szintén <strong>futás idejű hibát</strong> kapunk. Helyette ellenőrizzük a <code>reader.IsDBNull(lekérdezésben_az_oszlop_indexe)</code> segítségével, és ha ez <code>true</code>, akkor használjuk a típusnak megfelelő <code>null</code> értéket.</li>
+</ul>
+</div>
+<p><strong>Előnyök</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> az adatok mindenkor a legfrissebbek, hiszen frissen az adatbázisból kérdezzük le</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> egyszerűbb konkurenciakezelés, mert mindig friss adatokkal dolgozunk</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> kisebb memória igény (lásd majd a DataSet-et)</li>
+</ul>
+<p><strong>Hátrányok</strong></p>
+<ul>
+<li>folyamatos hálózati kapcsolat, amíg műveleteket végzünk - ez tehát nem lehet hosszú idejű</li>
+<li>a kapcsolatok darabszámával rossz skálázhatóság - ezért kell rövid ideig használni a kapcsolatokat</li>
+</ul>
+<h3 id="dataset">DataSet<a class="headerlink" href="#dataset" title="Permanent link">¶</a></h3>
+<p>A <code>DataSet</code> egyfajta <em>cache</em>-nek, vagy memóriabeli adattárnak tekinthető. Egy <code>adapter</code> (pl. <code>SqlDataAdapter</code>) segítségével kéri le az adatbázisból az adatokat, és tárolja el őket, majd zárja a kapcsolatot az adatbázissal. Ezt követően ezen a <code>DataSet</code>-en tudunk módosításokat végezni, majd egy új kapcsolatban az <code>adapter</code> segítségével "visszatölteni" (<code>update</code>) azt az adatbázisba. Érdemes megjegyezni, hogy a lekérés és az update között eltelt idő alatt más módosíthatja ugyanazt az adatbázist, ezért is hátránya a <code>DataSet</code>-nek a konkurens hozzáférésekből adódó ütközés, és a már korábban a tranzakciókezelésnél megismert konkurens adathozzáférési problémák.</p>
+<p><strong>Feldolgozás lépései:</strong></p>
+<ol>
+<li>kapcsolat megnyitása</li>
+<li><code>DataSet</code> feltöltése az adatbázis egy részével</li>
+<li>kapcsolat lezárása</li>
+<li><code>DataSet</code> feldolgozása (pl. felhasználó felületen megjeleníteni, szerkeszteni) - ez hosszabb ideig is tarthat</li>
+<li>kapcsolat megnyitása</li>
+<li>változtatások visszatöltése</li>
+<li>kapcsolat lezárása</li>
+</ol>
+<p>Az adatelérés működése <code>adapter</code>-rel kapcsolat nélküli modellben az alábbi ábrán látható.</p>
+<p>![Data adapter használata]((/assets/lecture-notes/adonet/images/adapter.png)</p>
+<p><code>DataSet</code> kapcsolati lánc az adatbázisig:</p>
+<p>![DataSet kapcsolati lánc]((/assets/lecture-notes/adonet/images/dataset.png)</p>
+<p><strong>Példa</strong> <code>DataSet</code> használatára:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">dataSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DataSet</span><span class="p">();</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlDataAdapter</span><span class="p">();</span>
+
+<span class="c1">// kapcsolatot nyitunk, feltöltjük a DataSet-et az adatbázisból, majd zárjuk a kapcsolatot</span>
+<span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">adapter</span><span class="p">.</span><span class="n">SelectCommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlCommand</span><span class="p">(</span><span class="s">"SELECT * FROM Product"</span><span class="p">,</span><span class="w"> </span><span class="n">conn</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+<span class="w">    </span><span class="n">adapter</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-------------------------------------------------------</span>
+<span class="c1">// dolgozunk az adatokkal/adatokon</span>
+<span class="c1">// tipikusan felhasználó felületen történik, ez itt szemléltető példa</span>
+<span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dataSet</span><span class="p">.</span><span class="n">Tables</span><span class="p">[</span><span class="s">"Product"</span><span class="p">].</span><span class="n">Rows</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"{0}\t{1}"</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="s">"ID"</span><span class="p">],</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="s">"Name"</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">row</span><span class="p">[</span><span class="s">"Name"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"new value"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">-------------------------------------------------------</span>
+
+<span class="c1">// Tipikusan időben később, pl. egy "mentés" gomb hatására kezdődik</span>
+<span class="c1">// Kapcsolatot nyitunk, update-eljük az adatbázist, majd zárjuk a kapcsolatot</span>
+<span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">conn</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+<span class="w">    </span><span class="n">adapter</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//dataSet.AcceptChanges(); -- így csak a DataSet frissülne, az adatbázis nem</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p>Érdemes megfigyelni, hogy az <code>adapter</code> csak a <code>Command</code>-on keresztül kommunikál az adatbázissal. Egy <code>adapter</code> több ilyen <code>Command</code>-ot is használhat, ezáltal több <code>Connection</code>-nel akár több adatbázison is dolgozhatunk ugyanazon <code>DataSet</code>-tel.</p>
+</div>
+<p><strong>Előnyök</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> nem szükséges folyamatos hálózati kapcsolat</li>
+</ul>
+<p><strong>Hátrányok</strong></p>
+<ul>
+<li>ütközések lehetnek a visszamentés során</li>
+<li>a <code>DataSet</code> adatai nem mindig a legfrissebbek</li>
+<li>memóriát foglal - szerver oldalon ezért is nem használjuk</li>
+</ul>
+<h2 id="veszelyforrasok">Veszélyforrások<a class="headerlink" href="#veszelyforrasok" title="Permanent link">¶</a></h2>
+<h3 id="sql-injection">SQL injection<a class="headerlink" href="#sql-injection" title="Permanent link">¶</a></h3>
+<p>Az <strong>SQL injection</strong> az a <strong>súlyos hiba</strong>, amikor úgy futtatunk egy lekérdezést, hogy a benne szereplő paraméterek értékét nem ellenőrizzük futtatás előtt. A paraméterek érkezhetnek kliens oldalról, felhasználó által kiválasztott, vagy megadott adatokkal. Ebből akkor származhat probléma, ha egy rosszindulatú felhasználó SQL parancsot ír egy olyan mezőbe, ahonnan mást várnánk. Például egy felhasználónevet várnánk, de helyette a <code>Monkey92); DROP TABLE Users;--</code> érték érkezik. Ha ezt a szöveget befogadnánk és beillesztenénk az SQL utasításunkba, azzal a <code>drop table</code>-t is végrehajtanánk, ezzel törölve egy táblánkat. Ez kifejezetten <strong>súlyos hiba</strong>!</p>
+<div class="admonition important">
+<p class="admonition-title"><strong>MEGOLDÁS</strong></p>
+<p>Paraméterek használata (lásd: <a href="#command">Command rész</a> parancs létrehozása példa).</p>
+</div>
+<h3 id="connection-string">Connection string<a class="headerlink" href="#connection-string" title="Permanent link">¶</a></h3>
+<p>A <strong>connection string</strong> megalkotása nagyon hasonló hibát rejt magában, mint az <strong>SQL injection</strong>. Tegyük fel, hogy a felhasználótól kérünk valamiféle adatot (<em>pl. felhasználónév, jelszó</em>). Ilyenkor nem tudhatjuk, hogy pontosan mit fogunk kapni. A <strong>connection string</strong> kulcs-érték párokból áll és sok adatbázis <em>last-wins</em> elvet alkalmaz ezekre. Ez a gyakorlatban azt jelenti, hogy ha egy kulcsra több érték is meg van adva a string-ben, akkor az jut érvényre, ami később szerepel benne. Vagyis, ha a begépelt felhasználónév és jelszó után jön egy olyan kulcs-érték pár, ami már szerepelt a string-ben, akkor az új felülírja a régit, ez pedig nagy kockázatot rejt magában, hiszen egy rossz indulatú felhasználó így saját maga által megadott paramétereket injektálhat a connection stringbe.</p>
+<div class="admonition important">
+<p class="admonition-title"><strong>MEGOLDÁS</strong></p>
+<p><code>ConnectionStringBuilder</code> használata (lásd: <a href="#connection">Connection rész</a>)</p>
+</div>
+<h3 id="connection-leak">Connection leak<a class="headerlink" href="#connection-leak" title="Permanent link">¶</a></h3>
+<p>Amennyiben nem zárunk le minden <code>Connection</code>-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy <code>Connection</code>-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.</p>
+<div class="admonition important">
+<p class="admonition-title"><strong>MEGOLDÁS</strong></p>
+<p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén mindig lezáródik a kapcsolat (lásd: <a href="#tranzakciok">Tranzakció rész példa</a>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
+</div>
+<div class="admonition note">
+<p>A <code>DataReader</code>-t hasonlóan le kell zárni, és ugyanúgy használható rá a <code>using</code> is.</p>
+</div>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 3. 10:01:07">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Létrehozva"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="2021. december 16. 08:18:06">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2021-12-16T08:18:06+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2021-12-16</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Szerzők</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

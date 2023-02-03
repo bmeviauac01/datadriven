@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="hu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Albert István, Tóth Tibor" name="author"/>
+<link href="../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>Gyakorlatvezetőknek - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<link href="../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../css/timeago.css" rel="stylesheet"/>
+<link href="../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#gyakorlatvezetoknek">
+          Kihagyás
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Élőfej" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" data-md-component="logo" href=".." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Gyakorlatvezetőknek
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Nyelvváltás" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Keresés" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Keresés" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Keresés" class="md-search__options">
+<button aria-label="Törlés" class="md-search__icon md-icon" tabindex="-1" title="Törlés" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Lapok" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="..">
+      Adatvezérelt rendszerek
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../db/">
+        Adatbázis
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../jegyzet/architektura/">
+        Jegyzetek
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../gyakorlat/transactions/">
+        Gyakorlatok
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../hazi/">
+        Házi feladatok
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigáció" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" data-md-component="logo" href=".." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+        Adatvezérelt rendszerek
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Adatbázis
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../db/">
+        Minta adatbázis sémája
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../db/mssql/">
+        Microsoft SQL Server használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../db/mongodb/">
+        MongoDB használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">
+        Minta adatbázis: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">
+        Minta adatbázis: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Jegyzetek
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/architektura/">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/transactions/">
+        Tranzakciókezelés adatbázisokban
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/mssql/sql/">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/mssql/server-side-programming/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/adonet/">
+        ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/ef/">
+        Kapcsolatok definiálása Entity Framework-ben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/mongodb/">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/di/">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/async/">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jegyzet/openapi/">
+        OpenAPI 3 és a Swagger
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Gyakorlatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/transactions/">
+        Tranzakciókezelés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/mssql/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gyakorlat/rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Házi feladatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/">
+        Szorgalmi házi feladatok
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/mssql/">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/adonet/">
+        Feladat: ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/ef/">
+        Feladat: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/mongodb/">
+        Feladat: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/rest/">
+        Feladat: REST API Web API technológiával
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/GitHub/">
+        Feladatok beadása (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/GitHub-Actions/">
+        GitHub Actions ismertető
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hazi/VisualStudio/">
+        Visual Studio &amp; .NET SDK telepítése
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gyakorlatvezeto-feladatai">
+    Gyakorlatvezető feladatai
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#demonstratorsag">
+    Demonstrátorság
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tudnivalok-a-gyakorlatok-megtartasahoz">
+    Tudnivalók a gyakorlatok megtartásához
+  </a>
+<nav aria-label="Tudnivalók a gyakorlatok megtartásához" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#oktatas-modja">
+    Oktatás módja
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adminisztrativ-tudnivalok">
+    Adminisztratív tudnivalók
+  </a>
+<nav aria-label="Adminisztratív tudnivalók" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gyakorlat-jelenlet-konyvelese">
+    Gyakorlat jelenlét könyvelése
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#anyagok-elerhetosege">
+    Anyagok elérhetősége
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#belepesek">
+    Belépések
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tudnivalok-a-hazi-feladatokkal-kapcsolatban">
+    Tudnivalók a házi feladatokkal kapcsolatban
+  </a>
+<nav aria-label="Tudnivalók a házi feladatokkal kapcsolatban" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mikor-kell-ertekelni-a-hazit">
+    Mikor kell értékelni a házit?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hol-kell-ertekelni-a-hazit">
+    Hol kell értékelni a házit?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hogyan-kell-ertekelni-a-hazit">
+    Hogyan kell értékelni a házit?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problemak-es-megoldasuk">
+    Problémák és megoldásuk
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/gyakorlatvezetoknek/index.md" title="Oldal szerkesztése">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="gyakorlatvezetoknek">Gyakorlatvezetőknek<a class="headerlink" href="#gyakorlatvezetoknek" title="Permanent link">¶</a></h1>
+<p>Gyakorlatvezető/demonstrátor lennél? Az alábbiakat érdemes tudnod.</p>
+<h2 id="gyakorlatvezeto-feladatai">Gyakorlatvezető feladatai<a class="headerlink" href="#gyakorlatvezeto-feladatai" title="Permanent link">¶</a></h2>
+<p>A gyakorlatvezető a tárgy oktatásában segít a gyakorlatok megtartása és a számonkérések során. A feladat az alábbiakból áll.</p>
+<p><strong>Félév során 12 gyakorlat megtartása.</strong> A gyakorlatok a 2. oktatási héten kezdődnek és a 13. oktatási héten érnek véget. Egy gyakorlatvezető általában 2 gyakorlati csoport oktatásáért felel és mindkét csoportnak 6-6 gyakorlatot tart meg. A gyakorlat fix órarendi időben van, 90 perces, és számítógép laborban tartjuk. Szünetek miatt elmaradó laborokat nem pótlunk, így néha egy-kettővel kevesebb óra lehet. Lehetőség van többet is vállalni, tehát akár 4 csoportot is (4*6 gyakorlat a félév során).</p>
+<p>A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető feladata a gyakorlatra való felkészülés, a gyakorlat megtartása, ennek során a szükséges háttérismeretek rövid átismétlése, a fontos részek kiemelése, és a hallgatók segítése a gyakorlat során. Egy gyakorlati órán 20 hallgató van a teremben.</p>
+<p>2021 őszi félév során a gyakorlatok órarendi időpontjai:</p>
+<ul>
+<li>kedd 8-10</li>
+<li>kedd 10-12</li>
+<li>csütörtök 8-10</li>
+</ul>
+<p><strong>Számonkérések lebonyolításában segítség.</strong> A tárgyban ZH, PZH, és 4 vizsga van. Mindegyik számonkérés írásban történik. A gyakorlatvezető feladata a számonkérések felügyelése majd a javításban történő részvétel. A felügyelés ideje alkalmanként körülbelül 1 óra, a javítás ideje létszám függően 0.5-2 óra alkalmanként. Gyakorlatvezetőként körülbelül a számonkérések felében kell részt venni.</p>
+<p><strong>Házi feladatok értékelése.</strong> A félév során 5 opcionális kis házi feladatot hirdetünk meg. Ezeket a hallgatók otthon, önállóan oldják meg és adják be GitHub pull request-ek formájában. A házi feladatok kiértékelése részben automatikusan történik: egy szoftver lefuttatja és ellenőrzi a beadott munkát. A gyakorlatvezető feladata a beadott házi feladat formai ellenőrzése: kért képernyőképek megfelelnek-e az előírásoknak és konzisztensek-e a beadott forráskóddal. A házi feladat nem kötelező, nem minden hallgató szokta elkészíteni, így házi feladatonként körülbelül 1 óra idő ráfordítást jelent.</p>
+<h2 id="demonstratorsag">Demonstrátorság<a class="headerlink" href="#demonstratorsag" title="Permanent link">¶</a></h2>
+<p>Hallgató vagy de szeretnél bekapcsolódni az oktatásba? Szeretnéd kipróbálni magad gyakorlatvezetőként? Elvégezted ezt a tárgyat ötössel? Várunk demonstrátorként!</p>
+<p>A TVSZ pár követelményt szab demonstrátoroknak: (lásd <a href="https://www.kth.bme.hu/document/2376/original/BME_TVSZ_2016%20elfogadott_mod_20200131-T.pdf">aktuális TVSZ</a> 165.§):</p>
+<div class="admonition quote">
+<p>(5) A demonstrátori pályázat benyújtásának feltétele, hogy a pályázó</p>
+<p>a) a demonstrátori jogviszonnyal érintett félévben rendelkezzen aktív hallgatói jogviszonnyal;</p>
+<p>b) rendelkezzen alapképzésben vagy osztatlan képzésben szerzett oklevéllel;</p>
+<p>c) alapképzésben vagy osztatlan képzésben szerzett oklevél hiányában rendelkezzen legalább annyiszor huszonöt teljesített kredittel, ahány lezárt aktív féléve van és halmozott súlyozott tanulmányi átlageredménye haladja meg a 3,50 értéket; és</p>
+<p>d) ne álljon fegyelmi büntetés hatálya alatt.</p>
+</div>
+<p>Ha érdekel a lehetőség, megfelelsz a fenti követelményeknek, és az órarendedbe belefér a gyakorlat (lásd az időpontokat fentebb), keresd a <a href="mailto:dudas.akos@vik.bme.hu">tárgyfelelőst</a>.</p>
+<h2 id="tudnivalok-a-gyakorlatok-megtartasahoz">Tudnivalók a gyakorlatok megtartásához<a class="headerlink" href="#tudnivalok-a-gyakorlatok-megtartasahoz" title="Permanent link">¶</a></h2>
+<p>A tárgy alapképzés (BSc) 5. félévében specializációs tárgy. Ezt azt jelenti, hogy a hallgatók szoftverfejlesztési alapismeretekkel és adatbázis alapismeretekkel rendelkeznek. A tárgyunk célja a tudás elmélyítése és új technológiákba való "belekóstolás". Az új ismeretek átadása az előadásokon történik, a gyakorlatokon a technológiák első kézből való kipróbálása a lényeg. A célunk, hogy mindenki maga is lássa és kipróbálja az adott eszközöket, technológiákat, és lássa a működésüket. A gyakorlatokon változatos technológiákkal foglalkozunk, és ennek megfelelően több féle szoftvert is használunk. Ezek egy része újdonság lesz a hallgatóknak, így a gyakorlatokon a szoftverek alapvető használatát is megmutatjuk.</p>
+<h3 id="oktatas-modja">Oktatás módja<a class="headerlink" href="#oktatas-modja" title="Permanent link">¶</a></h3>
+<p>A gyakorlatokon elvárt a részvétel, viszont nincs számonkérés (se beugró, se egyéb). Az előadásokon minden szükséges alapismeret elhangzik, de a gyakorlatokon célszerű szóban elismételni <em>mivel</em> foglalkozunk az adott gyakorlaton és az <em>miért</em> fontos. Emellett érdemes kiemelni a feladatok megoldása során az érdekes, avagy feltétlenül megjegyzendő részeket. (Mindemellett a gyakorlat nem előadás, nem kell mindent újból elismételni.)</p>
+<p>A gyakorlatokon önálló munkát csak kis mértékben várunk el. A gyakorlatok anyaga jelzi, mit lehet önálló munkának feladni. A gyakorlat nagy részében tehát a gyakorlatvezető projektoron csinálja a feladatokat, a hallgatók követik és maguk is végzik a feladatokat. A bemelegítő feladatok után (amikor a szoftver környezet már ismert), lehet adni gondolkodási időt a hallgatóknak. A megoldást viszont mindig beszéljétek meg közösen.</p>
+<p>A gyakorlati anyagban benne van a megoldás. Ha valaki lemarad, vagy otthon meg akarja nézni, így elérheti a megoldásokat. A gyakorlatok során ne csak átmásoljuk az órán, hanem gépeljük be a megoldást, a gondolatmenetet magyarázva közben! Ha lehet, vegyük rá a hallgatókat is erre.</p>
+<h3 id="adminisztrativ-tudnivalok">Adminisztratív tudnivalók<a class="headerlink" href="#adminisztrativ-tudnivalok" title="Permanent link">¶</a></h3>
+<ul>
+<li>A gyakorlatokat óra 15-kor kezdjük pontosan és 90 percet egyben, szünet nélkül tartjuk. A késő hallgatókat első alkalommal figyelmeztessük. Ha többször előfordul vagy zavaróan sokat késik (&gt;5 perc), akkor küldjétek el (TVSZ erre jogot ad!).</li>
+<li>A gyakorlat teljesítésének adminisztrálása Moodle-ben történik. A teljesítés a gyakorlaton való megjelenést, és a munka veletek történő elvégzését jelenti. (Tehát a hallgató nem sétálhat ki a gyakorlat közepén és nem foglalkozhat mással, csak a gyakorlattal. Eseti problémákat azért kezeljünk le, pl. ZH-ja van máshol, stb. Egy-egy kivétel belefér.) Érdemes a jelenlétet a gyakorlat elején könyvelni.</li>
+<li>Ha az órán több ember jelenne meg, mint ahány gép van (hiányzás pótlása pl.), vagy egy gép nem működik, akkor akinek nem jut hely, leül valaki mellé.</li>
+<li>A csoportok között nincs ad-hoc átjárás. Ha valaki jelzi, hogy nem tud részt venni egy gyakorlaton, akkor előre/utólag/ugyanazon a héten egy másik csoportban pótolhat (ha van rá mód). Ennek a megszervezését alapvetően a hallgató bonyolítsa (nézze meg, mikor van még labor azonos anyagból, és egyeztessen a tárgyfelelőssel, vagy a gyakorlatvezetőkkel), de segítsük, ha kell.</li>
+<li>2021 őszén a tanév első 2 hetében nem minden hallgatónak lesz kollégiumi helye. Rektori utasítás szerint a hallgatók felmentést kapnak ezen alkalmak alól. Ezt központilag intézzük, az első gyakorlatnál is kell könyvelni a jelenlétet, de a hiányzást nem vesszük figyelembe.</li>
+</ul>
+<h4 id="gyakorlat-jelenlet-konyvelese">Gyakorlat jelenlét könyvelése<a class="headerlink" href="#gyakorlat-jelenlet-konyvelese" title="Permanent link">¶</a></h4>
+<p>A jelenlétet Moodle-ben kell könyvelni a "Gyakorlat jelenlét" elemre kattintva.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/moodle-jelenlet-fooldalon.png"><img alt="" src="images/moodle-jelenlet-fooldalon.png"/></a></p>
+<p>Csoportonként külön jelenléti alkalom van. Érdemes a heti nézetet választani és az aktuális héthez menni. Az alkalom dátuma <em>nem</em> a csoport órarendi idejében van (hétfő mindig), azt kell választani, amelyik aktuális heti és a megfelelő csoporthoz tartozik. A "lejátszás" gombra kattintva vihető fel a jelentlét.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/moodle-jelenlet-kivalasztas.png"><img alt="" src="images/moodle-jelenlet-kivalasztas.png"/></a></p>
+<p>A jelenlét beírásánál a "J" a jelenlét, a "H" a hiányzás. Fűzhető mellette megjegyzés is hozzá (pl. "késett".)</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/moodle-jelenlet-eredmeny.png"><img alt="" src="images/moodle-jelenlet-eredmeny.png"/></a></p>
+<h3 id="anyagok-elerhetosege">Anyagok elérhetősége<a class="headerlink" href="#anyagok-elerhetosege" title="Permanent link">¶</a></h3>
+<ul>
+<li>A tárgy előadás anyagai, az időpontok és határidők és hivatalos követelmények Moodle-ben lesznek. (Ehhez a tárgy indulásával kapsz hozzáférést.)</li>
+<li>
+<p>Gyakorlatok anyagai: lásd a fenti menüben. A gyakorlati anyag minden része teljesen publikus.</p>
+<p>A gyakorlatok anyaga GitHub repository-ban van. Ha hibát, elgépelést találsz benne, arra kérünk, hogy javítsd: minden anyag jobb felső sarkában van egy kis ceruza ikon, javítsd a hibát, és küldj PR-t.</p>
+</li>
+</ul>
+<h3 id="belepesek">Belépések<a class="headerlink" href="#belepesek" title="Permanent link">¶</a></h3>
+<p>A <strong>labor termekhez</strong> kulcsra és/vagy kártyára van szükség. Ezeket a titkárságon (QB207) kell kérni. I épülethez kell a teremkulcs, ill. a folyosóhoz szükség van kártyára is (kivéve, akinek van ilyenje). Q épület laborjaihoz hozzáférést külön szervezzük. Demonstrátorok: mindezt megmutatom első alkalommal.</p>
+<p><strong>Gépekre</strong>: emailben küldöm félév elején. Kis- és nagybetű számít! Pár elgépelés után le lesz tiltva az account!</p>
+<p><strong>MS SQL szerver</strong>:</p>
+<ul>
+<li>localdb: nincs jelszó, Windows Authentication-t használjunk</li>
+<li>JPA labornál sqlexpress van, SQL Server Authentication kell: <code>sa</code> / <code>sa</code></li>
+</ul>
+<p><strong>MongoDB</strong>: nincs autentikáció</p>
+<h2 id="tudnivalok-a-hazi-feladatokkal-kapcsolatban">Tudnivalók a házi feladatokkal kapcsolatban<a class="headerlink" href="#tudnivalok-a-hazi-feladatokkal-kapcsolatban" title="Permanent link">¶</a></h2>
+<p>A félév során a házi feladatok vannak meghirdetve, amiket adott határidőig kell beadni GitHub-on. Ennek pontos menete a hallgató szemszögéből <a href="../hazi/">itt</a> elolvasható.</p>
+<p>Ahhoz, hogy hozzáférj a GitHub-on a beadott megoldásokhoz (és ahhoz, hogy a hallgatók ezt hozzád tudják rendelni), kell egy GitHub account. A GitHub nevedet írd meg a tárgyfelelősnek, és felvesz GitHub-on a <a href="https://www.github.com/bmeviauac01">https://www.github.com/bmeviauac01</a> organization-be.</p>
+<h3 id="mikor-kell-ertekelni-a-hazit">Mikor kell értékelni a házit?<a class="headerlink" href="#mikor-kell-ertekelni-a-hazit" title="Permanent link">¶</a></h3>
+<p>A házikat a határidő lejárta után kell értékelni. A határidő előtt a megoldásokra nem kell ránézni, kivéve, ha ezt a hallgató kéri. Kérdéssel a hallgató direktben kell megkeressen (pl. emailben vagy <a href="../hazi/GitHub/#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio">GitHub-on</a>).</p>
+<h3 id="hol-kell-ertekelni-a-hazit">Hol kell értékelni a házit?<a class="headerlink" href="#hol-kell-ertekelni-a-hazit" title="Permanent link">¶</a></h3>
+<p>A határidő lejárta után a feladatod a <strong>hozzád rendelt</strong> pull request-ek értékelése. A hallgató azzal adja be a házit, hogy a pull request-et a gyakorlatvezetőjéhez rendeli. Ezeket a GitHub keresőjével a legegyszerűbb megtalálni: <a href="https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Abmeviauac01+assignee%3A%40me+">https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Abmeviauac01+assignee%3A%40me+</a>.</p>
+<p>Alternatívaként a GitHub értesítő felületét is lehet használni a <a href="https://github.com/notifications">https://github.com/notifications</a> címen, itt minden hozzád rendelt, vagy review-ra váró PR megjelenik.</p>
+<h3 id="hogyan-kell-ertekelni-a-hazit">Hogyan kell értékelni a házit?<a class="headerlink" href="#hogyan-kell-ertekelni-a-hazit" title="Permanent link">¶</a></h3>
+<p>A PR-eket egyesével kell megnyitni, és meg kell nézni a PR komment felületén az eredményt. Itt látható lesz a lefuttatott értékelés eredménye, valamint a képernyőképek. Emellett meg kell nézni a forráskódot is.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/hazi-github-pr-conversation-changes.png"><img alt="" src="images/hazi-github-pr-conversation-changes.png"/></a></p>
+<p>A forráskódot nem szükséges betűről betűre megnézni - a részletes ellenőrzést elvégzi az automata. A gyakorlatvezető feladata a képernyőképek ellenőrzése, valamint annak eldöntése, hogy a forráskód konzisztens-e a kapott eredménnyel.</p>
+<p>A feladatok minta megoldása itt érhető el: <a href="https://github.com/bmeviauac01?q=hazi-megoldas">https://github.com/bmeviauac01?q=hazi-megoldas</a>. Ezek csak lehetséges megoldások, a hallgató megoldása nem kell ezzel egyezzen.</p>
+<p>Az értékelés végeztével:</p>
+<ul>
+<li>Ha az automata értékelés helyénvaló volt, akkor le kell zárni a PR-t a <code>/ahk ok</code> parancs beírásával egy kommentbe. Ennek hatására a PR jóváhagyásra kerül és merge-elve lesz.</li>
+<li>Ha az automata értékelést felülbírálod pontszámban, akkor az <code>/ahk ok 1.5 2</code> parancsot kell kiadni, ahol is a számok a feladatokra kapott pontszámok. Az első szám a nem iMsc feladat pontszáma, a második az iMsc pontszám - ez utóbbi elhagyható 0 esetén.</li>
+<li>Ha a beadott megoldás nem fogadható el (határidőn túl érkezett, a képek nem támasztják alá a megoldást, a forráskód elfogadhatatlan, stb.), akkor ki <strong>kell</strong> adni a <code>/ahk ok 0 0</code> parancsot. Ezzel fogjuk rögzíteni, hogy az automata értékelő által adott pontszámokat felülírjuk.</li>
+</ul>
+<p>A fenti parancs egy kommentben tetszőleges helyen szerepelhet, amennyiben egy sorban csak ez a parancs szerepel. Írhatunk tehát a hallgatónak megjegyzést, majd utolsó sorba írjuk ezt a parancsot. Érdemes a hallgatónak legalább egy mondatot írni, hogy lássa, elfogadtuk a megoldást. Ha még sincs megjegyzésünk a hallgató felé, akkor csak egysoros komment kell ezzel a paranccsal.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/hazi-github-pr-ahkcommand.png"><img alt="" src="images/hazi-github-pr-ahkcommand.png"/></a></p>
+<p>A parancs többször is kiadható, tehát elrontott pontszámot lehet javítani az újbóli kiadással.</p>
+<p>A parancs hatását látjuk is utána PR-ben:</p>
+<ul>
+<li>a kommentre a parancs felismerésének megerősítésére érkezik egy reakció,</li>
+<li>a PR változtatásai jóváhagyásra kerülnek (ez szükséges a mergeléshez a protected branch miatt),</li>
+<li>a PR mergelésre kerül - ezzel lezárt állapotba kerül a PR és így eltűnik a teendők listájáról,</li>
+<li>és végül elmentésre kerül az eredmény a háttérben - ezt már közvetlenül nem látjuk.</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/hazi-github-pr-ahkmerge.png"><img alt="" src="images/hazi-github-pr-ahkmerge.png"/></a></p>
+<h3 id="problemak-es-megoldasuk">Problémák és megoldásuk<a class="headerlink" href="#problemak-es-megoldasuk" title="Permanent link">¶</a></h3>
+<p><strong>Nem futott le az automata értékelés.</strong></p>
+<ul>
+<li>Lehet, hogy a hallgató <em>draft</em> módban hagyta a PR-t, ezt vissza kell állítani. A PR alján megjelenik ilyenkor egy <em>Ready for review</em> gomb.</li>
+<li>Ha sikertelen volt a kiértékelés, meg lehet ismételni. Ez segít a tranziens hibákon (ritka eset). Ehhez tegyél egy <em>eval</em> nevű label-t a PR-re (új label-ként kell létrehozni).</li>
+</ul>
+<p><strong>Több, mint 5-ször futott a kiértékelés.</strong> Ezt pontlevonással szankcionáljuk. Első alkalommal eltekinthetünk tőle, de mindenképpen tájékoztassuk a hallgatót.</p>
+<p><strong>Hiba van a kiértékelő alkalmazásban.</strong> Előfordulhat. Keresd a tárgyfelelőst, vagy javítsd a hibát (a kiértékelő programok itt vannak: <a href="https://github.com/bmeviauac01/hazi-ahk/">https://github.com/bmeviauac01/hazi-ahk/</a>).</p>
+<p><strong>Az értékelési folyamat sikertelen.</strong> Ha elesik az értékelő folyamat, azt a PR-ben látjuk. Ennek több oka is lehet.</p>
+<ul>
+<li>A hallgató kifelejtett valamit. Kötelező elemek hiánya szándékosan blokkolja a folyamatot. Az ilyen házit nem értékeljük (amennyiben valóban a hallgató tévedett).</li>
+<li>Tranziens hiba, pl. nem sikerül egy konténer pull, vagy egy .NET SDK setup. Lásd az újrafuttatást fentebb.</li>
+<li>Hiba van a kiértékelő, avagy a feldolgozó alkalmazásban. A kiértékelő alkalmazások elég stabilak, hibás megoldásra nem szabad elessenek. Azért megtörténhet. A feldolgozó alkalmazás is sokat futott már, de természetesen lehet benne nem várt eset. Szólj erről, az ilyet meg kell nézzük.</li>
+</ul>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 1. 16:16:40">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-01T16:16:40+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-01</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Létrehozva"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="2020. augusztus 26. 11:37:43">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2020-08-26T11:37:43+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2020-08-26</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Szerzők</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+<script src="../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../js/timeago.min.js"></script>
+<script src="../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

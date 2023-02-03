@@ -1,0 +1,1466 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="hu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Albert István, Tóth Tibor" name="author"/>
+<link href="../architektura/" rel="prev"/>
+<link href="../mssql/sql/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>Tranzakciókezelés adatbázisokban - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#tranzakciokezeles-adatbazisokban">
+          Kihagyás
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Élőfej" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Tranzakciókezelés adatbázisokban
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Nyelvváltás" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Keresés" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Keresés" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Keresés" class="md-search__options">
+<button aria-label="Törlés" class="md-search__icon md-icon" tabindex="-1" title="Törlés" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Lapok" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Adatvezérelt rendszerek
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
+        Adatbázis
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../architektura/">
+        Jegyzetek
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../gyakorlat/transactions/">
+        Gyakorlatok
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../hazi/">
+        Házi feladatok
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigáció" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/adatvezerelt" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/adatvezerelt
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Adatvezérelt rendszerek
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Adatbázis
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
+        Minta adatbázis sémája
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
+        Microsoft SQL Server használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
+        MongoDB használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">
+        Minta adatbázis: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js">
+        Minta adatbázis: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Jegyzetek
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architektura/">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Tranzakciókezelés adatbázisokban
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Tranzakciókezelés adatbázisokban
+      </a>
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konkurens-adathozzaferes">
+    Konkurens adathozzáférés
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
+    Tranzakciók
+  </a>
+<nav aria-label="Tranzakciók" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok-alaptulajdonsagai">
+    Tranzakciók alaptulajdonságai
+  </a>
+<nav aria-label="Tranzakciók alaptulajdonságai" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#atomi-vegrehajtas">
+    Atomi végrehajtás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konzisztencia">
+    Konzisztencia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tartossag">
+    Tartósság
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacio">
+    Izoláció
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-problemak-es-izolacios-szintek">
+    Izolációs problémák és izolációs szintek
+  </a>
+<nav aria-label="Izolációs problémák és izolációs szintek" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problemak">
+    Problémák
+  </a>
+<nav aria-label="Problémák" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#piszkos-olvasas-dirty-read">
+    Piszkos olvasás (dirty read)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elveszett-modositas-lost-update">
+    Elveszett módosítás (lost update)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nem-megismetelheto-olvasas-nonrepeatable-read">
+    Nem megismételhető olvasás (nonrepeatable read)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fantom-rekordok-phantom-recordsphantom-read">
+    Fantom rekordok (phantom records/phantom read)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-szintek">
+    Izolációs szintek
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utemezes-biztositasa-zarolas">
+    Ütemezés biztosítása: zárolás
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-hatarok">
+    Tranzakciós határok
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplozas">
+    Tranzakciós naplózás
+  </a>
+<nav aria-label="Tranzakciós naplózás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undo-tipusu-naplozas">
+    Undo típusú naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redo-tipusu-naplozas">
+    Redo típusú naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undoredo-naplozas">
+    Undo/redo naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplo-meretenek-csokkentese">
+    Tranzakciós napló méretének csökkentése
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol">
+    Deadlock információ kinyerése MSSQL adatbázisból
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ellenorzo-kerdesek">
+    Ellenőrző kérdések
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/sql/">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/server-side-programming/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../adonet/">
+        ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
+        Kapcsolatok definiálása Entity Framework-ben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mongodb/">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../di/">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../async/">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi/">
+        OpenAPI 3 és a Swagger
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Gyakorlatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/transactions/">
+        Tranzakciókezelés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mssql/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../gyakorlat/rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Házi feladatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/">
+        Szorgalmi házi feladatok
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mssql/">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/adonet/">
+        Feladat: ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/ef/">
+        Feladat: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/mongodb/">
+        Feladat: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/rest/">
+        Feladat: REST API Web API technológiával
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub/">
+        Feladatok beadása (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/GitHub-Actions/">
+        GitHub Actions ismertető
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../hazi/VisualStudio/">
+        Visual Studio &amp; .NET SDK telepítése
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konkurens-adathozzaferes">
+    Konkurens adathozzáférés
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok">
+    Tranzakciók
+  </a>
+<nav aria-label="Tranzakciók" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakciok-alaptulajdonsagai">
+    Tranzakciók alaptulajdonságai
+  </a>
+<nav aria-label="Tranzakciók alaptulajdonságai" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#atomi-vegrehajtas">
+    Atomi végrehajtás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konzisztencia">
+    Konzisztencia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tartossag">
+    Tartósság
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacio">
+    Izoláció
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-problemak-es-izolacios-szintek">
+    Izolációs problémák és izolációs szintek
+  </a>
+<nav aria-label="Izolációs problémák és izolációs szintek" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problemak">
+    Problémák
+  </a>
+<nav aria-label="Problémák" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#piszkos-olvasas-dirty-read">
+    Piszkos olvasás (dirty read)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#elveszett-modositas-lost-update">
+    Elveszett módosítás (lost update)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nem-megismetelheto-olvasas-nonrepeatable-read">
+    Nem megismételhető olvasás (nonrepeatable read)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fantom-rekordok-phantom-recordsphantom-read">
+    Fantom rekordok (phantom records/phantom read)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#izolacios-szintek">
+    Izolációs szintek
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utemezes-biztositasa-zarolas">
+    Ütemezés biztosítása: zárolás
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-hatarok">
+    Tranzakciós határok
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplozas">
+    Tranzakciós naplózás
+  </a>
+<nav aria-label="Tranzakciós naplózás" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undo-tipusu-naplozas">
+    Undo típusú naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redo-tipusu-naplozas">
+    Redo típusú naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#undoredo-naplozas">
+    Undo/redo naplózás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tranzakcios-naplo-meretenek-csokkentese">
+    Tranzakciós napló méretének csökkentése
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol">
+    Deadlock információ kinyerése MSSQL adatbázisból
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ellenorzo-kerdesek">
+    Ellenőrző kérdések
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/adatvezerelt/edit/master/docs/jegyzet/transactions/index.md" title="Oldal szerkesztése">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="tranzakciokezeles-adatbazisokban">Tranzakciókezelés adatbázisokban<a class="headerlink" href="#tranzakciokezeles-adatbazisokban" title="Permanent link">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Kontextus</p>
+<p>Az alábbiak alapvetően <strong>relációs adatbázisokra</strong> vonatkozóan ismertetik a tranzakciókat. Azonban a problémák és megoldások egy része általános, és más jellegű adatbázis rendszerekben is megtalálhatóak.</p>
+</div>
+<h2 id="konkurens-adathozzaferes">Konkurens adathozzáférés<a class="headerlink" href="#konkurens-adathozzaferes" title="Permanent link">¶</a></h2>
+<p>Az adatbázis-kezelő rendszerek kliens-szerver üzemmódban működnek. A kliensek (az általunk írt szoftverek) csatlakoznak az adatbázishoz és kéréseket hajtatnak végre. Ebben a felállásban egy adatbázis-kezelő rendszer és több kliens vesz részt. Az adatbázis rendszer célja, hogy minél több kérést szolgáljon ki, ezért a <strong>kéréseket egymással párhuzamosan hajtja végre</strong>. Egy ilyen rendszerben az alábbi konkurens (egy időben történő) adathozzáférési esetek lehetségesek.</p>
+<ul>
+<li>Amennyiben a hozzáférések, akár írás, akár olvasás, eltérő adatra vonatkoznak, nincs probléma, a műveletek egyszerre is történhetnek.</li>
+<li>Amennyiben minden hozzáférés csak olvasás, nincs probléma: olvasni egyszerre többen is tudnak.</li>
+<li>Viszont, ha <strong>ugyanazon adathoz egy időben többen férnek hozzá</strong>, és <strong>legalább egy írás is van köztük</strong>, akkor felléphet a konkurencia problémája.</li>
+</ul>
+<p>Ez a konkurencia probléma nem különbözik az operációs rendszerek és változatos programozási nyelvek esetén megismert konkurencia és kölcsönös kizárás problémájától. Ott többnyire memória hozzáférésről, azonos memóriaterület írás-olvasásáról van szó, és a megoldás a kölcsönös kizárás, azaz a programozó védelmi vonallal látja el az adat hozzáférés helyét.</p>
+<p>Adatbázis-kezelő rendszerekben a konkurens hozzáférés az adatbázisban található rekordokra (sorokra) vonatkozik, és a védelmi vonalat a tranzakciók adják.</p>
+<h2 id="tranzakciok">Tranzakciók<a class="headerlink" href="#tranzakciok" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Definíció</p>
+<p>A tranzakció a feldolgozás logikai egysége, olyan műveletek sorozata, melyek csak együttesen értelmesek.</p>
+</div>
+<p>A tranzakciókkal tehát műveleteket fogunk össze egy egységbe, amelyekre vonatkozóan a rendszer biztosítja az alábbi tulajdonságokat:</p>
+<ul>
+<li>atomi végrehajtás (atomicity),</li>
+<li>konzisztencia (consistency),</li>
+<li>egymástól való izoláció (isolation),</li>
+<li>és tartósság (durability).</li>
+</ul>
+<p>Vizsgáljuk meg a tranzakciók alaptulajdonságait, hogy megérthessük, hogyan oldhatjuk meg használatukkal a konkurens adathozzáférés problémáját.</p>
+<div class="admonition danger">
+<p class="admonition-title">A tranzakció csak eszköz</p>
+<p>A tranzakciók (a kölcsönös kizárás biztosításához használt mutexekhez hasonlóan) csak eszközt adnak a programozó kezébe, de a helyes használat a fejlesztő felelőssége.</p>
+</div>
+<h3 id="tranzakciok-alaptulajdonsagai">Tranzakciók alaptulajdonságai<a class="headerlink" href="#tranzakciok-alaptulajdonsagai" title="Permanent link">¶</a></h3>
+<h4 id="atomi-vegrehajtas">Atomi végrehajtás<a class="headerlink" href="#atomi-vegrehajtas" title="Permanent link">¶</a></h4>
+<p>Az atomi végrehajtás azt jelenti, hogy a művelet sorozatunk több utasítást tartalmaz, azonban ezen utasítás sorozat csak egyben értelmes, a részleges végrehajtást meg kell akadályozni. Erre azért van szükség, mert gyakran az adatbázisban végrehajtott műveleteinket több utasítás segítségével tudjuk csak kifejezni, de az utasítások között nem szakítható meg a művelet.</p>
+<p>Képzeljük el egy webshopban a vásárlás végét lezáró műveletet:</p>
+<ol>
+<li>Rögzítjük a megrendelést, elmentjük egy rekordban a megrendelő adatait</li>
+<li>A megrendelt terméknél csökkentjük a raktáron levő darabszámot, hiszen egyet eladtunk</li>
+</ol>
+<p>Ez a műveletsorozat csak egyben értelmes. Amennyiben a megrendelést rögzítettük, muszáj a raktárkészletet is csökkenteni, különben többet adhatunk el a termékből, mint amennyi rendelkezésre áll. A két lépés között tehát a művelet nem szakítható félbe.</p>
+<p>Ezt garantálja az atomi végrehajtás: <strong>ha a műveletsorozat végrehajtása megkezdődött, akkor annak vagy teljes egészében le kell futnia, vagy vissza kell állnia a végrehajtást megelőző állapotba</strong>.</p>
+<h4 id="konzisztencia">Konzisztencia<a class="headerlink" href="#konzisztencia" title="Permanent link">¶</a></h4>
+<p>Az adatbázis konzisztenciájának szabályait részben az integritási kritériumokkal írhatjuk le: például egy külső kulcs által hivatkozott rekordnak léteznie kell. Ezen kívül az adatok közötti összefüggéseket is beleértjük a konzisztenciába: például a Neptun rendszerben nem lehet több jelentkező a vizsgára, mint a vizsga létszámkorlátja.</p>
+<p>Tranzakciók használata biztosítja számunkra, hogy az adatbázisunk mindig konzisztens állapotban van. Egy megkezdett tranzakció lefutása során előfordulhat ideiglenesen inkonzisztens állapot, mint a fenti példában az egyes lépések között. Azonban a tranzakció végére a konzisztenciának helyre kell állnia. Más szóval: <strong>a tranzakciók az adatbázist konzisztens állapotból konzisztens állapotba viszik</strong>.</p>
+<h4 id="tartossag">Tartósság<a class="headerlink" href="#tartossag" title="Permanent link">¶</a></h4>
+<p>A tartósság tulajdonsága azt írja elő, hogy a <strong>tranzakció hatása tartósan megmarad</strong>, azaz a tranzakció által végzett műveletek eredménye nem veszhet el. Praktikusan ez azt jelenti, hogy a tranzakció által végzett módosítások nem csak memóriában kerülnek elvégzésre, hanem tartós tárra (merevlemezre) is kiírásra kerülnek.</p>
+<p>Az adatbázisban két féle hibát különböztetünk meg, amikor adatvesztés következhet be: soft crash és hard crash. <strong>Soft crash</strong> esetén az adatbázis szerver leáll, így a memória tartalma elveszik. Ez ellen védenek a tranzakciók. <strong>Hard crash</strong> esetén a merevlemez is sérül; ez ellen csak a biztonsági mentés tud védeni.</p>
+<h4 id="izolacio">Izoláció<a class="headerlink" href="#izolacio" title="Permanent link">¶</a></h4>
+<p>Az izoláció a tranzakciók egymástól való "elszigetelését" jelenti. A tranzakcióinkat úgy írhatjuk meg, hogy annak helyes lefuttatásáról a rendszer fog gondoskodni. A fejlesztő tehát úgy írhatja meg a tranzakciót, <em>mintha</em> az a rendszerben egyedül futna, és az adatbázis rendszer garantálja, hogy <strong>megadott szabályrendszer szerint nem fog előfordulni konkurens adathozzáférési probléma</strong>.</p>
+<p>Valójában a rendszerben egyszerre sok tranzakció fut, azonban az adatbázis-kezelő rendszer garantálja, hogy olyan ütemezésben futtatja tranzakciókat, amelyek nem sértik a tranzakciók által elvárt izolációs szintet. Ehhez a tranzakciónak specifikálnia kell az <em>izolációs szintet</em>.</p>
+<h2 id="izolacios-problemak-es-izolacios-szintek">Izolációs problémák és izolációs szintek<a class="headerlink" href="#izolacios-problemak-es-izolacios-szintek" title="Permanent link">¶</a></h2>
+<p>Az izolációs szintek megismeréséhez először meg kell ismernünk, hogy pontosan milyen konkurens adathozzáférési problémák merülhetnek fel.</p>
+<h3 id="problemak">Problémák<a class="headerlink" href="#problemak" title="Permanent link">¶</a></h3>
+<h4 id="piszkos-olvasas-dirty-read">Piszkos olvasás (<em>dirty read</em>)<a class="headerlink" href="#piszkos-olvasas-dirty-read" title="Permanent link">¶</a></h4>
+<p>A piszkos olvasás során egy tranzakció egy másik tranzakció nem kommitált adatait használja:</p>
+<ol>
+<li>Egy tranzakció futása során módosít egy értéket, de még nem kommitál.</li>
+<li>Egy másik tranzakció ugyanezt a (már módosított) értéket kiolvassa.</li>
+<li>Az első tranzakció megszakításra kerül, és a rendszer visszaállítja a módosítás előtti értéket.</li>
+</ol>
+<p>A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna szabad felhasználni.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/dirty-read.png"><img alt="Piszkos olvasás" src="/assets/lecture-notes/transactions/images/dirty-read.png"/></a></p>
+<div class="admonition quote">
+<p class="admonition-title">Forrás</p>
+<p>A képek forrása: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
+</div>
+<div class="admonition note">
+<p>A piszkos olvasást szinte minden esetben el akarjuk kerülni.</p>
+</div>
+<h4 id="elveszett-modositas-lost-update">Elveszett módosítás (<em>lost update</em>)<a class="headerlink" href="#elveszett-modositas-lost-update" title="Permanent link">¶</a></h4>
+<p>Az elveszett módosítás során két írás kerül konfliktusba:</p>
+<ol>
+<li>Egy tranzakció megváltoztat egy értéket.</li>
+<li>Egy másik tranzakció ugyanazon értéket felülírja.</li>
+</ol>
+<p>Végeredményben csak a második írás eredménye marad meg, mintha az első módosítás nem is történt volna meg.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/lost-update.png"><img alt="Elveszett módosítás" src="/assets/lecture-notes/transactions/images/lost-update.png"/></a></p>
+<h4 id="nem-megismetelheto-olvasas-nonrepeatable-read">Nem megismételhető olvasás (<em>nonrepeatable read</em>)<a class="headerlink" href="#nem-megismetelheto-olvasas-nonrepeatable-read" title="Permanent link">¶</a></h4>
+<p>A nem megismételhető olvasás során a lekérdezés eredménye függ attól, hogy időben mikor adták ki egy tranzakcióban:</p>
+<ol>
+<li>Egy tranzakció lekérdez egy adatot.</li>
+<li>Egy másik tranzakció módosítja ugyanazt az adatelemet.</li>
+<li>Ha az első tranzakció megismétli a korábbi lekérdezést, más eredményt kap.</li>
+</ol>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/nonrepeatable-read.png"><img alt="Nem megismételhető olvasás" src="/assets/lecture-notes/transactions/images/nonrepeatable-read.png"/></a></p>
+<h4 id="fantom-rekordok-phantom-recordsphantom-read">Fantom rekordok (<em>phantom records</em>/<em>phantom read</em>)<a class="headerlink" href="#fantom-rekordok-phantom-recordsphantom-read" title="Permanent link">¶</a></h4>
+<p>A fantom rekordok problémája akkor jelentkezik, amikor rekord halmazokkal dolgozunk:</p>
+<ol>
+<li>Egy tranzakció lekérdez egy eredményhalmazt, amelyben több rekord van.</li>
+<li>Eközben egy másik tranzakció töröl egy rekordot, amely része a lekérdezett eredményhalmaznak.</li>
+<li>Az első tranzakció elkezdi feldolgozni az eredményhalmazt, például iterátor-szerűen egyesével megy végig a rekordhalmazon.</li>
+</ol>
+<p>A törölt rekord ilyenkor része a lekérdezett eredményhalmaznak, vagy sem? Hasonlóan elképzelhető az is, hogy egy rekord módosul a 2. lépésben. Ilyenkor a 3. lépésben a korábbi, vagy a módosult állapotát kellene látni?</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/phantom-records.png"><img alt="Fantom rekordok" src="/assets/lecture-notes/transactions/images/phantom-records.png"/></a></p>
+<h3 id="izolacios-szintek">Izolációs szintek<a class="headerlink" href="#izolacios-szintek" title="Permanent link">¶</a></h3>
+<p>A fenti problémák mindegyike elkerülhető a megfelelő izolációs szint megválasztásával. Azonban minél "magasabb" izolációs szintet választunk, annál kisebb az adatbázis-kezelő rendszer átbocsátóképessége, és annál nagyobb a lehetősége a holtpont kialakulásának (lásd alább). Ezért a cél egy megfelelő <em>kompromisszum</em> megtalálása a lehetséges problémák és a teljesítmény között.</p>
+<p>Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.</p>
+<ul>
+<li>Read uncommitted: nem nyújt megoldást egyik problémára se.</li>
+<li>Read committed: nincs piszkos olvasás.</li>
+<li>Repeatable read: nincs piszkos olvasás, se nem megismételhető olvasás.</li>
+<li>Serializable: egyik probléma sem fordulhat elő.</li>
+</ul>
+<div class="admonition note">
+<p>A <em>read uncommitted</em> szintet általában nem használjuk. A <em>serializable-t</em> pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a <em>read committed</em>.</p>
+</div>
+<h3 id="utemezes-biztositasa-zarolas">Ütemezés biztosítása: zárolás<a class="headerlink" href="#utemezes-biztositasa-zarolas" title="Permanent link">¶</a></h3>
+<p>Az izoláció biztosításának módja a zárolás: az adatbázis-kezelő rendszer a rekordok olvasása és írása során megjelöli (zárolja) az érintett elemeket. A zár elhelyezése a hozzáférés idejében történik, míg az elengedése a tranzakció végeztével. Azt, hogy milyen művelet esetében milyen zárolásra van szükség (kizárólagos, vagy megosztott zár), az izolációs szint és az adott adatbázis-kezelő rendszer implementációja határozza meg.</p>
+<p>A zárak segítségével valójában a tranzakciókat ütemezi a rendszer. Amikor egy zár nem érhető el, mert a mögöttes adatelemet más tranzakció használja és a konkurens elérés a választott izolációs szint szerint nem engedhető meg, a tranzakció várakoztatásra kerül.</p>
+<p>Ha egy rendszerben zárak vannak, akkor tudjuk, hogy <strong>holtpontok</strong> (<em>deadlock</em>) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/holtpont-eroforras-graf.png"><img alt="Holtpont kialakulása" src="/assets/lecture-notes/transactions/images/holtpont-eroforras-graf.png"/></a></p>
+<p>Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az <strong>egyik érintett tranzakciót megszakítja</strong> és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.</p>
+<div class="admonition note">
+<p>Holtpont után, ha a tranzakció megszakításra került, nem igazán tehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.</p>
+</div>
+<h2 id="tranzakcios-hatarok">Tranzakciós határok<a class="headerlink" href="#tranzakcios-hatarok" title="Permanent link">¶</a></h2>
+<p>A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez szükség van a tranzakció elejének és végének jelöléséhez. A tranzakció határok platform függően jelölhetőek, de alapvetően érvényesek az alábbiak.</p>
+<ol>
+<li>
+<p>Minden művelet az adatbázisban tranzakcióban fut. Ha nem jelöli a fejlesztő a tranzakció használatát, akkor minden SQL utasítás automatikusan önmagában egy tranzakció.</p>
+<div class="admonition note">
+<p>Mivel minden SQL utasítás tranzakcióban fut, minden utasításra önmagában is teljesülnek a tranzakciók tulajdonságai. Például, ha egy <code>delete</code> utasítás több rekordot töröl, nem lehetséges, hogy az utasítás a lefutása közben megszakad, és csak a rekordok fele került törlésre.</p>
+</div>
+</li>
+<li>
+<p>A fejlesztő a tranzakció megkezdéshez a <code>begin transaction</code> SQL utasítást, míg a bejezeséhez a <code>commit</code> vagy <code>rollback</code> utasításokat használhatja. A commit sikeresen lezárja a tranzakciót és minden változást ment, míg rollback esetén a tranzakció eldobásra kerül, és visszaáll a tranzakció megkezdése előtti állapot.</p>
+<div class="admonition note">
+<p>Adatbázis-kezelő rendszer függően lehetőség van tranzakcióba ágyazott tranzakcióra is. Ilyenkor a zárójelezés szabályainak megfelelően történik a tranzakciók lezárása.</p>
+</div>
+</li>
+</ol>
+<h2 id="tranzakcios-naplozas">Tranzakciós naplózás<a class="headerlink" href="#tranzakcios-naplozas" title="Permanent link">¶</a></h2>
+<p>Eddigiekben csak arról beszéltünk, mit biztosít az adatbázis-kezelő rendszer a tranzakciók használatával. Ismerjük meg ennek működését is.</p>
+<p>A <strong>tranzakciós naplózás</strong> segítségével az adatbázis rendszer nyomon tudja követni a futó tranzakciók által végzett módosításokat, vissza tudja állítani a tranzakció megkezdése előtti állapotot, és soft crash esetén a félbeszakadt tranzakciókat visszagörgeti (rollback).</p>
+<p>Ahhoz, hogy megértsük a tranzakciós naplózást, az alábbi koncepcionális rendszermodellel dolgozunk.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png"><img alt="Tranzakciós naplózás koncepcionális modellje" src="/assets/lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png"/></a></p>
+<p>Ebben a modellben a következő műveletek vannak:</p>
+<ul>
+<li>Begin T(x): Tranzakció kezdete</li>
+<li>Input(A): Adatelem beolvasása az adatbázis tartós tárból (lemezről)</li>
+<li>Output(A) Adatelem kiírása az adatbázis tartós tárba (lemezre)</li>
+<li>Read(A): Tranzakció kiolvassa az adatelemet a memória bufferből</li>
+<li>Write(A): Tranzakció visszaírja az adatelemet a memória bufferbe</li>
+<li>FLUSH_LOG: Tranzakciós napló lemezre írása</li>
+</ul>
+<p>A naplózás működését egy példán keresztül mutatjuk meg. A példában a tranzakció két adatelemet módosít: A-t 2-vel csökkenti, és B-t 2-vel növeli.</p>
+<h3 id="undo-tipusu-naplozas">Undo típusú naplózás<a class="headerlink" href="#undo-tipusu-naplozas" title="Permanent link">¶</a></h3>
+<p>Kezdetben a memória buffer üres, az adatok csak az adatbázis fájlban találhatóak meg. A végrehajtás ezért az adatok beolvasásával kezdődik.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Begin(T1)</td>
+<td>10</td>
+<td>20</td>
+<td>-</td>
+<td>-</td>
+<td><strong>Begin T1</strong></td>
+</tr>
+<tr>
+<td>Input(A)</td>
+<td>10</td>
+<td>20</td>
+<td><strong>10</strong></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Input(B)</td>
+<td>10</td>
+<td>20</td>
+<td>10</td>
+<td><strong>20</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A tranzakció számára előálltak a szükséges adatok a memória bufferben. A módosítás elvégzéséhez a tranzakció kiolvassa az adatot, majd a módosított értéket visszaírja. Ezzel együtt a tranzakciós naplóban rögzítésre kerül a <em>módosítás előtti érték</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read(A)</td>
+<td>10</td>
+<td>20</td>
+<td>10</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(A)</td>
+<td>10</td>
+<td>20</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td><strong>T1, A, 10</strong></td>
+</tr>
+<tr>
+<td>Read(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td><strong>T1, B, 20</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Ezzel a tranzakció befejezve a műveleteit, azonban a változtatások még nem lettek mentve. Ehhez kommitál a tranzakció, amely során először a tranzakciós napló bejegyzései a naplófájlba kiírásra kerülnek, majd megtörténik a módosítás az adatbázisban.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flush_LOG</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td>Output(A)</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td>Output(B)</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>Commit T1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Gondoljuk végig, hogy soft crash esetén hogyan kell helyreállítani a rendszert.</p>
+<ul>
+<li>Amennyiben a tranzakció a kommit előtt lett megszakítva, nincs dolga a rendszernek, mert az adatbázis fájlban nem történt módosítás, a memória buffer pedig a soft crash hatására eltűnik.</li>
+<li>Amennyiben a tranzakció elkezdte a kommit procedúrát, az adatbázisba már kiírásra kerülhetett valamennyi változtatás. Ezeket vissza kell állítani. Ilyenkor a tranzakciós naplót hátulról olvasva kell feldolgozni, és minden olyan tranzakció esetén, amelynek nincs <em>commit</em> bejegyzése a naplóban, visszaállítható a naplóban található módosítás előtti érték.</li>
+</ul>
+<p>Röviden összefoglalva undo naplózás esetén</p>
+<ul>
+<li>az adatbázis nem írható át, amíg a tranzakciós napló nincs kiírva,</li>
+<li>és commit jelet csak az adatbázis írás után lehet kitenni a naplóba.</li>
+</ul>
+<p>A működés kulcsa, hogy a tranzakciós naplót előbb kell kiírni, mint a módosításokat az adatbázis fájlban elvégezné a rendszer. A megoldás hátránya, hogy kétszer is kell a tranzakciós naplót fájlba írni (amely a diszk írás miatt költséges művelet).</p>
+<h3 id="redo-tipusu-naplozas">Redo típusú naplózás<a class="headerlink" href="#redo-tipusu-naplozas" title="Permanent link">¶</a></h3>
+<p>A műveletsorozat a korábban látott beolvasásokkal kezdődik, majd következik a módosítások elvégzése, de ezúttal a tranzakciós naplóban a <em>módosítás utáni érték</em> kerül rögzítésre.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read(A)</td>
+<td>10</td>
+<td>20</td>
+<td>10</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(A)</td>
+<td>10</td>
+<td>20</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td><strong>T1, A, 8</strong></td>
+</tr>
+<tr>
+<td>Read(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td><strong>T1, B, 22</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A módosítások véglegesítéséhez a tranzakció elkezdi a kommit folyamatot, amely a tranzakciós naplót kiírja, és rögzíti a kommitálás tényét - de az adatbázis fájlban még nem módosultak az adatok. Így a tranzakciós napló fájlba történő írása egy műveletre redukálódott (szemben az undo típusú naplózással).</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>Commit T1</strong></td>
+</tr>
+<tr>
+<td>Flush_LOG</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A tranzakciós napló mentése után végezhető el a tényleges adat mentése az adatbázis fájlba.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output(A)</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td>Output(B)</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Gondoljuk végig, hogy soft crash esetén hogyan kell helyreállítani a rendszert.</p>
+<ul>
+<li>Amennyiben a tranzakció a kommit előtt lett megszakítva, nincs dolga a rendszernek, mert az adatbázis fájlban nem történt módosítás, a memória buffer pedig a soft crash hatására eltűnik.</li>
+<li>Amennyiben a tranzakció elkezdte a kommit procedúrát, már kiírásra került a naplóba a commit ténye, de az adatbázis fájl még nem módosult. Ha ilyenkor szakad meg a végrehajtás, akkor a visszaállítás során a tranzakciós naplót ez elejétől kezdve kell feldolgozni, és minden kommitált tranzakciót újra végre kell hajtani.</li>
+</ul>
+<p>Röviden összefoglalva redo naplózás esetén</p>
+<ul>
+<li>az adatbázis nem írható át, amíg a tranzakciós napló nincs kiírva,</li>
+<li>és commit jelet az adatbázis írás előtt kell kitenni a naplóba.</li>
+</ul>
+<p>Az undo naplózáshoz képest tehát kevesebb a tranzakciós napló szinkronizálása, de hosszabb a visszaállítási folyamat.</p>
+<h3 id="undoredo-naplozas">Undo/redo naplózás<a class="headerlink" href="#undoredo-naplozas" title="Permanent link">¶</a></h3>
+<p>A nevéből adódóan ez a megoldás az előző kettő kombinációja. A példa műveletsor ugyanúgy kezdődik, mint korábban. A különbség a tranzakciós naplóba való írásnál jelentkezik: mind a változás előtti, mind a változás utáni érték kiírásra kerül.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read(A)</td>
+<td>10</td>
+<td>20</td>
+<td>10</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(A)</td>
+<td>10</td>
+<td>20</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td><strong>T1, A, 10, 8</strong></td>
+</tr>
+<tr>
+<td>Read(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>Write(B)</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td><strong>T1, B, 20, 22</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A kommit folyamat is egyszerűsödik. Az adatbázis fájlba való írás és a kommit jel kiírása a tranzakciós naplóba tetszőleges sorrendben elvégezhető (de mindenképpen meg kell előzze őket a tranzakciós napló fájlba írása). A változás tehát, hogy a commit jel helye nem kötött.</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>A (adatbázis)</th>
+<th>B (adatbázis)</th>
+<th>A (buffer)</th>
+<th>B (buffer)</th>
+<th>Tranzakciós napló</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flush_LOG</td>
+<td>10</td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td>Output(A)</td>
+<td><strong>8</strong></td>
+<td>20</td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>Commit T1</strong></td>
+</tr>
+<tr>
+<td>Output(B)</td>
+<td>8</td>
+<td><strong>22</strong></td>
+<td>8</td>
+<td>22</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A visszaállítás során a korábban ismertetett módok kombinálására van szükség:</p>
+<ul>
+<li>már kommitált tranzakciók esetében a változás újrajátszására van szükség (mind a redo esetén),</li>
+<li>míg a félbeszakadt tranzakciók előtti állapot az undo naplózáshoz hasonlóan állítható helyre.</li>
+</ul>
+<p>Ennek a megoldásnak az előnye, hogy</p>
+<ul>
+<li>kevesebb szinkronizáció szükséges a belső működésben (a tranzakciós napló írása és az adatbázis fájlok írása tekintetében),</li>
+<li>valamint a módosítás hamarabb rögzíthető az adatbázis fájlban (nem kell a tranzakciós naplóban megvárni a commit jel rögzítését).</li>
+</ul>
+<h3 id="tranzakcios-naplo-meretenek-csokkentese">Tranzakciós napló méretének csökkentése<a class="headerlink" href="#tranzakcios-naplo-meretenek-csokkentese" title="Permanent link">¶</a></h3>
+<p>A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a végtelenségig. Olyan tranzakciók bejegyzései törölhetőek belőle, amelyek valóban kommitálásra kerültek (az adatbázis fájlba beírásra került minden eredményük), vagy amelyek megszakadtak, és nem kell őket visszaállítani. Ez a folyamat általában automatikus, de kezdeményezhető manuálisan is.</p>
+<div class="admonition note">
+<p>Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.</p>
+</div>
+<h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Deadlock (holtpont)</p>
+<p>Holtpont akkor alakulhat ki, ha adott két tranzakció illetve két zár. Az egyik tranzakció rendelkezik az egyik zárral, míg a másik a másikkal. Ekkor holtpont alakul ki, ha mindkét tranzakció meg szeretné szerezni a másik által már megszerezett zárat.</p>
+</div>
+<p>Legyen adott az <strong>A</strong> és <strong>B</strong> tranzakció, illetve <strong>a</strong> és <strong>b</strong> erőforrás. <strong>A</strong> tranzakció zárolja <strong>a</strong> erőforrást, <strong>B</strong> tranzakció zárolja <strong>b</strong> erőforrást. Viszont <strong>A</strong> tranzakció szeretné zárolni <strong>b</strong> erőforrást is és <strong>B</strong> tranzakció szeretné zárolni <strong>a</strong> erőforrást is. Ebben az esetben ki fog alakulni egy holtpont.</p>
+<p>Nézzük meg az előbbi példán keresztül, hogyan tudjuk diagnosztizálni a holtpontot, ha előáll egy rendszerben. Ehhez először is állítsuk elő a holtpontot.</p>
+<ol>
+<li>
+<p>Hozzunk létre két táblát, amin mesterségesen előállítjuk a holtpontot.</p>
+<p>Létrehozzuk az első táblát <code>Lefty</code> néven, amelynek egy attribútuma lesz, a <code>Numbers</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span><span class="w"> </span><span class="p">(</span><span class="n">Numbers</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">CLUSTERED</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<p>Létrehozzuk a második táblát <code>Righty</code> néven, amelynek szintén egy attribútuma lesz, a <code>Numbers</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span><span class="w"> </span><span class="p">(</span><span class="n">Numbers</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">CLUSTERED</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+</li>
+<li>
+<p>A két tranzakciónak egyszerre kell lefutnia, ahhoz hogy holtpont alakulhasson ki. Amennyiben kézzel tesztelünk, akkor ez nehezen kivitelezhető, tehát a végrehajtás sorrendje:</p>
+<ol>
+<li>Az első tranzakcióból az első <code>UPDATE</code> utasítást hajtjuk végre</li>
+<li>A második tranzakcióból mindkettő <code>UPDATE</code> utasítást végrehajtjuk</li>
+<li>Az első tranzakcióból végrehajtjuk a második <code>UPDATE</code> utasítást</li>
+</ol>
+<p>Első tranzakció:</p>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="k">GO</span>
+
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="k">GO</span>
+</code></pre></div>
+<p>Második tranzakció:</p>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Righty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">GO</span>
+
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Lefty</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Numbers</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">GO</span>
+</code></pre></div>
+</li>
+</ol>
+<p>Ezzel elő is állt a holtpont. A rendszer fel fogja oldani ezt a holtpontot egy kis idő elteltével. Mielőtt ez megtörténik, megnézhetjük, hogy mit is látunk a rendszerben.</p>
+<p>A tranzakciók által elhelyezett zárakat le lehet kérdeni az adatbázisban a következő lekérdezéssel:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TableName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">request_status</span><span class="p">,</span><span class="w">  </span><span class="n">request_session_id</span>
+<span class="k">FROM</span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
+</code></pre></div>
+<p>Példánk során ennek a lekérdezésnek az eredménye:</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">TableName</th>
+<th align="center">Resource_type</th>
+<th align="center">request_status</th>
+<th align="center">request_session_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">Righty</td>
+<td align="center">KEY</td>
+<td align="center">GRANT</td>
+<td align="center">54</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Lefty</td>
+<td align="center">KEY</td>
+<td align="center">GRANT</td>
+<td align="center">53</td>
+</tr>
+</tbody>
+</table>
+<p>Tehát az első tranzakció a <code>Lefty</code> táblán helyezett el egy zárat, míg a második tranzakció a <code>Righty</code> táblán</p>
+<p>A blokkolt tranzakciókról szintén számos adatot szolgáltat az adatbázis, amelyeket a következő SQL utasítással lehet lekérdezni:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">BlockingSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">VictimSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">WaitDurationSecond</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">([</span><span class="n">sql_handle</span><span class="p">])</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span>
+</code></pre></div>
+<p>Példánk során ennek a lekérdezésnek az eredménye:</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">BlockingSessionID</th>
+<th align="center">VictimSessionID</th>
+<th align="center">WaitDurationSecond</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">54</td>
+<td align="center">53</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">53</td>
+<td align="center">54</td>
+<td align="center">72</td>
+</tr>
+</tbody>
+</table>
+<p>Tehát az 53-as ID-val rendelkező tranzakció várakoztatja az 54-es ID-val rendelkező tranzakciót 72 másodperce, illetve az 54-es ID-val rendelkező tranzakció várakoztatja az 53-as ID-val rendelkező tranzakciót 0 másodperce.</p>
+<p>A holtpontot az adatbázis rövid időn belül magától megszűntette. Ha manuálisan szeretnénk beavatkozni, akkor ezt a <code>kill</code> paranccsal tehetjük meg kiválasztva azt a tranzakciót, amit le akarunk állítani (pl. <code>kill 53</code>).</p>
+<h2 id="ellenorzo-kerdesek">Ellenőrző kérdések<a class="headerlink" href="#ellenorzo-kerdesek" title="Permanent link">¶</a></h2>
+<ul>
+<li>Milyen konkurens adathozzáférési problémákat ismersz?</li>
+<li>Milyen izolációs szintek vannak? Milyen problémákra adnak megoldást?</li>
+<li>Mik a tranzakciók alaptulajdonságai?</li>
+<li>Döntse el, hogy igaz vagy hamis az alábbi állítás:<ul>
+<li>A <em>serializable</em> izolációs szint egymás után hajtja végre a tranzakciókat.</li>
+<li>A holtpont elkerülhető a megfelelő izolációs szint használatával.</li>
+<li>A <em>read committed</em> általában az alapértelmezett izolációs szint.</li>
+<li>Ha nem használunk explicit indított tranzakciót, akkor (alapesetben) elkerüljük a piszkos olvasást.</li>
+<li>A tranzakciós napló véd mindenféle adatvesztéssel szemben.</li>
+<li><em>Redo</em> tranzakciós naplózás esetén a <em>commit</em> jellel kezdődik a tranzakciós napló.</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 3. 10:01:07">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Létrehozva"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 3. 10:56:59">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:56:59+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Szerzők</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
