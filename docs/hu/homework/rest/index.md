@@ -63,7 +63,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 
 1. Próbáld ki a SwaggerUI "Try it out" szolgáltatását: tényleg kiküldi a kérést a webalkalmazásnak, és látod a valódi választ.
 
-    ![SwaggerUI Try it out](homework/rest/swaggerui-try.png)
+    ![SwaggerUI Try it out](swaggerui-try.png)
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel. Ügyelj rá, hogy a `csproj` fájl is módosult a hozzáadott NuGet csomaggal!
