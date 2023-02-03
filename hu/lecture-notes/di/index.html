@@ -1,0 +1,1234 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="hu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Albert István, Tóth Tibor" name="author"/>
+<link href="../mongodb/" rel="prev"/>
+<link href="../async/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>Függőséginjektálás ASP.NET Core környezetben - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#fuggoseginjektalas-aspnet-core-kornyezetben">
+          Kihagyás
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Élőfej" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Függőséginjektálás ASP.NET Core környezetben
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Nyelvváltás" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="../../datadriven/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="../../datadriven/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Keresés" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Keresés" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Keresés" class="md-search__options">
+<button aria-label="Törlés" class="md-search__icon md-icon" tabindex="-1" title="Törlés" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Lapok" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Adatvezérelt rendszerek
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
+        Adatbázis
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../architecture/">
+        Jegyzetek
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../seminar/transactions/">
+        Gyakorlatok
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../homework/">
+        Házi feladatok
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigáció" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Főoldalra ugrás">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Adatvezérelt rendszerek
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Adatbázis
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Adatbázis
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
+        Minta adatbázis sémája
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
+        Microsoft SQL Server használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
+        MongoDB használata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mssql.sql">
+        Minta adatbázis: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mongo.js">
+        Minta adatbázis: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Jegyzetek
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Jegyzetek
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture/">
+        Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../transactions/">
+        Tranzakciókezelés adatbázisokban
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/sql/">
+        SQL nyelv, MSSQL platformfüggő SQL utasítások
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/server-side-programming/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../adonet/">
+        ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
+        Kapcsolatok definiálása Entity Framework-ben
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mongodb/">
+        MongoDB alapok, műveletek, és a MongoDB .NET Driver
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Függőséginjektálás ASP.NET Core környezetben
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Függőséginjektálás ASP.NET Core környezetben
+      </a>
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-1-fazis-szolgaltatas-osztaly-beegetett-fuggosegekkel">
+    Példa 1. fázis - szolgáltatás osztály beégetett függőségekkel
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal">
+    Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon">
+    Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon
+  </a>
+<nav aria-label="Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-register-lepes-fuggosegek-beregisztralasa">
+    1) REGISTER lépés (függőségek beregisztrálása)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-resolve-lepes-fuggosegek-feloldasa">
+    2) RESOLVE lépés (függőségek feloldása)
+  </a>
+<nav aria-label="2) RESOLVE lépés (függőségek feloldása)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alapok">
+    Alapok
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#objektumgraf-feloldasa-autowiring">
+    Objektumgráf feloldása, autowiring
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fuggosegfeloldas-aspnet-web-api-osztalyok-eseten">
+    Függőségfeloldás ASP.NET Web API osztályok esetén
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#entity-framework-dbcontext-regisztracio-es-feloldas">
+    Entity Framework DbContext regisztráció és feloldás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#haladobb-fuggosegregisztracio-pelda">
+    Haladó(bb) függőségregisztráció példa
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tovabbi-temakorok">
+    További témakörök
+  </a>
+<nav aria-label="További témakörök" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependency-injectionioc-kontenerek-altalanossagaban">
+    Dependency Injection/IoC konténerek általánosságában
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-locator-antipattern">
+    Service Locator antipattern
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aspnet-core-keretrendszer-szolgaltatasok">
+    ASP.NET Core keretrendszer szolgáltatások
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#szolgaltatas-objektumok-dispose-olasa">
+    Szolgáltatás objektumok dispose-olása
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#irodalom">
+    Irodalom
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../async/">
+        Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi/">
+        OpenAPI 3 és a Swagger
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST és WebAPI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI demó alkalmazás (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Minta többrétegű webalkalmazás (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Gyakorlatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Gyakorlatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/transactions/">
+        Tranzakciókezelés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/mssql/">
+        Microsoft SQL Server programozása
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Házi feladatok
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Házi feladatok
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/">
+        Szorgalmi házi feladatok
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mssql/">
+        Feladat: MSSQL szerveroldali programozás
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/adonet/">
+        Feladat: ADO.NET adatelérés
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/ef/">
+        Feladat: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mongodb/">
+        Feladat: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/rest/">
+        Feladat: REST API Web API technológiával
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub/">
+        Feladatok beadása (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub-Actions/">
+        GitHub Actions ismertető
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/VisualStudio/">
+        Visual Studio &amp; .NET SDK telepítése
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-1-fazis-szolgaltatas-osztaly-beegetett-fuggosegekkel">
+    Példa 1. fázis - szolgáltatás osztály beégetett függőségekkel
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal">
+    Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon">
+    Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon
+  </a>
+<nav aria-label="Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-register-lepes-fuggosegek-beregisztralasa">
+    1) REGISTER lépés (függőségek beregisztrálása)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-resolve-lepes-fuggosegek-feloldasa">
+    2) RESOLVE lépés (függőségek feloldása)
+  </a>
+<nav aria-label="2) RESOLVE lépés (függőségek feloldása)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alapok">
+    Alapok
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#objektumgraf-feloldasa-autowiring">
+    Objektumgráf feloldása, autowiring
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fuggosegfeloldas-aspnet-web-api-osztalyok-eseten">
+    Függőségfeloldás ASP.NET Web API osztályok esetén
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#entity-framework-dbcontext-regisztracio-es-feloldas">
+    Entity Framework DbContext regisztráció és feloldás
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#haladobb-fuggosegregisztracio-pelda">
+    Haladó(bb) függőségregisztráció példa
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tovabbi-temakorok">
+    További témakörök
+  </a>
+<nav aria-label="További témakörök" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependency-injectionioc-kontenerek-altalanossagaban">
+    Dependency Injection/IoC konténerek általánosságában
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-locator-antipattern">
+    Service Locator antipattern
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aspnet-core-keretrendszer-szolgaltatasok">
+    ASP.NET Core keretrendszer szolgáltatások
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#szolgaltatas-objektumok-dispose-olasa">
+    Szolgáltatás objektumok dispose-olása
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#irodalom">
+    Irodalom
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/datadriven/edit/master/docs/lecture-notes/di/index.md" title="Oldal szerkesztése">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="fuggoseginjektalas-aspnet-core-kornyezetben">Függőséginjektálás ASP.NET Core környezetben<a class="headerlink" href="#fuggoseginjektalas-aspnet-core-kornyezetben" title="Permanent link">¶</a></h1>
+<p>Benedek Zoltán, 2022.11.19</p>
+<div class="admonition abstract">
+<p class="admonition-title">Definíció</p>
+<p>Függőséginjektálás (<strong>Dependency Injection</strong>, röviden DI) egy tervezési minta. A fejlesztőket segíti abban, hogy az alkalmazás egyes részei laza csatolással kerüljenek kialakításra.</p>
+<p><strong>A függőséginjektálás egy mechanizmus arra, hogy az osztály függőségi gráfjainak létrehozását függetlenítsük az osztály definíciójától.</strong></p>
+</div>
+<p>Célok</p>
+<ul>
+<li>könnyebb bővíthetőség és karbantarthatóság</li>
+<li>unit tesztelhetőség</li>
+<li>kód újrafelhasználhatóság</li>
+</ul>
+<p>Természetesen a fenti definícióból önmagában nem derül ki, pontosan milyen problémákat és milyen módon old meg a függőséginjektálás. A következő fejezetekben egy példa segítségével helyezzük kontextusba a problémakört, illetve példa keretében megismerkedünk az ASP.NET Core beépített DI szolgáltatásának alapjaival.</p>
+<div class="admonition example">
+<p class="admonition-title">Minta alkalmazás</p>
+<p>A C# forráskód egész itt érhető el: <a href="https://github.com/bmeviauac01/todoapi-di-sample">https://github.com/bmeviauac01/todoapi-di-sample</a></p>
+</div>
+<h2 id="pelda-1-fazis-szolgaltatas-osztaly-beegetett-fuggosegekkel">Példa 1. fázis - szolgáltatás osztály beégetett függőségekkel<a class="headerlink" href="#pelda-1-fazis-szolgaltatas-osztaly-beegetett-fuggosegekkel" title="Permanent link">¶</a></h2>
+<p>A példánkban egy teendőlista (TODO) kezelő alkalmazás e-mail értesítéseket küldő részeibe tekintünk bele, kódrészletek segítségével. Megjegyzés: a kód a tömörség érdekében minimalisztikus.</p>
+<p>A példánk "belépési pontja" a <code>ToDoService</code> osztály <code>SendReminderIfNeeded</code> művelete.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Teendők kezelésére szolgáló osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ToDoService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"smtp.myserver.com"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Megvizsgálja a paraméterként kapott todoItem objektumot, és ha szükséges,</span>
+<span class="w">    </span><span class="c1">// e-mail értesítést küld a teendőről a teendőben szereplő kontakt személynek.</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendReminderIfNeeded</span><span class="p">(</span><span class="n">TodoItem</span><span class="w"> </span><span class="n">todoItem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">checkIfTodoReminderIsToBeSent</span><span class="p">(</span><span class="n">todoItem</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">NotificationService</span><span class="w"> </span><span class="n">notificationService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotificationService</span><span class="p">(</span><span class="n">smtpAddress</span><span class="p">);</span>
+<span class="w">            </span><span class="n">notificationService</span><span class="p">.</span><span class="n">SendEmailReminder</span><span class="p">(</span><span class="n">todoItem</span><span class="p">.</span><span class="n">LinkedContactId</span><span class="p">,</span><span class="w"> </span><span class="n">todoItem</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">checkIfTodoReminderIsToBeSent</span><span class="p">(</span><span class="n">TodoItem</span><span class="w"> </span><span class="n">todoItem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">send</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/* ... */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">send</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// Entitásosztály, egy végrehajtandó feladat adatait zárja egységbe</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">TodoItem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Adatbázis kulcs</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// Teendő neve/leírása</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// Jelzi, hogy a teendő elvégésre került-e</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsComplete</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// Egy teendőhöz lehetőség van kontakt személy hozzárendelésére:  ha -1, nincs</span>
+<span class="w">    </span><span class="c1">// kontakt személy hozzárendelve, egyébként pedig a kontakt személy azonosítója.</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LinkedContactId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A fenti kódban (<code>ToDoService.SendReminderIfNeeded</code>) azt látjuk, hogy az e-mail küldés lényegi logikáját a <code>NotificationService</code> osztályban kell keresnünk. Valóban, vizsgálódásunk központjába ez az osztály kerül. A következő kódrészlet ezen osztály kódját, valamint a függőségeit mutatja be:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Értesítések küldésére szolgáló osztály</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NotificationService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Az osztály függőségei</span>
+<span class="w">    </span><span class="n">EMailSender</span><span class="w"> </span><span class="n">_emailSender</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Logger</span><span class="w"> </span><span class="n">_logger</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ContactRepository</span><span class="w"> </span><span class="n">_contactRepository</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">NotificationService</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Logger</span><span class="p">();</span>
+<span class="w">        </span><span class="n">_emailSender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EMailSender</span><span class="p">(</span><span class="n">_logger</span><span class="p">,</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_contactRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ContactRepository</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// E-mail értesítést küld az adott azonosítójú kontakt személynek (a contactId</span>
+<span class="w">    </span><span class="c1">// egy kulcs a Contacts táblában)</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendEmailReminder</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contactId</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">todoMessage</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailTo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_contactRepository</span><span class="p">.</span><span class="n">GetContactEMailAddress</span><span class="p">(</span><span class="n">contactId</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailSubject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"TODO reminder"</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Reminder about the following todo item: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">todoMessage</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_emailSender</span><span class="p">.</span><span class="n">SendMail</span><span class="p">(</span><span class="n">emailTo</span><span class="p">,</span><span class="w"> </span><span class="n">emailSubject</span><span class="p">,</span><span class="w"> </span><span class="n">emailMessage</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Naplózást támogató osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LogInformation</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ...*/</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LogError</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ...*/</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// E-mail küldésre szolgáló osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EMailSender</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Logger</span><span class="w"> </span><span class="n">_logger</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">_smtpAddress</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">EMailSender</span><span class="p">(</span><span class="n">Logger</span><span class="w"> </span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logger</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_smtpAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendMail</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">message</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="p">.</span><span class="n">LogInformation</span><span class="p">(</span><span class="s">$"Sendding e-mail. To: {to} Subject: {subject} Body: {message}"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Contact-ok perzisztens kezelésére szolgáló osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ContactRepository</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">GetContactEMailAddress</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contactId</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Pár általános gondolat:</p>
+<ul>
+<li>A <code>NotificationService</code> osztály több függőséggel rendelkezik (<code>EMailSender</code>, <code>Logger</code>, <code>ContactRepository</code> osztályok), ezen osztályokra építve valósítja meg a szolgáltatásait.</li>
+<li>A függőség osztályoknak lehetnek további függőségeik: az <code>EMailSender</code> remek példa erre, épít a <code>Logger</code> osztályra.</li>
+<li>Megjegyzés: a <code>NotificationService</code>, <code>EMailSender</code>, <code>Logger</code>, <code>ContactRepository</code> osztályokat <strong>szolgáltatásosztályoknak</strong> tekintjük, mert tényleges logikát is tartalmaznak, nem csak adatokat zárnak egységbe, mint pl. a <code>TodoItem</code>.</li>
+</ul>
+<p>Mint látható, a <code>SendEmailReminder</code> műveletet egy objektumgráf szolgálja ki, ahol a <code>NotificationService</code> a gyökérobjektum, melynek három függősége van, és a függőségeinek (legalábbis az <code>EMailSender</code>-nek) vannak további függőségei. A következő ábra ezt az objektumgráfot illusztrálja:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/object-graph-1.svg"><img alt="Object graph 1" src="images/object-graph-1.svg"/></a></p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>Felmerülhet bennünk a kérdés, miért a <code>NotificationService</code>-t, és nem a <code>ToDoService</code>-t tekintjük gyökérobjektumnak. Valójában ez csak a nézőpontunkon múlik: az egyszerűség kedvéért a <code>ToDoService</code>-t egyfajta belépési pontnak ("kliensnek") tekintjük a kérés vonatkozásában annak érdekében, hogy kevesebb osztályt kelljen a következőkben megvizsgálnunk és átalakítanunk. Egy való életbeli alkalmazásban a <code>ToDoService</code>-t is jó eséllyel a függőségi gráf részének tekintenénk.</p>
+</div>
+<p>Tekintsük át a megoldás legfontosabb jellemzőit:</p>
+<ul>
+<li>Az osztály a függőségeit maga példányosítja</li>
+<li>Az osztály a függőségei konkrét típusától függ (nem pedig interfészektől, "absztrakcióktól")</li>
+</ul>
+<p>Ez a megközelítés több súlyos negatívummal bír:</p>
+<ol>
+<li><strong>Rugalmatlanság, nehéz bővíthetőség</strong>. A <code>NotificationService</code> (módosítás nélkül) nem tud más levélküldő, naplózó és contact repository implementációkkal együtt működni, csak a beégetett <code>EMailSender</code>, <code>Logger</code> és <code>ContactRepository</code> osztályokkal. Vagyis pl. nem tudjuk más naplózó komponenssel, vagy pl. olyan contact repository-vel használni, amely más adatforrásból dolgozik.</li>
+<li><strong>Unit tesztelhetőség hiánya</strong>. A <code>NotificationService</code> (módosítás nélkül) nem unit tesztelhető. Ehhez ugyanis le kell cserélni az <code>EMailSender</code>, <code>Logger</code> és <code>ContactRepository</code> függőségeit olyanokra, melyek (tesztelést segítő) egyszerű/rögzített válaszokat viselkedést mutatnak. Ne feledjük: a unit tesztelés lényege, hogy egy osztály viselkedését önmagában teszteljük (pl. az adatbázist használó ContactRepository helyett egy olyan ContactRepository-ra van szükség, mely gyorsan, memóriából szolgálja ki a kéréseket, a teszt előfeltételeinek megfelelően).</li>
+<li>Van még egy, első ránézésre nehezen észrevehető kellemetlen következmény: a példánkban a <code>smtpAddress</code> paramétert is át kell adni a <code>NotificationService</code> konstruktorának, azért, hogy azt továbbítani tudja az általa példányosított <code>EMailSender</code> függőségének. Ugyanakkor a <code>smtpAddress</code> a <code>NotificationService</code> számára egy transzparens, "értelmetlen" információ, elviekben "semmi köze hozzá". Sajnos jelen pillanatban mégis át kell vezetni rajta, mert ő példányosítja az <code>EMailSender</code>-t, aki számára ez az információ releváns.</li>
+</ol>
+<p>A következő lépésben úgy alakítjuk át a megoldásunkat, hogy a negatívumok többségétől meg tudjunk szabadulni.</p>
+<h2 id="pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal">Példa 2. fázis - szolgáltatás osztály manuális függőség injektálással<a class="headerlink" href="#pelda-2-fazis-szolgaltatas-osztaly-manualis-fuggoseg-injektalassal" title="Permanent link">¶</a></h2>
+<p>A korábbi megoldásunkat alakítjuk át, a funkcionális követelmények változatlanok. Az átalakítás legfontosabb irányelvei: a <strong>függőségeket absztrakciókra, "interfész alapokra" helyezzük</strong>, és <strong>az osztályok nem maguk példányosítják a függőségeiket</strong> (a változtatások részletesebb kifejtése a kódblokk után olvasható).</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ToDoService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"smtp.myserver.com"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Megvizsgálja a paraméterként kapott todoItem objektumot, és ha szükséges,</span>
+<span class="w">    </span><span class="c1">// e-mail értesítést küld a teendőről a teendőben szereplő kontakt személynek.</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendReminderIfNeeded</span><span class="p">(</span><span class="n">TodoItem</span><span class="w"> </span><span class="n">todoItem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">checkIfTodoReminderIsToBeSent</span><span class="p">(</span><span class="n">todoItem</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Logger</span><span class="p">();</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">emailSender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EMailSender</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">contactRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ContactRepository</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">NotificationService</span><span class="w"> </span><span class="n">notificationService</span>
+<span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotificationService</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="n">emailSender</span><span class="p">,</span><span class="w"> </span><span class="n">contactRepository</span><span class="p">);</span>
+<span class="w">            </span><span class="n">notificationService</span><span class="p">.</span><span class="n">SendEmailReminder</span><span class="p">(</span><span class="n">todoItem</span><span class="p">.</span><span class="n">LinkedContactId</span><span class="p">,</span>
+<span class="w">                </span><span class="n">todoItem</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">checkIfTodoReminderIsToBeSent</span><span class="p">(</span><span class="n">TodoItem</span><span class="w"> </span><span class="n">todoItem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">send</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/* ... */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">send</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Értesítések küldésére szolgáló osztály</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NotificationService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Az osztály függőségei</span>
+<span class="w">    </span><span class="n">IEMailSender</span><span class="w"> </span><span class="n">_emailSender</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ILogger</span><span class="w"> </span><span class="n">_logger</span><span class="p">;</span>
+<span class="w">    </span><span class="n">IContactRepository</span><span class="w"> </span><span class="n">_contactRepository</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">NotificationService</span><span class="p">(</span><span class="n">ILogger</span><span class="w"> </span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="n">IEMailSender</span><span class="w"> </span><span class="n">emailSender</span><span class="p">,</span>
+<span class="w">        </span><span class="n">IContactRepository</span><span class="w"> </span><span class="n">contactRepository</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logger</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_emailSender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emailSender</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_contactRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contactRepository</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// E-mail értesítést küld az adott azonosítójú kontakt személynek (a contactId</span>
+<span class="w">    </span><span class="c1">// egy kulcs a Contacts táblában)</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendEmailReminder</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contactId</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">todoMessage</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailTo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_contactRepository</span><span class="p">.</span><span class="n">GetContactEMailAddress</span><span class="p">(</span><span class="n">contactId</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailSubject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"TODO reminder"</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="n">emailMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Reminder about the following todo item: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">todoMessage</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_emailSender</span><span class="p">.</span><span class="n">SendMail</span><span class="p">(</span><span class="n">emailTo</span><span class="p">,</span><span class="w"> </span><span class="n">emailSubject</span><span class="p">,</span><span class="w"> </span><span class="n">emailMessage</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">#region Contracts (abstractions)</span>
+
+<span class="c1">// Naplózást támogató interfész</span>
+<span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">ILogger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">LogInformation</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">);</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">LogError</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// E-mail küldésre szolgáló interfész</span>
+<span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IEMailSender</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">SendMail</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Contact-ok perzisztens kezelésére szolgáló interfész</span>
+<span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IContactRepository</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="nf">GetContactEMailAddress</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contactId</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#endregion</span>
+
+<span class="cp">#region Implementations</span>
+
+<span class="c1">// Naplózást támogató osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">:</span><span class="w"> </span><span class="n">ILogger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LogInformation</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ...*/</span><span class="w">  </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LogError</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="cm">/* ...*/</span><span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// E-mail küldésre szolgáló osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EMailSender</span><span class="p">:</span><span class="w"> </span><span class="n">IEMailSender</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ILogger</span><span class="w"> </span><span class="n">_logger</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">_smtpAddress</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">EMailSender</span><span class="p">(</span><span class="n">ILogger</span><span class="w"> </span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logger</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_smtpAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SendMail</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">message</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_logger</span><span class="p">.</span><span class="n">LogInformation</span><span class="p">(</span><span class="s">$"Sendding e-mail. To: {to} Subject: {subject} Body: {message}"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Contact-ok perzisztens kezelésére szolgáló osztály</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ContactRepository</span><span class="p">:</span><span class="w"> </span><span class="n">IContactRepository</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">GetContactEMailAddress</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contactId</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="cp">#endregion</span>
+</code></pre></div>
+<p>A korábbi megoldást a következő pontokban fejlesztettük tovább:</p>
+<ul>
+<li>A <code>NotificationService</code> osztály már nem maga példányosítja a függőségeit, hanem konstruktor  paraméterekben kapja meg.</li>
+<li>Interfészeket (absztrakciókat) vezettünk be a függőségek kezelésére.</li>
+<li>A <code>NotificationService</code> osztály a függőségeit interfészek formájában kapja meg. Azt, amikor egy osztály a függőségeit kívülről kapja meg, <strong>DEPENDENCY INJECTION</strong>-nek (DI) vagyis függőséginjektálásnak nevezzük.</li>
+<li>Esetünkben konstruktor paraméterekben kapják meg az osztályok függőségeiket. A DI ezen formáját <strong>CONSTRUCTOR INJECTION</strong>-nek (konstruktor injektálás) nevezzük. Ez a függőséginjektálás legyakoribb - és leginkább javasolt módja (alternatíva pl. a property injection, amikor is publikus property setter segítségével állítjuk be az osztály adott függőségét).</li>
+</ul>
+<p>Megoldásunkban a <code>NotificationService</code> függőségeit az osztály (közvetlen) FELHASZNÁLÓJA példányosítja (<code>ToDoService</code> osztály). Elsődlegesen ebből eredően a következő problémák állnak még fent:</p>
+<ol>
+<li>A <code>NotificationService</code> felhasználója, vagyis a <code>ToDoService.SendReminderIfNeeded</code> még mindig függ a konkrét implementációs típusoktól (hiszen neki szükséges példányosítania a <code>Logger</code>, <code>EMailSender</code> és <code>ContactRepository</code> osztályokat).</li>
+<li>Ha az alkalmazásunkban több helyen használjuk a <code>Logger</code>, <code>EMailSender</code> és <code>ContactRepository</code> osztályokat, mindenhol külön-külön explicit példányosítani kell őket. Vagyis mindenhol külön-külön dönteni kell és meg kell adni, hogy milyen absztrakció  (interfész típus) esetén milyen implementációs típust használunk az alkalmazásban. Ez a kód/logika duplikáció speciális, kissé nehezen kiszúrható esete.</li>
+<li>A célunk ezzel szemben az lenne, hogy <strong>egyetlen központi helyen</strong> határozzuk meg hogy milyen absztrakció (interfész típus) esetén milyen implementációs típust kell <strong>mindenhol</strong> használni az alkalmazásban (pl. ILogger-&gt;Logger, IMailSender-&gt;EMailSender).</li>
+<li>Ezáltal egyrészt egy helyen, könnyen át tudnánk tekinteni a leképezéseinket.</li>
+<li>Másrészt ha meg akarjuk változtatni az egyik leképezést (pl. ILogger esetén Logger helyett AdvancedLogger használata), azt elég egy központi helyen megtenni.</li>
+</ol>
+<h2 id="pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon">Példa 3. fázis - függőségek injektálása .NET Dependency Injection alapokon<a class="headerlink" href="#pelda-3-fazis-fuggosegek-injektalasa-net-dependency-injection-alapokon" title="Permanent link">¶</a></h2>
+<p>Az előző fejezetben zárógondolatként megfogalmazott két probléma megoldására már némi extra segítségre van szükségünk: egy <strong>Inversion of Control (IoC)</strong> konténerre (melyre DI, Dependency Injection konténerként is szokás hivatkozni). Egy IoC konténerbe absztrakciós típus -&gt; implementációs típus leképezéseket tudunk tárolni (REGISTER), majd ezt követően absztrakciós típus alapján implementációs típusokat példányosítani (RESOLVE). Részletesebben:</p>
+<ol>
+<li><strong>REGISTER (regisztráció)</strong>: Az alkalmazás indulásakor egyszer, <strong>központosítva</strong> egy Inversion of Control (IoC) konténerbe beregisztráljuk a függőségi leképezéseket (pl. ILogger-&gt;Logger, IMailSender-&gt;EMailSender). Ez a DI folyamat <strong>REGISTER</strong> lépése.<ul>
+<li>Megjegyzés: ezzel megoldottuk az előző fejezetben felvezetett 2. problémát, a leképezéseket egy központi helyen és nem az alkalmazásban szétszórva adjuk meg.</li>
+</ul>
+</li>
+<li><strong>RESOLVE (függőségfeloldás)</strong>: Amikor az alkalmazás futásakor szükségünk van egy implementációs objektumra, a konténertől az absztrakció  (interfészt) típusát megadva kérünk egy implementációt (pl. ILoggert megadva egy Logger objektumot kapunk).<ul>
+<li>A resolve lépést az alkalmazás "<strong>belépési pontjában</strong>" tesszük meg (pl. WebApi esetén az egyes API kérések beérkezésekor). A feloldást a konténertől csak a "<strong>ROOT OBJECT</strong>"-re (pl. WebApi esetén a megfelelő Controller osztályra) kérjük explicit módon: ez legyártja a root objectet, illetve annak valamennyi függőségét, és valamennyi közvetett függőségét: előáll egy objektumgráf.  Ez az <strong>AUTOWIRING</strong> folyamata.</li>
+<li>Megjegyzés: Web API esetén a Resolve lépést a keretrendszer végzi el: mi csak annyit tapasztalunk, hogy a controller osztályunk automatikusan példányosítódik, és valamennyi konstruktor paramétere automatikusan kitöltésre kerül (a REGISTER lépés regisztrációi alapján).</li>
+</ul>
+</li>
+</ol>
+<p>Szerencsére a .NET rendelkezik IoC Container alapú dependency injection szolgáltatással. A következőkben a továbbfejlesztett e-mail értesítő megoldásunkat példaként használva világítjuk meg jobban a mechanizmust.</p>
+<h3 id="1-register-lepes-fuggosegek-beregisztralasa">1) REGISTER lépés (függőségek beregisztrálása)<a class="headerlink" href="#1-register-lepes-fuggosegek-beregisztralasa" title="Permanent link">¶</a></h3>
+<p>Asp.Net Core környezetben a függőségek beregisztrálása a <code>Program.cs</code> fájl történik: az itt található kódrészek az alkalmazás inicializálásakor futnak le. A számunkra releváns kód:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebApplication</span><span class="p">.</span><span class="n">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="p">,</span><span class="w"> </span><span class="n">Logger</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddTransient</span><span class="o">&lt;</span><span class="n">INotificationService</span><span class="p">,</span><span class="w"> </span><span class="n">NotificationService</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="o">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span><span class="w"> </span><span class="n">ContactRepository</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="o">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span><span class="w"> </span><span class="n">EMailSender</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EMailSender</span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="s">"smtp.myserver.com"</span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Az első sor egy <code>builder</code> objektumot hoz létre, ennek <code>Services</code> propertyje egy <code>IServiceCollection</code> típusú objektum. Számunkra ez reprezentálja a keretendszer által már előre példányosított IoC konténert, ebbe tudjuk a saját függőségeinket beregisztrálni. A függőségek beregisztrálása ezen <code>IServiceCollection</code> interfész <strong>AddSingleton</strong>, <strong>AddTransient</strong> és <strong>AddScoped</strong> műveleteivel történik.</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>.NET 6-ot megelőző verziókban nem a <code>Program.cs</code> fájlban, hanem egy <code>Startup</code> nevű osztály <code>ConfigureServices</code> műveletében történt a függőségek beregisztrálása.</p>
+</div>
+<p>A</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="p">,</span><span class="w"> </span><span class="n">Logger</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>sorral <code>ILogger</code> típusként a <code>Logger</code> implementációs típust regisztráljuk be (ILogger-&gt;Logger leképzés), mégpedig az <strong>AddSingleton</strong> művelet hatására <strong>singleton</strong>-ként. Ez azt jelenti, hogy ha később a konténertől egy <code>ILogger</code> objektumot kérünk (resolve), a konténertől egy <code>Logger</code> objektumot kapunk, mégpedig mindig <strong>ugyanazt a példányt</strong>. A</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddTransient</span><span class="o">&lt;</span><span class="n">INotificationService</span><span class="p">,</span><span class="w"> </span><span class="n">NotificationService</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>sorral <code>INotificationService</code> típusként a <code>NotificationService</code> implementációs típust regisztráljuk be (INotificationService-&gt;NotificationService leképzés), mégpedig az <strong>AddTransient</strong> művelet hatására <strong>tranziens</strong> módon. Ez azt jelenti, hogy ha később a konténertől egy <code>INotificationService</code> objektumot kérünk (resolve), a konténertől egy <code>NotificationService</code> objektumot kapunk, mégpedig minden lekérdezéskor egy <strong>újonnan létrehozott példányt</strong>. A</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="o">&lt;</span><span class="n">IContactRepository</span><span class="p">,</span><span class="w"> </span><span class="n">ContactRepository</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>sor <code>IContactRepository</code> típusként a <code>ContactRepository</code> implementációs típust regisztrálja be (IContactRepository-&gt;ContactRepository leképzés), mégpedig az <strong>AddScoped</strong> művelet hatására <strong>scope-olt</strong> módon. Ez azt jelenti, hogy ha később a konténertől <code>IContactRepository</code> objektumot kérünk (resolve),  <code>ContactRepository</code> objektumot kapunk, mégpedig <strong>adott hatókörön belül ugyanazt</strong>, eltérő hatókörökben másokat. A Web API alkalmazásoknál egy-egy API kérés kiszolgálása számít egy-egy megfelelő hatókörnek: vagyis a konténertől egy kérés kiszolgálása során ugyanazt az objektumpéldányt, eltérő kérések esetén másokat kapunk.</p>
+<p>A mintaalkalmazásunkban további regisztrációkkal is találkozunk, ezekre később térünk vissza.</p>
+<h3 id="2-resolve-lepes-fuggosegek-feloldasa">2) RESOLVE lépés (függőségek feloldása)<a class="headerlink" href="#2-resolve-lepes-fuggosegek-feloldasa" title="Permanent link">¶</a></h3>
+<h4 id="alapok">Alapok<a class="headerlink" href="#alapok" title="Permanent link">¶</a></h4>
+<p>Jelen pillanatban ott tartunk, hogy az alkalmazás indulásakor beregisztráltuk a szolgáltatás típusok függőségi leképezéseit az ASP.NET Core IoC konténerébe. A típusleképezéseink a következők:</p>
+<ul>
+<li>ILogger -&gt; Logger, singletonként</li>
+<li>INotificationService -&gt; NotificationService, tranziensként</li>
+<li>IContactRepository -&gt; ContactRepository, scope-oltként</li>
+<li>IEMailSender -&gt; EMailSender, singletonként</li>
+</ul>
+<p>Ezt követően, amikor szükségünk van egy adott implementációs típusra, a konténertől az (absztrakciós) típus, mint kulcs alapján kérhetünk egy implementációs példányt. Ennek során ASP.NET Core környezetben a konténert egy <code>IServiceProvider</code> hivatkozás formájában kapjuk meg, és a <code>GetService</code> művelet különböző formáit használjuk. Pl.:</p>
+<div class="highlight"><pre><span></span><code><span class="k">void</span><span class="w"> </span><span class="nf">SimpleResolve</span><span class="p">(</span><span class="n">IServiceProvider</span><span class="w"> </span><span class="n">sp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Mivel az ILogger típushoz a Logger osztályt regisztráltuk,</span>
+<span class="w">    </span><span class="c1">// egy Logger példánnyal tér vissza.</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">logger1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp</span><span class="p">.</span><span class="n">GetService</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">ILogger</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// A típus generikus paraméterben is megadhatjuk, kényelmesebb, ezt szoktuk használni.</span>
+<span class="w">    </span><span class="c1">// Ehhez szükség van a Microsoft.Extensions.DependencyInjection névtér using-olására,</span>
+<span class="w">    </span><span class="c1">// mert ez a GetService forma ott definiált extension methodként.</span>
+<span class="w">    </span><span class="c1">// Mivel az ILogger típushoz a Logger osztályt regisztráltuk,</span>
+<span class="w">    </span><span class="c1">// egy Logger példánnyal tér vissza.</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">logger2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp</span><span class="p">.</span><span class="n">GetService</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Míg a GetService null-t ad vissza, ha nem sikerül feloldani a</span>
+<span class="w">    </span><span class="c1">// konténer alapján a hivatkozást, a GetRequiredService kivételt dob.</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">logger3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A példában kódkommentek részletesen elmagyarázzák a viselkedést. Minden esetben a lényeg az, hogy vagy a typeof operátorral, vagy generikus paraméterben megadunk egy absztrakciós típust, és a <code>GetService</code> egy az ahhoz beregisztrált implementációs típussal tér vissza.</p>
+<h4 id="objektumgraf-feloldasa-autowiring">Objektumgráf feloldása, autowiring<a class="headerlink" href="#objektumgraf-feloldasa-autowiring" title="Permanent link">¶</a></h4>
+<p>Az előző példánkban a konténer a feloldás során komolyabb "fejtörés" nélkül tudta a <code>Logger</code> osztályt példányosítani, ugyanis annak nincsenek további függőségei: egyetlen default konstruktorral rendelkezik.
+Tekintsük most az <code>INotificationService</code> feloldását:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ObjectGraphResolve</span><span class="p">(</span><span class="n">IServiceProvider</span><span class="w"> </span><span class="n">sp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">notifService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp</span><span class="p">.</span><span class="n">GetService</span><span class="o">&lt;</span><span class="n">INotificationService</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A feloldás (GetService hívás) során a konténernek egy <code>NotificationService</code> objektumot kell létrehoznia. Ez csak úgy lehetséges, ha minden konstruktor paraméterének megfelelő objektumot ad meg. Ez a gyakorlatban azt jelenti, hogy a létrehozás során feloldja az osztály közvetlen és közvetett függőségeit, rekurzívan:</p>
+<ul>
+<li>A NotificationService osztály egy háromparaméteres konstruktorral rendelkezik (vagyis három függősége is van):  <code>NotificationService(ILogger logger, IEMailSender emailSender,  IContactRepository contactRepository)</code>. A konstruktorparamétereket a <code>GetService</code> egyesével feloldja a regisztrációk alapján:<ul>
+<li><code>ILogger</code> logger: egy <code>Logger</code> objektum lesz, mindig ugyanaz (mert singleton)<ul>
+<li><code>IEMailSender</code> emailSender: <code>EMailSender</code> objektum lesz, minden alkalommal más (mert transient)<ul>
+<li>Ennek van egy <code>ILogger</code> logger konstruktor paramétere, amit fel kell oldani:<ul>
+<li>Egy <code>Logger</code> objektum lesz, mindig ugyanaz (mert singleton)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>IContactRepository</code> contactRepository: <code>ContactRepository</code> objektum lesz, hatókörönként - Web API esetén API hívásonként - más (mert scoped).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>A feloldás végére - vagyis amikor visszatér a fenti <code>GetService&lt;INotificationService&gt;()</code> hívás - előáll a teljesen felparaméterezett <code>NotificationService</code> objektum, valamennyi közvetlen és közvetett függőségével, vagyis egy <strong>objektumgráf</strong>-ot kapunk:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/object-graph-2.svg"><img alt="Object graph 2" src="images/object-graph-2.svg"/></a></p>
+<p>A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével (a gyakorlatban jellemzően a konstruktor paraméterek felderítésével) a beregisztrált absztrakció-&gt;implementáció leképezések alapján képes objektumgráfokat előállítani <strong>autowiring</strong>-nek nevezzük.</p>
+<h4 id="fuggosegfeloldas-aspnet-web-api-osztalyok-eseten">Függőségfeloldás ASP.NET Web API osztályok esetén<a class="headerlink" href="#fuggosegfeloldas-aspnet-web-api-osztalyok-eseten" title="Permanent link">¶</a></h4>
+<p>Azon túl, hogy a megoldásunkat IoC konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A <code>ToDoService</code> osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core <code>ControllerBase</code> leszármazott <code>TodoController</code> osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A <code>ToDoService</code> osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework <code>DbContext</code> leszármazott <code>TodoContext</code> osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="images/object-graph-3.svg"><img alt="Object graph 3" src="images/object-graph-3.svg"/></a></p>
+<p>Az előző két fejezetben feltettük, hogy a <code>GetService</code> hívásához egy <code>IServiceProvider</code> objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében <code>IServiceProvider</code>hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. <strong>A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.</strong>  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a routing szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, <strong>a root object maga a controller osztály</strong>.</p>
+<p>Nézzük ezt a gyakorlatban a korábbi példánk továbbfejlesztésével, melyet egy <code>TodoController</code> osztállyal egészítettünk ki:</p>
+<div class="highlight"><pre><span></span><code><span class="na">[Route("api/[controller]</span><span class="s">")]</span>
+<span class="na">[ApiController]</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">TodoController</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ControllerBase</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// A TodoController osztály függőségei</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">TodoContext</span><span class="w"> </span><span class="n">_context</span><span class="p">;</span><span class="w"> </span><span class="c1">// ez egy DbContext</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">INotificationService</span><span class="w"> </span><span class="n">_notificationService</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// A függőségeket konstruktor paraméterben kapja meg.</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">TodoController</span><span class="p">(</span><span class="n">TodoContext</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">INotificationService</span><span class="w"> </span><span class="n">notificationService</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">;</span>
+<span class="w">        </span><span class="n">_notificationService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">notificationService</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Fill with some initial data</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_context</span><span class="p">.</span><span class="n">TodoItems</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">_context</span><span class="p">.</span><span class="n">TodoItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">TodoItem</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Item1"</span><span class="w"> </span><span class="p">});</span>
+<span class="w">            </span><span class="n">_context</span><span class="p">.</span><span class="n">TodoItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">TodoItem</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Item2"</span><span class="p">,</span><span class="w"> </span><span class="n">LinkedContactId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">});</span>
+<span class="w">            </span><span class="n">_context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// API kezelőfüggvény e-mail emlékeztető értesítés kiküldésére.</span>
+<span class="w">    </span><span class="c1">// Példa: http post erre a címre (pl. PostMan-nel):</span>
+<span class="w">    </span><span class="c1">//     http://localhost:58922/api/todo/2/reminder</span>
+<span class="w">    </span><span class="c1">// Ez a 2-es azonosítójú todo item kontakt személyének értesítést küld a todo itemről.</span>
+<span class="w">    </span><span class="na">[HttpPost("{id}/reminder")]</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IActionResult</span><span class="w"> </span><span class="nf">ReminderMessageToLinkedContact</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Todo item kikeresése, használja a _context DbContext objektumot</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">TodoItems</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nf">NotFound</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// Emlékeztető e-mail kiküldése</span>
+<span class="w">        </span><span class="n">_notificationService</span><span class="p">.</span><span class="n">SendEmailReminder</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">LinkedContactId</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Valójában nem hozunk létre semmit, egyszerű OK a válasz</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nf">Ok</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ... további műveletek</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A <code>http://&lt;gépcím&gt;/api/todo</code> url alá beeső kéréseket a routing szabályok alapján a <code>TodoController</code> osztály kapja meg. Az értesítés kiküldését triggerelő <code>http://&lt;gépcím&gt;/api/todo/&lt;todo-id&gt;/reminder</code> címre érkező post kérést pedig a <code>TodoController.ReminderMessageToLinkedContact</code> művelete. A <code>TodoController</code>-t a keretrendszer példányosítja, minden kéréshez új objektumot hoz létre. Az osztálynak két függősége van, melyeket konstruktor paraméterben kap meg. Az első egy <code>TodoContext</code> objektum, ami egy <code>DbContext</code> leszármazott. A másik a már jól ismert <code>INotificationService</code>. Mint az előző fejezetben láttuk, a DI keretrendszer ezeket is példányosítja a regisztrált leképezések alapján (az összes közvetett függőségeikkel), paraméterként átadja <code>TodoController</code> konstruktornak, ahol ezeket tagváltozókban eltároljuk. Így ezek a beérkező kéréseket kiszolgáló műveletekben, mint pl. a  <code>ReminderMessageToLinkedContact</code>-ben  már rendelkezésre állnak.</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>A <code>TodoContext</code> feloldása csak akkor lehetséges, ha ezt az IoC konténerbe előzetesen beregisztráltuk. Erre a következő fejezetben térünk ki.</p>
+</div>
+<h2 id="entity-framework-dbcontext-regisztracio-es-feloldas">Entity Framework DbContext regisztráció és feloldás<a class="headerlink" href="#entity-framework-dbcontext-regisztracio-es-feloldas" title="Permanent link">¶</a></h2>
+<p>Alkalmazásokban - különösen Asp.Net Core esetében - a DbContext használatának két módja lehetséges:</p>
+<ul>
+<li>Minden alkalommal, amikor szükség van rá, egy using blokkban példányosítjuk és fel is szabadítjuk. Így egy beérkező kérés során több DbContext objektumpéldány is felhasználásra kerülhet.</li>
+<li>A <code>DbContext</code>-et beérkező kérésenként hozzuk létre, egy kérésen belül viszont megosztottan ugyanazt az objektumpéldányt használják az osztályaink. Ez esetben a <code>DbContext</code>-re mint egy osztályok között megosztott repository-ra, pontosabban unit of work-re gondolunk. A bejövő kérés során egy <code>DbContext</code> objektumot hozunk létre, és ezt injektáljuk be az erre építő osztályoknak.</li>
+</ul>
+<p>Ez utóbbi megközelítés megvalósítására remek kézre eső beépített DI alapú megoldást nyújt az ASP.NET Core:  a konténerbe induláskor beregisztráljuk a DbContext osztályunkat, mely így a <strong>Controller</strong> és egyéb függőségei számára automatikusan beinjektálásra kerül.</p>
+<p>Nézzük meg, hogyan is történik a <code>TodoContext</code> <code>DbContext</code> leszármazott osztályunk beregisztrálása a példánkban. A regisztráció helye a szokásos <code>Program.cs</code> fájl (.NET 6 előtt a szokásos <code>Startup.ConfigureServices</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ...</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="o">&lt;</span><span class="n">TodoContext</span><span class="o">&gt;</span><span class="p">(</span><span class="n">opt</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">opt</span><span class="p">.</span><span class="n">UseInMemoryDatabase</span><span class="p">(</span><span class="s">"TodoList"</span><span class="p">));</span>
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Az <code>AddDbContext</code> egy a keretrendszer által az <code>IServiceCollection</code> interfészre definiált extension method. Ez a <code>DbContext</code> osztályunk kényelmes beregisztrációját teszi lehetővé. Ennek belsejébe nem látunk bele, mindenesetre lelke a scope-ot regisztráció. "Pszeudokóddal":</p>
+<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="o">&lt;</span><span class="n">TodoContext</span><span class="p">,</span><span class="w"> </span><span class="n">TodoContext</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>Mint a példában látható, a <code>TodoContext</code> <strong>beregisztrálása nem egy absztrakcióval történik</strong> (nincs <code>ITodoContext</code> interfész), <strong>hanem magával a</strong> TodoContext <strong>implementációs típussal</strong>. <strong>A DI keretrendszerek/IoC konténerek támogatják, hogy a regisztráció során az absztrakció egy konkrét típus legyen, jellemzően maga az implementációs típus</strong>. Ezt a megközelítést csak indokolt esetben használjuk.</p>
+<p>ASP.NET Core környezetben a <code>DbContext</code> leszármazott osztályunk számára soha nem vezetünk be interfészt, hanem az osztályának a típusával kerül beregisztrálásra az IoC konténerbe (a példánkban is <code>TodoContext</code>-&gt;<code>TodoContext</code> leképezés történik). A <code>DbContext</code> önmagában is számos perzisztencia providerrel (pl. MSSQL, Oracle, memória, stb.) tud együtt működni, így alkalmazásfüggő, mennyire van értelme absztrahálni. Ha absztraháljuk az adathozzáférést, akkor nem a <code>DbContext</code>-hez vezetünk be interfészt, hanem a Repository tervezési mintát használjuk, és az egyes repository implementációkhoz vezetünk be interfészeket, valamint ezek vonatkozásában történik az IoC konténerben a leképezés (pl. <code>ITodoRepository</code>-&gt;<code>TodoRepository</code>). A repository osztályok pedig vagy maguk példányosítják a <code>DbContext</code> objektumokat, vagy konstruktor paraméterben kerül számukra beinjektálásra).</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>Jelen dokumentumnak nem célja állást foglalni abban, mely esetben célszerű Repository vagy egyéb minták segítségével a controller illetve service osztályok számára az EF/DbContext alapú adathozzáférést egy DAL rétegben elrejteni, illetve ezzel szemben mely esetben használjuk a DbContext osztályt közvetlenül a controller/szolgáltatás objektumainkban (vagyis a BLL-ben). Az illusztráció kedvéért a TodoApi alkalmazásunk ebben az értelemben vegyes megoldást alkalmaz: a TodoItem objektumok perzisztálására a szolgáltatás osztályok közvetlenül a DbContext-et használják, míg a Contact-ok kezelésére a Repository mintát használjuk.</p>
+</div>
+<p>A fenti példában az is látható, hogy a <code>AddDbContext</code> során a DbContext (esetünkben <code>TodoContext</code>) regisztrálásakor egy lambda kifejezést is meg tudunk adni:</p>
+<div class="highlight"><pre><span></span><code><span class="n">opt</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">opt</span><span class="p">.</span><span class="n">UseInMemoryDatabase</span><span class="p">(</span><span class="s">"TodoList"</span><span class="p">)</span>
+</code></pre></div>
+<p>Ezen a lambda kifejezésünket a konténer a későbbiekben a resolve során - vagyis amikor egy <code>TodoContext</code> példányosítása történik - meghívja, és paraméterként egy opciózó objektumot kapunk (a példában <code>opt</code> argumentum): ennek segítségével lehetőségünk van a létrehozandó <code>TodoContext</code> objektum opciózására, konfigurálására. A példánkban a <code>UseInMemoryDatabase</code> művelet hívásával egy "TodoList" nevű memóriaadatbázist hozunk létre.</p>
+<h2 id="haladobb-fuggosegregisztracio-pelda">Haladó(bb) függőségregisztráció példa<a class="headerlink" href="#haladobb-fuggosegregisztracio-pelda" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p>Nem kötelező tananyag.</p>
+</div>
+<p>Térjünk ki a <code>Program.cs</code> fájl korábban nem ismertetett szolgáltatásregisztrációs részeire.</p>
+<p>Az <code>EMailSender</code> beregisztrálása első ránézésre egészen trükkösnek tűnik:</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="o">&lt;</span><span class="n">IEMailSender</span><span class="p">,</span><span class="w"> </span><span class="n">EMailSender</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EMailSender</span><span class="w">   </span><span class="p">(</span><span class="n">sp</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="o">&lt;</span><span class="n">ILogger</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="s">"smtp.myserver.com"</span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+</code></pre></div>
+<p>A jobb megértés érdekében nézzük meg az EMailSender konstruktorát:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="nf">EMailSender</span><span class="p">(</span><span class="n">ILogger</span><span class="w"> </span><span class="n">logger</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logger</span><span class="p">;</span>
+<span class="w">    </span><span class="n">_smtpAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">smtpAddress</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Az <code>EMailSender</code>t a konténernek kell majd a feloldás során példányosítania, ehhez a konstruktor paramétereket megfelelően meg kell tudni adnia. A logger paraméter teljesen "rendben van", a konténer ILogger-&gt;Logger regisztrációja alapján a konténer fel tudja oldani. Az <code>smtpAddress</code> paraméter értékét viszont nem tudja kitalálni. Az ASP.NET Core a probléma megoldására a keretrendszer "options" mechanizmusát javasolja, mely lehetővé teszi, hogy az értéket valamilyen konfigurációból olvassuk be. Ez számunkra egy messzire vezető szál lenne, így egyszerűsítésképpen más megoldáshoz folyamodtunk. Az <code>AddSingleton</code> (és a többi Add... műveletnek) van olyan overloadja, melyben egy lambda kifejezést tudunk megadni. Ezt a lambdát a konténer a későbbiekben a resolve során (vagyis amikor egy <code>IEMailSender</code> alapján egy <code>EMailSender</code>t kérünk a konténertől) hívja, minden egyes példányosítás során: ebben mi magunk példányosítjuk az <code>EMailSender</code> objektumot, a konstruktor paramétereket az igényeink szerint meghatározva. Sőt, a konténer "van olyan kedves", hogy lambda paraméterben kapunk egy <code>IServiceCollection</code> objektumot (példánkban ez az <code>sp</code>), és ezzel a konténerben már meglévő regisztrációk alapján a <code>GetRequiredService</code> és <code>GetService</code> hívásokkal kényelmesen tudunk típusokat feloldani, amennyiben szükség van rá.</p>
+<h2 id="tovabbi-temakorok">További témakörök<a class="headerlink" href="#tovabbi-temakorok" title="Permanent link">¶</a></h2>
+<h3 id="dependency-injectionioc-kontenerek-altalanossagaban">Dependency Injection/IoC konténerek általánosságában<a class="headerlink" href="#dependency-injectionioc-kontenerek-altalanossagaban" title="Permanent link">¶</a></h3>
+<p>A .NET beépített DI konténer jellemzői:</p>
+<ul>
+<li>Alapszolgáltatásokat nyújt (pl. property injection-t nem támogat).</li>
+<li>Ha ennél többre van szükség, használhatunk más IoC konténert is, az ASP.NET Core együtt tud működni vele.</li>
+<li>Számos .NET (legyen az .NET Core, .NET Framework vagy mindkettő) környezetben használható Dependecy Injection/IoC konténer osztálykönyvtár létezik, pl.: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF.</li>
+<li>Microsoft.Extensions.DependencyInjection NuGet package-ben van implementálva (az alapnévtér is ez)</li>
+<li>ASP.NET Core alkalmazások esetén már a .NET projekt létrehozásakor telepítve van. Sőt, mint láttuk: az ASP.NET Core middleware intenzíven használja és épít rá, a runtime konfiguráció/kiterjeszthetőség alappillére.</li>
+<li>Egyéb .NET alkalmazások esetén (pl. Console) a Microsoft.Extensions.DependencyInjection NuGet package-dzsel manuálisan kell telepíteni.</li>
+<li>Megjegyzés: a NuGet package használható (teljes) .NET Frameworkkel is, mivel .NET Standard-et támogat.</li>
+</ul>
+<h3 id="service-locator-antipattern">Service Locator antipattern<a class="headerlink" href="#service-locator-antipattern" title="Permanent link">¶</a></h3>
+<p>Az IoC konténerek használatának a dependency injectionnel szemben van egy másik használati módja. Ennek az a lényege, hogy az osztályok számára nem konstruktor paraméterekben adjuk át/injektáljuk be a függőségeiket, hanem azokat az osztályok a metódusaikban az IoC konténertől a GetService művelettel magunk kérdezik le. Ezt a megközelítést <strong>Service Locator</strong> mintának nevezzük. Ez <strong>antipattern</strong>-nek tekintendő, ugyanis a kódban szétszórtan, minden egyes függőség feloldásakor használjuk a konténert, így a kódunk nagy része függeni fog magától a konténertől! Ezzel szemben a dependency injection esetében a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-ekre végezzük el, a kódunk többi része teljesen független a konténertől. Vegyük észre, hogy a korábbi példánkban a  TodoController, NotificationService, EMailSender, Logger és ContactRepository osztályainkban sehol nem hivatkoztunk a konténerre (sem IServiceProvider-ként, sem más módon).</p>
+<h3 id="aspnet-core-keretrendszer-szolgaltatasok">ASP.NET Core keretrendszer szolgáltatások<a class="headerlink" href="#aspnet-core-keretrendszer-szolgaltatasok" title="Permanent link">¶</a></h3>
+<p>Az ASP.NET Core számos beépített szolgáltatással rendelkezik. Pl. ilyen a Wep API támogatás is, vagy a felhasználó felülettel is rendelkező MVC/Razor alapú webalkalmazás támogatás. Ezek többsége maga is a DI keretrendszert használja függőséginjektálásra.</p>
+<p>ASP.NET Web API esetén az alkalmazás indulásakor be kell regisztráljunk számos Web API-hoz tartozó "segéd" szolgáltatást a DI konténerbe az alábbi módon (ezt a Program.cs fájlba a VS automatikusan beteszi a projekt létrehozásakor):</p>
+<div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddControllers</span><span class="p">();</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>.NET 6 előtti .NET verziókban a <code>Startup.cs</code> fájl <code>Startup.ConfigureServices</code>-ben a <code>services.AddMvc()</code> sort kellett beszúrni.</p>
+</div>
+<p>Az <code>AddControllers</code> egy beépített extension method az <code>IServiceProvider</code> interfészre vonatkozóan, mely számos, a Wep API middleware/pipeline belső működéséhez és konfigurációjához szükséges szolgáltatás és konfigurációs objektumot regisztrál a konténerbe.</p>
+<h3 id="szolgaltatas-objektumok-dispose-olasa">Szolgáltatás objektumok dispose-olása<a class="headerlink" href="#szolgaltatas-objektumok-dispose-olasa" title="Permanent link">¶</a></h3>
+<p>A konténer az általa létrehozott objektumokra <code>Dispose</code>-t hív, amennyiben az objektumok osztálya implementálja az <code>IDisposable</code> interfészt.</p>
+<h3 id="irodalom">Irodalom<a class="headerlink" href="#irodalom" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection</a></li>
+<li><a href="https://stackify.com/net-core-dependency-injection/amp">https://stackify.com/net-core-dependency-injection/amp</a></li>
+<li><a href="https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96">https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96</a></li>
+</ul>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 3. 13:12:36">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Létrehozva"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="2023. február 3. 13:13:30">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:13:30+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Szerzők</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

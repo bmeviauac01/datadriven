@@ -6,11 +6,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Albert István, Tóth Tibor" name="author"/>
-<link href="../" rel="prev"/>
-<link href="../mongodb/" rel="next"/>
+<link href="../rest/" rel="prev"/>
+<link href="../GitHub-Actions/" rel="next"/>
 <link href="../../img/favicon.ico" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
-<title>Microsoft SQL Server használata - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+<title>Feladatok beadása (GitHub) - BMEVIAUAC01 Adatvezérelt rendszerek</title>
 <link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -37,7 +37,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#microsoft-sql-server-hasznalata">
+<a class="md-skip" href="#feladatok-beadasa-github">
           Kihagyás
         </a>
 </div>
@@ -61,7 +61,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Microsoft SQL Server használata
+              Feladatok beadása (GitHub)
             
           </span>
 </div>
@@ -151,7 +151,7 @@
     </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link md-tabs__link--active" href="../">
+<a class="md-tabs__link" href="../../db/">
         Adatbázis
       </a>
 </li>
@@ -166,7 +166,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../../homework/">
+<a class="md-tabs__link md-tabs__link--active" href="../">
         Házi feladatok
       </a>
 </li>
@@ -201,77 +201,30 @@
         Adatvezérelt rendszerek
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Adatbázis
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_2">
 <span class="md-nav__icon md-icon"></span>
           Adatbázis
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../">
+<a class="md-nav__link" href="../../db/">
         Minta adatbázis sémája
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-          Microsoft SQL Server használata
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
         Microsoft SQL Server használata
       </a>
-<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Tartalomjegyzék
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#sql-server-management-studio-hasznalata">
-    SQL Server Management Studio használata
-  </a>
-<nav aria-label="SQL Server Management Studio használata" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#uj-adatbazis-letrehozasa">
-    Új adatbázis létrehozása
-  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#parhuzamos-tranzakciok">
-    Párhuzamos tranzakciók
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tablak-tartalmanak-listazasa-egyszerusitett-modositas">
-    Táblák tartalmának listázása, egyszerűsített módosítás
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#intellisense-ujratoltese">
-    Intellisense újratöltése
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tarolt-eljarasok-es-triggerek-keszitese">
-    Tárolt eljárások és triggerek készítése
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../mongodb/">
+<a class="md-nav__link" href="../../db/mongodb/">
         MongoDB használata
       </a>
 </li>
@@ -418,60 +371,93 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
 <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Házi feladatok
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_5">
 <span class="md-nav__icon md-icon"></span>
           Házi feladatok
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/">
+<a class="md-nav__link" href="../">
         Szorgalmi házi feladatok
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/mssql/">
+<a class="md-nav__link" href="../mssql/">
         Feladat: MSSQL szerveroldali programozás
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/adonet/">
+<a class="md-nav__link" href="../adonet/">
         Feladat: ADO.NET adatelérés
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/ef/">
+<a class="md-nav__link" href="../ef/">
         Feladat: Entity Framework
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/mongodb/">
+<a class="md-nav__link" href="../mongodb/">
         Feladat: MongoDB
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/rest/">
+<a class="md-nav__link" href="../rest/">
         Feladat: REST API Web API technológiával
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/GitHub/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Feladatok beadása (GitHub)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
         Feladatok beadása (GitHub)
       </a>
+<nav aria-label="Tartalomjegyzék" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#roviditett-verzio">
+    Rövidített verzió
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/GitHub-Actions/">
+<a class="md-nav__link" href="#a-munka-elkezdese-git-checkout">
+    A munka elkezdése: git checkout
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#a-megoldas-beadasa">
+    A megoldás beadása
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio">
+    Kapott eredménnyel kapcsolatban kérdés vagy reklamáció
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../GitHub-Actions/">
         GitHub Actions ismertető
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../homework/VisualStudio/">
+<a class="md-nav__link" href="../VisualStudio/">
         Visual Studio &amp; .NET SDK telepítése
       </a>
 </li>
@@ -493,38 +479,24 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#sql-server-management-studio-hasznalata">
-    SQL Server Management Studio használata
-  </a>
-<nav aria-label="SQL Server Management Studio használata" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#uj-adatbazis-letrehozasa">
-    Új adatbázis létrehozása
+<a class="md-nav__link" href="#roviditett-verzio">
+    Rövidített verzió
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#parhuzamos-tranzakciok">
-    Párhuzamos tranzakciók
+<a class="md-nav__link" href="#a-munka-elkezdese-git-checkout">
+    A munka elkezdése: git checkout
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#tablak-tartalmanak-listazasa-egyszerusitett-modositas">
-    Táblák tartalmának listázása, egyszerűsített módosítás
+<a class="md-nav__link" href="#a-megoldas-beadasa">
+    A megoldás beadása
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intellisense-ujratoltese">
-    Intellisense újratöltése
+<a class="md-nav__link" href="#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio">
+    Kapott eredménnyel kapcsolatban kérdés vagy reklamáció
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tarolt-eljarasok-es-triggerek-keszitese">
-    Tárolt eljárások és triggerek készítése
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -533,45 +505,170 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/datadriven/edit/master/docs/db/mssql.md" title="Oldal szerkesztése">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/datadriven/edit/master/docs/homework/GitHub.md" title="Oldal szerkesztése">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
 </a>
-<h1 id="microsoft-sql-server-hasznalata">Microsoft SQL Server használata<a class="headerlink" href="#microsoft-sql-server-hasznalata" title="Permanent link">¶</a></h1>
-<p>A Microsoft SQL Server kiszolgálóhoz az SQL Server Management Studio szoftverrel kapcsolódunk. Fejlesztés közben a kiszolgáló helyben fut, az ún. LocalDB verziót használjuk, de otthoni használatra megfelel az Express változat is (bármely verzió).</p>
-<p>Letöltési linkek:</p>
-<ul>
-<li>A LocalDB Visual Studio-val települ</li>
-<li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-editions-express">https://www.microsoft.com/en-us/sql-server/sql-server-editions-express</a></li>
-<li><a href="https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms</a></li>
-</ul>
-<div class="admonition example">
-<p class="admonition-title">Eszköz használata videó</p>
-<p>Az eszköz használatának bemutatása: <a href="https://web.microsoftstream.com/video/e3a83d16-b5c4-4fe9-b027-703347951621">https://web.microsoftstream.com/video/e3a83d16-b5c4-4fe9-b027-703347951621</a></p>
+<h1 id="feladatok-beadasa-github">Feladatok beadása (GitHub)<a class="headerlink" href="#feladatok-beadasa-github" title="Permanent link">¶</a></h1>
+<p>A feladatok beadásához a GitHub platformot használjuk. Minden házi beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A házi feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy ún. <em>pull request</em> formájában történik, amelyet a gyakorlatvezetődhöz rendelsz.</p>
+<div class="admonition important">
+<p class="admonition-title">FONTOS</p>
+<p>Az itt leírt formai előírások betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.</p>
 </div>
-<h2 id="sql-server-management-studio-hasznalata">SQL Server Management Studio használata<a class="headerlink" href="#sql-server-management-studio-hasznalata" title="Permanent link">¶</a></h2>
-<p>A tanszéki laborokban a programot a start menüből indíthatjuk. A program indulása után kapcsolódhatunk az adatbázishoz a felugró ablakban. LocalDB használata esetén a <em>Server name</em> <code>(localdb)\mssqllocaldb</code>, Express Edition használata esetén <code>.\sqlexpress</code> (alapbeállításokkal való telepítés esetén). Mindkét esetben <em>Windows Authentication</em>-t használunk.</p>
-<p>A sikeres kapcsolódást követően a főablak bal oldalán az <em>Object Explorer</em>-ben kibontható a <em>Databases</em> elem, és ha már létrehoztunk adatbázist, azt is kibontva láthatóak a tábláink és egyéb séma elemek.</p>
-<p>SQL kód futtatásához egy új <em>Query</em> ablakra van szükségünk, amelyet az eszköztáron található <a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/new-query-button.png"><img alt="Új lekérdezés gomb" src="../images/new-query-button.png"/></a> ikonnal nyithatunk. A <em>Query</em> ablak parancsai az aktuálisan kiválasztott adatbázison fognak lefutni, ezt az adatbázist az eszköztáron a legördülő menüben tudjuk megváltoztatni (lásd az alábbi képen sárgával). Több <em>Query</em> ablak is lehet nyitva egyszerre.</p>
-<p>Az SQL utasításokat lefuttatni az <a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/execute-button.png"><img alt="Lekérdezés végrehajtása gomb" src="../images/execute-button.png"/></a> gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/object-explorer-db-query.png"><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png"/></a></p>
-<h3 id="uj-adatbazis-letrehozasa">Új adatbázis létrehozása<a class="headerlink" href="#uj-adatbazis-letrehozasa" title="Permanent link">¶</a></h3>
-<p>Ha még nincs adatbázisunk, először létre kell hozni egyet. Ezt az <em>Object Explorer</em>-ben a <em>Databases</em>-en jobb kattintással tehetjük meg. Az adatbázisnak csak nevet kell adni, más beállításra nincs szükség. Az adatbázis létrehozása után a <em>Query</em> ablakban ne felejtsük átállítani az aktuális adatbázist!</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/uj-adatbazis.png"><img alt="Új adatbázis létrehozása" src="../images/uj-adatbazis.png"/></a></p>
-<h3 id="parhuzamos-tranzakciok">Párhuzamos tranzakciók<a class="headerlink" href="#parhuzamos-tranzakciok" title="Permanent link">¶</a></h3>
-<p>Párhuzamos tranzakciók szimulálásához két <em>Query</em> ablakra van szükség a <em>New Query</em> gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a <em>Query</em> fül fejlécére jobb egérrel kattintva válasszuk a <em>New Vertical Tab Group</em> opciót.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/query-window-tab-group.png"><img alt="Több query ablak egymás mellé rendezése" src="../images/query-window-tab-group.png"/></a></p>
-<h3 id="tablak-tartalmanak-listazasa-egyszerusitett-modositas">Táblák tartalmának listázása, egyszerűsített módosítás<a class="headerlink" href="#tablak-tartalmanak-listazasa-egyszerusitett-modositas" title="Permanent link">¶</a></h3>
-<p>A táblák tartalmának listázásához az <em>Object Explorer</em>-ben bontsuk ki az adatbázisunk alatt a <em>Tables</em> mappát. Bármely táblára jobb egérrel kattintva használjuk a <em>Select Top 1000 Rows</em> elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az <em>Edit Top 200 Rows</em> menüelemmel.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/select-top-1000.png"><img alt="Tábla tartalmának gyors listázása" src="../images/select-top-1000.png"/></a></p>
-<h3 id="intellisense-ujratoltese">Intellisense újratöltése<a class="headerlink" href="#intellisense-ujratoltese" title="Permanent link">¶</a></h3>
-<p>Az SQL Management Studio query ablakban az intellisense első körben sosem működik magától, használni kell a Control+Shift+R-t az intellisense cache frissítésére. Akkor is, ha új objektumot (pl. tárolt eljárást) hozunk létre.</p>
-<h3 id="tarolt-eljarasok-es-triggerek-keszitese">Tárolt eljárások és triggerek készítése<a class="headerlink" href="#tarolt-eljarasok-es-triggerek-keszitese" title="Permanent link">¶</a></h3>
-<p>Tárolt eljárás és trigger létrehozására a <em>Query</em> ablak használható, amelyben a megfelelő létrehozó-módosító utasítást futtatjuk. Ügyeljünk rá, hogy ha már létrejött egyszer a trigger vagy tárolt eljárás, utána már csak módosítani tudjuk.</p>
-<p>A már létező tárolt eljárások az <em>Object Explorer</em>-ben az adatbázisunk alatti a <em>Programmability/Stored Procedures</em> mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a <em>Stored Procedures</em> mappán jobb egérrel kattintva válasszuk a <em>Refresh</em>-t.)</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/tarolt-eljaras.png"><img alt="Tárolt eljárást" src="../images/tarolt-eljaras.png"/></a></p>
-<p>A triggerek az <em>Object Explorer</em>-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a <em>Triggers</em> mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti <em>Programmability</em> mappában).</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../images/trigger.png"><img alt="Trigger" src="../images/trigger.png"/></a></p>
-<p>A tárolt eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a <em>Modify</em> menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy <em>alter</em> utasítást az aktuális programkóddal.</p>
+<h2 id="roviditett-verzio">Rövidített verzió<a class="headerlink" href="#roviditett-verzio" title="Permanent link">¶</a></h2>
+<p>Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló az áttekintéshez, illetve a helyes beadás ellenőrzéséhez.</p>
+<ol>
+<li>
+<p>A munkádat Moodle-ben található GitHub Classroom meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.</p>
+</li>
+<li>
+<p>A megoldáshoz készíts egy külön ágat, ne a <em>master</em>-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.</p>
+</li>
+<li>
+<p>A beadást egy pull request jelzi, amely pull request-et a gyakorlatvezetődhöz kell rendelned.</p>
+</li>
+<li>
+<p>Ha az eredménnyel vagy értékeléssel kapcsolatban kérdésed van, pull request kommentben kérdezhetsz. A gyakorlatvezető értesítéséhez használd a <code>@név</code> címzést a komment szövegében.</p>
+</li>
+</ol>
+<h2 id="a-munka-elkezdese-git-checkout">A munka elkezdése: git checkout<a class="headerlink" href="#a-munka-elkezdese-git-checkout" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p><a href="https://github.com/join">Regisztrálj</a> egy GitHub accountot, ha még nincs.</p>
+</li>
+<li>
+<p>Moodle-ben a kurzus oldalán keresd meg a házihoz tartozó meghívó URL-t. Ez minden feladathoz más lesz, ügyelj rá, hogy a megfelelő linket használd.</p>
+</li>
+<li>
+<p>Ha kéri, adj engedélyt a <em>GitHub Classroom</em> alkalmazásnak, hogy használja az account adataidat.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-authorize-classroom.png"><img alt="Authorize GitHub classroom" src="/assets/homework/github/github-authorize-classroom.png"/></a></p>
+</li>
+<li>
+<p>Látni fogsz egy oldalt, ahol elfogadhatod a feladatot ("Accept the ... assignment"). Kattints a gombra.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-accept-assignment.png"><img alt="Accept assignment" src="/assets/homework/github/github-accept-assignment.png"/></a></p>
+</li>
+<li>
+<p>Várd meg, amíg elkészül a repository. A repository linkjét itt kapod meg.</p>
+<div class="admonition note">
+<p class="admonition-title">Megjegyzés</p>
+<p>A repository privát lesz, azaz azt senki nem látja, csak te, és az oktatók.</p>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-repository-create-success.png"><img alt="Repository created" src="/assets/homework/github/github-repository-create-success.png"/></a></p>
+</li>
+<li>
+<p>Nyisd meg a repository-t a webes felületen a linkre kattintva. Ezt az URL-t írd fel, vagy mentsd el.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-repository-webpage.png"><img alt="Repository webes felülete" src="/assets/homework/github/github-repository-webpage.png"/></a></p>
+</li>
+<li>
+<p>Klónozd le a repository-t. Ehhez szükséges lesz a repository címére, amit a repository webes felületén a <em>Clone or download</em> alatt találsz.</p>
+<p>A git repository kezeléséhez tetszőleges klienst használhatsz. Ha nincs kedvenced még, akkor legegyszerűbb a <a href="https://desktop.github.com/">GitHub Desktop</a>. Ebben az alkalmazásban közvetlenül tudod listázni a repository-kat GitHub-ról, vagy használhatod az URL-t is a klónozáshoz.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-desktop-clone.png"><img alt="GitHub Desktop repository clone" src="/assets/homework/github/github-desktop-clone.png"/></a></p>
+<p>Ha konzolt használnál, az alábbi parancs klónozza a repository-t (ha a <code>git</code> parancs elérhető): <code>git clone &lt;repository link&gt;</code></p>
+</li>
+<li>
+<p>Ha sikerült a klónozás, <strong>MÉG NE KEZDJ EL DOLGOZNI!</strong> A megoldást <em>ne</em> a repository <code>master</code> ágán készítsd el. Hozz létre egy új ágat (branch) <code>megoldas</code> néven.</p>
+<p>GitHub Desktop-ban a <em>Branch</em> menüben teheted ezt meg.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-desktop-new-branch.png"><img alt="GitHub Desktop create branch" src="/assets/homework/github/github-desktop-new-branch.png"/></a></p>
+<p>Ha konzolt használsz, az új ág elkészíthető ezzel a paranccsal: <code>git checkout -b megoldas</code></p>
+</li>
+<li>
+<p>Ezen a megoldás ágon dolgozva készítsd el a beadandókat. Akárhányszor kommitolhatsz és pusholhatsz.</p>
+<div class="admonition warning">
+<p class="admonition-title">Kommit név ellenőrzése</p>
+<p>Mielőtt a git repository-val dolgozol, ellenőrizd, hogy a megfelelő névvel és email címmel kommitolsz-e. Ezt a következő command line paranccsal tudod megtenni.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>user.name
+git<span class="w"> </span>config<span class="w"> </span>user.email
+</code></pre></div>
+<p>Ha ez nem megfelelő lenne, akkor add ki az alábbi parancsokat a git repository mappájában. Ezzel az adott repository-ra fogod beállítani a kívánt nevet és email címet. (Érdemes olyan email címet, megadni ami a github useretekhez van rendelve)</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">"John Doe"</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">"john@doe.org"</span>
+</code></pre></div>
+<p>Ha nem akarod minden repository-re külön állítani a fentieket, akkor érdemes lehet a globálisan vizsgálni és felülírni a <code>--global</code> kapcsolóval.</p>
+</div>
+<p>GitHub Desktop-ban így tudsz kommitolni. Mindig ellenőrizd, hogy jó ágon vagy-e. Első alkalommal a <em>megoldas</em> ág csak helyben létezik, ezért publikálni kell: <em>Publish this branch</em>.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-desktop-commit-to-branch.png"><img alt="GitHub Desktop push branch" src="/assets/homework/github/github-desktop-commit-to-branch.png"/></a></p>
+<p>A további kommitoknál is mindig ellenőrizd a megfelelő ágat. Ha egy kommit még nincs felöltve, azt a <em>Push origin</em> gombbal teheted meg. A kis szám a gombon jelzi, hogy hány, még nem pusholt kommit van.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-desktop-push-commit.png"><img alt="GitHub Desktop commit and push" src="/assets/homework/github/github-desktop-push-commit.png"/></a></p>
+<p>Ha konzolt használsz, akkor az alábbi parancsokat használd (feltéve, hogy a jó ágon vagy):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ellenőrizd az ágat, és hogy milyen fájlok módosultak</span>
+git<span class="w"> </span>status
+
+<span class="c1"># Minden változtatást előkészít kommitolásra</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+
+<span class="c1"># Kommit</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"f1"</span>
+
+<span class="c1"># Push első alkalommal az új ág publikálásához</span>
+git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>megoldas
+
+<span class="c1"># Push a továbbiakban, amikor az ág már nem új</span>
+git<span class="w"> </span>push
+</code></pre></div>
+</li>
+</ol>
+<h2 id="a-megoldas-beadasa">A megoldás beadása<a class="headerlink" href="#a-megoldas-beadasa" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p>Ha végeztél a megoldással, ellenőrizd a GitHub webes felületén, hogy mindent feltöltöttél-e. Ehhez a webes felületen váltanod kell az ágak között.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-switch-branch-webpage.png"><img alt="GitHub web switch branch" src="/assets/homework/github/github-switch-branch-webpage.png"/></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Feltöltés a webes felületen</p>
+<p>Azt javasoljuk, hogy ne használd a GitHub fájl feltöltés funkcióját. Ha valami hiányzik, a helyi git repository-ban pótold, és kommitold majd pushold.</p>
+</div>
+</li>
+<li>
+<p>Ha tényleg kész vagy, akkor nyiss egy <em>pull request</em>-et.</p>
+<div class="admonition important">
+<p class="admonition-title">Minek a pull request?</p>
+<p>Ez a <em>pull request</em> fogja össze a megoldásodat, és annak "végeredményét" mutatja. Így a gyakorlatvezetőnek nem az egyes kommitjaidat vagy fájljaidat kell néznie, hanem csak a releváns, változott részeket látja egyben. A <em>pull request</em> jelenti a feladatod beadását is, így ez a lépés <strong>nem hagyható ki</strong>.</p>
+</div>
+<p>A <em>pull request</em> nyitásához a GitHub webes felületére kell menj. Itt, ha nem rég pusholtál, a GitHub fel is ajánlja a pull request létrehozását.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-create-pull-request-1.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-create-pull-request-1.png"/></a></p>
+<p>A <em>pull request</em>-et a fenti menüben is létrehozhatod. Fontos, hogy a megfelelő brancheket válaszd ki: <code>master</code>-be megy a <code>megoldas</code> ág.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-create-pull-request-2.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-create-pull-request-2.png"/></a></p>
+<p>Ha minden rendben sikerült, a menüben fent látod a kis "1" számot a <em>Pull request</em> elem mellett, jelezve, hogy van egy nyitott pull request. <strong>DE MÉG NEM VÉGEZTÉL!</strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-create-pull-request-4.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-create-pull-request-4.png"/></a></p>
+</li>
+<li>
+<p>A <em>pull request</em> hatására le fog futni egy értékelés. Ennek eredményét a pull request alatt kommentben fogod látni.</p>
+<p>Ez az értékelés minden házi esetében más lesz. A programodat minden esetben lefuttatjuk, és előzetes pontszámot is kapsz.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-pull-request-eval-result.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-pull-request-eval-result.png"/></a></p>
+<p>Ha a kiértékelés eredményével kapcsolatban több információra van szükséged, mint amit itt látsz, a <em>GitHub Actions</em> webes felülete segítségül szolgálhat. Erről <a href="../GitHub-Actions/">itt</a> találsz egy rövid ismertetőt.</p>
+</li>
+<li>
+<p>Ha nem vagy megelégedve a munkáddal, akkor még javíthatsz rajta. Ehhez kommitolj és pusholj újra. Ha továbbra is a megfelelő ágon dolgozol, akkor a <em>pull request</em> újból le fogja futtatni a kiértékelést. Arra kérünk, hogy <strong>MAXIMUM 5 alkalommal</strong> futtasd le a kiértékelést!</p>
+<div class="admonition tip">
+<p class="admonition-title">Megoldás javítása kiértékelés nélkül</p>
+<p>Ha úgy látod, hogy a megoldásodat még javítani akarod, és nem szeretnéd, hogy mindig lefusson az értékelés, akkor állítsd át a pull request-et a webes felületen <strong>draft</strong> állapotra.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-convert-pr-to-draft.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-convert-pr-to-draft.png"/></a></p>
+<p>Ezzel az állapottal jelzed, hogy még dolgozol. Kommitolj és pusholj. Ilyenkor nem fog futni kiértékelés. Ha végeztél, akkor vissza <strong>kell</strong> állítanod a pull request-et: menj a PR aljára és kattints a "Ready for review" gombra. Ennek hatására visszaáll a PR és le fog futni az automata értékelés.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-draft-pr-ready.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-draft-pr-ready.png"/></a></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Maximum 5</p>
+<p>A maximum 5 alkalomba nem számoljuk bele az esetlegesen megszakadt, vagy tranziens hiba miatt sikertelen futtatásokat. Ha viszont figyelmetlenségből, vagy szándékosan túlléped az ötöt, akkor pontlevonással szankcionálunk. Arra kérünk, hogy beadás előtt <strong>teszteld a megoldásod</strong>, ne a GitHub platformot "dolgoztasd" magad helyett!</p>
+</div>
+</li>
+<li>
+<p><strong>VÉGEZETÜL</strong>, ha kész vagy, a <em>pull request</em>-et rendeld a <strong>gyakorlatvezetődhöz</strong>. Ez a lépés feltétlenül fontos, ez jelzi a beadást.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-create-pull-request-3.png"><img alt="GitHub create pull request" src="/assets/homework/github/github-create-pull-request-3.png"/></a></p>
+<div class="admonition error">
+<p class="admonition-title">Pull request nélkül</p>
+<p>Ha nincs pull request-ed, vagy nincs a gyakorlatvezetőhöz rendelve, akkor úgy tekintjük, hogy még nem vagy készen, és nem adtad be a megoldást.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Végeztél</p>
+<p>Miután a gyakorlatvezetőhöz rendelted a pull request-et, már <strong>ne módosíts</strong> semmin. A gyakorlatvezető értékelni fogja a munkádat, és a pull request lezárásával kommentben jelzi a végeredményt.</p>
+</div>
+</li>
+</ol>
+<h2 id="kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio">Kapott eredménnyel kapcsolatban kérdés vagy reklamáció<a class="headerlink" href="#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio" title="Permanent link">¶</a></h2>
+<p>Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a Pull Request kommentelési lehetőségét erre. Annak érdekében, hogy a gyakorlatvezető biztosan értesüljön a kérdésről használd a <code>@név</code> <a href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams">mention</a> funkciót a <strong>gyakorlatvezetőd</strong> megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-question-in-pr.png"><img alt="GitHub PR kérdés" src="/assets/homework/github/github-question-in-pr.png"/></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Reklamáció csak indoklással</p>
+<p>Ha nem értesz egyet az értékeléssel, a bizonyítás téged terhel, azaz alá kell támasztanod a reklamációd (pl. annak leírásával, hogyan tesztelted a megoldásod, és mi bizonyítja a helyességét).</p>
+</div>
 <hr/>
 <div class="md-source-file">
 <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -589,8 +686,8 @@
 </path>
 </svg>
 </span>
-<span title="2020. július 14. 07:35:47">
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2020-07-14T07:35:47+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2020-07-14</span>
+<span title="2020. július 10. 16:57:29">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2020-07-10T16:57:29+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2020-07-10</span>
 </span>
 </span>
 <span class="md-source-file__fact">
