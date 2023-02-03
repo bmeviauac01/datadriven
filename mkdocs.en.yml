@@ -15,7 +15,7 @@ plugins:
   git-revision-date-localized:
     locale: en
   git-committers:
-    docs_path: docs/en
+    docs_path: docs/en/
 
 nav:
   - index.md
