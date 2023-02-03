@@ -39,10 +39,10 @@ extra_css:
 extra:
   alternate:  
     - name: English
-      link: datadriven/en/
+      link: https://bmeviauac01.github.io/datadriven/en/
       lang: en
     - name: Magyar
-      link: datadriven/hu/
+      link: https://bmeviauac01.github.io/datadriven/hu/
       lang: hu
 
 markdown_extensions:
