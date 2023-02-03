@@ -33,7 +33,7 @@
           </path>
         </svg>
       </span>
-      <span>Szerzők</span>
+      <span>{{ lang.t('source.file.contributors') }}</span>
       <nav>
         {%- for user in committers -%}
         <a href="{{ user.url }}" target="_blank" rel="noopener noreferrer" class="md-author" title="@{{ user.name }}">

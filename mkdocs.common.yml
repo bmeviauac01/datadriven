@@ -1,0 +1,81 @@
+copyright: Copyright &copy; BME VIK AUT
+repo_name: bmeviauac01/adatvezerelt
+repo_url: https://github.com/bmeviauac01/adatvezerelt
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: aut
+      primary: aut
+      accent: red
+      toggle:
+        icon: material/lightbulb-outline
+        name: Váltás sötét témára
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/lightbulb
+        name: Váltás világos témára
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.top
+    - search.suggest
+    - content.action.edit
+  logo: img/logo-bme-aut.png
+  favicon: img/favicon.ico
+
+extra_css:
+  - extra-material-theme.css
+
+extra:
+  alternate:  
+    - name: English
+      link: /en/
+      lang: en
+    - name: Magyar
+      link: /hu/
+      lang: hu
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+  - md_in_html
+  - pymdownx.keys
+
+plugins:
+  search:
+    prebuild_index: true
+  glightbox: { } # https://squidfunk.github.io/mkdocs-material/insiders/getting-started/#built-in-plugins key-value syntax
+  git-revision-date-localized:
+    enable_creation_date: true
+    type: timeago
+    timezone: Europe/Budapest
+  git-committers:
+    repository: bmeviauac01/adatvezerelt
+    branch: master  
