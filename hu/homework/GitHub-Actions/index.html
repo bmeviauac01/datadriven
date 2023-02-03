@@ -453,18 +453,18 @@
 <h1 id="github-actions-ismerteto">GitHub Actions ismertető<a class="headerlink" href="#github-actions-ismerteto" title="Permanent link">¶</a></h1>
 <p>A feladatok kiértékelésében a <a href="https://github.com/features/actions">GitHub Actions</a>-re támaszkodunk. Segítségével a git repository-kon műveleteket és programokat tudunk futtatni. Ilyen művelet például a C# kód lefordítása, vagy a beadott kód tesztelése.</p>
 <p>A lefutott kiértékelésről a pull request-ben fogsz értesítést kapni. Ha meg szeretnéd nézni részletesebben a háttérben történteket, vagy például az alkalmazás naplókat, a GitHub felületén az <em>Actions</em> alatt indulhatsz el.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="homework/github/github-actions-tab.png"><img alt="GitHub Actions a webfelületen" src="homework/github/github-actions-tab.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="github-actions-tab.png"><img alt="GitHub Actions a webfelületen" src="github-actions-tab.png"/></a></p>
 <p>Az <em>Actions</em> felületén ún. <em>Workflow</em>-kat látsz; minden egyes kiértékelés futtatás egy-egy elem lesz itt (tehát historikusan is visszakereshetőek).</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="homework/github/github-actions-executions-list.png"><img alt="GitHub Actions workflow lista" src="homework/github/github-actions-executions-list.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="github-actions-executions-list.png"><img alt="GitHub Actions workflow lista" src="github-actions-executions-list.png"/></a></p>
 <p>Ezek közül egyet kiválasztva (pl. a legfelső mindig a legutolsó) láthatod a workflow futásának részleteit. A futás naplójához a bal oldali listában még kattintani kell egyet. Jobb oldalon látható a folyamat teljes naplója.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="homework/github/github-actions-job-log.png"><img alt="GitHub Actions a job naplója" src="homework/github/github-actions-job-log.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="github-actions-job-log.png"><img alt="GitHub Actions a job naplója" src="github-actions-job-log.png"/></a></p>
 <p>Minden zöld pipa egy-egy sikeres lépést jelent. Ezen lépések nem azonosak a feladatokokkal, hanem a kiértékelés folyamatának lépései lesznek. Ilyen lépés például a környezet előkészítése, pl. a .NET SDK telepítése (minden kiértékelés egy vadiúj környezetben indul, így mindent elő kell készíteni).</p>
 <p>Alapvetően a lépések mindig sikeresek, akkor is, ha a megoldásodban hiba van, mert a kiértékelés erre fel van készítve. Kivételt ez alól csak a <code>neptun.txt</code> hiánya ill. a C# kód lefordítása jelent. Előbbi feltétlenül szükséges, ezért semmilyen folyamatot nem hajtunk végre nélküle. Utóbbi esetében a C# kód fordítása szintén szükséges a továbblépéshez, ezért sikertelenség esetén leáll a folyamat.</p>
 <p>Néha előfordulhat azonban tranziens, időszakos hiba is. Például a .NET környezet letöltése nem sikerül hálózati hiba miatt. Ilyen esetben a futtatást kézzel meg lehet ismételni. Ez persze csak akkor segít, ha tényleg átmeneti hibáról van szó, tehát pl. egy C# fordítási hibán nem fog segíteni. (Ezt a hibaüzenetből illetve a lépés nevéből tudod kideríteni, vagy legalább is megtippelni kellő bizonyossággal.)</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="homework/github/github-actions-rerun.png"><img alt="GitHub Actions tranziens hiba és újra futtatás" src="homework/github/github-actions-rerun.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="github-actions-rerun.png"><img alt="GitHub Actions tranziens hiba és újra futtatás" src="github-actions-rerun.png"/></a></p>
 <p>A feladat függvényében akár az alkalmazás naplókat is meg tudod nézni itt. Pl. amikor .NET alkalmazást készítesz, az alkalmazást elindítjuk, és minden, amit naplóz, itt megtekinthető.</p>
 <p>Az alábbi például egy Entity Framework-öt használó alkalmazás inicializálását mutatja, köztük például a kiadott SQL parancsokat is. Debuggolás közben a Visual Studio <em>Output</em> ablakában is hasonlókat láthatsz. Ez természetesen nagyban függ a konkrét feladattól.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="homework/github/github-actions-app-log.png"><img alt="GitHub Actions alkalmazás napló" src="homework/github/github-actions-app-log.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="github-actions-app-log.png"><img alt="GitHub Actions alkalmazás napló" src="github-actions-app-log.png"/></a></p>
 <hr/>
 <div class="md-source-file">
 <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -472,8 +472,8 @@
 </path>
 </svg>
 </span>
-<span title="2023. február 3. 13:24:56">
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:24:56+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+<span title="2023. február 3. 13:34:14">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:34:14+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
 </span>
 </span>
 <span class="md-source-file__fact">
