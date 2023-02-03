@@ -425,7 +425,7 @@ exec InsertNewVAT 27
 
 Stored procedures are part of our database. For example, in Microsoft SQL Server Management Studio, it is visible here:
 
-![Stored procedure in database](img/mssql-stored-proc-in-db.png)
+![Stored procedure in database](/assets/lecture-notes/mssql/img//mssql-stored-proc-in-db.png)
 
 ### Scalar functions
 
@@ -580,7 +580,7 @@ select 'Product deleted: ' + convert(nvarchar, d.Name) from deleted d
 
 Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the `DROP TRIGGER` statement). The trigger is linked to the table in the database:
 
-![Trigger in the database](img/mssql-trigger-in-db.png)
+![Trigger in the database](/assets/lecture-notes/mssql/img//mssql-trigger-in-db.png)
 
 The syntax for defining a DML trigger is as follows:
 

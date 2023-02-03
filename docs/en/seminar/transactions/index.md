@@ -35,17 +35,17 @@ We need a database first. Usually, the database is located on a central server, 
 
 1. Instantiate the sample database using the script. Open a new _Query_ window, paste the script into the window, then execute it. Make sure to select the right database in the toolbar dropdown.
 
-    ![Select database](images/sql-management-database-dropdown.png)
+    ![Select database](/assets/seminar/transactions/images/sql-management-database-dropdown.png)
 
 1. Verify that the tables are created. If the _Tables_ folder was open before, you need to refresh it.
 
-    ![Table list](images/sql-managment-tablak.png).
+    ![Table list](/assets/seminar/transactions/images/sql-managment-tablak.png).
 
 ## Exercise 2: Concurrent transactions
 
 To simulate concurrent transactions, you need two _Query_ windows by clicking the _New Query_ button twice. You can align the windows next to each other by right-clicking the Query header and choosing New Vertical Tab group:
 
-![Two query window](images/sql-management-tab-group.png)
+![Two query window](/assets/seminar/transactions/images/sql-management-tab-group.png)
 
 Use the following scheduling. Transaction T1 checks the status of order 4, while transaction T2 changes the status.
 

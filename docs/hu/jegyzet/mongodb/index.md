@@ -16,7 +16,7 @@ Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban haszn
 
 A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a _mongod_, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. _wire protocol_-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).
 
-![A MongoDb architektúrája](images/mongodb_rendszer_architektura.png)
+![A MongoDb architektúrája](/assets/lecture-notes/mongodb/images/mongodb_architecture.png)
 
 ### Logikai felépítés
 
@@ -428,7 +428,7 @@ A MongoDB 5.0 verziója óta a **Map-reduce** elavult módszernek számít, mive
 
 Az egycélú aggregációs műveletek (**Single Purpose Aggregation Operations**) terén a MongoDB biztosítja számunkra a `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` és `IMongoCollection<TDocument>.Distinct()` függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.
 
-![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
+![Single Purpose Aggregation Operation](/assets/lecture-notes/mongodb/images/mongodb_spao.svg)
 
 !!! cite "Forrás"
     <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>

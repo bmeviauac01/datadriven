@@ -41,15 +41,15 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 1. Indítsuk el a Robo3T programot (a `c:\tools\robo3t...` könyvtárban találjuk) és csatlakozzunk a MongoDB szerverhez.
 
-    ![Robo3T Connection Settings](images/robo3t_connection.png)
+    ![Robo3T Connection Settings](/assets/seminar/mongodb/images/robo3t_connection.png)
 
 1. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Az adatbázis neve `datadriven` legyen:
 
-    ![Robo3T Connection Settings](images/robo3t_newdb.png)
+    ![Robo3T Connection Settings](/assets/seminar/mongodb/images/robo3t_newdb.png)
 
 1. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le a _Collections_ mappát ennek ellenőrzéséhez.
 
-    ![Robo3T Collections](images/robo3t_collections.png)
+    ![Robo3T Collections](/assets/seminar/mongodb/images/robo3t_collections.png)
 
 1. Töltsük le a kiinduló projekt vázat!
 
@@ -216,7 +216,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
         Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
 
-        ![Kategória dokumentumok](images/categories.png)
+        ![Kategória dokumentumok](/assets/seminar/mongodb/images/categories.png)
 
         Ez alapján létre tudjuk hozni a `Category` osztályt an `Entities` mappában.
 

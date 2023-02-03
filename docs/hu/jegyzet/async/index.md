@@ -22,7 +22,7 @@ Ezért fel kell készülni arra, hogy a kiszolgálás során kért adatokra vár
 
 Az alkalmazásunk a tárgy minta adatbázisához hasonló, de egyszerűbb adatbázissal dolgozik, az ER diagramja itt látható:
 
-![Az alkalmazás adatbázis diagramja](images/dbdiagram.png)
+![Az alkalmazás adatbázis diagramja](/assets/lecture-notes/async/images/dbdiagram.png)
 
 !!! note ""
     Az egyszerűség kedvéért a kosarakban a _UserID_ nem idegen kulcsként szerepel egy _Users_ táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a _UserID_ idegen kulcs lenne.

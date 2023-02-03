@@ -9,7 +9,7 @@ Egyes házikhoz a Microsoft Visual Studio **2022** verziója szükséges. Az ing
 
 A Visual Studio telepítésekor ki kell pipálni a _ASP.NET and web development_ [workloadot](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022#step-4---choose-workloads).
 
-![Visual Studio 2022 workload](images/visual-studio-2022/vs-workload.png)
+![Visual Studio 2022 workload](/assets/homework/visual-studio-2022/vs-workload.png)
 
 Meglevő telepítés a _Visual Studio Installer_-ben a [_Modify_](https://docs.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022) gombbal módosítható, ill. ellenőrizhető.
 

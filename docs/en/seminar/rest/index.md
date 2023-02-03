@@ -232,7 +232,7 @@ Note: In our case the JSON data is deserialized into a newly introduced (see lat
   
 Note: In our case the JSON data is deserialized into a `Models.Product` object. As the property setters are private in this class, JSON field names are mapped to the constructor parameter names of this class (in a case insensitive manner): therefore, it’s important how we name the constuctor parameters in this class.
 
-![Postman PUT query](images/postman-put-query.png)
+![Postman PUT query](/assets/seminar/rest/images/postman-put-query.png)
 
 Make sure to check the headers of the response too! Update and insert should add the _Location_ header. This header should contain the URL to fetch the record.
 

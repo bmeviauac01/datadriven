@@ -41,15 +41,15 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 1. Launch Robo3, which you find in directory `c:\tools\robo3t...` and connect to the MongoDB server.
 
-    ![Robo3T Connection Settings](images/robo3t_connection.png)
+    ![Robo3T Connection Settings](/assets/seminar/mongodb/images/robo3t_connection.png)
 
 1. Let us create a new database by right-clicking the connection (_localhost_). Let the database name be `datadriven`.
 
-    ![Robo3T Connection Settings](images/robo3t_newdb.png)
+    ![Robo3T Connection Settings](/assets/seminar/mongodb/images/robo3t_newdb.png)
 
 1. Open a new shell into the database by right-clicking it and choosing the _Open Shell_ command. This will open a single-line textbox to the right. Copy the database initialization script from [here](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js) into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the _Collections_ item to check them.
 
-    ![Robo3T Collections](images/robo3t_collections.png)
+    ![Robo3T Collections](/assets/seminar/mongodb/images/robo3t_collections.png)
 
 1. Download the starter solution!
 
@@ -216,7 +216,7 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
 
         Let us check a few sample documents using Robo3T in `categories` collection.
 
-        ![Categories documents](images/categories.png)
+        ![Categories documents](/assets/seminar/mongodb/images/categories.png)
 
         Create a new class `Category` in folder `Entities` with matching fields as below.
 

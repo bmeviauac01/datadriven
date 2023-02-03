@@ -12,7 +12,7 @@ NoSQL databases offer a solution to these problems. **Instead of the rigid schem
 
 MongoDB is a client-server database system that has a non-relational schema. The _mongod_ (Mongo daemon) process on the right is the database server. The other side is our application, where a client connects to the database using a network connection. This connection uses the so-called _wire protocol_, which is a MongoDB proprietary communication protocol. The protocol transmits data and queries in JSON format represented in a binary fashion as BSON.
 
-![MongoDb architecture](images/mongodb_architecture.png)
+![MongoDb architecture](/assets/lecture-notes/mongodb/images/mongodb_architecture.png)
 
 ### Logical structure
 
@@ -423,7 +423,7 @@ Since MongoDB version 5.0, **Map-reduce** is an obsolete method because the aggr
 
 For **Single Purpose Aggregation Operations**, MongoDB provides us with `IMongoCollection<TDocument>.EstimatedDocumentCount()`, `IMongoCollection<TDocument>.Count()` and `IMongoCollection<TDocument>.Distinct()` functions, which all perform simple aggregation on a single collection.
 
-![Single Purpose Aggregation Operation](./images/mongodb_spao.svg)
+![Single Purpose Aggregation Operation](/assets/lecture-notes/mongodb/images/mongodb_spao.svg)
 
 !!! citation "Source"
     <https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg>

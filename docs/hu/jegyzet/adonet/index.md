@@ -13,7 +13,7 @@ Az **ADO.NET** mindezek mellett azért erős eszköz, mert egységes, adatbázis
 
 Az **ADO.NET** osztálykönyvtár elhelyezkedése az adatvezérelt alkalmazás struktúrájában:
 
-![Struktúra](./images/adonet-arch.png)
+![Struktúra]((/assets/lecture-notes/adonet/images/adonet-arch.png)
 
 Az ADO.NET tehát az adatelérési rétegben nyújt szolgáltatásokat, és a háttérben kezeli az adatbázismotor kommunikációt a rendszerre telepített driverek és az operációs rendszer szolgáltatásainak (pl. hálózati kapcsolat) igénybevételével.
 
@@ -195,7 +195,7 @@ Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövi
 
 A `DataReader` kapcsolati lánc az adatbázisig:
 
-![Struktúra](./images/datareader.png)
+![Struktúra]((/assets/lecture-notes/adonet/images/datareader.png)
 
 **Példa** `DataReader` használatára:
 
@@ -254,11 +254,11 @@ A `DataSet` egyfajta *cache*-nek, vagy memóriabeli adattárnak tekinthető. Egy
 
 Az adatelérés működése `adapter`-rel kapcsolat nélküli modellben az alábbi ábrán látható.
 
-![Data adapter használata](./images/adapter.png)
+![Data adapter használata]((/assets/lecture-notes/adonet/images/adapter.png)
 
 `DataSet` kapcsolati lánc az adatbázisig:
 
-![DataSet kapcsolati lánc](./images/dataset.png)
+![DataSet kapcsolati lánc]((/assets/lecture-notes/adonet/images/dataset.png)
 
 **Példa** `DataSet` használatára:
 

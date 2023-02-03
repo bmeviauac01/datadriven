@@ -25,28 +25,28 @@ The detailed description below shows the entire procedure. This summary is an ov
 
 1. If needed, authorize the _GitHub Classroom_ application to use your account data.
 
-    ![Authorize GitHub classroom](images/github/github-authorize-classroom.png)
+    ![Authorize GitHub classroom](/assets/homework/github/github-authorize-classroom.png)
 
 1. You will see a page where you can "Accept the ... assignment". Click the button.
 
-    ![Accept assignment](images/github/github-accept-assignment.png)
+    ![Accept assignment](/assets/homework/github/github-accept-assignment.png)
 
 1. Wait for the repository creation to finish. You will get the repository URL here.
 
     !!! note "Note"
         The repository will be private. No one but you and the instructor will see it.
 
-    ![Repository created](images/github/github-repository-create-success.png)
+    ![Repository created](/assets/homework/github/github-repository-create-success.png)
 
 1. Open the repository webpage by following the link. You will need this URL, so remember it.
 
-    ![Repository webpage](images/github/github-repository-webpage.png)
+    ![Repository webpage](/assets/homework/github/github-repository-webpage.png)
 
 1. Clone your repository. You will need the repository git URL, which you can get from the repository webpage following the _Clone or download_ button.
 
     You may use any git client. The simplest one is [GitHub Desktop](https://desktop.github.com/) if you do not have a favorite yet. You can list your repositories in this application directly from GitHub.
 
-    ![GitHub Desktop repository clone](images/github/github-desktop-clone.png)
+    ![GitHub Desktop repository clone](/assets/homework/github/github-desktop-clone.png)
 
     If you are using the shell or the console, the following command performs the clone (if the `git` command is available): `git clone <repository link>`
 
@@ -54,7 +54,7 @@ The detailed description below shows the entire procedure. This summary is an ov
 
     In GitHub Desktop, use the _Branch_ menu for creating a new one.
 
-    ![GitHub Desktop create branch](images/github/github-desktop-new-branch.png)
+    ![GitHub Desktop create branch](/assets/homework/github/github-desktop-new-branch.png)
 
     If using the console, use the following command: `git checkout -b solution`
 
@@ -79,11 +79,11 @@ The detailed description below shows the entire procedure. This summary is an ov
 
     To commit using GitHub Desktop, first check if you are on the right branch. During the first push, the _solution_ branch needs to be published.
 
-    ![GitHub Desktop push branch](images/github/github-desktop-commit-to-branch.png)
+    ![GitHub Desktop push branch](/assets/homework/github/github-desktop-commit-to-branch.png)
 
     When adding further commits, verify the branch. You can publish the commit using the _Push origin_ button. The little number on this button shows you how many commits need pushing.
 
-    ![GitHub Desktop commit and push](images/github/github-desktop-push-commit.png)
+    ![GitHub Desktop commit and push](/assets/homework/github/github-desktop-push-commit.png)
 
     If you are using the console, use the following commands:
 
@@ -108,7 +108,7 @@ The detailed description below shows the entire procedure. This summary is an ov
 
 1. When you are ready with the exercises, verify on the repository web page that you uploaded everything. You may need to switch branches.
 
-    ![GitHub web switch branch](images/github/github-switch-branch-webpage.png)
+    ![GitHub web switch branch](/assets/homework/github/github-switch-branch-webpage.png)
 
     !!! warning "GitHub web file upload"
         We recommend that you do not use GitHub web file upload. If something is missing, add it to your local repository and commit and push again.
@@ -120,21 +120,21 @@ The detailed description below shows the entire procedure. This summary is an ov
 
     To open the _pull request_, you need to go to the repository's GitHub web frontend. If you pushed recently, GitHub will offer you to create the pull request.
 
-    ![GitHub create pull request](images/github/github-create-pull-request-1.png)
+    ![GitHub create pull request](/assets/homework/github/github-create-pull-request-1.png)
 
     You may also open the _pull request_ from the menu at the top. It is important to specify the correct branches: `master` is the target into which `solution` is merged.
 
-    ![GitHub create pull request](images/github/github-create-pull-request-2.png)
+    ![GitHub create pull request](/assets/homework/github/github-create-pull-request-2.png)
 
     When the _pull request_ is created, you will see a little number "1" on the _Pull request_ menu showing you that there is one open item there. **YOU ARE NOT FINISHED YET!**
 
-    ![GitHub create pull request](images/github/github-create-pull-request-4.png)
+    ![GitHub create pull request](/assets/homework/github/github-create-pull-request-4.png)
 
 1. The _pull request_ will trigger a preliminary evaluation. You will see the result of this evaluation as a comment added to the pull request thread.
 
     This will be different for each homework. Your code will be executed and tested, and you will receive a preliminary result too.
 
-    ![GitHub create pull request](images/github/github-pull-request-eval-result.png)
+    ![GitHub create pull request](/assets/homework/github/github-pull-request-eval-result.png)
 
      If you need more information about the evaluation and the results, _GitHub Actions_ can provide you more. A short introduction is provided [here](GitHub-Actions.md).
 
@@ -143,18 +143,18 @@ The detailed description below shows the entire procedure. This summary is an ov
     !!! tip "Making further changes without running the evaluation"
         If you want to make changes to your submission and not have the re-evaluation run, you should **convert the pull request to draft**.
 
-        ![GitHub create pull request](images/github/github-convert-pr-to-draft.png)
+        ![GitHub create pull request](/assets/homework/github/github-convert-pr-to-draft.png)
 
         This state means work in progress. You can commit and push freely. These will not trigger any evaluation. Once ready, you **must** change the state back: go to the bottom of the PR and click "Ready for review." This will set the PR back to its normal state and trigger an automated evaluation.
 
-        ![GitHub create pull request](images/github/github-draft-pr-ready.png)
+        ![GitHub create pull request](/assets/homework/github/github-draft-pr-ready.png)
 
     !!! note "Maximum 5"
         Evaluations that fail due to transient errors, such as network problems, are not counted into the 5 evaluations. But if you trigger more evaluation by mistake, or on purpose, it will be sanctioned. You are required to **test your solution locally** before submitting it.
 
 1. **FINALLY**, when you are ready, assign the _pull request_ to the instructor. This step is considered as the submission of your work.
 
-    ![GitHub create pull request](images/github/github-create-pull-request-3.png)
+    ![GitHub create pull request](/assets/homework/github/github-create-pull-request-3.png)
 
     !!! error "Without pull request"
         If you have no pull request, or it is not assigned to the instructor, we consider it work in progress and not submitted.
@@ -166,7 +166,7 @@ The detailed description below shows the entire procedure. This summary is an ov
 
 If you have questions on concerns regarding the automated evaluation, use the pull request for communication with the instructor by asking questions via comments. To let the instructor know you have questions, please use `@akosdudas` [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) in the PR comment. This will automatically send an email notification.
 
-![GitHub PR asking questions](images/github/github-question-in-pr.png)
+![GitHub PR asking questions](/assets/homework/github/github-question-in-pr.png)
 
 !!! warning "Please provide proof"
     Please note that if you think the evaluation made a mistake, you must support your question/complaint with proof (e.g., show how you tested your solution and prove that it worked).

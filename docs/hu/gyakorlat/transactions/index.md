@@ -35,21 +35,21 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 
 1. Hozza létre a minta adatbázist a generáló script lefuttatásával. Nyisson egy új _Query_ ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
 
-    ![Adatbázis kiválasztása](images/sql-management-database-dropdown.png)
+    ![Adatbázis kiválasztása](/assets/seminar/transactions/images/sql-management-database-dropdown.png)
 
 1. Ellenőrizze, hogy létrejöttek-e a táblák. Ha a _Tables_ mappa ki volt már nyitva, akkor frissíteni kell.
 
-    ![Adatbázis kiválasztása](images/sql-managment-tablak.png).
+    ![Adatbázis kiválasztása](/assets/seminar/transactions/images/sql-managment-tablak.png).
     
 1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítótárát frissítsük.
 
-    ![IntelliSense](images/intellisense.png).
+    ![IntelliSense](/assets/seminar/transactions/images/intellisense.png).
 
 ## Feladat 2: Párhuzamos tranzakciók
 
 Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válasszuk a _New Vertical Tab Group_ opciót:
 
-![Két tranzakció elhelyezése egymás mellé](images/sql-management-tab-group.png)
+![Két tranzakció elhelyezése egymás mellé](/assets/seminar/transactions/images/sql-management-tab-group.png)
 
 Használja az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
 megváltoztatja a státuszt csomagolváról szállítás alattira.

@@ -71,7 +71,7 @@ The company is moving to a new location. We need to know whether the current sto
 
 The products have the necessary information in `description.product.package_parameters`:
 
-![Product size](product-size.png)
+![Product size](/assets/homework/mongodb/product-size.png)
 
 Use this to calculate the total volume of all items:
 

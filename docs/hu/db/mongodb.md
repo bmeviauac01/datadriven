@@ -32,16 +32,16 @@ A Robo 3T egy egyszerű és ingyenes kliensprogram MongoDB adatbázis használat
 
 A program indulásakor kiválaszthatjuk a már korábban létrehozott kapcsolatunkat, vagy készíthetünk egy újat. Alapértelmezésként a helyben futó szervert a `localhost` címen és a `27017` porton érhetjük el.
 
-![Kapcsolódás](./images/robo3t-connection.png)
+![Kapcsolódás](/assets/db/images/robo3t-connection.png)
 
 A sikeres kapcsolódás után az alkalmazás bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a _Create Database_ parancsot. Mi azonban ezt nem használjuk.)
 
-![Gyűjtemények](./images/robo3t-db-collections.png)
+![Gyűjtemények](/assets/db/images/robo3t-db-collections.png)
 
 A gyűjtemények tartalmát dupla kattintással tekinthetjük meg. Ez egy új tab fület nyit, ahol is egy keresést végzett a kliens nekünk. Ezt a keresési parancsot lecserélhetjük, átírhatjuk, ha szükségünk van rá.
 
 A gyűjtemény tartalma a parancs alatt található. Egy-egy dokumentum egy-egy sor. A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással tudjuk. A szerkesztés során a JSON dokumentumot szerkesztjük.
 
-![Gyűjtemény tartalma](./images/robo3t-collection-list.png)
+![Gyűjtemény tartalma](/assets/db/images/robo3t-collection-list.png)
 
 Új dokumentumot beszúrni szintén jobb egérrel kattintva tudunk. Itt egy üres szerkesztőt kapunk. Ha új rekordot akarunk létrehozni, célszerű egy meglevő dokumentum JSON-jét lemásolni és úgy hozni létre az újat, hogy a kulcsok nevei biztosan jók legyenek.

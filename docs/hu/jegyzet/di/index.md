@@ -139,7 +139,7 @@ Pár általános gondolat:
 
 Mint látható, a `SendEmailReminder` műveletet egy objektumgráf szolgálja ki, ahol a `NotificationService` a gyökérobjektum, melynek három függősége van, és a függőségeinek (legalábbis az `EMailSender`-nek) vannak további függőségei. A következő ábra ezt az objektumgráfot illusztrálja:
 
-![Object graph 1](./images/object-graph-1.svg)
+![Object graph 1](/assets/lecture-notes/di/images/object-graph-1.svg)
 
 !!! note "Megjegyzés"
     Felmerülhet bennünk a kérdés, miért a `NotificationService`-t, és nem a `ToDoService`-t tekintjük gyökérobjektumnak. Valójában ez csak a nézőpontunkon múlik: az egyszerűség kedvéért a `ToDoService`-t egyfajta belépési pontnak ("kliensnek") tekintjük a kérés vonatkozásában annak érdekében, hogy kevesebb osztályt kelljen a következőkben megvizsgálnunk és átalakítanunk. Egy való életbeli alkalmazásban a `ToDoService`-t is jó eséllyel a függőségi gráf részének tekintenénk.
@@ -412,7 +412,7 @@ A feloldás (GetService hívás) során a konténernek egy `NotificationService`
 
 A feloldás végére - vagyis amikor visszatér a fenti `GetService<INotificationService>()` hívás - előáll a teljesen felparaméterezett `NotificationService` objektum, valamennyi közvetlen és közvetett függőségével, vagyis egy __objektumgráf__-ot kapunk:
 
-![Object graph 2](./images/object-graph-2.svg)
+![Object graph 2](/assets/lecture-notes/di/images/object-graph-2.svg)
 
 A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével (a gyakorlatban jellemzően a konstruktor paraméterek felderítésével) a beregisztrált absztrakció->implementáció leképezések alapján képes objektumgráfokat előállítani __autowiring__-nek nevezzük.
 
@@ -420,7 +420,7 @@ A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok füg
 
 Azon túl, hogy a megoldásunkat IoC konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A `ToDoService` osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core `ControllerBase` leszármazott `TodoController` osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A `ToDoService` osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework `DbContext` leszármazott `TodoContext` osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:
 
-![Object graph 3](./images/object-graph-3.svg)
+![Object graph 3](/assets/lecture-notes/di/images/object-graph-3.svg)
 
 Az előző két fejezetben feltettük, hogy a `GetService` hívásához egy `IServiceProvider` objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében `IServiceProvider`hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. __A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.__  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a routing szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, __a root object maga a controller osztály__.
 

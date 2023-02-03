@@ -22,7 +22,7 @@ Therefore, we need to prepare to wait for the results queried from the database 
 
 The sample application presented here uses a simplified database structure as follows.
 
-![Database structure](images/dbdiagram.png)
+![Database structure](/assets/lecture-notes/async/images/dbdiagram.png)
 
 !!! note ""
     For simplicity, the _UserId_ of the carts is not a foreign key to a _Users_ table, but a fixed constant of 1. Obviously, in a real-life example, _UserId_ would be a foreign key.

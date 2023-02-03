@@ -350,7 +350,7 @@ A módosítás teszteléséhez az alábbi beállításokra lesz szükség:
     }
     ```
 
-![Postman PUT kérés](images/postman-put-query.png)
+![Postman PUT kérés](/assets/seminar/rest/images/postman-put-query.png)
 
 Próbáljuk ki a kérést úgyis, hogy nem egyezik a path-ban és a body-ban lévő két ID. Ilyenkor 400-as Bad Requestet kell kapjunk a hiba részleteivel.
 

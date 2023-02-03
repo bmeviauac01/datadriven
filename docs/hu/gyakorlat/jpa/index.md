@@ -103,7 +103,7 @@ Futás közben a Console nézetben látszódnak a Hibernate által generált SQL
 
 Jobb klikk a webshop projekten > _Debug As / Spring Boot App_ Ez debug módban indítja az alkalmazást, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <http://localhost:9080> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:
 
-![Eclipse futtatás](images/eclipse-run.png)
+![Eclipse futtatás](/assets/seminar/jpa/images/eclipse-run.png)
 
 A futó alkalmazást a _Console_ nézet piros _Terminate_ ikonjával lehet leállítani. Ha leállítás nélkül próbáljuk újra futtatni, akkor a második processz ütközést jelent a 9080-as porton, és leáll. Ilyenkor a sikertelen második futtatás látszik a _Console_ nézetben, a _Terminate_ gomb pedig inaktív, mivel ez a futás már leállt. Nyomjuk meg a Terminate ikon melletti dupla szürke X ikont, ez el fogja távolítani a már leállított futtatásokat, és csak az aktív futtatás látszik, amin viszont már tudunk _Terminate_-et nyomni.
 
@@ -173,7 +173,7 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     
     A dao package-ben lévő `ProductRepositoryImpl` osztály hibás lesz emiatt, mert nem implementálja a `ProductRepositoryCustom`-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:
     
-    ![Eclipse interfész implementálása](images/eclipse-implement-methods.png)
+    ![Eclipse interfész implementálása](/assets/seminar/jpa/images/eclipse-implement-methods.png)
     
     Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)
     

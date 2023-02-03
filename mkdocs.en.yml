@@ -20,8 +20,8 @@ nav:
       - db/index.md
       - db/mssql.md
       - db/mongodb.md
-      - "Sample database: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql
-      - "Sample database: mongo.js": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js
+      - "Sample database: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/assets/db/mssql.sql
+      - "Sample database: mongo.js": https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/assets/db/mongo.js
   - "Lecture notes":
       - lecture-notes/architecture/index.md
       - lecture-notes/transactions/index.md
