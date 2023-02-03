@@ -1,5 +1,6 @@
 INHERIT: mkdocs.common.yml
 
+site_author: Albert István, Tóth Tibor
 site_name: BMEVIAUAC01 Adatvezérelt rendszerek
 docs_dir: 'docs/hu'
 site_dir: 'generated/hu'

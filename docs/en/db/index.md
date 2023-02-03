@@ -14,7 +14,7 @@ An _invoice_ is printed if the order is ready. An invoice cannot be changed once
 
 The model of the whole database is depicted below.
 
-![Data scheme](images/db.png)
+![Data scheme](/assets/db/images/db.png)
 
 ### Tables and columns
 

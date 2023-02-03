@@ -1,66 +1,18 @@
+INHERIT: mkdocs.common.yml
+
+site_author: István Albert, Tibor Tóth
 site_name: BMEVIAUAC01 Data-driven systems
-site_author: Dudás Ákos
-copyright: Copyright &copy; BME VIK AUT
-repo_name: bmeviauac01/datadriven-en
-repo_url: https://github.com/bmeviauac01/datadriven-en
+docs_dir: 'docs/en'
+site_dir: 'generated/en'
 
 theme:
-  name: material
   language: en
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      primary: red
-      accent: red
-      toggle:
-        icon: material/lightbulb-outline
-        name: Switch to dark theme
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: red
-      toggle:
-        icon: material/lightbulb
-        name: Switch to light theme
-  font:
-    text: Roboto
-    code: Roboto Mono
-  features:
-    - navigation.tabs
-    - navigation.instant
-    - navigation.top
-    - search.suggest
-  logo: img/logo-bme-aut.png
-  favicon: img/favicon.ico
-
-extra_css:
-  - extra-material-theme.css
-
-extra:
-  generator: false
-
-markdown_extensions:
-  - admonition
-  - toc:
-      permalink: true
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.details
-  - pymdownx.highlight
-  - pymdownx.superfences
-  - pymdownx.inlinehilite
-  - pymdownx.caret
-  - pymdownx.critic
-  - pymdownx.details
-  - pymdownx.magiclink
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tabbed
-  - pymdownx.tilde
 
 plugins:
   - search:
-      prebuild_index: true
+      lang: en
+  - git-revision-date-localized:
+      locale: en
 
 nav:
   - index.md
