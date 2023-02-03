@@ -23,13 +23,13 @@ jobs:
         uses: ./
         with:
           entrypoint: mkdocs
-          args: build --configuration-file=mkdocs.hu.yml
+          args: build --config-file=mkdocs.hu.yml
 
       - name: Build EN docs
         uses: ./
         with:
           entrypoint: mkdocs
-          args: build --configuration-file=mkdocs.hu.yml
+          args: build --config-file=mkdocs.hu.yml
 
       - name: Deploy docs to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
