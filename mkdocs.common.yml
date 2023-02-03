@@ -1,6 +1,6 @@
 copyright: Copyright &copy; BME VIK AUT
-repo_name: bmeviauac01/adatvezerelt
-repo_url: https://github.com/bmeviauac01/adatvezerelt
+repo_name: bmeviauac01/datadriven
+repo_url: https://github.com/bmeviauac01/datadriven
 
 theme:
   name: material
@@ -76,5 +76,5 @@ plugins:
     type: timeago
     timezone: Europe/Budapest
   git-committers:
-    repository: bmeviauac01/adatvezerelt
+    repository: bmeviauac01/datadriven
     branch: master

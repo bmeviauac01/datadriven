@@ -1,10 +1,10 @@
 # BMEVIAUAC01 Adatvezérelt rendszerek
 
-![Build docs](https://github.com/bmeviauac01/adatvezerelt/workflows/Build%20docs/badge.svg?branch=master)
+![Build docs](https://github.com/bmeviauac01/datadriven/workflows/Build%20docs/badge.svg?branch=master)
 
 [BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Course/VIAUAC01/) tárgy jegyzetei, gyakorlati anyagai, házi feladatai.
 
-A jegyzetek MkDocs segítségével készülnek és GitHub Pages-en kerülnek publikálásra: <https://bmeviauac01.github.io/adatvezerelt/>
+A jegyzetek MkDocs segítségével készülnek és GitHub Pages-en kerülnek publikálásra: <https://bmeviauac01.github.io/datadriven/>
 
 ## MKDocs tesztelése (Docker-rel)
 
@@ -36,11 +36,11 @@ A repository tartalmaz egy Dockerfile-t, ami at MKDocs keretrendszer és függő
 
 # BMEVIAUAC01 Data-driven systems
 
-![Build docs](https://github.com/bmeviauac01/datadriven-en/workflows/Build%20docs/badge.svg?branch=master)
+![Build docs](https://github.com/bmeviauac01/datadriven/workflows/Build%20docs/badge.svg?branch=master)
 
 [BMEVIAUAC01 Data-driven systems](https://www.aut.bme.hu/Course/ENVIAUAC01/) course lecture notes, seminar materials and homework exercises.
 
-The content in built using MkDocs and is published to GitHub Pages at: <https://bmeviauac01.github.io/datadriven-en/>
+The content in built using MkDocs and is published to GitHub Pages at: <https://bmeviauac01.github.io/datadriven/en/>
 
 ## Render website (with Docker)
 

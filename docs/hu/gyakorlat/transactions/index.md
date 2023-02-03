@@ -8,7 +8,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mssql.sql)
 
 Amit érdemes átnézned:
 
