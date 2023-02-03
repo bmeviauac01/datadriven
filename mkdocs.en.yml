@@ -9,10 +9,10 @@ theme:
   language: en
 
 plugins:
-  - search:
-      lang: en
-  - git-revision-date-localized:
-      locale: en
+  search:
+    lang: en
+  git-revision-date-localized:
+    locale: en
 
 nav:
   - index.md

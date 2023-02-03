@@ -9,10 +9,10 @@ theme:
   language: hu
 
 plugins:
-  - search:
-      lang: hu
-  - git-revision-date-localized:
-      locale: hu
+  search:
+    lang: hu
+  git-revision-date-localized:
+    locale: hu
 
 nav:
   - index.md

@@ -69,13 +69,13 @@ markdown_extensions:
   - pymdownx.keys
 
 plugins:
-  - search:
-      prebuild_index: true
-  - glightbox
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: timeago
-      timezone: Europe/Budapest
-  - git-committers:
-      repository: bmeviauac01/adatvezerelt
-      branch: master  
+  search:
+    prebuild_index: true
+  glightbox: { } # https://squidfunk.github.io/mkdocs-material/insiders/getting-started/#built-in-plugins key-value syntax
+  git-revision-date-localized:
+    enable_creation_date: true
+    type: timeago
+    timezone: Europe/Budapest
+  git-committers:
+    repository: bmeviauac01/adatvezerelt
+    branch: master  
