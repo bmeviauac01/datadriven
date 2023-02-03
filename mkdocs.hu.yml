@@ -2,7 +2,7 @@ INHERIT: mkdocs.common.yml
 
 site_author: Albert István, Tóth Tibor
 site_name: BMEVIAUAC01 Adatvezérelt rendszerek
-site_url: https://bmeviauac01.github.io/datadriven/hu/
+base_url: /datadriven/hu/
 docs_dir: 'docs/hu'
 site_dir: 'site/hu'
 
@@ -26,34 +26,34 @@ nav:
       - "Minta adatbázis: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mssql.sql
       - "Minta adatbázis: mongo.js": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mongo.js
   - "Jegyzetek":
-      - jegyzet/architektura/index.md
-      - jegyzet/transactions/index.md
-      - jegyzet/mssql/sql.md
-      - jegyzet/mssql/server-side-programming.md
-      - jegyzet/adonet/index.md
-      - jegyzet/linq/index.md
-      - jegyzet/ef/index.md
-      - jegyzet/mongodb/index.md
-      - jegyzet/di/index.md
-      - jegyzet/async/index.md
-      - jegyzet/openapi/index.md
+      - lecture-notes/architecture/index.md
+      - lecture-notes/transactions/index.md
+      - lecture-notes/mssql/sql.md
+      - lecture-notes/mssql/server-side-programming.md
+      - lecture-notes/adonet/index.md
+      - lecture-notes/linq/index.md
+      - lecture-notes/ef/index.md
+      - lecture-notes/mongodb/index.md
+      - lecture-notes/di/index.md
+      - lecture-notes/async/index.md
+      - lecture-notes/openapi/index.md
       - "REST és WebAPI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
       - "ASP.NET Core DI demó alkalmazás (GitHub)": https://github.com/bmeviauac01/todoapi-di-sample
       - "Minta többrétegű webalkalmazás (GitHub)": https://github.com/bmeviauac01/threelayered-aspnetcore-sample
   - "Gyakorlatok":
-      - gyakorlat/transactions/index.md
-      - gyakorlat/mssql/index.md
-      - gyakorlat/ef/index.md
-      - gyakorlat/mongodb/index.md
-      - gyakorlat/jpa/index.md
-      - gyakorlat/rest/index.md
+      - seminar/transactions/index.md
+      - seminar/mssql/index.md
+      - seminar/ef/index.md
+      - seminar/mongodb/index.md
+      - seminar/jpa/index.md
+      - seminar/rest/index.md
   - "Házi feladatok":
-      - hazi/index.md
-      - hazi/mssql/index.md
-      - hazi/adonet/index.md
-      - hazi/ef/index.md
-      - hazi/mongodb/index.md
-      - hazi/rest/index.md
-      - hazi/GitHub.md
-      - hazi/GitHub-Actions.md
-      - hazi/VisualStudio.md
+      - homework/index.md
+      - homework/mssql/index.md
+      - homework/adonet/index.md
+      - homework/ef/index.md
+      - homework/mongodb/index.md
+      - homework/rest/index.md
+      - homework/GitHub.md
+      - homework/GitHub-Actions.md
+      - homework/VisualStudio.md

@@ -426,7 +426,7 @@ exec InsertNewVAT 27
 
 A tárolt eljárások az adatbázisunk részei. Microsoft SQL Server Management Studio-ban például a képen látható helyen jelennek meg:
 
-![Tárolt eljárás az adatbázisban](/assets/lecture-notes/mssql/img/mssql-stored-proc-in-db.png)
+![Tárolt eljárás az adatbázisban](img/mssql-stored-proc-in-db.png)
 
 ### Skalár függvény
 
@@ -581,7 +581,7 @@ select 'Product deleted: ' + convert(nvarchar, d.Name) from deleted d
 
 A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a `DROP TRIGGER` utasítással). A trigger az érintett táblához kötve látható az adatbázisban:
 
-![Trigger az adatbázisban](/assets/lecture-notes/mssql/img/mssql-trigger-in-db.png)
+![Trigger az adatbázisban](img/mssql-trigger-in-db.png)
 
 Egy DML trigger definiálásának szintaktikája az alábbi:
 

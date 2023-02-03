@@ -95,13 +95,13 @@ A **labor termekhez** kulcsra és/vagy kártyára van szükség. Ezeket a titká
 
 ## Tudnivalók a házi feladatokkal kapcsolatban
 
-A félév során a házi feladatok vannak meghirdetve, amiket adott határidőig kell beadni GitHub-on. Ennek pontos menete a hallgató szemszögéből [itt](../hazi/index.md) elolvasható.
+A félév során a házi feladatok vannak meghirdetve, amiket adott határidőig kell beadni GitHub-on. Ennek pontos menete a hallgató szemszögéből [itt](../homework/index.md) elolvasható.
 
 Ahhoz, hogy hozzáférj a GitHub-on a beadott megoldásokhoz (és ahhoz, hogy a hallgatók ezt hozzád tudják rendelni), kell egy GitHub account. A GitHub nevedet írd meg a tárgyfelelősnek, és felvesz GitHub-on a <https://www.github.com/bmeviauac01> organization-be.
 
 ### Mikor kell értékelni a házit?
 
-A házikat a határidő lejárta után kell értékelni. A határidő előtt a megoldásokra nem kell ránézni, kivéve, ha ezt a hallgató kéri. Kérdéssel a hallgató direktben kell megkeressen (pl. emailben vagy [GitHub-on](../hazi/GitHub.md#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio)).
+A házikat a határidő lejárta után kell értékelni. A határidő előtt a megoldásokra nem kell ránézni, kivéve, ha ezt a hallgató kéri. Kérdéssel a hallgató direktben kell megkeressen (pl. emailben vagy [GitHub-on](../homework/GitHub.md#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio)).
 
 ### Hol kell értékelni a házit?
 

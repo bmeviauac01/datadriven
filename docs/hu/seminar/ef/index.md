@@ -41,7 +41,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).
 
-![VS projekt típus](/assets/seminar/ef/images/vs-create-project.png)
+![VS projekt típus](images/vs-create-project.png)
 
 Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába dolgozz.
 
@@ -128,9 +128,9 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 
     - Vegyük fel most kézzel ebbe a táblába az `Init` migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, **ezért a Solution Explorerből a fájl nevét másoljuk ki**!
 
-        ![VS Solution Explorer, migration file](/assets/seminar/ef/images/migration_codefile.png)
+        ![VS Solution Explorer, migration file](images/migration_codefile.png)
 
-        ![VS Migration History](/assets/seminar/ef/images/vs-migration-history.png)
+        ![VS Migration History](images/vs-migration-history.png)
 
     - Módosítsunk az adatbázis sémán a code-first modellünkben.
 
@@ -177,9 +177,9 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.
 
 Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az `IQueryable` típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
-![SQL megnézése Debuggerben](/assets/seminar/ef/images/View_SQL_in_Debugger.png)
+![SQL megnézése Debuggerben](images/View_SQL_in_Debugger.png)
 A naplózás is bekapcsolható az alábbi paranccsal:
-![SQL naplózás bekapcsolása](/assets/seminar/ef/images/EFlogging.png)
+![SQL naplózás bekapcsolása](images/EFlogging.png)
 
 Feladatok:
 

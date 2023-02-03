@@ -6,7 +6,7 @@ GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **megh
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok).
 
-Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../gyakorlat/mongodb/index.md) leírt módon.
+Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../seminar/mongodb/index.md) leírt módon.
 
 ## Feladat 0: Neptun kód
 

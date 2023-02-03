@@ -14,7 +14,7 @@ A számla (_invoice_) olyan bizonylat, melynek az adatai később nem változtat
 
 Az alábbi ábra szemlélteti a nyilvántartórendszer adatmodelljét.
 
-![Adatmodell](/assets/db/images/db.png)
+![Adatmodell](images/db.png)
 
 ### Táblák és attribútumok
 

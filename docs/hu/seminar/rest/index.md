@@ -350,7 +350,7 @@ A módosítás teszteléséhez az alábbi beállításokra lesz szükség:
     }
     ```
 
-![Postman PUT kérés](/assets/seminar/rest/images/postman-put-query.png)
+![Postman PUT kérés](images/postman-put-query.png)
 
 Próbáljuk ki a kérést úgyis, hogy nem egyezik a path-ban és a body-ban lévő két ID. Ilyenkor 400-as Bad Requestet kell kapjunk a hiba részleteivel.
 
@@ -434,7 +434,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
 
 ## Feladat 6 (opcionális): Aszinkron kontroller metódus
 
-Az előbbi feladatot írjuk át [**aszinkronra**](../../jegyzet/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
+Az előbbi feladatot írjuk át [**aszinkronra**](../../lecture-notes/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
 
 ??? example "Megoldás"
 

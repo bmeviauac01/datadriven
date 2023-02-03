@@ -22,7 +22,7 @@ Ezért fel kell készülni arra, hogy a kiszolgálás során kért adatokra vár
 
 Az alkalmazásunk a tárgy minta adatbázisához hasonló, de egyszerűbb adatbázissal dolgozik, az ER diagramja itt látható:
 
-![Az alkalmazás adatbázis diagramja](/assets/lecture-notes/async/images/dbdiagram.png)
+![Az alkalmazás adatbázis diagramja](images/dbdiagram.png)
 
 !!! note ""
     Az egyszerűség kedvéért a kosarakban a _UserID_ nem idegen kulcsként szerepel egy _Users_ táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a _UserID_ idegen kulcs lenne.
@@ -126,7 +126,7 @@ namespace WebshopApi.Models
 
 Az adatbázisban szereplő egyes táblákat _DbSet_-ek definiálásával tudjuk elérni. A _DbSet_-eknek meg kell adni, hogy milyen entitásokat tárolnak (pl. a `DbSet<Products>` egy `Products` entitásokat tároló `DbSet`), valamint a nevüket.
 
-A konstruktorban szereplő `DbContextOptions`-t a kontextus konfigurálására lehet használni. Erre egy példa, az alkalmazás `Startup` osztályában (lásd [REST API & ASP.NET Web API gyakorlat](../../gyakorlat/rest/index.md)) a következő konfiguráció:
+A konstruktorban szereplő `DbContextOptions`-t a kontextus konfigurálására lehet használni. Erre egy példa, az alkalmazás `Startup` osztályában (lásd [REST API & ASP.NET Web API gyakorlat](../../seminar/rest/index.md)) a következő konfiguráció:
 
 ```csharp
 public class Startup
@@ -216,7 +216,7 @@ Ezt a `UserCart` objektumot küldjük a kliens felé a kontrollerből, miután �
 
 ### Controller osztály létrehozása
 
-A kontroller osztályunkat érdemes egy _Controllers_ mappába szervezni, majd a [REST API & ASP.NET Web API gyakorlaton](../../gyakorlat/rest/index.md) alapján hozzunk létre egy Controller osztályt. Ez tartalmazni fog egy `WebshopContext`-et, valamint a HTTP kérések kiszolgálásához létrehozott végpontokat.
+A kontroller osztályunkat érdemes egy _Controllers_ mappába szervezni, majd a [REST API & ASP.NET Web API gyakorlaton](../../seminar/rest/index.md) alapján hozzunk létre egy Controller osztályt. Ez tartalmazni fog egy `WebshopContext`-et, valamint a HTTP kérések kiszolgálásához létrehozott végpontokat.
 
 Itt szembesülünk először az aszinkronitással. Nézzük egy példán keresztül:
 
