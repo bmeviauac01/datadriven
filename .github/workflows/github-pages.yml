@@ -29,7 +29,7 @@ jobs:
         uses: ./
         with:
           entrypoint: mkdocs
-          args: build --config-file=mkdocs.hu.yml
+          args: build --config-file=mkdocs.en.yml
           
       - name: Copy redirect index page
         run: sudo cp ./index.html ./site
