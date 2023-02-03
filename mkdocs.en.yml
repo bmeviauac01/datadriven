@@ -3,7 +3,7 @@ INHERIT: mkdocs.common.yml
 site_author: István Albert, Tibor Tóth
 site_name: BMEVIAUAC01 Data-driven systems
 docs_dir: 'docs/en'
-site_dir: 'generated/en'
+site_dir: 'site/en'
 
 theme:
   language: en
