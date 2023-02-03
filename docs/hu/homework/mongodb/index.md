@@ -71,7 +71,7 @@ Egy cég új telephelyre költözik. A vezetésnek szüksége van arra az inform
 
 A termékeink egy részénél van méret információ a `description.product.package_parameters` alatt:
 
-![Termék méret adat](/assets/homework/mongodb/product-size.png)
+![Termék méret adat](homework/mongodb/product-size.png)
 
 Ebből kell kiszámolni a teljes raktárkészlet térfogatát:
 
