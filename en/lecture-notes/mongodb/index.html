@@ -1,0 +1,1365 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="István Albert, Tibor Tóth" name="author"/>
+<link href="../ef/" rel="prev"/>
+<link href="../di/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>MongoDB basics, operations, and the MongoDB .NET Driver - BMEVIAUAC01 Data-driven systems</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#mongodb-basics-operations-and-the-mongodb-net-driver">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Data-driven systems" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Data-driven systems">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Data-driven systems
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              MongoDB basics, operations, and the MongoDB .NET Driver
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Data-driven systems
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
+        Database
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../architecture/">
+        Lecture notes
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../seminar/transactions/">
+        Seminars
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../homework/">
+        Homework
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Data-driven systems" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Data-driven systems">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Data-driven systems
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Data-driven systems
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
+        Sample database scheme
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
+        Using Microsoft SQL Server
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
+        Using MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mssql.sql">
+        Sample database: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mongo.js">
+        Sample database: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Lecture notes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Lecture notes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture/">
+        Data-driven systems and the three- or multi-tier architecture
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../transactions/">
+        Transactions in databases
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/sql/">
+        SQL language, MSSQL platform-specific SQL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/server-side-programming/">
+        Microsoft SQL Server programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../adonet/">
+        ADO.NET data access
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
+        Defining relationships in Entity Framework
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          MongoDB basics, operations, and the MongoDB .NET Driver
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        MongoDB basics, operations, and the MongoDB .NET Driver
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nosql-databases">
+    NoSQL databases
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-concepts-of-mongodb">
+    Basic concepts of MongoDB
+  </a>
+<nav aria-label="Basic concepts of MongoDB" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logical-structure">
+    Logical structure
+  </a>
+<nav aria-label="Logical structure" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#document">
+    Document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#collection">
+    Collection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database">
+    Database
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key">
+    Key
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mongodb-operations-and-the-mongodb-net-driver">
+    MongoDB operations and the MongoDB .NET Driver
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establishing-a-connection">
+    Establishing a connection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-collections">
+    Managing collections
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mapping-documents-to-c-objects">
+    Mapping documents to C# objects
+  </a>
+<nav aria-label="Mapping documents to C# objects" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-the-mapping">
+    Customizing the mapping
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#queries">
+    Queries
+  </a>
+<nav aria-label="Queries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-query-results">
+    Using query results
+  </a>
+<nav aria-label="Using query results" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listing">
+    Listing
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-firstsingle-item">
+    Get first/single item
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cursor">
+    Cursor
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#operators-for-filtering">
+    Operators for filtering
+  </a>
+<nav aria-label="Operators for filtering" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comparison-operators">
+    Comparison operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#boolean-operators">
+    Boolean operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#value-is-one-of-multiple-alternatives">
+    Value is one of multiple alternatives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#value-exists-not-null">
+    Value exists (not null)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#filtering-fields-of-embedded-document">
+    Filtering fields of embedded document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#filtering-based-on-an-array-field">
+    Filtering based on an array field
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-execution-pipeline">
+    Query execution pipeline
+  </a>
+<nav aria-label="Query execution pipeline" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#paging-sorting">
+    Paging, sorting
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#number-of-documents">
+    Number of documents
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aggregation-pipeline">
+    Aggregation pipeline
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert-modify-delete">
+    Insert, Modify, Delete
+  </a>
+<nav aria-label="Insert, Modify, Delete" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inserting-a-new-document">
+    Inserting a new document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#delete-documents">
+    Delete documents
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#updating-documents">
+    Updating documents
+  </a>
+<nav aria-label="Updating documents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-document-replacement">
+    Complete document replacement
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#document-update-operators">
+    Document update operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upsert-updating-or-inserting-a-document">
+    Upsert: updating or inserting a document
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../di/">
+        Dependency Injection ASP.NET Core environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../async/">
+        Asynchronous queries and DTOs (sample WebAPI application)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST and WebAPI sample app (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI sample app (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Sample three-tier webapp (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Seminars
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Seminars
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/transactions/">
+        Transactions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/mssql/">
+        Microsoft SQL Server programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../seminar/rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Homework
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Homework
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/">
+        Optional homework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mssql/">
+        Exercise: MSSQL server-side programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/adonet/">
+        Exercise: ADO.NET data access
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/ef/">
+        Exercise: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mongodb/">
+        Exercise: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/rest/">
+        Exercise: REST API and Web API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub/">
+        Submitting your work (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub-Actions/">
+        Using GitHub Actions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/VisualStudio/">
+        Install Visual Studio &amp; .NET SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nosql-databases">
+    NoSQL databases
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-concepts-of-mongodb">
+    Basic concepts of MongoDB
+  </a>
+<nav aria-label="Basic concepts of MongoDB" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logical-structure">
+    Logical structure
+  </a>
+<nav aria-label="Logical structure" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#document">
+    Document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#collection">
+    Collection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database">
+    Database
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key">
+    Key
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mongodb-operations-and-the-mongodb-net-driver">
+    MongoDB operations and the MongoDB .NET Driver
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establishing-a-connection">
+    Establishing a connection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-collections">
+    Managing collections
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mapping-documents-to-c-objects">
+    Mapping documents to C# objects
+  </a>
+<nav aria-label="Mapping documents to C# objects" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-the-mapping">
+    Customizing the mapping
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#queries">
+    Queries
+  </a>
+<nav aria-label="Queries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-query-results">
+    Using query results
+  </a>
+<nav aria-label="Using query results" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listing">
+    Listing
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-firstsingle-item">
+    Get first/single item
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cursor">
+    Cursor
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#operators-for-filtering">
+    Operators for filtering
+  </a>
+<nav aria-label="Operators for filtering" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comparison-operators">
+    Comparison operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#boolean-operators">
+    Boolean operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#value-is-one-of-multiple-alternatives">
+    Value is one of multiple alternatives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#value-exists-not-null">
+    Value exists (not null)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#filtering-fields-of-embedded-document">
+    Filtering fields of embedded document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#filtering-based-on-an-array-field">
+    Filtering based on an array field
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-execution-pipeline">
+    Query execution pipeline
+  </a>
+<nav aria-label="Query execution pipeline" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#paging-sorting">
+    Paging, sorting
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#number-of-documents">
+    Number of documents
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aggregation-pipeline">
+    Aggregation pipeline
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert-modify-delete">
+    Insert, Modify, Delete
+  </a>
+<nav aria-label="Insert, Modify, Delete" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inserting-a-new-document">
+    Inserting a new document
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#delete-documents">
+    Delete documents
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#updating-documents">
+    Updating documents
+  </a>
+<nav aria-label="Updating documents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-document-replacement">
+    Complete document replacement
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#document-update-operators">
+    Document update operators
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upsert-updating-or-inserting-a-document">
+    Upsert: updating or inserting a document
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/datadriven/edit/master/docs/lecture-notes/mongodb/index.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="mongodb-basics-operations-and-the-mongodb-net-driver">MongoDB basics, operations, and the MongoDB .NET Driver<a class="headerlink" href="#mongodb-basics-operations-and-the-mongodb-net-driver" title="Permanent link">¶</a></h1>
+<h2 id="nosql-databases">NoSQL databases<a class="headerlink" href="#nosql-databases" title="Permanent link">¶</a></h2>
+<p>NoSQL databases are data management systems that do not work with the relational data model. The NoSQL name can be a little misleading, as the concept has little to do with the SQL language - the main difference is rather the representation of the data. Why do we need such new databases when we already have the relational model and relational databases? A small database with a simple schema can be easily described in the relational model. But our applications evolve: new functionalities are added, making the schema more complex. More and more data is added to the database making the maintenance inefficient.</p>
+<p>Relational databases need constant schema changes and updates, which can be cumbersome. Constant data migrations can be a pain. Furthermore, relational databases can be bottlenecks from the scalability perspective - but we will not discuss this aspect in more detail.</p>
+<p>NoSQL databases offer a solution to these problems. <strong>Instead of the rigid schema</strong>, NoSQL databases have <strong>a flexible schema</strong>. In other words, we will require less consistency regarding the data.</p>
+<h2 id="basic-concepts-of-mongodb">Basic concepts of MongoDB<a class="headerlink" href="#basic-concepts-of-mongodb" title="Permanent link">¶</a></h2>
+<p>MongoDB is a client-server database system that has a non-relational schema. The <em>mongod</em> (Mongo daemon) process on the right is the database server. The other side is our application, where a client connects to the database using a network connection. This connection uses the so-called <em>wire protocol</em>, which is a MongoDB proprietary communication protocol. The protocol transmits data and queries in JSON format represented in a binary fashion as BSON.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/mongodb/images/mongodb_architecture.png"><img alt="MongoDb architecture" src="/assets/lecture-notes/mongodb/images/mongodb_architecture.png"/></a></p>
+<h3 id="logical-structure">Logical structure<a class="headerlink" href="#logical-structure" title="Permanent link">¶</a></h3>
+<p>The top layer of a MongoDB database system is the so-called <em>cluster</em>. The servers are organized into these clusters. We will not discuss clusters here; these are tools for enabling scalability. The databases are the <em>mongod</em> processes, which host the databases. A MongoDB server/cluster stores multiple databases. And the databases contain <em>collections</em>. If we want to map these concepts to a relational model, then the collections correspond to the tables, and the rows/records in a table correspond to the <em>documents</em> of the collection.</p>
+<p>Let us investigate these further.</p>
+<h4 id="document">Document<a class="headerlink" href="#document" title="Permanent link">¶</a></h4>
+<p>The document is the unit of storage in MongoDB. A document is a JSON (-like) file: it contains key-value pairs. MongoDB itself stores it as a BSON in binary format.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"sue"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">age</span><span class="p">:</span><span class="w"> </span><span class="m">26</span><span class="p">,</span>
+<span class="w">    </span><span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="s">"A"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">groups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">"news"</span><span class="p">,</span><span class="w"> </span><span class="s">"sports"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The keys can have arbitrary names with a few limitations, such that they have to be unique and cannot begin with the <code>$</code> character. The names are case sensitive. Values can be string, number, date, binary, embedded document, <code>null</code>, or even as the <code>groups</code> in the example shows, an array - a relational database cannot represent an array in such a simple way.</p>
+<p>Mapping to the object-oriented world, a document is an object. MongoDB documents have a maximum size of 16MB and this is not a configurable parameter.</p>
+<h4 id="collection">Collection<a class="headerlink" href="#collection" title="Permanent link">¶</a></h4>
+<p>Collections are analogous to relational database tables, but without a schema. Collections need no definition; the system creates them upon first use. Collections are a place for "similar" documents. Although there is no schema, <em>indexes</em> can still be defined on the collections to support fast searching. Since there is no schema, there are no domain integrity requirements enforced either.</p>
+<h4 id="database">Database<a class="headerlink" href="#database" title="Permanent link">¶</a></h4>
+<p>The database has the same purpose as in the relational model. It gathers all data of our application. Access management is also configured on the database level. The name of databases is case sensitive and lowercase by convention.</p>
+<h4 id="key">Key<a class="headerlink" href="#key" title="Permanent link">¶</a></h4>
+<p>The <code>_id</code> field is the unambiguous identifier of each document. Other keys cannot be defined. This field does not need to be specified during insert; the client driver or the server can generate a new value (a 12 byte <code>ObjectId</code> by default).</p>
+<p>Uniqueness can be guaranteed with the use of indices. We can define an index and mark it as unique to create a key-like field. These unique indices can contain multiple fields too.</p>
+<p>There are no references to keys in MongoDB. A document can reference another document by copying it's key, but the system has no consistency guarantees for these (e.g., the referenced document can be deleted).</p>
+<h2 id="mongodb-operations-and-the-mongodb-net-driver">MongoDB operations and the MongoDB .NET Driver<a class="headerlink" href="#mongodb-operations-and-the-mongodb-net-driver" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p>The following code snippets use the official Nuget package <a href="https://www.nuget.org/packages/mongodb.driver">MongoDB.Driver</a>.</p>
+</div>
+<h2 id="establishing-a-connection">Establishing a connection<a class="headerlink" href="#establishing-a-connection" title="Permanent link">¶</a></h2>
+<p>To access the MongoDB database, you first need a connection. A <code>MongoClient</code> class represents the connection. We need the server address to establish a connection (see <a href="https://docs.mongodb.com/manual/reference/connection-string/">https://docs.mongodb.com/manual/reference/connection-string/</a> for details on the connection string).</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MongoClient</span><span class="p">(</span><span class="s">"mongodb://localhost:27017"</span><span class="p">);</span>
+</code></pre></div>
+<p>The connection should be treated as a singleton and not disposed of.</p>
+<div class="admonition info">
+<p class="admonition-title">Connection lifetime</p>
+<p>The connection is typically stored in a global static variable, or an IoC (Inversion of Control) / DI (Dependency Injection) store.</p>
+</div>
+<p>Although the database name may be in the connection string (e.g. <code>mongodb://localhost:27017/datadriven</code>), it is used only for authentication. Thus, after establishing the connection, we need to specify what database we will use.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">GetDatabase</span><span class="p">(</span><span class="s">"datadriven"</span><span class="p">);</span>
+</code></pre></div>
+<p>The database does not need to exist in advance. The above call will automatically create if the database does not already exist.</p>
+<h2 id="managing-collections">Managing collections<a class="headerlink" href="#managing-collections" title="Permanent link">¶</a></h2>
+<p>Unlike a relational database, <strong>in MongoDB, our operations are always performed on a single collection</strong>, so the selection of a collection is not part of the issued command (as in the <code>from</code> in SQL), but a prerequisite for the operation. You can get a specific collection by calling <code>GetCollection</code>; its generic parameter is the C# class implementing the document type.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">collection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">GetCollection</span><span class="o">&lt;</span><span class="n">BsonDocument</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"products"</span><span class="p">);</span>
+</code></pre></div>
+<p>The basic concept of the .NET MongoDB driver is to map every document to a .NET object. This is also called <em>ODM (Object Document Mapping)</em>. ODM is the equivalent of ORM in the NoSQL database world.</p>
+<div class="admonition warning">
+<p class="admonition-title">"Raw" json</p>
+<p>In other languages and platforms, MongoDB drivers do not always map to objects. Sample codes found on the Internet often show communication via "raw" JSON documents. Let's try to avoid this, as we learned in ORM, that object-oriented mapping is more convenient and secure.</p>
+</div>
+<p>In the previous example, a document of the type "BsonDocument" is used. <code>BsonDocument</code> is a generic document representation in which we can store key-value pairs. It is uncomfortable and unsafe to use; thus we usually do try to avoid it. See the suggested solution soon.</p>
+<p>You can run queries on the variable representing the collection, such as inserting a document and then listing the contents of the collection. The collection will be created automatically the first time you use it, so you don't have to define it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">InsertOne</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">BsonDocument</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">"name"</span><span class="p">,</span><span class="w"> </span><span class="s">"Apple"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">"categoryName"</span><span class="p">,</span><span class="w"> </span><span class="s">"Apple"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">"price"</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="w"> </span><span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// listing all documents: a search criteria is needed</span>
+<span class="c1">// this is an empty criteria matching all documents</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">BsonDocument</span><span class="p">()).</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">list</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
+</code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Naming convention</p>
+<p>Field names in the document start with lowercase letters like <code>price</code> or <code>categoryName</code> (this is the so-called <em>camel case</em> spelling). This is a <strong>convention</strong> of the MongoDB world for historical reasons. Unless there is a good reason, do not deviate from it.</p>
+</div>
+<h2 id="mapping-documents-to-c-objects">Mapping documents to C# objects<a class="headerlink" href="#mapping-documents-to-c-objects" title="Permanent link">¶</a></h2>
+<p>As with relational databases, we can work with objects and classes in MongoDB. The .NET driver for MongoDB offers this conveniently.</p>
+<p>The first step is to define the C# class(es) to map the contents of the database. Since there is no schema for the database and table, we cannot generate C# code based on the schema (as we did with the Entity Framework). So in this world, we tend to follow the <em>Code First</em> approach, which is to write C# code and have the system translate it to database collections.</p>
+<p>Let us define the following classes to represent <em>Products</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Product</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">ObjectId</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// this will be the identifier with name _id</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">Categories</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// array field</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// embedded document</span>
+<span class="p">}</span>
+
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">VAT</span><span class="w"> </span><span class="c1">// this class is only ever embedded, hence needs to id</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">VATCategoryName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note that the name of the field was <code>price</code> before, but in C# it starts with a capital letter, according to <em>Pascal Case</em>: <code>Price</code>. The MongoDB .NET driver integrates with the C# language and the .NET environment and respects its conventions so that the names in the class definition and the field names in the MongoDB documents will be mapped automatically: the <code>Price</code> class property will be <code>price</code> in the document.</p>
+<h3 id="customizing-the-mapping">Customizing the mapping<a class="headerlink" href="#customizing-the-mapping" title="Permanent link">¶</a></h3>
+<p>The C# class - MongoDB document mapping is automatic, but it can also be customized. There are several ways to deviate from the conventions.</p>
+<p>The easiest way is to use custom attributes in the class definition:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Product</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// maps to field _id</span>
+<span class="w">    </span><span class="na">[BsonId]</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">ObjectId</span><span class="w"> </span><span class="n">Identifier</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// can specify the name explicitly</span>
+<span class="w">    </span><span class="na">[BsonElement("price")]</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">TotalPrice</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// properties can be ignored</span>
+<span class="w">    </span><span class="na">[BsonIgnore]</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">DoNotSave</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Our other option is to register so-called <em>convention packs</em> at a higher level. The convention pack describes the rules of mapping. (A set of conventions also defines the default behavior.)</p>
+<p>For example, you can specify the following to map the field names to camel case and exclude data members with a default value (defined in the C# language) from the document.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// define convention pack</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">pack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConventionPack</span><span class="p">();</span>
+<span class="n">pack</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">CamelCaseElementNameConvention</span><span class="p">());</span>
+<span class="n">pack</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">IgnoreIfDefaultConvention</span><span class="p">(</span><span class="k">true</span><span class="p">));</span>
+
+<span class="c1">// register the convention pack</span>
+<span class="c1">// the first parameter is a name to reference this pack</span>
+<span class="c1">// the last argument is a fitlering criteria when to use this convention</span>
+<span class="n">ConventionRegistry</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="s">"datadriven"</span><span class="p">,</span><span class="w"> </span><span class="n">pack</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">);</span>
+</code></pre></div>
+<p>We also have more sophisticated customizations, such as defining conversion logic for translation between a C# representation and a MongoDB representation, and specifying how to save inheritance hierarchies. For more details, see the official documentation: <a href="https://mongodb.github.io/mongo-csharp-driver/2.8/reference/bson/serialization/">https://mongodb.github.io/mongo-csharp-driver/2.8/reference/bson/serialization/</a>.</p>
+<h2 id="queries">Queries<a class="headerlink" href="#queries" title="Permanent link">¶</a></h2>
+<p>We will use the collection from now on by mapping it to the <code>Product</code> class. This is the recommended solution; the <code>BsonDocument</code> based solution is used only when necessary.</p>
+<p>The simplest query we have already seen is to list all the documents:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">collection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">GetCollection</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"products"</span><span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">BsonDocument</span><span class="p">()).</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">list</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Id: {p.Id}, Name: {p.Name}"</span><span class="p">);</span>
+</code></pre></div>
+<p>Listing is done using the <code>Find</code> method. The name illustrates MongoDB's philosophy: listing an entire collection is not practical, so there is no simple syntax for it. <code>Find</code> requires a search criteria, which is an empty condition here to matches everything.</p>
+<p>There are several ways to describe search criteria.</p>
+<p>With <strong><code>BsonDocument</code></strong> based filtering, the filtering condition must be written according to the MongoDB syntax. We generally will avoid this because the MongoDB .NET driver provides a more convenient solution for us.</p>
+<p>In most cases, we can use <strong>Lambda expressions</strong> to describe the filtering.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">123</span><span class="p">);</span>
+</code></pre></div>
+<p>In this case, the Lambda expression is a delegate of type <code>Predicate &lt;T&gt;</code>, that is, expects a <code>Product</code> and returns <code>bool</code>. Thus in the example above, the <code>x</code> variable represents a <code>Products</code> instance. Of course, this search also works for more complex cases.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">123</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">"red"</span><span class="p">));</span>
+</code></pre></div>
+<p>The filtering described by the Lambda expressions hides what search syntax we actually have in MongoDB. For example, the above <code>Contains</code> search condition will actually mean a search with a regular expression.</p>
+<p>In MongoDB's own language, the previous filter looks like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"$lt"</span><span class="p">:</span><span class="w"> </span><span class="mf">123.0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/red/s"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note that this description is itself a document. If we wanted to write the filter condition ourselves, we would have to create this descriptor in a <code>BsonDocument</code>. The document keys describe the fields used for filtering, and the values are the filter criteria. In some cases, the condition is a scalar value such as a regular expression (or if we filter for equality); in other cases, the condition is an embedded document, as with the <code>&lt;</code> condition. Here, the <code>$lt</code> key is a special key that denotes the <em>less than</em> operator and the value to the right of the operator is 123.0. The regular expression should be specified according to <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">JavaScript RegExp Syntax</a>. The conditions listed in this way are automatically evaluated in and <code>and</code> fashion.</p>
+<p>Instead of the Lambda expression, we can create a similar description without having to compile a filter condition in "text" form. The .NET driver for MongoDB gives us the ability to use a so-called <strong><em>builders</em></strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Regex</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="s">"/red/s"</span><span class="p">),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>The above syntax is a bit more eloquent than the Lambda expression, but it is closer to the MongoDB philosophy, and better describes what we want. We can view this syntax as SQL, a declarative, goal-oriented, but platform-specific description. However, it is also type-safe.</p>
+<p>The <code>Builders&lt;T&gt;</code> generic class is an auxiliary class that we can use to build filtering and other MongoDB specific definitions. <code>Builders&lt;Product&gt;.Filter</code> can be used to define filtering conditions that match the <em>Product</em> C# class. First, we create an <em>and</em> connection, within which we have two filtering conditions. The operators are the <em>less than</em> and regular expressions seen before. We pass two parameters to these functions: the field to be filtered and the operand.</p>
+<p>Note that no string-based field names were used here or in the Lambda expressions. We can refer to the class fields with the <em>C# Expression</em> syntax. This is practical because we avoid typing field names.</p>
+<p>Note that all ways of describing the search criteria are identical. The MongoDB driver maps each syntax to its internal representation. Lambda expression-based requires fewer characters and fits better into C#, while the builder approach is used to express MongoDB features better. You can use either one.</p>
+<h3 id="using-query-results">Using query results<a class="headerlink" href="#using-query-results" title="Permanent link">¶</a></h3>
+<p>The result of the <code>collection.Find(...)</code> function is not yet the result set, but only a descriptor to execute the query. There are generally three ways to retrieve and process the result.</p>
+<h4 id="listing">Listing<a class="headerlink" href="#listing" title="Permanent link">¶</a></h4>
+<p>Get the complete result set as a list: <code>collection.Find(...).ToList()</code>.</p>
+<h4 id="get-firstsingle-item">Get first/single item<a class="headerlink" href="#get-firstsingle-item" title="Permanent link">¶</a></h4>
+<p>If you only need the first item, or know that there will be only one item, you can use <code>collection.Find(...).First()</code>, <code>.FirstOrDefault()</code>, or <code>.Single()</code>, <code>.SingleOrDefault()</code> functions.</p>
+<h4 id="cursor">Cursor<a class="headerlink" href="#cursor" title="Permanent link">¶</a></h4>
+<p>If the result set contains multiple documents, it is advisable to iterate it using a cursor. MongoDB limits the size of the response to a query, so if we query too many records, we may get an error instead of a result. To overcome this, we use the cursors where we always get only a subset of the documents.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">ToCursor</span><span class="p">();</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">cur</span><span class="p">.</span><span class="n">MoveNext</span><span class="p">())</span><span class="w"> </span><span class="c1">// cursor stepping</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">cur</span><span class="p">.</span><span class="n">Current</span><span class="p">)</span><span class="w"> </span><span class="c1">// the value of the cursor is not a single document, but a list in itself</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="operators-for-filtering">Operators for filtering<a class="headerlink" href="#operators-for-filtering" title="Permanent link">¶</a></h3>
+<p>The filter criteria apply to the fields in the document, and the filter criteria are always constant. Thus <strong>it is not possible, for example, to compare two fields</strong>, and we cannot refer to other collections. There is a so-called MongoDB aggregation pipeline, which allows you to formulate more complex queries, but for now, let us focus on simple queries.</p>
+<p>The filter condition compares a field in the document to a constant we specify. The following options are most commonly used.</p>
+<h4 id="comparison-operators">Comparison operators<a class="headerlink" href="#comparison-operators" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">123</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="p">));</span><span class="w"> </span><span class="c1">//Eq, as in equals</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">123</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Ne</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="p">));</span><span class="w"> </span><span class="c1">// Ne, as in not equals</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">123</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gte</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="p">));</span><span class="w"> </span><span class="c1">// Gte, as in greater than or equal to</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">123</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">123</span><span class="p">));</span><span class="w"> </span><span class="c1">// Lt, as in less than</span>
+</code></pre></div>
+<h4 id="boolean-operators">Boolean operators<a class="headerlink" href="#boolean-operators" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">1000</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">500</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">10</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Or</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">500</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">10</span><span class="p">));</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Not</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Or</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">500</span><span class="p">),</span>
+<span class="w">            </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<h4 id="value-is-one-of-multiple-alternatives">Value is one of multiple alternatives<a class="headerlink" href="#value-is-one-of-multiple-alternatives" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">In</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}));</span>
+<span class="c1">// similarly Nin, as in not in operátor</span>
+</code></pre></div>
+<h4 id="value-exists-not-null">Value exists (not null)<a class="headerlink" href="#value-exists-not-null" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="p">));</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Exists filtering</p>
+<p>Does exist, that is, non-null filtering is special because there are two ways to have a null value in MongoDB: if the key exists in the document and it has a value of null; or if the key does not exist at all.</p>
+</div>
+<h3 id="filtering-fields-of-embedded-document">Filtering fields of embedded document<a class="headerlink" href="#filtering-fields-of-embedded-document" title="Permanent link">¶</a></h3>
+<p>Embedded documents can be used for filtering in the same way. The following are all valid, and it does not matter if the embedded document (<em>VAT</em>) does not exist:</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">27</span><span class="p">);</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="m">27</span><span class="p">));</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">exists</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">));</span>
+<span class="c1">// does not exists, that is, in C#, equals null</span>
+</code></pre></div>
+<h3 id="filtering-based-on-an-array-field">Filtering based on an array field<a class="headerlink" href="#filtering-based-on-an-array-field" title="Permanent link">¶</a></h3>
+<p>Any field in the document can be an array value, as in the example <code>string [] Categories</code>. In MongoDB, we can define filtering based on an array field using the <code>Any*</code> criterion.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// products of this category</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">));</span>
+
+<span class="c1">// products that are assigned to at least one category not listed by name</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyNin</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">,</span><span class="w"> </span><span class="s">"Rackets"</span><span class="w"> </span><span class="p">}));</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Any...</p>
+<p>The <code>Any*</code> conditions look at every element of an array but match only once with respect to the document. So, if multiple elements of an array match a condition, we only get the document once in the result set.</p>
+</div>
+<h2 id="query-execution-pipeline">Query execution pipeline<a class="headerlink" href="#query-execution-pipeline" title="Permanent link">¶</a></h2>
+<p>MongoDB queries are executed through a pipeline. We won't go into details about this, but in addition to simple filtering, we'll see a few examples frequently used in queries.</p>
+<h4 id="paging-sorting">Paging, sorting<a class="headerlink" href="#paging-sorting" title="Permanent link">¶</a></h4>
+<p>For paging, we specify the maximum number of matching documents we request:</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Limit</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
+</code></pre></div>
+<p>And for the items on the following page, we skip the items already seen on the first page:</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Skip</span><span class="p">(</span><span class="m">100</span><span class="p">).</span><span class="n">Limit</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
+</code></pre></div>
+<p><code>Skip</code> and <code>Limit</code> are meaningless in this form because without sorting, the "first 100 elements" query is not deterministic. So for these types of queries, it is necessary to provide an appropriate sorting requirement. Sorting is defined using <code>Builders&lt;T&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Ascending</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Name</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="m">100</span><span class="p">).</span><span class="n">Limit</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Paging issue</p>
+<p>The above paging mechanism is still not entirely correct. For example, if a product is deleted in between the query of the first and second pages, the products will shift by one, and there may be a product that will be skipped. This is, in fact, not a problem just with MongoDB. Consider how you would solve this problem.</p>
+</div>
+<h4 id="number-of-documents">Number of documents<a class="headerlink" href="#number-of-documents" title="Permanent link">¶</a></h4>
+<p>There are two ways to query the number of documents that match a query:</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">CountDocuments</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">));</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">)).</span><span class="n">CountDocuments</span><span class="p">();</span>
+</code></pre></div>
+<h4 id="aggregation-pipeline">Aggregation pipeline<a class="headerlink" href="#aggregation-pipeline" title="Permanent link">¶</a></h4>
+<p>Aggregation operations process multiple documents and return some calculated results from them. MongoDB provides three ways to perform aggregation operations:</p>
+<ul>
+<li>Aggregation pipelines,</li>
+<li>Single Purpose Aggregation Operations,</li>
+<li>and Map-reduce functions.</li>
+</ul>
+<p>Since MongoDB version 5.0, <strong>Map-reduce</strong> is an obsolete method because the aggregation pipeline is better in terms of usability and speed.</p>
+<p>For <strong>Single Purpose Aggregation Operations</strong>, MongoDB provides us with <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> and <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> functions, which all perform simple aggregation on a single collection.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/mongodb/images/mongodb_spao.svg"><img alt="Single Purpose Aggregation Operation" src="/assets/lecture-notes/mongodb/images/mongodb_spao.svg"/></a></p>
+<div class="admonition citation">
+<p class="admonition-title">Source</p>
+<p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
+</div>
+<p>General aggregations can be performed by defining a pipeline manually. An <strong>aggregation pipeline</strong> is built up from stages, each serving a specific action <em>(filter, group, count, calculate, etc.)</em> on its input documents. A pipeline can also return multiple results from a set of documents <em>(e.g., total, average, maximum, or minimum values)</em>.</p>
+<p>Let's look at this through an example of grouping.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// products in the "Balls" category grouped by VAT percentage</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
+<span class="w">                            </span><span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">))</span><span class="w"> </span><span class="c1">// filtering</span>
+<span class="w">                            </span><span class="p">.</span><span class="n">Group</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// grouping</span>
+<span class="w">                            </span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"VAT percentage: {g.Key}"</span><span class="p">);</span>
+<span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">g</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\tProduct: {p.Name}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="insert-modify-delete">Insert, Modify, Delete<a class="headerlink" href="#insert-modify-delete" title="Permanent link">¶</a></h2>
+<p>After queries, let's get to know data modification constructs.</p>
+<h3 id="inserting-a-new-document">Inserting a new document<a class="headerlink" href="#inserting-a-new-document" title="Permanent link">¶</a></h3>
+<p>To insert a new document, you need the object representing the new document. We can add this to the collection.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">newProduct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Product</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Apple"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">890</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Categories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Fruits"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="n">collection</span><span class="p">.</span><span class="n">InsertOne</span><span class="p">(</span><span class="n">newProduct</span><span class="p">);</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Inserted record id id: {newProduct.Id}"</span><span class="p">);</span><span class="w"> </span><span class="c1">// after insert the ID of the document will be available in the C# instance</span>
+</code></pre></div>
+<p>Note that the <code>Id</code> field is not assigned. This will be set by the client driver. If we want, we can give it a value, but it is not customary.</p>
+<p>Remember, there is no schema in MongoDB, so the inserted document may be completely different from the rest of the items in the collection. Note that not all fields are assigned values. Because there are no integrity criteria, any insertion will be successful, but there may be problems with queries (for example, assuming that the <code>Stock</code> field is always set).</p>
+<p>You can use the <code>InsertMany</code> function to insert multiple documents, but remember that there are no transactions, so adding multiple documents is an independent operation. If, for any reason, an error occurs during the insertion, the successfully inserted documents will remain in the database. However, each document is saved atomically, so no "half" document can be added to the database in the event of an error.</p>
+<h3 id="delete-documents">Delete documents<a class="headerlink" href="#delete-documents" title="Permanent link">¶</a></h3>
+<p>To delete, you need to define a filter condition and execute it with the <code>DeleteOne</code> or <code>DeleteMany</code> functions. The difference is that <code>DeleteOne</code> only deletes the <em>first</em> matching document, while <code>DeleteMany</code> deletes all. If you know that only one document can match this condition (for example, deleting it by ID), you should use <code>DeleteOne</code> as the database does not have to perform an exhaustive search.</p>
+<p>The deletion condition can be described by the syntax familiar to the search.</p>
+<div class="admonition note">
+<p>Deletion is different from Entity Framework. Here, the entity does not have to be loaded; instead, we specify a filtering condition.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">deleteResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">DeleteOne</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">"..."</span><span class="p">));</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Deleted: {deleteResult.DeletedCount} records"</span><span class="p">);</span>
+</code></pre></div>
+<p>If you want to retrieve the deleted element, you can use <code>FindOneAndDelete</code>, which returns the deleted entity.</p>
+<h3 id="updating-documents">Updating documents<a class="headerlink" href="#updating-documents" title="Permanent link">¶</a></h3>
+<p>Perhaps the most interesting feature of MongoDB is the update of documents. While the functionalities showed before (queries, inserts, deletions) are similar to most databases (either relational or NoSQL), MongoDB supports a much broader range of modification operations.</p>
+<p>There are two ways to change a document: replace the entire document with a new one or update its parts.</p>
+<h4 id="complete-document-replacement">Complete document replacement<a class="headerlink" href="#complete-document-replacement" title="Permanent link">¶</a></h4>
+<p>To replace a document completely, we need a filtering condition to specify which document we want to replace; and we need a new document.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">replacementProduct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Product</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Apple"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">890</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Categories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Fruit"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">replaceResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">ReplaceOne</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">"..."</span><span class="p">),</span><span class="w"> </span><span class="n">replacementProduct</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Updated: {replaceResult.ModifiedCount}"</span><span class="p">);</span>
+</code></pre></div>
+<p>A single document is matched and replaces it with another document. The operation itself is atomic, that is, if it is interrupted, no half document is saved. You can use the <code>FindOneAndReplace</code> method to get the pre-swap document.</p>
+<div class="admonition note">
+<p class="admonition-title">Interesting</p>
+<p>It is also possible to change the document ID during update (the replacement document can have a different ID).</p>
+</div>
+<h4 id="document-update-operators">Document update operators<a class="headerlink" href="#document-update-operators" title="Permanent link">¶</a></h4>
+<p>Document update operators can change the value of a document's fields atomically without replacing the entire document. We use the help of the <code>Builder&lt;T&gt;</code> to describe the modifying operations.</p>
+<p>Set your stock to a constant value:</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">UpdateOne</span><span class="p">(</span>
+<span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">"..."</span><span class="p">),</span>
+<span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">));</span>
+</code></pre></div>
+<p>The first parameter of the <code>UpdateOne</code> function is the filter condition. You can use any of the syntax described before. The second parameter is the descriptor of the update operation, which you can build with <code>Builders&lt;T&gt;</code>.</p>
+<p>In the example code above, the argument names are specified (<code>filter:</code> and <code>update:</code>) to make it clear what the parameter represents. This is optional, but it increases readability (at the expense of code length).</p>
+<p>The operation can update multiple fields at the same time.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">UpdateOne</span><span class="p">(</span>
+<span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">"..."</span><span class="p">),</span>
+<span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">CurrentDate</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">StockUpdated</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Unset</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">NeedsUpdate</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Typical modifier operators are:</p>
+<ul>
+<li><code>Set</code>: Set the value of the field;</li>
+<li><code>SetOnInsert</code>: like <code>Set</code> but executed only when a new document is inserted (see <em>upsert</em> below);</li>
+<li><code>Unset</code>: delete field (remove key and value from document);</li>
+<li><code>CurrentDate</code>: set the current date;</li>
+<li><code>Inc</code>: increment value;</li>
+<li><code>Min</code>,<code>Max</code>: change the value of a field if the value entered is smaller / larger than the current value of the field;</li>
+<li><code>Mul</code>: value multiplication;</li>
+<li><code>PopFirst</code>,<code>PopLast</code>: remove first / last element from an array;</li>
+<li><code>Pull</code>: remove value from an array;</li>
+<li><code>Push</code>: add value to an array at the end (further options in the same operator: array sorting, keeping the first <em>n</em> element of an array);</li>
+<li><code>AddToSet</code>: add a value to an array if it does not already exist.</li>
+</ul>
+<p>The above operations are meaningful even if the specified field does not exist. Depending on the type of operator, the database will make changes to a default value. For example, for <code>Inc</code> and <code>Mul</code>, the field will be set to 0 and then modified. For array operations, an empty array is modified. For other operations, you can look up the behavior in the <a href="https://docs.mongodb.com/manual/reference/operator/update/">documentation</a>.</p>
+<p>Multiple documents can be modified at the same time using this method. The requested update operations are performed on all documents that match the filter criteria.</p>
+<p>For example: in view of the summer season, put <em>all</em> balls on sale with a 25% discount.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span>
+<span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">Mul</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">0.75</span><span class="p">)</span>
+<span class="w">                                   </span><span class="p">.</span><span class="n">AddToSet</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"On sale"</span><span class="p">));</span>
+</code></pre></div>
+<p>Update operators change the documents atomically. Using them can eliminate some of the problems caused by concurrent data access.</p>
+<h4 id="upsert-updating-or-inserting-a-document"><em>Upsert</em>: updating or inserting a document<a class="headerlink" href="#upsert-updating-or-inserting-a-document" title="Permanent link">¶</a></h4>
+<p>During update operations, we have the option to <em>upsert (update/insert)</em>. This means that either an insertion or an update is made, depending on whether the item was in the database. The default behavior is <em>not</em> to upsert, we must request it explicitly.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">ReplaceOne</span><span class="p">(</span>
+<span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">"..."</span><span class="p">),</span>
+<span class="w">    </span><span class="n">replacement</span><span class="p">:</span><span class="w"> </span><span class="n">replacementObject</span><span class="p">,</span>
+<span class="w">    </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UpdateOptions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IsUpsert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<p>We can also do upsert with update operators. As we have seen, modifier operators are not concerned about missing fields. Likewise, it does not matter if the document does not exist; this is equivalent to performing a modifying operation on a completely blank document.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">UpdateOne</span><span class="p">(</span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UpdateOptions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IsUpsert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<p>The upsert operation can be a workaround for managing concurrency in the absence of a transaction. Because we do not have a transaction, we cannot verify before insertion that a particular record does not yet exist. Instead, we can use the upsert method, which allows atomic querying and insertion/modification.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>merge</code></p>
+<p>Note: In SQL, the <code>merge</code> command provides a similar solution.</p>
+</div>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Last update"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="February 3, 2023 10:01:07">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Created"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="July 1, 2019 14:46:38">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2019-07-01T14:46:38+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2019-07-01</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Contributors</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Back to top
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

@@ -1,0 +1,946 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="István Albert, Tibor Tóth" name="author"/>
+<link href="../../lecture-notes/async/" rel="prev"/>
+<link href="../mssql/" rel="next"/>
+<link href="../../img/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.9" name="generator"/>
+<title>Transactions - BMEVIAUAC01 Data-driven systems</title>
+<link href="../../assets/stylesheets/main.0d440cfe.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../css/timeago.css" rel="stylesheet"/>
+<link href="../../extra-material-theme.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="red" data-md-color-primary="aut" data-md-color-scheme="aut" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#transactions">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="BMEVIAUAC01 Data-driven systems" class="md-header__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Data-driven systems">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            BMEVIAUAC01 Data-driven systems
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Transactions
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Váltás sötét témára" class="md-option" data-md-color-accent="red" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="aut" data-md-color-scheme="aut" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Váltás sötét témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+<input aria-label="Váltás világos témára" class="md-option" data-md-color-accent="" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Váltás világos témára">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+</form>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en">
+                    English
+                  </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu">
+                    Magyar
+                  </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Data-driven systems
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../db/">
+        Database
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../lecture-notes/architecture/">
+        Lecture notes
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="./">
+        Seminars
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../homework/">
+        Homework
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="BMEVIAUAC01 Data-driven systems" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="BMEVIAUAC01 Data-driven systems">
+<img alt="logo" src="../../img/logo-bme-aut.png"/>
+</a>
+    BMEVIAUAC01 Data-driven systems
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/bmeviauac01/datadriven" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Data-driven systems
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/">
+        Sample database scheme
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mssql/">
+        Using Microsoft SQL Server
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../db/mongodb/">
+        Using MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mssql.sql">
+        Sample database: mssql.sql
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mongo.js">
+        Sample database: mongo.js
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Lecture notes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Lecture notes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/architecture/">
+        Data-driven systems and the three- or multi-tier architecture
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/transactions/">
+        Transactions in databases
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/mssql/sql/">
+        SQL language, MSSQL platform-specific SQL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/mssql/server-side-programming/">
+        Microsoft SQL Server programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/adonet/">
+        ADO.NET data access
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/linq/">
+        LINQ: Language Integrated Query
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/ef/">
+        Defining relationships in Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/mongodb/">
+        MongoDB basics, operations, and the MongoDB .NET Driver
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/di/">
+        Dependency Injection ASP.NET Core environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../lecture-notes/async/">
+        Asynchronous queries and DTOs (sample WebAPI application)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/rest-webapi-sample">
+        REST and WebAPI sample app (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/todoapi-di-sample">
+        ASP.NET Core DI sample app (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample">
+        Sample three-tier webapp (GitHub)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Seminars
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Seminars
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Transactions
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Transactions
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pre-requisites">
+    Pre-requisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-work-during-the-seminar">
+    How to work during the seminar
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-1-create-a-database-in-ms-sql-server">
+    Exercise 1: Create a database in MS SQL Server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-2-concurrent-transactions">
+    Exercise 2: Concurrent transactions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-3-using-transactions-read-committed-isolation-level">
+    Exercise 3: using transactions, read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level">
+    Exercise 4: aborting transactions (rollback) in read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-5-placing-an-order-using-serializable-isolation-level">
+    Exercise 5: Placing an order using serializable isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-6-order-registration-with-read-committed-isolation-level">
+    Exercise 6: Order registration with read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-7-manual-locking">
+    Exercise 7: Manual locking
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-8-table-locking">
+    Exercise 8: Table locking
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mssql/">
+        Microsoft SQL Server programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ef/">
+        Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mongodb/">
+        MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../jpa/">
+        JPA &amp; Spring Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../rest/">
+        REST API &amp; ASP.NET Web API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Homework
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Homework
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/">
+        Optional homework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mssql/">
+        Exercise: MSSQL server-side programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/adonet/">
+        Exercise: ADO.NET data access
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/ef/">
+        Exercise: Entity Framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/mongodb/">
+        Exercise: MongoDB
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/rest/">
+        Exercise: REST API and Web API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub/">
+        Submitting your work (GitHub)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/GitHub-Actions/">
+        Using GitHub Actions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../homework/VisualStudio/">
+        Install Visual Studio &amp; .NET SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pre-requisites">
+    Pre-requisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-work-during-the-seminar">
+    How to work during the seminar
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-1-create-a-database-in-ms-sql-server">
+    Exercise 1: Create a database in MS SQL Server
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-2-concurrent-transactions">
+    Exercise 2: Concurrent transactions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-3-using-transactions-read-committed-isolation-level">
+    Exercise 3: using transactions, read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level">
+    Exercise 4: aborting transactions (rollback) in read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-5-placing-an-order-using-serializable-isolation-level">
+    Exercise 5: Placing an order using serializable isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-6-order-registration-with-read-committed-isolation-level">
+    Exercise 6: Order registration with read committed isolation level
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-7-manual-locking">
+    Exercise 7: Manual locking
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exercise-8-table-locking">
+    Exercise 8: Table locking
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/bmeviauac01/datadriven/edit/master/docs/seminar/transactions/index.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
+</a>
+<h1 id="transactions">Transactions<a class="headerlink" href="#transactions" title="Permanent link">¶</a></h1>
+<p>The goal is to examine transaction handling of MS SQL Server, understand the practical limits to serializable isolation level, and controlling data dependency in read committed isolation level.</p>
+<h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">¶</a></h2>
+<p>Required tools to complete the tasks:</p>
+<ul>
+<li>Microsoft SQL Server (LocalDB or Express edition)</li>
+<li>SQL Server Management Studio</li>
+<li>Database initialization script: <a href="https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql">mssql.sql</a></li>
+</ul>
+<p>Recommended to review:</p>
+<ul>
+<li>Transaction properties, isolation levels</li>
+<li><a href="../../db/mssql/">Microsoft SQL Server usage guide</a></li>
+</ul>
+<h2 id="how-to-work-during-the-seminar">How to work during the seminar<a class="headerlink" href="#how-to-work-during-the-seminar" title="Permanent link">¶</a></h2>
+<p>The seminar is lead by the instructor. After getting to know the tools we use, the exercises are solved together. Experienced behavior is summarized and explained.</p>
+<div class="admonition info">
+<p>This guide summarizes and explains the behavior. Before looking at these provided answers, we should think first!</p>
+</div>
+<h2 id="exercise-1-create-a-database-in-ms-sql-server">Exercise 1: Create a database in MS SQL Server<a class="headerlink" href="#exercise-1-create-a-database-in-ms-sql-server" title="Permanent link">¶</a></h2>
+<p>We need a database first. Usually, the database is located on a central server, but we often run a server on our machine for development.</p>
+<ol>
+<li>
+<p>Connect to Microsoft SQL Server using SQL Server Management Studio. Start Management Studio and use the following connection details:</p>
+<ul>
+<li>Server name: <code>(localdb)\mssqllocaldb</code></li>
+<li>Authentication: <code>Windows authentication</code></li>
+</ul>
+</li>
+<li>
+<p>Create a new database (if it does not exist yet); the name should be your Neptun code: in <em>Object Explorer</em> right-click <em>Databases</em> and choose <em>Create Database</em>.</p>
+</li>
+<li>
+<p>Instantiate the sample database using the script. Open a new <em>Query</em> window, paste the script into the window, then execute it. Make sure to select the right database in the toolbar dropdown.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/seminar/transactions/images/sql-management-database-dropdown.png"><img alt="Select database" src="/assets/seminar/transactions/images/sql-management-database-dropdown.png"/></a></p>
+</li>
+<li>
+<p>Verify that the tables are created. If the <em>Tables</em> folder was open before, you need to refresh it.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/seminar/transactions/images/sql-managment-tablak.png"><img alt="Table list" src="/assets/seminar/transactions/images/sql-managment-tablak.png"/></a>.</p>
+</li>
+</ol>
+<h2 id="exercise-2-concurrent-transactions">Exercise 2: Concurrent transactions<a class="headerlink" href="#exercise-2-concurrent-transactions" title="Permanent link">¶</a></h2>
+<p>To simulate concurrent transactions, you need two <em>Query</em> windows by clicking the <em>New Query</em> button twice. You can align the windows next to each other by right-clicking the Query header and choosing New Vertical Tab group:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/seminar/transactions/images/sql-management-tab-group.png"><img alt="Two query window" src="/assets/seminar/transactions/images/sql-management-tab-group.png"/></a></p>
+<p>Use the following scheduling. Transaction T1 checks the status of order 4, while transaction T2 changes the status.</p>
+<ol>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- List the order and the related items with their status</span>
+<span class="k">select</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="p">,</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="k">where</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">and</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusID</span><span class="o">=</span><span class="n">s1</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="o">=</span><span class="n">s2</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>[Order]</code></p>
+<p>The brackets in <code>[Order]</code> are needed to distinguish it from the <code>order by</code> command.</p>
+</div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Change the status or the order</span>
+<span class="k">update</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
+<span class="k">set</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">4</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong>: repeat the same command as in step 1</p>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Change the status of each item in the order</span>
+<span class="k">update</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="k">set</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">where</span><span class="w"> </span><span class="n">OrderID</span><span class="o">=</span><span class="mi">4</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong>: repeat the same command as in step 1</p>
+</li>
+</ol>
+<details class="question">
+<summary>What did you experience? Why?</summary>
+<p>In the beginning, everything was in status "Packaged", which is fine (the items in the order and the order itself had the same status). But after we changed the status of the order, the status seemed controversial: the order and the items had different statuses. We have to understand that the database itself was <strong>not</strong> inconsistent, as the database's integration requirements allow this. However, from a business perspective, there was an inconsistency.</p>
+<p>SQL Server, by default, runs in auto-commit mode. That is, every sql statement is a transaction by itself, which is committed when completed. Thus the problem was that our modifications were executed in separate transactions.</p>
+<p>In order to handle the two changes together, we would need to combine them into a single transaction.</p>
+</details>
+<h2 id="exercise-3-using-transactions-read-committed-isolation-level">Exercise 3: using transactions, <em>read committed</em> isolation level<a class="headerlink" href="#exercise-3-using-transactions-read-committed-isolation-level" title="Permanent link">¶</a></h2>
+<p>Let us repeat the previous exercise so that the two modifications form a single transaction:</p>
+<ul>
+<li><strong>T2 transaction</strong> should begin with a <code>begin tran</code> command, and finish with a <code>commit</code> statement.</li>
+<li>When changing the status, the new status should be 3 (to have an actual change in the data).</li>
+</ul>
+<details class="question">
+<summary>What did you experience? Why?</summary>
+<p>While data modification is underway in <strong>T2</strong>, the query statement in <strong>T1</strong> will wait. It will wait until the data modification transaction is completed. The <code>select</code> statement wants to place a reader lock on the records, but the other concurrent transaction is editing these records and has an exclusive writer lock on them.</p>
+<p>Let us remember that the default isolation level is <em>read committed</em>. This isolation level on this platform means that data under modification cannot be accessed, not even for reading. This is a matter of implementation; the SQL standard does not specify this (e.g., in Oracle Server the previously committed state of each record is available). In other isolation levels, MSSQL Server behaves differently; e.g., in the <em>snapshot</em> isolation level, the version of the data before the modification is accessible.</p>
+</details>
+<h2 id="exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level">Exercise 4: aborting transactions (<em>rollback</em>) in <em>read committed</em> isolation level<a class="headerlink" href="#exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level" title="Permanent link">¶</a></h2>
+<p>Let us repeat the same command sequence, including the transaction, but let us abort the modification operation in the middle.</p>
+<ol>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- List the order and the related items with their status</span>
+<span class="k">select</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="p">,</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="k">where</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">and</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusID</span><span class="o">=</span><span class="n">s1</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="o">=</span><span class="n">s2</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">and</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Start new transaction</span>
+<span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+
+<span class="c1">-- Change the order status</span>
+<span class="k">update</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
+<span class="k">set</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">4</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong>: repeat the same command as in step 1</p>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Abort the transaction</span>
+<span class="k">rollback</span>
+</code></pre></div>
+</li>
+</ol>
+<details class="question">
+<summary>What did you experience? Why?</summary>
+<p>Similarly to the previous exercise, the read operation was forced to wait while the modification transaction was underway. When this modification was aborted, the result of the read query arrived immediately. We are still using <em>read committed</em> isolation level; hence we must not see data being modified. But once the modification transaction finished, either successfully with <code>commit</code> or with a <code>rollback</code>, the data records are once again available.</p>
+<p>Let us understand that we have just avoided the problem of dirty read. If the read query showed us the uncommitted modification, we would have seen values that would have been invalid after the <code>rollback</code>.</p>
+</details>
+<h2 id="exercise-5-placing-an-order-using-serializable-isolation-level">Exercise 5: Placing an order using <em>serializable</em> isolation level<a class="headerlink" href="#exercise-5-placing-an-order-using-serializable-isolation-level" title="Permanent link">¶</a></h2>
+<p>Before we begin, let us get rid of any pending transactions we may have. Let us issue a few <code>rollback</code> statements in both windows.</p>
+<p>Let us have two concurrent transactions, both placing an order. We must allow an order for a product only if we have enough stock left. To properly isolate the effect of the transactions, let use <em>serializable</em> isolation level.</p>
+<ol>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">serializable</span>
+<span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+
+<span class="c1">-- Check the product stock</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">2</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">serializable</span>
+<span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">2</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Check the registered, but unprocessed orders for the same product</span>
+<span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ProductID</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">and</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ProductID</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">and</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Since the order can be completed, store the order</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="n">ProductID</span><span class="p">,</span><span class="n">Amount</span><span class="p">,</span><span class="n">StatusID</span><span class="p">)</span>
+<span class="k">values</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="n">ProductID</span><span class="p">,</span><span class="n">Amount</span><span class="p">,</span><span class="n">StatusID</span><span class="p">)</span>
+<span class="k">values</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">commit</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">commit</span>
+</code></pre></div>
+</li>
+</ol>
+<details class="question">
+<summary>What did you experience? Why?</summary>
+<p>A deadlock will occur due to the <em>serializable</em> isolation level, as both transactions require exclusive access to the table <code>OrderItem</code>. The query <code>select sum</code> - with the requirement to protect from unrepeatable reads - adds reader locks to the records. Thus the  <code>insert</code> cannot complete, as it needs write access. This effectively means that both transactions are waiting for a lock that the other one holds.</p>
+<p>The result of the deadlock is the abortion of one of the transactions. This is the expected and correct behavior in these cases because it prevents the same problem we are trying to avoid (to sell more products than we have in stock).</p>
+</details>
+<p>Let us repeat the same sequence of steps, but this time, the products should be different. This simulates two concurrent orders for different products.</p>
+<ul>
+<li>Before we begin, let us get rid of any pending transactions we may have. Let us issue a few <code>rollback</code> statements in both windows.</li>
+<li>Let us replace the <code>ID</code> or <code>ProductID</code> values: one of the transactions should use ID 2 and the other one ID 3.</li>
+</ul>
+<details class="question">
+<summary>What did you experience? Why?</summary>
+<p>Even when the two orders reference different products a deadlock occurs. The locking mechanism behind the statement <code>select sum</code> locks the entire table, because it is not able to distinguish the records by <code>ProductID</code>. This is not unexpected, as the fact that two concurrent orders referencing different products are allowed, is a business requirement; the database has no knowledge of this.</p>
+<p>In other words, the <em>serializable</em> isolation level is too strict in this case. This is the reason that serializable is not frequently used in practice.</p>
+</details>
+<h2 id="exercise-6-order-registration-with-read-committed-isolation-level">Exercise 6: Order registration with <em>read committed</em> isolation level<a class="headerlink" href="#exercise-6-order-registration-with-read-committed-isolation-level" title="Permanent link">¶</a></h2>
+<p>Let us consider what would happen in the previous exercise if the isolation level was left at default? Would there be any deadlock? Would the result be correct?</p>
+<details class="question">
+<summary>What would we expect? Why?</summary>
+<p>If we used the default isolation level, the behavior would be incorrect. The <em>read committed</em> isolation level would not protect us from a concurrent transaction inserting a new record that could potentially result in selling more products than available. This would be a manifestation of the unrepeatable read concurrency problem.</p>
+<p>We can conclude thus that the <em>serializable</em> isolation level was not unnecessary. It did in fact, protect us from a valid concurrency problem.</p>
+</details>
+<h2 id="exercise-7-manual-locking">Exercise 7: Manual locking<a class="headerlink" href="#exercise-7-manual-locking" title="Permanent link">¶</a></h2>
+<p>Before we begin, let us get rid of any pending transactions we may have. Let us issue a few <code>rollback</code> statements in both windows.</p>
+<p>Using <em>read committed</em> isolation level, let us find a solution that only prohibits concurrent orders of the <em>same product</em>. You can assume that all copies of the concurrent program run the same logic.</p>
+<p>The solution is based on manual locks we can place on records. These locks |(similarly to the automatic ones) have a lifespan identical to the transaction.</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">with</span><span class="p">(</span><span class="n">XLOCK</span><span class="p">)</span>
+<span class="p">...</span>
+</code></pre></div>
+<details class="question">
+<summary>Where do we place this lock? How does the order registration process look like?</summary>
+<p>The key to this exercise is understanding where the lock should be placed. The question is what to lock. The answer is the <strong>product</strong>: we want to avoid placing orders of the same product. Thus we place a lock on the product record.</p>
+<p>The order process is as follows:</p>
+<ol>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">committed</span>
+</span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="hll"><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="p">(</span><span class="n">xlock</span><span class="p">)</span>
+</span><span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">2</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">committed</span>
+<span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="p">(</span><span class="n">xlock</span><span class="p">)</span>
+<span class="hll"><span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">=</span><span class="mi">3</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="k">where</span><span class="w"> </span><span class="n">ProductID</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">and</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="hll"><span class="k">where</span><span class="w"> </span><span class="n">ProductID</span><span class="o">=</span><span class="mi">3</span>
+</span><span class="k">and</span><span class="w"> </span><span class="n">StatusID</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="n">ProductID</span><span class="p">,</span><span class="n">Amount</span><span class="p">,</span><span class="n">StatusID</span><span class="p">)</span>
+<span class="k">values</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="n">ProductID</span><span class="p">,</span><span class="n">Amount</span><span class="p">,</span><span class="n">StatusID</span><span class="p">)</span>
+<span class="hll"><span class="k">values</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>T1 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">commit</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>T2 transaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">commit</span>
+</code></pre></div>
+</li>
+</ol>
+</details>
+<h2 id="exercise-8-table-locking">Exercise 8: Table locking<a class="headerlink" href="#exercise-8-table-locking" title="Permanent link">¶</a></h2>
+<p>There is another option for manual locking by locking entire tables:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">with</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
+<span class="p">...</span>
+</code></pre></div>
+<details class="question">
+<summary>This might seem a simple solution, but why is this a not recommended option?</summary>
+<p>In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using <em>serializable</em> isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.</p>
+</details>
+<hr/>
+<div class="md-source-file">
+<span class="md-source-file__fact"> <span class="md-icon" title="Last update"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+</path>
+</svg>
+</span>
+<span title="February 3, 2023 10:01:07">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Created"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z">
+</path>
+</svg>
+</span>
+<span title="July 14, 2020 07:35:47">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2020-07-14T07:35:47+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2020-07-14</span>
+</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Szerzők">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+</path>
+</svg>
+</span>
+<span>Contributors</span>
+<nav></nav>
+</span>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Back to top
+          </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+<script src="../../js/timeago.min.js"></script>
+<script src="../../js/timeago_mkdocs_material.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
