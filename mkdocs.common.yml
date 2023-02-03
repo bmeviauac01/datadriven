@@ -69,8 +69,7 @@ markdown_extensions:
   - pymdownx.keys
 
 plugins:
-  search:
-    prebuild_index: true
+  search: { } # https://squidfunk.github.io/mkdocs-material/insiders/getting-started/#built-in-plugins key-value syntax
   glightbox: { } # https://squidfunk.github.io/mkdocs-material/insiders/getting-started/#built-in-plugins key-value syntax
   git-revision-date-localized:
     enable_creation_date: true
