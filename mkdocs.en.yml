@@ -23,8 +23,8 @@ nav:
       - db/index.md
       - db/mssql.md
       - db/mongodb.md
-      - "Sample database: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mssql.sql
-      - "Sample database: mongo.js": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/assets/db/mongo.js
+      - "Sample database: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql
+      - "Sample database: mongo.js": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js
   - "Lecture notes":
       - lecture-notes/architecture/index.md
       - lecture-notes/transactions/index.md
