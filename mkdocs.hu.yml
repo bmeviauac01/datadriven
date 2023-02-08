@@ -23,8 +23,8 @@ nav:
       - db/index.md
       - db/mssql.md
       - db/mongodb.md
-      - "Minta adatbázis: mssql.sql": db/mssql.sql
-      - "Minta adatbázis: mongo.js": db/mongo.js
+      - "Minta adatbázis: mssql.sql": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql
+      - "Minta adatbázis: mongo.js": https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js
   - "Jegyzetek":
       - lecture-notes/architecture/index.md
       - lecture-notes/transactions/index.md
