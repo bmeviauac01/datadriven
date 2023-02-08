@@ -5,6 +5,7 @@ site_name: BMEVIAUAC01 Data-driven systems
 site_url: https://bmeviauac01.github.io/datadriven/en/
 docs_dir: 'docs/en'
 site_dir: 'site/en'
+edit_uri: 'blob/master/docs/hu'
 
 theme:
   language: en
