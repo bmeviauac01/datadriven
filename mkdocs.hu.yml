@@ -5,6 +5,7 @@ site_name: BMEVIAUAC01 Adatvezérelt rendszerek
 site_url: https://bmeviauac01.github.io/datadriven/hu/
 docs_dir: 'docs/hu'
 site_dir: 'site/hu'
+edit_uri: 'blob/master/docs/hu'
 
 theme:
   language: hu
