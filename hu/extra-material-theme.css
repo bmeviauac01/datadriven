@@ -25,10 +25,6 @@ article ul ul ul {
 	--md-accent-fg-color: #e57171; /* link hoover*/
 }
 
-.md-tabs__link {
-	opacity: 0.85;
-}
-
 /* page contributors*/
 .md-source-file__fact {
     align-items: center;
