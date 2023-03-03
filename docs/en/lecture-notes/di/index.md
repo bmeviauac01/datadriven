@@ -140,7 +140,7 @@ A few general thoughts:
 
 As we could see the `SendEmailReminder` operation is actually served by an object graph, where `NotificationService` is the root object, it has three dependencies, and its dependencies have further dependencies. The following figure illustrates this object graph:
 
-![Object graph 1](/assets/lecture-notes/di/images/object-graph-1.svg)
+![Object graph 1](../lecture-notes/di/images/object-graph-1.svg)
 
 !!! note "Note"
     One may ask why we considered `NotificationService`, and not `ToDoService` as the root object. Actually it just depends on our viewpoint: for simplicity we considered ToDoService as an entry point (a "client") for fulfilling a request, so that we have less classes to put under scrutiny. In a real life application we probably would consider `ToDoService` as part of the dependency graph as well.
@@ -419,7 +419,7 @@ At the resolve step (GetService call), the container must create a `Notification
 
 Summing up: the `GetService<INotificationService>()` call above creates a fully parameterized `NotificationService` object with all of its direct and indirect dependencies, the call returns an __object graph__ for us:
 
-![Object graph 2](/assets/lecture-notes/di/images/object-graph-2.svg)
+![Object graph 2](../lecture-notes/di/images/object-graph-2.svg)
 
 As we have seen in this example, IoC containers/DI frameworks are capable of determining the dependency requirements of objects (by examining at their constructor parameters), and then creating entire object graphs based on upfront abstraction->implementation container type mappings. This process is called __autowiring__.
 
@@ -427,7 +427,7 @@ As we have seen in this example, IoC containers/DI frameworks are capable of det
 
 Besides making our solution IoC container based, we make a few further changes to our todo app. We eliminate our `ToDoService` class, and move its functionality in a slightly different form into  an Asp.Net Core based `ControllerBase` derived class. This controller class will serve as our entry point and also as a root object, bringing our solution very close to a real life example (let it be a Web API, Web MVC app or a Web Razor Pages app). We could also have kept `ToDoService` in the middle of our call/dependency chain, but we try to keep things as simple as possible for our demonstration purposes. Furthermore, we also introduce an Entity Framework `DbContext` derived class called `TodoContext` to be able to demonstrate how it can be injected into repository classes in a typical application. Our new object graph will look like this:
 
-![Object graph 3](/assets/lecture-notes/di/images/object-graph-3.svg)
+![Object graph 3](../lecture-notes/di/images/object-graph-3.svg)
 
 In the previous two chapters, we have assumed that a `IServiceProvider` object is available to call `GetService`. If we create a container ourselves, then this assumption is valid. However, only in the rarest cases do we create a container directly. In a typical ASP.NET Web API application, the container is created by the framework and is not directly accessible to us. Consequently, access to `IServiceProvider ', with the exception of a few startup and configuration points, is not available. The good news is that actually we don't need access to the container. __The core concept of DI is that we perform dependency resolution only at the application entry point for the "root object".__ In case of Web API apps, the entry point is a call to an operation of a Controller class serving the specific API request. When a request is received, the framework determines and creates the Controller / ControllerBase child class based on the Url and routing rules. If the controller class has dependencies (has constructor parameters), they are also resolved based on the container registration mappings, including indirect dependencies. The complete object graph is created, __the root object is the controller class__.
 

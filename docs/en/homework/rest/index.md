@@ -63,7 +63,7 @@ OpenAPI (formerly Swagger) is a REST API documentation tool. It is similar to th
 
 1. Test the “Try it out” in SwaggerUI: it will send out the query that your backend will serve.
 
-    ![SwaggerUI Try it out](/assets/homework/rest/swaggerui-try.png)
+    ![SwaggerUI Try it out](../homework/rest/swaggerui-try.png)
 
 !!! example "SUBMISSION"
     Upload the changed source code. Make sure to upload the altered `csproj` file too; it contains a new NuGet package added in this exercise.

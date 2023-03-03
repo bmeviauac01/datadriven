@@ -4,15 +4,15 @@ The semi-automatic evaluation of the exercises uses [GitHub Actions](https://git
 
 You will receive a notification about the results in a pull request. But if you need more details, such as check the application logs, you can access these using the web interface of GitHub under _Actions_.
 
-![GitHub Actions on the web interface](/assets/homework/github/github-actions-tab.png)
+![GitHub Actions on the web interface](../homework/github/github-actions-tab.png)
 
 Here, you will see a list of _Workflows_. Each evaluation (each commit) is a separate item here (so the history is also available).
 
-![GitHub Actions workflow list](/assets/homework/github/github-actions-executions-list.png)
+![GitHub Actions workflow list](../homework/github/github-actions-executions-list.png)
 
 By selecting one (e.g., the last one is always at the top of the list), you see this workflow's details. To get to the logs, you need to click once more on the left. The log will be on the right side.
 
-![GitHub Actions job log](/assets/homework/github/github-actions-job-log.png)
+![GitHub Actions job log](../homework/github/github-actions-job-log.png)
 
 Each green checkmark is a successful step. These steps do not correspond to the exercises; these describe the evaluation process. These steps include preparations, such as setting up the .NET environment for compiling your code (since each workflow starts in a clean environment, these steps are performed each time).
 
@@ -20,10 +20,10 @@ Most of these steps should be successful, even if your submission contains an er
 
 There might be transient errors in these workflows. An example is when a download, such as the download of the .NET environment fails. The workflow execution can be repeated if this occurs. Retrying the execution may only help if the problem is indeed transient; a retry will not resolve a C# compilation error. (You can deduce the cause from the name of the step and the error message.)
 
-![GitHub Actions transient error and retry](/assets/homework/github/github-actions-rerun.png)
+![GitHub Actions transient error and retry](../homework/github/github-actions-rerun.png)
 
 You might also be able to access the application logs. E.g., when testing a .NET application, it is started, and the logs will be printed here.
 
 The image below shows the initialization of an Entity Framework application, where you can also see the translated and executed SQL commands. (You would see the same in Visual Studio _Output_ while debugging.) The content here, obviously, depends on the actual exercise.
 
-![GitHub Actions application log](/assets/homework/github/github-actions-app-log.png)
+![GitHub Actions application log](../homework/github/github-actions-app-log.png)

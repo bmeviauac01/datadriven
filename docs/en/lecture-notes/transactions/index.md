@@ -81,7 +81,7 @@ A dirty read means that a transaction accesses the uncommitted data of another t
 
 The transaction that read the record in the second step is now working with invalid, non-existent data. It should not have read it.
 
-![Dirty read](/assets/lecture-notes/transactions/images/dirty-read.png)
+![Dirty read](../lecture-notes/transactions/images/dirty-read.png)
 
 !!! quote "Source"
     Source of images: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
@@ -98,7 +98,7 @@ During a lost update, two writes conflict:
 
 The database has the result of the second write as if the first did not even happen.
 
-![Lost update](/assets/lecture-notes/transactions/images/lost-update.png)
+![Lost update](../lecture-notes/transactions/images/lost-update.png)
 
 #### Non-repeatable read 
 
@@ -108,7 +108,7 @@ A non-repeatable read means that the result of the query depends on the time it 
 1. A different transaction changes the same record.
 1. If the first transaction re-executes the same query as before, it gets a different result.
 
-![Non-repeatable read](/assets/lecture-notes/transactions/images/nonrepeatable-read.png)
+![Non-repeatable read](../lecture-notes/transactions/images/nonrepeatable-read.png)
 
 #### Phantom records / phantom read
 
@@ -120,7 +120,7 @@ We face the problem of phantom records when we work with recordsets:
 
 Should the deleted record be processed now? We can imagine a similar scenario when a record is altered in the second step. Which state should the reader transaction in step three see? The one before, or the one after the modification?
 
-![Phantom records](/assets/lecture-notes/transactions/images/phantom-records.png)
+![Phantom records](../lecture-notes/transactions/images/phantom-records.png)
 
 ### Isolation levels
 
@@ -144,7 +144,7 @@ These locks, in effect, enforce the scheduling of the transactions. When a lock 
 
 We know that when we use locks, **deadlock** can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.
 
-![Deadlock](/assets/lecture-notes/transactions/images/holtpont-eroforras-graf.png)
+![Deadlock](../lecture-notes/transactions/images/holtpont-eroforras-graf.png)
 
 Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected **one of the transactions is aborted** and all its modifications are rolled back. All applications using a database must be prepared to handle this.
 
@@ -173,7 +173,7 @@ So far, we have covered what transactions are used for. Let us understand how th
 
 To understand transactional logging, let us consider the following system model.
 
-![Transactional logging conceptual model](/assets/lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png)
+![Transactional logging conceptual model](../lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png)
 
 This conceptual model includes the following operations:
 
