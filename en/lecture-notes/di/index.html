@@ -779,7 +779,7 @@
 <li>Note: <code>NotificationService</code>, <code>EMailSender</code>, <code>Logger</code>, <code>ContactRepository</code> classes are considered <strong>service classes</strong> because they contain business logic, not just encapsulate data, such as <code>TodoItem</code>.</li>
 </ul>
 <p>As we could see the <code>SendEmailReminder</code> operation is actually served by an object graph, where <code>NotificationService</code> is the root object, it has three dependencies, and its dependencies have further dependencies. The following figure illustrates this object graph:</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/di/images/object-graph-1.svg"><img alt="Object graph 1" src="/assets/lecture-notes/di/images/object-graph-1.svg"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../lecture-notes/di/images/object-graph-1.svg"><img alt="Object graph 1" src="../lecture-notes/di/images/object-graph-1.svg"/></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>One may ask why we considered <code>NotificationService</code>, and not <code>ToDoService</code> as the root object. Actually it just depends on our viewpoint: for simplicity we considered ToDoService as an entry point (a "client") for fulfilling a request, so that we have less classes to put under scrutiny. In a real life application we probably would consider <code>ToDoService</code> as part of the dependency graph as well.</p>
@@ -1033,11 +1033,11 @@ Now we elucidate and illustrate the complete mechanism (register and resolve ste
 </li>
 </ul>
 <p>Summing up: the <code>GetService&lt;INotificationService&gt;()</code> call above creates a fully parameterized <code>NotificationService</code> object with all of its direct and indirect dependencies, the call returns an <strong>object graph</strong> for us:</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/di/images/object-graph-2.svg"><img alt="Object graph 2" src="/assets/lecture-notes/di/images/object-graph-2.svg"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../lecture-notes/di/images/object-graph-2.svg"><img alt="Object graph 2" src="../lecture-notes/di/images/object-graph-2.svg"/></a></p>
 <p>As we have seen in this example, IoC containers/DI frameworks are capable of determining the dependency requirements of objects (by examining at their constructor parameters), and then creating entire object graphs based on upfront abstraction-&gt;implementation container type mappings. This process is called <strong>autowiring</strong>.</p>
 <h4 id="dependency-resolution-for-aspnet-web-api-classes">Dependency resolution  for ASP.NET Web API classes<a class="headerlink" href="#dependency-resolution-for-aspnet-web-api-classes" title="Permanent link">¶</a></h4>
 <p>Besides making our solution IoC container based, we make a few further changes to our todo app. We eliminate our <code>ToDoService</code> class, and move its functionality in a slightly different form into  an Asp.Net Core based <code>ControllerBase</code> derived class. This controller class will serve as our entry point and also as a root object, bringing our solution very close to a real life example (let it be a Web API, Web MVC app or a Web Razor Pages app). We could also have kept <code>ToDoService</code> in the middle of our call/dependency chain, but we try to keep things as simple as possible for our demonstration purposes. Furthermore, we also introduce an Entity Framework <code>DbContext</code> derived class called <code>TodoContext</code> to be able to demonstrate how it can be injected into repository classes in a typical application. Our new object graph will look like this:</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/di/images/object-graph-3.svg"><img alt="Object graph 3" src="/assets/lecture-notes/di/images/object-graph-3.svg"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../lecture-notes/di/images/object-graph-3.svg"><img alt="Object graph 3" src="../lecture-notes/di/images/object-graph-3.svg"/></a></p>
 <p>In the previous two chapters, we have assumed that a <code>IServiceProvider</code> object is available to call <code>GetService</code>. If we create a container ourselves, then this assumption is valid. However, only in the rarest cases do we create a container directly. In a typical ASP.NET Web API application, the container is created by the framework and is not directly accessible to us. Consequently, access to `IServiceProvider ', with the exception of a few startup and configuration points, is not available. The good news is that actually we don't need access to the container. <strong>The core concept of DI is that we perform dependency resolution only at the application entry point for the "root object".</strong> In case of Web API apps, the entry point is a call to an operation of a Controller class serving the specific API request. When a request is received, the framework determines and creates the Controller / ControllerBase child class based on the Url and routing rules. If the controller class has dependencies (has constructor parameters), they are also resolved based on the container registration mappings, including indirect dependencies. The complete object graph is created, <strong>the root object is the controller class</strong>.</p>
 <p>Let's take a look at this in practice by refining our previous example with the addition of a <code>TodoController</code> class:</p>
 <div class="highlight"><pre><span></span><code><span class="na">[Route("api/[controller]</span><span class="s">")]</span>
@@ -1176,8 +1176,8 @@ Now we elucidate and illustrate the complete mechanism (register and resolve ste
 </path>
 </svg>
 </span>
-<span title="February 3, 2023 10:01:07">
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+<span title="March 3, 2023 13:36:18">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
 </span>
 </span>
 <span class="md-source-file__fact">

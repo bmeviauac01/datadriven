@@ -449,18 +449,18 @@
 <h1 id="using-github-actions">Using GitHub Actions<a class="headerlink" href="#using-github-actions" title="Permanent link">¶</a></h1>
 <p>The semi-automatic evaluation of the exercises uses <a href="https://github.com/features/actions">GitHub Actions</a>. It is a CI system capable of running jobs on git repositories. We use this system, for example, to compile your code and test it.</p>
 <p>You will receive a notification about the results in a pull request. But if you need more details, such as check the application logs, you can access these using the web interface of GitHub under <em>Actions</em>.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-actions-tab.png"><img alt="GitHub Actions on the web interface" src="/assets/homework/github/github-actions-tab.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../homework/github/github-actions-tab.png"><img alt="GitHub Actions on the web interface" src="../homework/github/github-actions-tab.png"/></a></p>
 <p>Here, you will see a list of <em>Workflows</em>. Each evaluation (each commit) is a separate item here (so the history is also available).</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-actions-executions-list.png"><img alt="GitHub Actions workflow list" src="/assets/homework/github/github-actions-executions-list.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../homework/github/github-actions-executions-list.png"><img alt="GitHub Actions workflow list" src="../homework/github/github-actions-executions-list.png"/></a></p>
 <p>By selecting one (e.g., the last one is always at the top of the list), you see this workflow's details. To get to the logs, you need to click once more on the left. The log will be on the right side.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-actions-job-log.png"><img alt="GitHub Actions job log" src="/assets/homework/github/github-actions-job-log.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../homework/github/github-actions-job-log.png"><img alt="GitHub Actions job log" src="../homework/github/github-actions-job-log.png"/></a></p>
 <p>Each green checkmark is a successful step. These steps do not correspond to the exercises; these describe the evaluation process. These steps include preparations, such as setting up the .NET environment for compiling your code (since each workflow starts in a clean environment, these steps are performed each time).</p>
 <p>Most of these steps should be successful, even if your submission contains an error. The two exceptions when these tasks might fail due to your changes are: (1) if <code>neptun.txt</code> is missing, or (2) your C# code does not compile. The <code>neptun.txt</code> is mandatory, and no evaluation is performed until that is provided. The C# compilation is a step that must succeed; otherwise, your application cannot be started.</p>
 <p>There might be transient errors in these workflows. An example is when a download, such as the download of the .NET environment fails. The workflow execution can be repeated if this occurs. Retrying the execution may only help if the problem is indeed transient; a retry will not resolve a C# compilation error. (You can deduce the cause from the name of the step and the error message.)</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-actions-rerun.png"><img alt="GitHub Actions transient error and retry" src="/assets/homework/github/github-actions-rerun.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../homework/github/github-actions-rerun.png"><img alt="GitHub Actions transient error and retry" src="../homework/github/github-actions-rerun.png"/></a></p>
 <p>You might also be able to access the application logs. E.g., when testing a .NET application, it is started, and the logs will be printed here.</p>
 <p>The image below shows the initialization of an Entity Framework application, where you can also see the translated and executed SQL commands. (You would see the same in Visual Studio <em>Output</em> while debugging.) The content here, obviously, depends on the actual exercise.</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/homework/github/github-actions-app-log.png"><img alt="GitHub Actions application log" src="/assets/homework/github/github-actions-app-log.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../homework/github/github-actions-app-log.png"><img alt="GitHub Actions application log" src="../homework/github/github-actions-app-log.png"/></a></p>
 <hr/>
 <div class="md-source-file">
 <span class="md-source-file__fact"> <span class="md-icon" title="Last update"> <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -468,8 +468,8 @@
 </path>
 </svg>
 </span>
-<span title="February 3, 2023 10:01:07">
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+<span title="March 3, 2023 13:36:18">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
 </span>
 </span>
 <span class="md-source-file__fact">

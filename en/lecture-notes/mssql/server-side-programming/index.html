@@ -1018,7 +1018,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
 </code></pre></div>
 <p>Stored procedures are part of our database. For example, in Microsoft SQL Server Management Studio, it is visible here:</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/mssql/img//mssql-stored-proc-in-db.png"><img alt="Stored procedure in database" src="/assets/lecture-notes/mssql/img//mssql-stored-proc-in-db.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../lecture-notes/mssql/img//mssql-stored-proc-in-db.png"><img alt="Stored procedure in database" src="../lecture-notes/mssql/img//mssql-stored-proc-in-db.png"/></a></p>
 <h3 id="scalar-functions">Scalar functions<a class="headerlink" href="#scalar-functions" title="Permanent link">¶</a></h3>
 <p>The declaration of a function is similar to a procedure, but we must also specify the return type:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="p">]</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">name</span>
@@ -1131,7 +1131,7 @@
 <span class="k">select</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
 </code></pre></div>
 <p>Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the <code>DROP TRIGGER</code> statement). The trigger is linked to the table in the database:</p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="/assets/lecture-notes/mssql/img//mssql-trigger-in-db.png"><img alt="Trigger in the database" src="/assets/lecture-notes/mssql/img//mssql-trigger-in-db.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../lecture-notes/mssql/img//mssql-trigger-in-db.png"><img alt="Trigger in the database" src="../lecture-notes/mssql/img//mssql-trigger-in-db.png"/></a></p>
 <p>The syntax for defining a DML trigger is as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">trigger_name</span>
 <span class="k">ON</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="err">}</span>
@@ -1295,8 +1295,8 @@
 </path>
 </svg>
 </span>
-<span title="February 3, 2023 10:01:07">
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T10:01:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+<span title="March 3, 2023 13:36:18">
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
 </span>
 </span>
 <span class="md-source-file__fact">
