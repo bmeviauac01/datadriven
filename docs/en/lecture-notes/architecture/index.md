@@ -215,7 +215,7 @@ We will not deal with these operational aspects in more detail. Often the chosen
 
 By communication, we mean the method and format of data exchange between the layers and the components. Choosing the correct approach depends not only on the architecture but on the deployment model too. If the layers are moved to separate servers, network-based communication is needed, while communication between components on the same server can be achieved with simpler methods.
 
-Today, most systems use network communication: most commonly to reach the database and other data sources, and frequently between the presentation layer and the service interfaces. Nowadays, most communication is HTTP-based, however when performance is a concern, TPC-based binary communication methods provide better alternatives. And in more complex systems where the layers themselves are distributed across servers too, messages queues are often used.
+Today, most systems use network communication: most commonly to reach the database and other data sources, and frequently between the presentation layer and the service interfaces. Nowadays, most communication is HTTP-based, however when performance is a concern, TCP-based binary communication methods provide better alternatives. And in more complex systems where the layers themselves are distributed across servers too, messages queues are often used.
 
 Encryption is also a factor in communication. Communication over public networks must be encrypted. In case of the communication between the UI and the service interface, this typically means HTTPS/TLS.
 
