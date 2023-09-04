@@ -9,7 +9,7 @@ A labor elvégzéséhez szükséges eszközök:
 - Spring Tool Suite (Eclipse alapú IDE)
 - Microsoft SQL Server Express edition (localdb ezúttal **nem** jó)
 - SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mssql.sql)
+- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo>
 
 ## Amit érdemes átnézned

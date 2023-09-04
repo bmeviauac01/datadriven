@@ -10,7 +10,7 @@ Required tools to complete the tasks:
 - Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Postman: <https://www.getpostman.com/downloads/>
-- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - Starter code: <https://github.com/bmeviauac01/gyakorlat-rest-kiindulo>
 
 Recommended to review:

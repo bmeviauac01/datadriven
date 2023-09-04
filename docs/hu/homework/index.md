@@ -36,11 +36,11 @@ A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részér
 - MSSQL adatbázist használó feladatokhoz:
     - Microsoft SQL Server. Az _Express_ változat ingyenesen használható, avagy Visual Studio mellett feltelepülő _localdb_ változat is megfelelő. Van [Linux változata](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is. MacOS-en Docker-rel futtatható.
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), vagy kipróbálható a platformfüggetlen [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is.
-    - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mssql.sql)
+    - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - MongoDB adatbázist használó feladathoz:
     - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
     - [Robo 3T](https://robomongo.org/download)
-    - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mongo.js)
+    - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - REST API feladatokhoz: [Postman](https://www.getpostman.com/)
 - Az első házi kivételével a C# programozós feladatokhoz:
     - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/) használható.

@@ -9,7 +9,7 @@ Required tools to complete the tasks:
 - Spring Tool Suite (an IDE based on Eclipse)
 - Microsoft SQL Server Express edition (localdb does **not** work here)
 - SQL Server Management Studio
-- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+- Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - Starter code: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulo>
 
 Recommended to review:

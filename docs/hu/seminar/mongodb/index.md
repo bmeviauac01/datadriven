@@ -9,7 +9,7 @@ A labor elvégzéséhez szükséges eszközök:
 - Microsoft Visual Studio 2022 (_nem_ VS Code)
 - MongoDB Community Edition
 - Robo 3T
-- Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mongo.js)
+- Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo>
 
 Amit érdemes átnézned:
@@ -47,7 +47,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
     ![Robo3T Connection Settings](images/robo3t_newdb.png)
 
-1. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/docs/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le a _Collections_ mappát ennek ellenőrzéséhez.
+1. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le a _Collections_ mappát ennek ellenőrzéséhez.
 
     ![Robo3T Collections](images/robo3t_collections.png)
 

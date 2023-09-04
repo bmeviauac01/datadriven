@@ -36,11 +36,11 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 - For homework using the MSSQL platform:
     - Microsoft SQL Server. The free _Express_ version is sufficient, or you may also use _localdb_ installed with Visual Studio. A [Linux version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available. On macOS, you can use Docker.
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), or you may also use the platform-independent [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) is
-    - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mssql.sql)
+    - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - For homework using a MongoDB database:
     - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
     - [Robo 3T](https://robomongo.org/download)
-    - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+    - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - For the REST API homework: [Postman](https://www.getpostman.com/)
 - For writing C# code (most homework, except the first one):
     - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md)

@@ -9,7 +9,7 @@ Required tools to complete the tasks:
 - Microsoft Visual Studio 2022 (_not_ VS Code)
 - MongoDB Community Edition
 - Robo 3T
-- Database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js)
+- Database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - Starter code: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo>
 
 Recommended to review:
@@ -47,7 +47,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
     ![Robo3T Connection Settings](../seminar/mongodb/images/robo3t_newdb.png)
 
-1. Open a new shell into the database by right-clicking it and choosing the _Open Shell_ command. This will open a single-line textbox to the right. Copy the database initialization script from [here](https://raw.githubusercontent.com/bmeviauac01/adatvezerelt/master/docs/db/mongo.js) into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the _Collections_ item to check them.
+1. Open a new shell into the database by right-clicking it and choosing the _Open Shell_ command. This will open a single-line textbox to the right. Copy the database initialization script from [here](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js) into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the _Collections_ item to check them.
 
     ![Robo3T Collections](../seminar/mongodb/images/robo3t_collections.png)
 
