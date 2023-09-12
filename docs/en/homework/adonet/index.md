@@ -45,7 +45,7 @@ There are unit tests available in the solution. You can [run the unit tests in V
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Exercise 2: Optimistic concurrency handling (2 points)
+## Exercise 2 optional: Optimistic concurrency handling (0 points)
 
 !!! note ""
     In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
