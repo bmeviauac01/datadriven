@@ -1,6 +1,6 @@
 ﻿# Optional homework
 
-These exercises are **optional**. You can earn **extra points** that are added to your exam score. In the exercises and the evaluation results, you will see a text “iMsc”; please ignore that (it is for the Hungarian students). All exercises are available for extra points on this course. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom.
+These exercises are **optional**. You can earn **extra points** that are added to your exam score. Maximum 2 points per homework. In the exercises and the evaluation results, you will see a text “iMsc”; these iMsc points are not counted! (These are special points for Hungarian curriculum). All non-iMsc exercises are available for extra points on this course, 5 homeworks, maximum 2 points per homework, maximum 10 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercies exactly as in the guide, or it is late, you get no points at all! Make sure to follow the guide and do **everything in time**!
 
 !!! important "Working code"
     You are expected to write code that actually works! Your code will be executed, and it is required to fulfill the specified task.
