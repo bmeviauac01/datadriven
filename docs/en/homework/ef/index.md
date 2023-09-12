@@ -1,6 +1,6 @@
 ﻿# Exercise: Entity Framework
 
-This exercise is optional. You may earn **2+2 points** by completing this exercise.
+This exercise is optional. You may earn **2 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -68,7 +68,7 @@ There are unit tests available in the solution. The test codes are commented out
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Exercise 2: Repository implementation using Entity Framework (2 points)
+## Exercise 2 optional: Repository implementation using Entity Framework (0 points)
 
 !!! note ""
     In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
