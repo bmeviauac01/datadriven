@@ -1,6 +1,6 @@
 ﻿# Exercise: MSSQL server-side programming
 
-This exercise is optional. You may earn **2+2 points** by completing this exercise.
+This exercise is optional. You may earn **2 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -32,7 +32,7 @@ Make sure to verify the behavior of the trigger under various circumstances.
 
     Create a screenshot that displays sample records in the `Customer` table with the automatically populated date values. Make sure that the database name and your Neptun code are visible on the screenshot. Save the screenshot as `f1.png` and upload it as part of your submission!
 
-## Exercise 2: Product recommended age (2 points)
+## Exercise 2 optional: Product recommended age (0 points)
 
 !!! note ""
     In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
