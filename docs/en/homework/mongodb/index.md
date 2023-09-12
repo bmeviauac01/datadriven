@@ -1,6 +1,6 @@
 ﻿# Exercise: MongoDB
 
-This exercise is optional. You may earn **2+2 points** by completing this exercise.
+This exercise is optional. You may earn **2 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -65,7 +65,7 @@ There are unit tests available in the solution. You can [run the unit tests in V
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Exercise 2: Estimating storage space (2 points)
+## Exercise 2 optional: Estimating storage space (0 points)
 
 The company is moving to a new location. We need to know whether the current stock can be moved and will fit into the new storage facility. Implement the method that calculates the **total volume of all products in stock**!
 
