@@ -1,6 +1,6 @@
 ﻿# Exercise: REST API and Web API
 
-This exercise is optional. You may earn **2+2 points** by completing this exercise.
+This exercise is optional. You may earn **2 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -45,7 +45,7 @@ Exercises:
 
     Create a screenshot from Postman (or any alternative tool you used for testing) that shows a successful query that fetches an existing product. The screenshot should display both the request and response with all information (request type, URL, response code, response body). Save the screenshot as `f1.png` and upload it as part of your submission! The response body must contain your **Neptun code**.
 
-## Exercise 2: OpenAPI documentation (2 points)
+## Exercise 2 optional: OpenAPI documentation (0 points)
 
 !!! note ""
     In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
