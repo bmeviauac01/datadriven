@@ -196,7 +196,7 @@ We begin with an empty memory buffer. Every data is on disk. The process starts 
 | Input(A)  | 10 | 20 | **10** | - | |
 | Input(B)  | 10 | 20 | 10 | **20** | |
 
-The transaction has all the necessary data in the memory buffer. The modification is performed, and the data is written back to the buffer. At the same time, the *original values* and written to the transaction log.
+The transaction has all the necessary data in the memory buffer. The modification is performed, and the data is written back to the buffer. At the same time, the *original values* are written to the transaction log.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
