@@ -34,7 +34,7 @@ The database resides on each machine; thus, the database you created previously 
 
 Let us create a new C# .NET console application in Visual Studio. (NOT the ".NET Framework" version!)
 
-![VS projext type](../seminar/ef/images/vs-create-project.png)
+![VS projext type](images/vs-create-project.png)
 
 Create a new project; you may work in directory `c:\work`.
 
@@ -120,7 +120,7 @@ Create a new project; you may work in directory `c:\work`.
             
     - Let's manually add the ``Init'' migration to this table, with which we indicate to EF that it has essentially already run. Pay attention to the name of the migration, which must also include the date.
 
-        ![VS Migration History](../seminar/ef/images/vs-migration-history.png)
+        ![VS Migration History](images/vs-migration-history.png)
 
     - Let's change the database schema in our code-first model.
 
