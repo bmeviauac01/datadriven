@@ -1506,7 +1506,7 @@
 <li>The first transaction is aborted, and the system restores the record to the state it was in before the change.</li>
 </ol>
 <p>The transaction that read the record in the second step is now working with invalid, non-existent data. It should not have read it.</p>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/dirty-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dirty read" src="../lecture-notes/transactions/images/dirty-read.png" /></a></p>
+<p><a class="glightbox" href="images/dirty-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dirty read" src="images/dirty-read.png" /></a></p>
 <div class="admonition quote">
 <p class="admonition-title">Source</p>
 <p>Source of images: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
@@ -1521,7 +1521,7 @@
 <li>Another transaction overwrites the same record.</li>
 </ol>
 <p>The database has the result of the second write as if the first did not even happen.</p>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/lost-update.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Lost update" src="../lecture-notes/transactions/images/lost-update.png" /></a></p>
+<p><a class="glightbox" href="images/lost-update.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Lost update" src="images/lost-update.png" /></a></p>
 <h4 id="non-repeatable-read">Non-repeatable read<a class="headerlink" href="#non-repeatable-read" title="Permanent link">&para;</a></h4>
 <p>A non-repeatable read means that the result of the query depends on the time it was issued:</p>
 <ol>
@@ -1529,7 +1529,7 @@
 <li>A different transaction changes the same record.</li>
 <li>If the first transaction re-executes the same query as before, it gets a different result.</li>
 </ol>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/nonrepeatable-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Non-repeatable read" src="../lecture-notes/transactions/images/nonrepeatable-read.png" /></a></p>
+<p><a class="glightbox" href="images/nonrepeatable-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Non-repeatable read" src="images/nonrepeatable-read.png" /></a></p>
 <h4 id="phantom-records-phantom-read">Phantom records / phantom read<a class="headerlink" href="#phantom-records-phantom-read" title="Permanent link">&para;</a></h4>
 <p>We face the problem of phantom records when we work with recordsets:</p>
 <ol>
@@ -1538,7 +1538,7 @@
 <li>The first transaction starts processing its result set (e.g., iterates over the records one by one).</li>
 </ol>
 <p>Should the deleted record be processed now? We can imagine a similar scenario when a record is altered in the second step. Which state should the reader transaction in step three see? The one before, or the one after the modification?</p>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/phantom-records.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Phantom records" src="../lecture-notes/transactions/images/phantom-records.png" /></a></p>
+<p><a class="glightbox" href="images/phantom-records.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Phantom records" src="images/phantom-records.png" /></a></p>
 <h3 id="isolation-levels">Isolation levels<a class="headerlink" href="#isolation-levels" title="Permanent link">&para;</a></h3>
 <p>The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a <em>compromise</em> between a suitable isolation level and performance.</p>
 <p>The ANSI/ISO SQL standard defines the following isolation levels:</p>
@@ -1555,7 +1555,7 @@
 <p>The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.</p>
 <p>These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another translation and concurrent access is not allowed by the isolation level, the transaction will wait.</p>
 <p>We know that when we use locks, <strong>deadlock</strong> can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.</p>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/holtpont-eroforras-graf.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Deadlock" src="../lecture-notes/transactions/images/holtpont-eroforras-graf.png" /></a></p>
+<p><a class="glightbox" href="images/holtpont-eroforras-graf.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Deadlock" src="images/holtpont-eroforras-graf.png" /></a></p>
 <p>Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected <strong>one of the transactions is aborted</strong> and all its modifications are rolled back. All applications using a database must be prepared to handle this.</p>
 <div class="admonition note">
 <p>When a deadlock happens, there is usually no other resolution to retry the operation later (e.g., automatically, or manually requested by the end-user).</p>
@@ -1580,7 +1580,7 @@
 <p>So far, we have covered what transactions are used for. Let us understand how they work internally.</p>
 <p><strong>Transactional logging</strong> is the process used by the database management system to track the pending modifications of running transactions allowing rolling back these changes in case of abort or soft crash.</p>
 <p>To understand transactional logging, let us consider the following system model.</p>
-<p><a class="glightbox" href="../lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Transactional logging conceptual model" src="../lecture-notes/transactions/images/tranzakcios-naplozas-io-modell.png" /></a></p>
+<p><a class="glightbox" href="images/tranzakcios-naplozas-io-modell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Transactional logging conceptual model" src="images/tranzakcios-naplozas-io-modell.png" /></a></p>
 <p>This conceptual model includes the following operations:</p>
 <ul>
 <li>Begin T(x): Start of transaction</li>
@@ -2114,8 +2114,8 @@
           </path>
         </svg>
       </span>
-      <span title="March 3, 2023 13:36:18">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
+      <span title="October 9, 2023 13:00:12">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
       </span>
     </span>
 

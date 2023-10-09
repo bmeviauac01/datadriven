@@ -1668,7 +1668,7 @@
 <p>NoSQL databases offer a solution to these problems. <strong>Instead of the rigid schema</strong>, NoSQL databases have <strong>a flexible schema</strong>. In other words, we will require less consistency regarding the data.</p>
 <h2 id="basic-concepts-of-mongodb">Basic concepts of MongoDB<a class="headerlink" href="#basic-concepts-of-mongodb" title="Permanent link">&para;</a></h2>
 <p>MongoDB is a client-server database system that has a non-relational schema. The <em>mongod</em> (Mongo daemon) process on the right is the database server. The other side is our application, where a client connects to the database using a network connection. This connection uses the so-called <em>wire protocol</em>, which is a MongoDB proprietary communication protocol. The protocol transmits data and queries in JSON format represented in a binary fashion as BSON.</p>
-<p><a class="glightbox" href="../lecture-notes/mongodb/images/mongodb_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="MongoDb architecture" src="../lecture-notes/mongodb/images/mongodb_architecture.png" /></a></p>
+<p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="MongoDb architecture" src="images/mongodb_architecture.png" /></a></p>
 <h3 id="logical-structure">Logical structure<a class="headerlink" href="#logical-structure" title="Permanent link">&para;</a></h3>
 <p>The top layer of a MongoDB database system is the so-called <em>cluster</em>. The servers are organized into these clusters. We will not discuss clusters here; these are tools for enabling scalability. The databases are the <em>mongod</em> processes, which host the databases. A MongoDB server/cluster stores multiple databases. And the databases contain <em>collections</em>. If we want to map these concepts to a relational model, then the collections correspond to the tables, and the rows/records in a table correspond to the <em>documents</em> of the collection.</p>
 <p>Let us investigate these further.</p>
@@ -1952,7 +1952,7 @@
 </ul>
 <p>Since MongoDB version 5.0, <strong>Map-reduce</strong> is an obsolete method because the aggregation pipeline is better in terms of usability and speed.</p>
 <p>For <strong>Single Purpose Aggregation Operations</strong>, MongoDB provides us with <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> and <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> functions, which all perform simple aggregation on a single collection.</p>
-<p><a class="glightbox" href="../lecture-notes/mongodb/images/mongodb_spao.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="../lecture-notes/mongodb/images/mongodb_spao.svg" /></a></p>
+<p><a class="glightbox" href="images/mongodb_spao.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></a></p>
 <div class="admonition citation">
 <p class="admonition-title">Source</p>
 <p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
@@ -2082,8 +2082,8 @@
           </path>
         </svg>
       </span>
-      <span title="March 3, 2023 13:36:18">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
+      <span title="October 9, 2023 13:00:12">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
       </span>
     </span>
 
