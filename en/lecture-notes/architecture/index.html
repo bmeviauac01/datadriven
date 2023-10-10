@@ -1441,7 +1441,7 @@
 </div>
 <p>Since the data modeling scheme used in databases (i.e., the relational model) and the object-oriented modeling are based on different concepts, this layer is responsible for providing a <strong>mapping</strong> between the two worlds.  The foreign keys used by the relational scheme are transformed into associations and compositions, and we may even need to perform data conversion between data types supported by the various systems. We will re-visit these issues later.</p>
 <p>Communication with an external system, whether is it is a database or a third-party service, requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore it is the responsibility of the data access layer to <strong>manage these connections</strong> and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.</p>
-<p>The management of <strong>concurrent data accesses and related problems</strong> is also the responsibility if this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent <em>modifications</em> can happen. We will discuss how this is handled and what type of issues we have to resolve.</p>
+<p>The management of <strong>concurrent data accesses and related problems</strong> is also the responsibility of this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent <em>modifications</em> can happen. We will discuss how this is handled and what type of issues we have to resolve.</p>
 <h3 id="business-layer">Business Layer<a class="headerlink" href="#business-layer" title="Permanent link">&para;</a></h3>
 <p>The business layer is the "heart" of our application. The databases, the data access layer and the presentation layer are created so that the system can provide the services implemented in the business logic layer.</p>
 <p>This layer is always specific to the problem domain. The Neptun system manages exams, semester schedules, grades, etc.; a webshop will, on the other hand, manage products, orders, searches, etc.</p>
@@ -1532,8 +1532,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
+      <span title="October 10, 2023 12:26:42">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-10T12:26:42+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-10</span>
       </span>
     </span>
 
