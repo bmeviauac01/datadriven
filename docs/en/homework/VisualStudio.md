@@ -9,7 +9,7 @@ In some of the exercises require Microsoft Visual Studio **version 2022**. The f
 
 When installing Visual Studio, the _ASP.NET and web development_ [workload](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022#step-4---choose-workloads) have to be selected.
 
-![Visual Studio 2022 workload](../homework/visual-studio-2022/vs-workload.png)
+![Visual Studio 2022 workload](vs-workload.png)
 
 An existing installation can be [_modified_](https://docs.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022) using the _Visual Studio Installer_.
 
