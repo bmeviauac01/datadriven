@@ -6,9 +6,10 @@ A gyakorlat célja, hogy a hallgatók megismerjék a _MongoDB_ általános cél�
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2022 (_nem_ VS Code)
 - MongoDB Community Edition
-- Robo 3T
+- Microsoft Visual Studio 2022
+- VSCode
+- MongoDB for VSCode kiegészítő
 - Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - Kiinduló alkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo>
 
@@ -37,25 +38,27 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
     c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
     ```
 
-    Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.
+    Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani ++ctrl+c++ billentyűkombinációval lehet majd a végén.
 
-1. Indítsuk el a Robo3T programot (a `c:\tools\robo3t...` könyvtárban találjuk) és csatlakozzunk a MongoDB szerverhez.
+1. Indítsuk el a VSCode-ot és csatlakozzunk a MongoDB szerverhez.
 
-    ![Robo3T Connection Settings](images/robo3t_connection.png)
+    ![Connection Settings](images/vscode-connect.png)
 
-1. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Az adatbázis neve `datadriven` legyen:
+1. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Ez egy playground script ablakot nyit, ahova másoljuk be az adatbázis létrehozó scriptünket [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az fejlécben található fekete "lejátszás" gombbal Az adatbázis neve `datadriven` legyen. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le az adatbázis elemeit ennek ellenőrzéséhez.
 
-    ![Robo3T Connection Settings](images/robo3t_newdb.png)
+    ![Connection Settings](images/vscode-newdb.png)
 
-1. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le a _Collections_ mappát ennek ellenőrzéséhez.
-
-    ![Robo3T Collections](images/robo3t_collections.png)
+    ![Created Collections](images/vscode-collections.png)
 
 1. Töltsük le a kiinduló projekt vázat!
 
     - Nyissunk egy **új** _command prompt_-ot vagy PowerShell konzolt (ne azt használjuk, amelyikben a szerver fut)
     - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
-    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
+    - Adjuk ki a következő parancsot:
+
+        ```bash
+        git clone https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git
+        ```
 
 1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val. Vizsgáljuk meg a projektet.
 
@@ -214,7 +217,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
     1. Hozzunk létre új POCO osztályt `Category` néven.
 
-        Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
+        Nézzük meg először VSCode-ban, hogy milyen adattagok találhatók a `categories` kollekcióban lévő dokumentumokban.
 
         ![Kategória dokumentumok](images/categories.png)
 

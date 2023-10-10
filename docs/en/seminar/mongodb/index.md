@@ -6,9 +6,10 @@ The seminar's goal is to understand the concepts of the _MongoDB_ document datab
 
 Required tools to complete the tasks:
 
-- Microsoft Visual Studio 2022 (_not_ VS Code)
+- Microsoft Visual Studio 2022
 - MongoDB Community Edition
-- Robo 3T
+- VSCode
+- MongoDB for VSCode extension
 - Database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - Starter code: <https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo>
 
@@ -37,25 +38,27 @@ The exercises are solved together with the instructor. A few exercises we can tr
     c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
     ```
 
-    Keep this window open because the server is running here. You can stop it by pressing Ctrl+C at the end of the class.
+    Keep this window open because the server is running here. You can stop it by pressing ++ctrl+c++ at the end of the class.
 
-1. Launch Robo3, which you find in directory `c:\tools\robo3t...` and connect to the MongoDB server.
+1. Launch VSCode and connect to the MongoDB server with the extension.
 
-    ![Robo3T Connection Settings](images/robo3t_connection.png)
+    ![Connection Settings](images/vscode-connect.png)
 
-1. Let us create a new database by right-clicking the connection (_localhost_). Let the database name be `datadriven`.
+1. Let us create a new database by right-clicking the connection (_localhost_). This opens a playground script window, where we paste our database creation script from [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), and run it with the black “play” button found in the header. The name of the database should be `datadriven`. As a result, the collections should be created - open the elements of the database to check this.
 
-    ![Robo3T Connection Settings](images/robo3t_newdb.png)
+    ![Connection Settings](images/vscode-newdb.png)
 
-1. Open a new shell into the database by right-clicking it and choosing the _Open Shell_ command. This will open a single-line textbox to the right. Copy the database initialization script from [here](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js) into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the _Collections_ item to check them.
-
-    ![Robo3T Collections](images/robo3t_collections.png)
+    ![Created Collections](images/vscode-collections.png)
 
 1. Download the starter solution!
 
     - Open a **new** _command prompt_ or PowerShell console (do not use the one the server is running in)
     - Navigate to a folder, e.g. `c:\work\NEPTUN`
-    - Execute the following command: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git`
+    - Execute the following command:
+
+        ```bash
+        git clone https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git
+        ```
 
 1. Open the _sln_ file from the newly created folder using Visual Studio. Let us examine this project.
 
@@ -214,7 +217,7 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
 
     1. Create our new `Category` POCO class.
 
-        Let us check a few sample documents using Robo3T in `categories` collection.
+        Let us check a few sample documents using VSCode in `categories` collection.
 
         ![Categories documents](images/categories.png)
 
