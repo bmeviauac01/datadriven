@@ -122,7 +122,7 @@ Since the data modeling scheme used in databases (i.e., the relational model) an
 
 Communication with an external system, whether is it is a database or a third-party service, requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore it is the responsibility of the data access layer to **manage these connections** and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.
 
-The management of **concurrent data accesses and related problems** is also the responsibility if this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent *modifications* can happen. We will discuss how this is handled and what type of issues we have to resolve.
+The management of **concurrent data accesses and related problems** is also the responsibility of this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent *modifications* can happen. We will discuss how this is handled and what type of issues we have to resolve.
 
 ### Business Layer
 

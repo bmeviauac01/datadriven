@@ -227,7 +227,7 @@ SELECT DATEDIFF(day, '2021-09-28 12:10:09', '2021-11-04 13:45:09')
 Data type conversion:
 
 ```sql
-SELECT CAST('12 'as int)
+SELECT CAST('12' as int)
 -- 12
 
 SELECT CONVERT(int, '12')
