@@ -488,8 +488,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#robo-3t" class="md-nav__link">
-    Robo 3T
+  <a href="#mongodb-for-vscode" class="md-nav__link">
+    MongoDB for VSCode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#studio-3t" class="md-nav__link">
+    Studio 3T
   </a>
   
 </li>
@@ -1089,8 +1096,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#robo-3t" class="md-nav__link">
-    Robo 3T
+  <a href="#mongodb-for-vscode" class="md-nav__link">
+    MongoDB for VSCode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#studio-3t" class="md-nav__link">
+    Studio 3T
   </a>
   
 </li>
@@ -1120,34 +1134,40 @@
 
 
 <h1 id="mongodb-hasznalata">MongoDB használata<a class="headerlink" href="#mongodb-hasznalata" title="Permanent link">&para;</a></h1>
-<p>A MongoDB ingyenes, open-source adatbázis kiszolgáló. Mi az ún. <em>community</em> változatát használjuk, kliens szoftvernek pedig a <em>Robo 3T</em> alkalmazást.</p>
+<p>A MongoDB ingyenes, open-source adatbázis kiszolgáló. Mi az ún. <em>community</em> változatát használjuk, kliens szoftvernek pedig a VSCode MongoDB for VSCode kiegészítőjét.</p>
 <p>Letöltési linkek:</p>
 <ul>
 <li><a href="https://www.mongodb.com/download-center/community">https://www.mongodb.com/download-center/community</a></li>
-<li><a href="https://robomongo.org/download">https://robomongo.org/download</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode">https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode</a></li>
 </ul>
 <p>Telepítési útmutató: <a href="https://docs.mongodb.com/manual/administration/install-community/">https://docs.mongodb.com/manual/administration/install-community/</a></p>
-<div class="admonition example">
-<p class="admonition-title">Eszköz használata videó</p>
-<p>Az eszköz használatának bemutatása: <a href="https://web.microsoftstream.com/video/d1d25850-30af-43c8-ad0a-7139facda7f9">https://web.microsoftstream.com/video/d1d25850-30af-43c8-ad0a-7139facda7f9</a></p>
-</div>
 <h2 id="mongodb-szerver-elinditasa">MongoDB szerver elindítása<a class="headerlink" href="#mongodb-szerver-elinditasa" title="Permanent link">&para;</a></h2>
 <p>A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusan elindul. Ha nem kértük ezt a telepítéskor, akkor a telepítési könyvtárban az alábbi paranccsal tudjuk elindítani a szervert. (Ügyeljünk rá, hogy a szerver a mongo&#8203;<strong>d</strong> exe.)</p>
 <div class="highlight"><pre><span></span><code>mongod.exe<span class="w"> </span>--dbpath<span class="o">=</span><span class="s2">&quot;&lt;munkakönyvtár&gt;&quot;</span>
 </code></pre></div>
-<p>A <em>munkakönyvtárban</em> fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzolt be nem zárjuk. Leállítani a <em>Ctrl + C</em> billentyűkombinációval kell.</p>
+<p>A <em>munkakönyvtárban</em> fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzolt be nem zárjuk. Leállítani a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> billentyűkombinációval kell.</p>
+<div class="admonition tip">
+<p class="admonition-title">Mongo Dockerrel</p>
+<p>Alternatívaként futtathatjuk a mongo szervert docker konténer formájában az alábbi paranccsal:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>datadriven-mongo<span class="w"> </span>-p<span class="w"> </span><span class="m">27017</span>:27017<span class="w"> </span>-d<span class="w"> </span>mongo
+</code></pre></div>
+<p>Így futtatva a <code>-p 27017:27017</code> kapcsoló leképzi a konténer belső 27017-es portját a localhost 27017-es portjára, így ugyanúgy használható mint egy telepített verzió.</p>
+</div>
 <h2 id="mongo-shell">Mongo shell<a class="headerlink" href="#mongo-shell" title="Permanent link">&para;</a></h2>
 <p>A <a href="https://docs.mongodb.com/manual/mongo/"><em>Mongo shell</em></a> egy egyszerű konzolos kliens alkalmazás. A hivatalos dokumentációban szereplő példák általában ezt használják. Mi nem fogjuk ezt a programot használni.</p>
-<h2 id="robo-3t">Robo 3T<a class="headerlink" href="#robo-3t" title="Permanent link">&para;</a></h2>
-<p>A Robo 3T egy egyszerű és ingyenes kliensprogram MongoDB adatbázis használatához. Létezik több funkcióval rendelkező, fizetős kliensprogram is (Studio 3T), nekünk azonban megfelel az egyszerűbb is.</p>
-<p>A program indulásakor kiválaszthatjuk a már korábban létrehozott kapcsolatunkat, vagy készíthetünk egy újat. Alapértelmezésként a helyben futó szervert a <code>localhost</code> címen és a <code>27017</code> porton érhetjük el.</p>
-<p><a class="glightbox" href="../images/robo3t-connection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás" src="../images/robo3t-connection.png" /></a></p>
-<p>A sikeres kapcsolódás után az alkalmazás bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a <em>Create Database</em> parancsot. Mi azonban ezt nem használjuk.)</p>
-<p><a class="glightbox" href="../images/robo3t-db-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemények" src="../images/robo3t-db-collections.png" /></a></p>
-<p>A gyűjtemények tartalmát dupla kattintással tekinthetjük meg. Ez egy új tab fület nyit, ahol is egy keresést végzett a kliens nekünk. Ezt a keresési parancsot lecserélhetjük, átírhatjuk, ha szükségünk van rá.</p>
-<p>A gyűjtemény tartalma a parancs alatt található. Egy-egy dokumentum egy-egy sor. A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással tudjuk. A szerkesztés során a JSON dokumentumot szerkesztjük.</p>
-<p><a class="glightbox" href="../images/robo3t-collection-list.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemény tartalma" src="../images/robo3t-collection-list.png" /></a></p>
+<h2 id="mongodb-for-vscode">MongoDB for VSCode<a class="headerlink" href="#mongodb-for-vscode" title="Permanent link">&para;</a></h2>
+<p>A MongoDB for VSCode egy egyszerű és ingyenes kiegészítő VSCode-ban MongoDB adatbázis használatához.</p>
+<p>A kiegészítő megnyitásakor kiválaszthatjuk a már korábban létrehozott kapcsolatunkat, vagy készíthetünk egy újat. Alapértelmezésként a helyben futó szervert a <code>localhost</code> címen és a <code>27017</code> porton érhetjük el.</p>
+<p><a class="glightbox" href="../images/vscode-connect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás" src="../images/vscode-connect.png" /></a></p>
+<p><a class="glightbox" href="../images/vscode-connect2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás2" src="../images/vscode-connect2.png" /></a></p>
+<p>A sikeres kapcsolódás után az kiegészítő bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a <em>Create Database</em> parancsot, ahol tetszőleges parancsot tudunk futtatni.)</p>
+<p><a class="glightbox" href="../images/vscode-db-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemények" src="../images/vscode-db-collections.png" /></a></p>
+<p>A gyűjtemények tartalmát <em>jobb gomb / View Documents</em> művelettel tekinthetjük meg, amit egy új tab fület nyit. Ha keresni szeretnénk, akkor a <em>jobb gomb / Search For Documents...</em> művelettel írhatunk JavaScript kódot egy playground ablakban.</p>
+<p>A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással tudjuk. A szerkesztés során a JSON dokumentumot szerkesztjük.</p>
+<p><a class="glightbox" href="../images/vscode-collection-list.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemény tartalma" src="../images/vscode-collection-list.png" /></a></p>
 <p>Új dokumentumot beszúrni szintén jobb egérrel kattintva tudunk. Itt egy üres szerkesztőt kapunk. Ha új rekordot akarunk létrehozni, célszerű egy meglevő dokumentum JSON-jét lemásolni és úgy hozni létre az újat, hogy a kulcsok nevei biztosan jók legyenek.</p>
+<h2 id="studio-3t">Studio 3T<a class="headerlink" href="#studio-3t" title="Permanent link">&para;</a></h2>
+<p><a href="https://studio3t.com/">Studio 3T</a> egy bővebb funkciókkal rendelkező mongo kliens, aminek van ingyenes verziója is, de az regisztrációhoz kötött. A tanszéki laborokban nincs feltelepítve, de otthon használhatjátok.</p>
 
     <hr>
   <div class="md-source-file">
@@ -1158,8 +1178,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. október 10. 16:31:51">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-10T16:31:51+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-10</span>
       </span>
     </span>
 

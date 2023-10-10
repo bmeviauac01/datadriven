@@ -1166,9 +1166,10 @@
 <h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
 <p>A labor elvégzéséhez szükséges eszközök:</p>
 <ul>
-<li>Microsoft Visual Studio 2022 (<em>nem</em> VS Code)</li>
 <li>MongoDB Community Edition</li>
-<li>Robo 3T</li>
+<li>Microsoft Visual Studio 2022</li>
+<li>VSCode</li>
+<li>MongoDB for VSCode kiegészítő</li>
 <li>Adatbázis létrehozó script: <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">mongo.js</a></li>
 <li>Kiinduló alkalmazás kódja: <a href="https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo">https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo</a></li>
 </ul>
@@ -1194,26 +1195,27 @@
 <span class="nb">New-Item</span> <span class="n">-Type</span> <span class="n">Directory</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
 <span class="n">c</span><span class="p">:\</span><span class="n">tools</span><span class="p">\</span><span class="n">mongodb</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="n">mongod</span><span class="p">.</span><span class="n">exe</span> <span class="p">-</span><span class="n">-dbpath</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
 </code></pre></div>
-<p>Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.</p>
+<p>Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> billentyűkombinációval lehet majd a végén.</p>
 </li>
 <li>
-<p>Indítsuk el a Robo3T programot (a <code>c:\tools\robo3t...</code> könyvtárban találjuk) és csatlakozzunk a MongoDB szerverhez.</p>
-<p><a class="glightbox" href="images/robo3t_connection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Connection Settings" src="images/robo3t_connection.png" /></a></p>
+<p>Indítsuk el a VSCode-ot és csatlakozzunk a MongoDB szerverhez.</p>
+<p><a class="glightbox" href="images/vscode-connect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-connect.png" /></a></p>
 </li>
 <li>
-<p>Hozzuk létre az adatbázist a kapcsolat nevén (<em>localhost</em>) jobb egérrel kattintva. Az adatbázis neve <code>datadriven</code> legyen:</p>
-<p><a class="glightbox" href="images/robo3t_newdb.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Connection Settings" src="images/robo3t_newdb.png" /></a></p>
-</li>
-<li>
-<p>Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az <em>Open Shell</em> parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">innen</a>, és futtassuk le az eszköztáron található zöld "lejátszás" gombbal. Ennek hatására létre kell jönnie a <em>collection</em>-öknek - nyissuk le a <em>Collections</em> mappát ennek ellenőrzéséhez.</p>
-<p><a class="glightbox" href="images/robo3t_collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Collections" src="images/robo3t_collections.png" /></a></p>
+<p>Hozzuk létre az adatbázist a kapcsolat nevén (<em>localhost</em>) jobb egérrel kattintva. Ez egy playground script ablakot nyit, ahova másoljuk be az adatbázis létrehozó scriptünket <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">innen</a>, és futtassuk le az fejlécben található fekete "lejátszás" gombbal Az adatbázis neve <code>datadriven</code> legyen. Ennek hatására létre kell jönnie a <em>collection</em>-öknek - nyissuk le az adatbázis elemeit ennek ellenőrzéséhez.</p>
+<p><a class="glightbox" href="images/vscode-newdb.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-newdb.png" /></a></p>
+<p><a class="glightbox" href="images/vscode-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Created Collections" src="images/vscode-collections.png" /></a></p>
 </li>
 <li>
 <p>Töltsük le a kiinduló projekt vázat!</p>
 <ul>
 <li>Nyissunk egy <strong>új</strong> <em>command prompt</em>-ot vagy PowerShell konzolt (ne azt használjuk, amelyikben a szerver fut)</li>
 <li>Navigáljunk el egy tetszőleges mappába, például <code>c:\work\NEPTUN</code></li>
-<li>Adjuk ki a következő parancsot: <code>git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git</code></li>
+<li>
+<p>Adjuk ki a következő parancsot:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git
+</code></pre></div>
+</li>
 </ul>
 </li>
 <li>
@@ -1388,7 +1390,7 @@
 </li>
 <li>
 <p>Hozzunk létre új POCO osztályt <code>Category</code> néven.</p>
-<p>Nézzük meg először a Robo3T program segítségével, hogy milyen adattagok találhatók a <code>categories</code> kollekcióban lévő dokumentumokban.</p>
+<p>Nézzük meg először VSCode-ban, hogy milyen adattagok találhatók a <code>categories</code> kollekcióban lévő dokumentumokban.</p>
 <p><a class="glightbox" href="images/categories.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kategória dokumentumok" src="images/categories.png" /></a></p>
 <p>Ez alapján létre tudjuk hozni a <code>Category</code> osztályt an <code>Entities</code> mappában.</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">MongoDB.Bson</span><span class="p">;</span>
@@ -1510,8 +1512,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. szeptember 4. 08:51:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-04T08:51:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-04</span>
+      <span title="2023. október 10. 16:26:02">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-10T16:26:02+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-10</span>
       </span>
     </span>
 

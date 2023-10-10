@@ -1,3 +1,8 @@
+const database = 'datadriven';
+
+// Create a new database.
+use(database);
+
 db.customers.createIndex({ "sites._id" : 1 }, { "unique" : true, "name" : "ix_site_id" })
 
 db.customers.insertMany([{

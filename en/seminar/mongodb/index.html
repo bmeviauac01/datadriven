@@ -1152,9 +1152,10 @@
 <h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2>
 <p>Required tools to complete the tasks:</p>
 <ul>
-<li>Microsoft Visual Studio 2022 (<em>not</em> VS Code)</li>
+<li>Microsoft Visual Studio 2022</li>
 <li>MongoDB Community Edition</li>
-<li>Robo 3T</li>
+<li>VSCode</li>
+<li>MongoDB for VSCode extension</li>
 <li>Database initialization script: <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">mongo.js</a></li>
 <li>Starter code: <a href="https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo">https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo</a></li>
 </ul>
@@ -1180,26 +1181,27 @@
 <span class="nb">New-Item</span> <span class="n">-Type</span> <span class="n">Directory</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
 <span class="n">c</span><span class="p">:\</span><span class="n">tools</span><span class="p">\</span><span class="n">mongodb</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="n">mongod</span><span class="p">.</span><span class="n">exe</span> <span class="p">-</span><span class="n">-dbpath</span> <span class="n">c</span><span class="p">:\</span><span class="n">work</span><span class="p">\</span><span class="n">mongodatabase</span>
 </code></pre></div>
-<p>Keep this window open because the server is running here. You can stop it by pressing Ctrl+C at the end of the class.</p>
+<p>Keep this window open because the server is running here. You can stop it by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> at the end of the class.</p>
 </li>
 <li>
-<p>Launch Robo3, which you find in directory <code>c:\tools\robo3t...</code> and connect to the MongoDB server.</p>
-<p><a class="glightbox" href="images/robo3t_connection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Connection Settings" src="images/robo3t_connection.png" /></a></p>
+<p>Launch VSCode and connect to the MongoDB server with the extension.</p>
+<p><a class="glightbox" href="images/vscode-connect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-connect.png" /></a></p>
 </li>
 <li>
-<p>Let us create a new database by right-clicking the connection (<em>localhost</em>). Let the database name be <code>datadriven</code>.</p>
-<p><a class="glightbox" href="images/robo3t_newdb.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Connection Settings" src="images/robo3t_newdb.png" /></a></p>
-</li>
-<li>
-<p>Open a new shell into the database by right-clicking it and choosing the <em>Open Shell</em> command. This will open a single-line textbox to the right. Copy the database initialization script from <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">here</a> into the textbox and execute it by pressing the green play button on the toolbar. This will create our collections - expand the <em>Collections</em> item to check them.</p>
-<p><a class="glightbox" href="images/robo3t_collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Robo3T Collections" src="images/robo3t_collections.png" /></a></p>
+<p>Let us create a new database by right-clicking the connection (<em>localhost</em>). This opens a playground script window, where we paste our database creation script from <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">innen</a>, and run it with the black “play” button found in the header. The name of the database should be <code>datadriven</code>. As a result, the collections should be created - open the elements of the database to check this.</p>
+<p><a class="glightbox" href="images/vscode-newdb.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-newdb.png" /></a></p>
+<p><a class="glightbox" href="images/vscode-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Created Collections" src="images/vscode-collections.png" /></a></p>
 </li>
 <li>
 <p>Download the starter solution!</p>
 <ul>
 <li>Open a <strong>new</strong> <em>command prompt</em> or PowerShell console (do not use the one the server is running in)</li>
 <li>Navigate to a folder, e.g. <code>c:\work\NEPTUN</code></li>
-<li>Execute the following command: <code>git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git</code></li>
+<li>
+<p>Execute the following command:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git
+</code></pre></div>
+</li>
 </ul>
 </li>
 <li>
@@ -1374,7 +1376,7 @@
 </li>
 <li>
 <p>Create our new <code>Category</code> POCO class.</p>
-<p>Let us check a few sample documents using Robo3T in <code>categories</code> collection.</p>
+<p>Let us check a few sample documents using VSCode in <code>categories</code> collection.</p>
 <p><a class="glightbox" href="images/categories.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Categories documents" src="images/categories.png" /></a></p>
 <p>Create a new class <code>Category</code> in folder <code>Entities</code> with matching fields as below.</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">MongoDB.Bson</span><span class="p">;</span>
@@ -1496,8 +1498,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
+      <span title="October 10, 2023 16:26:02">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-10T16:26:02+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-10</span>
       </span>
     </span>
 
