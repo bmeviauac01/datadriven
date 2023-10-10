@@ -39,7 +39,8 @@ A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részér
     - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - MongoDB adatbázist használó feladathoz:
     - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
-    - [Robo 3T](https://robomongo.org/download)
+    - [VSCode](https://code.visualstudio.com/download)
+    - [MongoDB for VSCode](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
     - Minta adatbázis kódja: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - REST API feladatokhoz: [Postman](https://www.getpostman.com/)
 - Az első házi kivételével a C# programozós feladatokhoz:
