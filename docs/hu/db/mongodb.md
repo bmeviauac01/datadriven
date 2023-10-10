@@ -55,3 +55,7 @@ A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással
 ![Gyűjtemény tartalma](images/vscode-collection-list.png)
 
 Új dokumentumot beszúrni szintén jobb egérrel kattintva tudunk. Itt egy üres szerkesztőt kapunk. Ha új rekordot akarunk létrehozni, célszerű egy meglevő dokumentum JSON-jét lemásolni és úgy hozni létre az újat, hogy a kulcsok nevei biztosan jók legyenek.
+
+## Studio 3T
+
+[Studio 3T](https://studio3t.com/) egy bővebb funkciókkal rendelkező mongo kliens, aminek van ingyenes verziója is, de az regisztrációhoz kötött. A tanszéki laborokban nincs feltelepítve, de otthon használhatjátok.

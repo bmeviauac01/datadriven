@@ -53,3 +53,7 @@ A document can be edited and deleted by right clicking a document. Edit is perfo
 ![Collection content](images/vscode-collection-list.png)
 
 A new document can be inserted by right-clicking and writing the JSON content. It is advised to copy an existing document and change it to ensure that key names are correct.
+
+## Studio 3T
+
+[Studio 3T](https://studio3t.com/) is a commercial MongoDB client with richer GUI features. It has a free version but requires registration. It's not available in lab computers, but you can install it on your own computer.
