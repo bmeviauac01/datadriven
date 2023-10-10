@@ -38,7 +38,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
     c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
     ```
 
-    Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani Ctrl+C billentyűkombinációval lehet majd a végén.
+    Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani ++ctrl+c++ billentyűkombinációval lehet majd a végén.
 
 1. Indítsuk el a VSCode-ot és csatlakozzunk a MongoDB szerverhez.
 

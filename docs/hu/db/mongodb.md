@@ -17,11 +17,22 @@ A telepítési modell függvényében lehet, hogy a MongoDB szerver automatikusa
 mongod.exe --dbpath="<munkakönyvtár>"
 ```
 
-A _munkakönyvtárban_ fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzolt be nem zárjuk. Leállítani a _Ctrl + C_ billentyűkombinációval kell.
+A _munkakönyvtárban_ fog tárolódni az adatbázis. Ha ilyen módon, konzolból indítottuk a szervert, akkor addig fut, amíg a konzolt be nem zárjuk. Leállítani a ++ctrl+c++ billentyűkombinációval kell.
+
+!!! tip "Mongo Dockerrel"
+    Alternatívaként futtathatjuk a mongo szervert docker konténer formájában az alábbi paranccsal:
+
+    ```bash
+    docker run --name datadriven-mongo -p 27017:27017 -d mongo
+    ```
+
+    Így futtatva a `-p 27017:27017` kapcsoló leképzi a konténer belső 27017-es portját a localhost 27017-es portjára, így ugyanúgy használható mint egy telepített verzió.
 
 ## Mongo shell
 
 A [_Mongo shell_](https://docs.mongodb.com/manual/mongo/) egy egyszerű konzolos kliens alkalmazás. A hivatalos dokumentációban szereplő példák általában ezt használják. Mi nem fogjuk ezt a programot használni.
+
+
 
 ## MongoDB for VSCode
 
