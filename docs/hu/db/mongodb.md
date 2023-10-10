@@ -44,11 +44,11 @@ A kiegészítő megnyitásakor kiválaszthatjuk a már korábban létrehozott ka
 
 ![Kapcsolódás2](images/vscode-connect2.png)
 
-A sikeres kapcsolódás után az kiegészítő bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a _Create Database_ parancsot. Mi azonban ezt nem használjuk.)
+A sikeres kapcsolódás után az kiegészítő bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a _Create Database_ parancsot, ahol tetszőleges parancsot tudunk futtatni.)
 
 ![Gyűjtemények](images/vscode-db-collections.png)
 
-A gyűjtemények tartalmát _jobb gomb / View Documents_művelettel tekinthetjük meg, amit egy új tab fület nyit. Ha keresni szeretnénk, akkor a _jobb gomb / Search For Documents..._ művelettel írhatunk JavaScript kódot egy playground ablakban.
+A gyűjtemények tartalmát _jobb gomb / View Documents_ művelettel tekinthetjük meg, amit egy új tab fület nyit. Ha keresni szeretnénk, akkor a _jobb gomb / Search For Documents..._ művelettel írhatunk JavaScript kódot egy playground ablakban.
 
 A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással tudjuk. A szerkesztés során a JSON dokumentumot szerkesztjük.
 

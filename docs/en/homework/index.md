@@ -39,7 +39,8 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
     - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
 - For homework using a MongoDB database:
     - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
-    - [Robo 3T](https://robomongo.org/download)
+    - [VSCode](https://code.visualstudio.com/download)
+    - [MongoDB for VSCode](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
     - Sample database initialization script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
 - For the REST API homework: [Postman](https://www.getpostman.com/)
 - For writing C# code (most homework, except the first one):

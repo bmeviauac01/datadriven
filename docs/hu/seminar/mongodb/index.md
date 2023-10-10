@@ -44,11 +44,9 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
     ![Connection Settings](images/vscode-connect.png)
 
-2. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Ez egy playground script ablakot nyit, ahova másoljuk be az adatbázos létrehozó scriptünket [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az fejlécben található fekete "lejátszás" gombbal Az adatbázis neve `datadriven` legyen. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le az adatbázis elemeit ennek ellenőrzéséhez.
+1. Hozzuk létre az adatbázist a kapcsolat nevén (_localhost_) jobb egérrel kattintva. Ez egy playground script ablakot nyit, ahova másoljuk be az adatbázis létrehozó scriptünket [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az fejlécben található fekete "lejátszás" gombbal Az adatbázis neve `datadriven` legyen. Ennek hatására létre kell jönnie a _collection_-öknek - nyissuk le az adatbázis elemeit ennek ellenőrzéséhez.
 
     ![Connection Settings](images/vscode-newdb.png)
-
-3. Nyissunk egy új shellt az adatbázison jobb egérrel kattintva az _Open Shell_ parancsot választva. Ekkor jobb oldalon kapunk egy egysoros szövegmezőt. Ide másoljuk be az adatbázist létrehozó scriptet [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), és futtassuk le az eszköztáron található zöld "lejátszás" gombbal.
 
     ![Created Collections](images/vscode-collections.png)
 
@@ -62,7 +60,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
         git clone https://github.com/bmeviauac01/gyakorlat-mongo-kiindulo.git
         ```
 
-2. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val. Vizsgáljuk meg a projektet.
+1. Nyissuk meg a forrásban az _sln_ fájlt Visual Studio-val. Vizsgáljuk meg a projektet.
 
     - Ez egy .NET konzol alkalmazás. Felépítésében hasonlít az Entity Framework gyakorlaton látotthoz: az `Entities` mappában találhatók az entitás osztályok, a megoldást pedig a `Program.cs` fájlba írjuk.
     - Nézzük meg a `Program.cs` tartalmát. Itt már megtalálható a MongoDB kommunikációhoz szükséges inicializáció.
