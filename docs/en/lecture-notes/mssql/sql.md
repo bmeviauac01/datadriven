@@ -80,7 +80,7 @@ select o.Date, o.Deadline, s.Name
 from [Order] o inner join Status s on o.StatusId=s.ID
 ```
 
-An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the inner join!
+An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the innter join!
 
 ```sql
 select o.Date, o.Deadline,
