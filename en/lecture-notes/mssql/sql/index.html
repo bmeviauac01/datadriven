@@ -1339,7 +1339,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
-<p>An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the innter join!</p>
+<p>An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the inner join!</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span>
 <span class="w">       </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span>
@@ -1643,8 +1643,8 @@
           </path>
         </svg>
       </span>
-      <span title="February 3, 2023 08:04:23">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T08:04:23+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="October 29, 2023 13:30:47">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-29T13:30:47+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-29</span>
       </span>
     </span>
 
