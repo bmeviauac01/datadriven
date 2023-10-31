@@ -254,11 +254,11 @@ A `DataSet` egyfajta *cache*-nek, vagy memóriabeli adattárnak tekinthető. Egy
 
 Az adatelérés működése `adapter`-rel kapcsolat nélküli modellben az alábbi ábrán látható.
 
-![Data adapter használata]((images/adapter.png)
+![Data adapter használata](images/adapter.png)
 
 `DataSet` kapcsolati lánc az adatbázisig:
 
-![DataSet kapcsolati lánc]((images/dataset.png)
+![DataSet kapcsolati lánc](images/dataset.png)
 
 **Példa** `DataSet` használatára:
 
