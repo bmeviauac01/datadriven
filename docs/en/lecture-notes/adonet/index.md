@@ -105,7 +105,7 @@ var command = new SqlCommand()
     CommandText = "SalesByCategory"
 }*/
 
-// protection against SQL injection
+// protection agains SQL injection
 var parameter = new SqlParameter();
 parameter.ParameterName = "@CategoryName"; // matches the stored procedures argument name
 parameter.SqlDbType = SqlDbType.NVarChar;
@@ -238,7 +238,7 @@ using(var conn = new SqlConnection(connectionString))
 
 ### DataSet
 
-A `DataSet` can be considered as a kind of *cache*, or in-memory data storage. We use an `adapter` (such as `SqlDataAdapter`) to retrieve data from the database and store it in the `Dataset`, then we close the connection to the database. We can then make work with the data, even make changes to it within the `DataSet`, and then update the database with the changes using a new connection. It is worth noting that during the time between retrieval and update anyone can modify the same data in the database, thus the disadvantages of `DataSet` is having to manage conflicts and concurrent data access issues covered previously in transaction management.
+A `DataSet` can be considered as a kind of *cache*, or in-memory data storage. We use an `adapter` (such as `SqlDataAdapter`) to retrieve data from the database and store it in the `Dataset`, then we close the connection to the database. We can then make work with the data, event make changes to it within the `DataSet`, and then update the database with the changes using a new connection. It is worth noting that during the time between retrieval and update anyone can modify the same data in the database, thus the disadvantages of `DataSet` is having to manage conflicts and concurrent data access issues covered previously in transaction management.
 
 **The steps of working with a DataSet:**
 
