@@ -1390,7 +1390,7 @@
 <span class="cm">    CommandText = &quot;SalesByCategory&quot;</span>
 <span class="cm">}*/</span>
 
-<span class="c1">// protection agains SQL injection</span>
+<span class="c1">// protection against SQL injection</span>
 <span class="kt">var</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlParameter</span><span class="p">();</span>
 <span class="n">parameter</span><span class="p">.</span><span class="n">ParameterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;@CategoryName&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// matches the stored procedures argument name</span>
 <span class="n">parameter</span><span class="p">.</span><span class="n">SqlDbType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SqlDbType</span><span class="p">.</span><span class="n">NVarChar</span><span class="p">;</span>
@@ -1510,7 +1510,7 @@
 <li>poor scalability with the number of connections - therefore, the connections should be used only for a short time</li>
 </ul>
 <h3 id="dataset">DataSet<a class="headerlink" href="#dataset" title="Permanent link">&para;</a></h3>
-<p>A <code>DataSet</code> can be considered as a kind of <em>cache</em>, or in-memory data storage. We use an <code>adapter</code> (such as <code>SqlDataAdapter</code>) to retrieve data from the database and store it in the <code>Dataset</code>, then we close the connection to the database. We can then make work with the data, event make changes to it within the <code>DataSet</code>, and then update the database with the changes using a new connection. It is worth noting that during the time between retrieval and update anyone can modify the same data in the database, thus the disadvantages of <code>DataSet</code> is having to manage conflicts and concurrent data access issues covered previously in transaction management.</p>
+<p>A <code>DataSet</code> can be considered as a kind of <em>cache</em>, or in-memory data storage. We use an <code>adapter</code> (such as <code>SqlDataAdapter</code>) to retrieve data from the database and store it in the <code>Dataset</code>, then we close the connection to the database. We can then make work with the data, even make changes to it within the <code>DataSet</code>, and then update the database with the changes using a new connection. It is worth noting that during the time between retrieval and update anyone can modify the same data in the database, thus the disadvantages of <code>DataSet</code> is having to manage conflicts and concurrent data access issues covered previously in transaction management.</p>
 <p><strong>The steps of working with a DataSet:</strong></p>
 <ol>
 <li>Open a connection</li>
@@ -1602,8 +1602,8 @@
           </path>
         </svg>
       </span>
-      <span title="March 3, 2023 13:36:18">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-03-03T13:36:18+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-03-03</span>
+      <span title="November 5, 2023 22:46:21">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-05T22:46:21+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-05</span>
       </span>
     </span>
 

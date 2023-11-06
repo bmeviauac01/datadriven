@@ -1214,13 +1214,13 @@
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span><span class="w"> </span><span class="c1">// accessing the referenced entity via the navigation property</span>
 </code></pre></div>
 <p>In this example, we would get a runtime error in the last line. Why is that? Despite the <em>navigation property</em> being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote <code>p.VAT.Percentage</code> in a previous query), but if we query a <code>Product</code> entity, it does not include the referenced <code>VAT</code> entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands or records to get a single entity and all of it's referenced data via navigation properties. This is unnecessary in most cases.</p>
-<p>If we really need the referenced entities, the we need to specify this in the code using <code>Include</code> as follows:</p>
+<p>If we really need the referenced entities, then we need to specify this in the code using <code>Include</code> as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dbContext</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
 <span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
 
-<span class="c1">// or an anternative syntax for the same:</span>
+<span class="c1">// or an alternative syntax for the same:</span>
 <span class="c1">// var query = products</span>
 <span class="c1">//               .Include(p =&gt; p.VAT)</span>
 <span class="c1">//               .Where(p =&gt; p.Name.Contains(&quot;test&quot;));</span>
@@ -1247,8 +1247,8 @@
           </path>
         </svg>
       </span>
-      <span title="February 3, 2023 08:04:23">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T08:04:23+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="November 1, 2023 20:03:52">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-01T20:03:52+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-01</span>
       </span>
     </span>
 
