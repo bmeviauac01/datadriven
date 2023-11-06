@@ -113,7 +113,7 @@ Console.WriteLine(prod.VAT.Percentage); // accessing the referenced entity via t
 
 In this example, we would get a runtime error in the last line. Why is that? Despite the _navigation property_ being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote `p.VAT.Percentage` in a previous query), but if we query a `Product` entity, it does not include the referenced `VAT` entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands or records to get a single entity and all of it's referenced data via navigation properties. This is unnecessary in most cases.
 
-If we really need the referenced entities, the we need to specify this in the code using `Include` as follows:
+If we really need the referenced entities, then we need to specify this in the code using `Include` as follows:
 
 ```csharp
 var query =
@@ -121,7 +121,7 @@ var query =
     where p.Name.Contains("test")
     select p;
 
-// or an anternative syntax for the same:
+// or an alternative syntax for the same:
 // var query = products
 //               .Include(p => p.VAT)
 //               .Where(p => p.Name.Contains("test"));
