@@ -2,7 +2,7 @@
 
 In this cheat sheet, the query syntax of various programming languages are compared.
 
-**Important:** When using C# LINQ do not forget about creating the database context in the using block!
+`Important:` When using C# LINQ do not forget about creating the database context in the `using` block!
 
 ```csharp
 using (var db = new AdatvezDbContext())
@@ -13,7 +13,7 @@ using (var db = new AdatvezDbContext())
 
 ## SELECT
 
-**SQL:**
+`SQL:`
 
 ```SQL
 SELECT column1, column2
@@ -21,34 +21,34 @@ FROM table
 WHERE condition;
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
-**Note:** In the Select() method, an anonymous object is created. Its attributes can be freely chosen to perform the projection operation.
+`Note:` In the `Select()` method, an anonymous object is created. Its properties can be freely chosen to perform the projection operation.
 ```csharp
-// C#-like syntax
+// Fluent syntax
 var query = context.Table
             .Where(item => condition)
             .Select(item => new { item.Column1, item.Column2 });
 
- // SQL-like syntax       
+ // Query syntax       
 var query = from item in context.Table
             where condition
             select new { item.Column1, item.Column2 };
 ```
-**Important:**  If we need entities referenced by navigation properties, the developer specifies this in the code using Include(). The system loads the requested references. **DO NOT** return individual attributes using Select in this case.
+`Important:`  If we need entities referenced by navigation properties, the developer specifies this in the code using `Include()`. The system loads the requested references.
 ```csharp
-var query = products
+var prod = products
             .Include(p => p.VAT)
             .Where(p => p.ID==23)
             .SingleOrDefault();
 // Navigation properties' attributes are accessible externally without lazy loading
-if(query!=null){
-    Console.WriteLine(query.VAT.ID);
+if(prod!=null){
+    Console.WriteLine(prod.VAT.ID);
 }
 ```
-**C# MongoDb:**
+`C# MongoDb:`
 
-Similar to Select in LINQ, use it when we want to project specific attributes.
+Similar to Select in LINQ, use it when we use `.Project()` to project to specific attributes.
 
 ```csharp
 collection.Find(item=>item.Column1 == value)
@@ -58,102 +58,128 @@ collection.Find(item=>item.Column1 == value)
             Attr2=item.Coloumn2
         }).ToList();
 ```
-Projection similar to Select can also be specified in the Group() function, as shown below.
-
 ## WHERE
-**SQL:**
+`SQL:`
 
 ```SQL
-SELECT * FROM table_name WHERE column_name="Example";
+SELECT *
+FROM table_name
+WHERE column_name="Example";
 ```
 Query where a field is NULL:
 ```SQL
-SELECT * FROM table_name WHERE column_name IS NULL;
-To check the opposite, use IS NOT NULL
+SELECT *
+FROM table_name
+WHERE column_name IS NULL;
+--To check the opposite, use IS NOT NULL
 ```
-**ISNULL** function: If there is a value in the salary column, the query continues with that value. Otherwise, it uses the value provided as the second parameter (in this case, 0).
+`ISNULL` function: If there is a value in the salary column, the query continues with that value. Otherwise, it uses the value provided as the second parameter (in this case, 0).
 ```SQL
-
 SELECT employee_id, employee_name, ISNULL(salary, 0) AS modified_salary
 FROM employees;
-
 ```
 
 Subqueries can be named, and their results can be referenced. The example below (from the Microsoft SQL seminar) finds the product category with the most items.
 
 ```SQL
-select top 1 Name, (select count(*) from Product where Product.CategoryID = c.ID) as cnt
-from Category c
-order by cnt desc
+SELECT TOP 1 Name, (SELECT COUNT(*) FROM Product WHERE Product.CategoryID = c.ID) AS cnt
+FROM Category c
+ORDER BY cnt DESC
 ```
 
-**C# LINQ:**
+`C# LINQ:`
+The following classes and lists of these classes are given.
+```csharp
+class Product
+{
+    public int ID;
+    public string Name;
+    public int Price;
+    public int VATID;
+}
+
+class VAT
+{
+    public int ID;
+    public int Percentage;
+}
+
+List<Product> products = ...
+List<VAT> vat = ...
+```
 Where price is less than 1000:
 ```csharp
-// C#-like syntax
+//Fluent syntax
 products.Where(p => p.Price < 1000)
-// SQL-like syntax
+//Query syntax
 from p in products
 where p.Price < 1000
 ```
-**C# MongoDb:**
+`C# MongoDb:`
 
-**Important:** In MongoDB's .Find() operation, only conditions that apply to the document itself can be used; it is not possible to reference or join with another collection!
+`Important:` In MongoDB's `.Find()` operation, only conditions that apply to the document itself can be used; it is not possible to reference or join with another collection!
 
-**Important:** In MongoDb, you must always include a .Find() in the commands (unless using Aggregate()). A common parameterization because od this constraint is .Find(_ => true) of the Find() command.
+`Important:` In MongoDb, you must always include a `.Find()` in the commands (unless using `Aggregate()`). A common parameterization because od this constraint is `.Find(_ => true)` of the `Find()` command.
 
-**Note:** The result of the Find() function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use .ToList(). (If you want to return a single element of a query you should use an other command, see below.)
+`Note:` The result of the `Find()` function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use `.ToList()`. (If you want to return a single element of a query you should use an other command, see below.)
 ```csharp
 collection.Find(item=>item.Column == value).ToList();
 ```
 
 ## Limiting the result set count
-**SQL:**
+`SQL:`
 
 In cases where you want to retrieve only one or just a few row from your queries.
 ```SQL
-select top 1 * --you can change the number parameter
-from Product
-order by Name
+SELECT TOP 1 *
+FROM Product
+ORDER BY Name
 ```
-**C#** (LINQ és MongoDb):
+`C#` (LINQ és MongoDb):
 
-If you need only the first element or know there will be only one element, you can use .First(), .FirstOrDefault(), .Single(), or .SingleOrDefault(). Ensure the preceding query indeed returns a single data element when using .Single() or .SingleOrDefault().
+If you need only the first element or know there will be only one element, you can use `.First()`, `.FirstOrDefault()`, `.Single()`, or .`SingleOrDefault()`. Ensure the preceding query indeed returns a single data element when using `.Single()` or `.SingleOrDefault()`. (Else the query will throw an exception)
 
-Use the .Limit(num) method to limit the number of elements the query returns to the num parameter.
-
-We can also navigate through the results using Take and Skip.
-
+We can also navigate through the results using Skip.
+`C# LINQ:`
+Using `Take()` we can limit the number of results the query gives.
 ```csharp
-// Retrieves 10 items
+//Take 10
 products.Take(10)
-
-// Skips 10, then retrieves 10
+//Skip 10 then take 10
 products.Skip(10).Take(10)
+```
+`C# MongoDb:`
+
+Using `Limit()` we can limit the number of results the query gives.
+```csharp
+//Take 10
+collection.Find(...).Limit(10);
+///Skip 10 then take 10
+collection.Find(...).Skip(10).Limit(10);
 ```
 
 ## Group By
-**SQL:**
+`SQL:`
 
 List the names of products starting with 'M' and their ordered quantities, including products with zero orders.
 ```SQL
-select p.Name, Sum(oi.Amount)
-from Product p
-     left outer join OrderItem oi on p.id=oi.ProductID
-where p.Name like 'M%'
-group by p.Name
+SELECT p.Name, Sum(oi.Amount)
+FROM Product p
+     LEFT OUTER JOIN OrderItem oi ON p.id=oi.ProductID
+WHERE p.Name LIKE 'M%'
+GROUP BY p.Name
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 Group elements by VATID.
 ```csharp
-//c# jellegű szintaktika
+//Fluent szintaktika
 products.GroupBy(p => p.VATID)
-//SQL szerű szintaktika
+//Query szintaktika
 from p in products
 group p by p.VATID
 ```
-**C# MongoDb:**
+`C# MongoDb:`
 Filter elements which are in the "Balls" category and group them by the Vat percentage.
 ```csharp
 collection.Aggregate()
@@ -164,16 +190,16 @@ collection.Aggregate()
 Within the Match(), an alternative approach to lambda can be seen. Multiple different keywords and nested Filters can be written here, such as:
 ```csharp
 collection.Find(x => x.Price == 123);
-collection.Find(Builders<Product>.Filter.Eq(x => x.Price, 123)); //Eq, mint equals
+collection.Find(Builders<Product>.Filter.Eq(x => x.Price, 123)); //Eq, equals
 
 collection.Find(x => x.Price != 123);
-collection.Find(Builders<Product>.Filter.Ne(x => x.Price, 123)); // Ne, mint not equals
+collection.Find(Builders<Product>.Filter.Ne(x => x.Price, 123)); // Ne, not equals
 
 collection.Find(x => x.Price >= 123);
-collection.Find(Builders<Product>.Filter.Gte(x => x.Price, 123)); // Gte, mint greater than or equal to
+collection.Find(Builders<Product>.Filter.Gte(x => x.Price, 123)); // Gte, greater than or equal to
 
 collection.Find(x => x.Price < 123);
-collection.Find(Builders<Product>.Filter.Lt(x => x.Price, 123)); // Lt, mint less than
+collection.Find(Builders<Product>.Filter.Lt(x => x.Price, 123)); // Lt, less than
 
 collection.Find(x => x.Price < 500 || x.Stock < 10);
 collection.Find(
@@ -210,28 +236,30 @@ var r=productsCollection.Aggregate()
 ```
 
 ## Order By
-**SQL:**
+`SQL:`
 
 ```SQL
 ORDER BY column1 ASC, column2 DESC;
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
 Two-level sorting
 ```csharp
-.OrderBy(item => item.Column1)
-.ThenByDescending(item => item.Column2)
+items.OrderBy(item => item.Column1)
+     .ThenByDescending(item => item.Column2)
 ```
-**C# MongoDb:**
+`C# MongoDb:`
 
 ```csharp
-.Sort(Builders<CollectionItem>.Sort.Ascending(item=>item.Coloumn))
+itemcollection.Sort(Builders<CollectionItem>
+                    .Sort
+                    .Ascending(item=>item.Coloumn))
 ```
 
 ## JOIN
 
-**SQL:**
+`SQL:`
 
 ```SQL
 SELECT table1.column, table2.column
@@ -239,75 +267,79 @@ FROM table1
 JOIN table2 ON table1.column = table2.column;
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
 Generally, using navigation properties, associated classes can be reached. Explicit joining is necessary only if the task logic requires it or if there's no navigation property in one class pointing to another.
 ```csharp
+//Fluent syntax:
 var query = context.Table1
             .Join(context.Table2,
                   item1 => item1.Column,
                   item2 => item2.Column,
                   (item1, item2) => new { item1.Column, item2.Column });
-// SQL-like LINQ syntax:
+//Query syntax:
 var query = from item1 in context.Table1
             join item2 in context.Table2
             on item1.Column equals item2.Column
             select new { item1.Column, item2.Column };
 ```
-**Note:** From this point on, in C# LINQ, only the more convenient query syntax will be used.
+`Note:` From this point on, in C# LINQ, only the more convenient fluent syntax will be used.
 
-**C# MongoDb:**
+`C# MongoDb:`
 
-**A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.** After querying the data, typically, the matching is done client-side using dictionaries with .ToHashSet() and .Contains() methods (See MongoDB seminar excercise 1.5).
+`A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.` After querying the data, typically, the matching is done client-side using dictionaries with .ToHashSet() and .Contains() methods (See MongoDB seminar excercise 1.5).
 
 ## Distinct
 
-**SQL:**
+`SQL:`
 
 ```SQL
-select distinct p.Name
-from Product p
+SELECT DISTINCT p.Name
+FROM Product p
 ```
 
-**C# LINQ:**
-
+`C# LINQ:`
+Every different product name.
 ```csharp
 products.Select(p => p.Name).Distinct();
 ```
-**C# MongoDb:**
+`C# MongoDb:`
+All the categories of the products with larger price than 3000.
 ```csharp
-db.orders.distinct("cust_id").ToList();
+var xd = productsCollection.Distinct(p => p.CategoryID,p=>p.Price>3000)
+                           .ToList();
 ```
 
 ## Oszlopfüggvények
 
-**SQL:**
-
+`SQL:`
+Price of the most expensive item.
 ```SQL
---What is the cost of the most expensive product?
-select max(Price)
-from Product
---What are the most expensive products?
-select *
-from Product
-where Price=(select max(Price) from Product)
+SELECT MAX(Price)
+FROM Product
+```
+The most expensive items.
+```SQL
+SELECT *
+FROM Product
+WHERE Price=(SELECT MAX(Price) FROM Product)
 ```
 
-**C# LINQ:**
-
+`C# LINQ:`
+Number of products in the "products" list.
 ```csharp
 products.Count()
 // For example, for Max, Min, Sum, similar approaches can be used
 products.Select(p => p.Price).Average()
 ```
 
-**C# MongoDb:**
+`C# MongoDb:`
 
 General aggregations can be constructed using pipelines. A pipeline can return multiple results from a document set (e.g., total, average, maximum, or minimum values)
 
 Max function:
 
-**Note:** Observe the constant grouping inside Group, which is done to calculate the column function over the entire collection.
+`Note:` Observe the constant grouping inside Group, which is done to calculate the column function over the entire collection.
 ```csharp
 collection.Aggregate().Group(p=>1,p=>p.Max(x=>x.Stock)).Single();
 ```
@@ -326,49 +358,51 @@ var q=ordersCollection.Aggregate()
 
 ## Delete
 
-**SQL:**
+`SQL:`
 
 ```SQL
-delete
-from Product
-where ID=23
+DELETE
+FROM Product
+WHERE ID=23
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
 ```csharp
 using (var db = new AdatvezDbContext())
 {
-    var deleteThis=db.Products.Select(p=>p.ID=="23").SingleOrDefault();
+    var deleteThis=db.Products.Select(p=>p.ID=="23")
+                              .SingleOrDefault();
     if(deleteThis!=null){
         db.Products.Remove(deleteThis);
         db.SaveChanges();
     }
 }
 ```
-**C# MongoDb:**
-
+`C# MongoDb:`
 
 ```csharp
 var deleteResult = collection.DeleteOne(x => x.Id == new ObjectId("..."));
 ```
-Use DeleteMany if you want to delete multiple records.
+Use `DeleteMany` if you want to delete multiple records.
 
 ## Insert
 
-**SQL:**
+`SQL:`
 
 ```SQL
-insert into Product
-values ('aa', 100, 0, 3, 2, null)
---When inserting results from another query:
-insert into Product (Name, Price)
-select Name, Price
-from InvoiceItem
-where Amount>2
+INSERT INTO Product
+VALUES ('aa', 100, 0, 3, 2, null)
+```
+When inserting the results of an other query:
+```SQL
+INSERT INTO Product (Name, Price)
+SELECT Name, Price
+FROM InvoiceItem
+WHERE Amount>2
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
 ```csharp
 using (var db = new AdatvezDbContext())
@@ -377,7 +411,7 @@ using (var db = new AdatvezDbContext())
     db.SaveChanges();
 }
 ```
-**C# MongoDb:**
+`C# MongoDb:`
 
 ```csharp
 var newProduct = new Product
@@ -391,13 +425,13 @@ collection.InsertOne(newProduct);
 
 ## Update
 
-**SQL:**
+`SQL:`
 
 Task: Increase the prices of products containing the word "Lego" in their names by 10%.
 ```SQL
-update Product
-set Price=1.1*Price
-where Name like '%Lego%'
+UPDATE Product
+SET Price=1.1*Price
+WHERE Name LIKE '%Lego%'
 ```
 If you want to assign values from another table in the SET command, as shown in the example below (from the Microsoft SQL seminar):
 Task: Copy the status of order ID 9 to all corresponding OrderItems.
@@ -409,7 +443,7 @@ INNER JOIN Order o ON o.Id = oi.OrderID
 WHERE o.ID=9;
 ```
 
-**C# LINQ:**
+`C# LINQ:`
 
 (Spoiler for the solution to Entity Framework seminar's task 3.)
 
@@ -417,17 +451,17 @@ Task: Write C# code based on LINQ that increases the prices of products in the "
 ```csharp
 using (var db = new AdatvezDbContext())
 {
-    var legoProductsQuery = db.Products.Where(p => p.Category.Name == "LEGO");
-        // ToList is used here, but a simple foreach loop also triggers a database query
-        foreach (var p in legoProductsQuery.ToList())
-        {
-            p.Price = 1.1m * p.Price;
-        }
+    var legoProductsQuery = db.Products.Where(p => p.Category.Name == "LEGO")
+                                       .ToList();
+    foreach (var p in legoProductsQuery)
+    {
+        p.Price = 1.1m * p.Price;
+    }
     db.SaveChanges();
 }
 ```
 
-**C# MongoDb:**
+`C# MongoDb:`
 
 Updating a single element:
 ```csharp
@@ -454,13 +488,15 @@ var catExpensiveToys = categoriesCollection.FindOneAndUpdate<Category>(
 ##Summary Table##
 | SQL               | C# LINQ                 | C# MongoDb              |
 |-------------------|-------------------------|-------------------------|
-| **SELECT**        | **Select()**            | **Project()**              |
-| **WHERE**         | **Where()**             | **Find()**            |
-| **GROUP BY**      | **GroupBy()**           | **Group()**             |
-| **ORDER BY**      | **OrderBy()**           | **Sort()**              |
-| **JOIN**          | Use navigation properties if possible, else: **Join()**              | **Join()**              |
-| **DISTINCT**      | **Distinct()**          | **Distinct()**          |
-| **Count()**, **Max()**, **Average()** | **Count()**, **Max()**, **Average()** | Use after **Aggregate()**: **Count()**, **Max()**, **Average()** |
-| **DELETE FROM**        |**.Remove()**, and **db.SaveChanges()** to save|**.DeleteOne()**, **.DeleteMany()**|
-**UPDATE ... SET**| Modify the data and then **db.SaveChanges()**|**.UpdateOne()**, **.UpdateMany()**|
-**INSERT INTO**|**.Add()** and then **db.SaveChanges()**| **.InsertOne()**, **.InsertMany()**
+| `SELECT`        | `Select()`            | `Project()`              |
+| `WHERE`         | `Where()`             | `Find()`            |
+| `GROUP BY`      | `GroupBy()`           | `Group()`             |
+| `ORDER BY`      | `OrderBy()`           | `Sort()`              |
+| `JOIN`          | Use navigation properties if possible, else: `Join()`              | `Join()`              |
+| `DISTINCT`      | `Distinct()`          | `Distinct()`          |
+| `Count()`, `Max()`, `Average()` | `Count()`, `Max()`, `Average()` | Use after `Aggregate()`: `Count()`, `Max()`, `Average()` |
+| `DELETE FROM`        |`.Remove()`, and `db.SaveChanges()` to save|`.DeleteOne()`, `.DeleteMany()`|
+`UPDATE ... SET`| Modify the data and then `db.SaveChanges()`|`.UpdateOne()`, `.UpdateMany()`|
+`INSERT INTO`|`.Add()` and then `db.SaveChanges()`| `.InsertOne()`, `.InsertMany()`
+
+

@@ -35,6 +35,7 @@ nav:
       - lecture-notes/linq/index.md
       - lecture-notes/ef/index.md
       - lecture-notes/mongodb/index.md
+      - lecture-notes/SQL_Cheat_Sheet.md
       - lecture-notes/di/index.md
       - lecture-notes/async/index.md
       - "REST and WebAPI sample app (GitHub)": https://github.com/bmeviauac01/rest-webapi-sample
