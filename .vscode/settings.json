@@ -4,6 +4,7 @@
   "prettier.requireConfig": true,
   "markdownlint.config": {
     "default": true,
-    "MD007": { "indent": 4 }
+    "MD007": { "indent": 4 },
+    "MD046": { "style": "fenced" }
   }
 }
