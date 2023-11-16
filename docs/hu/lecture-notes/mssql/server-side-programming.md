@@ -443,7 +443,7 @@ BEGIN
 END
 ```
 
-Nézzük egy `int` visszatérési értékű függvényt amelynek nincs bemenő paramétere:
+Nézzünk egy `int` visszatérési értékű függvényt, amelynek nincs bemenő paramétere:
 
 ```sql
 CREATE OR ALTER FUNCTION LargestVATPercentage()
@@ -507,7 +507,7 @@ GROUP BY VAT.Percentage
 
 A tárolt eljárást ismertető példában meg akartuk akadályozni a duplikált rekord beszúrását egy táblába. Ezt fentebb úgy értük el, hogy nem hajtottuk végre az utasítást. Azonban célszerűbb lenne jelezni a hibát a hívó számára. Erre szolgál a strukturált hibajelzés és kezelés. Hiba esetén a `throw` paranccsal dobhatunk hibát. Ezen parancs hatására a kód végrehajtása megszakad és a hívóhoz visszakerül a végrehajtás (ahol a hiba lekezelhető, avagy továbbdobható). A hibának van egy hibaszáma (50000 és 2147483647 között), egy szövege, és egy 0-255 közötti hiba állapot azonosító.
 
-Ezzel a kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:
+Ezzel kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:
 
 ```sql hl_lines="18"
 create or alter procedure InsertNewVAT
