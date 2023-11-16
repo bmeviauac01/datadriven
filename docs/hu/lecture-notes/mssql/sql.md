@@ -44,9 +44,6 @@ where p.Name like 'M%'
 group by p.Name
 ```
 
-!!! info "`[Order]`"
-    Az `[Order]` azért szerepel szögletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
-
 ## Rendezés
 
 ```sql
@@ -73,7 +70,7 @@ order by Stock desc, Price
 
 ## Allekérdezések
 
-Listázzuk ki a megrendelések Status-át határidejét és dátumát
+Listázzuk ki a megrendelések dátumát, határidejét és Status-át
 
 ```sql
 select o.Date, o.Deadline, s.Name
@@ -89,6 +86,9 @@ select o.Date, o.Deadline,
         where o.StatusId=s.ID)
 from [Order] o
 ```
+
+!!! info "`[Order]`"
+    Az `[Order]` azért szerepel szögletes zárójelben, mert így jelöljük, hogy ez egy tábla neve, és nem az `order by` parancs kezdete.
 
 ## Duplikátum szűrése
 
@@ -244,6 +244,9 @@ select p.*
 from Product p
 ```
 
+!!! example "Rank és dense_rank"
+    A dense_rank-tól eltérően a rank kihagy sorszámokat az egyenlő helyezés után. Az átugrott sorszámok száma attól függ, hogy hány sor kapott azonos rangot. Például Mary és Lisa ugyanannyi terméket adott el, így mindkettő sorszáma #1. A rank-kal a következő sorszám a #3, míg dense_rank esetén a következő sorszám a #2.
+
 ## CTE (Common Table Expression)
 
 Motiváció: allekérdezéssel nehezen áttekinthetővé válnak a lekérdezések
@@ -330,7 +333,7 @@ Egy relációs adatbázisban a relációs adatok mellett félig strukturált ada
 
 ### XPath
 
-Egy XML dokumentum fa struktúrájú. Az [**XPath**](https://www.w3schools.com/xml/xpath_intro.asp) nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázatban szemlélteti az _XPath_ nyelv működését és képességeit
+Egy XML dokumentum fa struktúrájú. Az [**XPath**](https://www.w3schools.com/xml/xpath_intro.asp) nyelv segítségével navigálhatunk a fában és kiválaszthatunk csomópontokat megadott szűrési szempontok alapján. Az alábbi táblázat szemlélteti az _XPath_ nyelv működését és képességeit
 
 | **XPath kifejezés**           | **Jelentés**                                                                       |
 | ----------------------------- | ---------------------------------------------------------------------------------- |
