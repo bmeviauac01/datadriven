@@ -44,9 +44,6 @@ where p.Name like 'M%'
 group by p.Name
 ```
 
-!!! info "`[Order]`"
-    `[Order]` is in brackets, because this signals that this is a table name and not the beginning of the `order by` SQL language element.
-
 ## Sorting
 
 ```sql
@@ -73,7 +70,7 @@ order by Stock desc, Price
 
 ## Subqueries
 
-List the order statuses, deadlines and dates
+List the order dates, deadlines and Statuses
 
 ```sql
 select o.Date, o.Deadline, s.Name
@@ -89,6 +86,9 @@ select o.Date, o.Deadline,
         where o.StatusId=s.ID)
 from [Order] o
 ```
+
+!!! info "`[Order]`"
+    `[Order]` is in brackets, because this signals that this is a table name and not the beginning of the `order by` SQL language element.
 
 ## Filter duplicates
 
