@@ -244,6 +244,9 @@ select p.*
 from Product p
 ```
 
+!!! example "Rank and dense_rank"
+     Unlike dense_rank , Rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With Rank,  the next position is 3; with dense_rank, the next position is 2.
+
 ## CTE (Common Table Expression)
 
 Motivation: subqueries often make queries complex
