@@ -86,7 +86,7 @@ A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna sza
 !!! quote "Forrás"
     A képek forrása: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
-!!! note ""
+!!! fatal "Kerülni kell"
     A piszkos olvasást szinte minden esetben el akarjuk kerülni.
 
 #### Elveszett módosítás (*lost update*)
@@ -133,7 +133,7 @@ Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.
 - Repeatable read: nincs piszkos olvasás, se nem megismételhető olvasás.
 - Serializable: egyik probléma sem fordulhat elő.
 
-!!! note ""
+!!! tip "Mit használjunk?"
     A *read uncommitted* szintet általában nem használjuk. A *serializable-t* pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a *read committed*.
 
 ### Ütemezés biztosítása: zárolás
@@ -148,7 +148,7 @@ Ha egy rendszerben zárak vannak, akkor tudjuk, hogy **holtpontok** (*deadlock*)
 
 Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az **egyik érintett tranzakciót megszakítja** és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.
 
-!!! note ""
+!!! fatal "Holtpontok kezelése"
     Holtpont után, ha a tranzakció megszakításra került, nem igazán tehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.
 
 ## Tranzakciós határok
@@ -157,12 +157,12 @@ A tranzakciókról láthattuk, hogy egy műveletsorozatot fognak egybe. Ehhez sz
 
 1. Minden művelet az adatbázisban tranzakcióban fut. Ha nem jelöli a fejlesztő a tranzakció használatát, akkor minden SQL utasítás automatikusan önmagában egy tranzakció.
 
-    !!! note ""
+    !!! note "Egyszerű SQL utasítások tranzakciója"
         Mivel minden SQL utasítás tranzakcióban fut, minden utasításra önmagában is teljesülnek a tranzakciók tulajdonságai. Például, ha egy `delete` utasítás több rekordot töröl, nem lehetséges, hogy az utasítás a lefutása közben megszakad, és csak a rekordok fele került törlésre.
 
 1. A fejlesztő a tranzakció megkezdéshez a `begin transaction` SQL utasítást, míg a bejezeséhez a `commit` vagy `rollback` utasításokat használhatja. A commit sikeresen lezárja a tranzakciót és minden változást ment, míg rollback esetén a tranzakció eldobásra kerül, és visszaáll a tranzakció megkezdése előtti állapot.
 
-    !!! note ""
+    !!! note "Egymásba ágyazás"
         Adatbázis-kezelő rendszer függően lehetőség van tranzakcióba ágyazott tranzakcióra is. Ilyenkor a zárójelezés szabályainak megfelelően történik a tranzakciók lezárása.
 
 ## Tranzakciós naplózás
@@ -297,7 +297,7 @@ Ennek a megoldásnak az előnye, hogy
 
 A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a végtelenségig. Olyan tranzakciók bejegyzései törölhetőek belőle, amelyek valóban kommitálásra kerültek (az adatbázis fájlba beírásra került minden eredményük), vagy amelyek megszakadtak, és nem kell őket visszaállítani. Ez a folyamat általában automatikus, de kezdeményezhető manuálisan is.
 
-!!! note ""
+!!! note "Tranzakció hossza és tranzakciós napló mérete"
     Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.
 
 ## Deadlock információ kinyerése MSSQL adatbázisból

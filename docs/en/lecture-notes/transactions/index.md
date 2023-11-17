@@ -86,7 +86,7 @@ The transaction that read the record in the second step is now working with inva
 !!! quote "Source"
     Source of images: https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/
 
-!!! note ""
+!!! fatal "Should be avoided"
     Dirty read should almost always be avoided.
 
 #### Lost update
@@ -133,7 +133,7 @@ The ANSI/ISO SQL standard defines the following isolation levels:
 - Repeatable read: no dirty read and no non-repeatable read.
 - Serializable: prohibits all issues.
 
-!!! note ""
+!!! tip "What to use?"
     *Read uncommitted* is seldom used. *Serializable*, similarly, is avoided if possible. The default, usually, is *read committed*.
 
 ### Scheduling enforced with locks
@@ -148,8 +148,8 @@ We know that when we use locks, **deadlock** can occur. This is no different in 
 
 Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected **one of the transactions is aborted** and all its modifications are rolled back. All applications using a database must be prepared to handle this.
 
-!!! note ""
-    When a deadlock happens, there is usually no other resolution to retry the operation later (e.g., automatically, or manually requested by the end-user).
+!!! fatal "Retry is the only resolution"
+    When a deadlock happens, there is usually no other resolution than retrying the operation later (e.g., automatically, or manually requested by the end-user).
 
 ## Transaction boundaries
 
@@ -157,12 +157,12 @@ A transaction combines a sequence of steps. It is, therefore, necessary to mark 
 
 1. All operations are executed within the scope of a transaction. If the transaction boundary is not marked explicitly, each statement is a transaction in itself.
 
-    !!! note ""
+    !!! note "Simple statements are transactions too"
         Since all SQL statements run within a transaction scope, the transaction properties are automatically guaranteed for all statements. For example, a `delete` statement affecting multiple records cannot abort and delete only half of the records.
 
 1. The developer executes a `begin transaction` SQL statement to start a transaction, and completes it either with `commit` or `rollback`. Commit completes the translation and saves its changes, while rollback aborts the transaction and undoes its changes.
 
-    !!! note ""
+    !!! note "Nested transactions"
         Some database management systems enable nested transactions too. Completing transactions follow the nesting: each level needs to be committed.
 
 ## Transaction logging
@@ -297,7 +297,7 @@ This solution has the following advantages:
 
 The transaction log needs to be emptied periodically. Transactions that are committed and persisted into the database files can be purged from the log. Similarly, aborted transactions that were reverted can also be removed. This is performed automatically by the system, but can also be triggered manually.
 
-!!! note ""
+!!! note "Long-running transactions and the transaction log"
     Long-running transactions can significantly increase the size of the log. The larger the log is, the longer the purging process will take.
 
 ## Extracting deadlock information from MSSQL database
