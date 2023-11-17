@@ -1923,7 +1923,8 @@
 <p class="admonition-title">Forrás</p>
 <p>A képek forrása: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
 </div>
-<div class="admonition note">
+<div class="admonition fatal">
+<p class="admonition-title">Kerülni kell</p>
 <p>A piszkos olvasást szinte minden esetben el akarjuk kerülni.</p>
 </div>
 <h4 id="elveszett-modositas-lost-update">Elveszett módosítás (<em>lost update</em>)<a class="headerlink" href="#elveszett-modositas-lost-update" title="Permanent link">&para;</a></h4>
@@ -1960,7 +1961,8 @@
 <li>Repeatable read: nincs piszkos olvasás, se nem megismételhető olvasás.</li>
 <li>Serializable: egyik probléma sem fordulhat elő.</li>
 </ul>
-<div class="admonition note">
+<div class="admonition tip">
+<p class="admonition-title">Mit használjunk?</p>
 <p>A <em>read uncommitted</em> szintet általában nem használjuk. A <em>serializable-t</em> pedig lehetőség szerint elkerüljük. Az alapértelmezett szint általában a <em>read committed</em>.</p>
 </div>
 <h3 id="utemezes-biztositasa-zarolas">Ütemezés biztosítása: zárolás<a class="headerlink" href="#utemezes-biztositasa-zarolas" title="Permanent link">&para;</a></h3>
@@ -1969,7 +1971,8 @@
 <p>Ha egy rendszerben zárak vannak, akkor tudjuk, hogy <strong>holtpontok</strong> (<em>deadlock</em>) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.</p>
 <p><a class="glightbox" href="images/holtpont-eroforras-graf.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png" /></a></p>
 <p>Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az <strong>egyik érintett tranzakciót megszakítja</strong> és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.</p>
-<div class="admonition note">
+<div class="admonition fatal">
+<p class="admonition-title">Holtpontok kezelése</p>
 <p>Holtpont után, ha a tranzakció megszakításra került, nem igazán tehet mást az alkalmazás vagy felhasználó, mint hogy kis idő elteltével újra megpróbálja a műveletet.</p>
 </div>
 <h2 id="tranzakcios-hatarok">Tranzakciós határok<a class="headerlink" href="#tranzakcios-hatarok" title="Permanent link">&para;</a></h2>
@@ -1978,12 +1981,14 @@
 <li>
 <p>Minden művelet az adatbázisban tranzakcióban fut. Ha nem jelöli a fejlesztő a tranzakció használatát, akkor minden SQL utasítás automatikusan önmagában egy tranzakció.</p>
 <div class="admonition note">
+<p class="admonition-title">Egyszerű SQL utasítások tranzakciója</p>
 <p>Mivel minden SQL utasítás tranzakcióban fut, minden utasításra önmagában is teljesülnek a tranzakciók tulajdonságai. Például, ha egy <code>delete</code> utasítás több rekordot töröl, nem lehetséges, hogy az utasítás a lefutása közben megszakad, és csak a rekordok fele került törlésre.</p>
 </div>
 </li>
 <li>
 <p>A fejlesztő a tranzakció megkezdéshez a <code>begin transaction</code> SQL utasítást, míg a bejezeséhez a <code>commit</code> vagy <code>rollback</code> utasításokat használhatja. A commit sikeresen lezárja a tranzakciót és minden változást ment, míg rollback esetén a tranzakció eldobásra kerül, és visszaáll a tranzakció megkezdése előtti állapot.</p>
 <div class="admonition note">
+<p class="admonition-title">Egymásba ágyazás</p>
 <p>Adatbázis-kezelő rendszer függően lehetőség van tranzakcióba ágyazott tranzakcióra is. Ilyenkor a zárójelezés szabályainak megfelelően történik a tranzakciók lezárása.</p>
 </div>
 </li>
@@ -2377,6 +2382,7 @@
 <h3 id="tranzakcios-naplo-meretenek-csokkentese">Tranzakciós napló méretének csökkentése<a class="headerlink" href="#tranzakcios-naplo-meretenek-csokkentese" title="Permanent link">&para;</a></h3>
 <p>A tranzakciós napló fájlt időnként szükséges kiüríteni, nem nőhet a végtelenségig. Olyan tranzakciók bejegyzései törölhetőek belőle, amelyek valóban kommitálásra kerültek (az adatbázis fájlba beírásra került minden eredményük), vagy amelyek megszakadtak, és nem kell őket visszaállítani. Ez a folyamat általában automatikus, de kezdeményezhető manuálisan is.</p>
 <div class="admonition note">
+<p class="admonition-title">Tranzakció hossza és tranzakciós napló mérete</p>
 <p>Hosszan futó tranzakciók esetében különösen érdemes figyelni a tranzakciós napló méretére. Minél nagyobbra nő, annál lassabb utána a méret csökkentés.</p>
 </div>
 <h2 id="deadlock-informacio-kinyerese-mssql-adatbazisbol">Deadlock információ kinyerése MSSQL adatbázisból<a class="headerlink" href="#deadlock-informacio-kinyerese-mssql-adatbazisbol" title="Permanent link">&para;</a></h2>
@@ -2526,8 +2532,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 16. 20:00:16">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-16T20:00:16+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-16</span>
+      <span title="2023. november 17. 14:13:43">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:13:43+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
@@ -2539,8 +2545,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 17. 13:59:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T13:59:40+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span title="2023. november 17. 14:14:22">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:14:22+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
