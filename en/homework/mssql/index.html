@@ -1454,7 +1454,7 @@
 <p>Add a new column to the <code>Customer</code> table with the name <code>PasswordExpiry</code> storing a date: <code>alter table [Customer] add [PasswordExpiry] datetime</code>.</p>
 </li>
 <li>
-<p>Create a trigger that automatically fills the <code>PasswordExpiry</code> date column when the password value is updated. The new value should be the current date plus one year. The trigger shall calculate the value. When a new Customer is registered (inserted into the table), the column should always be populated automatically. However, when data is updated, only update the date if the password is changed. (E.g. if only the address is altered, the date should not be updated.) The trigger should only update the date for the inserted/modified record (it should not set it for all records in the table)! In this exercise, you may suppose that there is always one record inserted/modified at any time.</p>
+<p>Create a trigger that automatically fills the <code>PasswordExpiry</code> date column when the password value is updated. The new value should be the current date plus one year. The trigger shall calculate the value. When a new Customer is registered (inserted into the table), the column should always be populated automatically. However, when data is updated, only update the date if the password is changed. (E.g. if only the address is altered, the date should not be updated.) The trigger should only update the date for the inserted/modified record (it should not set it for all records in the table)! In this exercise, you may suppose that there could be more than one record inserted/modified at any time.</p>
 </li>
 </ol>
 <p>Make sure to verify the behavior of the trigger under various circumstances.</p>
@@ -1504,8 +1504,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 12, 2023 12:41:10">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T12:41:10+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
+      <span title="November 17, 2023 14:22:19">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:22:19+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 

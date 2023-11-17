@@ -1474,7 +1474,7 @@
 <p>Adj hozzá egy új oszlopot a <code>Customer</code> táblához <code>PasswordExpiry</code> néven, ami egy dátumot tartalmaz: <code>alter table [Customer] add [PasswordExpiry] datetime</code>.</p>
 </li>
 <li>
-<p>Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a <code>PasswordExpiry</code> mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (<em>insert</em>) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (<em>update</em>) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) A trigger csak a beszúrt/frissített rekorddal törődjön (tehát nem a tábla teljes tartalmára kell frissíteni a dátum oszlopot)! A feladatban feltételezheted, hogy egyszerre csak egyetlen rekord módosul.</p>
+<p>Készíts egy triggert, amellyel jelszó változtatás esetén automatikusan kitöltésre kerül a <code>PasswordExpiry</code> mező értéke. Az új értéke a mai dátum plusz egy év legyen. Az értéket a szerver számítsa ki. Ügyelj arra, hogy új vevő regisztrálásakor (<em>insert</em>) mindig kitöltésre kerüljön a mező, viszont a vevő adatainak szerkesztésekor (<em>update</em>) csak akkor változzon a lejárat dátuma, ha változott a jelszó. (Tehát pl. ha az email címet változtatták csak, akkor a lejárat ne változzon.) A trigger csak a beszúrt/frissített rekorddal törődjön (tehát nem a tábla teljes tartalmára kell frissíteni a dátum oszlopot)! A feladatban készülnöd kell arra is, hogy egyszerre több rekord módosul.</p>
 </li>
 </ol>
 <p>Ellenőrizd a trigger viselkedését különböző esetekre is.</p>
@@ -1524,8 +1524,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. november 17. 14:22:19">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:22:19+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
