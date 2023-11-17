@@ -10,7 +10,7 @@ A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok �
     - Rendelkezésreállás biztosítása    
 2. Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek
 
-Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával **hoz új kihívásokat** is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.
+Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával **hoz új kihívásokat** is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.
 
 ## A MongoDB alap koncepciói
 
@@ -233,7 +233,7 @@ A MongoDB saját nyelvén az előbbi szűrés így néz ki:
 }
 ```
 
-Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy `BsonDocument`-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a `<` feltétel esetén. Ebben az `$lt` kulcs egy speciális kulcs, azt jelöli, hogy a _less than_ operátorral kell a kiértékelés végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a [JavaScript RegExp szintaktika](https://www.w3schools.com/jsref/jsref_obj_regexp.asp) szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan _és_ kapcsolatba kerülnek.
+Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy `BsonDocument`-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a `<` feltétel esetén. Ebben az `$lt` kulcs egy speciális kulcs, azt jelöli, hogy a _less than_ operátorral kell a kiértékelést végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a [JavaScript RegExp szintaktika](https://www.w3schools.com/jsref/jsref_obj_regexp.asp) szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan _és_ kapcsolatba kerülnek.
 
 A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy ún. **_builder_** segítségével építsük fel a szűrési feltételt.
 
@@ -246,7 +246,7 @@ collection.Find(
 );
 ```
 
-A fenti szintaktikai kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de közelebb áll a MongoDB világához, és jobban leírja, mit is szeretnénk valójában. Tekinthetünk erre a szintaktikára úgy, mint az SQL nyelvre: deklaratív, célorientált, de a platform képességeit szem előtt tartó leírás. Emellett azonban típusbiztos is.
+A fenti szintaktika kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de közelebb áll a MongoDB világához, és jobban leírja, mit is szeretnénk valójában. Tekinthetünk erre a szintaktikára úgy, mint az SQL nyelvre: deklaratív, célorientált, de a platform képességeit szem előtt tartó leírás. Emellett azonban típusbiztos is.
 
 A `Builders<T>` generikus osztály egy segédosztály, amivel szűrési, és később látni fogjuk, egyéb MongoDB specifikus definíciókat építhetünk fel. A `Builders<Product>.Filter` a _Product_ C# osztályhoz illeszkedő szűrési feltételek definiálására használható. Először egy _és_ kapcsolatot hozunk létre, amelyen belül két szűrési feltételünk lesz. Az operátorok a korábban látott _less than_ és a reguláris kifejezés. Ezen függvényeknek két paramétert adunk át: a mezőt, amire szűrni szeretnénk, és az operandust.
 
@@ -483,7 +483,7 @@ A törléshez egy szűrési feltételt kell definiálnunk, és vagy a `DeleteOne
 A törlés feltétele a keresésnél megismert szintaktikákkal írható le.
 
 !!! note ""
-    A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedésről. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.
+    A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedéstől. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.
 
 ```csharp
 var deleteResult = collection.DeleteOne(x => x.Id == new ObjectId("..."));
@@ -496,7 +496,7 @@ Ha szeretnénk a törölt elemet megkapni, akkor használhatjuk a `FindOneAndDel
 
 A MongoDB talán legérdekesebb képességei a dokumentumok megváltoztatása körül találhatóak. Míg a korábbiak, a lekérdezések, beszúrások, törlések a legtöbb adatbázis (akár relációs, akár NoSQL) esetén hasonlóak, a MongoDB a módosító műveletekben jóval szélesebb spektrumot támogat.
 
-Alapvetően két féle módon tudunk egy dokumentumot megváltoztatni: lecserélni az egész dokumentumot egy újra, avagy részeit frissíteni.
+Alapvetően kétféle módon tudunk egy dokumentumot megváltoztatni: lecserélni az egész dokumentumot egy újra, avagy részeit frissíteni.
 
 #### Dokumentum teljes cseréje
 
@@ -532,7 +532,7 @@ collection.UpdateOne(
 
 Az `UpdateOne` függvény első paramétere a szűrési feltétel. Leírásához bármely korábban ismertetett szintaktika használható. Második paramétere a módosító művelet leírója, amelyet a `Builders<T>` segítségével építhetünk fel.
 
-A fenti példakódban a paraméterek nevét is kiírtuk (`filter:` és `update:`), hogy egyértelmű legyen, paraméter mit jelképez. Ez nem kötelező, de az olvashatóságot növeli (a kódsorok hosszának rovására).
+A fenti példakódban a paraméterek nevét is kiírtuk (`filter:` és `update:`), hogy egyértelmű legyen, hogy a paraméter mit jelképez. Ez nem kötelező, de az olvashatóságot növeli (a kódsorok hosszának rovására).
 
 A módosítás nem csak egy műveletet tartalmazhat.
 
