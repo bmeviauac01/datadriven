@@ -21,12 +21,20 @@ jobs:
 
       - name: Build HU docs
         uses: ./
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          IsRevisionDatePluginEnabled: "true"
+          IsAuthorsPluginEnabled: "true"
         with:
           entrypoint: mkdocs
           args: build --config-file=mkdocs.hu.yml
 
       - name: Build EN docs
         uses: ./
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          IsRevisionDatePluginEnabled: "true"
+          IsAuthorsPluginEnabled: "true"
         with:
           entrypoint: mkdocs
           args: build --config-file=mkdocs.en.yml
