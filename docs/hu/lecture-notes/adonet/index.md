@@ -73,7 +73,7 @@ Az `IDbCommand` alábbi főbb *property*-jeit beállítva tudjuk megmondani, hog
 - `CommandTimeout`: parancs eredményére való várakozás maximális ideje (*alapértelmezetten 30s*)
 - `Parameters`: paraméterek, az [SQL injection támadás](#veszelyforrasok) kivédéséhez
 
-Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.
+Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. Továbbá a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.
 
 ### Végrehajtás
 
@@ -81,7 +81,7 @@ Miután előkészítettük a `Command`-ot, végre is hajthatjuk azt. Ehhez több
 
 - `ExecuteReader`: több rekord lekérdezése
 - `ExecuteScalar`: egyetlen skalár érték lekérdezése
-- `ExecuteNonQuery`: olyan lekérdezés, amit nem eredményhalmazt ad vissza (pl. `INSERT`) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)
+- `ExecuteNonQuery`: olyan lekérdezés, ami nem eredményhalmazt ad vissza (pl. `INSERT`) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)
 - `ExecuteXmlReader` (MS SQL Server): XML dokumentumot (`XmlReader` *objektum*) ad vissza, az eredmény egy rekord egyetlen XML oszlopa
 
 Parancsokat újrafelhasználni is tudunk, a `Command.Prepare()` (*szerver oldalon előkészíti a parancs futtatását*) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást (esetleg más-más paraméterekkel), mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.
@@ -195,7 +195,7 @@ Az adatok lekérdezéséhez egy kapcsolatra van szükségünk. A kapcsolat rövi
 
 A `DataReader` kapcsolati lánc az adatbázisig:
 
-![Struktúra]((images/datareader.png)
+![Struktúra](images/datareader.png)
 
 **Példa** `DataReader` használatára:
 
@@ -326,7 +326,7 @@ A **connection string** megalkotása nagyon hasonló hibát rejt magában, mint 
 
 ### Connection leak
 
-Amennyiben nem zárunk le minden `Connection`-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy `Connection`-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.
+Amennyiben nem zárunk le minden `Connection`-t, akkor ahányszor lezáratlan kapcsolatot tartalmazó kódrész hajtódik végre, annyiszor használunk el egy `Connection`-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.
 
 !!! important "**MEGOLDÁS**"
     `using` blokk használata a kapcsolat megnyitására, mert így a blokk végén mindig lezáródik a kapcsolat (lásd: [Tranzakció rész példa](#tranzakciok), vagy [DataReader](#datareader), vagy [DataSet](#dataset))
