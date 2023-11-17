@@ -88,7 +88,7 @@ var query =
 Console.WriteLine(query.ToQueryString());
 ```
 
-Alább láthatjuk a generált lekérdezés, ami csak a join típusában tér el a korábbitól, de egyébként érdemben ugyan arra a megoldásra jutunk.
+Alább láthatjuk a generált lekérdezést, ami csak a join típusában tér el a korábbitól, de egyébként érdemben ugyan arra a megoldásra jutunk.
 
 ```sql
 SELECT [v].[Percentage]

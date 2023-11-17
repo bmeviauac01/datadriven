@@ -44,9 +44,6 @@ where p.Name like 'M%'
 group by p.Name
 ```
 
-!!! info "`[Order]`"
-    `[Order]` is in brackets, because this signals that this is a table name and not the beginning of the `order by` SQL language element.
-
 ## Sorting
 
 ```sql
@@ -73,7 +70,7 @@ order by Stock desc, Price
 
 ## Subqueries
 
-List the order statuses, deadlines and dates
+List the order dates, deadlines and Statuses
 
 ```sql
 select o.Date, o.Deadline, s.Name
@@ -89,6 +86,9 @@ select o.Date, o.Deadline,
         where o.StatusId=s.ID)
 from [Order] o
 ```
+
+!!! info "`[Order]`"
+    `[Order]` is in brackets, because this signals that this is a table name and not the beginning of the `order by` SQL language element.
 
 ## Filter duplicates
 
@@ -243,6 +243,9 @@ select p.*
        ,dense_rank() over (partition by CategoryID order by Name) as dr
 from Product p
 ```
+
+!!! example "Rank and dense_rank"
+     Unlike dense_rank , Rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With Rank,  the next position is 3; with dense_rank, the next position is 2.
 
 ## CTE (Common Table Expression)
 
