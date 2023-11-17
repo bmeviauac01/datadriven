@@ -245,7 +245,7 @@ from Product p
 ```
 
 !!! example "Rank és dense_rank"
-    A dense_rank-tól eltérően a rank kihagy sorszámokat az egyenlő helyezés után. Az átugrott sorszámok száma attól függ, hogy hány sor kapott azonos rangot. Például Mary és Lisa ugyanannyi terméket adott el, így mindkettő sorszáma #1. A rank-kal a következő sorszám a #3, míg dense_rank esetén a következő sorszám a #2.
+    A dense_rank-tól eltérően a rank kihagy sorszámokat az egyenlő helyezés után. Az átugrott sorszámok száma attól függ, hogy hány sor kapott azonos rangot. Például Mary és Lisa ugyanannyi terméket adott el, így mindkettő sorszáma 1. A rank-kal a következő sorszám a 3, míg dense_rank esetén a következő sorszám a 2.
 
 ## CTE (Common Table Expression)
 
