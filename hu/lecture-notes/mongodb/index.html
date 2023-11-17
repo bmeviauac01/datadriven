@@ -1701,7 +1701,7 @@
 </li>
 <li>Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek</li>
 </ol>
-<p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával <strong>hoz új kihívásokat</strong> is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogy jelenítünk meg, kérünk be és validálunk.</p>
+<p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával <strong>hoz új kihívásokat</strong> is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.</p>
 <h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">&para;</a></h2>
 <p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
 <p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A MongoDb architektúrája" src="images/mongodb_architecture.png" /></a></p>
@@ -1851,7 +1851,7 @@
 <span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/red/s&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy <code>BsonDocument</code>-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a <code>&lt;</code> feltétel esetén. Ebben az <code>$lt</code> kulcs egy speciális kulcs, azt jelöli, hogy a <em>less than</em> operátorral kell a kiértékelés végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">JavaScript RegExp szintaktika</a> szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan <em>és</em> kapcsolatba kerülnek.</p>
+<p>Vegyük észre, hogy ez a fajta leírás önmaga is egy dokumentum. Ha saját magunk akarnánk megírni a szűrési feltételt, akkor egy <code>BsonDocument</code>-ben kellene ezt a dokumentumot összeállítanunk. A szűrési feltételt leíró dokumentum kulcsai a szűréshez használt mezők, az érték pedig a szűrési feltétel. A feltétel bizonyos esetekben egy skalár érték, mint a reguláris kifejezés (vagy ha egyenlőségre szűrnénk), más esetekben a feltétel egy beágyazott dokumentum, mint a <code>&lt;</code> feltétel esetén. Ebben az <code>$lt</code> kulcs egy speciális kulcs, azt jelöli, hogy a <em>less than</em> operátorral kell a kiértékelést végezni, és az operátor jobb oldalán a 123.0 érték áll. A reguláris kifejezést a <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">JavaScript RegExp szintaktika</a> szerint kell megadni. Az ilyen módon felsorolt feltételek automatikusan <em>és</em> kapcsolatba kerülnek.</p>
 <p>A Lambda-kifejezés helyett egy hasonló leírást magunk is előállíthatunk anélkül, hogy szöveges formában kellene összeállítanunk a szűrési feltételt. A MongoDB .NET drivere lehetőséget ad nekünk arra, hogy egy ún. <strong><em>builder</em></strong> segítségével építsük fel a szűrési feltételt.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
 <span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
@@ -1860,7 +1860,7 @@
 <span class="w">    </span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
-<p>A fenti szintaktikai kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de közelebb áll a MongoDB világához, és jobban leírja, mit is szeretnénk valójában. Tekinthetünk erre a szintaktikára úgy, mint az SQL nyelvre: deklaratív, célorientált, de a platform képességeit szem előtt tartó leírás. Emellett azonban típusbiztos is.</p>
+<p>A fenti szintaktika kicsit bőbeszédűbb ugyan, mint a Lambda-kifejezés, de közelebb áll a MongoDB világához, és jobban leírja, mit is szeretnénk valójában. Tekinthetünk erre a szintaktikára úgy, mint az SQL nyelvre: deklaratív, célorientált, de a platform képességeit szem előtt tartó leírás. Emellett azonban típusbiztos is.</p>
 <p>A <code>Builders&lt;T&gt;</code> generikus osztály egy segédosztály, amivel szűrési, és később látni fogjuk, egyéb MongoDB specifikus definíciókat építhetünk fel. A <code>Builders&lt;Product&gt;.Filter</code> a <em>Product</em> C# osztályhoz illeszkedő szűrési feltételek definiálására használható. Először egy <em>és</em> kapcsolatot hozunk létre, amelyen belül két szűrési feltételünk lesz. Az operátorok a korábban látott <em>less than</em> és a reguláris kifejezés. Ezen függvényeknek két paramétert adunk át: a mezőt, amire szűrni szeretnénk, és az operandust.</p>
 <div class="admonition note">
 <p class="admonition-title"><em>Expression</em> szintaktika</p>
@@ -2030,7 +2030,7 @@
 <p>A törléshez egy szűrési feltételt kell definiálnunk, és vagy a <code>DeleteOne</code>, vagy a <code>DeleteMany</code> függvénnyel törölhetünk. A különbség, hogy a <code>DeleteOne</code> az <em>első</em> illeszkedő dokumentumot törli csak, míg a <code>DeleteMany</code> az összeset. Ha tudjuk, hogy a feltételnek csak egy dokumentum felelhet meg (például id alapján törlünk), akkor érdemes a <code>DeleteOne</code>-t használni, mert az adatbázisnak nem kell kimerítő keresést végeznie.</p>
 <p>A törlés feltétele a keresésnél megismert szintaktikákkal írható le.</p>
 <div class="admonition note">
-<p>A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedésről. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.</p>
+<p>A törlés tehát eltér az Entity Framework esetén tapasztalható viselkedéstől. Itt nem kell az entitásnak betöltve lennie, és nem az entitást töröljük, hanem szűrési feltétellel írjuk le a törlést.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">deleteResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">DeleteOne</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">&quot;...&quot;</span><span class="p">));</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Törölve: {deleteResult.DeletedCount} db&quot;</span><span class="p">);</span>
@@ -2038,7 +2038,7 @@
 <p>Ha szeretnénk a törölt elemet megkapni, akkor használhatjuk a <code>FindOneAndDelete</code>-t, amely visszaadja a törölt entitást magát.</p>
 <h3 id="dokumentumok-megvaltoztatasa">Dokumentumok megváltoztatása<a class="headerlink" href="#dokumentumok-megvaltoztatasa" title="Permanent link">&para;</a></h3>
 <p>A MongoDB talán legérdekesebb képességei a dokumentumok megváltoztatása körül találhatóak. Míg a korábbiak, a lekérdezések, beszúrások, törlések a legtöbb adatbázis (akár relációs, akár NoSQL) esetén hasonlóak, a MongoDB a módosító műveletekben jóval szélesebb spektrumot támogat.</p>
-<p>Alapvetően két féle módon tudunk egy dokumentumot megváltoztatni: lecserélni az egész dokumentumot egy újra, avagy részeit frissíteni.</p>
+<p>Alapvetően kétféle módon tudunk egy dokumentumot megváltoztatni: lecserélni az egész dokumentumot egy újra, avagy részeit frissíteni.</p>
 <h4 id="dokumentum-teljes-csereje">Dokumentum teljes cseréje<a class="headerlink" href="#dokumentum-teljes-csereje" title="Permanent link">&para;</a></h4>
 <p>A dokumentum teljes cseréjéhez szükségünk van egy szűrési feltételre, amellyel megadjuk, mely dokumentumot akarjuk cserélni; valamint szükségünk van az új dokumentumra.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">replacementProduct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Product</span>
@@ -2063,7 +2063,7 @@
 <span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">));</span>
 </code></pre></div>
 <p>Az <code>UpdateOne</code> függvény első paramétere a szűrési feltétel. Leírásához bármely korábban ismertetett szintaktika használható. Második paramétere a módosító művelet leírója, amelyet a <code>Builders&lt;T&gt;</code> segítségével építhetünk fel.</p>
-<p>A fenti példakódban a paraméterek nevét is kiírtuk (<code>filter:</code> és <code>update:</code>), hogy egyértelmű legyen, paraméter mit jelképez. Ez nem kötelező, de az olvashatóságot növeli (a kódsorok hosszának rovására).</p>
+<p>A fenti példakódban a paraméterek nevét is kiírtuk (<code>filter:</code> és <code>update:</code>), hogy egyértelmű legyen, hogy a paraméter mit jelképez. Ez nem kötelező, de az olvashatóságot növeli (a kódsorok hosszának rovására).</p>
 <p>A módosítás nem csak egy műveletet tartalmazhat.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">UpdateOne</span><span class="p">(</span>
 <span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectId</span><span class="p">(</span><span class="s">&quot;...&quot;</span><span class="p">),</span>
@@ -2121,8 +2121,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. november 17. 12:54:58">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T12:54:58+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
@@ -2134,8 +2134,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 15. 12:36:46">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-15T12:36:46+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-15</span>
+      <span title="2023. november 17. 13:51:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T13:51:48+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 

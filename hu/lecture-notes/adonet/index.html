@@ -1391,13 +1391,13 @@
 <li><code>CommandTimeout</code>: parancs eredményére való várakozás maximális ideje (<em>alapértelmezetten 30s</em>)</li>
 <li><code>Parameters</code>: paraméterek, az <a href="#veszelyforrasok">SQL injection támadás</a> kivédéséhez</li>
 </ul>
-<p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. További a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.</p>
+<p>Figyeljük meg, hogy a parancsnak meg kell adnunk, milyen kapcsolaton keresztül tud lefutni. Továbbá a tranzakció is a parancs tulajdonsága, hiszen a fejlesztő feladata eldönteni, hogy egy adott parancsot egy tranzakció részének szán-e.</p>
 <h3 id="vegrehajtas">Végrehajtás<a class="headerlink" href="#vegrehajtas" title="Permanent link">&para;</a></h3>
 <p>Miután előkészítettük a <code>Command</code>-ot, végre is hajthatjuk azt. Ehhez többféle lehetőség közül is választhatunk, attól függően, hogy mit várunk visszatérési értéknek.</p>
 <ul>
 <li><code>ExecuteReader</code>: több rekord lekérdezése</li>
 <li><code>ExecuteScalar</code>: egyetlen skalár érték lekérdezése</li>
-<li><code>ExecuteNonQuery</code>: olyan lekérdezés, amit nem eredményhalmazt ad vissza (pl. <code>INSERT</code>) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)</li>
+<li><code>ExecuteNonQuery</code>: olyan lekérdezés, ami nem eredményhalmazt ad vissza (pl. <code>INSERT</code>) - az érintett sorok számát adja vissza, pl. törlés esetén ebből dönthető el, hogy sikeres volt-e a művelet (megtalálta-e a törlendő rekordot)</li>
 <li><code>ExecuteXmlReader</code> (MS SQL Server): XML dokumentumot (<code>XmlReader</code> <em>objektum</em>) ad vissza, az eredmény egy rekord egyetlen XML oszlopa</li>
 </ul>
 <p>Parancsokat újrafelhasználni is tudunk, a <code>Command.Prepare()</code> (<em>szerver oldalon előkészíti a parancs futtatását</em>) hívás után, ám ez csak akkor éri meg, ha elegendően sokszor futtatjuk az utasítást (esetleg más-más paraméterekkel), mivel az előkészítés és előkészülten tartás idő- és erőforrásigényes.</p>
@@ -1497,7 +1497,7 @@
 <li>kapcsolat lezárása</li>
 </ol>
 <p>A <code>DataReader</code> kapcsolati lánc az adatbázisig:</p>
-<p>![Struktúra]((images/datareader.png)</p>
+<p><a class="glightbox" href="images/datareader.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Struktúra" src="images/datareader.png" /></a></p>
 <p><strong>Példa</strong> <code>DataReader</code> használatára:</p>
 <div class="highlight"><pre><span></span><code><span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
 <span class="p">{</span>
@@ -1614,7 +1614,7 @@
 <p><code>ConnectionStringBuilder</code> használata (lásd: <a href="#connection">Connection rész</a>)</p>
 </div>
 <h3 id="connection-leak">Connection leak<a class="headerlink" href="#connection-leak" title="Permanent link">&para;</a></h3>
-<p>Amennyiben nem zárunk le minden <code>Connection</code>-t, ahányszor a lezáratlan kapcsolatot tartalmazó a kódrész végrehajtódik, annyiszor elhasználunk egy <code>Connection</code>-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.</p>
+<p>Amennyiben nem zárunk le minden <code>Connection</code>-t, akkor ahányszor lezáratlan kapcsolatot tartalmazó kódrész hajtódik végre, annyiszor használunk el egy <code>Connection</code>-t a pool-ból, a végén pedig nem marad több, és az alkalmazásunk megakad. Ez azért alattomos hiba, mert "csak" az alkalmazás egy bizonyos ideig történő futása során fog jelentkezni - a fejlesztő gépén szinte soha. Az ilyen problémát nehéz felismerni.</p>
 <div class="admonition important">
 <p class="admonition-title"><strong>MEGOLDÁS</strong></p>
 <p><code>using</code> blokk használata a kapcsolat megnyitására, mert így a blokk végén mindig lezáródik a kapcsolat (lásd: <a href="#tranzakciok">Tranzakció rész példa</a>, vagy <a href="#datareader">DataReader</a>, vagy <a href="#dataset">DataSet</a>)</p>
@@ -1632,8 +1632,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. október 31. 11:58:34">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-31T11:58:34+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-31</span>
+      <span title="2023. november 17. 09:46:13">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T09:46:13+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 

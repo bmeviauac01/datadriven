@@ -1741,7 +1741,7 @@
 <span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="n">skalár_érték</span>
 <span class="k">END</span>
 </code></pre></div>
-<p>Nézzük egy <code>int</code> visszatérési értékű függvényt amelynek nincs bemenő paramétere:</p>
+<p>Nézzünk egy <code>int</code> visszatérési értékű függvényt, amelynek nincs bemenő paramétere:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">LargestVATPercentage</span><span class="p">()</span>
 <span class="k">RETURNS</span><span class="w"> </span><span class="nb">int</span>
 <span class="k">BEGIN</span>
@@ -1784,7 +1784,7 @@
 </code></pre></div>
 <h2 id="hibakezeles">Hibakezelés<a class="headerlink" href="#hibakezeles" title="Permanent link">&para;</a></h2>
 <p>A tárolt eljárást ismertető példában meg akartuk akadályozni a duplikált rekord beszúrását egy táblába. Ezt fentebb úgy értük el, hogy nem hajtottuk végre az utasítást. Azonban célszerűbb lenne jelezni a hibát a hívó számára. Erre szolgál a strukturált hibajelzés és kezelés. Hiba esetén a <code>throw</code> paranccsal dobhatunk hibát. Ezen parancs hatására a kód végrehajtása megszakad és a hívóhoz visszakerül a végrehajtás (ahol a hiba lekezelhető, avagy továbbdobható). A hibának van egy hibaszáma (50000 és 2147483647 között), egy szövege, és egy 0-255 közötti hiba állapot azonosító.</p>
-<p>Ezzel a kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:</p>
+<p>Ezzel kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:</p>
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span>
 <span class="k">as</span>
@@ -2009,8 +2009,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. november 17. 00:45:36">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T00:45:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
@@ -2022,8 +2022,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 15. 12:36:47">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-15T12:36:47+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-15</span>
+      <span title="2023. november 17. 13:51:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T13:51:48+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 

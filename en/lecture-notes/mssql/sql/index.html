@@ -1329,10 +1329,6 @@
 <span class="k">where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;M%&#39;</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
-<div class="admonition info">
-<p class="admonition-title"><code>[Order]</code></p>
-<p><code>[Order]</code> is in brackets, because this signals that this is a table name and not the beginning of the <code>order by</code> SQL language element.</p>
-</div>
 <h2 id="sorting">Sorting<a class="headerlink" href="#sorting" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
 <span class="k">from</span><span class="w"> </span><span class="n">Product</span>
@@ -1349,7 +1345,7 @@
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
 </code></pre></div>
 <h2 id="subqueries">Subqueries<a class="headerlink" href="#subqueries" title="Permanent link">&para;</a></h2>
-<p>List the order statuses, deadlines and dates</p>
+<p>List the order dates, deadlines and Statuses</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
@@ -1360,6 +1356,10 @@
 <span class="w">        </span><span class="k">where</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
 <span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
 </code></pre></div>
+<div class="admonition info">
+<p class="admonition-title"><code>[Order]</code></p>
+<p><code>[Order]</code> is in brackets, because this signals that this is a table name and not the beginning of the <code>order by</code> SQL language element.</p>
+</div>
 <h2 id="filter-duplicates">Filter duplicates<a class="headerlink" href="#filter-duplicates" title="Permanent link">&para;</a></h2>
 <p>Which products have been ordered in batches of more than 3? One product may have been ordered multiple times, but we want the name only once.</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
@@ -1464,6 +1464,10 @@
 <span class="w">       </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
 <span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 </code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Rank and dense_rank</p>
+<p>Unlike dense_rank , Rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With Rank,  the next position is 3; with dense_rank, the next position is 2.</p>
+</div>
 <h2 id="cte-common-table-expression">CTE (Common Table Expression)<a class="headerlink" href="#cte-common-table-expression" title="Permanent link">&para;</a></h2>
 <p>Motivation: subqueries often make queries complex</p>
 <p>First three products sorted by name alphabetically</p>
@@ -1657,8 +1661,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 29, 2023 13:30:47">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-29T13:30:47+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-29</span>
+      <span title="November 17, 2023 08:53:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T08:53:48+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       </span>
     </span>
 
