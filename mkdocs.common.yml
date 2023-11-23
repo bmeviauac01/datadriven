@@ -82,5 +82,6 @@ plugins:
     # override from docker environment variables
     # not a vanilla yaml syntax, only works with mkdocs.yaml because of pyyaml_env_tag
     enabled: !ENV [IsAuthorsPluginEnabled, false]
+    github_token: !ENV [GITHUB_TOKEN, '']
     repository: bmeviauac01/datadriven
     branch: master
