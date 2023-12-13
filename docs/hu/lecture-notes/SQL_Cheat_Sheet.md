@@ -297,7 +297,7 @@ JOIN table2 ON table1.column = table2.column;
 
 **C# LINQ:**
 
-Mivel navigation propertyk segítségével általában elérhetőek az asszociált osztályok, explicit illeszteni csak akkor kell, ha a feladat megoldási logikája megkívánja vagy nincs navigation property az egyik osztályban a másikra.
+Mivel navigation property-k segítségével általában elérhetőek az asszociált osztályok, explicit illeszteni csak akkor kell, ha a feladat megoldási logikája megkívánja vagy nincs navigation property az egyik osztályban a másikra.
 
 ```csharp
 // Fluent szintaktika
@@ -317,7 +317,7 @@ var query = from item1 in context.Table1
 
 **C# MongoDb:**
 
-**MongoDb-ben nem tanultuk szerveri oldari joinra módszert. LINQ segítségével van az után, hogy a teljes illesztendő adathalmazokat kiolvastuk az adatbázisból.** Az adatok lekérdezése után általában a `.ToHashSet()` és a `.Contains()` metódusok segítségével, kliens oldali dictionary készítéssel végezzük el az illesztést. (Lásd MongoDb gyakorlat 1. Feladat 5. pontja)
+**MongoDb-ben nem tanultunk szerver oldali joinra módszert. LINQ segítségével van az után, hogy a teljes illesztendő adathalmazokat kiolvastuk az adatbázisból.** Az adatok lekérdezése után általában a `.ToHashSet()` és a `.Contains()` metódusok segítségével, kliens oldali dictionary készítéssel végezzük el az illesztést. (Lásd MongoDb gyakorlat 1. Feladat 5. pontja)
 
 ## Distinct
 
@@ -490,7 +490,7 @@ SET Price=1.1 * Price
 WHERE Name LIKE '%Lego%'
 ```
 
-Ha olyan értékeket szeretnénk adni a `SET` parancsban, melyek másik táblákból nyeretők ki, az alábbi képpen lehetséges. A példa az MS SQL gyakorlat anyagából van.
+Ha olyan értékeket szeretnénk adni a `SET` parancsban, melyek másik táblákból nyerhetők ki, az alábbi képpen lehetséges. A példa az MS SQL gyakorlat anyagából van.
 
 **Feladat:** A 9-es azonosítójú számú megrendelés státusz állapotát másoljuk be minden olyan `OrderItem`-be, mely hozzá tartozik.
 
@@ -535,7 +535,7 @@ collection.UpdateOne(
 
 Jól látható, hogy az `Update` után a Filterhez hasonlóan több különböző operátor írható. Ilyenek a: `Set`, `UnSet`, `SetOnInsert`, `CurrentDate`, `Mul`, `Min`, `Max`, `AddToSet` (Teljes, részletes leírás a jegyzetben)
 
-Minden 13-as kategória `Id`-jú kategória beli elem frissítése:
+Minden 13-as kategória `Id`-jú kategóriabéli elem frissítése:
 
 ```csharp
 productsCollection.UpdateMany(
