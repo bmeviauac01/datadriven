@@ -175,7 +175,7 @@ Amikor a felhasználó adatot visz be a rendszerbe, azt is a felhasználói fel�
 !!! important "Validáció"
     A validációt nem elég, ha kizárólag a felhasználói felület végzi. A választott technológiától függően a UI könnyen "kikerülhető", és lehetőség van az adatokat közvetlenül a háttérrendszernek küldeni. Ilyen esetben, ha a validációt csak a felhasználó felület valósítaná meg, érvénytelen adat kerülhetne a rendszerbe. Ezért a validációkat tipikusan megismétli a háttérrendszer is. Ennek ellenére praktikus ezeket a felhasználói felületen is elvégezni, mert azonnali visszajelzést tudunk így adni a felhasználónak.
 
-A réteggel ennél részleteseben nem foglalkozunk ezen tárgy keretei között.
+A réteggel ennél részletesebben nem foglalkozunk ezen tárgy keretei között.
 
 ### Rétegfüggetlen szolgáltatások
 
@@ -185,13 +185,13 @@ Rétegfüggetlen szolgáltatások (*crosscutting concerns*) néven szoktuk hivat
 
 A biztonsági szolgáltatások lefedik
 
-* a felhasználók beléptetését (*authentikáció*)
-* és a hozzáférés ellenőrzését (*authorizáció*),
+* a felhasználók beléptetését (*autentikáció*)
+* és a hozzáférés ellenőrzését (*autorizáció*),
 * valamint a nyomkövetést és auditálást.
 
-Az authentikáció a "ki vagy" kérdést, míg az authorizáció a "mihez van jogod" kérdést kezeli.
+Az autentikáció a "ki vagy" kérdést, míg az autorizáció a "mihez van jogod" kérdést kezeli.
 
-Az authentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.
+Az autentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.
 
 Bejelentkezésre többféle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).
 

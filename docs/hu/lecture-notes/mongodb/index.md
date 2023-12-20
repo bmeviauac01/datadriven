@@ -76,7 +76,7 @@ A kapcsolatot singleton-ként érdemes kezelni, nem kell Dispose-olni.
 !!! info "Kapcsolat életciklusa"
     A kapcsolatot tipikusan egy globális statikus változóban tároljuk, avagy a környezet által támogatott IoC (Inversion of Control) / DI (Dependency Injection) tárolóban helyezzük el.
 
-Az adatbázis neve szerepelhet ugyan a connection stringben (pl. `mongodb://localhost:27017/adatvez`), azt csak az authentikációhoz használja a rendszer. Így a kapcsolat felépítése után meg kell adnunk, milyen adatbázist fogunk használni.
+Az adatbázis neve szerepelhet ugyan a connection stringben (pl. `mongodb://localhost:27017/adatvez`), azt csak az autentikációhoz használja a rendszer. Így a kapcsolat felépítése után meg kell adnunk, milyen adatbázist fogunk használni.
 
 ```csharp
 var db = client.GetDatabase("adatvez");
