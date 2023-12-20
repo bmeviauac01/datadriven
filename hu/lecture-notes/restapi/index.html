@@ -10,26 +10,28 @@
         <meta name="author" content="Albert István, Tóth Tibor">
       
       
-        <link rel="canonical" href="https://bmeviauac01.github.io/datadriven/hu/">
+        <link rel="canonical" href="https://bmeviauac01.github.io/datadriven/hu/lecture-notes/restapi/">
       
       
+        <link rel="prev" href="../openapi/">
       
-        <link rel="next" href="db/">
+      
+        <link rel="next" href="../../seminar/transactions/">
       
       
-      <link rel="icon" href="img/favicon.ico">
+      <link rel="icon" href="../../img/favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
-        <title>BMEVIAUAC01 Adatvezérelt rendszerek</title>
+        <title>REST API (Gyakorló példák) - BMEVIAUAC01 Adatvezérelt rendszerek</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.78cf6014.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.78cf6014.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -48,18 +50,18 @@
       
     
     
-      <link rel="stylesheet" href="css/timeago.css">
+      <link rel="stylesheet" href="../../css/timeago.css">
     
-      <link rel="stylesheet" href="extra-material-theme.css">
+      <link rel="stylesheet" href="../../extra-material-theme.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
         html.glightbox-open { overflow: initial; height: 100%; }
         .gslide-title { margin-top: 0px; user-select: text; }
         .gslide-desc { color: #666; user-select: text; }
@@ -70,7 +72,7 @@
             body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
             body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
             body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="assets/javascripts/glightbox.min.js"></script></head>
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -92,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adatvezerelt-rendszerek" class="md-skip">
+        <a href="#rest-api-gyakorlo-peldak" class="md-skip">
           Kihagyás
         </a>
       
@@ -106,9 +108,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Élőfej">
-    <a href="." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
       
-  <img src="img/logo-bme-aut.png" alt="logo">
+  <img src="../../img/logo-bme-aut.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -125,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Adatvezérelt rendszerek
+              REST API (Gyakorló példák)
             
           </span>
         </div>
@@ -255,11 +257,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -278,7 +278,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="db/" class="md-tabs__link">
+        <a href="../../db/" class="md-tabs__link">
           
   
   Adatbázis
@@ -292,11 +292,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="lecture-notes/architecture/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   Jegyzetek
@@ -314,7 +316,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="seminar/transactions/" class="md-tabs__link">
+        <a href="../../seminar/transactions/" class="md-tabs__link">
           
   
   Gyakorlatok
@@ -332,7 +334,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="homework/" class="md-tabs__link">
+        <a href="../../homework/" class="md-tabs__link">
           
   
   Házi feladatok
@@ -365,9 +367,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
       
-  <img src="img/logo-bme-aut.png" alt="logo">
+  <img src="../../img/logo-bme-aut.png" alt="logo">
 
     </a>
     BMEVIAUAC01 Adatvezérelt rendszerek
@@ -391,18 +393,9 @@
       
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -411,7 +404,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -461,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="db/" class="md-nav__link">
+      <a href="../../db/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -481,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="db/mssql/" class="md-nav__link">
+      <a href="../../db/mssql/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -501,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="db/mongodb/" class="md-nav__link">
+      <a href="../../db/mongodb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -566,6 +558,8 @@
       
   
   
+    
+  
   
     
     
@@ -575,12 +569,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -594,7 +588,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Jegyzetek
@@ -607,7 +601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -627,7 +621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/transactions/" class="md-nav__link">
+      <a href="../transactions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,7 +641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/mssql/sql/" class="md-nav__link">
+      <a href="../mssql/sql/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -667,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/mssql/server-side-programming/" class="md-nav__link">
+      <a href="../mssql/server-side-programming/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/adonet/" class="md-nav__link">
+      <a href="../adonet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -707,7 +701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/linq/" class="md-nav__link">
+      <a href="../linq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -727,7 +721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/ef/" class="md-nav__link">
+      <a href="../ef/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -747,7 +741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/mongodb/" class="md-nav__link">
+      <a href="../mongodb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -767,7 +761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/SQL_Cheat_Sheet/" class="md-nav__link">
+      <a href="../SQL_Cheat_Sheet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -787,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/di/" class="md-nav__link">
+      <a href="../di/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -807,7 +801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/async/" class="md-nav__link">
+      <a href="../async/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -827,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture-notes/openapi/" class="md-nav__link">
+      <a href="../openapi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -845,9 +839,29 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="lecture-notes/restapi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    REST API (Gyakorló példák)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -856,6 +870,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elmeleti-kerdesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elméleti kérdések
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlati-kerdesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gyakorlati kérdések
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -973,7 +1025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/transactions/" class="md-nav__link">
+      <a href="../../seminar/transactions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -993,7 +1045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/mssql/" class="md-nav__link">
+      <a href="../../seminar/mssql/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1013,7 +1065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/ef/" class="md-nav__link">
+      <a href="../../seminar/ef/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1033,7 +1085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/mongodb/" class="md-nav__link">
+      <a href="../../seminar/mongodb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1053,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/jpa/" class="md-nav__link">
+      <a href="../../seminar/jpa/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1073,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="seminar/rest/" class="md-nav__link">
+      <a href="../../seminar/rest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1139,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/" class="md-nav__link">
+      <a href="../../homework/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1159,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/mssql/" class="md-nav__link">
+      <a href="../../homework/mssql/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1179,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/adonet/" class="md-nav__link">
+      <a href="../../homework/adonet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1199,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/ef/" class="md-nav__link">
+      <a href="../../homework/ef/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1219,7 +1271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/mongodb/" class="md-nav__link">
+      <a href="../../homework/mongodb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1239,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/rest/" class="md-nav__link">
+      <a href="../../homework/rest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1259,7 +1311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/GitHub/" class="md-nav__link">
+      <a href="../../homework/GitHub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/GitHub-Actions/" class="md-nav__link">
+      <a href="../../homework/GitHub-Actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1299,7 +1351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="homework/VisualStudio/" class="md-nav__link">
+      <a href="../../homework/VisualStudio/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1340,6 +1392,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elmeleti-kerdesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elméleti kérdések
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyakorlati-kerdesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gyakorlati kérdések
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1353,7 +1431,7 @@
                   
 
   
-    <a href="https://github.com/bmeviauac01/datadriven/blob/master/docs/hu/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+    <a href="https://github.com/bmeviauac01/datadriven/blob/master/docs/hu/lecture-notes/restapi/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1361,17 +1439,95 @@
   
 
 
-<h1 id="adatvezerelt-rendszerek">Adatvezérelt rendszerek<a class="headerlink" href="#adatvezerelt-rendszerek" title="Permanent link">&para;</a></h1>
-<p>Jegyzetek, gyakorlati anyagok és házi feladatok a BMEVIAUAC01 Adatvezérelt rendszerek c. tárgyhoz.</p>
-<div class="admonition note">
-<p class="admonition-title">Javítás az anyagban</p>
-<p>A tárgy hallgatóinak a jegyzet anyagában történő javításért, kiegészítésért plusz pontot adunk! Ha hibát találsz a jegyzet bármely részében, vagy kiegészítenéd azt, nyiss egy <em>pull request</em>-et! A repository linkjét a jobb felső sarokban találod.</p>
+<h1 id="rest-api-gyakorlo-peldak">REST API (Gyakorló példák)<a class="headerlink" href="#rest-api-gyakorlo-peldak" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Érdekesség</p>
+<p>A példák többsége egy létező, közismert tanulmányi rendszer működésén alapszik.</p>
 </div>
-<div class="admonition quote">
-<p class="admonition-title">Felhasználási feltételek</p>
-<p>Az itt található oktatási segédanyagok a BMEVIAUAC01 tárgy hallgatóinak készültek. Az anyagok oly módú felhasználása, amely a tárgy oktatásához nem szorosan kapcsolódik, csak a szerző(k) és a forrás megjelölésével történhet.</p>
-<p>Az anyagok a tárgy keretében oktatott kontextusban értelmezhetőek. Az anyagokért egyéb felhasználás esetén a szerző(k) felelősséget nem vállalnak.</p>
-</div>
+<h2 id="elmeleti-kerdesek">Elméleti kérdések<a class="headerlink" href="#elmeleti-kerdesek" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Minek a rövidítése a REST?</p>
+</li>
+<li>
+<p>Milyen egységekben, milyen műveletekben kell gondolkoznunk, amikor REST API-t tervezünk?</p>
+</li>
+<li>
+<p>Foglald össze, hogy a REST API szerint az egyes HTTP igéket milyen típusú műveletekhez használjuk!</p>
+</li>
+</ol>
+<details class="example">
+<summary>Megoldás: 1. feladat</summary>
+<p>Representational State Transfer</p>
+</details>
+<details class="example">
+<summary>Megoldás: 2. feladat</summary>
+<p>Ebben az architektúra stílusban az alapvető egység az <strong>erőforrás</strong>, ami tipikusan valamilyen adatentitásnak feleltethető meg (pl. Task, Product, Order, stb.).
+Műveleteket tekintve egy-egy kérés-válasz páros valamilyen erőforrásra vonatkozó <strong>állapotátvitel</strong> (State Transfer). Az átvitel irányát a HTTP ige határozza meg.</p>
+</details>
+<details class="example">
+<summary>Megoldás: 3. feladat</summary>
+<p><a class="glightbox" href="images/rest-http-verbs-hu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Részlet az előadásból" src="images/rest-http-verbs-hu.png" /></a></p>
+</details>
+<h2 id="gyakorlati-kerdesek">Gyakorlati kérdések<a class="headerlink" href="#gyakorlati-kerdesek" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Egy tanulmányi rendszerből szeretnénk lekérdezni egy adott hétre vonatkozó eseményeket. A böngésző fejlesztői eszközeivel azt tapasztaljuk, hogy ebben az esetben az alábbi kérést küldjük el a szervernek:
+<div class="highlight"><pre><span></span><code>Request URL:        https://domain.hu/hallgatoi/TimeTableHandler.ashx
+Request Method:     POST
+Status Code:        200 OK
+Remote Address:     152.66.28.54:443
+Referrer Policy:    strict-origin-when-cross-origin
+</code></pre></div>
+Az előző feladatot tekintve miben sérti ez a megoldás a REST API iránymutatásait?</p>
+</li>
+<li>
+<p>Tanulmányi rendszerünket frissíteni szeretnénk, hogy valóban REST API-t implementáljon. Hogyan írnád át a következő lekérdezést, ha...<br />
+a) specifikációba van rögzítve, hogy mindig pontosan egy naptári hetet szeretnénk lekérdezni és később sem szeretnénk ezen változtatni?<br />
+b) a lekérdezendő időtartam eleje és vége is tetszőlegesen választható marad?<br />
+<div class="highlight"><pre><span></span><code>Request URL:        https://domain.hu/hallgatoi/timetable
+Request Method:     POST
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">Reques</span><span class="kc">t</span><span class="w"> </span><span class="err">Body</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tart</span><span class="err">Da</span><span class="kc">te</span><span class="p">:</span><span class="w"> </span><span class="mi">1702281600000</span><span class="p">,</span>
+<span class="w">    </span><span class="err">e</span><span class="kc">n</span><span class="err">dDa</span><span class="kc">te</span><span class="p">:</span><span class="w"> </span><span class="mi">1702857599000</span><span class="p">,</span>
+<span class="w">    </span><span class="err">showClasses</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="err">showExams</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="err">showTasks</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ol>
+<details class="example">
+<summary>Megoldás: 1. feladat</summary>
+<p>A <code>Request Method</code> mezőben azt látjuk, hogy <code>POST</code> metódust használtunk <em>lekérdezéshez</em>. A REST API szerint lekérdezéshez <code>GET</code> használandó.</p>
+</details>
+<details class="example">
+<summary>Megoldás: 2. feladat</summary>
+<p>A megoldás során egy dologban biztosak lehetünk: <code>Request Method: GET</code>, hiszen lekérdezni szeretnénk adatot.  </p>
+<p><strong>a) feladat</strong><br />
+Innentől kezdve azonban már több irányban is elindulhatunk. Legegyszerűbb megoldás, ha egyszerűen minden paramétert, ami eddig a <code>Request Body</code>-ban utazott, beírjuk az URL-be, mint paraméter. Ekkor a megoldásunk így nézne ki:
+<div class="highlight"><pre><span></span><code>Request URL:        https://domain.hu/hallgatoi/timetable?startDate=1702281600000&amp;endDate=1702857599000&amp;showClasses=true&amp;showExams=true&amp;showTasks=false
+Request Method:     GET
+</code></pre></div>
+Ez az a pillanat, ahol sokan hátradőlnének, esetleg a vállukat is megveregetnék, hogy megoldották a feladatot. Azonban gondolkodjunk el egy picit... Mi is a REST API alapgondolata? Erőforrásokat kezelünk. Ahhoz, hogy a megoldásunk valóban megfeleljen ennek a szemléletnek, szerver oldalon sajnos nagyobb változtatás szükséges, mint az előző megoldásnál, de mi most API-t tervezünk, emiatt ne fájjon a fejünk.<br />
+Na de milyen erőforrás szerepel ebben a lekérdezésben? Mit szeretnénk lekérdezni? <em>Egy hét</em> eseményeit. Az események a válaszban fognak szerepelni, mint objektumok, ezért azokat nem tudjuk kiemelni, de miért ne emelhetnénk ki a heteket?
+<div class="highlight"><pre><span></span><code>https://domain.hu/hallgatoi/timetable/week/51?showClasses=true&amp;showExams=true&amp;showTasks=false
+</code></pre></div>
+Így már mindjárt olvashatóbb az URL. Egy részletről azonban megfeledkeztünk: Melyik évre vagyunk kíváncsiak? Gyorsan javítsuk is ki:
+<div class="highlight"><pre><span></span><code>https://domain.hu/hallgatoi/timetable/year/2023/week/51?showClasses=true&amp;showExams=true&amp;showTasks=false
+</code></pre></div>
+Még egy utolsó gondolat motoszkálhat bennünk: Nem lenne szebb azt, hogy milyen eseményekre vagyunk kíváncsiak egy listában átadni? Próbáljuk ki!
+A végleges lekérdezésünk, tehát a következő:
+<div class="highlight"><pre><span></span><code>Request URL:     https://domain.hu/hallgatoi/timetable/year/2023/week/51?showEvents=classes,exams
+Request Method:  GET
+</code></pre></div></p>
+<p><strong>b) feladat</strong><br />
+Ebben az esetben nem tudjuk az előző kérdéshez hasonlóan kezelni a lekérdezendő intervallumot, itt kénytelenek leszünk az intervallum kezdetét és végét is paraméterként átadni. A megjelenítendő események típusát azonban itt is átadhatjuk listaként, így tehát egy lehetséges megoldás a következő:
+<div class="highlight"><pre><span></span><code>Request URL:     https://domain.hu/hallgatoi/timetable?startDate=1702281600000&amp;endDate=1702857599000&amp;showEvents=classes,exams
+Request Method:  GET
+</code></pre></div></p>
+</details>
 
     <hr>
   <div class="md-source-file">
@@ -1382,8 +1538,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 1. 16:16:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-01T16:16:40+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-01</span>
+      <span title="2023. december 19. 18:20:12">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-19T18:20:12+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-19</span>
       </span>
     </span>
 
@@ -1398,8 +1554,8 @@
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
-          <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
+      <nav><a href="https://github.com/andrasig-bme" target="_blank" rel="noopener noreferrer" class="md-author" title="@Andrási Gellért">
+          <img src="https://avatars.githubusercontent.com/u/127566079?v=4?size=72" alt="@Andrási Gellért">
         </a></nav>      
     </span>
   </div>
@@ -1451,14 +1607,14 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
     
     
-      <script src="assets/javascripts/bundle.6c14ae12.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
-        <script src="js/timeago.min.js"></script>
+        <script src="../../js/timeago.min.js"></script>
       
-        <script src="js/timeago_mkdocs_material.js"></script>
+        <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
