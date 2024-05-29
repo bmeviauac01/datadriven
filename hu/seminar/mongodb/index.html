@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1549,12 +1547,12 @@
 </li>
 <li>
 <p>Indítsuk el a VSCode-ot és csatlakozzunk a MongoDB szerverhez.</p>
-<p><a class="glightbox" href="images/vscode-connect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-connect.png" /></a></p>
+<p><a class="glightbox" href="images/vscode-connect.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-connect.png" /></a></p>
 </li>
 <li>
 <p>Hozzuk létre az adatbázist a kapcsolat nevén (<em>localhost</em>) jobb egérrel kattintva. Ez egy playground script ablakot nyit, ahova másoljuk be az adatbázis létrehozó scriptünket <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js">innen</a>, és futtassuk le az fejlécben található fekete "lejátszás" gombbal Az adatbázis neve <code>datadriven</code> legyen. Ennek hatására létre kell jönnie a <em>collection</em>-öknek - nyissuk le az adatbázis elemeit ennek ellenőrzéséhez.</p>
-<p><a class="glightbox" href="images/vscode-newdb.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-newdb.png" /></a></p>
-<p><a class="glightbox" href="images/vscode-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Created Collections" src="images/vscode-collections.png" /></a></p>
+<p><a class="glightbox" href="images/vscode-newdb.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Connection Settings" src="images/vscode-newdb.png" /></a></p>
+<p><a class="glightbox" href="images/vscode-collections.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Created Collections" src="images/vscode-collections.png" /></a></p>
 </li>
 <li>
 <p>Töltsük le a kiinduló projekt vázat!</p>
@@ -1741,7 +1739,7 @@
 <li>
 <p>Hozzunk létre új POCO osztályt <code>Category</code> néven.</p>
 <p>Nézzük meg először VSCode-ban, hogy milyen adattagok találhatók a <code>categories</code> kollekcióban lévő dokumentumokban.</p>
-<p><a class="glightbox" href="images/categories.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kategória dokumentumok" src="images/categories.png" /></a></p>
+<p><a class="glightbox" href="images/categories.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Kategória dokumentumok" src="images/categories.png" /></a></p>
 <p>Ez alapján létre tudjuk hozni a <code>Category</code> osztályt an <code>Entities</code> mappában.</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">MongoDB.Bson</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="nn">MongoDB.Bson.Serialization.Attributes</span><span class="p">;</span>
@@ -1949,5 +1947,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

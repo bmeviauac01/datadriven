@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -2156,7 +2154,7 @@
 <p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával <strong>hoz új kihívásokat</strong> is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.</p>
 <h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">&para;</a></h2>
 <p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
-<p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A MongoDb architektúrája" src="images/mongodb_architecture.png" /></a></p>
+<p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="A MongoDb architektúrája" src="images/mongodb_architecture.png" /></a></p>
 <h3 id="logikai-felepites">Logikai felépítés<a class="headerlink" href="#logikai-felepites" title="Permanent link">&para;</a></h3>
 <p>Egy MongoDB-alapú adatbázis rendszer legfelső rétege az ún. <em>klaszter</em>, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a <em>mongod</em> processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (<em>collection</em>) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt <em>dokumentumok</em> lesznek.</p>
 <p>Nézzük ezeket pontosabban.</p>
@@ -2192,7 +2190,7 @@
 <p class="admonition-title">Kapcsolat életciklusa</p>
 <p>A kapcsolatot tipikusan egy globális statikus változóban tároljuk, avagy a környezet által támogatott IoC (Inversion of Control) / DI (Dependency Injection) tárolóban helyezzük el.</p>
 </div>
-<p>Az adatbázis neve szerepelhet ugyan a connection stringben (pl. <code>mongodb://localhost:27017/adatvez</code>), azt csak az authentikációhoz használja a rendszer. Így a kapcsolat felépítése után meg kell adnunk, milyen adatbázist fogunk használni.</p>
+<p>Az adatbázis neve szerepelhet ugyan a connection stringben (pl. <code>mongodb://localhost:27017/adatvez</code>), azt csak az autentikációhoz használja a rendszer. Így a kapcsolat felépítése után meg kell adnunk, milyen adatbázist fogunk használni.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">GetDatabase</span><span class="p">(</span><span class="s">&quot;adatvez&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>Az adatbázisnak nem kell előzetesen létezni. A fenti hívás hatására, ha még nem létezik az adatbázis, automatikusan létrejön.</p>
@@ -2443,7 +2441,7 @@
 </ul>
 <p>A MongoDB 5.0 verziója óta a <strong>Map-reduce</strong> elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.</p>
 <p>Az egycélú aggregációs műveletek (<strong>Single Purpose Aggregation Operations</strong>) terén a MongoDB biztosítja számunkra a <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> és <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.</p>
-<p><a class="glightbox" href="images/mongodb_spao.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></a></p>
+<p><a class="glightbox" href="images/mongodb_spao.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></a></p>
 <div class="admonition cite">
 <p class="admonition-title">Forrás</p>
 <p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
@@ -2573,8 +2571,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 17. 12:54:58">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T12:54:58+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span title="2023. december 13. 21:39:07">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-13T21:39:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-13</span>
       </span>
     </span>
 
@@ -2593,6 +2591,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/alirestum" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ali">
           <img src="https://avatars.githubusercontent.com/u/43758590?u=3577e14117f5ebdf9ae28a4e3aef102a709a1fd3&v=4?size=72" alt="@Ali">
+        </a><a href="https://github.com/andrasig-bme" target="_blank" rel="noopener noreferrer" class="md-author" title="@Andrási Gellért">
+          <img src="https://avatars.githubusercontent.com/u/127566079?v=4?size=72" alt="@Andrási Gellért">
         </a><a href="https://github.com/ekkd25" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/61554539?v=4?size=72" alt="@None">
         </a><a href="https://github.com/gergoradeczki" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Radeczki">
@@ -2608,7 +2608,7 @@
         </a><a href="https://github.com/tamasgal55" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gál Tamás">
           <img src="https://avatars.githubusercontent.com/u/79400429?v=4?size=72" alt="@Gál Tamás">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/65241679?u=f6e7535ece7ea2ea6c0602364470b48a22b3524c&v=4?size=72" alt="@None">
+          <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a><a href="https://github.com/tmsbrndz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tamás Brindza">
@@ -2674,5 +2674,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

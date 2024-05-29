@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1538,26 +1536,26 @@
 <h2 id="sql-server-management-studio-hasznalata">SQL Server Management Studio használata<a class="headerlink" href="#sql-server-management-studio-hasznalata" title="Permanent link">&para;</a></h2>
 <p>A tanszéki laborokban a programot a start menüből indíthatjuk. A program indulása után kapcsolódhatunk az adatbázishoz a felugró ablakban. LocalDB használata esetén a <em>Server name</em> <code>(localdb)\mssqllocaldb</code>, Express Edition használata esetén <code>.\sqlexpress</code> (alapbeállításokkal való telepítés esetén). Mindkét esetben <em>Windows Authentication</em>-t használunk.</p>
 <p>A sikeres kapcsolódást követően a főablak bal oldalán az <em>Object Explorer</em>-ben kibontható a <em>Databases</em> elem, és ha már létrehoztunk adatbázist, azt is kibontva láthatóak a tábláink és egyéb séma elemek.</p>
-<p>SQL kód futtatásához egy új <em>Query</em> ablakra van szükségünk, amelyet az eszköztáron található <a class="glightbox" href="../images/new-query-button.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Új lekérdezés gomb" src="../images/new-query-button.png" /></a> ikonnal nyithatunk. A <em>Query</em> ablak parancsai az aktuálisan kiválasztott adatbázison fognak lefutni, ezt az adatbázist az eszköztáron a legördülő menüben tudjuk megváltoztatni (lásd az alábbi képen sárgával). Több <em>Query</em> ablak is lehet nyitva egyszerre.</p>
-<p>Az SQL utasításokat lefuttatni az <a class="glightbox" href="../images/execute-button.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Lekérdezés végrehajtása gomb" src="../images/execute-button.png" /></a> gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.</p>
-<p><a class="glightbox" href="../images/object-explorer-db-query.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png" /></a></p>
+<p>SQL kód futtatásához egy új <em>Query</em> ablakra van szükségünk, amelyet az eszköztáron található <a class="glightbox" href="../images/new-query-button.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Új lekérdezés gomb" src="../images/new-query-button.png" /></a> ikonnal nyithatunk. A <em>Query</em> ablak parancsai az aktuálisan kiválasztott adatbázison fognak lefutni, ezt az adatbázist az eszköztáron a legördülő menüben tudjuk megváltoztatni (lásd az alábbi képen sárgával). Több <em>Query</em> ablak is lehet nyitva egyszerre.</p>
+<p>Az SQL utasításokat lefuttatni az <a class="glightbox" href="../images/execute-button.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Lekérdezés végrehajtása gomb" src="../images/execute-button.png" /></a> gombbal tudjuk. Ha van kijelölt utasítás, csak azt futtatja, ellenkező esetben az ablak teljes tartalmát végrehajtja. Az eredmény, vagy a hibaüzenet a script alatt látható.</p>
+<p><a class="glightbox" href="../images/object-explorer-db-query.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png" /></a></p>
 <h3 id="uj-adatbazis-letrehozasa">Új adatbázis létrehozása<a class="headerlink" href="#uj-adatbazis-letrehozasa" title="Permanent link">&para;</a></h3>
 <p>Ha még nincs adatbázisunk, először létre kell hozni egyet. Ezt az <em>Object Explorer</em>-ben a <em>Databases</em>-en jobb kattintással tehetjük meg. Az adatbázisnak csak nevet kell adni, más beállításra nincs szükség. Az adatbázis létrehozása után a <em>Query</em> ablakban ne felejtsük átállítani az aktuális adatbázist!</p>
-<p><a class="glightbox" href="../images/uj-adatbazis.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Új adatbázis létrehozása" src="../images/uj-adatbazis.png" /></a></p>
+<p><a class="glightbox" href="../images/uj-adatbazis.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Új adatbázis létrehozása" src="../images/uj-adatbazis.png" /></a></p>
 <h3 id="parhuzamos-tranzakciok">Párhuzamos tranzakciók<a class="headerlink" href="#parhuzamos-tranzakciok" title="Permanent link">&para;</a></h3>
 <p>Párhuzamos tranzakciók szimulálásához két <em>Query</em> ablakra van szükség a <em>New Query</em> gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a <em>Query</em> fül fejlécére jobb egérrel kattintva válasszuk a <em>New Vertical Tab Group</em> opciót.</p>
-<p><a class="glightbox" href="../images/query-window-tab-group.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Több query ablak egymás mellé rendezése" src="../images/query-window-tab-group.png" /></a></p>
+<p><a class="glightbox" href="../images/query-window-tab-group.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Több query ablak egymás mellé rendezése" src="../images/query-window-tab-group.png" /></a></p>
 <h3 id="tablak-tartalmanak-listazasa-egyszerusitett-modositas">Táblák tartalmának listázása, egyszerűsített módosítás<a class="headerlink" href="#tablak-tartalmanak-listazasa-egyszerusitett-modositas" title="Permanent link">&para;</a></h3>
 <p>A táblák tartalmának listázásához az <em>Object Explorer</em>-ben bontsuk ki az adatbázisunk alatt a <em>Tables</em> mappát. Bármely táblára jobb egérrel kattintva használjuk a <em>Select Top 1000 Rows</em> elemet. Hasonló módon lehetőség van a tábla tartalmának szerkesztésére is (az első 200 sorra, amely a minta adatbázisban pont elegendő) az <em>Edit Top 200 Rows</em> menüelemmel.</p>
-<p><a class="glightbox" href="../images/select-top-1000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Tábla tartalmának gyors listázása" src="../images/select-top-1000.png" /></a></p>
+<p><a class="glightbox" href="../images/select-top-1000.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Tábla tartalmának gyors listázása" src="../images/select-top-1000.png" /></a></p>
 <h3 id="intellisense-ujratoltese">Intellisense újratöltése<a class="headerlink" href="#intellisense-ujratoltese" title="Permanent link">&para;</a></h3>
 <p>Az SQL Management Studio query ablakban az intellisense első körben sosem működik magától, használni kell a Control+Shift+R-t az intellisense cache frissítésére. Akkor is, ha új objektumot (pl. tárolt eljárást) hozunk létre.</p>
 <h3 id="tarolt-eljarasok-es-triggerek-keszitese">Tárolt eljárások és triggerek készítése<a class="headerlink" href="#tarolt-eljarasok-es-triggerek-keszitese" title="Permanent link">&para;</a></h3>
 <p>Tárolt eljárás és trigger létrehozására a <em>Query</em> ablak használható, amelyben a megfelelő létrehozó-módosító utasítást futtatjuk. Ügyeljünk rá, hogy ha már létrejött egyszer a trigger vagy tárolt eljárás, utána már csak módosítani tudjuk.</p>
 <p>A már létező tárolt eljárások az <em>Object Explorer</em>-ben az adatbázisunk alatti a <em>Programmability/Stored Procedures</em> mappában láthatóak. (Az újonnan létrehozott elemek nem jelennek meg automatikusan a már kibontott mappában. A frissítéshez a <em>Stored Procedures</em> mappán jobb egérrel kattintva válasszuk a <em>Refresh</em>-t.)</p>
-<p><a class="glightbox" href="../images/tarolt-eljaras.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Tárolt eljárást" src="../images/tarolt-eljaras.png" /></a></p>
+<p><a class="glightbox" href="../images/tarolt-eljaras.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Tárolt eljárást" src="../images/tarolt-eljaras.png" /></a></p>
 <p>A triggerek az <em>Object Explorer</em>-ben megkereshetőek, a táblára definiált triggerek a tábla kibontásával a <em>Triggers</em> mappában láthatóak (a rendszer szintű triggerek pedig az adatbázis alatti <em>Programmability</em> mappában).</p>
-<p><a class="glightbox" href="../images/trigger.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Trigger" src="../images/trigger.png" /></a></p>
+<p><a class="glightbox" href="../images/trigger.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Trigger" src="../images/trigger.png" /></a></p>
 <p>A tárolt eljárásaink és triggereink kódját megtekinthetjük, ha a fentebb ismertetett módon megkeressük őket, és jobb egérrel kattintva a <em>Modify</em> menüt választjuk. Ez a művelet egy új Query ablakot nyit, amelybe generál egy <em>alter</em> utasítást az aktuális programkóddal.</p>
 
     <hr>
@@ -1654,5 +1652,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

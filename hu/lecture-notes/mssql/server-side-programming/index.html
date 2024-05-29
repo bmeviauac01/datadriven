@@ -62,17 +62,15 @@
     
     
    <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -2109,7 +2107,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
 </code></pre></div>
 <p>A tárolt eljárások az adatbázisunk részei. Microsoft SQL Server Management Studio-ban például a képen látható helyen jelennek meg:</p>
-<p><a class="glightbox" href="../img/mssql-stored-proc-in-db.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Tárolt eljárás az adatbázisban" src="../img/mssql-stored-proc-in-db.png" /></a></p>
+<p><a class="glightbox" href="../img/mssql-stored-proc-in-db.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Tárolt eljárás az adatbázisban" src="../img/mssql-stored-proc-in-db.png" /></a></p>
 <h3 id="skalar-fuggveny">Skalár függvény<a class="headerlink" href="#skalar-fuggveny" title="Permanent link">&para;</a></h3>
 <p>Függvény deklarációja az eljáráséhoz hasonlóan történik, azonban meg kell adni a visszatérési típust is:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">név</span>
@@ -2222,7 +2220,7 @@
 <span class="k">select</span><span class="w"> </span><span class="s1">&#39;Product deleted: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
 </code></pre></div>
 <p>A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a <code>DROP TRIGGER</code> utasítással). A trigger az érintett táblához kötve látható az adatbázisban:</p>
-<p><a class="glightbox" href="../img/mssql-trigger-in-db.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Trigger az adatbázisban" src="../img/mssql-trigger-in-db.png" /></a></p>
+<p><a class="glightbox" href="../img/mssql-trigger-in-db.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Trigger az adatbázisban" src="../img/mssql-trigger-in-db.png" /></a></p>
 <p>Egy DML trigger definiálásának szintaktikája az alábbi:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">trigger_név</span>
 <span class="k">ON</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="n">tábla</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">nézet</span><span class="w"> </span><span class="err">}</span>
@@ -2420,7 +2418,7 @@
         </a><a href="https://github.com/tamasgal55" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gál Tamás">
           <img src="https://avatars.githubusercontent.com/u/79400429?v=4?size=72" alt="@Gál Tamás">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/65241679?u=f6e7535ece7ea2ea6c0602364470b48a22b3524c&v=4?size=72" alt="@None">
+          <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
@@ -2484,5 +2482,7 @@
         <script src="../../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

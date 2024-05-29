@@ -60,17 +60,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1445,7 +1443,7 @@
 </div>
 <h2 id="visual-studio-workload-ok-telepitese">Visual Studio Workload-ok telepítése<a class="headerlink" href="#visual-studio-workload-ok-telepitese" title="Permanent link">&para;</a></h2>
 <p>A Visual Studio telepítésekor ki kell pipálni a <em>ASP.NET and web development</em> <a href="https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022#step-4---choose-workloads">workloadot</a>.</p>
-<p><a class="glightbox" href="../vs-workload.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Visual Studio 2022 workload" src="../vs-workload.png" /></a></p>
+<p><a class="glightbox" href="../vs-workload.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Visual Studio 2022 workload" src="../vs-workload.png" /></a></p>
 <p>Meglevő telepítés a <em>Visual Studio Installer</em>-ben a <a href="https://docs.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022"><em>Modify</em></a> gombbal módosítható, ill. ellenőrizhető.</p>
 <h2 id="net-sdk-ellenorzese-es-telepitese">.NET SDK ellenőrzése és telepítése<a class="headerlink" href="#net-sdk-ellenorzese-es-telepitese" title="Permanent link">&para;</a></h2>
 <p>Visual Studio mellett bizonyos .NET SDK-k telepítésre kerülnek. A megfelelő verzió ellenőrzéséhez legegyszerűbb a <code>dotnet</code> CLI-t használni: konzolban add ki a <code>dotnet --list-sdks</code> parancsot. Ez a parancs Linux és Mac esetén is működik. A kimenete hasonló lesz:</p>
@@ -1546,5 +1544,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

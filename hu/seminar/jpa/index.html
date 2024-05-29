@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1745,7 +1743,7 @@
 <p>Futás közben a Console nézetben látszódnak a Hibernate által generált SQL utasítások az <em>application.properties</em>-beli <code>spring.jpa.show-sql=true</code> konfig miatt.</p>
 <h3 id="futtatas">Futtatás<a class="headerlink" href="#futtatas" title="Permanent link">&para;</a></h3>
 <p>Jobb klikk a webshop projekten &gt; <em>Debug As / Spring Boot App</em> Ez debug módban indítja az alkalmazást, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <a href="http://localhost:9080">http://localhost:9080</a> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:</p>
-<p><a class="glightbox" href="images/eclipse-run.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Eclipse futtatás" src="images/eclipse-run.png" /></a></p>
+<p><a class="glightbox" href="images/eclipse-run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Eclipse futtatás" src="images/eclipse-run.png" /></a></p>
 <p>A futó alkalmazást a <em>Console</em> nézet piros <em>Terminate</em> ikonjával lehet leállítani. Ha leállítás nélkül próbáljuk újra futtatni, akkor a második processz ütközést jelent a 9080-as porton, és leáll. Ilyenkor a sikertelen második futtatás látszik a <em>Console</em> nézetben, a <em>Terminate</em> gomb pedig inaktív, mivel ez a futás már leállt. Nyomjuk meg a Terminate ikon melletti dupla szürke X ikont, ez el fogja távolítani a már leállított futtatásokat, és csak az aktív futtatás látszik, amin viszont már tudunk <em>Terminate</em>-et nyomni.</p>
 <p>Ha a teljes <em>Console</em> nézetet bezárjuk véletlenül, elő lehet szedni <em>Alt+Shift+Q, C</em> gyorsbillentyűvel, vagy <em>Window / Show View / Console</em> menüvel.</p>
 <p>A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.</p>
@@ -1799,7 +1797,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>A dao package-ben lévő <code>ProductRepositoryImpl</code> osztály hibás lesz emiatt, mert nem implementálja a <code>ProductRepositoryCustom</code>-ot. Nyissuk meg az osztályt, és az osztály elején, a sor elején megjelenő kis villanykörtére kattintva belegeneráltathatjuk a nem implementált metódus vázát:</p>
-<p><a class="glightbox" href="images/eclipse-implement-methods.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Eclipse interfész implementálása" src="images/eclipse-implement-methods.png" /></a></p>
+<p><a class="glightbox" href="images/eclipse-implement-methods.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Eclipse interfész implementálása" src="images/eclipse-implement-methods.png" /></a></p>
 <p>Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">hu.bme.aut.adatvez.webshop.dao</span><span class="p">;</span>
 
@@ -2146,5 +2144,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

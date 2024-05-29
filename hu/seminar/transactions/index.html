@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1617,20 +1615,20 @@
 </li>
 <li>
 <p>Hozza létre a minta adatbázist a generáló script lefuttatásával. Nyisson egy új <em>Query</em> ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.</p>
-<p><a class="glightbox" href="images/sql-management-database-dropdown.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-management-database-dropdown.png" /></a></p>
+<p><a class="glightbox" href="images/sql-management-database-dropdown.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-management-database-dropdown.png" /></a></p>
 </li>
 <li>
 <p>Ellenőrizze, hogy létrejöttek-e a táblák. Ha a <em>Tables</em> mappa ki volt már nyitva, akkor frissíteni kell.</p>
-<p><a class="glightbox" href="images/sql-managment-tablak.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-managment-tablak.png" /></a>.</p>
+<p><a class="glightbox" href="images/sql-managment-tablak.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-managment-tablak.png" /></a>.</p>
 </li>
 <li>
 <p>Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az <em>Edit &gt; IntelliSense &gt; Refresh Local</em> Cache menüpontot kiválasztva vagy a <em>Ctrl+Shift+R</em> billentyűkombinációval az IntelliSense gyorsítótárát frissítsük.</p>
-<p><a class="glightbox" href="images/intellisense.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="IntelliSense" src="images/intellisense.png" /></a>.</p>
+<p><a class="glightbox" href="images/intellisense.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="IntelliSense" src="images/intellisense.png" /></a>.</p>
 </li>
 </ol>
 <h2 id="feladat-2-parhuzamos-tranzakciok">Feladat 2: Párhuzamos tranzakciók<a class="headerlink" href="#feladat-2-parhuzamos-tranzakciok" title="Permanent link">&para;</a></h2>
 <p>Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válasszuk a <em>New Vertical Tab Group</em> opciót:</p>
-<p><a class="glightbox" href="images/sql-management-tab-group.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Két tranzakció elhelyezése egymás mellé" src="images/sql-management-tab-group.png" /></a></p>
+<p><a class="glightbox" href="images/sql-management-tab-group.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Két tranzakció elhelyezése egymás mellé" src="images/sql-management-tab-group.png" /></a></p>
 <p>Használja az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
 megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <ol>
@@ -2000,5 +1998,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

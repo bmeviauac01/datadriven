@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1579,7 +1577,7 @@
 </div>
 <h2 id="az-alkalmazas-adatbazis-modellje">Az alkalmazás adatbázis modellje<a class="headerlink" href="#az-alkalmazas-adatbazis-modellje" title="Permanent link">&para;</a></h2>
 <p>Az alkalmazásunk a tárgy minta adatbázisához hasonló, de egyszerűbb adatbázissal dolgozik, az ER diagramja itt látható:</p>
-<p><a class="glightbox" href="images/dbdiagram.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Az alkalmazás adatbázis diagramja" src="images/dbdiagram.png" /></a></p>
+<p><a class="glightbox" href="images/dbdiagram.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Az alkalmazás adatbázis diagramja" src="images/dbdiagram.png" /></a></p>
 <div class="admonition note">
 <p>Az egyszerűség kedvéért a kosarakban a <em>UserID</em> nem idegen kulcsként szerepel egy <em>Users</em> táblára, hanem egy statikus, 1-es ID-jű felhasználóval dolgozunk. A valóságban több felhasználó van, így a <em>UserID</em> idegen kulcs lenne.</p>
 </div>
@@ -1756,7 +1754,7 @@
 </ol>
 <p>A fentiek mindegyike más miatt kell, de így, együtt adják a teljes megoldást. Nézzük ebből is az aszinkronitást, azaz a <code>Task</code> típust és az <code>await</code> kulcsszót. Ezzel a definícióval egy ún. "promise"-t adunk vissza (más nyelvekben szokták így hívni), amely egy jövőben elvégzendő feladat eredményét (fogja) tartalmazni.</p>
 <p>Miért jó ez? Azért, mert a kontroller metódus elvégzése így lesz aszinkron. Amikor a rendszer egy <code>await</code> utasításhoz ér, a szál, ami eddig a feldolgozást végezte, abbahagyja ennek a kérésnek a kiszolgálását, és egy másik kérés végrehajtásával folytatja a munkát. Miért is? Mert az <code>await</code> "mögötti" feladatról tudjuk, hogy időigényes: az adatbázisra és a hálózatra várunk. Feleslegesen várakoztatnánk a kiszolgáló szálat, ha az itt "megállna" és bevárná az eredményt. Ehelyett a feladatot kiadjuk egy háttér rendszernek (az operációs rendszer és a .NET aszinkron I/O alrendszerének - ebbe azonban nem megyünk bele), és arról kérünk értesítést, amikor az itt várt végeredmény elkészült. Amint ez megtörténik, a korábban felfüggesztett kérés kiszolgálása folytatódik tovább.</p>
-<p>Másként megfogalmazva a mi alkalmazásunk kiszolgáló száljai mindig aktívan munkát fognak végezni, nem várakoznak. A várakozás helyett más feladatok végrehajtására lesznek képesek. Ez összességében azt jelenti, hogy kevesebb operációs rendszer szálat veszünk igénybe és ezzel több kérést tudunk kiszolgálni. Ettől az alkalmazásunk hatékonyabb lesz.</p>
+<p>Másként megfogalmazva a mi alkalmazásunk kiszolgáló szálai mindig aktívan munkát fognak végezni, nem várakoznak. A várakozás helyett más feladatok végrehajtására lesznek képesek. Ez összességében azt jelenti, hogy kevesebb operációs rendszer szálat veszünk igénybe és ezzel több kérést tudunk kiszolgálni. Ettől az alkalmazásunk hatékonyabb lesz.</p>
 <p>Az előbb bemutatott függvényt szintaktikailag tovább egyszerűsíthetjük ha elhagyjuk a lokális változót és közvetlenül visszaadjuk a <code>Task</code> eredményt. Funkcionálisan az alábbi implementáció megegyezik a fentivel, azonban a magyarázatot a fenti részletesebb kiírás jobban szemlélteti.</p>
 <div class="highlight"><pre><span></span><code><span class="na">[HttpGet]</span>
 <span class="k">public</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="n">ActionResult</span><span class="o">&lt;</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">Carts</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">GetCarts</span><span class="p">()</span>
@@ -1880,8 +1878,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. december 13. 21:39:07">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-13T21:39:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-13</span>
       </span>
     </span>
 
@@ -1900,6 +1898,8 @@
           <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
         </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/andrasig-bme" target="_blank" rel="noopener noreferrer" class="md-author" title="@Andrási Gellért">
+          <img src="https://avatars.githubusercontent.com/u/127566079?v=4?size=72" alt="@Andrási Gellért">
         </a><a href="https://github.com/gergoradeczki" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Radeczki">
           <img src="https://avatars.githubusercontent.com/u/4851436?u=6af920525ee593810b1e7973750e169c5f69b71c&v=4?size=72" alt="@Gergő Radeczki">
         </a><a href="https://github.com/MeIidon" target="_blank" rel="noopener noreferrer" class="md-author" title="@Zsombor Szommer">
@@ -1969,5 +1969,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

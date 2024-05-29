@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1500,13 +1498,13 @@
 <h2 id="mongodb-for-vscode">MongoDB for VSCode<a class="headerlink" href="#mongodb-for-vscode" title="Permanent link">&para;</a></h2>
 <p>A MongoDB for VSCode egy egyszerű és ingyenes kiegészítő VSCode-ban MongoDB adatbázis használatához.</p>
 <p>A kiegészítő megnyitásakor kiválaszthatjuk a már korábban létrehozott kapcsolatunkat, vagy készíthetünk egy újat. Alapértelmezésként a helyben futó szervert a <code>localhost</code> címen és a <code>27017</code> porton érhetjük el.</p>
-<p><a class="glightbox" href="../images/vscode-connect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás" src="../images/vscode-connect.png" /></a></p>
-<p><a class="glightbox" href="../images/vscode-connect2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás2" src="../images/vscode-connect2.png" /></a></p>
+<p><a class="glightbox" href="../images/vscode-connect.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás" src="../images/vscode-connect.png" /></a></p>
+<p><a class="glightbox" href="../images/vscode-connect2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Kapcsolódás2" src="../images/vscode-connect2.png" /></a></p>
 <p>A sikeres kapcsolódás után az kiegészítő bal oldalán a faszerkezetben látjuk a kapcsolódott kiszolgálót, az adatbázisokat és a gyűjteményeket. Kezdetben se adatbázisunk, se gyűjteményeink nem lesznek. (Ezeket létrehozhatjuk kézzel is: jobb egérrel kattintva a szerver nevén találjuk például a <em>Create Database</em> parancsot, ahol tetszőleges parancsot tudunk futtatni.)</p>
-<p><a class="glightbox" href="../images/vscode-db-collections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemények" src="../images/vscode-db-collections.png" /></a></p>
+<p><a class="glightbox" href="../images/vscode-db-collections.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemények" src="../images/vscode-db-collections.png" /></a></p>
 <p>A gyűjtemények tartalmát <em>jobb gomb / View Documents</em> művelettel tekinthetjük meg, amit egy új tab fület nyit. Ha keresni szeretnénk, akkor a <em>jobb gomb / Search For Documents...</em> művelettel írhatunk JavaScript kódot egy playground ablakban.</p>
 <p>A dokumentumot törölni, szerkeszteni a rekordra való jobb egér kattintással tudjuk. A szerkesztés során a JSON dokumentumot szerkesztjük.</p>
-<p><a class="glightbox" href="../images/vscode-collection-list.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemény tartalma" src="../images/vscode-collection-list.png" /></a></p>
+<p><a class="glightbox" href="../images/vscode-collection-list.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Gyűjtemény tartalma" src="../images/vscode-collection-list.png" /></a></p>
 <p>Új dokumentumot beszúrni szintén jobb egérrel kattintva tudunk. Itt egy üres szerkesztőt kapunk. Ha új rekordot akarunk létrehozni, célszerű egy meglevő dokumentum JSON-jét lemásolni és úgy hozni létre az újat, hogy a kulcsok nevei biztosan jók legyenek.</p>
 <h2 id="studio-3t">Studio 3T<a class="headerlink" href="#studio-3t" title="Permanent link">&para;</a></h2>
 <p><a href="https://studio3t.com/">Studio 3T</a> egy bővebb funkciókkal rendelkező mongo kliens, aminek van ingyenes verziója is, de az regisztrációhoz kötött. A tanszéki laborokban nincs feltelepítve, de otthon használhatjátok.</p>
@@ -1601,5 +1599,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

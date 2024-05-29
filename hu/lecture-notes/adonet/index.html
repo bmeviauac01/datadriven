@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1712,7 +1710,7 @@
 <p>Az Entity Framework is a háttérben ADO.NET-re épül.</p>
 </div>
 <p>Az <strong>ADO.NET</strong> osztálykönyvtár elhelyezkedése az adatvezérelt alkalmazás struktúrájában:</p>
-<p><a class="glightbox" href="images/adonet-arch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Struktúra" src="images/adonet-arch.png" /></a></p>
+<p><a class="glightbox" href="images/adonet-arch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Struktúra" src="images/adonet-arch.png" /></a></p>
 <p>Az ADO.NET tehát az adatelérési rétegben nyújt szolgáltatásokat, és a háttérben kezeli az adatbázismotor kommunikációt a rendszerre telepített driverek és az operációs rendszer szolgáltatásainak (pl. hálózati kapcsolat) igénybevételével.</p>
 <p>Az adatelérési könyvtárak tipikus elemei:</p>
 <ul>
@@ -1865,7 +1863,7 @@
 <li>kapcsolat lezárása</li>
 </ol>
 <p>A <code>DataReader</code> kapcsolati lánc az adatbázisig:</p>
-<p><a class="glightbox" href="images/datareader.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Struktúra" src="images/datareader.png" /></a></p>
+<p><a class="glightbox" href="images/datareader.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Struktúra" src="images/datareader.png" /></a></p>
 <p><strong>Példa</strong> <code>DataReader</code> használatára:</p>
 <div class="highlight"><pre><span></span><code><span class="n">using</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlConnection</span><span class="p">(</span><span class="n">connectionString</span><span class="p">))</span>
 <span class="p">{</span>
@@ -1920,9 +1918,9 @@
 <li>kapcsolat lezárása</li>
 </ol>
 <p>Az adatelérés működése <code>adapter</code>-rel kapcsolat nélküli modellben az alábbi ábrán látható.</p>
-<p><a class="glightbox" href="images/adapter.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Data adapter használata" src="images/adapter.png" /></a></p>
+<p><a class="glightbox" href="images/adapter.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Data adapter használata" src="images/adapter.png" /></a></p>
 <p><code>DataSet</code> kapcsolati lánc az adatbázisig:</p>
-<p><a class="glightbox" href="images/dataset.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="DataSet kapcsolati lánc" src="images/dataset.png" /></a></p>
+<p><a class="glightbox" href="images/dataset.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="DataSet kapcsolati lánc" src="images/dataset.png" /></a></p>
 <p><strong>Példa</strong> <code>DataSet</code> használatára:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">dataSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DataSet</span><span class="p">();</span>
 <span class="kt">var</span><span class="w"> </span><span class="n">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlDataAdapter</span><span class="p">();</span>
@@ -2027,7 +2025,7 @@
         </a><a href="https://github.com/Szofficsok" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/79463616?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/65241679?u=f6e7535ece7ea2ea6c0602364470b48a22b3524c&v=4?size=72" alt="@None">
+          <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tmb2k01" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tóth Marcell Balázs">
           <img src="https://avatars.githubusercontent.com/u/93323822?u=4832a685063e1d3d02d29a8ede6f40a122050745&v=4?size=72" alt="@Tóth Marcell Balázs">
         </a></nav>      
@@ -2091,5 +2089,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

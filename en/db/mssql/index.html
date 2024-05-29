@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1498,26 +1496,26 @@
 <h2 id="using-sql-server-management-studio">Using SQL Server Management Studio<a class="headerlink" href="#using-sql-server-management-studio" title="Permanent link">&para;</a></h2>
 <p>In university computer laboratories, you can start the software from the start menu. Connection details are configured when the application starts. When using LocalDB, the <em>Server name</em> is <code>(localdb)\mssqllocaldb</code>; for Express Edition the name is <code>.\sqlexpress</code> (if installed with default settings). Either case use <em>Windows Authentication</em>.</p>
 <p>When the connection is established, the databases are listed on the left in the <em>Object Explorer</em> window under <em>Databases</em>. A database can be expanded, and the tables (along with other schema elements) are listed here.</p>
-<p>SQL code can be executed in a new <em>Query</em> window opened using <a class="glightbox" href="../images/new-query-button.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="New query button" src="../images/new-query-button.png" /></a> on the toolbar. The commands in the <em>Query</em> window are executed on the currently selected database. This database is selected from a dropdown in the toolbar (see in the image below with yellow). We can open multiple <em>Query</em> windows.</p>
-<p>The SQL command is executed using the <a class="glightbox" href="../images/execute-button.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Execute button" src="../images/execute-button.png" /></a> button on the toolbar. Only the selection is executed if any text is selected; otherwise, the entire window content is sent to the server. The result and errors are printed under the script.</p>
-<p><a class="glightbox" href="../images/object-explorer-db-query.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png" /></a></p>
+<p>SQL code can be executed in a new <em>Query</em> window opened using <a class="glightbox" href="../images/new-query-button.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="New query button" src="../images/new-query-button.png" /></a> on the toolbar. The commands in the <em>Query</em> window are executed on the currently selected database. This database is selected from a dropdown in the toolbar (see in the image below with yellow). We can open multiple <em>Query</em> windows.</p>
+<p>The SQL command is executed using the <a class="glightbox" href="../images/execute-button.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Execute button" src="../images/execute-button.png" /></a> button on the toolbar. Only the selection is executed if any text is selected; otherwise, the entire window content is sent to the server. The result and errors are printed under the script.</p>
+<p><a class="glightbox" href="../images/object-explorer-db-query.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SQL Server Management Studio" src="../images/object-explorer-db-query.png" /></a></p>
 <h3 id="creating-a-new-database">Creating a new database<a class="headerlink" href="#creating-a-new-database" title="Permanent link">&para;</a></h3>
 <p>If we have no database, we must create one first. In <em>Object Explorer</em> right-click <em>Databases</em> to open a dialog. We need to specify a name and leave all other options as-is. After creating a new database, we shall not forget to select the toolbar's current database for any <em>Query</em> window we have open!</p>
-<p><a class="glightbox" href="../images/uj-adatbazis.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Create new database" src="../images/uj-adatbazis.png" /></a></p>
+<p><a class="glightbox" href="../images/uj-adatbazis.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Create new database" src="../images/uj-adatbazis.png" /></a></p>
 <h3 id="concurrent-transactions">Concurrent transactions<a class="headerlink" href="#concurrent-transactions" title="Permanent link">&para;</a></h3>
 <p>To simulate concurrent transactions, we need two <em>Query</em> windows; open two by pressing the <em>New Query</em> button twice. You can align these windows next to each other by right-clicking the <em>Query</em> tab title and selecting <em>New Vertical Tab Group</em>.</p>
-<p><a class="glightbox" href="../images/query-window-tab-group.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Query windows next to each other" src="../images/query-window-tab-group.png" /></a></p>
+<p><a class="glightbox" href="../images/query-window-tab-group.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Query windows next to each other" src="../images/query-window-tab-group.png" /></a></p>
 <h3 id="listing-and-editing-table-content">Listing and editing table content<a class="headerlink" href="#listing-and-editing-table-content" title="Permanent link">&para;</a></h3>
 <p>To view any database table's content, open the database in <em>Object Explorer</em>, locate the table under <em>Tables</em>, then right-click and chose <em>Select Top 1000 Rows</em> or <em>Edit Top 200 Rows</em>.</p>
-<p><a class="glightbox" href="../images/select-top-1000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="View table content" src="../images/select-top-1000.png" /></a></p>
+<p><a class="glightbox" href="../images/select-top-1000.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="View table content" src="../images/select-top-1000.png" /></a></p>
 <h3 id="intellisense-reload">Intellisense reload<a class="headerlink" href="#intellisense-reload" title="Permanent link">&para;</a></h3>
 <p>Intellisense often does not work in SQL Management Studio query windows. Press Control+Shift+R-t to trigger a reload of Intellisense cache. We also need to use this after creating a new object (e.g., a new stored procedure).</p>
 <h3 id="creating-stored-procedures-and-triggers">Creating stored procedures and triggers<a class="headerlink" href="#creating-stored-procedures-and-triggers" title="Permanent link">&para;</a></h3>
 <p>We can create new stored procedures or triggers by writing the T-SQL code to create them in a <em>Query</em> window. Once an item with the same name exists, we cannot create it but have to modify the existing one using the proper command.</p>
 <p>Existing stored procedures are listed in <em>Object Explorer</em> under our database in the <em>Programability/Stored Procedures</em> folder. (Newly created items do not appear in the folder, but we have to refresh the folder content by right-clicking and choosing <em>Refresh</em>.)</p>
-<p><a class="glightbox" href="../images/tarolt-eljaras.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Stored procedures" src="../images/tarolt-eljaras.png" /></a></p>
+<p><a class="glightbox" href="../images/tarolt-eljaras.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Stored procedures" src="../images/tarolt-eljaras.png" /></a></p>
 <p>Triggers are found in <em>Object Explorer</em> under the table on which they are defined in the <em>Triggers</em> folder (system-level triggers are in the <em>Programability</em> folder under the database itself).</p>
-<p><a class="glightbox" href="../images/trigger.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Trigger" src="../images/trigger.png" /></a></p>
+<p><a class="glightbox" href="../images/trigger.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Trigger" src="../images/trigger.png" /></a></p>
 <p>The code of any existing stored procedure or trigger can be opened by locating them (see above), then right-clicking and choosing the <em>Modify</em> command. This will open a new <em>Query</em> window with an <code>alter</code> command and the current code of the program.</p>
 
     <hr>
@@ -1610,5 +1608,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

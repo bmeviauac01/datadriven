@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1328,18 +1326,18 @@
 <h1 id="using-github-actions">Using GitHub Actions<a class="headerlink" href="#using-github-actions" title="Permanent link">&para;</a></h1>
 <p>The semi-automatic evaluation of the exercises uses <a href="https://github.com/features/actions">GitHub Actions</a>. It is a CI system capable of running jobs on git repositories. We use this system, for example, to compile your code and test it.</p>
 <p>You will receive a notification about the results in a pull request. But if you need more details, such as check the application logs, you can access these using the web interface of GitHub under <em>Actions</em>.</p>
-<p><a class="glightbox" href="../github-actions-tab.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions on the web interface" src="../github-actions-tab.png" /></a></p>
+<p><a class="glightbox" href="../github-actions-tab.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions on the web interface" src="../github-actions-tab.png" /></a></p>
 <p>Here, you will see a list of <em>Workflows</em>. Each evaluation (each commit) is a separate item here (so the history is also available).</p>
-<p><a class="glightbox" href="../github-actions-executions-list.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions workflow list" src="../github-actions-executions-list.png" /></a></p>
+<p><a class="glightbox" href="../github-actions-executions-list.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions workflow list" src="../github-actions-executions-list.png" /></a></p>
 <p>By selecting one (e.g., the last one is always at the top of the list), you see this workflow's details. To get to the logs, you need to click once more on the left. The log will be on the right side.</p>
-<p><a class="glightbox" href="../github-actions-job-log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions job log" src="../github-actions-job-log.png" /></a></p>
+<p><a class="glightbox" href="../github-actions-job-log.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions job log" src="../github-actions-job-log.png" /></a></p>
 <p>Each green checkmark is a successful step. These steps do not correspond to the exercises; these describe the evaluation process. These steps include preparations, such as setting up the .NET environment for compiling your code (since each workflow starts in a clean environment, these steps are performed each time).</p>
 <p>Most of these steps should be successful, even if your submission contains an error. The two exceptions when these tasks might fail due to your changes are: (1) if <code>neptun.txt</code> is missing, or (2) your C# code does not compile. The <code>neptun.txt</code> is mandatory, and no evaluation is performed until that is provided. The C# compilation is a step that must succeed; otherwise, your application cannot be started.</p>
 <p>There might be transient errors in these workflows. An example is when a download, such as the download of the .NET environment fails. The workflow execution can be repeated if this occurs. Retrying the execution may only help if the problem is indeed transient; a retry will not resolve a C# compilation error. (You can deduce the cause from the name of the step and the error message.)</p>
-<p><a class="glightbox" href="../github-actions-rerun.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions transient error and retry" src="../github-actions-rerun.png" /></a></p>
+<p><a class="glightbox" href="../github-actions-rerun.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions transient error and retry" src="../github-actions-rerun.png" /></a></p>
 <p>You might also be able to access the application logs. E.g., when testing a .NET application, it is started, and the logs will be printed here.</p>
 <p>The image below shows the initialization of an Entity Framework application, where you can also see the translated and executed SQL commands. (You would see the same in Visual Studio <em>Output</em> while debugging.) The content here, obviously, depends on the actual exercise.</p>
-<p><a class="glightbox" href="../github-actions-app-log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions application log" src="../github-actions-app-log.png" /></a></p>
+<p><a class="glightbox" href="../github-actions-app-log.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub Actions application log" src="../github-actions-app-log.png" /></a></p>
 
     <hr>
   <div class="md-source-file">
@@ -1431,5 +1429,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

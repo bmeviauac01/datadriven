@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1857,7 +1855,7 @@
 <li>Megjegyzés: a <code>NotificationService</code>, <code>EMailSender</code>, <code>Logger</code>, <code>ContactRepository</code> osztályokat <strong>szolgáltatásosztályoknak</strong> tekintjük, mert tényleges logikát is tartalmaznak, nem csak adatokat zárnak egységbe, mint pl. a <code>TodoItem</code>.</li>
 </ul>
 <p>Mint látható, a <code>SendEmailReminder</code> műveletet egy objektumgráf szolgálja ki, ahol a <code>NotificationService</code> a gyökérobjektum, melynek három függősége van, és a függőségeinek (legalábbis az <code>EMailSender</code>-nek) vannak további függőségei. A következő ábra ezt az objektumgráfot illusztrálja:</p>
-<p><a class="glightbox" href="images/object-graph-1.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Object graph 1" src="images/object-graph-1.svg" /></a></p>
+<p><a class="glightbox" href="images/object-graph-1.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Object graph 1" src="images/object-graph-1.svg" /></a></p>
 <div class="admonition note">
 <p class="admonition-title">Megjegyzés</p>
 <p>Felmerülhet bennünk a kérdés, miért a <code>NotificationService</code>-t, és nem a <code>ToDoService</code>-t tekintjük gyökérobjektumnak. Valójában ez csak a nézőpontunkon múlik: az egyszerűség kedvéért a <code>ToDoService</code>-t egyfajta belépési pontnak ("kliensnek") tekintjük a kérés vonatkozásában annak érdekében, hogy kevesebb osztályt kelljen a következőkben megvizsgálnunk és átalakítanunk. Egy való életbeli alkalmazásban a <code>ToDoService</code>-t is jó eséllyel a függőségi gráf részének tekintenénk.</p>
@@ -2109,11 +2107,11 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
 </li>
 </ul>
 <p>A feloldás végére - vagyis amikor visszatér a fenti <code>GetService&lt;INotificationService&gt;()</code> hívás - előáll a teljesen felparaméterezett <code>NotificationService</code> objektum, valamennyi közvetlen és közvetett függőségével, vagyis egy <strong>objektumgráf</strong>-ot kapunk:</p>
-<p><a class="glightbox" href="images/object-graph-2.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Object graph 2" src="images/object-graph-2.svg" /></a></p>
+<p><a class="glightbox" href="images/object-graph-2.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Object graph 2" src="images/object-graph-2.svg" /></a></p>
 <p>A DI keretrendszer/IoC konténerek azon tulajdonságát, hogy az objektumok függőségeinek felderítésével (a gyakorlatban jellemzően a konstruktor paraméterek felderítésével) a beregisztrált absztrakció-&gt;implementáció leképezések alapján képes objektumgráfokat előállítani <strong>autowiring</strong>-nek nevezzük.</p>
 <h4 id="fuggosegfeloldas-aspnet-web-api-osztalyok-eseten">Függőségfeloldás ASP.NET Web API osztályok esetén<a class="headerlink" href="#fuggosegfeloldas-aspnet-web-api-osztalyok-eseten" title="Permanent link">&para;</a></h4>
 <p>Azon túl, hogy a megoldásunkat IoC konténer alapokra helyezzük, pár további változtatást is végrehajtunk a todo alkalmazásunkon. A <code>ToDoService</code> osztályt megszüntetjük, a funkcionalitását kicsit más formában egy  ASP.NET Core <code>ControllerBase</code> leszármazott <code>TodoController</code> osztályba mozgatjuk. Ez az osztály lesz a belépési pont és a gyökérobjektum a kérés kiszolgálása során. Ezáltal a megoldásunk jobban tükrözi egy valós Web API, MVC Web app, illetve Web Razor Pages app alkalmazás megközelítését. A <code>ToDoService</code> osztályt megtarthattuk volna a hívási/függőségi láncunk közepén, de demonstrálási céljainkat jobban szolgálja egy egyszerűsített megközelítés. Ezen túlmenően bevezetünk egy Entity Framework <code>DbContext</code> leszármazott <code>TodoContext</code> osztályt annak érdekében, hogy demonstrálni tudjuk, miképpen történhet ennek injektálása a repository vagy egyéb osztályainkba. Az objektumgráfunk a következőképpen néz ki:</p>
-<p><a class="glightbox" href="images/object-graph-3.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Object graph 3" src="images/object-graph-3.svg" /></a></p>
+<p><a class="glightbox" href="images/object-graph-3.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Object graph 3" src="images/object-graph-3.svg" /></a></p>
 <p>Az előző két fejezetben feltettük, hogy a <code>GetService</code> hívásához egy <code>IServiceProvider</code> objektum rendelkezésre áll. Ha mi magunk hozunk létre egy konténert, akkor ez így is van. Azonban csak a legritkább esetben szoktunk konténert közvetlenül létrehozni. Egy tipikus ASP.NET Web API alkalmazás esetén a konténert a keretrendszer hozza létre, és számunkra közvetlenül nem is hozzáférhető. Ennek következtében <code>IServiceProvider</code>hez - pár induláskori konfigurációs és kiterjesztési pontot eltekintve - hozzáférést nem is kapunk. A jó hír az, hogy erre nincs is szükség. <strong>A DI alapkoncepciójába ugyanis az is beletartozik, hogy a függőségfeloldást csak az alkalmazás belépési pontjában a "root object"-re (gyökérobjektum) végezzük el.</strong>  Web API esetében a belépési pontot az egyes API kérések kiszolgálása jelenti. Amikor beérkezik egy kérés, akkor az Url és a routing szabályok alapján a keretrendszer meghatározza, mely Controller/ControllerBase leszármazott osztályt kell példányosítani, és azt létre is hozza. Amennyiben a controller osztálynak vannak függőségei (konstruktor paraméterek), azok is feloldásra kerülnek a beregisztrált leképezések alapján, beleértve a közvetett függőségeket is. Előáll a teljes objektumgráf, <strong>a root object maga a controller osztály</strong>.</p>
 <p>Nézzük ezt a gyakorlatban a korábbi példánk továbbfejlesztésével, melyet egy <code>TodoController</code> osztállyal egészítettünk ki:</p>
 <div class="highlight"><pre><span></span><code><span class="na">[Route(&quot;api/[controller]</span><span class="s">&quot;)]</span>
@@ -2343,5 +2341,7 @@ Tekintsük most az <code>INotificationService</code> feloldását:</p>
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

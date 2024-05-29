@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1818,7 +1816,7 @@
 </div>
 <h2 id="a-tobbretegu-architektura-retegeinek-felelossege">A többrétegű architektúra rétegeinek felelőssége<a class="headerlink" href="#a-tobbretegu-architektura-retegeinek-felelossege" title="Permanent link">&para;</a></h2>
 <p>Vizsgáljuk meg alaposabban a rétegeket, és feladataikat, felelősségeiket. Az architektúra részletesebben kifejtve az alábbi elemeket tartalmazza.</p>
-<p><a class="glightbox" href="images/tobbretegu-architektura.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A többrétegű architektúra rétegei" src="images/tobbretegu-architektura.png" /></a></p>
+<p><a class="glightbox" href="images/tobbretegu-architektura.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="A többrétegű architektúra rétegei" src="images/tobbretegu-architektura.png" /></a></p>
 <div class="admonition cite">
 <p class="admonition-title">Forrás</p>
 <p>Microsoft Application Architecture Guide, 2<sup>nd</sup> Edition, <a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29">https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29</a></p>
@@ -1881,18 +1879,18 @@
 <p class="admonition-title">Validáció</p>
 <p>A validációt nem elég, ha kizárólag a felhasználói felület végzi. A választott technológiától függően a UI könnyen "kikerülhető", és lehetőség van az adatokat közvetlenül a háttérrendszernek küldeni. Ilyen esetben, ha a validációt csak a felhasználó felület valósítaná meg, érvénytelen adat kerülhetne a rendszerbe. Ezért a validációkat tipikusan megismétli a háttérrendszer is. Ennek ellenére praktikus ezeket a felhasználói felületen is elvégezni, mert azonnali visszajelzést tudunk így adni a felhasználónak.</p>
 </div>
-<p>A réteggel ennél részleteseben nem foglalkozunk ezen tárgy keretei között.</p>
+<p>A réteggel ennél részletesebben nem foglalkozunk ezen tárgy keretei között.</p>
 <h3 id="retegfuggetlen-szolgaltatasok">Rétegfüggetlen szolgáltatások<a class="headerlink" href="#retegfuggetlen-szolgaltatasok" title="Permanent link">&para;</a></h3>
 <p>Rétegfüggetlen szolgáltatások (<em>crosscutting concerns</em>) néven szoktuk hivatkozni az alkalmazás olyan szolgáltatásait, amelyek nem csak egy rétegben jelennek meg. Az ilyen szolgáltatások implementálásakor igyekszünk  elérni, hogy bár több rétegben is jelen van az adott szolgáltatás, mégis, egy közös implementációt, kódot, megoldást használjunk.</p>
 <h4 id="biztonsag">Biztonság<a class="headerlink" href="#biztonsag" title="Permanent link">&para;</a></h4>
 <p>A biztonsági szolgáltatások lefedik</p>
 <ul>
-<li>a felhasználók beléptetését (<em>authentikáció</em>)</li>
-<li>és a hozzáférés ellenőrzését (<em>authorizáció</em>),</li>
+<li>a felhasználók beléptetését (<em>autentikáció</em>)</li>
+<li>és a hozzáférés ellenőrzését (<em>autorizáció</em>),</li>
 <li>valamint a nyomkövetést és auditálást.</li>
 </ul>
-<p>Az authentikáció a "ki vagy" kérdést, míg az authorizáció a "mihez van jogod" kérdést kezeli.</p>
-<p>Az authentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.</p>
+<p>Az autentikáció a "ki vagy" kérdést, míg az autorizáció a "mihez van jogod" kérdést kezeli.</p>
+<p>Az autentikáció nem csak a felhasználói felületen történő bejelentkezést jelenti. Az adatbázis szerverek felé is tipikusan szükségünk van bejelentkezésre, vagy ha külső szolgáltatás felé fordulunk, oda is be kell jelentkeznünk. Ezért tehát ez az aspektus több rétegben is jelen van.</p>
 <p>Bejelentkezésre többféle megközelítést választhatunk. Készíthetünk saját bejelentkezést, használhatunk valamilyen címtáras megoldást, vagy OAuth bejelentkezést. Ha a mi alkalmazásunk bejelentkeztetett egy felhasználót, akkor eldönthetjük, hogy a külső szolgáltatás felé ennek a felhasználónak a nevében fordulunk (pl. ahogy a Gmail a Google Drive-ról származó fájlokat a bejelentkezett felhasználó számára listázza), avagy egy központi felhasználó nevében járunk el (pl. ha a rendszer emailt küld, akkor azt tipikusan egy központilag konfigurált fiók nevében küldi el).</p>
 <p>A hozzáférés szabályozás megszabja, hogy milyen funkciókhoz ki férhet hozzá. Ennek ellenőrzése történhet a felhasználói felületen is (ne is jelenjen meg a nem elérhető funkció), de ahogy a bemenetek validációjánál is említésre került, az üzleti logikának meg kell ismételnie az ellenőrzést. Fontos, hogy ez a két validáció azonos szabályrendszer szerint dolgozzon.</p>
 <p>A nyomkövetés, auditálás feladata, hogy visszakereshetővé váljon a rendszerben, hogy ki, mikor, mit csinált. Célja, hogy egy ember ne tudja "eltüntetni a nyomokat". Ez a fajta naplózás több ponton is megtörténhet, tipikusan az üzleti logikában és az adatbázisban.</p>
@@ -1936,8 +1934,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:12:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:12:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2023. december 13. 21:39:07">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-13T21:39:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-13</span>
       </span>
     </span>
 
@@ -1954,6 +1952,8 @@
       <span>Szerzők</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/andrasig-bme" target="_blank" rel="noopener noreferrer" class="md-author" title="@Andrási Gellért">
+          <img src="https://avatars.githubusercontent.com/u/127566079?v=4?size=72" alt="@Andrási Gellért">
         </a><a href="https://github.com/bobarna" target="_blank" rel="noopener noreferrer" class="md-author" title="@Barney Börcsök">
           <img src="https://avatars.githubusercontent.com/u/6754871?u=2f11722d8808b8c3edcc5c15b33a8665bc213707&v=4?size=72" alt="@Barney Börcsök">
         </a><a href="https://github.com/dseben" target="_blank" rel="noopener noreferrer" class="md-author" title="@Seben Domonkos">
@@ -2025,5 +2025,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

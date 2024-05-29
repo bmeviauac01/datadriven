@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -2108,7 +2106,7 @@
 <p>NoSQL databases offer a solution to these problems. <strong>Instead of the rigid schema</strong>, NoSQL databases have <strong>a flexible schema</strong>. In other words, we will require less consistency regarding the data.</p>
 <h2 id="basic-concepts-of-mongodb">Basic concepts of MongoDB<a class="headerlink" href="#basic-concepts-of-mongodb" title="Permanent link">&para;</a></h2>
 <p>MongoDB is a client-server database system that has a non-relational schema. The <em>mongod</em> (Mongo daemon) process on the right is the database server. The other side is our application, where a client connects to the database using a network connection. This connection uses the so-called <em>wire protocol</em>, which is a MongoDB proprietary communication protocol. The protocol transmits data and queries in JSON format represented in a binary fashion as BSON.</p>
-<p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="MongoDb architecture" src="images/mongodb_architecture.png" /></a></p>
+<p><a class="glightbox" href="images/mongodb_architecture.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MongoDb architecture" src="images/mongodb_architecture.png" /></a></p>
 <h3 id="logical-structure">Logical structure<a class="headerlink" href="#logical-structure" title="Permanent link">&para;</a></h3>
 <p>The top layer of a MongoDB database system is the so-called <em>cluster</em>. The servers are organized into these clusters. We will not discuss clusters here; these are tools for enabling scalability. The databases are the <em>mongod</em> processes, which host the databases. A MongoDB server/cluster stores multiple databases. And the databases contain <em>collections</em>. If we want to map these concepts to a relational model, then the collections correspond to the tables, and the rows/records in a table correspond to the <em>documents</em> of the collection.</p>
 <p>Let us investigate these further.</p>
@@ -2392,7 +2390,7 @@
 </ul>
 <p>Since MongoDB version 5.0, <strong>Map-reduce</strong> is an obsolete method because the aggregation pipeline is better in terms of usability and speed.</p>
 <p>For <strong>Single Purpose Aggregation Operations</strong>, MongoDB provides us with <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> and <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> functions, which all perform simple aggregation on a single collection.</p>
-<p><a class="glightbox" href="images/mongodb_spao.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></a></p>
+<p><a class="glightbox" href="images/mongodb_spao.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg" /></a></p>
 <div class="admonition citation">
 <p class="admonition-title">Source</p>
 <p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
@@ -2605,5 +2603,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

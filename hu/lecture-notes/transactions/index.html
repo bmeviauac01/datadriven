@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1938,7 +1936,7 @@
 <li>Az első tranzakció megszakításra kerül, és a rendszer visszaállítja a módosítás előtti értéket.</li>
 </ol>
 <p>A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna szabad felhasználni.</p>
-<p><a class="glightbox" href="images/dirty-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Piszkos olvasás" src="images/dirty-read.png" /></a></p>
+<p><a class="glightbox" href="images/dirty-read.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Piszkos olvasás" src="images/dirty-read.png" /></a></p>
 <div class="admonition quote">
 <p class="admonition-title">Forrás</p>
 <p>A képek forrása: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
@@ -1954,7 +1952,7 @@
 <li>Egy másik tranzakció ugyanazon értéket felülírja.</li>
 </ol>
 <p>Végeredményben csak a második írás eredménye marad meg, mintha az első módosítás nem is történt volna meg.</p>
-<p><a class="glightbox" href="images/lost-update.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Elveszett módosítás" src="images/lost-update.png" /></a></p>
+<p><a class="glightbox" href="images/lost-update.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Elveszett módosítás" src="images/lost-update.png" /></a></p>
 <h4 id="nem-megismetelheto-olvasas-nonrepeatable-read">Nem megismételhető olvasás (<em>nonrepeatable read</em>)<a class="headerlink" href="#nem-megismetelheto-olvasas-nonrepeatable-read" title="Permanent link">&para;</a></h4>
 <p>A nem megismételhető olvasás során a lekérdezés eredménye függ attól, hogy időben mikor adták ki egy tranzakcióban:</p>
 <ol>
@@ -1962,7 +1960,7 @@
 <li>Egy másik tranzakció módosítja ugyanazt az adatelemet.</li>
 <li>Ha az első tranzakció megismétli a korábbi lekérdezést, más eredményt kap.</li>
 </ol>
-<p><a class="glightbox" href="images/nonrepeatable-read.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nem megismételhető olvasás" src="images/nonrepeatable-read.png" /></a></p>
+<p><a class="glightbox" href="images/nonrepeatable-read.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Nem megismételhető olvasás" src="images/nonrepeatable-read.png" /></a></p>
 <h4 id="fantom-rekordok-phantom-recordsphantom-read">Fantom rekordok (<em>phantom records</em>/<em>phantom read</em>)<a class="headerlink" href="#fantom-rekordok-phantom-recordsphantom-read" title="Permanent link">&para;</a></h4>
 <p>A fantom rekordok problémája akkor jelentkezik, amikor rekord halmazokkal dolgozunk:</p>
 <ol>
@@ -1971,7 +1969,7 @@
 <li>Az első tranzakció elkezdi feldolgozni az eredményhalmazt, például iterátor-szerűen egyesével megy végig a rekordhalmazon.</li>
 </ol>
 <p>A törölt rekord ilyenkor része a lekérdezett eredményhalmaznak, vagy sem? Hasonlóan elképzelhető az is, hogy egy rekord módosul a 2. lépésben. Ilyenkor a 3. lépésben a korábbi, vagy a módosult állapotát kellene látni?</p>
-<p><a class="glightbox" href="images/phantom-records.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Fantom rekordok" src="images/phantom-records.png" /></a></p>
+<p><a class="glightbox" href="images/phantom-records.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Fantom rekordok" src="images/phantom-records.png" /></a></p>
 <h3 id="izolacios-szintek">Izolációs szintek<a class="headerlink" href="#izolacios-szintek" title="Permanent link">&para;</a></h3>
 <p>A fenti problémák mindegyike elkerülhető a megfelelő izolációs szint megválasztásával. Azonban minél "magasabb" izolációs szintet választunk, annál kisebb az adatbázis-kezelő rendszer átbocsátóképessége, és annál nagyobb a lehetősége a holtpont kialakulásának (lásd alább). Ezért a cél egy megfelelő <em>kompromisszum</em> megtalálása a lehetséges problémák és a teljesítmény között.</p>
 <p>Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.</p>
@@ -1989,7 +1987,7 @@
 <p>Az izoláció biztosításának módja a zárolás: az adatbázis-kezelő rendszer a rekordok olvasása és írása során megjelöli (zárolja) az érintett elemeket. A zár elhelyezése a hozzáférés idejében történik, míg az elengedése a tranzakció végeztével. Azt, hogy milyen művelet esetében milyen zárolásra van szükség (kizárólagos, vagy megosztott zár), az izolációs szint és az adott adatbázis-kezelő rendszer implementációja határozza meg.</p>
 <p>A zárak segítségével valójában a tranzakciókat ütemezi a rendszer. Amikor egy zár nem érhető el, mert a mögöttes adatelemet más tranzakció használja és a konkurens elérés a választott izolációs szint szerint nem engedhető meg, a tranzakció várakoztatásra kerül.</p>
 <p>Ha egy rendszerben zárak vannak, akkor tudjuk, hogy <strong>holtpontok</strong> (<em>deadlock</em>) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.</p>
-<p><a class="glightbox" href="images/holtpont-eroforras-graf.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png" /></a></p>
+<p><a class="glightbox" href="images/holtpont-eroforras-graf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png" /></a></p>
 <p>Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az <strong>egyik érintett tranzakciót megszakítja</strong> és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.</p>
 <div class="admonition fatal">
 <p class="admonition-title">Holtpontok kezelése</p>
@@ -2017,7 +2015,7 @@
 <p>Eddigiekben csak arról beszéltünk, mit biztosít az adatbázis-kezelő rendszer a tranzakciók használatával. Ismerjük meg ennek működését is.</p>
 <p>A <strong>tranzakciós naplózás</strong> segítségével az adatbázis rendszer nyomon tudja követni a futó tranzakciók által végzett módosításokat, vissza tudja állítani a tranzakció megkezdése előtti állapotot, és soft crash esetén a félbeszakadt tranzakciókat visszagörgeti (rollback).</p>
 <p>Ahhoz, hogy megértsük a tranzakciós naplózást, az alábbi koncepcionális rendszermodellel dolgozunk.</p>
-<p><a class="glightbox" href="images/tranzakcios-naplozas-io-modell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Tranzakciós naplózás koncepcionális modellje" src="images/tranzakcios-naplozas-io-modell.png" /></a></p>
+<p><a class="glightbox" href="images/tranzakcios-naplozas-io-modell.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Tranzakciós naplózás koncepcionális modellje" src="images/tranzakcios-naplozas-io-modell.png" /></a></p>
 <p>Ebben a modellben a következő műveletek vannak:</p>
 <ul>
 <li>Begin T(x): Tranzakció kezdete</li>
@@ -2579,7 +2577,7 @@
         </a><a href="https://github.com/tamasgal55" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gál Tamás">
           <img src="https://avatars.githubusercontent.com/u/79400429?v=4?size=72" alt="@Gál Tamás">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/65241679?u=f6e7535ece7ea2ea6c0602364470b48a22b3524c&v=4?size=72" alt="@None">
+          <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a><a href="https://github.com/vargus1111" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
@@ -2645,5 +2643,7 @@
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

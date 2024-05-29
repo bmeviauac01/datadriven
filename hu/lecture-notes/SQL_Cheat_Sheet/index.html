@@ -62,17 +62,15 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -1836,7 +1834,7 @@ A <code>ToList()</code> kéri le a teljes eredményhalmazt listaként. (Amennyib
 <span class="k">JOIN</span><span class="w"> </span><span class="n">table2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">table1</span><span class="p">.</span><span class="k">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table2</span><span class="p">.</span><span class="k">column</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>C# LINQ:</strong></p>
-<p>Mivel navigation propertyk segítségével általában elérhetőek az asszociált osztályok, explicit illeszteni csak akkor kell, ha a feladat megoldási logikája megkívánja vagy nincs navigation property az egyik osztályban a másikra.</p>
+<p>Mivel navigation property-k segítségével általában elérhetőek az asszociált osztályok, explicit illeszteni csak akkor kell, ha a feladat megoldási logikája megkívánja vagy nincs navigation property az egyik osztályban a másikra.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Fluent szintaktika</span>
 <span class="kt">var</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Table1</span>
@@ -1852,7 +1850,7 @@ A <code>ToList()</code> kéri le a teljes eredményhalmazt listaként. (Amennyib
 <span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">item1</span><span class="p">.</span><span class="n">Column</span><span class="p">,</span><span class="w"> </span><span class="n">item2</span><span class="p">.</span><span class="n">Column</span><span class="w"> </span><span class="p">};</span>
 </code></pre></div>
 <p><strong>C# MongoDb:</strong></p>
-<p><strong>MongoDb-ben nem tanultuk szerveri oldari joinra módszert. LINQ segítségével van az után, hogy a teljes illesztendő adathalmazokat kiolvastuk az adatbázisból.</strong> Az adatok lekérdezése után általában a <code>.ToHashSet()</code> és a <code>.Contains()</code> metódusok segítségével, kliens oldali dictionary készítéssel végezzük el az illesztést. (Lásd MongoDb gyakorlat 1. Feladat 5. pontja)</p>
+<p><strong>MongoDb-ben nem tanultunk szerver oldali joinra módszert. LINQ segítségével van az után, hogy a teljes illesztendő adathalmazokat kiolvastuk az adatbázisból.</strong> Az adatok lekérdezése után általában a <code>.ToHashSet()</code> és a <code>.Contains()</code> metódusok segítségével, kliens oldali dictionary készítéssel végezzük el az illesztést. (Lásd MongoDb gyakorlat 1. Feladat 5. pontja)</p>
 <h2 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h2>
 <p><strong>SQL:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
@@ -1966,7 +1964,7 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
 <span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Price</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%Lego%&#39;</span>
 </code></pre></div>
-<p>Ha olyan értékeket szeretnénk adni a <code>SET</code> parancsban, melyek másik táblákból nyeretők ki, az alábbi képpen lehetséges. A példa az MS SQL gyakorlat anyagából van.</p>
+<p>Ha olyan értékeket szeretnénk adni a <code>SET</code> parancsban, melyek másik táblákból nyerhetők ki, az alábbi képpen lehetséges. A példa az MS SQL gyakorlat anyagából van.</p>
 <p><strong>Feladat:</strong> A 9-es azonosítójú számú megrendelés státusz állapotát másoljuk be minden olyan <code>OrderItem</code>-be, mely hozzá tartozik.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">OrderItem</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusID</span>
@@ -1999,7 +1997,7 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
 <span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">));</span>
 </code></pre></div>
 <p>Jól látható, hogy az <code>Update</code> után a Filterhez hasonlóan több különböző operátor írható. Ilyenek a: <code>Set</code>, <code>UnSet</code>, <code>SetOnInsert</code>, <code>CurrentDate</code>, <code>Mul</code>, <code>Min</code>, <code>Max</code>, <code>AddToSet</code> (Teljes, részletes leírás a jegyzetben)</p>
-<p>Minden 13-as kategória <code>Id</code>-jú kategória beli elem frissítése:</p>
+<p>Minden 13-as kategória <code>Id</code>-jú kategóriabéli elem frissítése:</p>
 <div class="highlight"><pre><span></span><code><span class="n">productsCollection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span>
 <span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">13</span><span class="p">,</span>
 <span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">Mul</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="m">1.1</span><span class="p">));</span>
@@ -2082,8 +2080,8 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
           </path>
         </svg>
       </span>
-      <span title="2023. november 13. 16:33:41">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-13T16:33:41+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-13</span>
+      <span title="2023. december 13. 21:39:07">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-13T21:39:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-13</span>
       </span>
     </span>
 
@@ -2098,8 +2096,10 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/matesze41" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/127397856?v=4?size=72" alt="@None">
+      <nav><a href="https://github.com/andrasig-bme" target="_blank" rel="noopener noreferrer" class="md-author" title="@Andrási Gellért">
+          <img src="https://avatars.githubusercontent.com/u/127566079?v=4?size=72" alt="@Andrási Gellért">
+        </a><a href="https://github.com/matesze41" target="_blank" rel="noopener noreferrer" class="md-author" title="@Szendrey Máté">
+          <img src="https://avatars.githubusercontent.com/u/127397856?v=4?size=72" alt="@Szendrey Máté">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
@@ -2163,5 +2163,7 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
         <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
