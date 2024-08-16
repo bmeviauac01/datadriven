@@ -38,14 +38,16 @@ Szeretnénk lehetőséget biztosítani rendelések lemondására is egy tárolt 
 
 1. Hozz létre egy tárolt eljárást `cancel_invoice` mely két paramétert fogad: a vevő nevét `name` néven, és a megrendelés azonosítóját `orderId` néven.
 
-1. A tárolt eljárás ellenőrizze le, hogy van-e a megadott adatokkal számla, ha nincs, dobjon kivételt. Ha az adatok jók, akkor a tárolt eljárás vegye az összes számlán szereplő terméket, nézze meg, hogy mennyit vettek belőlük, és a megrendelt mennyiséget adja hozzá a raktárkészlethez. (TIPP: az adatok összeszedéséhez több tábla, esetleg kurzor is kellhet).
+1. A tárolt eljárás ellenőrizze le, hogy van-e a megadott adatokkal számla, ha nincs, dobjon kivételt. A kivétel `State` értéke legyen 10.
+
+1. Ha az adatok jók, akkor a tárolt eljárás vegye az összes számlán szereplő terméket, nézze meg, hogy mennyit vettek belőlük, és a megrendelt mennyiséget adja hozzá a raktárkészlethez. (TIPP: az adatok összeszedéséhez több tábla, esetleg kurzor is kellhet).
 
 Ellenőrizd az eljárás működését!
 
 !!! example "BEADANDÓ"
     A trigger kódját az `f2.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create procedure cancel_invoice`), ne legyen benne se `use` se `go` parancs!
 
-    Készíts egy képernyőképet amin látható a tárolt eljárás lefutása és annak hatása, illetve mi történik, ha hibás adatokat adunk meg (lehet egy ablakban két tabbal példuál). A képen legyen látható az adatbázisod neve (a Neptun kódod). A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+    Készíts egy képernyőképet amin látható a tárolt eljárás lefutása és annak hatása, illetve mi történik, ha hibás adatokat adunk meg (lehet egy ablakban két tabbal például). A képen legyen látható az adatbázisod neve (a Neptun kódod). A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
 ## Feladat 3: Termék ajánlott korhatára (2 iMsc pont)
 
