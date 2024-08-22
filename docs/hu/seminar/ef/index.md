@@ -3,9 +3,9 @@
 A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.
 
 !!! important "Entity Framework Core"
-    A gyakorlat során a .NET 6-ot (régebben .NET Core) és Entity Framework Core 6-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
+    A gyakorlat során a .NET 8-ot (régebben .NET Core) és Entity Framework Core 8-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
 
-    A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
+    A régebbi Entity Framework 6 (**nem a Core**) alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
     
     A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de apróbb szintaktikai eltérések adódhatnak, illetve az EF Core funkcionálisan már gazdagabb.
 
@@ -52,12 +52,12 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 
     ```xml
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -388,7 +388,7 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül bes
     }
     ```
 
-## Feladat 4: Tárolt eljárások használata
+## Feladat 4: Kitekintés: Tárolt eljárások használata
 
 Készíts egy tárolt eljárást egy új code first migráción keresztül, amely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!
 
