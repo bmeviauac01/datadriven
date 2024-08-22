@@ -98,7 +98,7 @@ Az adatbázisból való törlés egy olyan művelet, ami számos nemkívánt hat
 Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan `IsDeleted` névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így az megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.
 
 A szűrés naiv implementációja azonban nem kényelmes. Képzeljük el, hogy minden lekérdezés vagy mentés esetén oda kell írni a kifejezésbe, hogy ne hasson ezekre a törölt elemekre.
-Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, a *QueryFilter*-t. Ennek a segítségével olyan szűrőfeltételeket határozhatunk meg, amiket globálisan, minden egyes lekérdezésnél automatikusan alkalmaz az Entity Framework. 
+Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, a *Global Query Filter*-t. Ennek a segítségével olyan szűrőfeltételeket határozhatunk meg, amiket globálisan, minden egyes lekérdezésnél automatikusan alkalmaz az Entity Framework. 
 
 Implementáld a logikai törlést az előbbiekben elkészített `DbProduct` osztályhoz (több megoldási lehetőség is van, tetszőlegesen választhatod bármelyiket):
 
