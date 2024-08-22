@@ -1736,7 +1736,7 @@
 <li>
 <p>Vizsgáljuk meg a projektet.</p>
 <ul>
-<li>Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.</li>
+<li>Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha <span class="keys"><kbd class="key-f5">F5</kbd></span>-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.</li>
 <li>Nézzük meg a <code>Program.cs</code> tartalmát. Lényegében két részből áll:<ul>
 <li>Létrehoz egy <code>WebApplicationBuilder</code> objektumot, amelynek a <code>Services</code> tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.</li>
 <li><code>Build</code> után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.</li>
@@ -1750,7 +1750,7 @@
 <p>Írjuk át az <code>appsettings.json</code> állományban az adatbázisunk nevét a connection string-ben a neptun kódunkra.</p>
 </li>
 <li>
-<p>Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <a href="http://localhost:5000/api/values">http://localhost:5000/api/values</a> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy <em>Ctrl-C</em> a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.</p>
+<p>Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <a href="http://localhost:5000/api/values">http://localhost:5000/api/values</a> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.</p>
 </li>
 </ol>
 <h2 id="2-feladat-elso-controller-es-metodus-teszteles-postmannel">2. Feladat: Első Controller és metódus, tesztelés Postmannel<a class="headerlink" href="#2-feladat-elso-controller-es-metodus-teszteles-postmannel" title="Permanent link">&para;</a></h2>
@@ -1869,7 +1869,7 @@
 </div>
 <p>A metódus eredménye a <code>ToList</code>-et megelőzően egy <code>IQueryable&lt;T&gt;</code>. Emlékezzünk arra, hogy az <code>IQueryable&lt;T&gt;</code> nem tartalmazza az eredményt, az csak egy leíró.</p>
 <div class="admonition warning">
-<p class="admonition-title"><code>IQueryable&lt;T&gt;</code>visszatérési érték és <code>DbContext</code> életciklus</p>
+<p class="admonition-title"><code>IQueryable&lt;T&gt;</code> visszatérési érték és <code>DbContext</code> életciklus</p>
 <p>Ha nem lenne a végén <code>ToList</code>, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból <strong>soha ne</strong> adjunk emiatt <code>IQueryable</code> visszatérési értéket!</p>
 <p>Az okok arra vezethetőek vissza, hogy alapértelmezetten a <code>DbContext</code> típusok <code>Scoped</code> életciklussal kerülnek beregisztrálásra a DI konténerbe, és ASP.NET Core esetében alapértelmezetten egy HTTP kérés során keletkezik egy scope. Viszont a sorosítás már kívül esne ezen a scope-on.</p>
 </div>
@@ -2135,7 +2135,7 @@
 <p>Az új termék létrehozása során meg kellene adnunk még a kategóriát és az áfakulcsot is. Módosítsuk a fenti termék beszúrást úgy, hogy a kategória nevét és az áfakulcs számértékét is meg lehessen adni. A kapott adatok alapján keresd ki a megfelelő <code>VAT</code> és <code>Category</code> rekordokat az adatbázisból, vagy hozz létre újat, ha nem léteznek.</p>
 <details class="example">
 <summary>Megoldás</summary>
-<p><div class="highlight"><span class="filename">NewProduct.cs</span><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="nf">NewProduct</span><span class="p">(</span>
+<div class="highlight"><span class="filename">NewProduct.cs</span><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="nf">NewProduct</span><span class="p">(</span>
 <span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span>
 <span class="w">    </span><span class="kt">double?</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span>
 <span class="w">    </span><span class="kt">int?</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span>
@@ -2172,7 +2172,7 @@
 <span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dbProduct</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">},</span>
 <span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">Dtos</span><span class="p">.</span><span class="n">Product</span><span class="p">(</span><span class="n">dbProduct</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">dbProduct</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">dbProduct</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">dbProduct</span><span class="p">.</span><span class="n">Stock</span><span class="p">));</span><span class="w"> </span>
 <span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div>
 </details>
 <h2 id="feladat-6-opcionalis-aszinkron-kontroller-metodus">Feladat 6 (opcionális): Aszinkron kontroller metódus<a class="headerlink" href="#feladat-6-opcionalis-aszinkron-kontroller-metodus" title="Permanent link">&para;</a></h2>
 <p>Az előbbi feladatot írjuk át <a href="../../lecture-notes/async/"><strong>aszinkronra</strong></a>, azaz használjunk <code>async-await</code>-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.</p>
@@ -2226,8 +2226,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. szeptember 4. 08:51:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-04T08:51:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-04</span>
+      <span title="2024. augusztus 22. 20:20:33">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-22T20:20:33+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-22</span>
       </span>
     </span>
 

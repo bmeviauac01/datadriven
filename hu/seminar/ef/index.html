@@ -1105,9 +1105,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-4-tarolt-eljarasok-hasznalata" class="md-nav__link">
+  <a href="#feladat-4-kitekintes-tarolt-eljarasok-hasznalata" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 4: Tárolt eljárások használata
+      Feladat 4: Kitekintés: Tárolt eljárások használata
     </span>
   </a>
   
@@ -1496,9 +1496,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-4-tarolt-eljarasok-hasznalata" class="md-nav__link">
+  <a href="#feladat-4-kitekintes-tarolt-eljarasok-hasznalata" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 4: Tárolt eljárások használata
+      Feladat 4: Kitekintés: Tárolt eljárások használata
     </span>
   </a>
   
@@ -1531,8 +1531,8 @@
 <p>A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.</p>
 <div class="admonition important">
 <p class="admonition-title">Entity Framework Core</p>
-<p>A gyakorlat során a .NET 6-ot (régebben .NET Core) és Entity Framework Core 6-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.</p>
-<p>A régebbi Entity Framework 6 alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).</p>
+<p>A gyakorlat során a .NET 8-ot (régebben .NET Core) és Entity Framework Core 8-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.</p>
+<p>A régebbi Entity Framework 6 (<strong>nem a Core</strong>) alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).</p>
 <p>A LINQ lekérdezések tekintetében a két technológia közel azonos élményt nyújt, de apróbb szintaktikai eltérések adódhatnak, illetve az EF Core funkcionálisan már gazdagabb.</p>
 </div>
 <h2 id="elofeltetelek">Előfeltételek<a class="headerlink" href="#elofeltetelek" title="Permanent link">&para;</a></h2>
@@ -1571,12 +1571,12 @@
 <li>Érdemes a kódot másolni, gyorsabb!</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;ItemGroup&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.SqlServer&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;6.0.8&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.Design&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;6.0.8&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.SqlServer&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;8.0.8&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.Design&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;8.0.8&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
 <span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.Tools&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;6.0.8&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">&quot;Microsoft.EntityFrameworkCore.Tools&quot;</span><span class="w"> </span><span class="na">Version=</span><span class="s">&quot;8.0.8&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
 <span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
@@ -1906,7 +1906,7 @@ A naplózás is bekapcsolható az alábbi paranccsal:
 <span class="p">}</span>
 </code></pre></div>
 </details>
-<h2 id="feladat-4-tarolt-eljarasok-hasznalata">Feladat 4: Tárolt eljárások használata<a class="headerlink" href="#feladat-4-tarolt-eljarasok-hasznalata" title="Permanent link">&para;</a></h2>
+<h2 id="feladat-4-kitekintes-tarolt-eljarasok-hasznalata">Feladat 4: Kitekintés: Tárolt eljárások használata<a class="headerlink" href="#feladat-4-kitekintes-tarolt-eljarasok-hasznalata" title="Permanent link">&para;</a></h2>
 <p>Készíts egy tárolt eljárást egy új code first migráción keresztül, amely kilistázza azon termékeket melyből legalább egy megadott darabszám felett adtak el. Hívd meg a tárolt eljárást C# kódból!</p>
 <ol>
 <li>
@@ -1977,8 +1977,8 @@ A naplózás is bekapcsolható az alábbi paranccsal:
           </path>
         </svg>
       </span>
-      <span title="2023. szeptember 4. 08:51:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-04T08:51:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-04</span>
+      <span title="2024. augusztus 22. 20:20:33">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-22T20:20:33+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-22</span>
       </span>
     </span>
 
