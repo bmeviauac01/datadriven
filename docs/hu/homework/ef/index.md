@@ -109,7 +109,7 @@ Implementáld a logikai törlést az előbbiekben elkészített `DbProduct` oszt
 
 1. Vegyél fel egy *QueryFilter*-t, ami minden lekérdezéskor kiszűri azokat a termékeket, amiket már töröltünk, így azokat nem kapjuk vissza! 
 
-1. Az adatbázisból való törlés viselkedését változtasd meg arra, hogy az igazi törlés helyett csak átváltoztassa az `IsDeleted` változót!
+1. Az adatbázisból való törlés viselkedését változtasd meg **általánosan** a `DbContext` mentés műveleteit kibővítve (erre több kiterjesztési pontot is nyújt az EFCore), hogy az igazi törlés helyett csak átváltoztassa az `IsDeleted` változót! Ne változtasd meg a törlés műveletet a repositoryban módosításra!
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
