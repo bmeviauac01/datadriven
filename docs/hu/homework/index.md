@@ -8,7 +8,6 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 ## A feladatok
 
 1. [MSSQL szerveroldali programozás](mssql/index.md)
-1. [ADO.NET adatelérés](adonet/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
 1. [REST API Web API technológiával](rest/index.md)

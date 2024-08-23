@@ -1,6 +1,6 @@
 # Feladat: Entity Framework
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+A házi feladat teljesítésével **4 pont és 2 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -13,7 +13,7 @@ A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md
 
 Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
 
-## Feladat 1: Adatbázis leképzés Code First modellel és lekérdezések (2 pluszpont)
+## Feladat 1: Adatbázis leképzés Code First modellel és lekérdezések (2 pont)
 
 Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _Code First_ megoldással. Az Entity Framework Core csomag már része a kiinduló projektünknek, így rögtön kódolhatunk is. Az adatelérés központi eleme a DbContext. Ez az osztály már létezik `ProductDbContext` néven.
 
@@ -68,10 +68,10 @@ A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van 
 
     A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
-## Feladat 2: Repository megvalósítás Entity Framework-kel (2 iMsc pont)
+## Feladat 2: Repository megvalósítás Entity Framework-kel (2 pont)
 
 !!! note ""
-    Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.
+    A pont megszerzésére az első feladat megoldásával együtt van lehetőség.
 
 Az Entity Framework DbContext-je az előzőekben megírt módon nem használható kényelmesen. Például a kapcsolatok betöltését (`Include`) kézzel kell kezdeményezni, és a leképzett entitások túlságosan kötődnek az adatbázis sémájához. Egy komplex alkalmazás esetében ezért célszerű a DbContext-et a repository minta szerint becsomagolni, és ily módon nyújtani az adatelérési réteget.
 
@@ -84,6 +84,32 @@ Implementáld a `ProductRepository` osztály függvényeit.
 - A `Delete` törölje a termék rekordot a megadott id alapján. Csak a termék rekordot kell törölni, kapcsolódó sorokat nem. Ha a törlés külső kulcsok miatt nem hajtható végre, engedd a hívót értesülni a hibáról. Ha a termék nem létezik, a függvény _hamis_ visszatérési értékkel jelezze, a sikeres törlést pedig _igazzal_.
 - A `ProductRepository` osztály definícióját (pl. osztály neve, konstruktor, függvények definíciója) ne változtasd meg, csak a függvények törzsét írd meg.
 - A kódban a `ProductRepository.createDbContext()`-et használd a _DbContext_ létrehozásához (és **ne** a `TestConnectionStringHelper`-t).
+
+!!! example "BEADANDÓ"
+    A módosított C# forráskódot töltsd fel.
+
+## Feladat 3: Logikai törlés Entity Framework-kel (2 iMSc pont)
+
+!!! note ""
+    A pont megszerzésére az első két feladat megoldásával együtt van lehetőség.
+
+Az adatbázisból való törlés egy olyan művelet, ami számos nemkívánt hatással rendelkezik. Egy törölt adatot visszaállítani sokkal nehezebb, néha nem is lehetséges következmények nélkül. Az adat törlésével akár a teljes adattörténet elveszhet, nem tudunk a törlés előtti állapotról, különböző statisztikákban nem tudjuk felhasználni. Ráadásul előfordulnak olyan esetek, például amikor olyan más táblákkal való kapcsolatok és külső kulcs kényszerek vannak, hogy a törlés kihatással van azokra a táblákra is.
+
+Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan `IsDeleted` névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így az megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.
+
+A szűrés naiv implementációja azonban nem kényelmes. Képzeljük el, hogy minden lekérdezés vagy mentés esetén oda kell írni a kifejezésbe, hogy ne hasson ezekre a törölt elemekre.
+Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, a *Global Query Filter*-t. Ennek a segítségével olyan szűrőfeltételeket határozhatunk meg, amiket globálisan, minden egyes lekérdezésnél automatikusan alkalmaz az Entity Framework. 
+
+Implementáld a logikai törlést az előbbiekben elkészített `DbProduct` osztályhoz (több megoldási lehetőség is van, tetszőlegesen választhatod bármelyiket):
+
+!!! important "Módosíthatóság"
+    Bár az előző feladatban volt megkötés, hogy ne legyen az `OnConfiguring` függvény felüldefiniálva, amennyiben szükségesnek látod, itt nyugodtan lehet (illetve más függvényeket is felüldefiniálhatsz a DBContext megvalósításban)!
+
+1. Vegyél fel egy `IsDeleted` változót, ami jelzi az alkalmazásunk számára, hogy az adott entitás törölt állapotban van!
+
+1. Vegyél fel egy *QueryFilter*-t, ami minden lekérdezéskor kiszűri azokat a termékeket, amiket már töröltünk, így azokat nem kapjuk vissza! 
+
+1. Az adatbázisból való törlés viselkedését változtasd meg **általánosan** a `DbContext` mentés műveleteit kibővítve (erre több kiterjesztési pontot is nyújt az EFCore), hogy az igazi törlés helyett csak átváltoztassa az `IsDeleted` változót! Ne változtasd meg a törlés műveletet a repositoryban módosításra!
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
