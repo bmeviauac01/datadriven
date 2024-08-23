@@ -1,6 +1,6 @@
 # Feladat: MSSQL szerveroldali programozás
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+A házi feladat opcionális. A teljesítéssel **4 pont és 2 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -17,7 +17,7 @@ Hozz létre egy új adatbázist, amelynek **neve megegyezik a Neptun kódoddal**
 
 Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
 
-## Feladat 1: Jelszó lejárat és karbantartása (2 pluszpont)
+## Feladat 1: Jelszó lejárat és karbantartása (2 pont)
 
 Biztonsági megfontolásból szeretnénk kötelezővé tenni a jelszó időnkénti megújítását. Ehhez rögzíteni fogjuk, és karbantartjuk a jelszó utolsó módosításának idejét.
 
@@ -32,15 +32,15 @@ Ellenőrizd a trigger viselkedését különböző esetekre is!
 
     Készíts egy képernyőképet a `Customer` tábla tartalmáról, amiben látható az új oszlop és annak kitöltött értékei (a tesztelés utáni állapottal). A képen legyen látható az adatbázisod neve (a Neptun kódod). A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
-## Feladat 2: Számla érvénytelenítése (2 pluszpont)
+## Feladat 2: Számla érvénytelenítése (2 pont)
 
 Szeretnénk lehetőséget biztosítani rendelések lemondására is egy tárolt eljárás segítségével. Az eljárás a vevő nevével és a rendelés azonosítójával rendelkező számlát fogja érvényteleníteni, majd a hozzá tartozó rendelés tételein végigmenve visszaállítja a raktárkészletet.
 
 1. Hozz létre egy tárolt eljárást `cancel_invoice` mely két paramétert fogad: a vevő nevét `name` néven, és a megrendelés azonosítóját `orderId` néven.
 
-1. A tárolt eljárás ellenőrizze le, hogy van-e a megadott adatokkal számla, ha nincs, dobjon kivételt. A kivétel `State` értéke legyen 10.
+2. A tárolt eljárás ellenőrizze le, hogy van-e a megadott adatokkal számla, ha nincs, dobjon kivételt. A kivétel `error_number` értéke legyen 51000.
 
-1. Ha az adatok jók, akkor a tárolt eljárás vegye az összes számlán szereplő terméket, nézze meg, hogy mennyit vettek belőlük, és a megrendelt mennyiséget adja hozzá a raktárkészlethez. (TIPP: az adatok összeszedéséhez több tábla, esetleg kurzor is kellhet).
+3. Ha az adatok jók, akkor a tárolt eljárás vegye az összes számlán szereplő terméket, nézze meg, hogy mennyit vettek belőlük, és a megrendelt mennyiséget adja hozzá a raktárkészlethez. (TIPP: az adatok összeszedéséhez több tábla, esetleg kurzor is kellhet).
 
 Ellenőrizd az eljárás működését!
 
