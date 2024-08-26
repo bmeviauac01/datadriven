@@ -42,7 +42,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 1. Vizsgáljuk meg a projektet.
 
-    - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha F5-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
+    - Ez egy ASP.NET Core Web API projekt. Kifejezetten REST API-k kiszolgálásához készült. Ha ++f5++-tel elindítjuk, akkor magában tartalmaz egy webszervert a kérések kiszolgálásához.
     - Nézzük meg a `Program.cs` tartalmát. Lényegében két részből áll:
         - Létrehoz egy `WebApplicationBuilder` objektumot, amelynek a `Services` tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.
         - `Build` után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.
@@ -51,7 +51,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 1. Írjuk át az `appsettings.json` állományban az adatbázisunk nevét a connection string-ben a neptun kódunkra.
 
-1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy _Ctrl-C_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
+1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy ++ctrl+c++_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
 
 ## 2. Feladat: Első Controller és metódus, tesztelés Postmannel
 
@@ -124,6 +124,7 @@ A visszaadott termék entitás _ne_ az adatbázis leképzésből jövő entitás
 
     public record Product(int Id, string Name, double? Price, int? Stock);
     ```
+
 ### Listázó végpont készítése
 
 Készítsük el a követelményeknek megfelelő végpontot egy új `ProductController` osztályban, majd próbáljuk ki az alkalmazást.
@@ -175,7 +176,7 @@ Lapozást azért érdemes beiktatni, hogy korlátozzuk a visszaadott választ (a
 
 A metódus eredménye a `ToList`-et megelőzően egy `IQueryable<T>`. Emlékezzünk arra, hogy az `IQueryable<T>` nem tartalmazza az eredményt, az csak egy leíró.
 
-!!! warning "`IQueryable<T> `visszatérési érték és `DbContext` életciklus"
+!!! warning "`IQueryable<T>` visszatérési érték és `DbContext` életciklus"
     Ha nem lenne a végén `ToList`, akkor hibára futna az alkalmazás, mert amikor a JSON sorosítás elkezdené iterálni a gyűjteményt, már egy megszűnt adatbázis kapcsolaton próbálna dolgozni. A WebAPI végpontokból **soha ne** adjunk emiatt `IQueryable` visszatérési értéket!
 
     Az okok arra vezethetőek vissza, hogy alapértelmezetten a `DbContext` típusok `Scoped` életciklussal kerülnek beregisztrálásra a DI konténerbe, és ASP.NET Core esetében alapértelmezetten egy HTTP kérés során keletkezik egy scope. Viszont a sorosítás már kívül esne ezen a scope-on.
@@ -399,6 +400,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
         int VatPercentage,
         string CategoryName);
     ```
+
     ```csharp title="ProductController.cs" hl_lines="4-10 17-18"
     [HttpPost]
     public ActionResult<Dtos.Product> Add([FromBody]Dtos.NewProduct newProduct)

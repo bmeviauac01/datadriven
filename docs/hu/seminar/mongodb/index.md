@@ -2,6 +2,9 @@
 
 A gyakorlat célja, hogy a hallgatók megismerjék a _MongoDB_ általános célú dokumentumkezelő adatbázis alapvető működését, valamint a _MongoDB C#/.NET Driver_ használatát.
 
+!!! note "Entity Framework Core provider"
+    A MongoDB-hoz is létezik már Entity [Framework Core provider](https://github.com/mongodb/mongo-efcore-provider), azonban a gyakorlaton a _MongoDB C#/.NET Driver_ használatát fogjuk gyakorolni, hogy a hallgatók megismerjék a MongoDB alacsonyabb szintű sajátosságait.
+
 ## Előfeltételek
 
 A labor elvégzéséhez szükséges eszközök:
