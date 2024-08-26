@@ -1,6 +1,6 @@
 ﻿# Exercise: MSSQL server-side programming
 
-This exercise is optional. You may earn **2 points** by completing this exercise.
+You may earn **4 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -32,7 +32,24 @@ Make sure to verify the behavior of the trigger under various circumstances.
 
     Create a screenshot that displays sample records in the `Customer` table with the automatically populated date values. Make sure that the database name and your Neptun code are visible on the screenshot. Save the screenshot as `f1.png` and upload it as part of your submission!
 
-## Exercise 2 optional: Product recommended age (0 points)
+## Exercise 2: Invoice Cancellation (2 points)
+
+We would like to provide an option to cancel orders using a stored procedure. This procedure will invalidate an invoice identified by the customer's name and the order ID, then restore the inventory by iterating through the items associated with the order.
+
+1. Create a stored procedure named cancel_invoice that accepts two parameters: the customer's name (named `name`) and the order ID (named `orderId`).
+
+1. The stored procedure should verify whether an invoice exists with the given information. If not, it should throw an exception. The exception's `error_number` should be 51000.
+
+1. If the data is valid, the stored procedure should retrieve all the products listed on the invoice, check the quantities ordered, and add those quantities back to the inventory. (HINT: You may need to gather data from multiple tables, or possibly use a cursor).
+
+Test the procedure to ensure it works correctly!
+
+!!! example "SUBMISSION"
+    Submit the trigger code in the `f2.sql` file. The SQL file should contain only a single statement (just one `create procedure cancel_invoice`), and should not include any `use` or `go` commands!
+
+    Create a screenshot showing the execution of the stored procedure and its effects, as well as what happens when incorrect data is provided (you can use a window with two tabs, for example). The screenshot should display the name of your database (your Neptun code). Save the screenshot as `f2.png` and submit it as part of your solution!
+
+## Exercise 3 optional: Product recommended age (0 points)
 
 !!! note ""
     In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
