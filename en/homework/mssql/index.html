@@ -1095,7 +1095,7 @@
         
   
   <span class="md-ellipsis">
-    Optional homework
+    Homework
   </span>
   
 
@@ -1184,9 +1184,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-product-recommended-age-0-points" class="md-nav__link">
+  <a href="#exercise-2-invoice-cancellation-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Product recommended age (0 points)
+      Exercise 2: Invoice Cancellation (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-product-recommended-age-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Product recommended age (0 points)
     </span>
   </a>
   
@@ -1402,9 +1411,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-product-recommended-age-0-points" class="md-nav__link">
+  <a href="#exercise-2-invoice-cancellation-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Product recommended age (0 points)
+      Exercise 2: Invoice Cancellation (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-product-recommended-age-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Product recommended age (0 points)
     </span>
   </a>
   
@@ -1434,7 +1452,7 @@
 
 
 <h1 id="exercise-mssql-server-side-programming">Exercise: MSSQL server-side programming<a class="headerlink" href="#exercise-mssql-server-side-programming" title="Permanent link">&para;</a></h1>
-<p>This exercise is optional. You may earn <strong>2 points</strong> by completing this exercise.</p>
+<p>You may earn <strong>4 points</strong> by completing this exercise.</p>
 <p>Use GitHub Classroom to get your git repository. You can find the <strong>invitation link in Moodle</strong>. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.</p>
 <p>Check the required software and tools <a href="../#required-tools">here</a>.</p>
 <h2 id="prepare-the-database">Prepare the database<a class="headerlink" href="#prepare-the-database" title="Permanent link">&para;</a></h2>
@@ -1461,7 +1479,26 @@
 <p>Submit the code of the trigger in file <code>f1.sql</code>. This sql file should contain a single statement (a single <code>create trigger</code> command) without any <code>use</code> or <code>go</code> commands.</p>
 <p>Create a screenshot that displays sample records in the <code>Customer</code> table with the automatically populated date values. Make sure that the database name and your Neptun code are visible on the screenshot. Save the screenshot as <code>f1.png</code> and upload it as part of your submission!</p>
 </div>
-<h2 id="exercise-2-optional-product-recommended-age-0-points">Exercise 2 optional: Product recommended age (0 points)<a class="headerlink" href="#exercise-2-optional-product-recommended-age-0-points" title="Permanent link">&para;</a></h2>
+<h2 id="exercise-2-invoice-cancellation-2-points">Exercise 2: Invoice Cancellation (2 points)<a class="headerlink" href="#exercise-2-invoice-cancellation-2-points" title="Permanent link">&para;</a></h2>
+<p>We would like to provide an option to cancel orders using a stored procedure. This procedure will invalidate an invoice identified by the customer's name and the order ID, then restore the inventory by iterating through the items associated with the order.</p>
+<ol>
+<li>
+<p>Create a stored procedure named cancel_invoice that accepts two parameters: the customer's name (named <code>name</code>) and the order ID (named <code>orderId</code>).</p>
+</li>
+<li>
+<p>The stored procedure should verify whether an invoice exists with the given information. If not, it should throw an exception. The exception's <code>error_number</code> should be 51000.</p>
+</li>
+<li>
+<p>If the data is valid, the stored procedure should retrieve all the products listed on the invoice, check the quantities ordered, and add those quantities back to the inventory. (HINT: You may need to gather data from multiple tables, or possibly use a cursor).</p>
+</li>
+</ol>
+<p>Test the procedure to ensure it works correctly!</p>
+<div class="admonition example">
+<p class="admonition-title">SUBMISSION</p>
+<p>Submit the trigger code in the <code>f2.sql</code> file. The SQL file should contain only a single statement (just one <code>create procedure cancel_invoice</code>), and should not include any <code>use</code> or <code>go</code> commands!</p>
+<p>Create a screenshot showing the execution of the stored procedure and its effects, as well as what happens when incorrect data is provided (you can use a window with two tabs, for example). The screenshot should display the name of your database (your Neptun code). Save the screenshot as <code>f2.png</code> and submit it as part of your solution!</p>
+</div>
+<h2 id="exercise-3-optional-product-recommended-age-0-points">Exercise 3 optional: Product recommended age (0 points)<a class="headerlink" href="#exercise-3-optional-product-recommended-age-0-points" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p>In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.</p>
 </div>
@@ -1502,8 +1539,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 17, 2023 14:22:19">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:22:19+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span title="August 26, 2024 11:23:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-26T11:23:37+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-26</span>
       </span>
     </span>
 
@@ -1520,8 +1557,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
-          <img src="https://avatars.githubusercontent.com/u/61751571?v=4?size=72" alt="@István Albert">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      

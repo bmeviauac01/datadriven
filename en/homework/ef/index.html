@@ -1095,7 +1095,7 @@
         
   
   <span class="md-ellipsis">
-    Optional homework
+    Homework
   </span>
   
 
@@ -1215,9 +1215,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-repository-implementation-using-entity-framework-0-points" class="md-nav__link">
+  <a href="#exercise-2-repository-implementation-using-entity-framework-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Repository implementation using Entity Framework (0 points)
+      Exercise 2: Repository implementation using Entity Framework (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-logical-deletion-with-entity-framework-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Logical Deletion with Entity Framework (0 points)
     </span>
   </a>
   
@@ -1384,9 +1393,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-repository-implementation-using-entity-framework-0-points" class="md-nav__link">
+  <a href="#exercise-2-repository-implementation-using-entity-framework-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Repository implementation using Entity Framework (0 points)
+      Exercise 2: Repository implementation using Entity Framework (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-logical-deletion-with-entity-framework-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Logical Deletion with Entity Framework (0 points)
     </span>
   </a>
   
@@ -1416,7 +1434,7 @@
 
 
 <h1 id="exercise-entity-framework">Exercise: Entity Framework<a class="headerlink" href="#exercise-entity-framework" title="Permanent link">&para;</a></h1>
-<p>This exercise is optional. You may earn <strong>2 points</strong> by completing this exercise.</p>
+<p>You may earn <strong>2 points</strong> by completing this exercise.</p>
 <p>Use GitHub Classroom to get your git repository. You can find the <strong>invitation link in Moodle</strong>. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.</p>
 <p>Check the required software and tools <a href="../#required-tools">here</a>. This homework uses MSSQL database.</p>
 <div class="admonition warning">
@@ -1477,9 +1495,9 @@
 <p>If you are using <code>dotnet cli</code> to run the tests, make sure to display the test names too. Use the <code>-v n</code> command line switch to set detailed logging.</p>
 <p>The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some <strong>minor</strong> change to the source, there is no need for you to update the screenshot.</p>
 </div>
-<h2 id="exercise-2-optional-repository-implementation-using-entity-framework-0-points">Exercise 2 optional: Repository implementation using Entity Framework (0 points)<a class="headerlink" href="#exercise-2-optional-repository-implementation-using-entity-framework-0-points" title="Permanent link">&para;</a></h2>
+<h2 id="exercise-2-repository-implementation-using-entity-framework-2-points">Exercise 2: Repository implementation using Entity Framework (2 points)<a class="headerlink" href="#exercise-2-repository-implementation-using-entity-framework-2-points" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
-<p>In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.</p>
+<p>This exercise can be solved after completing the first exercise.</p>
 </div>
 <p>The Entity Framework DbContext created above has some drawbacks. For example, we need to trigger loading related entities using <code>Include</code> in every query, and the mapped entities are bound to precisely match the database schema. In complex applications, the DbContext is frequently wrapped in a repository that handles all peculiarities of the data access layer.</p>
 <p>Implement class <code>ProductRepository</code> that helps with listing and inserting products. You are provided with a so-called <em>model</em> class representing the product entity, only in a more user-friendly way: it contains the tax percentage value directly. An instance of this class is built from database entities, but represents all information in one instance instead of having to handle a product and a VAT record separately. Class <code>Model.Product</code> contains most properties of class <code>DbProduct</code>, but <em>instead of</em> the navigation property to <code>DbVat</code> it contains the referenced percentage value (<code>VAT.Percentage</code>) directly.</p>
@@ -1495,6 +1513,33 @@
 <p class="admonition-title">SUBMISSION</p>
 <p>Upload the changed C# source code.</p>
 </div>
+<h2 id="exercise-3-optional-logical-deletion-with-entity-framework-0-points">Exercise 3 optional: Logical Deletion with Entity Framework (0 points)<a class="headerlink" href="#exercise-3-optional-logical-deletion-with-entity-framework-0-points" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p>In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.</p>
+</div>
+<p>Deleting data from a database is an operation that can have numerous unintended consequences. Restoring deleted data is much more difficult, and sometimes it is not even possible without repercussions. Deleting data can result in the loss of the entire data history, making it impossible to know the state before deletion or to use it in various statistics. Moreover, there are cases where relationships with other tables and foreign key constraints exist, and deletion affects those tables as well.</p>
+<p>To overcome these problems, the most common solution is to implement a non-permanent deletion, known as a soft delete. In this case, a field (typically named <code>IsDeleted</code>) is used to indicate that the data has been deleted. Thus, the data remains in the database, but we can filter it to see whether it has been deleted.</p>
+<p>A naive implementation of filtering is not convenient. Imagine having to add a condition to every query or save operation to ensure that deleted items are not affected. To address this, it is advisable to use one of Entity Framework's features, the <em>Global Query Filter</em>. This allows us to define filter conditions that are automatically applied to every query globally by Entity Framework.</p>
+<p>Implement soft deletion for the previously created <code>DbProduct</code> class (there are multiple solutions; feel free to choose any of them):</p>
+<div class="admonition important">
+<p class="admonition-title">Modifiability</p>
+<p>Although the previous task had a restriction against overriding the <code>OnConfiguring</code> method, you are free to do so here if necessary (and you can also override other functions in the <code>DBContext</code> implementation)!</p>
+</div>
+<ol>
+<li>
+<p>Add an <code>IsDeleted</code> variable that indicates to our application whether the entity is in a deleted state!</p>
+</li>
+<li>
+<p>Add a <em>QueryFilter</em> that filters out the products that have already been deleted in every query, so they are not returned!</p>
+</li>
+<li>
+<p>Modify the deletion behavior in the database <strong>generally</strong> by extending the <code>DbContext</code> save operations (EFCore provides several extension points for this) so that instead of performing a true deletion, it only changes the <code>IsDeleted</code> variable! Do not change the deletion operation in the repository for modification!</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">SUBMISSION</p>
+<p>Upload the modified C# source code.</p>
+</div>
 
     <hr>
   <div class="md-source-file">
@@ -1505,8 +1550,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 12, 2023 12:39:50">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-12T12:39:50+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-12</span>
+      <span title="August 26, 2024 11:23:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-26T11:23:37+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-26</span>
       </span>
     </span>
 
@@ -1523,8 +1568,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
-          <img src="https://avatars.githubusercontent.com/u/61751571?v=4?size=72" alt="@István Albert">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a></nav>      
     </span>
   </div>
