@@ -1,6 +1,6 @@
 ﻿# Exercise: Entity Framework
 
-This exercise is optional. You may earn **2 points** by completing this exercise.
+You may earn **2 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -68,10 +68,10 @@ There are unit tests available in the solution. The test codes are commented out
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Exercise 2 optional: Repository implementation using Entity Framework (0 points)
+## Exercise 2: Repository implementation using Entity Framework (2 points)
 
 !!! note ""
-    In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
+    This exercise can be solved after completing the first exercise.
 
 The Entity Framework DbContext created above has some drawbacks. For example, we need to trigger loading related entities using `Include` in every query, and the mapped entities are bound to precisely match the database schema. In complex applications, the DbContext is frequently wrapped in a repository that handles all peculiarities of the data access layer.
 
@@ -87,3 +87,28 @@ Implement the methods of class `ProductRepository.
 
 !!! example "SUBMISSION"
     Upload the changed C# source code.
+
+## Exercise 3 optional: Logical Deletion with Entity Framework (0 points)
+
+!!! note ""
+    In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
+
+Deleting data from a database is an operation that can have numerous unintended consequences. Restoring deleted data is much more difficult, and sometimes it is not even possible without repercussions. Deleting data can result in the loss of the entire data history, making it impossible to know the state before deletion or to use it in various statistics. Moreover, there are cases where relationships with other tables and foreign key constraints exist, and deletion affects those tables as well.
+
+To overcome these problems, the most common solution is to implement a non-permanent deletion, known as a soft delete. In this case, a field (typically named `IsDeleted`) is used to indicate that the data has been deleted. Thus, the data remains in the database, but we can filter it to see whether it has been deleted.
+
+A naive implementation of filtering is not convenient. Imagine having to add a condition to every query or save operation to ensure that deleted items are not affected. To address this, it is advisable to use one of Entity Framework's features, the *Global Query Filter*. This allows us to define filter conditions that are automatically applied to every query globally by Entity Framework.
+
+Implement soft deletion for the previously created `DbProduct` class (there are multiple solutions; feel free to choose any of them):
+
+!!! important "Modifiability"
+    Although the previous task had a restriction against overriding the `OnConfiguring` method, you are free to do so here if necessary (and you can also override other functions in the `DBContext` implementation)!
+
+1. Add an `IsDeleted` variable that indicates to our application whether the entity is in a deleted state!
+
+1. Add a *QueryFilter* that filters out the products that have already been deleted in every query, so they are not returned!
+
+1. Modify the deletion behavior in the database **generally** by extending the `DbContext` save operations (EFCore provides several extension points for this) so that instead of performing a true deletion, it only changes the `IsDeleted` variable! Do not change the deletion operation in the repository for modification!
+
+!!! example "SUBMISSION"
+    Upload the modified C# source code.

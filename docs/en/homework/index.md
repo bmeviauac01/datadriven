@@ -1,6 +1,6 @@
-﻿# Optional homework
+﻿# Homework
 
-These exercises are **optional**. You can earn **extra points** that are added to your exam score. Maximum 2 points per homework. In the exercises and the evaluation results, you will see a text “iMsc”; these iMsc points are not counted! (These are special points for Hungarian curriculum). All non-iMsc exercises are available for extra points on this course, 5 homeworks, maximum 2 points per homework, maximum 10 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercies exactly as in the guide, or it is late, you get no points at all! Make sure to follow the guide and do **everything in time**!
+With these exercises you can earn **points** that are added to your exam score. Maximum 4 points per homework. In the exercises and the evaluation results, you will see a text “iMsc”; these iMsc points are not counted! (These are special points for Hungarian curriculum). All non-iMsc exercises are available for points on this course, 5 homeworks, maximum 4 points per homework, maximum 20 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercies exactly as in the guide, or it is late, you get no points at all! Make sure to follow the guide and do **everything in time**!
 
 !!! important "Working code"
     You are expected to write code that actually works! Your code will be executed, and it is required to fulfill the specified task.
@@ -8,7 +8,6 @@ These exercises are **optional**. You can earn **extra points** that are added t
 ## The exercises
 
 1. [MSSQL server-side programming](mssql/index.md)
-1. [ADO.NET data access](adonet/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
 1. [REST API and Web API](rest/index.md)
@@ -46,10 +45,10 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 - For writing C# code (most homework, except the first one):
     - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md)
         - When using Linux or macOS, you can use Visual Studio Code, the .NET SDK, and [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/).
-    - [.NET **6.0** SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+    - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-        !!! warning ".NET 6.0"
-            Mind the version! You need .NET SDK version **6.0** to solve these exercises.
+        !!! warning ".NET 8.0"
+            Mind the version! You need .NET SDK version **8.0** to solve these exercises.
 
             On Windows, it might already be installed along with Visual Studio (see [here](VisualStudio.md#check-and-install-net-sdk) how to check it); if not, use the link above to install (the SDK and _not_ the runtime). You need to install it manually when using Linux or macOS.
 
