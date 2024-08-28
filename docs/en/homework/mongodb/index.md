@@ -1,6 +1,6 @@
 ﻿# Exercise: MongoDB
 
-This exercise is optional. You may earn **2 points** by completing this exercise.
+You may earn **4 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
@@ -65,7 +65,28 @@ There are unit tests available in the solution. You can [run the unit tests in V
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-## Exercise 2 optional: Estimating storage space (0 points)
+## Exercise 2: Insert a New Product (2 points)
+
+The task is to create a function for inserting a new product. Several conditions must be met during the insertion, which need to be checked before the operation. Implement the `InsertProduct(string name, string category, int vat)` function.
+
+The following conditions should be considered during insertion:
+
+- If a product with the given name already exists, throw an exception (`ArgumentException`).
+- If the specified category does not yet exist, throw an exception (`ArgumentException`).
+- If the given `vat` value is already associated with the name of another `Product` instance, use that name; otherwise, assign the name `"VAT"` to the product being inserted.
+
+1. Extend the repository class constructor to include categories. To do this, add the corresponding class for the category!
+
+1. Implement the function, ensuring that the parameter constraints are checked before performing the insertion! The tests in the `TestExercise2.cs` file will assist you.
+
+1. The product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.
+
+!!! example "SUBMISSION"
+    Upload the modified C# source code!
+    
+    Additionally, take a screenshot similar to the one in the first task, where you have run the relevant tests! Save the image as `f2.png` and upload it as part of your solution!
+
+## Exercise 3 optional: Estimating storage space (0 points)
 
 The company is moving to a new location. We need to know whether the current stock can be moved and will fit into the new storage facility. Implement the method that calculates the **total volume of all products in stock**!
 
@@ -93,7 +114,7 @@ The required parts of the products are not mapped to C# classes yet. You need to
 !!! warning "Use Fluent Api"
     You must use the C# Fluent Api! Do not write the query using `BsonDocument`!
 
-You may test your implementation with the tests provided in class `TestExercise2`. The tests presume that the database is in its initial state.
+You may test your implementation with the tests provided in class `TestExercise3`. The tests presume that the database is in its initial state.
 
 !!! example "SUBMISSION"
     Upload the changed C# source code.
