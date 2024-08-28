@@ -1246,18 +1246,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pluszpont" class="md-nav__link">
+  <a href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 1: Legnagyobb összértékű termék a raktárban (2 pluszpont)
+      Feladat 1: Legnagyobb összértékű termék a raktárban (2 pont)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-2-raktar-meret-becsles-2-imsc-pont" class="md-nav__link">
+  <a href="#feladat-2-uj-termek-beszurasa-2-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 2: Raktár méret becslés (2 iMsc pont)
+      Feladat 2: Új termék beszúrása (2 pont)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-raktar-meret-becsles-2-imsc-pont" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat 3: Raktár méret becslés (2 iMsc pont)
     </span>
   </a>
   
@@ -1395,18 +1404,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pluszpont" class="md-nav__link">
+  <a href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 1: Legnagyobb összértékű termék a raktárban (2 pluszpont)
+      Feladat 1: Legnagyobb összértékű termék a raktárban (2 pont)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-2-raktar-meret-becsles-2-imsc-pont" class="md-nav__link">
+  <a href="#feladat-2-uj-termek-beszurasa-2-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 2: Raktár méret becslés (2 iMsc pont)
+      Feladat 2: Új termék beszúrása (2 pont)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-3-raktar-meret-becsles-2-imsc-pont" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat 3: Raktár méret becslés (2 iMsc pont)
     </span>
   </a>
   
@@ -1436,13 +1454,13 @@
 
 
 <h1 id="feladat-mongodb">Feladat: MongoDB<a class="headerlink" href="#feladat-mongodb" title="Permanent link">&para;</a></h1>
-<p>A házi feladat opcionális. A teljesítéssel <strong>2 pluszpont és 2 iMsc pont</strong> szerezhető.</p>
+<p>A házi feladat opcionális. A teljesítéssel <strong>4 pont és 2 iMsc pont</strong> szerezhető.</p>
 <p>GitHub Classroom segítségével hozz létre magadnak egy repository-t. A <strong>meghívó URL-t Moodle-ben találod</strong>. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.</p>
 <p>A megoldáshoz szükséges szoftvereket és eszközöket lásd <a href="../#szukseges-eszkozok">itt</a>.</p>
 <p>Előkészületként hozz létre egy új adatbázist, a <a href="../../seminar/mongodb/">gyakorlatanyagban</a> leírt módon.</p>
 <h2 id="feladat-0-neptun-kod">Feladat 0: Neptun kód<a class="headerlink" href="#feladat-0-neptun-kod" title="Permanent link">&para;</a></h2>
 <p>Első lépésként a gyökérben található <code>neptun.txt</code> fájlba írd bele a Neptun kódodat!</p>
-<h2 id="feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pluszpont">Feladat 1: Legnagyobb összértékű termék a raktárban (2 pluszpont)<a class="headerlink" href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pluszpont" title="Permanent link">&para;</a></h2>
+<h2 id="feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont">Feladat 1: Legnagyobb összértékű termék a raktárban (2 pont)<a class="headerlink" href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont" title="Permanent link">&para;</a></h2>
 <p>A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó termékek közül melyik képviseli a legnagyobb összértéket — tehát melyik termék az, amelyiknek az <strong>ára szorozva a raktárban lévő mennyiségével a legnagyobb</strong>. Ehhez a <code>ProductRepository</code> osztályban a következő metódust kell implementálnunk.</p>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">double?</span><span class="p">)</span><span class="w"> </span><span class="n">ProductWithLargestTotalValue</span><span class="p">(</span><span class="n">ObjectId</span><span class="w"> </span><span class="n">categoryId</span><span class="p">)</span>
 </code></pre></div>
@@ -1496,7 +1514,28 @@
 <p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolót a részletesebb naplózáshoz.</p>
 <p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
 </div>
-<h2 id="feladat-2-raktar-meret-becsles-2-imsc-pont">Feladat 2: Raktár méret becslés (2 iMsc pont)<a class="headerlink" href="#feladat-2-raktar-meret-becsles-2-imsc-pont" title="Permanent link">&para;</a></h2>
+<h2 id="feladat-2-uj-termek-beszurasa-2-pont">Feladat 2: Új termék beszúrása (2 pont)<a class="headerlink" href="#feladat-2-uj-termek-beszurasa-2-pont" title="Permanent link">&para;</a></h2>
+<p>A feladat egy új termék beszúrásához egy függvény készítése. A beszúráskor több feltételnek is meg kell felelni, amiket ellenőrizni kell a beszúrás előtt. Ehhez implementáld az <code>InsertProduct(string name, string category, int vat)</code> függvényt</p>
+<p>A következőkre kell figyelni a beszúráskor:
+- Amennyiben adott névvel már van termék, dobj kivételt (<code>ArgumentException</code>)
+- Amennyiben a megadott <code>category</code> nevű kategória még nincsen, dobj kivételt (<code>ArgumentException</code>)
+- Amennyiben a megadott <code>vat</code> értékhez tartozik már név egy másik <code>Product</code> példány esetén, akkor használd annak a nevét, egyébként vedd fel <code>"VAT"</code> névvel a beszúrandó termékhez.</p>
+<ol>
+<li>
+<p>A repository osztály konstruktorát egészítsd ki, hogy legyenek kategóriák is elérhetőek. Ehhez vedd fel a kategóriához tartozó osztályt!</p>
+</li>
+<li>
+<p>Készítsd el a függvény implementációját, a paraméterekkel kapcsolatos kikötéseket ellenőrizd mielőtt a beszúrást végrehajtod! Segítségedre vannak a <code>TestExercise2.cs</code> fájlban található tesztek.</p>
+</li>
+<li>
+<p>A termék méretei 1x1x1 cm-esek legyenek, a többi nem megadott változót vedd fel általad választott értékekkel!</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>A módosított C# forráskódot töltsd fel! Emellett készíts egy képernyőképet az első feladathoz hasonlóan, amelyben a vonatkozó teszteket lefuttattad! A képet <code>f2.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+</div>
+<h2 id="feladat-3-raktar-meret-becsles-2-imsc-pont">Feladat 3: Raktár méret becslés (2 iMsc pont)<a class="headerlink" href="#feladat-3-raktar-meret-becsles-2-imsc-pont" title="Permanent link">&para;</a></h2>
 <p>Egy cég új telephelyre költözik. A vezetésnek szüksége van arra az információra, hogy át tudják-e költöztetni a már meglévő raktárkészletet az új raktárba. Implementáld a függvényt, amely kiszámolja a <strong>teljes raktárkészletre a csomagok térfogatát</strong>!</p>
 <p>A termékeink egy részénél van méret információ a <code>description.product.package_parameters</code> alatt:</p>
 <p><a class="glightbox" href="product-size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Termék méret adat" src="product-size.png" /></a></p>
@@ -1519,7 +1558,7 @@
 <p class="admonition-title">Fluent Api-t használj</p>
 <p>Mindenképpen C#-os Fluent Api-t használj! Ne <code>BsonDocument</code>-ben írd meg a lekérdezést!</p>
 </div>
-<p>Ha sikerült implementálni a metódust, akkor a korábban már látott módon a <code>TestExercise2</code> osztályban található teszt metódussal ellenőrizni tudod a működést. A teszt az adatbázis kiinduló állapotát feltételezi.</p>
+<p>Ha sikerült implementálni a metódust, akkor a korábban már látott módon a <code>TestExercise3</code> osztályban található teszt metódussal ellenőrizni tudod a működést. A teszt az adatbázis kiinduló állapotát feltételezi.</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított C# forráskódot töltsd fel.</p>
@@ -1534,8 +1573,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. február 3. 13:39:18">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-02-03T13:39:18+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-02-03</span>
+      <span title="2024. augusztus 26. 09:03:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-26T09:03:37+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-26</span>
       </span>
     </span>
 
@@ -1554,6 +1593,8 @@
           <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
         </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/MeIidon" target="_blank" rel="noopener noreferrer" class="md-author" title="@Zsombor Szommer">
           <img src="https://avatars.githubusercontent.com/u/56506014?u=77f2a2176a77f1e01f056fea187d20f94bafb779&v=4?size=72" alt="@Zsombor Szommer">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">

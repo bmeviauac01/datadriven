@@ -1235,9 +1235,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-estimating-storage-space-0-points" class="md-nav__link">
+  <a href="#exercise-2-insert-a-new-product-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Estimating storage space (0 points)
+      Exercise 2: Insert a New Product (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-estimating-storage-space-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Estimating storage space (0 points)
     </span>
   </a>
   
@@ -1384,9 +1393,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-estimating-storage-space-0-points" class="md-nav__link">
+  <a href="#exercise-2-insert-a-new-product-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: Estimating storage space (0 points)
+      Exercise 2: Insert a New Product (2 points)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-optional-estimating-storage-space-0-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3 optional: Estimating storage space (0 points)
     </span>
   </a>
   
@@ -1416,7 +1434,7 @@
 
 
 <h1 id="exercise-mongodb">Exercise: MongoDB<a class="headerlink" href="#exercise-mongodb" title="Permanent link">&para;</a></h1>
-<p>This exercise is optional. You may earn <strong>2 points</strong> by completing this exercise.</p>
+<p>You may earn <strong>4 points</strong> by completing this exercise.</p>
 <p>Use GitHub Classroom to get your git repository. You can find the <strong>invitation link in Moodle</strong>. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.</p>
 <p>Check the required software and tools <a href="../#required-tools">here</a>.</p>
 <p>Before you begin, create and initialize the database; use the steps <a href="../../seminar/mongodb/">the seminar exercises</a> describe.</p>
@@ -1476,7 +1494,31 @@
 <p>If you are using <code>dotnet cli</code> to run the tests, make sure to display the test names too. Use the <code>-v n</code> command line switch to set detailed logging.</p>
 <p>The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some <strong>minor</strong> change to the source, there is no need for you to update the screenshot.</p>
 </div>
-<h2 id="exercise-2-optional-estimating-storage-space-0-points">Exercise 2 optional: Estimating storage space (0 points)<a class="headerlink" href="#exercise-2-optional-estimating-storage-space-0-points" title="Permanent link">&para;</a></h2>
+<h2 id="exercise-2-insert-a-new-product-2-points">Exercise 2: Insert a New Product (2 points)<a class="headerlink" href="#exercise-2-insert-a-new-product-2-points" title="Permanent link">&para;</a></h2>
+<p>The task is to create a function for inserting a new product. Several conditions must be met during the insertion, which need to be checked before the operation. Implement the <code>InsertProduct(string name, string category, int vat)</code> function.</p>
+<p>The following conditions should be considered during insertion:</p>
+<ul>
+<li>If a product with the given name already exists, throw an exception (<code>ArgumentException</code>).</li>
+<li>If the specified category does not yet exist, throw an exception (<code>ArgumentException</code>).</li>
+<li>
+<p>If the given <code>vat</code> value is already associated with the name of another <code>Product</code> instance, use that name; otherwise, assign the name <code>"VAT"</code> to the product being inserted.</p>
+</li>
+<li>
+<p>Extend the repository class constructor to include categories. To do this, add the corresponding class for the category!</p>
+</li>
+<li>
+<p>Implement the function, ensuring that the parameter constraints are checked before performing the insertion! The tests in the <code>TestExercise2.cs</code> file will assist you.</p>
+</li>
+<li>
+<p>The product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">SUBMISSION</p>
+<p>Upload the modified C# source code!</p>
+<p>Additionally, take a screenshot similar to the one in the first task, where you have run the relevant tests! Save the image as <code>f2.png</code> and upload it as part of your solution!</p>
+</div>
+<h2 id="exercise-3-optional-estimating-storage-space-0-points">Exercise 3 optional: Estimating storage space (0 points)<a class="headerlink" href="#exercise-3-optional-estimating-storage-space-0-points" title="Permanent link">&para;</a></h2>
 <p>The company is moving to a new location. We need to know whether the current stock can be moved and will fit into the new storage facility. Implement the method that calculates the <strong>total volume of all products in stock</strong>!</p>
 <p>The products have the necessary information in <code>description.product.package_parameters</code>:</p>
 <p><a class="glightbox" href="product-size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Product size" src="product-size.png" /></a></p>
@@ -1499,7 +1541,7 @@
 <p class="admonition-title">Use Fluent Api</p>
 <p>You must use the C# Fluent Api! Do not write the query using <code>BsonDocument</code>!</p>
 </div>
-<p>You may test your implementation with the tests provided in class <code>TestExercise2</code>. The tests presume that the database is in its initial state.</p>
+<p>You may test your implementation with the tests provided in class <code>TestExercise3</code>. The tests presume that the database is in its initial state.</p>
 <div class="admonition example">
 <p class="admonition-title">SUBMISSION</p>
 <p>Upload the changed C# source code.</p>
@@ -1514,8 +1556,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
+      <span title="August 28, 2024 10:48:31">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-28T10:48:31+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-28</span>
       </span>
     </span>
 
@@ -1532,8 +1574,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
-          <img src="https://avatars.githubusercontent.com/u/61751571?v=4?size=72" alt="@István Albert">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/SABERGLOW" target="_blank" rel="noopener noreferrer" class="md-author" title="@Wali Ullah">
           <img src="https://avatars.githubusercontent.com/u/62393901?u=d61be9e827abfb1dc789f0debf66da7d2f735e86&v=4?size=72" alt="@Wali Ullah">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
