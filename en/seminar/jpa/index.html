@@ -1620,8 +1620,8 @@
 </ol>
 <h2 id="exercise-1-start-the-ide">Exercise 1: Start the IDE<a class="headerlink" href="#exercise-1-start-the-ide" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Start Spring Tool Suite from here: <code>c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe</code>.</li>
-<li>It will ask for a workspace, select: <code>c:\Work\hatteralkalmazasok\workspaces\adatvez</code></li>
+<li>Start Spring Tool Suite from here: <code>c:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe</code>.</li>
+<li>It will ask for a workspace, select: <code>c:\Tools\hatteralkalmazasok\workspaces\adatvez</code></li>
 <li>If there is a <strong>webshop</strong> project in the Project Explorer already, delete it: right-click the project / <em>Delete</em>, and check <em>Delete project contents on disk</em></li>
 </ol>
 <h2 id="exercise-2-import-project">Exercise 2: Import project<a class="headerlink" href="#exercise-2-import-project" title="Permanent link">&para;</a></h2>
@@ -1669,7 +1669,7 @@
 <p>If under the <em>Debug</em> icon you find <em>webshop run</em>, the method above is unnecessary.</p>
 <p>The running application can be stopped with the red <em>Terminate</em> icon in the Console view. If we run the application twice, without terminating the first run, the second run will report a port collision on the port 9080 and stop. This second execution will be visible in the <em>Console</em> view, and the <em>Terminate</em> command will be inactive, as this copy has been terminated already. Click on the gray double C icon next to <em>Terminate</em> to close this view, and only the active running process will be visible.</p>
 <p>If we close the <em>Console</em> view by mistake, use shortcut <em>Alt+Shift+Q, C</em> or menu <em>Window / Show View / Console</em> to reopen.</p>
-<p>After shutdown, we can re-run using F11.</p>
+<p>We can re-run the application using F11 as well. The workspace is configured to automatically terminate the running instance first in this case, so pressing the Terminate button manually is not needed.</p>
 <p>When running the application in debug mode, the modifications in HTML files and some Java ode modifications are immediately actualized, so we only have to refresh the browser to see the effect of the code modification. But the application has to be restarted if we modify the Java code in either of the following ways</p>
 <ul>
 <li>adding a new type</li>
@@ -1728,8 +1728,8 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">javax.persistence.EntityManager</span><span class="p">;</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">javax.persistence.PersistenceContext</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.EntityManager</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.PersistenceContext</span><span class="p">;</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ProductRepositoryImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ProductRepositoryCustom</span><span class="w"> </span><span class="p">{</span>
 
@@ -1962,8 +1962,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-09</span>
+      <span title="August 30, 2024 16:51:36">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-30T16:51:36+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-30</span>
       </span>
     </span>
 

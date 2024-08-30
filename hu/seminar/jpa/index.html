@@ -1658,8 +1658,8 @@
 </ol>
 <h2 id="feladat-1-ide-inditasa">Feladat 1: IDE indítása<a class="headerlink" href="#feladat-1-ide-inditasa" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Indítsuk el a Spring Tool Suite-ot innen: <code>c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe</code>.</li>
-<li>Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: <code>c:\Work\hatteralkalmazasok\workspaces\adatvez</code></li>
+<li>Indítsuk el a Spring Tool Suite-ot innen: <code>C:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe</code>.</li>
+<li>Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: <code>C:\Tools\hatteralkalmazasok\workspaces\adatvez</code></li>
 <li>Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a <strong>webshop</strong> nevű projekt, azt töröljük ki: a projekten jobb klikk / <em>Delete</em>, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.</li>
 </ol>
 <h2 id="feladat-2-projekt-importalasa">Feladat 2: Projekt importálása<a class="headerlink" href="#feladat-2-projekt-importalasa" title="Permanent link">&para;</a></h2>
@@ -1726,7 +1726,7 @@
 <p><a class="glightbox" href="images/eclipse-run.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Eclipse futtatás" src="images/eclipse-run.png" /></a></p>
 <p>A futó alkalmazást a <em>Console</em> nézet piros <em>Terminate</em> ikonjával lehet leállítani. Ha leállítás nélkül próbáljuk újra futtatni, akkor a második processz ütközést jelent a 9080-as porton, és leáll. Ilyenkor a sikertelen második futtatás látszik a <em>Console</em> nézetben, a <em>Terminate</em> gomb pedig inaktív, mivel ez a futás már leállt. Nyomjuk meg a Terminate ikon melletti dupla szürke X ikont, ez el fogja távolítani a már leállított futtatásokat, és csak az aktív futtatás látszik, amin viszont már tudunk <em>Terminate</em>-et nyomni.</p>
 <p>Ha a teljes <em>Console</em> nézetet bezárjuk véletlenül, elő lehet szedni <em>Alt+Shift+Q, C</em> gyorsbillentyűvel, vagy <em>Window / Show View / Console</em> menüvel.</p>
-<p>A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.</p>
+<p>Az újrafuttatáshoz az F11-et is használhatjuk. Az előre elkészített workspace-ben az is be van állítva, hogy ilyenkor a már futó alkalmazást leállítsa az új példány futtatása előtt, tehát a kézi leállítás (Terminate) megspórolható.</p>
 <p>A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java kód módosítások azonnal életbe lépnek. (A böngészőt persze frissíteni kell.) Újra kell viszont indítani az alkalmazást, ha a Java kódban:</p>
 <ul>
 <li>új típust adtunk hozzá</li>
@@ -1785,8 +1785,8 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">javax.persistence.EntityManager</span><span class="p">;</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">javax.persistence.PersistenceContext</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.EntityManager</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.PersistenceContext</span><span class="p">;</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ProductRepositoryImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ProductRepositoryCustom</span><span class="w"> </span><span class="p">{</span>
 
@@ -2035,8 +2035,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. szeptember 4. 08:51:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-04T08:51:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-04</span>
+      <span title="2024. augusztus 30. 16:51:36">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-30T16:51:36+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-30</span>
       </span>
     </span>
 
