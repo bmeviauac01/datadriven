@@ -46,8 +46,8 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 ## Exercise 1: Start the IDE
 
-1. Start Spring Tool Suite from here: `c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe`.
-1. It will ask for a workspace, select: `c:\Work\hatteralkalmazasok\workspaces\adatvez`
+1. Start Spring Tool Suite from here: `c:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe`.
+1. It will ask for a workspace, select: `c:\Tools\hatteralkalmazasok\workspaces\adatvez`
 1. If there is a **webshop** project in the Project Explorer already, delete it: right-click the project / _Delete_, and check _Delete project contents on disk_
 
 ## Exercise 2: Import project
@@ -102,7 +102,7 @@ The running application can be stopped with the red _Terminate_ icon in the Cons
 
 If we close the _Console_ view by mistake, use shortcut _Alt+Shift+Q, C_ or menu _Window / Show View / Console_ to reopen.
 
-After shutdown, we can re-run using F11.
+We can re-run the application using F11 as well. The workspace is configured to automatically terminate the running instance first in this case, so pressing the Terminate button manually is not needed.
 
 When running the application in debug mode, the modifications in HTML files and some Java ode modifications are immediately actualized, so we only have to refresh the browser to see the effect of the code modification. But the application has to be restarted if we modify the Java code in either of the following ways
 
@@ -177,8 +177,8 @@ Simply put, when modifying code that is not inside of an existing method, a rest
     
     import java.util.List;
     
-    import javax.persistence.EntityManager;
-    import javax.persistence.PersistenceContext;
+    import jakarta.persistence.EntityManager;
+    import jakarta.persistence.PersistenceContext;
     
     public class ProductRepositoryImpl implements ProductRepositoryCustom {
     
