@@ -1,6 +1,6 @@
 # Feladat: MongoDB
 
-A házi feladat opcionális. A teljesítéssel **4 pont és 2 iMsc pont** szerezhető.
+A házi feladat opcionális. A teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -83,7 +83,7 @@ A következőkre kell figyelni a beszúráskor:
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel! Emellett készíts egy képernyőképet az első feladathoz hasonlóan, amelyben a vonatkozó teszteket lefuttattad! A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-## Feladat 3: Raktár méret becslés (2 iMsc pont)
+## Feladat 3: Raktár méret becslés (3 iMsc pont)
 
 Egy cég új telephelyre költözik. A vezetésnek szüksége van arra az információra, hogy át tudják-e költöztetni a már meglévő raktárkészletet az új raktárba. Implementáld a függvényt, amely kiszámolja a **teljes raktárkészletre a csomagok térfogatát**!
 
