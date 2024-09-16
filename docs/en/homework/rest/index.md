@@ -1,6 +1,9 @@
 ﻿# Exercise: REST API and Web API
 
-This exercise is optional. You may earn **2 points** by completing this exercise.
+!!! important "IMPORTANT"
+    Not finalized for 2024!
+
+This exercise is optional. You may earn **4 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
