@@ -1,6 +1,6 @@
 # Feladat: MSSQL szerveroldali programozás
 
-A házi feladat opcionális. A teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
+MSSQL házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 

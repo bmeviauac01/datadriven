@@ -1,6 +1,9 @@
 # Feladat: REST API Web API technológiával
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+!!! important "FIGYELEM"
+    2024-re még nem végleges!
+
+A ASP.NET Core REST API házi feladat, a teljesítéssel **2 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 

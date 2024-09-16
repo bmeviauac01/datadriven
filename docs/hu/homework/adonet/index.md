@@ -1,5 +1,8 @@
 # Feladat: ADO.NET adatelérés
 
+!!! important "2024-től kifutott"
+    FIGYELEM: Ez a feladat 2024-től már nem aktív.
+
 A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
