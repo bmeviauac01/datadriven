@@ -1681,7 +1681,7 @@
 <span class="k">where</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
 </code></pre></div>
 <p>What was the min, max and average selling price of each product with name containing <em>Lego</em> having an average selling price more than 10000</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="o">*</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span><span class="o">/</span><span class="k">sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
 <span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 <span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
 <span class="k">Where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Lego%&#39;</span>
@@ -1965,8 +1965,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 17, 2023 08:53:48">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T08:53:48+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span title="October 6, 2024 19:37:54">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-06T19:37:54+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-06</span>
       </span>
     </span>
 
@@ -1985,6 +1985,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almatn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Almat">
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&v=4?size=72" alt="@Almat">
+        </a><a href="https://github.com/KlevisImeri" target="_blank" rel="noopener noreferrer" class="md-author" title="@Klevis">
+          <img src="https://avatars.githubusercontent.com/u/96891515?u=6a55d1629b68edb71395830f3be880efe35737ba&v=4?size=72" alt="@Klevis">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
           <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@Ádám Tanai">
         </a></nav>      
