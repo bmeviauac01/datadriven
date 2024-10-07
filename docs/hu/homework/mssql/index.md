@@ -49,7 +49,7 @@ Ellenőrizd az eljárás működését!
 
     Készíts egy képernyőképet amin látható a tárolt eljárás lefutása és annak hatása, illetve mi történik, ha hibás adatokat adunk meg (lehet egy ablakban két tabbal például). A képen legyen látható az adatbázisod neve (a Neptun kódod). A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-## Feladat 3: Termék ajánlott korhatára (2 iMsc pont)
+## Feladat 3: Termék ajánlott korhatára (3 iMsc pont)
 
 !!! note ""
     Az iMsc pont megszerzésére az első két feladat megoldásával együtt van lehetőség.
