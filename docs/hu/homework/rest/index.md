@@ -90,7 +90,9 @@ Ebben a feladatban létre kell hoznod egy végpontot, ami biztosítja a terméke
 
 1. A kérés `PATCH` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 204 legyen, ha sikerül, vagy 404, ha nincs ilyen elem.
 
-1. A `ProductController` osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést. Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).
+1. A `ProductController` osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést.
+A végpont által kapott paraméter típusa `JsonPatchDocument` erősen típusos változata legyen.
+Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
