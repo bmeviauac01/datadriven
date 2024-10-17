@@ -1,6 +1,6 @@
 ﻿# Homework
 
-With these exercises you can earn **points** that are added to your exam score. Maximum 4 points per homework. In the exercises and the evaluation results, you will see a text “iMsc”; these iMsc points are not counted! (These are special points for Hungarian curriculum). All non-iMsc exercises are available for points on this course, 5 homeworks, maximum 4 points per homework, maximum 20 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercies exactly as in the guide, or it is late, you get no points at all! Make sure to follow the guide and do **everything in time**!
+With these exercises you can earn **points** that are added to your exam score. Maximum 4 points per homework. In the exercises and the evaluation results, you will see a text “iMsc” for optional excerciser; these iMsc points are not counted! (These are special points for Hungarian curriculum). All non-iMsc exercises are available for points on this course, 5 homeworks, maximum 4 points per homework, maximum 20 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercies exactly as in the guide, or it is late, you get no points at all! Make sure to follow the guide and do **everything in time**!
 
 !!! important "Working code"
     You are expected to write code that actually works! Your code will be executed, and it is required to fulfill the specified task.
@@ -10,7 +10,8 @@ With these exercises you can earn **points** that are added to your exam score. 
 1. [MSSQL server-side programming](mssql/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
-1. [REST API and Web API](rest/index.md)
+1. REST API and Web API
+1. GraphQL
 
 ## Submission
 

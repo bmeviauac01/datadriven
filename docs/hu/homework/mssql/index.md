@@ -1,6 +1,6 @@
 # Feladat: MSSQL szerveroldali programozás
 
-A házi feladat opcionális. A teljesítéssel **4 pont és 2 iMsc pont** szerezhető.
+MSSQL házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -45,11 +45,11 @@ Szeretnénk lehetőséget biztosítani rendelések lemondására is egy tárolt 
 Ellenőrizd az eljárás működését!
 
 !!! example "BEADANDÓ"
-    A trigger kódját az `f2.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create procedure cancel_invoice`), ne legyen benne se `use` se `go` parancs!
+    A tárolt eljárás kódját az `f2.sql` fájlban add be. Az sql fájl egyetlen utasítást tartalmazzon csak (egyetlen `create procedure cancel_invoice`), ne legyen benne se `use` se `go` parancs!
 
     Készíts egy képernyőképet amin látható a tárolt eljárás lefutása és annak hatása, illetve mi történik, ha hibás adatokat adunk meg (lehet egy ablakban két tabbal például). A képen legyen látható az adatbázisod neve (a Neptun kódod). A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-## Feladat 3: Termék ajánlott korhatára (2 iMsc pont)
+## Feladat 3: Termék ajánlott korhatára (3 iMsc pont)
 
 !!! note ""
     Az iMsc pont megszerzésére az első két feladat megoldásával együtt van lehetőség.

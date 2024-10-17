@@ -1,6 +1,6 @@
 # Feladat: REST API Web API technológiával
 
-A házi feladat teljesítésével **4 pont és 2 iMsc pont** szerezhető.
+A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 

@@ -1,6 +1,6 @@
-# Szorgalmi házi feladatok
+# Kis házi feladatok
 
-A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük. A feladatok leírása található itt; a megoldások beadása GitHub Classroom segítségével történik.
+A házi feladatok **kötelezőek (lásd követelméynek), vizsgapont és iMsc pont** szerezhető velük. A feladatok leírása található itt; a megoldások beadása GitHub Classroom segítségével történik.
 
 !!! important "Működő kód"
     A feladatok során működő kódot, kódrészleteteket kell készíteni. A feladat lényege a valóságban működő és a kívánt funkciót ellátó kód készítése.
@@ -10,7 +10,8 @@ A házi feladatok **opcionálisak, pluszpont és iMsc pont** szerezhető velük.
 1. [MSSQL szerveroldali programozás](mssql/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
-1. [REST API Web API technológiával](rest/index.md)
+1. REST API Web API technológiával
+1. GraphQL
 
 ## A feladatok beadása
 
@@ -44,10 +45,10 @@ A feladatok kérik, hogy készíts képernyőképet a megoldás egy-egy részér
 - REST API feladatokhoz: [Postman](https://www.getpostman.com/)
 - Az első házi kivételével a C# programozós feladatokhoz:
     - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md). Linux és MacOS esetén Visual Studio Code és a .NET SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/) használható.
-    - [.NET **6.0** SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+    - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 
-        !!! warning ".NET 6.0"
-            A feladat megoldásához **6.0** .NET SDK telepítése szükséges.
+        !!! warning ".NET 8.0"
+            A feladat megoldásához **8.0** .NET SDK telepítése szükséges.
 
             Windows-on Visual Studio verzió függvényében lehet, hogy telepítve van (lásd [itt](VisualStudio.md#net-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nem, akkor a fenti linkről kell telepíteni (az SDK-t és _nem_ a runtime-ot.) Linux és MacOS esetén telepíteni szükséges.
 

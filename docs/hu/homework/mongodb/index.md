@@ -1,6 +1,6 @@
 # Feladat: MongoDB
 
-A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
+MongoDB házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -12,7 +12,7 @@ Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../..
 
 Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
 
-## Feladat 1: Legnagyobb összértékű termék a raktárban (2 pluszpont)
+## Feladat 1: Legnagyobb összértékű termék a raktárban (2 pont)
 
 A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó termékek közül melyik képviseli a legnagyobb összértéket — tehát melyik termék az, amelyiknek az **ára szorozva a raktárban lévő mennyiségével a legnagyobb**. Ehhez a `ProductRepository` osztályban a következő metódust kell implementálnunk.
 
@@ -65,7 +65,25 @@ A teszteléshez találsz unit teszteket a solution-ben. A teszteket [Visual Stud
 
     A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
-## Feladat 2: Raktár méret becslés (2 iMsc pont)
+## Feladat 2: Új termék beszúrása (2 pont)
+
+A feladat egy új termék beszúrásához egy függvény készítése. A beszúráskor több feltételnek is meg kell felelni, amiket ellenőrizni kell a beszúrás előtt. Ehhez implementáld az `InsertProduct(string name, string category, int vat)` függvényt
+
+A következőkre kell figyelni a beszúráskor:
+- Amennyiben adott névvel már van termék, dobj kivételt (`ArgumentException`)
+- Amennyiben a megadott `category` nevű kategória még nincsen, dobj kivételt (`ArgumentException`)
+- Amennyiben a megadott `vat` értékhez tartozik már név egy másik `Product` példány esetén, akkor használd annak a nevét, egyébként vedd fel `"VAT"` névvel a beszúrandó termékhez.
+
+1. A repository osztály konstruktorát egészítsd ki, hogy legyenek kategóriák is elérhetőek. Ehhez vedd fel a kategóriához tartozó osztályt!
+
+1. Készítsd el a függvény implementációját, a paraméterekkel kapcsolatos kikötéseket ellenőrizd mielőtt a beszúrást végrehajtod! Segítségedre vannak a `TestExercise2.cs` fájlban található tesztek.
+
+1. A termék méretei 1x1x1 cm-esek legyenek, a többi nem megadott változót vedd fel általad választott értékekkel!
+
+!!! example "BEADANDÓ"
+    A módosított C# forráskódot töltsd fel! Emellett készíts egy képernyőképet az első feladathoz hasonlóan, amelyben a vonatkozó teszteket lefuttattad! A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+
+## Feladat 3: Raktár méret becslés (3 iMsc pont)
 
 Egy cég új telephelyre költözik. A vezetésnek szüksége van arra az információra, hogy át tudják-e költöztetni a már meglévő raktárkészletet az új raktárba. Implementáld a függvényt, amely kiszámolja a **teljes raktárkészletre a csomagok térfogatát**!
 
@@ -93,7 +111,7 @@ A szükséges adatok nincsenek leképezve C# entitásra, ezeket neked kell elké
 !!! warning "Fluent Api-t használj"
     Mindenképpen C#-os Fluent Api-t használj! Ne `BsonDocument`-ben írd meg a lekérdezést!
 
-Ha sikerült implementálni a metódust, akkor a korábban már látott módon a `TestExercise2` osztályban található teszt metódussal ellenőrizni tudod a működést. A teszt az adatbázis kiinduló állapotát feltételezi.
+Ha sikerült implementálni a metódust, akkor a korábban már látott módon a `TestExercise3` osztályban található teszt metódussal ellenőrizni tudod a működést. A teszt az adatbázis kiinduló állapotát feltételezi.
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
