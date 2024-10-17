@@ -1300,18 +1300,51 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-1-termek-muveletek-2-pluszpont" class="md-nav__link">
+  <a href="#feladat-1-egyszeru-lekerdezes-es-openapi-dokumentacio-2-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 1: Termék műveletek (2 pluszpont)
+      Feladat 1: Egyszerű lekérdezés és OpenAPI dokumentáció (2 pont)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feladat 1: Egyszerű lekérdezés és OpenAPI dokumentáció (2 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#egyszeru-lekerdezes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Egyszerű lekérdezés
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openapi-dokumentacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenAPI dokumentáció
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-2-termek-muveletek-2-pont" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat 2: Termék műveletek (2 pont)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-2-openapi-dokumentacio-2-imsc-pont" class="md-nav__link">
+  <a href="#feladat-3-termek-reszleges-frissitese-3-imsc-pont" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 2: OpenAPI dokumentáció (2 iMsc pont)
+      Feladat 3: Termék részleges frissítése (3 iMsc pont)
     </span>
   </a>
   
@@ -1341,16 +1374,12 @@
 
 
 <h1 id="feladat-rest-api-web-api-technologiaval">Feladat: REST API Web API technológiával<a class="headerlink" href="#feladat-rest-api-web-api-technologiaval" title="Permanent link">&para;</a></h1>
-<div class="admonition important">
-<p class="admonition-title">FIGYELEM</p>
-<p>2024-re még nem végleges!</p>
-</div>
-<p>A ASP.NET Core REST API házi feladat, a teljesítéssel <strong>2 pont és 3 iMsc pont</strong> szerezhető.</p>
+<p>A házi feladat teljesítésével <strong>4 pont és 3 iMsc pont</strong> szerezhető.</p>
 <p>GitHub Classroom segítségével hozz létre magadnak egy repository-t. A <strong>meghívó URL-t Moodle-ben találod</strong>. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.</p>
 <p>A megoldáshoz szükséges szoftvereket és eszközöket lásd <a href="../#szukseges-eszkozok">itt</a>.</p>
 <h2 id="feladat-0-neptun-kod">Feladat 0: Neptun kód<a class="headerlink" href="#feladat-0-neptun-kod" title="Permanent link">&para;</a></h2>
 <p>Első lépésként a gyökérben található <code>neptun.txt</code> fájlba írd bele a Neptun kódodat!</p>
-<h2 id="feladat-1-termek-muveletek-2-pluszpont">Feladat 1: Termék műveletek (2 pluszpont)<a class="headerlink" href="#feladat-1-termek-muveletek-2-pluszpont" title="Permanent link">&para;</a></h2>
+<h2 id="feladat-1-egyszeru-lekerdezes-es-openapi-dokumentacio-2-pont">Feladat 1: Egyszerű lekérdezés és OpenAPI dokumentáció (2 pont)<a class="headerlink" href="#feladat-1-egyszeru-lekerdezes-es-openapi-dokumentacio-2-pont" title="Permanent link">&para;</a></h2>
 <p>A létrehozott és klónozott repository-ban megtalálható a kiinduló kód váz. Nyisd meg Visual Studio-val és indítsd el. Egy konzol alkalmazásnak kell elindulnia, amely hosztolja a web alkalmazást. Próbáld ki (miközben fut a program): böngészőben nyisd meg a <a href="http://localhost:5000/api/product">http://localhost:5000/api/product</a> oldalt, ahol a termékek listáját kell lásd JSON formában.</p>
 <p>Nézd meg a rendelkezésre álló kódot.</p>
 <ul>
@@ -1359,6 +1388,7 @@
 <li>A <code>ProductsController</code> <em>dependency injection</em> segítségével példányosítja az <code>IProductRepository</code>-t.</li>
 </ul>
 <p>Feladatok:</p>
+<h3 id="egyszeru-lekerdezes">Egyszerű lekérdezés<a class="headerlink" href="#egyszeru-lekerdezes" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>A <code>DAL.ProductRepository</code> osztályban a <code>Neptun</code> nevű mező értékében cseréld le a Neptun kódod. A string értéke a Neptun kódod 6 karaktere legyen.</p>
@@ -1370,30 +1400,8 @@
 <li>
 <p>Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy <code>HEAD</code> típusú HTTP kérést fogunk küldeni a <code>/api/product/{id}</code> URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).</p>
 </li>
-<li>
-<p>Készíts egy olyan API végpontot, ami egy terméket (<code>Product</code>) ad vissza az id-ja alapján; a kérés <code>GET</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem.</p>
-</li>
-<li>
-<p>Készíts egy olyan API végpontot, ami töröl egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>DELETE</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
-</li>
-<li>
-<p>Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy <code>GET</code> típusú kérés legyen a <code>/api/product/-/count</code> címre. A visszaadott adat a <code>CountResult</code> osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).</p>
-<details class="question">
-<summary>Miért van a <code>/-</code> rész az URL-ben?</summary>
-<p>Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehetne az URL: termékek darabszámára vagyunk kíváncsiak, tehát <code>/api/product/</code>, de utána mi? Lehetne <code>/api/product/count</code>. Viszont ez "összekeveredik" a <code>/api/product/123</code> jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha <code>/123</code> az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig <code>/count</code> az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A <code>/-</code> rész azt jelzi, hogy ott <em>nem</em> termék azonosító utazik.</p>
-<p>Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute"><code>[Http*]</code> attribútumok <code>Order</code> tulajdonságával</a>.</p>
-</details>
-</li>
 </ol>
-<div class="admonition example">
-<p class="admonition-title">BEADANDÓ</p>
-<p>A módosított forráskódot töltsd fel.</p>
-<p>Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a <strong>Neptun kódodnak</strong>. A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
-</div>
-<h2 id="feladat-2-openapi-dokumentacio-2-imsc-pont">Feladat 2: OpenAPI dokumentáció (2 iMsc pont)<a class="headerlink" href="#feladat-2-openapi-dokumentacio-2-imsc-pont" title="Permanent link">&para;</a></h2>
-<div class="admonition note">
-<p>Az iMsc pont megszerzésére az első feladat megoldásával együtt van lehetőség.</p>
-</div>
+<h3 id="openapi-dokumentacio">OpenAPI dokumentáció<a class="headerlink" href="#openapi-dokumentacio" title="Permanent link">&para;</a></h3>
 <p>Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger">OpenAPI specifikációt és dokumentációt</a> a REST API leírásához.</p>
 <ol>
 <li>
@@ -1412,11 +1420,65 @@
 <p>Próbáld ki a SwaggerUI "Try it out" szolgáltatását: tényleg kiküldi a kérést a webalkalmazásnak, és látod a valódi választ.</p>
 <p><a class="glightbox" href="swaggerui-try.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SwaggerUI Try it out" src="swaggerui-try.png" /></a></p>
 </li>
+<li>
+<p>Készítd el azt az API végpontot, ami vissza is adja a kívánt terméket (<code>Product</code>) az id-ja alapján; a kérés <code>GET</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem. Ellenőrizd a SwaggerUI segítségével.</p>
+</li>
 </ol>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított forráskódot töltsd fel. Ügyelj rá, hogy a <code>csproj</code> fájl is módosult a hozzáadott NuGet csomaggal!</p>
 <p>Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a <code>/neptun</code> címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet <code>f2.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+</div>
+<h2 id="feladat-2-termek-muveletek-2-pont">Feladat 2: Termék műveletek (2 pont)<a class="headerlink" href="#feladat-2-termek-muveletek-2-pont" title="Permanent link">&para;</a></h2>
+<p>A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.</p>
+<ol>
+<li>
+<p>Készíts egy olyan API végpontot, ami beszúr egy új terméket (<code>Product</code>) az id-ja alapján; a kérés <code>POST</code> típusú legyen a <code>/api/product</code> címre, a kérés törzsében várja az új <code>Product</code> értéket, és a válasz vagy 201 legyen, vagy 419, ha már van ilyen elem.</p>
+</li>
+<li>
+<p>Készíts egy olyan API végpontot, ami módosít egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>PUT</code> típusú legyen a <code>/api/product/{id}</code> címre, a kérés törzsében várja a változtatott <code>Product</code> értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
+</li>
+<li>
+<p>Készíts egy olyan API végpontot, ami töröl egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>DELETE</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
+</li>
+<li>
+<p>Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy <code>GET</code> típusú kérés legyen a <code>/api/product/-/count</code> címre. A visszaadott adat a <code>CountResult</code> osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).</p>
+<details class="question">
+<summary>Miért van a <code>/-</code> rész az URL-ben?</summary>
+<p>Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehetne az URL: termékek darabszámára vagyunk kíváncsiak, tehát <code>/api/product/</code>, de utána mi? Lehetne <code>/api/product/count</code>. Viszont ez "összekeveredik" a <code>/api/product/123</code> jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha <code>/123</code> az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig <code>/count</code> az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A <code>/-</code> rész azt jelzi, hogy ott <em>nem</em> termék azonosító utazik.</p>
+<p>Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute"><code>[Http*]</code> attribútumok <code>Order</code> tulajdonságával</a>.</p>
+</details>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>A módosított forráskódot töltsd fel.</p>
+<p>Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a <strong>Neptun kódodnak</strong>. A képet <code>f2.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+</div>
+<h2 id="feladat-3-termek-reszleges-frissitese-3-imsc-pont">Feladat 3: Termék részleges frissítése (3 iMsc pont)<a class="headerlink" href="#feladat-3-termek-reszleges-frissitese-3-imsc-pont" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p>Az iMsc pont megszerzésére az első két feladat megoldásával együtt van lehetőség.</p>
+</div>
+<p>A termékek módosítása esetén az eddig használt <code>PUT</code> hívásnak számos hátránya van. A <code>PUT</code> a teljes erőforrás frissítésére lett kitalálva, azaz egy termék módosításához a teljes terméket el kell küldeni. Ez egyrészt kevéssé hatékony (például hálózaton le kell kérni és átküldeni minden meglévő tulajdonságát, akármilyen nagyok is azok), illetve ezek feldolgozása is plusz feladatokat jelenthet. A <code>PATCH</code> ige arra lett kitalálva, hogy részleges frissítési lehetőséget biztosítson, azaz elég legyen elküldeni azokat a tulajdonságokat amiket módosítani szeretnénk.</p>
+<p>Ebben a feladatban létre kell hoznod egy végpontot, ami biztosítja a termékek részleges frissítését:</p>
+<ol>
+<li>
+<p>A kérés <code>PATCH</code> típusú legyen a <code>/api/product/{id}</code> címre, és a válasz vagy 204 legyen, ha sikerül, vagy 404, ha nincs ilyen elem.</p>
+</li>
+<li>
+<p>A <code>ProductController</code> osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést.
+A végpont által kapott paraméter típusa <code>JsonPatchDocument</code> erősen típusos változata legyen.
+Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">JsonPatchDocument</p>
+<p>A <code>JsonPatchDocument</code> az ASP.NET Core által nyújtott osztály és tartozik hozzá beépített mechanizmus is.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>A módosított forráskódot töltsd fel.</p>
+<p>Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres részleges módosítás eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a <strong>Neptun kódodnak</strong>. A képet <code>f3.png</code> néven mentsd el és add be a megoldásod részeként!</p>
 </div>
 
     <hr>
@@ -1428,8 +1490,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 16. 13:15:02">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-16T13:15:02+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-16</span>
+      <span title="2024. október 17. 09:13:50">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-17T09:13:50+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-17</span>
       </span>
     </span>
 
@@ -1448,6 +1510,8 @@
           <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
         </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/borosboyo" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Boros">
           <img src="https://avatars.githubusercontent.com/u/56091462?u=0f833599c55a2fc348ff145dbd622744acefd9f0&v=4?size=72" alt="@Gergő Boros">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
