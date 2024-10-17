@@ -79,7 +79,7 @@ A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása,
 
 
 
-## Feladat 3: Termék részleges frissítése (2 iMsc pont)
+## Feladat 3: Termék részleges frissítése (3 iMsc pont)
 
 !!! note ""
     Az iMsc pont megszerzésére az első két feladat megoldásával együtt van lehetőség.
@@ -93,6 +93,9 @@ Ebben a feladatban létre kell hoznod egy végpontot, ami biztosítja a terméke
 1. A `ProductController` osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést.
 A végpont által kapott paraméter típusa `JsonPatchDocument` erősen típusos változata legyen.
 Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).
+
+!!! tip "JsonPatchDocument"
+    A `JsonPatchDocument` az ASP.NET Core által nyújtott osztály és tartozik hozzá beépített mechanizmus is.
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
