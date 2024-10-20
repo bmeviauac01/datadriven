@@ -1530,7 +1530,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Windows mentes fejlesztés</p>
-<p>A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 6 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.</p>
+<p>A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 8 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.</p>
 </div>
 <h2 id="gyakorlat-menete">Gyakorlat menete<a class="headerlink" href="#gyakorlat-menete" title="Permanent link">&para;</a></h2>
 <p>A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.</p>
@@ -1540,7 +1540,7 @@
 <h2 id="feladat-0-adatbazis-letrehozasa-ellenorzese">Feladat 0: Adatbázis létrehozása, ellenőrzése<a class="headerlink" href="#feladat-0-adatbazis-letrehozasa-ellenorzese" title="Permanent link">&para;</a></h2>
 <p>Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az <a href="../transactions/">első gyakorlat anyagában</a>.)</p>
 <h2 id="feladat-1-projekt-letrehozasa-adatbazis-lekepzese">Feladat 1: Projekt létrehozása, adatbázis leképzése<a class="headerlink" href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" title="Permanent link">&para;</a></h2>
-<p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).</p>
+<p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 8 keretrendszer felett (tehát ne a régi .NET Framework alapút).</p>
 <p><a class="glightbox" href="images/vs-create-project.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="VS projekt típus" src="images/vs-create-project.png" /></a></p>
 <p>Hozd létre a projektet, a neve legyen a neptun kódod és a <code>c:\work</code> mappába dolgozz.</p>
 <ol>
@@ -1623,7 +1623,7 @@ Az EF egy speciális táblában az <code>__EFMigrationHitory</code>-ban követi 
 <li>
 <p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, <strong>ezért a Solution Explorerből a fájl nevét másoljuk ki</strong>!</p>
 <p><a class="glightbox" href="images/migration_codefile.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="VS Solution Explorer, migration file" src="images/migration_codefile.png" /></a></p>
-<p><a class="glightbox" href="images/vs-migration-history.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="VS Migration History" src="images/vs-migration-history.png" /></a></p>
+<p><a class="glightbox" href="images/vs-migration-history_new.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="VS Migration History" src="images/vs-migration-history_new.png" /></a></p>
 </li>
 <li>
 <p>Módosítsunk az adatbázis sémán a code-first modellünkben.</p>
@@ -1957,8 +1957,8 @@ A naplózás is bekapcsolható az alábbi paranccsal:
           </path>
         </svg>
       </span>
-      <span title="2024. augusztus 22. 20:20:33">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-22T20:20:33+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-22</span>
+      <span title="2024. október 19. 23:41:49">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T23:41:49+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
       </span>
     </span>
 
@@ -1981,6 +1981,8 @@ A naplózás is bekapcsolható az alábbi paranccsal:
           <img src="https://avatars.githubusercontent.com/u/61751571?v=4?size=72" alt="@István Albert">
         </a><a href="https://github.com/MartonGallyas" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/42243742?u=3155c80e8e29e457d8697519419496ca56b4a8b4&v=4?size=72" alt="@None">
+        </a><a href="https://github.com/norbertkurcsi" target="_blank" rel="noopener noreferrer" class="md-author" title="@Kurcsi Norbert">
+          <img src="https://avatars.githubusercontent.com/u/90260479?u=5dc2891fae39aac8292aedfc0a555941ee742a61&v=4?size=72" alt="@Kurcsi Norbert">
         </a><a href="https://github.com/tbeni22" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/47601385?u=ab4558d48192115ad9680f9aedce3c2acdd4211e&v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
