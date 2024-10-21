@@ -120,7 +120,7 @@ where Price=(select max(Price) from Product)
 What was the min, max and average selling price of each product with name containing _Lego_ having an average selling price more than 10000
 
 ```sql
-select p.Id, p.Name, min(oi.Price), max(oi.Price), avg(oi.Price)
+select p.Id, p.Name, min(oi.Price), max(oi.Price), sum(oi.Price*oi.Amount)/sum(oi.Amount)
 from Product p
      inner join OrderItem oi on p.ID=oi.ProductID
 Where p.Name like '%Lego%'

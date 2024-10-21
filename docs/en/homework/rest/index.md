@@ -1,8 +1,8 @@
-﻿# Task: REST API with Web API Technology
+# Task: REST API with Web API Technology
 
 You may earn **4 points** by completing this exercise.
 
-Create a repository using GitHub Classroom. You can find the **invitation URL in Moodle**. Clone the repository after it's been created. This will contain the expected structure of the solution. After completing the tasks, commit and push your solution.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
 The required software and tools for the solution can be found [here](../index.md#required-tools).
 

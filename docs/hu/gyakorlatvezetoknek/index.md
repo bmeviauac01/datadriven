@@ -18,7 +18,7 @@ A gyakorlat kiadott segédlet alapján kerül megtartásra. A gyakorlatvezető f
 
 **Számonkérések lebonyolításában segítség.** A tárgyban ZH, PZH, és 4 vizsga van. Mindegyik számonkérés írásban történik. A gyakorlatvezető feladata a számonkérések felügyelése majd a javításban történő részvétel. A felügyelés ideje alkalmanként körülbelül 1 óra, a javítás ideje létszám függően 0.5-2 óra alkalmanként. Gyakorlatvezetőként körülbelül a számonkérések felében kell részt venni.
 
-**Házi feladatok értékelése.** A félév során 5 opcionális kis házi feladatot hirdetünk meg. Ezeket a hallgatók otthon, önállóan oldják meg és adják be GitHub pull request-ek formájában. A házi feladatok kiértékelése részben automatikusan történik: egy szoftver lefuttatja és ellenőrzi a beadott munkát. A gyakorlatvezető feladata a beadott házi feladat formai ellenőrzése: kért képernyőképek megfelelnek-e az előírásoknak és konzisztensek-e a beadott forráskóddal. A házi feladat nem kötelező, nem minden hallgató szokta elkészíteni, így házi feladatonként körülbelül 1 óra idő ráfordítást jelent.
+**Házi feladatok értékelése.** A félév során 5 kis házi feladatot hirdetünk meg. Ezeket a hallgatók otthon, önállóan oldják meg és adják be GitHub pull request-ek formájában. A házi feladatok kiértékelése részben automatikusan történik: egy szoftver lefuttatja és ellenőrzi a beadott munkát. A gyakorlatvezető feladata a beadott házi feladat formai ellenőrzése: kért képernyőképek megfelelnek-e az előírásoknak és konzisztensek-e a beadott forráskóddal. A házi feladat nem kötelező, nem minden hallgató szokta elkészíteni, így házi feladatonként körülbelül 1 óra idő ráfordítást jelent.
 
 ## Demonstrátorság
 

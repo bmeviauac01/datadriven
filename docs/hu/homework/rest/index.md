@@ -94,6 +94,9 @@ Ebben a feladatban létre kell hoznod egy végpontot, ami biztosítja a terméke
 A végpont által kapott paraméter típusa `JsonPatchDocument` erősen típusos változata legyen.
 Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).
 
+!!! tip "JsonPatchDocument"
+    A `JsonPatchDocument` az ASP.NET Core által nyújtott osztály és tartozik hozzá beépített mechanizmus is.
+
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
 

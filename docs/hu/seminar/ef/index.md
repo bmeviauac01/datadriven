@@ -24,7 +24,7 @@ Amit érdemes átnézned:
 - Entity Framework Core és LINQ
 
 !!! note "Windows mentes fejlesztés"
-    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 6 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
+    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 8 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
 
 ## Gyakorlat menete
 
@@ -39,7 +39,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 6 keretrendszer felett (tehát ne a régi .NET Framework alapút).
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 8 keretrendszer felett (tehát ne a régi .NET Framework alapút).
 
 ![VS projekt típus](images/vs-create-project.png)
 
@@ -130,7 +130,7 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 
         ![VS Solution Explorer, migration file](images/migration_codefile.png)
 
-        ![VS Migration History](images/vs-migration-history.png)
+        ![VS Migration History](images/vs-migration-history_new.png)
 
     - Módosítsunk az adatbázis sémán a code-first modellünkben.
 

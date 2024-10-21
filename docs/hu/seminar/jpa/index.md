@@ -46,8 +46,8 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 ## Feladat 1: IDE indítása
 
-1. Indítsuk el a Spring Tool Suite-ot innen: `c:\Work\hatteralkalmazasok\sts-4.5.1.RELEASE\SpringToolSuite4.exe`.
-1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: `c:\Work\hatteralkalmazasok\workspaces\adatvez`
+1. Indítsuk el a Spring Tool Suite-ot innen: `C:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe`.
+1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: `C:\Tools\hatteralkalmazasok\workspaces\adatvez`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 
 ## Feladat 2: Projekt importálása
@@ -109,7 +109,7 @@ A futó alkalmazást a _Console_ nézet piros _Terminate_ ikonjával lehet leál
 
 Ha a teljes _Console_ nézetet bezárjuk véletlenül, elő lehet szedni _Alt+Shift+Q, C_ gyorsbillentyűvel, vagy _Window / Show View / Console_ menüvel.
 
-A leállítás utáni újrafuttatáshoz az F11-et is használhatjuk.
+Az újrafuttatáshoz az F11-et is használhatjuk. Az előre elkészített workspace-ben az is be van állítva, hogy ilyenkor a már futó alkalmazást leállítsa az új példány futtatása előtt, tehát a kézi leállítás (Terminate) megspórolható.
 
 A debug módban való futtatás jellegzetessége, hogy a HTML és bizonyos Java kód módosítások azonnal életbe lépnek. (A böngészőt persze frissíteni kell.) Újra kell viszont indítani az alkalmazást, ha a Java kódban:
 
@@ -184,8 +184,8 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
     
     import java.util.List;
     
-    import javax.persistence.EntityManager;
-    import javax.persistence.PersistenceContext;
+    import jakarta.persistence.EntityManager;
+    import jakarta.persistence.PersistenceContext;
     
     public class ProductRepositoryImpl implements ProductRepositoryCustom {
     
