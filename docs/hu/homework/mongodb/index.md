@@ -1,4 +1,4 @@
-# Feladat: MongoDB
+# 3. MongoDB
 
 MongoDB házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 

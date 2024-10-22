@@ -1,4 +1,4 @@
-﻿# Exercise: MongoDB
+﻿# 3. MongoDB
 
 You may earn **4 points** by completing this exercise.
 

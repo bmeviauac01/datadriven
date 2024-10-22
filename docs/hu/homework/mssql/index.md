@@ -1,4 +1,4 @@
-# Feladat: MSSQL szerveroldali programozás
+# 1. MSSQL szerveroldali programozás
 
 MSSQL házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 

@@ -1,4 +1,4 @@
-# Feladat: Entity Framework
+# 2. Entity Framework
 
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 

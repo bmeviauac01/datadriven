@@ -1,4 +1,4 @@
-﻿# Exercise: MSSQL server-side programming
+﻿# 1. MSSQL server-side programming
 
 You may earn **4 points** by completing this exercise.
 

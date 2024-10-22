@@ -3,7 +3,7 @@
 The goal of the seminar is to practice writing Linq queries and working with Entity Framework.
 
 !!! important "Entity Framework Core"
-    In this seminar, we are using .NET 6 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.
+    In this seminar, we are using .NET 8 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.
 
 ## Pre-requisites
 

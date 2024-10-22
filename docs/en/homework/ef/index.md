@@ -1,4 +1,4 @@
-﻿# Exercise: Entity Framework
+﻿# 2. Entity Framework
 
 You may earn **4 points** by completing this exercise.
 
