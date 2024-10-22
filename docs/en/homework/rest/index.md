@@ -1,74 +1,95 @@
-﻿# Exercise: REST API and Web API
+# Task: REST API with Web API Technology
 
-!!! important "IMPORTANT"
-    Not finalized for 2024!
-
-This exercise is optional. You may earn **4 points** by completing this exercise.
+You may earn **4 points** by completing this exercise.
 
 Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
 
-Check the required software and tools [here](../index.md#required-tools).
+The required software and tools for the solution can be found [here](../index.md#required-tools).
 
 ## Exercise 0: Neptun code
 
-Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
+As a first step, enter your Neptun code into the `neptun.txt` file located in the root folder.
 
-## Exercise 1: Operations on products (2 points)
+## Exercise 1: Simple query and OpenAPI documentation (2 points)
 
-The repository you cloned contains a skeleton application. Open the provided Visual Studio solution and start the application. A console window should appear that hosts the web application. While the web app is running, test it: open a browser to <http://localhost:5000/api/product>. The page should display a list of products in JSON format.
+In the created and cloned repository, you'll find the initial code structure. Open it with Visual Studio and start the project. The basic program provides an empty solution. A console application should be started that hosts the web application. Try it out (while the program is running): open <http://localhost:5000/api/product> in your browser, where you should see the list of products in JSON format.
 
-Check the source code.
+Check the available code.
 
-- `Startup.cs` initializes your application. This is an ASP.NET Core web application.
-- There is no database used in this project to make things simpler. Class `ProductRepository` contains hard-wired data used for testing.
-- `ProductsController` uses _dependency injection_ to instantiate  `IProductRepository`.
+- The `Startup.cs` initializes the application. This is an ASP.NET Core web application.
+- For simplicity, there is no database access in the application. The `ProductRepository` provides data to be used for testing.
+- The `ProductsController` instantiates the `IProductRepository` using _dependency injection_.
 
-Exercises:
+Tasks:
 
-1. In class `DAL.ProductRepository` edit the field `Neptun` and add your Neptun code here. The string should contain the 6 characters of your Neptun code.
+### Simple Query
+
+1. In the `DAL.ProductRepository` class, replace the value of the field named `Neptun` with your Neptun code. The string value should consist of 6 characters from your Neptun code.
 
     !!! warning "IMPORTANT"
-        The data altered this way will be displayed on a screenshot in a later exercise; hence this step is essential.
+        A screenshot must be taken of the modified data, so this step is important.
 
-1. Create a new API endpoint for verifying whether a particular product specified by its ID exists. This new endpoint should respond to a `HEAD` HTTP query at URL `/api/product/{id}`. The HTTP response should be status code 200 or 404 (without any body either case).
+2. Create an API endpoint to check if a product with a given id exists. We will send a `HEAD` HTTP request to the `/api/product/{id}` URL for the query. The response should be HTTP 200 or 404 (without any extra content/body, only the response code is required).
 
-1. Create a new API endpoint that returns a single `Product` specified by its ID; the query is a `GET` query at URL `/api/product/{id}` and the response should be either 200 OK with the product as body, or 404 when the product is not found.
+### OpenAPI Documentation
 
-1. Create a new API endpoint that deletes a `Product` specified by its ID; the query is a `DELETE` query at URL `/api/product/{id}` and the response should be either 204 with no content, or 404 when the product is not found.
+OpenAPI (formerly known as Swagger) is a documentation tool for REST APIs. Its purpose is similar to that of WSDL used for Web Services: to describe the API services in a standardized format. After completing the previous tasks, create an [OpenAPI specification and documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger) for the REST API description.
 
-1. Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a `GET` HTTP request to URL `/api/product/-/count`. The returned result should be a JSON serialized `CountResult` object with the correct count.
+1. To complete the solution, follow the official Microsoft documentation: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle>
 
-    ??? question "Why is there a `/-` in the URL?"
-        In order to understand the need for this, let us consider what the URL should look like: we are querying products, so `/api/product` is the prefix, but what is the end of the URL? It could be `/api/product/count`. However, this clashes with `/api/product/123` where we can get a particular product. In practice, the two URLs could work side-by-side here since the product ID is an integer, and the framework would recognize that an URL ending in `/123` is to get a product and the `/count` is to get the counts. But this works only as long as the ID is an integer. If the product ID were a string, this would be more problematic. Our solution makes sure that the URLs do not clash. The `/-` is to indicate that there is _no_ product ID.
+    - Make sure to use the **Swashbuckle** option.
+    - The `swagger.json` should be generated by the application itself (you don't need to write it manually), and it should be accessible at `/swagger/v1/swagger.json`.
+    - Also set up the _Swagger UI_, which should be accessible at `/neptun`. You can achieve this by configuring the `RoutePrefix` in the `UseSwaggerUI` setup. Your Neptun code should be the prefix **in all lowercase**.
+    - (You do not need to deal with the "Customize and extend" section or other customizations.)
 
-        Note: the way URLs are matched to controller methods is more complicated. ASP.NET Core has a notion of priorities when trying to find a controller method for an URL. This priority can be modified on the [`[Http*]` attributes by setting the `Order` property](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
+1. Start the web application and check the `swagger.json` at <http://localhost:5000/swagger/v1/swagger.json>, and try out the SwaggerUI at <http://localhost:5000/neptun>.
 
-!!! example "SUBMISSION"
-    Upload the changed source code.
-
-    Create a screenshot from Postman (or any alternative tool you used for testing) that shows a successful query that fetches an existing product. The screenshot should display both the request and response with all information (request type, URL, response code, response body). Save the screenshot as `f1.png` and upload it as part of your submission! The response body must contain your **Neptun code**.
-
-## Exercise 2 optional: OpenAPI documentation (0 points)
-
-!!! note ""
-    In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.
-
-OpenAPI (formerly Swagger) is a REST API documentation tool. It is similar to the WSDL for Web Services. Its goal is to describe the API in a standardized format. In this exercise, you are required to create a [OpenAPI specification and documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger) for your REST API.
-
-1. Please follow the official Microsoft tutorial at: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle>
-
-    - Make sure to use **Swashbuckle**.
-    - The `swagger.json` should be generated by your application (you need not write it), and it should be available at URL `/swagger/v1/swagger.json`.
-    - Set up _Swagger UI_, which should be available at URL `/neptun`. To achieve this, when configuring `UseSwaggerUI` set the `RoutePrefix` as your Neptun code **all lower-case**.
-    - (You can ignore the "Customize and extend" parts in the tutorial.)
-
-1. When ready, start the web application and check `swagger.json` at URL <http://localhost:5000/swagger/v1/swagger.json>, then open SwaggerUI too at <http://localhost:5000/neptun>.
-
-1. Test the “Try it out” in SwaggerUI: it will send out the query that your backend will serve.
+2. Test the "Try it out" feature of SwaggerUI: it actually sends the request to the web application, and you can see the real response.
 
     ![SwaggerUI Try it out](swaggerui-try.png)
 
-!!! example "SUBMISSION"
-    Upload the changed source code. Make sure to upload the altered `csproj` file too; it contains a new NuGet package added in this exercise.
+1. Create the API endpoint that returns the desired product (`Product`) based on its ID; the request should be of type `GET` to the `/api/product/{id}` URL, and the response should either be 200 with the data or 404 if no such item exists. Verify this using SwaggerUI.
 
-    Create a screenshot of SwaggerUI open in the browser. Make sure that the URL is visible and that it contains `/neptun` with your Neptun code. Save the screenshot as `f2.png` and upload it as part of your submission!
+!!! example "SUBMISSION"
+    Upload the modified source code. Make sure to note that the `csproj` file has also been modified with the added NuGet package!
+
+    Take a screenshot of the Swagger UI displayed in the browser. Ensure that the URL shows that the SwaggerUI is served at the `/neptun` path with your own Neptun code. Save the image as `f1.png` and submit it as part of your solution!
+
+## Exercise 2: Product Operations (2 points)
+
+The most common database operations related to products are inserting a new one, querying an existing product, modifying it, or deleting it, which are the CRUD (create, read, update, and delete) operations. We will create dedicated endpoints for these operations, allowing the API user to perform them. In this task, you need to implement the most common endpoints alongside the existing query.
+
+1. Create an API endpoint that inserts a new product (`Product`) based on its ID; the request should be of type `POST` to the `/api/product` address, expecting the new `Product` value in the request body, and the response should be either 201 or 409 if such an item already exists.
+
+1. Create an API endpoint that modifies a product (`Product`) based on its ID; the request should be of type `PUT` to the `/api/product/{id}` address, expecting the modified `Product` value in the request body, and the response should be either 204 with no content or 404 if such an item does not exist.
+
+1. Create an API endpoint that deletes a product (`Product`) based on its ID; the request should be of type `DELETE` to the `/api/product/{id}` address, and the response should be either 204 with no content or 404 if such an item does not exist.
+
+1. Create an API endpoint that allows querying how many different products there are in total. (For example, to facilitate pagination, the frontend can calculate how many pages there will be.) This should also be a `GET` type request to the `/api/product/-/count` address. The returned data should be an instance of the `CountResult` class filled with the total count (in JSON format, of course).
+
+    ??? question "Why is there a `/-` part in the URL?"
+        To understand this, let's consider what the URL could be: we are curious about the number of products, so it could be `/api/product/`, but what comes after? It could be `/api/product/count`. However, this "conflicts" with URLs like `/api/product/123`, which is intended for querying a specific product. In practice, the two URLs could work together, because the product identifier is currently a number, so the framework recognizes that if the URL ends with `/123`, it needs to execute the endpoint expecting a product ID, but if it ends with `/count`, it should provide the count. But this only works if the ID is an integer. If the product identifier were text, there would be a problem. In such cases, a URL needs to be "invented" that does not collide. The `/-` part indicates that there is _not_ a product ID traveling there.
+
+        Note: The URL - controller method identification is more complex in reality than described above. The ASP.NET Core framework matches controller methods to incoming request URLs in order of priority. We have the ability to influence this priority using the [`[Http*]` attributes `Order` property](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
+
+!!! example "SUBMISSION"
+    Upload the modified source code.
+
+    Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful product retrieval. The image should display all details of the request and response (request type, URL, response code, response content). Your **Neptun code** must appear in the response. Save the image as `f2.png` and submit it as part of your solution!
+
+## Exercise 3 optional: Partial Update of Product (0 points)
+
+When modifying products, the previously used `PUT` call has several disadvantages. `PUT` is designed for updating the entire resource, meaning that to modify a product, the entire product must be sent. This is not only inefficient (for example, it requires retrieving and sending every existing property, regardless of their size) but also adds extra processing tasks. The `PATCH` verb is designed to provide partial update capabilities, allowing only the properties that need to be modified to be sent.
+
+In this task, you need to create an endpoint that allows for partial updates of products:
+
+1. The request should be of type `PATCH` to the `/api/product/{id}` URL, and the response should either be 204 if successful, or 404 if the item does not exist.
+
+1. Implement the endpoint in the `ProductController` class that performs the partial update. The type of the parameter received by the endpoint should be a strongly typed variant of `JsonPatchDocument`. During testing, ensure that only the values sent are changed (for example, if the sent object does not include stock, that should not change).
+
+!!! example "SUBMISSION"
+    Upload the modified source code.
+
+    Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful partial modification. The image should display all details of the request and response (request type, URL, response code, response content). Your **Neptun code** must appear in the response. Save the image as `f3.png` and submit it as part of your solution!
+
+

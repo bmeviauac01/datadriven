@@ -53,13 +53,13 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel. Ügyelj rá, hogy a `csproj` fájl is módosult a hozzáadott NuGet csomaggal!
 
-    Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a `/neptun` címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+    Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a `/neptun` címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
 ## Feladat 2: Termék műveletek (2 pont)
 
 A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.
 
-1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 419, ha már van ilyen elem.
+1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen elem.
 
 1. Készíts egy olyan API végpontot, ami módosít egy terméket (`Product`) az id-ja alapján; a kérés `PUT` típusú legyen a `/api/product/{id}` címre, a kérés törzsében várja a változtatott `Product` értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
 
