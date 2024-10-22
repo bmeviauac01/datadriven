@@ -20,7 +20,7 @@
     
     
       
-        <title>Exercise: REST API and Web API - BMEVIAUAC01 Data-driven systems</title>
+        <title>Task: REST API with Web API Technology - BMEVIAUAC01 Data-driven systems</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#exercise-rest-api-and-web-api" class="md-skip">
+        <a href="#task-rest-api-with-web-api-technology" class="md-skip">
           Skip to content
         </a>
       
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Exercise: REST API and Web API
+              Task: REST API with Web API Technology
             
           </span>
         </div>
@@ -1260,18 +1260,51 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-1-operations-on-products-2-points" class="md-nav__link">
+  <a href="#exercise-1-simple-query-and-openapi-documentation-2-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 1: Operations on products (2 points)
+      Exercise 1: Simple query and OpenAPI documentation (2 points)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise 1: Simple query and OpenAPI documentation (2 points)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openapi-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenAPI Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-2-product-operations-2-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 2: Product Operations (2 points)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-2-optional-openapi-documentation-0-points" class="md-nav__link">
+  <a href="#exercise-3-optional-partial-update-of-product-0-points" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2 optional: OpenAPI documentation (0 points)
+      Exercise 3 optional: Partial Update of Product (0 points)
     </span>
   </a>
   
@@ -1300,83 +1333,103 @@
   
 
 
-<h1 id="exercise-rest-api-and-web-api">Exercise: REST API and Web API<a class="headerlink" href="#exercise-rest-api-and-web-api" title="Permanent link">&para;</a></h1>
-<div class="admonition important">
-<p class="admonition-title">IMPORTANT</p>
-<p>Not finalized for 2024!</p>
-</div>
-<p>This exercise is optional. You may earn <strong>4 points</strong> by completing this exercise.</p>
+<h1 id="task-rest-api-with-web-api-technology">Task: REST API with Web API Technology<a class="headerlink" href="#task-rest-api-with-web-api-technology" title="Permanent link">&para;</a></h1>
+<p>You may earn <strong>4 points</strong> by completing this exercise.</p>
 <p>Use GitHub Classroom to get your git repository. You can find the <strong>invitation link in Moodle</strong>. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.</p>
-<p>Check the required software and tools <a href="../#required-tools">here</a>.</p>
+<p>The required software and tools for the solution can be found <a href="../#required-tools">here</a>.</p>
 <h2 id="exercise-0-neptun-code">Exercise 0: Neptun code<a class="headerlink" href="#exercise-0-neptun-code" title="Permanent link">&para;</a></h2>
-<p>Your very first task is to type your Neptun code into <code>neptun.txt</code> in the root of the repository.</p>
-<h2 id="exercise-1-operations-on-products-2-points">Exercise 1: Operations on products (2 points)<a class="headerlink" href="#exercise-1-operations-on-products-2-points" title="Permanent link">&para;</a></h2>
-<p>The repository you cloned contains a skeleton application. Open the provided Visual Studio solution and start the application. A console window should appear that hosts the web application. While the web app is running, test it: open a browser to <a href="http://localhost:5000/api/product">http://localhost:5000/api/product</a>. The page should display a list of products in JSON format.</p>
-<p>Check the source code.</p>
+<p>As a first step, enter your Neptun code into the <code>neptun.txt</code> file located in the root folder.</p>
+<h2 id="exercise-1-simple-query-and-openapi-documentation-2-points">Exercise 1: Simple query and OpenAPI documentation (2 points)<a class="headerlink" href="#exercise-1-simple-query-and-openapi-documentation-2-points" title="Permanent link">&para;</a></h2>
+<p>In the created and cloned repository, you'll find the initial code structure. Open it with Visual Studio and start the project. The basic program provides an empty solution. A console application should be started that hosts the web application. Try it out (while the program is running): open <a href="http://localhost:5000/api/product">http://localhost:5000/api/product</a> in your browser, where you should see the list of products in JSON format.</p>
+<p>Check the available code.</p>
 <ul>
-<li><code>Startup.cs</code> initializes your application. This is an ASP.NET Core web application.</li>
-<li>There is no database used in this project to make things simpler. Class <code>ProductRepository</code> contains hard-wired data used for testing.</li>
-<li><code>ProductsController</code> uses <em>dependency injection</em> to instantiate  <code>IProductRepository</code>.</li>
+<li>The <code>Startup.cs</code> initializes the application. This is an ASP.NET Core web application.</li>
+<li>For simplicity, there is no database access in the application. The <code>ProductRepository</code> provides data to be used for testing.</li>
+<li>The <code>ProductsController</code> instantiates the <code>IProductRepository</code> using <em>dependency injection</em>.</li>
 </ul>
-<p>Exercises:</p>
+<p>Tasks:</p>
+<h3 id="simple-query">Simple Query<a class="headerlink" href="#simple-query" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>In class <code>DAL.ProductRepository</code> edit the field <code>Neptun</code> and add your Neptun code here. The string should contain the 6 characters of your Neptun code.</p>
+<p>In the <code>DAL.ProductRepository</code> class, replace the value of the field named <code>Neptun</code> with your Neptun code. The string value should consist of 6 characters from your Neptun code.</p>
 <div class="admonition warning">
 <p class="admonition-title">IMPORTANT</p>
-<p>The data altered this way will be displayed on a screenshot in a later exercise; hence this step is essential.</p>
+<p>A screenshot must be taken of the modified data, so this step is important.</p>
 </div>
 </li>
 <li>
-<p>Create a new API endpoint for verifying whether a particular product specified by its ID exists. This new endpoint should respond to a <code>HEAD</code> HTTP query at URL <code>/api/product/{id}</code>. The HTTP response should be status code 200 or 404 (without any body either case).</p>
+<p>Create an API endpoint to check if a product with a given id exists. We will send a <code>HEAD</code> HTTP request to the <code>/api/product/{id}</code> URL for the query. The response should be HTTP 200 or 404 (without any extra content/body, only the response code is required).</p>
+</li>
+</ol>
+<h3 id="openapi-documentation">OpenAPI Documentation<a class="headerlink" href="#openapi-documentation" title="Permanent link">&para;</a></h3>
+<p>OpenAPI (formerly known as Swagger) is a documentation tool for REST APIs. Its purpose is similar to that of WSDL used for Web Services: to describe the API services in a standardized format. After completing the previous tasks, create an <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger">OpenAPI specification and documentation</a> for the REST API description.</p>
+<ol>
+<li>
+<p>To complete the solution, follow the official Microsoft documentation: <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle">https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle</a></p>
+<ul>
+<li>Make sure to use the <strong>Swashbuckle</strong> option.</li>
+<li>The <code>swagger.json</code> should be generated by the application itself (you don't need to write it manually), and it should be accessible at <code>/swagger/v1/swagger.json</code>.</li>
+<li>Also set up the <em>Swagger UI</em>, which should be accessible at <code>/neptun</code>. You can achieve this by configuring the <code>RoutePrefix</code> in the <code>UseSwaggerUI</code> setup. Your Neptun code should be the prefix <strong>in all lowercase</strong>.</li>
+<li>(You do not need to deal with the "Customize and extend" section or other customizations.)</li>
+</ul>
 </li>
 <li>
-<p>Create a new API endpoint that returns a single <code>Product</code> specified by its ID; the query is a <code>GET</code> query at URL <code>/api/product/{id}</code> and the response should be either 200 OK with the product as body, or 404 when the product is not found.</p>
+<p>Start the web application and check the <code>swagger.json</code> at <a href="http://localhost:5000/swagger/v1/swagger.json">http://localhost:5000/swagger/v1/swagger.json</a>, and try out the SwaggerUI at <a href="http://localhost:5000/neptun">http://localhost:5000/neptun</a>.</p>
 </li>
 <li>
-<p>Create a new API endpoint that deletes a <code>Product</code> specified by its ID; the query is a <code>DELETE</code> query at URL <code>/api/product/{id}</code> and the response should be either 204 with no content, or 404 when the product is not found.</p>
+<p>Test the "Try it out" feature of SwaggerUI: it actually sends the request to the web application, and you can see the real response.</p>
+<p><a class="glightbox" href="swaggerui-try.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SwaggerUI Try it out" src="swaggerui-try.png" /></a></p>
 </li>
 <li>
-<p>Create a new API endpoint for querying the total number of products. (Such an endpoint could be used, for example, by the UI for paging the list of products.) This should be a <code>GET</code> HTTP request to URL <code>/api/product/-/count</code>. The returned result should be a JSON serialized <code>CountResult</code> object with the correct count.</p>
+<p>Create the API endpoint that returns the desired product (<code>Product</code>) based on its ID; the request should be of type <code>GET</code> to the <code>/api/product/{id}</code> URL, and the response should either be 200 with the data or 404 if no such item exists. Verify this using SwaggerUI.</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">SUBMISSION</p>
+<p>Upload the modified source code. Make sure to note that the <code>csproj</code> file has also been modified with the added NuGet package!</p>
+<p>Take a screenshot of the Swagger UI displayed in the browser. Ensure that the URL shows that the SwaggerUI is served at the <code>/neptun</code> path with your own Neptun code. Save the image as <code>f1.png</code> and submit it as part of your solution!</p>
+</div>
+<h2 id="exercise-2-product-operations-2-points">Exercise 2: Product Operations (2 points)<a class="headerlink" href="#exercise-2-product-operations-2-points" title="Permanent link">&para;</a></h2>
+<p>The most common database operations related to products are inserting a new one, querying an existing product, modifying it, or deleting it, which are the CRUD (create, read, update, and delete) operations. We will create dedicated endpoints for these operations, allowing the API user to perform them. In this task, you need to implement the most common endpoints alongside the existing query.</p>
+<ol>
+<li>
+<p>Create an API endpoint that inserts a new product (<code>Product</code>) based on its ID; the request should be of type <code>POST</code> to the <code>/api/product</code> address, expecting the new <code>Product</code> value in the request body, and the response should be either 201 or 409 if such an item already exists.</p>
+</li>
+<li>
+<p>Create an API endpoint that modifies a product (<code>Product</code>) based on its ID; the request should be of type <code>PUT</code> to the <code>/api/product/{id}</code> address, expecting the modified <code>Product</code> value in the request body, and the response should be either 204 with no content or 404 if such an item does not exist.</p>
+</li>
+<li>
+<p>Create an API endpoint that deletes a product (<code>Product</code>) based on its ID; the request should be of type <code>DELETE</code> to the <code>/api/product/{id}</code> address, and the response should be either 204 with no content or 404 if such an item does not exist.</p>
+</li>
+<li>
+<p>Create an API endpoint that allows querying how many different products there are in total. (For example, to facilitate pagination, the frontend can calculate how many pages there will be.) This should also be a <code>GET</code> type request to the <code>/api/product/-/count</code> address. The returned data should be an instance of the <code>CountResult</code> class filled with the total count (in JSON format, of course).</p>
 <details class="question">
-<summary>Why is there a <code>/-</code> in the URL?</summary>
-<p>In order to understand the need for this, let us consider what the URL should look like: we are querying products, so <code>/api/product</code> is the prefix, but what is the end of the URL? It could be <code>/api/product/count</code>. However, this clashes with <code>/api/product/123</code> where we can get a particular product. In practice, the two URLs could work side-by-side here since the product ID is an integer, and the framework would recognize that an URL ending in <code>/123</code> is to get a product and the <code>/count</code> is to get the counts. But this works only as long as the ID is an integer. If the product ID were a string, this would be more problematic. Our solution makes sure that the URLs do not clash. The <code>/-</code> is to indicate that there is <em>no</em> product ID.</p>
-<p>Note: the way URLs are matched to controller methods is more complicated. ASP.NET Core has a notion of priorities when trying to find a controller method for an URL. This priority can be modified on the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute"><code>[Http*]</code> attributes by setting the <code>Order</code> property</a>.</p>
+<summary>Why is there a <code>/-</code> part in the URL?</summary>
+<p>To understand this, let's consider what the URL could be: we are curious about the number of products, so it could be <code>/api/product/</code>, but what comes after? It could be <code>/api/product/count</code>. However, this "conflicts" with URLs like <code>/api/product/123</code>, which is intended for querying a specific product. In practice, the two URLs could work together, because the product identifier is currently a number, so the framework recognizes that if the URL ends with <code>/123</code>, it needs to execute the endpoint expecting a product ID, but if it ends with <code>/count</code>, it should provide the count. But this only works if the ID is an integer. If the product identifier were text, there would be a problem. In such cases, a URL needs to be "invented" that does not collide. The <code>/-</code> part indicates that there is <em>not</em> a product ID traveling there.</p>
+<p>Note: The URL - controller method identification is more complex in reality than described above. The ASP.NET Core framework matches controller methods to incoming request URLs in order of priority. We have the ability to influence this priority using the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute"><code>[Http*]</code> attributes <code>Order</code> property</a>.</p>
 </details>
 </li>
 </ol>
 <div class="admonition example">
 <p class="admonition-title">SUBMISSION</p>
-<p>Upload the changed source code.</p>
-<p>Create a screenshot from Postman (or any alternative tool you used for testing) that shows a successful query that fetches an existing product. The screenshot should display both the request and response with all information (request type, URL, response code, response body). Save the screenshot as <code>f1.png</code> and upload it as part of your submission! The response body must contain your <strong>Neptun code</strong>.</p>
+<p>Upload the modified source code.</p>
+<p>Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful product retrieval. The image should display all details of the request and response (request type, URL, response code, response content). Your <strong>Neptun code</strong> must appear in the response. Save the image as <code>f2.png</code> and submit it as part of your solution!</p>
 </div>
-<h2 id="exercise-2-optional-openapi-documentation-0-points">Exercise 2 optional: OpenAPI documentation (0 points)<a class="headerlink" href="#exercise-2-optional-openapi-documentation-0-points" title="Permanent link">&para;</a></h2>
-<div class="admonition note">
-<p>In the evaluation, you will see the text “imsc” in the exercise title; this is meant for the Hungarian students. Please ignore that.</p>
-</div>
-<p>OpenAPI (formerly Swagger) is a REST API documentation tool. It is similar to the WSDL for Web Services. Its goal is to describe the API in a standardized format. In this exercise, you are required to create a <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger">OpenAPI specification and documentation</a> for your REST API.</p>
+<h2 id="exercise-3-optional-partial-update-of-product-0-points">Exercise 3 optional: Partial Update of Product (0 points)<a class="headerlink" href="#exercise-3-optional-partial-update-of-product-0-points" title="Permanent link">&para;</a></h2>
+<p>When modifying products, the previously used <code>PUT</code> call has several disadvantages. <code>PUT</code> is designed for updating the entire resource, meaning that to modify a product, the entire product must be sent. This is not only inefficient (for example, it requires retrieving and sending every existing property, regardless of their size) but also adds extra processing tasks. The <code>PATCH</code> verb is designed to provide partial update capabilities, allowing only the properties that need to be modified to be sent.</p>
+<p>In this task, you need to create an endpoint that allows for partial updates of products:</p>
 <ol>
 <li>
-<p>Please follow the official Microsoft tutorial at: <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle">https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle</a></p>
-<ul>
-<li>Make sure to use <strong>Swashbuckle</strong>.</li>
-<li>The <code>swagger.json</code> should be generated by your application (you need not write it), and it should be available at URL <code>/swagger/v1/swagger.json</code>.</li>
-<li>Set up <em>Swagger UI</em>, which should be available at URL <code>/neptun</code>. To achieve this, when configuring <code>UseSwaggerUI</code> set the <code>RoutePrefix</code> as your Neptun code <strong>all lower-case</strong>.</li>
-<li>(You can ignore the "Customize and extend" parts in the tutorial.)</li>
-</ul>
+<p>The request should be of type <code>PATCH</code> to the <code>/api/product/{id}</code> URL, and the response should either be 204 if successful, or 404 if the item does not exist.</p>
 </li>
 <li>
-<p>When ready, start the web application and check <code>swagger.json</code> at URL <a href="http://localhost:5000/swagger/v1/swagger.json">http://localhost:5000/swagger/v1/swagger.json</a>, then open SwaggerUI too at <a href="http://localhost:5000/neptun">http://localhost:5000/neptun</a>.</p>
-</li>
-<li>
-<p>Test the “Try it out” in SwaggerUI: it will send out the query that your backend will serve.</p>
-<p><a class="glightbox" href="swaggerui-try.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SwaggerUI Try it out" src="swaggerui-try.png" /></a></p>
+<p>Implement the endpoint in the <code>ProductController</code> class that performs the partial update. The type of the parameter received by the endpoint should be a strongly typed variant of <code>JsonPatchDocument</code>. During testing, ensure that only the values sent are changed (for example, if the sent object does not include stock, that should not change).</p>
 </li>
 </ol>
 <div class="admonition example">
 <p class="admonition-title">SUBMISSION</p>
-<p>Upload the changed source code. Make sure to upload the altered <code>csproj</code> file too; it contains a new NuGet package added in this exercise.</p>
-<p>Create a screenshot of SwaggerUI open in the browser. Make sure that the URL is visible and that it contains <code>/neptun</code> with your Neptun code. Save the screenshot as <code>f2.png</code> and upload it as part of your submission!</p>
+<p>Upload the modified source code.</p>
+<p>Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful partial modification. The image should display all details of the request and response (request type, URL, response code, response content). Your <strong>Neptun code</strong> must appear in the response. Save the image as <code>f3.png</code> and submit it as part of your solution!</p>
 </div>
 
     <hr>
@@ -1388,8 +1441,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 16, 2024 13:19:57">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-16T13:19:57+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-16</span>
+      <span title="October 21, 2024 11:19:29">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-21T11:19:29+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-21</span>
       </span>
     </span>
 
@@ -1406,10 +1459,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
-          <img src="https://avatars.githubusercontent.com/u/61751571?v=4?size=72" alt="@István Albert">
-        </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
-          <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a></nav>      
     </span>
   </div>

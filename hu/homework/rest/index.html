@@ -1555,13 +1555,13 @@
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított forráskódot töltsd fel. Ügyelj rá, hogy a <code>csproj</code> fájl is módosult a hozzáadott NuGet csomaggal!</p>
-<p>Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a <code>/neptun</code> címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet <code>f2.png</code> néven mentsd el és add be a megoldásod részeként!</p>
+<p>Készíts egy képernyőképet a böngészőben megjelenő Swagger UI-ról. Ügyelj rá, hogy az URL-ben látható legyen, hogy a SwaggerUI-t a <code>/neptun</code> címen szolgálja ki a rendszer a saját Neptun kódoddal. A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
 </div>
 <h2 id="feladat-2-termek-muveletek-2-pont">Feladat 2: Termék műveletek (2 pont)<a class="headerlink" href="#feladat-2-termek-muveletek-2-pont" title="Permanent link">&para;</a></h2>
 <p>A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.</p>
 <ol>
 <li>
-<p>Készíts egy olyan API végpontot, ami beszúr egy új terméket (<code>Product</code>) az id-ja alapján; a kérés <code>POST</code> típusú legyen a <code>/api/product</code> címre, a kérés törzsében várja az új <code>Product</code> értéket, és a válasz vagy 201 legyen, vagy 419, ha már van ilyen elem.</p>
+<p>Készíts egy olyan API végpontot, ami beszúr egy új terméket (<code>Product</code>) az id-ja alapján; a kérés <code>POST</code> típusú legyen a <code>/api/product</code> címre, a kérés törzsében várja az új <code>Product</code> értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen elem.</p>
 </li>
 <li>
 <p>Készíts egy olyan API végpontot, ami módosít egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>PUT</code> típusú legyen a <code>/api/product/{id}</code> címre, a kérés törzsében várja a változtatott <code>Product</code> értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
@@ -1618,8 +1618,8 @@ Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg 
           </path>
         </svg>
       </span>
-      <span title="2024. október 17. 09:13:50">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-17T09:13:50+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-17</span>
+      <span title="2024. október 21. 11:19:29">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-21T11:19:29+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-21</span>
       </span>
     </span>
 
