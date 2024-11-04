@@ -1489,9 +1489,6 @@
 <li>
 <p>Implement the function, ensuring that the parameter constraints are checked before performing the insertion! The tests in the <code>TestExercise2.cs</code> file will assist you.</p>
 </li>
-<li>
-<p>The product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.</p>
-</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">SUBMISSION</p>
@@ -1516,7 +1513,7 @@
 <p>You will need the <code>$group</code> aggregation stage. Although, we do not need to group the products, still, this will allow us to aggregate all of them. Map each product into the same group (that is, in the <code>$group</code> stage the <code>id</code> should be a constant for all items), then use the projection part to perform a <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/sum/#use-in-group-stage"><code>$sum</code></a> aggregation according to the formula above.</p>
 <p>Handling of the <em>cm</em> and <em>m</em> units can be solved with a conditional multiplication in the <code>sum</code>. If this does not work, you can use two aggregations: one for <em>cm</em> and one for <em>m</em> units, each with a filter in the pipeline then the aggregation afterwards.</p>
 </div>
-<p>The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the <code>[BsonElement(elementName: "...")]</code> attribute.</p>
+<p>The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the <code>[BsonElement(elementName: "...")]</code> attribute. Make sure you do not break your solution in excercise 2. You should modify product insert method with the following: product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.</p>
 <div class="admonition warning">
 <p class="admonition-title">Use Fluent Api</p>
 <p>You must use the C# Fluent Api! Do not write the query using <code>BsonDocument</code>!</p>
@@ -1536,8 +1533,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 22, 2024 11:08:20">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-22T11:08:20+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-22</span>
+      <span title="November 4, 2024 10:34:49">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-04T10:34:49+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-04</span>
       </span>
     </span>
 
