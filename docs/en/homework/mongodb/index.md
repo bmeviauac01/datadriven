@@ -79,8 +79,6 @@ The following conditions should be considered during insertion:
 
 1. Implement the function, ensuring that the parameter constraints are checked before performing the insertion! The tests in the `TestExercise2.cs` file will assist you.
 
-1. The product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.
-
 !!! example "SUBMISSION"
     Upload the modified C# source code!
     
@@ -109,7 +107,7 @@ Implement method `double GetAllProductsCumulativeVolume()` that returns a single
 
     Handling of the _cm_ and _m_ units can be solved with a conditional multiplication in the `sum`. If this does not work, you can use two aggregations: one for _cm_ and one for _m_ units, each with a filter in the pipeline then the aggregation afterwards.
 
-The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the `[BsonElement(elementName: "...")]` attribute.
+The required parts of the products are not mapped to C# classes yet. You need to do this. Note, that the field names in the BSON do not conform to the usual syntax, thus, when mapping to C# properties, you have to take care of name the properties identically, or use the `[BsonElement(elementName: "...")]` attribute. Make sure you do not break your solution in excercise 2. You should modify product insert method with the following: product dimensions should be 1x1x1 cm, and for other unspecified variables, you may choose any valid value.
 
 !!! warning "Use Fluent Api"
     You must use the C# Fluent Api! Do not write the query using `BsonDocument`!
