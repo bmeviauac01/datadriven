@@ -78,8 +78,6 @@ A következőkre kell figyelni a beszúráskor:
 
 1. Készítsd el a függvény implementációját, a paraméterekkel kapcsolatos kikötéseket ellenőrizd mielőtt a beszúrást végrehajtod! Segítségedre vannak a `TestExercise2.cs` fájlban található tesztek.
 
-1. A termék méretei 1x1x1 cm-esek legyenek, a többi nem megadott változót vedd fel általad választott értékekkel!
-
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel! Emellett készíts egy képernyőképet az első feladathoz hasonlóan, amelyben a vonatkozó teszteket lefuttattad! A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
@@ -107,6 +105,8 @@ Készítsd el a `double GetAllProductsCumulativeVolume()` függvény implementá
     A _cm_ és _m_ mértékegység kezelés csak egy szorzót jelent, a `sum` összegzésben meg tudod oldani egy feltételes szorzással. Ha ez nem sikerül, megoldhatod két külön aggregációval is, amelyekben szűrsz a mértékegységre majd utána jön az aggregáció.
 
 A szükséges adatok nincsenek leképezve C# entitásra, ezeket neked kell elkészítened. Ügyelj rá, hogy a BSON dokumentumban az elemek neve eltér a szokásostól, így amikor C# property-re képezed le, vagy ennek megfelelően kell elnevezni a property-ket, vagy használhatod a `[BsonElement(elementName: "...")]` attribútumot.
+
+Figyelj oda, hogy a módosításaid ne rontsák el a 2. feladat megoldását, így ha kell a beszúrást módosítsd úgy, hogy a termék méretei 1x1x1 cm-esek legyenek, a többi nem megadott változót vedd fel általad választott értékekkel!
 
 !!! warning "Fluent Api-t használj"
     Mindenképpen C#-os Fluent Api-t használj! Ne `BsonDocument`-ben írd meg a lekérdezést!
