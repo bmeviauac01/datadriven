@@ -13,7 +13,7 @@ The **ADO.NET** (*ActiveX Data Object*) developed by Microsoft is a **data acces
 
 The place of **ADO.NET** in a data-driven application architecture is as follows:
 
-![Structure]((../lecture-notes/adonet/images/adonet-arch.png)
+![Structure](../lecture-notes/adonet/images/adonet-arch.png)
 
 ADO.NET provides services in the data access layer and handles communication with the database engine in the background using drivers installed on the system and operating system services (such as a network connection).
 
@@ -193,7 +193,7 @@ Here, we need a connection to the database to fetch the required data from the d
 
 The flow of data using the `DataReader` is as follows:
 
-![Flow of data]((../lecture-notes/adonet/images/datareader.png)
+![Flow of data](../lecture-notes/adonet/images/datareader.png)
 
 **Sample code** using a `DataReader`:
 
@@ -252,11 +252,11 @@ A `DataSet` can be considered as a kind of *cache*, or in-memory data storage. W
 
 The operation of data access in this model using an `adapter` is shown in the figure below.
 
-![Working with the data adapter]((../lecture-notes/adonet/images/adapter.png)
+![Working with the data adapter](../lecture-notes/adonet/images/adapter.png)
 
 The flow of data using the `DataSet` is as follows:
 
-![Flow of data]((../lecture-notes/adonet/images/dataset.png)
+![Flow of data](../lecture-notes/adonet/images/dataset.png)
 
 **Sample code** for working with a `DataSet`:
 
