@@ -33,7 +33,8 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 - HotChocolate.Data (14.1.0)
 - HotChocolate.Data.EntityFramework (14.1.0)
 
-1. Add hozzá a `ConfigureServices` metódusba a GraphQLServer szolgáltatást az alábbi kód segítségével. Itt három dolog történik: beregisztráljuk a GraphQLServer szolgáltatást, az `AdatvezDBContext`-t, hogy injektálható legyen, valamint a `Query` osztályt, mint lekérdezések végpontjaiként funkcionáló osztályt.
+1. A belépési pontba (`Program.cs`) regisztráld be a GraphQLServer szolgáltatást az alábbi kód segítségével:
+(itt három dolog történik: beregisztráljuk a GraphQLServer szolgáltatást, az `AdatvezDBContext`-t, hogy injektálható legyen, valamint a `Query` osztályt, mint lekérdezések végpontjaiként funkcionáló osztályt)
 
 ```csharp
 builder.Services
@@ -88,7 +89,7 @@ query {
 ```
 
 
-1. A következő feladatban láthatjuk a GraphQL erejét. Amennyiben sok táblából kell összeválogatni a szükséges információt, sok felesleges adat is keresztül mehetne a hálózaton. Ehhez képest, ha tudjuk mik fognak kelleni, elég csupán a szükséges adatokat lekérdezni és elküldeni. Készíts egy lekérdezést, ami a következő adatokat szedi össze a megrendelésekből:
+1. A következő feladatban láthatjuk a GraphQL erejét. Amennyiben sok táblából kell összeválogatni a szükséges információt, sok felesleges adat is keresztül mehetne a hálózaton. Ehhez képest, ha tudjuk mik fognak kelleni, elég csupán a szükséges adatokat lekérdezni és elküldeni. Készíts egy lekérdezést, ami megrendeléseket ad vissza és a következő adatokat szedi össze:
 
     - A megrendelő nevét
 
@@ -129,10 +130,10 @@ builder.Services
     .RegisterDbContextFactory<AdatvezDbContext>()
     .AddQueryType<Query>()
     //új sor:
-    .AddProjection(); 
+    .AddProjections(); 
 ```
 
-Nézd meg konzolon a lekérdezés megváltozását. Az implementáció is csökkenthet, innentől kezdve az explicit `Include` hívások sem lesznek szükségesek.
+Nézd meg konzolon az SQL lekérdezés megváltozását. Az implementáció is csökkenthet, innentől kezdve az explicit `Include` hívások sem lesznek szükségesek.
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
@@ -152,7 +153,7 @@ Az első módosítás a meglévő termékek árát fogja módosítani. Növeljü
 
 1. Regisztráld be a szolgáltatást az első feladatban található `Query` regisztrálásához hasonlóan az `.AddMutationType<ProductMutation>()` függvényhívás segítségével.
 
-1. A `ProductMutation` rendelkezzen egy `IncreaseProductPricesByCategory` függvénnyel, ami elvégzi a szükséges módosításokat. A függvény három paraméterrel rendelkezzen: 1) az `AdatvezDBContext`, 2) egy kategória név stringgel, és 3) egy double értékkel, ami megmondja, hogy mennyivel dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.
+1. A `ProductMutation` rendelkezzen egy `IncreaseProductPricesByCategory` függvénnyel, ami elvégzi a szükséges módosításokat és visszatér egy `IQueryable<Product>` típussal, amiben láthatjuk az új árakat. A függvény három paraméterrel rendelkezzen: 1) az `AdatvezDBContext`, 2) egy `categoryName` stringgel, és 3) egy `priceIncrease` double értékkel, ami megmondja, hogy mennyivel dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.
 
 1. Tesztelni az alábbi példa paranccsal tudod (a paraméter neve meg kell egyezzen a lenti hívásban megadott változónévvel: *categoryName*/*priceIncrease*):
 
@@ -193,7 +194,7 @@ mutation {
 A következő feladatban egy új megrendelés beszúrására szeretnénk lehetőséget biztosítani.
 A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd várni paraméterben és az alapján hozza létre a megrendelést.
 
-1. Vegyél fel egy függvényt a `ProductMutation` osztályba `CreateOrder` néven. A szokásos `AdatvezDbContext`-en kívül legyen két listát váró paramétere: az első egy string listát a terméknevekkel, a második pedig egy int listát vár a darabszámokkal.
+1. Vegyél fel egy függvényt a `ProductMutation` osztályba `CreateOrder` néven. A szokásos `AdatvezDbContext`-en kívül legyen két listát váró paramétere: az első egy string listát a terméknevekkel `productNames` névvel, a második pedig egy int listát vár a darabszámokkal `quantities` néven.
 
 1. A függvénybe vegyél fel egy új `Order` példányt, amiben minden egyes paraméterben kapott terméknévhez egy új `OrderItem` kerüljön be. Az `OrderItem`-hez pedig keresd meg a név alapján és állítsd be a megfelelő `Product`-ot és darabszámot (a többi értéket figyelmen kívül hagyhatod). A függvény visszatérési értéke az újonnan elkészített `Order` példány legyen.
 
@@ -233,6 +234,7 @@ A következő feladatokban neked kell kitalálnod a lekérdezést is és a funkc
 1. Az első feladatban található `productsByCategory` hívás kiváltható, ha a `GetProducts` függvényünkre engedélyezzük a beépített szűrést.
 Tedd meg, majd teszteld egy olyan lekérdezéssel, ami kategóriák nevére szűr.
 A lekérdezés elkészítésében nagy segítségedre lesz a kódkiegészítés.
+A megoldás leadásakor a lekérdezést is le kell adnod `q3_1.txt` fájlban, ahol a `"Building Items"` kategóriára kell szűrnöd.
 
     !!! note ""
         A szűrésnek egyedi szintaxisa van.
@@ -255,6 +257,7 @@ A lekérdezés elkészítésében nagy segítségedre lesz a kódkiegészítés.
         Lehetőség van továbbá egyedi szűrőfeltételeket is létrehozni, melyekről bővebben itt olvashatsz: https://chillicream.com/docs/hotchocolate/v14/fetching-data/filtering
 
 1. A második feladatod a rendezés és a lapozhatóság hozzáadása a `GetOrders` függvényhez. A `GetOrders` függvényt annotáld a megfelelő attribútumokkal, majd a GraphQL regisztrálásakor állítsd be a sorbarendezés és rendezés lehetőségeit. A kipróbáláshoz a lekérdezést módosítani kell, a lekérdezés összeállítása is a feladat része.
+A megoldás leadásakor a lekérdezést is le kell adnod `q3_2.txt` fájlban, ahol a lekérdezés 2 darab `Order`-t tartalmaz (lapozás következtében) és `id` alapján csökkenő sorrendben tenned őket.
 
 !!! note ""
         A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.
