@@ -11,7 +11,7 @@ A házi feladatok **kötelezőek (lásd követelméynek), vizsgapont és iMsc po
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
 1. [REST API Web API technológiával](rest/index.md)
-1. GraphQL
+1. [GraphQL](graphql/index.md)
 
 ## A feladatok beadása
 
