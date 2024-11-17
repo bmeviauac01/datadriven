@@ -6,7 +6,7 @@ GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **megh
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok).
 
-Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../seminar/mongodb/index.md) leírt módon.
+Előkészületként hozz létre egy új adatbázist, a [gyakorlatanyagban](../../seminar/mssql/index.md) leírt módon.
 
 ## Feladat 0: Neptun kód
 
@@ -16,13 +16,13 @@ Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Ne
 
 A házi feladat feladat célja, hogy gyakorlati tapasztalatot szerezzetek a GraphQL használatában egy saját API létrehozásával.
 A GraphQL egy erőteljes eszköz, amely lehetővé teszi az adatok lekérdezését és módosítását egyetlen, jól strukturált kérésben, rugalmasabbá és hatékonyabbá téve az API-k használatát.
-A GraphQL API működése kissé eltér a hagyományos REST API-tól: egyetlen végpontot használunk, ahol rugalmas, szabályozott lekérdezésekkel pontosan megadhatjuk, milyen adatokat szeretnénk látni.
+A GraphQL API működése kissé eltér a hagyományos REST API-tól: a végponton rugalmas, szabályozott lekérdezésekkel pontosan megadhatja a kliens, hogy milyen adatokat szeretne visszakapni.
 A gyakorlat célja, hogy megmutassa, hogyan érhetők el komplex adatok egyszerűen.
 
 Ebben a házi feladatban a megszokott adatmodell lesz használva, megrendelések, termékek, kategóriák és hozzájuk kapcsolódó információk lekérdezésével.
 Az adatmodell, a DBContext és az entitások már megtalálhatóak a kiinduló projektben.
 
-Az első feladatban megnézzük hogyan lehet egy már létező projekthez felvenni GraphQL végpontokat a Hot Chocolate szerver segítségével.
+Az első feladatban megnézzük hogyan lehet egy már létező projekthez felvenni GraphQL végpontokat a Hot Chocolate szerver oldali könyvtár segítségével.
 Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, és elkészítjük azt az osztályt, ami visszaadja a szükséges adatokat.
 
 1. Vegyél fel egy `Query` osztályt, amibe tegyél egy `GetProducts` függvényt egy `AdatvezDbContext` paraméterrel. Ez a függvény fog a `products` query végpontjaként szolgálni. A paraméter DBContext típust a DI container fogja majd injektálni a metódus hívásakor. Implementáld is a metódust, hogy visszaadja a termékeket és a hozzájuk tartozó kategóriákat.
@@ -43,7 +43,7 @@ builder.Services
     .AddQueryType<Query>();
 ```
 
-1. Add hozzá az útválasztást (végpontok kezelésének képességét) és hozz létre egy alapértelmezett végpontot a következő kódsorok segítségével: 
+1. Add hozzá az útválasztást (végpontok kezelésének képességét) és hozz létre egy alapértelmezett végpontot a következő kódsorok segítségével:
 
 ```csharp
 app.UseRouting();
@@ -53,7 +53,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-1. indítsd el az alkalmazást és navigálj a `http://localhost:5000/graphql/` oldalra. Itt láthatod a Banana Cake Pop nevű interaktív eszközt, amivel lehetséges lekérdezések és mutációk futtatás, a séma megtekintése, valamint az API-hoz tartozó dokumentációt is lehet böngészni. A lekérdezések tabon a következő kóddal ki tudod próbálni a fenti függvény futását:
+1. Indítsd el az alkalmazást és navigálj a `http://localhost:5000/graphql/` oldalra. Itt láthatod a Banana Cake Pop nevű interaktív eszközt, amivel lehetséges lekérdezések és mutációk futtatás, a séma megtekintése, valamint az API-hoz tartozó dokumentációt is lehet böngészni. A lekérdezések tabon a következő kóddal ki tudod próbálni a fenti függvény futását:
 
 ```json
 query {
@@ -74,7 +74,6 @@ query {
         - A products mezőhöz implicit módon kapcsolódik a GetProducts metódus, a Hot Chocolate automatikusan összeköti őket.
         
         - A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.
-
 
 1. Készíts az előző feladat alapján egy olyan lekérdezést, amely képes a termékeket visszaadni valamilyen szűrés elvégzése után. A `Query` osztályba vedd fel a `ProductsByCategory` függvényt ami az `AdatvezDBContext`-en kívül egy `categoryName` nevű `string` paraméterrel rendelkezik. Az implementációban szűrj a kategória nevére: azokat a terméket add vissza, amelyek kategóriájának neve megegyezik a kapott paraméterrel. A teszteléshez használd az alábbi lekérdezést:
 
@@ -138,7 +137,7 @@ Nézd meg konzolon az SQL lekérdezés megváltozását. Az implementáció is c
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet a Banana Cake Pop felületén készített lekérdezésről és a válaszról, amiben szerepelnek a szükséges adatok. A képet `f1.png` néven mentsd el és add be a megoldásod részeként!    
+    Emellett készíts egy képernyőképet a Banana Cake Pop felületén készített lekérdezésről és a válaszról, amiben szerepelnek a szükséges adatok. A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
 ## Feladat 2: Módosítások GrapQL segítségével  (2 pont)
 
@@ -147,7 +146,7 @@ Az adatmanipulációt úgynevezett _Mutation_ hajtja végre, ami egy olyan műve
 
 ### Termék módosítása
 
-Az első módosítás a meglévő termékek árát fogja módosítani. Növeljük meg a Amennyiben a paraméterben kapott kategóriába tartoznak a termékem
+Az első módosítás a meglévő termékek árát fogja módosítani. Növeljük meg amennyiben a paraméterben kapott kategóriába tartoznak a termékek.
 
 1. Vegyél fel egy Mutation osztályt `ProductMutation` néven.
 
@@ -224,7 +223,7 @@ mutation {
 
     Emellett készíts egy képernyőképet, amelyben a módosításokat futtattad a Banana Cake Pop felületén. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-# Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)
+## Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)
 
 A következő feladatokban a Hot Chocolate által biztosított GraphQL szerver haladóbb funkcióit használjuk ki, úgy mint a szűrést, rendezést, lapozhatóságot.
 A Hot Chocolate beépített szűrés lehetőségének használatához a `Service` regisztrálásakor az `AddFiltering()` hívást kell elvégeznünk, majd a kívánt végpontot kiszolgáló metódust a `[UseFiltering]` attribútummal kell ellátni.
@@ -270,4 +269,4 @@ A megoldás leadásakor a lekérdezést is le kell adnod `q3_2.txt` fájlban, ah
     A módosított C# forráskódot töltsd fel.
     Az 3. feladat első és második részében található lekérdezéseket mentsd le a `q3_1.txt` és `q3_2.txt` néven, tedd a képek mellé a gyökér mappába, és add le.
 
-    Emellett készíts egy képernyőképet, amelyben a vonatkozó lekérdezéseket lefuttattad. A képet `f3.png` néven mentsd el és add be a megoldásod részeként!    
+    Emellett készíts egy képernyőképet, amelyben a vonatkozó lekérdezéseket lefuttattad. A képet `f3.png` néven mentsd el és add be a megoldásod részeként!
