@@ -6,6 +6,8 @@ Use GitHub Classroom to get your git repository. You can find the **invitation l
 
 Check the required software and tools [here](../index.md#required-tools).
 
+As preparation, create a new database as described in the [practical material](../../seminar/mssql/index.md).
+
 ## Exercise 0: Neptun code
 
 Your very first task is to type your Neptun code into `neptun.txt` in the root of the repository.
