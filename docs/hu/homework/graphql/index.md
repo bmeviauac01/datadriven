@@ -225,6 +225,9 @@ mutation {
 
 ## Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)
 
+!!! note ""
+    A pont megszerzésére az első két feladat megoldásával együtt van lehetőség.
+
 A következő feladatokban a Hot Chocolate által biztosított GraphQL szerver haladóbb funkcióit használjuk ki, úgy mint a szűrést, rendezést, lapozhatóságot.
 A Hot Chocolate beépített szűrés lehetőségének használatához a `Service` regisztrálásakor az `AddFiltering()` hívást kell elvégeznünk, majd a kívánt végpontot kiszolgáló metódust a `[UseFiltering]` attribútummal kell ellátni.
 
