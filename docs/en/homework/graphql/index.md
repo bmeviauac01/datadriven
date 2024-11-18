@@ -220,7 +220,7 @@ mutation {
 }
 ```
 
-Example "Submission"
+Example "SUBMISSION"
 
     Upload the modified C# source code.
 
@@ -272,7 +272,7 @@ When submitting the solution, you must also submit the query in the `q3_2.txt` f
 
     The documentation for sorting can be found here: https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting
 
-!!! example "BEADANDÓ"
+!!! example "SUBMISSION"
     Upload the modified C# source code.
     Save the queries from parts 1 and 2 of task 3 as `q3_1.txt` and `q3_2.txt`, place them in the root folder along with the images, and submit them.
 
