@@ -1558,6 +1558,7 @@
 <li>Mindenképpen a <strong>Swashbuckle</strong> opciót használd.</li>
 <li>A <code>swagger.json</code>-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a <code>/swagger/v1/swagger.json</code> címen legyen elérhető.</li>
 <li>Állítsd be a <em>Swagger UI</em>-t is, ez a <code>/neptun</code> címen legyen elérhető. Ezt a <code>UseSwaggerUI</code> beállításánál a <code>RoutePrefix</code> konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix <strong>csupa kisbetűvel</strong>.</li>
+<li>Figyelj oda, hogy esetünkben nem csak Development módban indítva kell a swagger komponens az automata ellenőrző miatt.</li>
 <li>(A "Customize and extend" résszel és egyéb testreszabással nem kell foglalkoznod.)</li>
 </ul>
 </li>
@@ -1581,7 +1582,7 @@
 <p>A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.</p>
 <ol>
 <li>
-<p>Készíts egy olyan API végpontot, ami beszúr egy új terméket (<code>Product</code>) az id-ja alapján; a kérés <code>POST</code> típusú legyen a <code>/api/product</code> címre, a kérés törzsében várja az új <code>Product</code> értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen elem.</p>
+<p>Készíts egy olyan API végpontot, ami beszúr egy új terméket (<code>Product</code>) az id-ja alapján; a kérés <code>POST</code> típusú legyen a <code>/api/product</code> címre, a kérés törzsében várja az új <code>Product</code> értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen nevű elem.</p>
 </li>
 <li>
 <p>Készíts egy olyan API végpontot, ami módosít egy terméket (<code>Product</code>) az id-ja alapján; a kérés <code>PUT</code> típusú legyen a <code>/api/product/{id}</code> címre, a kérés törzsében várja a változtatott <code>Product</code> értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.</p>
@@ -1638,8 +1639,8 @@ Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg 
           </path>
         </svg>
       </span>
-      <span title="2024. október 22. 11:08:20">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-22T11:08:20+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-22</span>
+      <span title="2024. november 18. 10:35:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-18T10:35:37+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-18</span>
       </span>
     </span>
 
