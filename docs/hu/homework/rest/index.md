@@ -40,6 +40,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
     - Mindenképpen a **Swashbuckle** opciót használd.
     - A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v1/swagger.json` címen legyen elérhető.
     - Állítsd be a _Swagger UI_-t is, ez a `/neptun` címen legyen elérhető. Ezt a `UseSwaggerUI` beállításánál a `RoutePrefix` konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix **csupa kisbetűvel**.
+    - Figyelj oda, hogy esetünkben nem csak Development módban indítva kell a swagger komponens az automata ellenőrző miatt.
     - (A "Customize and extend" résszel és egyéb testreszabással nem kell foglalkoznod.)
 
 1. Indítsd el a webalkalmazást, és nézd meg a `swagger.json`-t <http://localhost:5000/swagger/v1/swagger.json> címen, és próbáld ki a SwaggerUI-t a <http://localhost:5000/neptun> címen.
@@ -59,7 +60,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 
 A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.
 
-1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen elem.
+1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen nevű elem.
 
 1. Készíts egy olyan API végpontot, ami módosít egy terméket (`Product`) az id-ja alapján; a kérés `PUT` típusú legyen a `/api/product/{id}` címre, a kérés törzsében várja a változtatott `Product` értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
 
