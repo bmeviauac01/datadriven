@@ -56,7 +56,7 @@ nav:
       - homework/ef/index.md
       - homework/mongodb/index.md
       - homework/rest/index.md
-      - homework/grapqhl/index.md
+      - homework/graphql/index.md
       - homework/GitHub.md
       - homework/GitHub-Actions.md
       - homework/VisualStudio.md
