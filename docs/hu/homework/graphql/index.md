@@ -78,7 +78,7 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
     - A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.
 
 !!! note  "Connection string"
-    Ha nem LocalDB-t használsz, az `appsettings.json`-ban a connection stringet lehet, hogy módosítanod kell. Ezt beadáskor ne felejtsd el visszaállítani!
+    Ha nem LocalDB-t használsz, az `appsettings.json`-ban a connection stringet lehet, hogy módosítanod kell.
 
 ### Lekérdezések
 
