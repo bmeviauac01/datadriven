@@ -1292,6 +1292,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Feladat 1: Projekt kiegészítése és lekérdezések (2 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphql-vegpontok-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      GraphQL végpontok létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lekérdezések
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1454,6 +1478,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Feladat 1: Projekt kiegészítése és lekérdezések (2 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphql-vegpontok-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      GraphQL végpontok létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lekérdezések
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1535,6 +1583,7 @@ A GraphQL API működése kissé eltér a hagyományos REST API-tól: a végpont
 A gyakorlat célja, hogy megmutassa, hogyan érhetők el komplex adatok egyszerűen.</p>
 <p>Ebben a házi feladatban a megszokott adatmodell lesz használva, megrendelések, termékek, kategóriák és hozzájuk kapcsolódó információk lekérdezésével.
 Az adatmodell, a DBContext és az entitások már megtalálhatóak a kiinduló projektben.</p>
+<h3 id="graphql-vegpontok-letrehozasa">GraphQL végpontok létrehozása<a class="headerlink" href="#graphql-vegpontok-letrehozasa" title="Permanent link">&para;</a></h3>
 <p>Az első feladatban megnézzük hogyan lehet egy már létező projekthez felvenni GraphQL végpontokat a Hot Chocolate szerver oldali könyvtár segítségével.
 Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, és elkészítjük azt az osztályt, ami visszaadja a szükséges adatokat.</p>
 <ol>
@@ -1554,25 +1603,23 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <li>
 <p>A belépési pontba (<code>Program.cs</code>) regisztráld be a GraphQLServer szolgáltatást az alábbi kód segítségével:
 (itt három dolog történik: beregisztráljuk a GraphQLServer szolgáltatást, az <code>AdatvezDBContext</code>-t, hogy injektálható legyen, valamint a <code>Query</code> osztályt, mint lekérdezések végpontjaiként funkcionáló osztályt)</p>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
 <span class="w">    </span><span class="p">.</span><span class="n">AddGraphQLServer</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">RegisterDbContextFactory</span><span class="o">&lt;</span><span class="n">AdatvezDbContext</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">AddQueryType</span><span class="o">&lt;</span><span class="n">Query</span><span class="o">&gt;</span><span class="p">();</span>
 </code></pre></div>
-<ol>
-<li>Add hozzá az útválasztást (végpontok kezelésének képességét) és hozz létre egy alapértelmezett végpontot a következő kódsorok segítségével:</li>
-</ol>
+</li>
+<li>
+<p>Add hozzá az útválasztást (végpontok kezelésének képességét) és hozz létre egy alapértelmezett végpontot a következő kódsorok segítségével:</p>
 <div class="highlight"><pre><span></span><code><span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
 <span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">endpoints</span><span class="p">.</span><span class="n">MapGraphQL</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre></div>
-<ol>
-<li>Indítsd el az alkalmazást és navigálj a <code>http://localhost:5000/graphql/</code> oldalra. Itt láthatod a Banana Cake Pop nevű interaktív eszközt, amivel lehetséges lekérdezések és mutációk futtatás, a séma megtekintése, valamint az API-hoz tartozó dokumentációt is lehet böngészni. A lekérdezések tabon a következő kóddal ki tudod próbálni a fenti függvény futását:</li>
-</ol>
+</li>
+<li>
+<p>Indítsd el az alkalmazást és navigálj a <code>http://localhost:5000/graphql/</code> oldalra. Itt láthatod a Banana Cake Pop nevű interaktív eszközt, amivel lehetséges lekérdezések és mutációk futtatás, a séma megtekintése, valamint az API-hoz tartozó dokumentációt is lehet böngészni. A lekérdezések tabon a következő kóddal ki tudod próbálni a fenti függvény futását:</p>
 <div class="highlight"><pre><span></span><code><span class="err">query</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="err">produc</span><span class="kc">ts</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">na</span><span class="err">me</span>
@@ -1582,19 +1629,30 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="admonition note">
-<div class="highlight"><pre><span></span><code>Vizsgáljuk meg, hogy mi történik.
-
-- Amikor a Hot Chocolate vagy más GraphQL szerver egy kérést kap, minden mezőt egy resolver kezel, amely felelős az adott adat lekéréséért, előállításáért.
-
-- A products mezőhöz implicit módon kapcsolódik a GetProducts metódus, a Hot Chocolate automatikusan összeköti őket.
-
-- A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.
-</code></pre></div>
-</div>
-<ol>
-<li>Készíts az előző feladat alapján egy olyan lekérdezést, amely képes a termékeket visszaadni valamilyen szűrés elvégzése után. A <code>Query</code> osztályba vedd fel a <code>ProductsByCategory</code> függvényt ami az <code>AdatvezDBContext</code>-en kívül egy <code>categoryName</code> nevű <code>string</code> paraméterrel rendelkezik. Az implementációban szűrj a kategória nevére: azokat a terméket add vissza, amelyek kategóriájának neve megegyezik a kapott paraméterrel. A teszteléshez használd az alábbi lekérdezést:</li>
+</li>
 </ol>
+<div class="admonition note">
+<p>Vizsgáljuk meg, hogy mi történik.</p>
+<ul>
+<li>
+<p>Amikor a Hot Chocolate vagy más GraphQL szerver egy kérést kap, minden mezőt egy resolver kezel, amely felelős az adott adat lekéréséért, előállításáért.</p>
+</li>
+<li>
+<p>A products mezőhöz implicit módon kapcsolódik a GetProducts metódus, a Hot Chocolate automatikusan összeköti őket.</p>
+</li>
+<li>
+<p>A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.</p>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Connection string</p>
+<p>Ha nem LocalDB-t használsz, az <code>appsettings.json</code>-ban a connection stringet lehet, hogy módosítanod kell.</p>
+</div>
+<h3 id="lekerdezesek">Lekérdezések<a class="headerlink" href="#lekerdezesek" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Készíts az előző feladat alapján egy olyan lekérdezést, amely képes a termékeket visszaadni valamilyen szűrés elvégzése után. A <code>Query</code> osztályba vedd fel a <code>ProductsByCategory</code> függvényt ami az <code>AdatvezDBContext</code>-en kívül egy <code>categoryName</code> nevű <code>string</code> paraméterrel rendelkezik. Az implementációban szűrj a kategória nevére: azokat a terméket add vissza, amelyek kategóriájának neve megegyezik a kapott paraméterrel. A teszteléshez használd az alábbi lekérdezést:</p>
 <div class="highlight"><pre><span></span><code><span class="err">query</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="err">produc</span><span class="kc">ts</span><span class="err">ByCa</span><span class="kc">te</span><span class="err">gory(ca</span><span class="kc">te</span><span class="err">goryName</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Months 0-6&quot;</span><span class="err">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="err">id</span>
@@ -1603,7 +1661,7 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<ol>
+</li>
 <li>
 <p>A következő feladatban láthatjuk a GraphQL erejét. Amennyiben sok táblából kell összeválogatni a szükséges információt, sok felesleges adat is keresztül mehetne a hálózaton. Ehhez képest, ha tudjuk mik fognak kelleni, elég csupán a szükséges adatokat lekérdezni és elküldeni. Készíts egy lekérdezést, ami megrendeléseket ad vissza és a következő adatokat szedi össze:</p>
 <ul>
@@ -1620,8 +1678,6 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <p>Hány darabot rendeltek az adott termékből.</p>
 </li>
 </ul>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><span class="err">query</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="err">orders</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="err">cus</span><span class="kc">t</span><span class="err">omerSi</span><span class="kc">te</span><span class="w"> </span><span class="p">{</span>
@@ -1643,9 +1699,9 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<ol>
-<li>Lekérdezés optimalizálása: az alkalmazás indításakor megnyíló konzolon megtekintheted a lekérdezést is, amit a Hot Chocolate generál Entity Framework segítségével. Láthatod, hogy a select utasításban elég sok olyan mező is lekérdezésre kerül, ami egyébként nem kéne, pedig a lekérésben egyértelműen megfogalmaztuk, hogy mik kellenek. A Hot Chocolate a <code>[UseProjection]</code> annotációval ellátott függvények esetén a beérkező kéréseket az adatbázis számára közvetlen transzformálja. A használatához az annotáció hozzáadásán kívül két módosítás szükséges. Az első, hogy a függvény visszatérési értéke <code>IQuryable&lt;Order&gt;</code> legyen. A második pedig, hogy a következő hívással beregisztráld a projection elérhetőségét:</li>
-</ol>
+</li>
+<li>
+<p>Lekérdezés optimalizálása: az alkalmazás indításakor megnyíló konzolon megtekintheted a lekérdezést is, amit a Hot Chocolate generál Entity Framework segítségével. Láthatod, hogy a select utasításban elég sok olyan mező is lekérdezésre kerül, ami egyébként nem kéne, pedig a lekérésben egyértelműen megfogalmaztuk, hogy mik kellenek. A Hot Chocolate a <code>[UseProjection]</code> annotációval ellátott függvények esetén a beérkező kéréseket az adatbázis számára közvetlen transzformálja. A használatához az annotáció hozzáadásán kívül két módosítás szükséges. Az első, hogy a függvény visszatérési értéke <code>IQuryable&lt;Order&gt;</code> legyen. A második pedig, hogy a következő hívással beregisztráld a projection elérhetőségét:</p>
 <div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
 <span class="w">    </span><span class="p">.</span><span class="n">AddGraphQLServer</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">RegisterDbContextFactory</span><span class="o">&lt;</span><span class="n">AdatvezDbContext</span><span class="o">&gt;</span><span class="p">()</span>
@@ -1653,6 +1709,8 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 <span class="w">    </span><span class="c1">//új sor:</span>
 <span class="w">    </span><span class="p">.</span><span class="n">AddProjections</span><span class="p">();</span><span class="w"> </span>
 </code></pre></div>
+</li>
+</ol>
 <p>Nézd meg konzolon az SQL lekérdezés megváltozását. Az implementáció is csökkenthet, innentől kezdve az explicit <code>Include</code> hívások sem lesznek szükségesek.</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1676,8 +1734,6 @@ Az adatmanipulációt úgynevezett <em>Mutation</em> hajtja végre, ami egy olya
 </li>
 <li>
 <p>Tesztelni az alábbi példa paranccsal tudod (a paraméter neve meg kell egyezzen a lenti hívásban megadott változónévvel: <em>categoryName</em>/<em>priceIncrease</em>):</p>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><span class="err">mu</span><span class="kc">tat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="err">i</span><span class="kc">n</span><span class="err">creaseProduc</span><span class="kc">t</span><span class="err">PricesByCa</span><span class="kc">te</span><span class="err">gory(ca</span><span class="kc">te</span><span class="err">goryName</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LEGO&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">priceI</span><span class="kc">n</span><span class="err">crease</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1</span><span class="err">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">na</span><span class="err">me</span>
@@ -1688,26 +1744,22 @@ Az adatmanipulációt úgynevezett <em>Mutation</em> hajtja végre, ami egy olya
 <span class="w">        </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>!!! note &quot;&quot;
-    A lekérdezés két részből áll. Az első maga a mutation hívása lesz megfelelően paraméterezve:
-
-    ```json
-    increaseProductPricesByCategory(categoryName: &quot;LEGO&quot;, priceIncrease: 1.1)
-    ```
-
-    A második része pedig azt mondja meg, hogy a hívás utáni adatot milyen formában szeretnénk látni. Ez megegyezik a fenti lekérdezésekben látott szintaktikával. Jelen esetben például a módosított termékek nevét árát és kategóriáját szeretnénk kiírni:
-
-
-    ```json
-    {
-        name
-        price
-        category {
-            name
-        }
-    }
-    ```
+<div class="admonition note">
+<p>A lekérdezés két részből áll. Az első maga a mutation hívása lesz megfelelően paraméterezve:</p>
+<div class="highlight"><pre><span></span><code><span class="err">i</span><span class="kc">n</span><span class="err">creaseProduc</span><span class="kc">t</span><span class="err">PricesByCa</span><span class="kc">te</span><span class="err">gory(ca</span><span class="kc">te</span><span class="err">goryName</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LEGO&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">priceI</span><span class="kc">n</span><span class="err">crease</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1</span><span class="err">)</span>
 </code></pre></div>
+<p>A második része pedig azt mondja meg, hogy a hívás utáni adatot milyen formában szeretnénk látni. Ez megegyezik a fenti lekérdezésekben látott szintaktikával. Jelen esetben például a módosított termékek nevét árát és kategóriáját szeretnénk kiírni:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="kc">na</span><span class="err">me</span>
+<span class="w">    </span><span class="err">price</span>
+<span class="w">    </span><span class="err">ca</span><span class="kc">te</span><span class="err">gory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">na</span><span class="err">me</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</li>
+</ol>
 <h3 id="megrendeles-beszurasa">Megrendelés beszúrása<a class="headerlink" href="#megrendeles-beszurasa" title="Permanent link">&para;</a></h3>
 <p>A következő feladatban egy új megrendelés beszúrására szeretnénk lehetőséget biztosítani.
 A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd várni paraméterben és az alapján hozza létre a megrendelést.</p>
@@ -1723,8 +1775,6 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
 </li>
 <li>
 <p>A következő lekérdezéssel fogod tudni kipróbálni. A lekérdezés beszúrja a megrendelést két termékre, majd az utána megadott struktúrában kiírja az elkészített megrendelést.</p>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><span class="err">mu</span><span class="kc">tat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="err">crea</span><span class="kc">te</span><span class="err">Order(</span>
 <span class="w">        </span><span class="err">produc</span><span class="kc">t</span><span class="err">Names</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Lego City harbour&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Activity playgim&quot;</span><span class="p">],</span>
@@ -1740,6 +1790,8 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+</li>
+</ol>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított C# forráskódot töltsd fel.</p>
@@ -1779,16 +1831,13 @@ Ehelyett rájuk van bízva, hogy mi szerint szeretnének szűrni a GraphQL nyelv
 <li>
 <p>A második feladatod a rendezés és a lapozhatóság hozzáadása a <code>GetOrders</code> függvényhez. A <code>GetOrders</code> függvényt annotáld a megfelelő attribútumokkal, majd a GraphQL regisztrálásakor állítsd be a sorbarendezés és rendezés lehetőségeit. A kipróbáláshoz a lekérdezést módosítani kell, a lekérdezés összeállítása is a feladat része.
 A megoldás leadásakor a lekérdezést is le kell adnod <code>q3_2.txt</code> fájlban, ahol a lekérdezés 2 darab <code>Order</code>-t tartalmaz (lapozás következtében) és <code>id</code> alapján csökkenő sorrendben tenned őket.</p>
+<div class="admonition note">
+<p>A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.</p>
+<p>A lapozható eredmények viszont már nem az adott entitásból álló listáiként jönnek le, hanem úgynevezett kollekciókban. Ezekről többet itt olvashatsz: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination">https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination</a></p>
+<p>A sorbarendezés dokumentációját pedig ott találod: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting">https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting</a></p>
+</div>
 </li>
 </ol>
-<div class="admonition note">
-<div class="highlight"><pre><span></span><code>A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.
-
-A lapozható eredmények viszont már nem az adott entitásból álló listáiként jönnek le, hanem úgynevezett kollekciókban. Ezekről többet itt olvashatsz: https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination
-
-A sorbarendezés dokumentációját pedig ott találod: https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting
-</code></pre></div>
-</div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított C# forráskódot töltsd fel.
@@ -1805,8 +1854,8 @@ Az 3. feladat első és második részében található lekérdezéseket mentsd 
           </path>
         </svg>
       </span>
-      <span title="2024. november 18. 09:25:02">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-18T09:25:02+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-18</span>
+      <span title="2024. december 1. 08:35:10">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-01T08:35:10+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-01</span>
       </span>
     </span>
 
@@ -1823,6 +1872,8 @@ Az 3. feladat első és második részében található lekérdezéseket mentsd 
       <span>Szerzők</span>
       <nav><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
+        </a><a href="https://github.com/gb999" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Pallos">
+          <img src="https://avatars.githubusercontent.com/u/48630952?u=79552f24d02f6b1d3ded57101bace33e3f5fcda6&v=4?size=72" alt="@Gábor Pallos">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
