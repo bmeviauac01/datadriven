@@ -241,6 +241,7 @@ In the following tasks, you will need to come up with the query and the correspo
    Do this, and test it with a query that filters by category names.
    The code completion will be very helpful in creating the query.
    When submitting the solution, the query should be submitted in the `q3_1.txt` file, where you need to filter by the `"Building Items"` category.
+   The results should be in the same format as in Exercise 1.8.
 
     !!! note ""
         Filtering has a unique syntax.
@@ -264,6 +265,7 @@ In the following tasks, you will need to come up with the query and the correspo
 
 1. Your second task is to add sorting and pagination to the `GetOrders` function. Annotate the `GetOrders` function with the appropriate attributes, then set up the sorting and pagination options when registering GraphQL. To test it, you will need to modify the query, and constructing the query is also part of the task.
 When submitting the solution, you must also submit the query in the `q3_2.txt` file, where the query contains 2 `Order` items (due to pagination) and sorts them in descending order by `id`.
+The response to the query should arrive in the format below!
 
 !!! note ""
     Pagination is a very important feature when querying large databases, as sending and processing entire tables is not ideal. Instead, a common solution is that the client requests data in batches, for example, 10 items at a time, and only requests the next batch when navigating to the next page.
@@ -271,6 +273,40 @@ When submitting the solution, you must also submit the query in the `q3_2.txt` f
     The paginated results do not come back as lists of the entities, but as so-called collections. You can read more about them here: https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination
 
     The documentation for sorting can be found here: https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting
+
+    ```json
+        {
+            "data": {
+                "orders": {
+                    "edges": [
+                        {
+                            "node": {
+                                "id": 5,
+                                "orderItems": [
+                                    {
+                                        "amount": 2,
+                                        "product": {
+                                        "name": "Lego City harbour",
+                                        "price": 172268.75,
+                                        "stock": 12
+                                        }
+                                    },
+                                    {
+                                        "amount": 1,
+                                        "product": {
+                                        "name": "Activity playgim",
+                                        "price": 7488,
+                                        "stock": 21
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+        ```
 
 !!! example "SUBMISSION"
     Upload the modified C# source code.
