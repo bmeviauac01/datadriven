@@ -1809,7 +1809,7 @@ A Hot Chocolate beépített szűrés lehetőségének használatához a <code>Se
 <p>Az első feladatban található <code>productsByCategory</code> hívás kiváltható, ha a <code>GetProducts</code> függvényünkre engedélyezzük a beépített szűrést.
 Tedd meg, majd teszteld egy olyan lekérdezéssel, ami kategóriák nevére szűr.
 A lekérdezés elkészítésében nagy segítségedre lesz a kódkiegészítés.
-A megoldás leadásakor a lekérdezést is le kell adnod <code>q3_1.txt</code> fájlban, ahol a <code>"Building Items"</code> kategóriára kell szűrnöd.</p>
+A megoldás leadásakor a lekérdezést is le kell adnod <code>q3_1.txt</code> fájlban, ahol a <code>"Building Items"</code> kategóriára kell szűrnöd. A visszatérési adatok előállításakor az 1. Feladat 8-as pontja szerinti módon kell előállítani a választ.</p>
 <div class="admonition note">
 <p>A szűrésnek egyedi szintaxisa van.
 A lekérdezésben a kívánt elem után egy where kifejezésben adjuk meg, hogy milyen szűrőfeltételeket szeretnénk érvényesíteni.
@@ -1830,11 +1830,45 @@ Ehelyett rájuk van bízva, hogy mi szerint szeretnének szűrni a GraphQL nyelv
 </li>
 <li>
 <p>A második feladatod a rendezés és a lapozhatóság hozzáadása a <code>GetOrders</code> függvényhez. A <code>GetOrders</code> függvényt annotáld a megfelelő attribútumokkal, majd a GraphQL regisztrálásakor állítsd be a sorbarendezés és rendezés lehetőségeit. A kipróbáláshoz a lekérdezést módosítani kell, a lekérdezés összeállítása is a feladat része.
-A megoldás leadásakor a lekérdezést is le kell adnod <code>q3_2.txt</code> fájlban, ahol a lekérdezés 2 darab <code>Order</code>-t tartalmaz (lapozás következtében) és <code>id</code> alapján csökkenő sorrendben tenned őket.</p>
+A megoldás leadásakor a lekérdezést is le kell adnod <code>q3_2.txt</code> fájlban, ahol a lekérdezés 2 darab <code>Order</code>-t tartalmaz (lapozás következtében) és <code>id</code> alapján csökkenő sorrendben tenned őket.
+Figyelj rá, hogy a válasz a lentebb megadott formátumban érkezzen!</p>
 <div class="admonition note">
 <p>A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.</p>
 <p>A lapozható eredmények viszont már nem az adott entitásból álló listáiként jönnek le, hanem úgynevezett kollekciókban. Ezekről többet itt olvashatsz: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination">https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination</a></p>
 <p>A sorbarendezés dokumentációját pedig ott találod: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting">https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting</a></p>
+<p>A válasz formátuma az alábbi legyen: </p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;orders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;edges&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;node&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;orderItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;product&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lego City harbour&quot;</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">172268.75</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;stock&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">                                </span><span class="p">}</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;product&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Activity playgim&quot;</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7488</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">&quot;stock&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span>
+<span class="w">                                </span><span class="p">}</span>
+<span class="w">                            </span><span class="p">}</span>
+<span class="w">                        </span><span class="p">]</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
 </li>
 </ol>
@@ -1854,8 +1888,8 @@ Az 3. feladat első és második részében található lekérdezéseket mentsd 
           </path>
         </svg>
       </span>
-      <span title="2024. december 1. 08:35:10">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-01T08:35:10+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-01</span>
+      <span title="2024. december 1. 10:09:23">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-01T10:09:23+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-01</span>
       </span>
     </span>
 

@@ -1719,7 +1719,8 @@ Additionally, take a screenshot where you have executed the modifications using 
 <p>In the first task, the <code>productsByCategory</code> call can be replaced by enabling the built-in filtering for our <code>GetProducts</code> function. 
    Do this, and test it with a query that filters by category names.
    The code completion will be very helpful in creating the query.
-   When submitting the solution, the query should be submitted in the <code>q3_1.txt</code> file, where you need to filter by the <code>"Building Items"</code> category.</p>
+   When submitting the solution, the query should be submitted in the <code>q3_1.txt</code> file, where you need to filter by the <code>"Building Items"</code> category.
+   The results should be in the same format as in Exercise 1.8.</p>
 <div class="admonition note">
 <p>Filtering has a unique syntax.
 In the query, after the desired element, we specify the filtering conditions using a <code>where</code> expression.
@@ -1740,13 +1741,46 @@ Instead, it is left to the users to specify how they want to filter, and the Gra
 </li>
 <li>
 <p>Your second task is to add sorting and pagination to the <code>GetOrders</code> function. Annotate the <code>GetOrders</code> function with the appropriate attributes, then set up the sorting and pagination options when registering GraphQL. To test it, you will need to modify the query, and constructing the query is also part of the task.
-When submitting the solution, you must also submit the query in the <code>q3_2.txt</code> file, where the query contains 2 <code>Order</code> items (due to pagination) and sorts them in descending order by <code>id</code>.</p>
+When submitting the solution, you must also submit the query in the <code>q3_2.txt</code> file, where the query contains 2 <code>Order</code> items (due to pagination) and sorts them in descending order by <code>id</code>.
+The response to the query should arrive in the format below!</p>
 </li>
 </ol>
 <div class="admonition note">
 <p>Pagination is a very important feature when querying large databases, as sending and processing entire tables is not ideal. Instead, a common solution is that the client requests data in batches, for example, 10 items at a time, and only requests the next batch when navigating to the next page.</p>
 <p>The paginated results do not come back as lists of the entities, but as so-called collections. You can read more about them here: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination">https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination</a></p>
 <p>The documentation for sorting can be found here: <a href="https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting">https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting</a></p>
+<p><code>json
+    {
+        "data": {
+            "orders": {
+                "edges": [
+                    {
+                        "node": {
+                            "id": 5,
+                            "orderItems": [
+                                {
+                                    "amount": 2,
+                                    "product": {
+                                    "name": "Lego City harbour",
+                                    "price": 172268.75,
+                                    "stock": 12
+                                    }
+                                },
+                                {
+                                    "amount": 1,
+                                    "product": {
+                                    "name": "Activity playgim",
+                                    "price": 7488,
+                                    "stock": 21
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }</code></p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">SUBMISSION</p>
@@ -1764,8 +1798,8 @@ Save the queries from parts 1 and 2 of task 3 as <code>q3_1.txt</code> and <code
           </path>
         </svg>
       </span>
-      <span title="November 18, 2024 09:43:58">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-18T09:43:58+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-18</span>
+      <span title="December 1, 2024 10:09:23">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-01T10:09:23+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-01</span>
       </span>
     </span>
 
