@@ -22,6 +22,8 @@ A gyakorlat célja, hogy megmutassa, hogyan érhetők el komplex adatok egyszer�
 Ebben a házi feladatban a megszokott adatmodell lesz használva, megrendelések, termékek, kategóriák és hozzájuk kapcsolódó információk lekérdezésével.
 Az adatmodell, a DBContext és az entitások már megtalálhatóak a kiinduló projektben.
 
+### GraphQL végpontok létrehozása
+
 Az első feladatban megnézzük hogyan lehet egy már létező projekthez felvenni GraphQL végpontokat a Hot Chocolate szerver oldali könyvtár segítségével.
 Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, és elkészítjük azt az osztályt, ami visszaadja a szükséges adatokat.
 
@@ -36,56 +38,61 @@ Ehhez először felvesszük a szükséges csomagokat, kiajánlunk végpontokat, 
 1. A belépési pontba (`Program.cs`) regisztráld be a GraphQLServer szolgáltatást az alábbi kód segítségével:
 (itt három dolog történik: beregisztráljuk a GraphQLServer szolgáltatást, az `AdatvezDBContext`-t, hogy injektálható legyen, valamint a `Query` osztályt, mint lekérdezések végpontjaiként funkcionáló osztályt)
 
-```csharp
-builder.Services
-    .AddGraphQLServer()
-    .RegisterDbContextFactory<AdatvezDbContext>()
-    .AddQueryType<Query>();
-```
+    ```csharp
+    builder.Services
+        .AddGraphQLServer()
+        .RegisterDbContextFactory<AdatvezDbContext>()
+        .AddQueryType<Query>();
+    ```
 
 1. Add hozzá az útválasztást (végpontok kezelésének képességét) és hozz létre egy alapértelmezett végpontot a következő kódsorok segítségével:
 
-```csharp
-app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGraphQL();
-});
-```
+    ```csharp
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGraphQL();
+    });
+    ```
 
 1. Indítsd el az alkalmazást és navigálj a `http://localhost:5000/graphql/` oldalra. Itt láthatod a Banana Cake Pop nevű interaktív eszközt, amivel lehetséges lekérdezések és mutációk futtatás, a séma megtekintése, valamint az API-hoz tartozó dokumentációt is lehet böngészni. A lekérdezések tabon a következő kóddal ki tudod próbálni a fenti függvény futását:
 
-```json
-query {
-    products {
-        name
-        category {
+    ```json
+    query {
+        products {
             name
+            category {
+                name
+            }
         }
     }
-}
-```
+    ```
 
 !!! note ""
-        Vizsgáljuk meg, hogy mi történik.
+    Vizsgáljuk meg, hogy mi történik.
 
-        - Amikor a Hot Chocolate vagy más GraphQL szerver egy kérést kap, minden mezőt egy resolver kezel, amely felelős az adott adat lekéréséért, előállításáért.
-        
-        - A products mezőhöz implicit módon kapcsolódik a GetProducts metódus, a Hot Chocolate automatikusan összeköti őket.
-        
-        - A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.
+    - Amikor a Hot Chocolate vagy más GraphQL szerver egy kérést kap, minden mezőt egy resolver kezel, amely felelős az adott adat lekéréséért, előállításáért.
+    
+    - A products mezőhöz implicit módon kapcsolódik a GetProducts metódus, a Hot Chocolate automatikusan összeköti őket.
+    
+    - A Hot Chocolate és az Entity Framework (EF) integrációja lehetővé teszi, hogy a GraphQL API közvetlenül adatokat kérjen le az adatbázisból az EF-en keresztül, ami leegyszerűsíti a GraphQL végpontok implementálását és működését.
+
+!!! note  "Connection string"
+    Ha nem LocalDB-t használsz, az `appsettings.json`-ban a connection stringet lehet, hogy módosítanod kell.
+
+### Lekérdezések
 
 1. Készíts az előző feladat alapján egy olyan lekérdezést, amely képes a termékeket visszaadni valamilyen szűrés elvégzése után. A `Query` osztályba vedd fel a `ProductsByCategory` függvényt ami az `AdatvezDBContext`-en kívül egy `categoryName` nevű `string` paraméterrel rendelkezik. Az implementációban szűrj a kategória nevére: azokat a terméket add vissza, amelyek kategóriájának neve megegyezik a kapott paraméterrel. A teszteléshez használd az alábbi lekérdezést:
 
-```json
-query {
-    productsByCategory(categoryName: "Months 0-6") {
-        id
-        name
-        price
+    ```json
+    query {
+        productsByCategory(categoryName: "Months 0-6") {
+            id
+            name
+            price
+        }
     }
-}
-```
+    ```
 
 
 1. A következő feladatban láthatjuk a GraphQL erejét. Amennyiben sok táblából kell összeválogatni a szükséges információt, sok felesleges adat is keresztül mehetne a hálózaton. Ehhez képest, ha tudjuk mik fognak kelleni, elég csupán a szükséges adatokat lekérdezni és elküldeni. Készíts egy lekérdezést, ami megrendeléseket ad vissza és a következő adatokat szedi össze:
@@ -98,39 +105,39 @@ query {
 
     - Hány darabot rendeltek az adott termékből.
 
-```json
-query {
-    orders {
-        customerSite {
-            customer {
-                name
+    ```json
+    query {
+        orders {
+            customerSite {
+                customer {
+                    name
+                }
             }
-        }
-        orderItems {
-            amount
-            product
-            {
-                name
-                category
+            orderItems {
+                amount
+                product
                 {
                     name
+                    category
+                    {
+                        name
+                    }
                 }
             }
         }
     }
-}
-```
+    ```
 
 1. Lekérdezés optimalizálása: az alkalmazás indításakor megnyíló konzolon megtekintheted a lekérdezést is, amit a Hot Chocolate generál Entity Framework segítségével. Láthatod, hogy a select utasításban elég sok olyan mező is lekérdezésre kerül, ami egyébként nem kéne, pedig a lekérésben egyértelműen megfogalmaztuk, hogy mik kellenek. A Hot Chocolate a `[UseProjection]` annotációval ellátott függvények esetén a beérkező kéréseket az adatbázis számára közvetlen transzformálja. A használatához az annotáció hozzáadásán kívül két módosítás szükséges. Az első, hogy a függvény visszatérési értéke `IQuryable<Order>` legyen. A második pedig, hogy a következő hívással beregisztráld a projection elérhetőségét:
 
-```csharp
-builder.Services
-    .AddGraphQLServer()
-    .RegisterDbContextFactory<AdatvezDbContext>()
-    .AddQueryType<Query>()
-    //új sor:
-    .AddProjections(); 
-```
+    ```csharp
+    builder.Services
+        .AddGraphQLServer()
+        .RegisterDbContextFactory<AdatvezDbContext>()
+        .AddQueryType<Query>()
+        //új sor:
+        .AddProjections(); 
+    ```
 
 Nézd meg konzolon az SQL lekérdezés megváltozását. Az implementáció is csökkenthet, innentől kezdve az explicit `Include` hívások sem lesznek szükségesek.
 
@@ -156,17 +163,17 @@ Az első módosítás a meglévő termékek árát fogja módosítani. Növeljü
 
 1. Tesztelni az alábbi példa paranccsal tudod (a paraméter neve meg kell egyezzen a lenti hívásban megadott változónévvel: *categoryName*/*priceIncrease*):
 
-```json
-mutation {
-    increaseProductPricesByCategory(categoryName: "LEGO", priceIncrease: 1.1) {
-        name
-        price
-        category {
-                name
+    ```json
+    mutation {
+        increaseProductPricesByCategory(categoryName: "LEGO", priceIncrease: 1.1) {
+            name
+            price
+            category {
+                    name
+                }
             }
-        }
-}
-```
+    }
+    ```
 
     !!! note ""
         A lekérdezés két részből áll. Az első maga a mutation hívása lesz megfelelően paraméterezve:
@@ -201,22 +208,22 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
 
 1. A következő lekérdezéssel fogod tudni kipróbálni. A lekérdezés beszúrja a megrendelést két termékre, majd az utána megadott struktúrában kiírja az elkészített megrendelést.
 
-```json
-mutation {
-    createOrder(
-        productNames: ["Lego City harbour", "Activity playgim"],
-        quantities: [2, 4]
-    ) {
-        id
-        orderItems {
-        product {
-            name
-        }
-        amount
+    ```json
+    mutation {
+        createOrder(
+            productNames: ["Lego City harbour", "Activity playgim"],
+            quantities: [2, 4]
+        ) {
+            id
+            orderItems {
+            product {
+                name
+            }
+            amount
+            }
         }
     }
-}
-```
+    ```
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
@@ -261,7 +268,7 @@ A megoldás leadásakor a lekérdezést is le kell adnod `q3_1.txt` fájlban, ah
 1. A második feladatod a rendezés és a lapozhatóság hozzáadása a `GetOrders` függvényhez. A `GetOrders` függvényt annotáld a megfelelő attribútumokkal, majd a GraphQL regisztrálásakor állítsd be a sorbarendezés és rendezés lehetőségeit. A kipróbáláshoz a lekérdezést módosítani kell, a lekérdezés összeállítása is a feladat része.
 A megoldás leadásakor a lekérdezést is le kell adnod `q3_2.txt` fájlban, ahol a lekérdezés 2 darab `Order`-t tartalmaz (lapozás következtében) és `id` alapján csökkenő sorrendben tenned őket.
 
-!!! note ""
+    !!! note ""
         A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.
 
         A lapozható eredmények viszont már nem az adott entitásból álló listáiként jönnek le, hanem úgynevezett kollekciókban. Ezekről többet itt olvashatsz: https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination
