@@ -243,7 +243,7 @@ A következő feladatokban neked kell kitalálnod a lekérdezést is és a funkc
 1. Az első feladatban található `productsByCategory` hívás kiváltható, ha a `GetProducts` függvényünkre engedélyezzük a beépített szűrést.
 Tedd meg, majd teszteld egy olyan lekérdezéssel, ami kategóriák nevére szűr.
 A lekérdezés elkészítésében nagy segítségedre lesz a kódkiegészítés.
-A megoldás leadásakor a lekérdezést is le kell adnod `q3_1.txt` fájlban, ahol a `"Building Items"` kategóriára kell szűrnöd.
+A megoldás leadásakor a lekérdezést is le kell adnod `q3_1.txt` fájlban, ahol a `"Building Items"` kategóriára kell szűrnöd. A visszatérési adatok előállításakor az 1. Feladat 8-as pontja szerinti módon kell előállítani a választ.
 
     !!! note ""
         A szűrésnek egyedi szintaxisa van.
@@ -267,6 +267,7 @@ A megoldás leadásakor a lekérdezést is le kell adnod `q3_1.txt` fájlban, ah
 
 1. A második feladatod a rendezés és a lapozhatóság hozzáadása a `GetOrders` függvényhez. A `GetOrders` függvényt annotáld a megfelelő attribútumokkal, majd a GraphQL regisztrálásakor állítsd be a sorbarendezés és rendezés lehetőségeit. A kipróbáláshoz a lekérdezést módosítani kell, a lekérdezés összeállítása is a feladat része.
 A megoldás leadásakor a lekérdezést is le kell adnod `q3_2.txt` fájlban, ahol a lekérdezés 2 darab `Order`-t tartalmaz (lapozás következtében) és `id` alapján csökkenő sorrendben tenned őket.
+Figyelj rá, hogy a válasz a lentebb megadott formátumban érkezzen!
 
     !!! note ""
         A lapozhatóság rendkívül fontos tulajdonság lesz, amikor nagyméretű adatbázisokból kérünk le adatokat, hiszen teljes táblák elküldése és feldolgozása sem szerencsés. Ehelyett gyakori megoldás, hogy például 10-esével kéri le a kliens az adatokat és a következő oldalra navigálva kéri csak le a következő 10-et.
@@ -274,6 +275,42 @@ A megoldás leadásakor a lekérdezést is le kell adnod `q3_2.txt` fájlban, ah
         A lapozható eredmények viszont már nem az adott entitásból álló listáiként jönnek le, hanem úgynevezett kollekciókban. Ezekről többet itt olvashatsz: https://chillicream.com/docs/hotchocolate/v14/fetching-data/pagination
 
         A sorbarendezés dokumentációját pedig ott találod: https://chillicream.com/docs/hotchocolate/v14/fetching-data/sorting
+
+        A válasz formátuma az alábbi legyen: 
+    
+        ```json
+        {
+            "data": {
+                "orders": {
+                    "edges": [
+                        {
+                            "node": {
+                                "id": 5,
+                                "orderItems": [
+                                    {
+                                        "amount": 2,
+                                        "product": {
+                                        "name": "Lego City harbour",
+                                        "price": 172268.75,
+                                        "stock": 12
+                                        }
+                                    },
+                                    {
+                                        "amount": 1,
+                                        "product": {
+                                        "name": "Activity playgim",
+                                        "price": 7488,
+                                        "stock": 21
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+        ```
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
