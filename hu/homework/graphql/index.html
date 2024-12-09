@@ -1730,7 +1730,7 @@ Az adatmanipulációt úgynevezett <em>Mutation</em> hajtja végre, ami egy olya
 <p>Regisztráld be a szolgáltatást az első feladatban található <code>Query</code> regisztrálásához hasonlóan az <code>.AddMutationType&lt;ProductMutation&gt;()</code> függvényhívás segítségével.</p>
 </li>
 <li>
-<p>A <code>ProductMutation</code> rendelkezzen egy <code>IncreaseProductPricesByCategory</code> függvénnyel, ami elvégzi a szükséges módosításokat és visszatér egy <code>IQueryable&lt;Product&gt;</code> típussal, amiben láthatjuk az új árakat. A függvény három paraméterrel rendelkezzen: 1) az <code>AdatvezDBContext</code>, 2) egy <code>categoryName</code> stringgel, és 3) egy <code>priceIncrease</code> double értékkel, ami megmondja, hogy mennyivel dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.</p>
+<p>A <code>ProductMutation</code> rendelkezzen egy <code>IncreaseProductPricesByCategory</code> függvénnyel, ami elvégzi a szükséges módosításokat és visszatér egy <code>IQueryable&lt;Product&gt;</code> típussal, amiben láthatjuk az új árakat. A függvény három paraméterrel rendelkezzen: 1) az <code>AdatvezDBContext</code>, 2) egy <code>categoryName</code> stringgel, és 3) egy <code>priceIncrease</code> double értékkel, ami megmondja, hogy hányszorosára dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.</p>
 </li>
 <li>
 <p>Tesztelni az alábbi példa paranccsal tudod (a paraméter neve meg kell egyezzen a lenti hívásban megadott változónévvel: <em>categoryName</em>/<em>priceIncrease</em>):</p>
@@ -1888,8 +1888,8 @@ Az 3. feladat első és második részében található lekérdezéseket mentsd 
           </path>
         </svg>
       </span>
-      <span title="2024. december 1. 10:09:23">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-01T10:09:23+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-01</span>
+      <span title="2024. december 9. 13:09:04">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-09T13:09:04+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-09</span>
       </span>
     </span>
 
