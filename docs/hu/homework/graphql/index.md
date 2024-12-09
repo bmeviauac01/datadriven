@@ -159,7 +159,7 @@ Az első módosítás a meglévő termékek árát fogja módosítani. Növeljü
 
 1. Regisztráld be a szolgáltatást az első feladatban található `Query` regisztrálásához hasonlóan az `.AddMutationType<ProductMutation>()` függvényhívás segítségével.
 
-1. A `ProductMutation` rendelkezzen egy `IncreaseProductPricesByCategory` függvénnyel, ami elvégzi a szükséges módosításokat és visszatér egy `IQueryable<Product>` típussal, amiben láthatjuk az új árakat. A függvény három paraméterrel rendelkezzen: 1) az `AdatvezDBContext`, 2) egy `categoryName` stringgel, és 3) egy `priceIncrease` double értékkel, ami megmondja, hogy mennyivel dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.
+1. A `ProductMutation` rendelkezzen egy `IncreaseProductPricesByCategory` függvénnyel, ami elvégzi a szükséges módosításokat és visszatér egy `IQueryable<Product>` típussal, amiben láthatjuk az új árakat. A függvény három paraméterrel rendelkezzen: 1) az `AdatvezDBContext`, 2) egy `categoryName` stringgel, és 3) egy `priceIncrease` double értékkel, ami megmondja, hogy hányszorosára dráguljon a termék. A visszatérési értéke a módosított termékek kollekciója legyen. Figyelj rá, hogy a módosításokat az adatbázisba is átvezesd.
 
 1. Tesztelni az alábbi példa paranccsal tudod (a paraméter neve meg kell egyezzen a lenti hívásban megadott változónévvel: *categoryName*/*priceIncrease*):
 
