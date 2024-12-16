@@ -2,7 +2,7 @@
 
 GraphQL házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 
-GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok).
 
@@ -229,6 +229,10 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
     A módosított C# forráskódot töltsd fel.
 
     Emellett készíts egy képernyőképet, amelyben a módosításokat futtattad a Banana Cake Pop felületén. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+
+
+!!! important "MÉG NEM VÉGEZTÉL"
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
 
 ## Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)
 
