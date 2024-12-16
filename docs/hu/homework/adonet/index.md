@@ -49,6 +49,9 @@ A teszteléshez találsz unit teszteket a solution-ben. Ezeket a teszteket [Visu
 
     A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
+!!! important "MÉG NEM VÉGEZTÉL"
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
+
 ## Feladat 2: Optimista konkurenciakezelés (2 iMsc pont)
 
 !!! note ""
@@ -80,5 +83,3 @@ A konkrét eset, amit el szeretnénk kerülni:
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel. Ne felejtsd el megírni a magyarázatot a C# kódban!
 
-!!! important "MÉG NEM VÉGEZTÉL"
-    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
