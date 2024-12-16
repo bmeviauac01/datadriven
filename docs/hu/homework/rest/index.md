@@ -2,7 +2,7 @@
 
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
-GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok).
 
@@ -78,6 +78,8 @@ A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása,
 
     Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
+!!! important "MÉG NEM VÉGEZTÉL"
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
 
 
 ## Feladat 3: Termék részleges frissítése (3 iMsc pont)
