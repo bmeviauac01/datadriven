@@ -232,7 +232,7 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
 
 
 !!! important "MÉG NEM VÉGEZTÉL"
-    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
 
 ## Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)
 
