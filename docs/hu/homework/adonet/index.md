@@ -81,4 +81,4 @@ A konkrét eset, amit el szeretnénk kerülni:
     A módosított C# forráskódot töltsd fel. Ne felejtsd el megírni a magyarázatot a C# kódban!
 
 !!! important "MÉG NEM VÉGEZTÉL"
-    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlat vezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
