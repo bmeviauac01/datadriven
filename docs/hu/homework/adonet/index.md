@@ -5,7 +5,7 @@
 
 A házi feladat opcionális. A teljesítéssel **2 pluszpont és 2 iMsc pont** szerezhető.
 
-GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok). A feladat MSSQL adatbázist használ.
 
@@ -79,3 +79,6 @@ A konkrét eset, amit el szeretnénk kerülni:
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel. Ne felejtsd el megírni a magyarázatot a C# kódban!
+
+!!! important "MÉG NEM VÉGEZTÉL"
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlat vezetődet! (részletek: [a házi feladat leadása](../GitHub.md) odlalon)
