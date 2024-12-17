@@ -2,7 +2,7 @@
 
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
-GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. A feladatok elkészítése után kommitold és pushold a megoldásod.
+GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
 A megoldáshoz szükséges szoftvereket és eszközöket lásd [itt](../index.md#szukseges-eszkozok). A feladat MSSQL adatbázist használ.
 
@@ -88,6 +88,9 @@ Implementáld a `ProductRepository` osztály függvényeit.
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
 
+!!! important "MÉG NEM VÉGEZTÉL"
+    Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
+
 ## Feladat 3: Logikai törlés Entity Framework-kel (3 iMSc pont)
 
 !!! note ""
@@ -113,3 +116,4 @@ Implementáld a logikai törlést az előbbiekben elkészített `DbProduct` oszt
 
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
+
