@@ -78,7 +78,7 @@ The most common database operations related to products are inserting a new one,
 
     Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful product retrieval. The image should display all details of the request and response (request type, URL, response code, response content). Your **Neptun code** must appear in the response. Save the image as `f2.png` and submit it as part of your solution!
 
-!!! danger "YOU ARE NOT FINISHED"
+!!! danger "YOU HAVE NOT FINISHED YET"
     After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Partial Update of Product (0 points)

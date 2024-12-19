@@ -68,7 +68,7 @@ There are unit tests available in the solution. The test codes are commented out
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
-!!! danger "YOU ARE NOT FINISHED"
+!!! danger "YOU HAVE NOT FINISHED YET"
     After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 2: Repository implementation using Entity Framework (2 points)

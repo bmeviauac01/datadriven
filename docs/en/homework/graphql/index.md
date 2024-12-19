@@ -226,7 +226,7 @@ Example "SUBMISSION"
 
     Additionally, take a screenshot where you have executed the modifications using the Banana Cake Pop interface. Save the image as `f2.png` and include it as part of your solution!
 
-!!! danger "YOU ARE NOT FINISHED"
+!!! danger "YOU HAVE NOT FINISHED YET"
     After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Advanced GraphQL functions (0 points)
