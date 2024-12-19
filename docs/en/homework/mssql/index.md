@@ -2,7 +2,7 @@
 
 You may earn **4 points** by completing this exercise.
 
-Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. You need to create a branch, named `solution`, and **work on this branch**. After completing the exercises and verifying them, commit and push your submission.
 
 Check the required software and tools [here](../index.md#required-tools).
 
@@ -48,6 +48,9 @@ Test the procedure to ensure it works correctly!
     Submit the trigger code in the `f2.sql` file. The SQL file should contain only a single statement (just one `create procedure cancel_invoice`), and should not include any `use` or `go` commands!
 
     Create a screenshot showing the execution of the stored procedure and its effects, as well as what happens when incorrect data is provided (you can use a window with two tabs, for example). The screenshot should display the name of your database (your Neptun code). Save the screenshot as `f2.png` and submit it as part of your solution!
+
+!!! danger "YOU HAVE NOT FINISHED YET"
+    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Product recommended age (0 points)
 

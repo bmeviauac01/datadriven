@@ -2,7 +2,7 @@
 
 You may earn **4 points** by completing this exercise.
 
-Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. You need to create a branch, named `solution`, and **work on this branch**. After completing the exercises and verifying them, commit and push your submission.
 
 Check the required software and tools [here](../index.md#required-tools). This homework uses MSSQL database.
 
@@ -87,6 +87,9 @@ Implement the methods of class `ProductRepository.
 
 !!! example "SUBMISSION"
     Upload the changed C# source code.
+
+!!! danger "YOU HAVE NOT FINISHED YET"
+    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Logical Deletion with Entity Framework (0 points)
 

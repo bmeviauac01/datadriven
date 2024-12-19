@@ -231,7 +231,7 @@ A megrendelés csak a termékek neveit és a kívánt darabszámait fogja majd v
     Emellett készíts egy képernyőképet, amelyben a módosításokat futtattad a Banana Cake Pop felületén. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
 
-!!! important "MÉG NEM VÉGEZTÉL"
+!!! danger "MÉG NEM VÉGEZTÉL"
     Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
 
 ## Feladat 3: Haladó GraphQL funkciók (3 iMSc pont)

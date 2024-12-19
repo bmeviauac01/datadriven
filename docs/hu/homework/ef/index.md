@@ -88,7 +88,7 @@ Implementáld a `ProductRepository` osztály függvényeit.
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel.
 
-!!! important "MÉG NEM VÉGEZTÉL"
+!!! danger "MÉG NEM VÉGEZTÉL"
     Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
 
 ## Feladat 3: Logikai törlés Entity Framework-kel (3 iMSc pont)

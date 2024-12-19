@@ -81,7 +81,7 @@ A következőkre kell figyelni a beszúráskor:
 !!! example "BEADANDÓ"
     A módosított C# forráskódot töltsd fel! Emellett készíts egy képernyőképet az első feladathoz hasonlóan, amelyben a vonatkozó teszteket lefuttattad! A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-!!! important "MÉG NEM VÉGEZTÉL"
+!!! danger "MÉG NEM VÉGEZTÉL"
     Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
 
 ## Feladat 3: Raktár méret becslés (3 iMsc pont)
