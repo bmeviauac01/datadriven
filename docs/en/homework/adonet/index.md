@@ -5,7 +5,7 @@
 
 You may earn **2 points** by completing this exercise.
 
-Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. You need to create a branch, named `solution`, and **work on this branch**. After completing the exercises and verifying them, commit and push your submission.
 
 Check the required software and tools [here](../index.md#required-tools). This homework uses MSSQL database.
 
@@ -47,6 +47,9 @@ There are unit tests available in the solution. You can [run the unit tests in V
     If you are using `dotnet cli` to run the tests, make sure to display the test names too. Use the `-v n` command line switch to set detailed logging.
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
+
+!!! danger "YOU ARE NOT FINISHED"
+    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 2 optional: Optimistic concurrency handling (0 points)
 

@@ -2,7 +2,7 @@
 
 You may earn **4 points** by completing this exercise.
 
-Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. You need to create a branch, named `solution`, and **work on this branch**. After completing the exercises and verifying them, commit and push your submission.
 
 Check the required software and tools [here](../index.md#required-tools).
 
@@ -225,6 +225,9 @@ Example "SUBMISSION"
     Upload the modified C# source code.
 
     Additionally, take a screenshot where you have executed the modifications using the Banana Cake Pop interface. Save the image as `f2.png` and include it as part of your solution!
+
+!!! danger "YOU ARE NOT FINISHED"
+    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Advanced GraphQL functions (0 points)
 

@@ -2,7 +2,7 @@
 
 You may earn **4 points** by completing this exercise.
 
-Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. After completing the exercises and verifying them, commit and push your submission.
+Use GitHub Classroom to get your git repository. You can find the **invitation link in Moodle**. Clone the repository created via the link. It contains a skeleton and the expected structure of your submission. You need to create a branch, named `solution`, and **work on this branch**. After completing the exercises and verifying them, commit and push your submission.
 
 The required software and tools for the solution can be found [here](../index.md#required-tools).
 
@@ -77,6 +77,9 @@ The most common database operations related to products are inserting a new one,
     Upload the modified source code.
 
     Additionally, take a screenshot from Postman (or another testing tool) showing the result of a successful product retrieval. The image should display all details of the request and response (request type, URL, response code, response content). Your **Neptun code** must appear in the response. Save the image as `f2.png` and submit it as part of your solution!
+
+!!! danger "YOU ARE NOT FINISHED"
+    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Partial Update of Product (0 points)
 
