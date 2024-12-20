@@ -35,6 +35,14 @@ Feladatok:
     </dependency>
     ```
 
+    ```xml
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
+        </dependency>
+    ```
+
 2. A `hu.bme.aut.adatvezrestapiplushf.persistence.repositories.ProductRepository` osztályban a `Neptun` nevű mező értékében cseréld le a Neptun kódod. A string értéke a Neptun kódod 6 karaktere legyen.
 
     !!! warning "FONTOS"
@@ -49,7 +57,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 
 1. A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v3/swagger.json` címen elérhető alapból. Ezt állítsd át a `/neptun_code/swagger.json` címre.
 
-    - **Tipp**: Ezt a Spring Boot-tal és a maven-nel egyszerűen megteheted, hozzá kell adnod a megfelelő dependency-t:
+    - **Tipp**: Ezt a Spring Boot-tal és a maven-nel egyszerűen megteheted, hozzá kell adnod a megfelelő dependency-t (ezt már korábban hozzáadtuk, mert ez felel az endpointokért is):
 
     ```xml
         <dependency>
