@@ -16,7 +16,7 @@ A létrehozott és klónozott repository-ban megtalálható a kiinduló kód vá
 
 Nézd meg a rendelkezésre álló kódot.
 
-- A `Startup.cs` inicializálja az alkalmazást. Ez egy ASP.NET Core webalkalmazás.
+- A `Program.cs` inicializálja az alkalmazást. Ez egy ASP.NET Core webalkalmazás.
 - Az alkalmazásban nincs adatbázis elérés az egyszerűség végett. A `ProductRepository` osztály teszteléshez használandó adatokat ad.
 - A `ProductsController` _dependency injection_ segítségével példányosítja az `IProductRepository`-t.
 

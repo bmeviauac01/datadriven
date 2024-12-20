@@ -16,7 +16,7 @@ In the created and cloned repository, you'll find the initial code structure. Op
 
 Check the available code.
 
-- The `Startup.cs` initializes the application. This is an ASP.NET Core web application.
+- The `Program.cs` initializes the application. This is an ASP.NET Core web application.
 - For simplicity, there is no database access in the application. The `ProductRepository` provides data to be used for testing.
 - The `ProductsController` instantiates the `IProductRepository` using _dependency injection_.
 
