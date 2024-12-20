@@ -78,7 +78,7 @@ A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása,
 
     Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
-!!! important "MÉG NEM VÉGEZTÉL"
+!!! danger "MÉG NEM VÉGEZTÉL"
     Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
 
 
