@@ -10,7 +10,7 @@ A NoSQL adatbázisok a relációs sémától eltérően működő adatbázisok �
     - Rendelkezésreállás biztosítása    
 2. Nem-strukturált adatok tárolása esetén inkább a hátrányok jelentkeznek
 
-Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk megával **hoz új kihívásokat** is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.
+Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk magával **hoz új kihívásokat** is. Ebben a világban **elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni**. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.
 
 ## A MongoDB alap koncepciói
 
