@@ -181,7 +181,7 @@ How do we know that the result of our query is an empty set? And how do we know 
 
 ### DataReader
 
-Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during with we query fresh data and usually convert it to some other internal representation.
+Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during which we query fresh data and usually convert it to some other internal representation.
 
 **Processing steps:**
 
