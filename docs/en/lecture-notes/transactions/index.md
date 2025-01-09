@@ -140,7 +140,7 @@ The ANSI/ISO SQL standard defines the following isolation levels:
 
 The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.
 
-These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another translation and concurrent access is not allowed by the isolation level, the transaction will wait.
+These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.
 
 We know that when we use locks, **deadlock** can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.
 
@@ -160,7 +160,7 @@ A transaction combines a sequence of steps. It is, therefore, necessary to mark 
     !!! note "Simple statements are transactions too"
         Since all SQL statements run within a transaction scope, the transaction properties are automatically guaranteed for all statements. For example, a `delete` statement affecting multiple records cannot abort and delete only half of the records.
 
-1. The developer executes a `begin transaction` SQL statement to start a transaction, and completes it either with `commit` or `rollback`. Commit completes the translation and saves its changes, while rollback aborts the transaction and undoes its changes.
+1. The developer executes a `begin transaction` SQL statement to start a transaction, and completes it either with `commit` or `rollback`. Commit completes the transaction and saves its changes, while rollback aborts the transaction and undoes its changes.
 
     !!! note "Nested transactions"
         Some database management systems enable nested transactions too. Completing transactions follow the nesting: each level needs to be committed.
