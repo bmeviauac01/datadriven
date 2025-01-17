@@ -181,7 +181,7 @@ How do we know that the result of our query is an empty set? And how do we know 
 
 ### DataReader
 
-Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during with we query fresh data and usually convert it to some other internal representation.
+Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during which we query fresh data and usually convert it to some other internal representation.
 
 **Processing steps:**
 
@@ -310,7 +310,7 @@ using(var conn = new SqlConnection(connectionString))
 
 ### SQL injection
 
-**SQL injection** is a **severe error** in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead `Monkey92); DROP TABLE Users; -` value is received. If we were to include this text and insert it into our SQL statement, we would also execute `drop table`, thereby deleting an entire table. This is a **serious mistake**!
+**SQL injection** is a **severe vulnerability** in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead `Monkey92); DROP TABLE Users; -` value is received. If we were to include this text and insert it into our SQL statement, we would also execute `drop table`, thereby deleting an entire table. This is a **serious mistake**!
 
 !!! important "**SOLUTION**"
      Using parameters (see the [Command section](#command) for an example).
