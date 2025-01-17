@@ -1811,7 +1811,7 @@
 <h2 id="query-result">Query result<a class="headerlink" href="#query-result" title="Permanent link">&para;</a></h2>
 <p><strong>ADO.NET</strong> offers two ways of fetching data from a database and working with it: <code>DataReader</code> and <code>DataSet</code>. The main difference between the two solutions is how these use the database connection. These two models are, in general, called: <strong>connection-based</strong> (<code>DataReader</code>) and <strong>connection-less</strong> (<code>DataSet</code>) data access. In the connection-based model, the connection to the database is maintained throughout the queries as long as we work with the data. While in the connection-less model modifications are performed in a <code>DataSet</code>, which is synchronized with the database itself (establishing the connection only for the duration of the synchronization). Both options have advantages and disadvantages, which we will discuss in the following sections.</p>
 <h3 id="datareader">DataReader<a class="headerlink" href="#datareader" title="Permanent link">&para;</a></h3>
-<p>Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during with we query fresh data and usually convert it to some other internal representation.</p>
+<p>Here, we need a connection to the database to fetch the required data from the database. The connection remains open only for a short time, during which we query fresh data and usually convert it to some other internal representation.</p>
 <p><strong>Processing steps:</strong></p>
 <ol>
 <li>open the connection</li>
@@ -1926,7 +1926,7 @@
 </ul>
 <h2 id="risks">Risks<a class="headerlink" href="#risks" title="Permanent link">&para;</a></h2>
 <h3 id="sql-injection">SQL injection<a class="headerlink" href="#sql-injection" title="Permanent link">&para;</a></h3>
-<p><strong>SQL injection</strong> is a <strong>severe error</strong> in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead <code>Monkey92); DROP TABLE Users; -</code> value is received. If we were to include this text and insert it into our SQL statement, we would also execute <code>drop table</code>, thereby deleting an entire table. This is a <strong>serious mistake</strong>!</p>
+<p><strong>SQL injection</strong> is a <strong>severe vulnerability</strong> in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead <code>Monkey92); DROP TABLE Users; -</code> value is received. If we were to include this text and insert it into our SQL statement, we would also execute <code>drop table</code>, thereby deleting an entire table. This is a <strong>serious mistake</strong>!</p>
 <div class="admonition important">
 <p class="admonition-title"><strong>SOLUTION</strong></p>
 <p>Using parameters (see the <a href="#command">Command section</a> for an example).</p>
@@ -1956,8 +1956,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 14, 2024 17:18:32">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-14T17:18:32+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-14</span>
+      <span title="January 10, 2025 00:22:56">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-10T00:22:56+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-10</span>
       </span>
     </span>
 
@@ -1972,7 +1972,9 @@
         </svg>
       </span>
       <span>Contributors</span>
-      <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
+      <nav><a href="https://github.com/0xmzn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Mazen Saad">
+          <img src="https://avatars.githubusercontent.com/u/69648110?u=c758ebdaf21f4d678b2002f557c340d12bbb65f5&v=4?size=72" alt="@Mazen Saad">
+        </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almatn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Almat">
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&v=4?size=72" alt="@Almat">

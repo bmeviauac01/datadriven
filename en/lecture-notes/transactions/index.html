@@ -1945,7 +1945,7 @@
 </div>
 <h3 id="scheduling-enforced-with-locks">Scheduling enforced with locks<a class="headerlink" href="#scheduling-enforced-with-locks" title="Permanent link">&para;</a></h3>
 <p>The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.</p>
-<p>These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another translation and concurrent access is not allowed by the isolation level, the transaction will wait.</p>
+<p>These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.</p>
 <p>We know that when we use locks, <strong>deadlock</strong> can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.</p>
 <p><a class="glightbox" href="images/holtpont-eroforras-graf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Deadlock" src="images/holtpont-eroforras-graf.png" /></a></p>
 <p>Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected <strong>one of the transactions is aborted</strong> and all its modifications are rolled back. All applications using a database must be prepared to handle this.</p>
@@ -1964,7 +1964,7 @@
 </div>
 </li>
 <li>
-<p>The developer executes a <code>begin transaction</code> SQL statement to start a transaction, and completes it either with <code>commit</code> or <code>rollback</code>. Commit completes the translation and saves its changes, while rollback aborts the transaction and undoes its changes.</p>
+<p>The developer executes a <code>begin transaction</code> SQL statement to start a transaction, and completes it either with <code>commit</code> or <code>rollback</code>. Commit completes the transaction and saves its changes, while rollback aborts the transaction and undoes its changes.</p>
 <div class="admonition note">
 <p class="admonition-title">Nested transactions</p>
 <p>Some database management systems enable nested transactions too. Completing transactions follow the nesting: each level needs to be committed.</p>
@@ -2510,8 +2510,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 17, 2023 14:13:43">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T14:13:43+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span title="January 9, 2025 20:58:54">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-09T20:58:54+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-09</span>
       </span>
     </span>
 
@@ -2526,7 +2526,9 @@
         </svg>
       </span>
       <span>Contributors</span>
-      <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
+      <nav><a href="https://github.com/0xmzn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Mazen Saad">
+          <img src="https://avatars.githubusercontent.com/u/69648110?u=c758ebdaf21f4d678b2002f557c340d12bbb65f5&v=4?size=72" alt="@Mazen Saad">
+        </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almat-n" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/128299779?v=4?size=72" alt="@None">
