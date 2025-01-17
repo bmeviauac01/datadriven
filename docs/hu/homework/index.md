@@ -12,6 +12,7 @@ A házi feladatok **kötelezőek (lásd követelméynek), vizsgapont és iMsc po
 1. [MongoDB](mongodb/index.md)
 1. [REST API Web API technológiával](rest/index.md)
 1. [GraphQL](graphql/index.md)
+1. [REST API Spring Boot, Java és Maven technológiákkal](rest-springboot/index.md)
 
 ## A feladatok beadása
 
