@@ -53,13 +53,13 @@ Use the following scheduling. Transaction T1 checks the status of order 4, while
 
     ```sql
     -- List the order and the related items with their status
-    select s1.Name, p.Name, s2.Name
-    from [Order] o, OrderItem oi, Status s1, status s2, Product p
-    where o.Id=oi.OrderID
-    and o.ID=4
-    and o.StatusID=s1.ID
-    and oi.StatusID=s2.ID
-    and p.ID=oi.ProductID
+    SELECT s1.Name, p.Name, s2.Name
+    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
+    WHERE o.Id = oi.OrderID
+      AND o.ID = 4
+      AND o.StatusID = s1.ID
+      AND oi.StatusID = s2.ID
+      AND p.ID = oi.ProductID
     ```
 
     !!! note "`[Order]`"
@@ -69,9 +69,9 @@ Use the following scheduling. Transaction T1 checks the status of order 4, while
 
     ```sql
     -- Change the status or the order
-    update [Order]
-    set StatusID=4
-    where ID=4
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 4
     ```
 
 1. **T1 transaction**: repeat the same command as in step 1
@@ -80,9 +80,9 @@ Use the following scheduling. Transaction T1 checks the status of order 4, while
 
     ```sql
     -- Change the status of each item in the order
-    update OrderItem
-    set StatusID=4
-    where OrderID=4
+    UPDATE OrderItem
+    SET StatusID = 4
+    WHERE OrderID = 4
     ```
 
 1. **T1 transaction**: repeat the same command as in step 1
@@ -114,25 +114,25 @@ Let us repeat the same command sequence, including the transaction, but let us a
 
     ```sql
     -- List the order and the related items with their status
-    select s1.Name, p.Name, s2.Name
-    from [Order] o, OrderItem oi, Status s1, status s2, Product p
-    where o.Id=oi.OrderID
-    and o.ID=4
-    and o.StatusID=s1.ID
-    and oi.StatusID=s2.ID
-    and p.ID=oi.ProductID
+    SELECT s1.Name, p.Name, s2.Name
+    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
+    WHERE o.Id = oi.OrderID
+      AND o.ID = 4
+      AND o.StatusID = s1.ID
+      AND oi.StatusID = s2.ID
+      AND p.ID = oi.ProductID
     ```
 
 1. **T2 transaction**
 
     ```sql
     -- Start new transaction
-    begin tran
+    BEGIN TRAN
 
     -- Change the order status
-    update [Order]
-    set StatusID=4
-    where ID=4
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 4
     ```
 
 1. **T1 transaction**: repeat the same command as in step 1
@@ -141,7 +141,7 @@ Let us repeat the same command sequence, including the transaction, but let us a
 
     ```sql
     -- Abort the transaction
-    rollback
+    ROLLBACK
     ```
 
 ??? question "What did you experience? Why?"
@@ -158,70 +158,70 @@ Let us have two concurrent transactions, both placing an order. We must allow an
 1. **T1 transaction**
 
     ```sql
-    set transaction isolation level serializable
-    begin tran
+    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+    BEGIN TRAN;
 
     -- Check the product stock
-    select *
-    from Product
-    where ID=2
+    SELECT *
+    FROM Product
+    WHERE ID = 2
     ```
 
 1. **T2 transaction**
 
     ```sql
-    set transaction isolation level serializable
-    begin tran
+    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+    BEGIN TRAN;
 
-    select *
-    from Product
-    where ID=2
+    SELECT *
+    FROM Product
+    WHERE ID = 2
     ```
 
 1. **T1 transaction**
 
     ```sql
     -- Check the registered, but unprocessed orders for the same product
-    select sum(Amount)
-    from OrderItem
-    where ProductID=2
-    and StatusID=1
+    SELECT SUM(Amount)
+    FROM OrderItem
+    WHERE ProductID = 2
+      AND StatusID = 1
     ```
 
 1. **T2 transaction**
 
     ```sql
-    select sum(Amount)
-    from OrderItem
-    where ProductID=2
-    and StatusID=1
+    SELECT SUM(Amount)
+    FROM OrderItem
+    WHERE ProductID = 2
+      AND StatusID = 1
     ```
 
 1. **T1 transaction**
 
     ```sql
     -- Since the order can be completed, store the order
-    insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-    values(2,2,3,1)
+    INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+    VALUES(2, 2, 3, 1)
     ```
 
 1. **T2 transaction**
 
     ```sql
-    insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-    values(3,2,3,1)
+    INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+    VALUES(3, 2, 3, 1)
     ```
 
 1. **T1 transaction**
 
     ```sql
-    commit
+    COMMIT
     ```
 
 1. **T2 transaction**
 
     ```sql
-    commit
+    COMMIT
     ```
 
 ??? question "What did you experience? Why?"
@@ -257,8 +257,8 @@ Using _read committed_ isolation level, let us find a solution that only prohibi
 The solution is based on manual locks we can place on records. These locks |(similarly to the automatic ones) have a lifespan identical to the transaction.
 
 ```sql
-select *
-from tablename with(XLOCK)
+SELECT *
+FROM tablename WITH(XLOCK)
 ...
 ```
 
@@ -270,67 +270,67 @@ from tablename with(XLOCK)
     1. **T1 transaction**
 
          ```sql hl_lines="1 5"
-         set transaction isolation level read committed
-         begin tran
+         SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+         BEGIN TRAN;
 
-         select *
-         from Product with (xlock)
-         where ID=2
+         SELECT *
+         FROM Product WITH (XLOCK)
+         WHERE ID = 2
          ```
 
     1. **T2 transaction**
 
          ```sql hl_lines="6"
-         set transaction isolation level read committed
-         begin tran
+         SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+         BEGIN TRAN;
 
-         select *
-         from Product with (xlock)
-         where ID=3
+         SELECT *
+         FROM Product WITH (XLOCK)
+         WHERE ID = 3
          ```
 
     1. **T1 transaction**
 
          ```sql
-         select sum(Amount)
-         from OrderItem
-         where ProductID=2
-         and StatusID=1
+         SELECT SUM(Amount)
+         FROM OrderItem
+         WHERE ProductID = 2
+           AND StatusID = 1
          ```
 
     1. **T2 transaction**
 
          ```sql hl_lines="3"
-         select sum(Amount)
-         from OrderItem
-         where ProductID=3
-         and StatusID=1
+         SELECT SUM(Amount)
+         FROM OrderItem
+         WHERE ProductID = 3
+           AND StatusID = 1
          ```
 
     1. **T1 transaction**
 
          ```sql
-         insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-         values(2,2,3,1)
+         INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+         VALUES(2, 2, 3, 1)
          ```
 
     1. **T2 transaction**
 
          ```sql hl_lines="2"
-         insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-         values(3,3,3,1)
+         INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+         VALUES(3, 3, 3, 1)
          ```
 
     1. **T1 transaction**
 
          ```sql
-         commit
+         COMMIT
          ```
 
     1. **T2 transaction**
 
          ```sql
-         commit
+         COMMIT
          ```
 
 ## Exercise 8: Table locking
@@ -338,8 +338,8 @@ from tablename with(XLOCK)
 There is another option for manual locking by locking entire tables:
 
 ```sql
-select *
-from tablename with(TABLOCKX)
+SELECT *
+FROM tablename WITH(TABLOCKX)
 ...
 ```
 

@@ -47,7 +47,7 @@ Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan 
 
 ## Feladat 2: Párhuzamos tranzakciók
 
-Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válasszuk a _New Vertical Tab Group_ opciót:
+Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válaszd a _New Vertical Tab Group_ opciót:
 
 ![Két tranzakció elhelyezése egymás mellé](images/sql-management-tab-group.png)
 
@@ -58,13 +58,13 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
     ```sql
     -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
-    select s1.Name, p.Name, s2.Name
-    from [Order] o, OrderItem oi, Status s1, status s2, Product p
-    where o.Id=oi.OrderID
-    and o.ID=4
-    and o.StatusID=s1.ID
-    and oi.StatusID=s2.ID
-    and p.ID=oi.ProductID
+    SELECT s1.Name, p.Name, s2.Name
+    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
+    WHERE o.Id = oi.OrderID
+      AND o.ID = 4
+      AND o.StatusID = s1.ID
+      AND oi.StatusID = s2.ID
+      AND p.ID = oi.ProductID
     ```
 
     !!! note "`[Order]`"
@@ -74,9 +74,9 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
     ```sql
     -- Állítsuk át a megrendelés állapotát
-    update [Order]
-    set StatusID=4
-    where ID=4
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 4
     ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -85,9 +85,9 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
     ```sql
     -- Állítsuk át a megrendeléshez tartozó tételek állapotát
-    update OrderItem
-    set StatusID=4
-    where OrderID=4
+    UPDATE OrderItem
+    SET StatusID = 4
+    WHERE OrderID = 4
     ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -119,25 +119,25 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
 
     ```sql
     -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
-    select s1.Name, p.Name, s2.Name
-    from [Order] o, OrderItem oi, Status s1, status s2, Product p
-    where o.Id=oi.OrderID
-    and o.ID=4
-    and o.StatusID=s1.ID
-    and oi.StatusID=s2.ID
-    and p.ID=oi.ProductID
+    SELECT s1.Name, p.Name, s2.Name
+    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
+    WHERE o.Id = oi.OrderID
+      AND o.ID = 4
+      AND o.StatusID = s1.ID
+      AND oi.StatusID = s2.ID
+      AND p.ID = oi.ProductID
     ```
 
 1. **T2 tranzakció**
 
     ```sql
     -- Új tranzakciót kezdünk
-    begin tran
+    BEGIN TRAN
 
     -- Állítsuk át a megrendelés állapotát
-    update [Order]
-    set StatusID=4
-    where ID=4
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 4
     ```
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
@@ -146,7 +146,7 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
 
     ```sql
     -- Szakítsuk meg a tranzakciót
-    rollback
+    ROLLBACK
     ```
 
 ??? question "Mit tapasztalt? Miért?"
@@ -163,70 +163,70 @@ Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy te
 1. **T1 tranzakció**
 
     ```sql
-    set transaction isolation level serializable
-    begin tran
+    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+    BEGIN TRAN
 
     -- Ellenőrizzük, hogy mennyi van raktáron egy termékből
-    select *
-    from Product
-    where ID=2
+    SELECT *
+    FROM Product
+    WHERE ID = 2
     ```
 
 1. **T2 tranzakció**
 
     ```sql
-    set transaction isolation level serializable
-    begin tran
+    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+    BEGIN TRAN
 
-    select *
-    from Product
-    where ID=2
+    SELECT *
+    FROM Product
+    WHERE ID = 2
     ```
 
 1. **T1 tranzakció**
 
     ```sql
     -- Ellenőrizzük, hogy hány, még fel nem dolgozott megrendelés van erre a termékre
-    select sum(Amount)
-    from OrderItem
-    where ProductID=2
-    and StatusID=1
+    SELECT SUM(Amount)
+    FROM OrderItem
+    WHERE ProductID = 2
+      AND StatusID = 1
     ```
 
 1. **T2 tranzakció**
 
     ```sql
-    select sum(Amount)
-    from OrderItem
-    where ProductID=2
-    and StatusID=1
+    SELECT SUM(Amount)
+    FROM OrderItem
+    WHERE ProductID = 2
+      AND StatusID = 1
     ```
 
 1. **T1 tranzakció**
 
     ```sql
     -- Mivel teljesíthető a megrendelés, rögzítsük
-    insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-    values(2,2,3,1)
+    INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+    VALUES(2, 2, 3, 1)
     ```
 
 1. **T2 tranzakció**
 
     ```sql
-    insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-    values(3,2,3,1)
+    INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+    VALUES(3, 2, 3, 1)
     ```
 
 1. **T1 tranzakció**
 
     ```sql
-    commit
+    COMMIT
     ```
 
 1. **T2 tranzakció**
 
     ```sql
-    commit
+    COMMIT
     ```
 
 ??? question "Mit tapasztalt? Miért?"
@@ -262,8 +262,8 @@ Read committed izolációs szintet használva dolgozzon ki megoldást, amely csa
 A megoldáshoz kihasználjuk, hogy lehetséges manuálisan zárakat elhelyezni. Ezek a zárak is, úgy, mint a többi zár, a tranzakció végéig élnek.
 
 ```sql
-select *
-from tablename with(XLOCK)
+SELECT *
+FROM tablename WITH(XLOCK)
 ...
 ```
 
@@ -277,67 +277,67 @@ from tablename with(XLOCK)
     1. **T1 tranzakció**
 
          ```sql hl_lines="1 5"
-         set transaction isolation level read committed
-         begin tran
+         SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+         BEGIN TRAN
 
-         select *
-         from Product with (xlock)
-         where ID=2
+         SELECT *
+         FROM Product WITH (XLOCK)
+         WHERE ID = 2
          ```
 
     1. **T2 tranzakció**
 
          ```sql hl_lines="6"
-         set transaction isolation level read committed
-         begin tran
+         SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+         BEGIN TRAN
 
-         select *
-         from Product with (xlock)
-         where ID=3
+         SELECT *
+         FROM Product WITH (XLOCK)
+         WHERE ID = 3
          ```
 
     1. **T1 tranzakció**
 
          ```sql
-         select sum(Amount)
-         from OrderItem
-         where ProductID=2
-         and StatusID=1
+         SELECT SUM(Amount)
+         FROM OrderItem
+         WHERE ProductID = 2
+           AND StatusID = 1
          ```
 
     1. **T2 tranzakció**
 
          ```sql hl_lines="3"
-         select sum(Amount)
-         from OrderItem
-         where ProductID=3
-         and StatusID=1
+         SELECT SUM(Amount)
+         FROM OrderItem
+         WHERE ProductID = 3
+           AND StatusID = 1
          ```
 
     1. **T1 tranzakció**
 
          ```sql
-         insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-         values(2,2,3,1)
+         INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+         VALUES(2, 2, 3, 1)
          ```
 
     1. **T2 tranzakció**
 
          ```sql hl_lines="2"
-         insert into OrderItem(OrderID,ProductID,Amount,StatusID)
-         values(3,3,3,1)
+         INSERT INTO OrderItem(OrderID, ProductID, Amount, StatusID)
+         VALUES(3, 3, 3, 1)
          ```
 
     1. **T1 tranzakció**
 
          ```sql
-         commit
+         COMMIT
          ```
 
     1. **T2 tranzakció**
 
          ```sql
-         commit
+         COMMIT
          ```
 
 ## Feladat 8: Tábla szintű zárolás
@@ -345,8 +345,8 @@ from tablename with(XLOCK)
 A sor szintű zárolás mellett lehetőségünk van tábla szinten is zárolni:
 
 ```sql
-select *
-from tablanev with(TABLOCKX)
+SELECT *
+FROM tablanev WITH(TABLOCKX)
 ...
 ```
 

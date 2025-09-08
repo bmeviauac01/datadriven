@@ -35,9 +35,9 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     ??? example "Megoldás"
         ```sql
-        select count(*)
-        from [Order] o join Status s on o.StatusID = s.ID
-        where s.Name != 'Delivered'
+        SELECT COUNT(*)
+        FROM [Order] o JOIN Status s ON o.StatusID = s.ID
+        WHERE s.Name != 'Delivered'
         ```
 
         A `join` mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)
@@ -46,9 +46,9 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     ??? example "Megoldás"
         ```sql
-        select p.Method
-        from [Order] o right outer join PaymentMethod p on o.PaymentMethodID = p.ID
-        where o.ID is null
+        SELECT p.Method
+        FROM [Order] o RIGHT OUTER JOIN PaymentMethod p ON o.PaymentMethodID = p.ID
+        WHERE o.ID IS NULL
         ```
         
         A megoldás kulcsa az `outer join`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
@@ -57,10 +57,10 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     ??? example "Megoldás"
         ```sql
-        insert into Customer(Name, Login, Password, Email)
-        values ('Teszt Elek', 't.elek', '********', 't.elek@email.com')
+        INSERT INTO Customer(Name, Login, Password, Email)
+        VALUES ('Teszt Elek', 't.elek', '********', 't.elek@email.com')
 
-        select @@IDENTITY
+        SELECT @@IDENTITY
         ```
 
         Az `insert` után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.
@@ -69,18 +69,18 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
     ??? example "Megoldás"
         ```sql
-        update Category
-        set Name = 'Tricycles'
-        where Name = 'Tricycle'
+        UPDATE Category
+        SET Name = 'Tricycles'
+        WHERE Name = 'Tricycle'
         ```
 
 1. Melyik termék kategóriában van a legtöbb termék?
 
     ??? example "Megoldás"
         ```sql
-        select top 1 Name, (select count(*) from Product where Product.CategoryID = c.ID) as cnt
-        from Category c
-        order by cnt desc
+        SELECT TOP 1 Name, (SELECT COUNT(*) FROM Product WHERE Product.CategoryID = c.ID) AS cnt
+        FROM Category c
+        ORDER BY cnt DESC
         ```
 
         A kérdésre több alternatív lekérdezés is eszünkbe juthat. Ez csak egyike a lehetséges megoldásoknak. Itt láthatunk példát az allekérdezésre is.
@@ -93,53 +93,55 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     **Tárolt eljárás**
 
     ```sql
-    create or alter procedure AddNewCategory
-        @Name nvarchar(50),
-        @ParentName nvarchar(50)
-    as
+    CREATE OR ALTER PROCEDURE AddNewCategory
+        @Name NVARCHAR(50),
+        @ParentName NVARCHAR(50)
+    AS
 
-    begin tran
+    BEGIN TRAN;
 
     -- Létezik-e ilyen névvel már kategória
-    declare @ID int
-    select @ID = ID
-    from Category with (TABLOCKX)
-    where upper(Name) = upper(@Name)
+    DECLARE @ID INT
+    SELECT @ID = ID
+    FROM Category WITH (TABLOCKX)
+    WHERE UPPER(Name) = UPPER(@Name)
 
-    if @ID is not null
-    begin
-        rollback
-        raiserror ('Category %s already exists',16,1,@Name)
-        return
-    end
+    IF @ID IS NOT NULL
+    BEGIN
+        ROLLBACK
+        RAISERROR ('Category %s already exists', 16, 1, @Name)
+        RETURN
+    END
 
     -- Szülő kategóriának léteznie kell
-    declare @ParentID int
-    if @ParentName is not null
-    begin
-        select @ParentID = ID
-        from Category
-        where upper(Name) = upper(@ParentName)
+    DECLARE @ParentID INT;
+    IF @ParentName IS NOT NULL
+    BEGIN
+        SELECT @ParentID = ID
+        FROM Category
+        WHERE UPPER(Name) = UPPER(@ParentName)
 
-        if @ParentID is null
-        begin
-            rollback
-            raiserror ('Category %s does not exist',16,1,@ParentName)
-            return
-        end
-    end
+        IF @ParentID IS NULL
+        BEGIN
+            ROLLBACK
+            RAISERROR ('Category %s does not exist', 16, 1, @ParentName)
+            RETURN
+        END
+    END
 
-    insert into Category
-    values(@Name,@ParentID)
+    INSERT INTO Category
+    VALUES(@Name, @ParentID)
 
-    commit
+    COMMIT
     ```
 
     **Tesztelés**
 
     Nyissunk egy új Query ablakot és adjuk ki az alábbi parancsot.
 
-    `exec AddNewCategory 'Beach balls', NULL`
+    ```sql
+    EXEC AddNewCategory 'Beach balls', NULL
+    ```
 
     Ennek sikerülnie kell. Ellenőrizzük utána a tábla tartalmát.
 
@@ -147,7 +149,9 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     Próbáljuk ki szülőkategóriával is.
 
-    `exec AddNewCategory 'LEGO Star Wars', 'LEGO'`
+    ```sql
+    EXEC AddNewCategory 'LEGO Star Wars', 'LEGO'
+    ```
 
 ## Feladat 3: Megrendeléstétel státuszának karbantartása
 
@@ -157,18 +161,18 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     **Trigger**
 
     ```sql
-    create or alter trigger UpdateOrderStatus
-    on [Order]
-    for update
-    as
+    CREATE OR ALTER TRIGGER UpdateOrderStatus
+    ON [Order]
+    FOR UPDATE
+    AS
 
-    update OrderItem
-    set StatusID = i.StatusID
-    from OrderItem oi
-    inner join inserted i on i.Id=oi.OrderID
-    inner join deleted d on d.ID=oi.OrderID
-    where i.StatusID != d.StatusID
-    and oi.StatusID=d.StatusID
+    UPDATE OrderItem
+    SET StatusID = i.StatusID
+    FROM OrderItem oi
+    INNER JOIN inserted i ON i.Id = oi.OrderID
+    INNER JOIN deleted d ON d.ID = oi.OrderID
+    WHERE i.StatusID != d.StatusID
+      AND oi.StatusID = d.StatusID
     ```
 
     Szánjunk egy kis időt az `update ... from` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `update ... set...` formát követi, kiegészítve egy `from` szakasszal, melyben már a `select from` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`join`) adatokat a módosítandó táblához. Így a `set` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).
@@ -178,61 +182,61 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     Ellenőrizzük a megrendelés és a tételek státuszát:
 
     ```sql
-    select OrderItem.StatusID, [Order].StatusID
-    from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
-    where OrderID = 1
+    SELECT OrderItem.StatusID, [Order].StatusID
+    FROM OrderItem JOIN [Order] ON OrderItem.OrderID = [Order].ID
+    WHERE OrderID = 1
     ```
 
     Változtassuk meg a megrendelést:
 
     ```sql
-    update [Order]
-    set StatusID=4
-    where ID=1
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 1
     ```
 
     Ellenőrizzük a megrendelést és a tételeket (update után minden státusznak meg kell változnia):
 
     ```sql
-    select OrderItem.StatusID, [Order].StatusID
-    from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
-    where OrderID = 1
+    SELECT OrderItem.StatusID, [Order].StatusID
+    FROM OrderItem JOIN [Order] ON OrderItem.OrderID = [Order].ID
+    WHERE OrderID = 1
     ```
 
 ## Feladat 4: Vevő megrendeléseinek összegzése
 
 Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában!
 
-1. Adjuk hozzá az a táblához az új oszlopot: `alter table Customer add Total float`
+1. Adjuk hozzá az a táblához az új oszlopot: `ALTER TABLE Customer ADD Total FLOAT`
 1. Számoljuk ki az aktuális végösszeget. A megoldáshoz használjunk kurzort, ami minden vevőn megy végig.
 
 ??? example "Megoldás"
     ```sql
-    declare cur_customer cursor
-        for select ID from Customer
-    declare @CustomerId int
-    declare @Total float
+    DECLARE cur_customer CURSOR
+        FOR SELECT ID FROM Customer
+    DECLARE @CustomerId INT
+    DECLARE @Total FLOAT
 
-    open cur_customer
-    fetch next from cur_customer into @CustomerId
-    while @@FETCH_STATUS = 0
-    begin
+    OPEN cur_customer;
+    FETCH NEXT FROM cur_customer INTO @CustomerId
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
 
-        select @Total = sum(oi.Amount * oi.Price)
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join OrderItem oi on oi.OrderID=o.ID
-        where s.CustomerID = @CustomerId
+        SELECT @Total = SUM(oi.Amount * oi.Price)
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN OrderItem oi ON oi.OrderID = o.ID
+        WHERE s.CustomerID = @CustomerId
 
-        update Customer
-        set Total = ISNULL(@Total, 0)
-        where ID = @CustomerId
+        UPDATE Customer
+        SET Total = ISNULL(@Total, 0)
+        WHERE ID = @CustomerId
 
-        fetch next from cur_customer into @CustomerId
-    end
+        FETCH NEXT FROM cur_customer INTO @CustomerId
+    END
 
-    close cur_customer
-    deallocate cur_customer
+    CLOSE cur_customer
+    DEALLOCATE cur_customer
     ```
 
     Ellenőrizzük a `Customer` tábla tartalmát.
@@ -249,30 +253,30 @@ Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csa
     **Trigger**
 
     ```sql
-    create or alter trigger CustomerTotalUpdate
-    on OrderItem
-    for insert, update, delete
-    as
+    CREATE OR ALTER TRIGGER CustomerTotalUpdate
+    ON OrderItem
+    FOR INSERT, UPDATE, DELETE
+    AS
 
-    update Customer
-    set Total=isnull(Total,0) + TotalChange
-    from Customer
-    inner join
-        (select s.CustomerId, sum(Amount * Price) as TotalChange
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join inserted i on i.OrderID=o.ID
-        group by s.CustomerId) CustomerChange on Customer.ID = CustomerChange.CustomerId
+    UPDATE Customer
+    SET Total = ISNULL(Total, 0) + TotalChange
+    FROM Customer
+    INNER JOIN
+        (SELECT s.CustomerId, SUM(Amount * Price) AS TotalChange
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN inserted i ON i.OrderID = o.ID
+        GROUP BY s.CustomerId) CustomerChange ON Customer.ID = CustomerChange.CustomerId
 
-    update Customer
-    set Total=isnull(Total,0) - TotalChange
-    from Customer
-    inner join
-        (select s.CustomerId, sum(Amount * Price) as TotalChange
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join deleted d on d.OrderID=o.ID
-        group by s.CustomerID) CustomerChange on Customer.ID = CustomerChange.CustomerId
+    UPDATE Customer
+    SET Total = ISNULL(Total, 0) - TotalChange
+    FROM Customer
+    INNER JOIN
+        (SELECT s.CustomerId, SUM(Amount * Price) AS TotalChange
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN deleted d ON d.OrderID = o.ID
+        GROUP BY s.CustomerID) CustomerChange ON Customer.ID = CustomerChange.CustomerId
     ```
 
     **Tesztelés**
@@ -280,21 +284,21 @@ Az előző feladatban kiszámolt érték az aktuális állapotot tartalmazza csa
     Nézzük meg az összmegrendelések aktuális értékét, jegyezzük meg a számokat.
 
     ```sql
-    select ID, Total
-    from Customer
+    SELECT ID, Total
+    FROM Customer
     ```
 
     Módosítsunk egy megrendelés mennyiségén.
 
     ```sql
-    update OrderItem
-    set Amount=3
-    where ID=1
+    UPDATE OrderItem
+    SET Amount = 3
+    WHERE ID = 1
     ```
 
     Nézzük meg az összegeket ismét, meg kellett változnia a számnak.
 
     ```sql
-    select ID, Total
-    from Customer
+    SELECT ID, Total
+    FROM Customer
     ```

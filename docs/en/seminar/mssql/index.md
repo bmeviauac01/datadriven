@@ -35,9 +35,9 @@ Write SQL commands/queries for the following exercises.
 
     ??? example "Solution"
         ```sql
-        select count(*)
-        from [Order] o join Status s on o.StatusID = s.ID
-        where s.Name != 'Delivered'
+        SELECT COUNT(*)
+        FROM [Order] o JOIN Status s ON o.StatusID = s.ID
+        WHERE s.Name != 'Delivered'
         ```
 
         We see a `join` and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)
@@ -46,9 +46,9 @@ Write SQL commands/queries for the following exercises.
 
     ??? example "Solution"
         ```sql
-        select p.Method
-        from [Order] o right outer join PaymentMethod p on o.PaymentMethodID = p.ID
-        where o.ID is null
+        SELECT p.Method
+        FROM [Order] o RIGHT OUTER JOIN PaymentMethod p ON o.PaymentMethodID = p.ID
+        WHERE o.ID IS NULL
         ```
 
         The key in the solution is the `outer join`, through which we can see the payment method records that have _no_ orders.
@@ -57,10 +57,10 @@ Write SQL commands/queries for the following exercises.
 
     ??? example "Solution"
         ```sql
-        insert into Customer(Name, Login, Password, Email)
-        values ('Test Test', 'tt', '********', 'tt@email.com')
+        INSERT INTO Customer(Name, Login, Password, Email)
+        VALUES ('Test Test', 'tt', '********', 'tt@email.com')
 
-        select @@IDENTITY
+        SELECT @@IDENTITY
         ```
 
         It is recommended (though not required) to name the columns after `insert` to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.
@@ -69,18 +69,18 @@ Write SQL commands/queries for the following exercises.
 
     ??? example "Solution"
         ```sql
-        update Category
-        set Name = 'Tricycles'
-        where Name = 'Tricycle'
+        UPDATE Category
+        SET Name = 'Tricycles'
+        WHERE Name = 'Tricycle'
         ```
 
 1. Which category contains the largest number of products?
 
     ??? example "Solution"
         ```sql
-        select top 1 Name, (select count(*) from Product where Product.CategoryID = c.ID) as cnt
-        from Category c
-        order by cnt desc
+        SELECT TOP 1 Name, (SELECT COUNT(*) FROM Product WHERE Product.CategoryID = c.ID) AS cnt
+        FROM Category c
+        ORDER BY cnt DESC
         ```
 
         There are many ways this query can be formulated. This is only one possible solution. It also serves as an example of the usage of subqueries.
@@ -93,45 +93,45 @@ Create a new stored procedure that helps inserting a new product category. The p
     **Stored procedure**
 
     ```sql
-    create or alter procedure AddNewCategory
-        @Name nvarchar(50),
-        @ParentName nvarchar(50)
-    as
+    CREATE OR ALTER PROCEDURE AddNewCategory
+        @Name NVARCHAR(50),
+        @ParentName NVARCHAR(50)
+    AS
 
-    begin tran
+    BEGIN TRAN
 
     -- Is there a category with identical name?
-    declare @ID int
-    select @ID = ID
-    from Category with (TABLOCKX)
-    where upper(Name) = upper(@Name)
+    DECLARE @ID INT
+    SELECT @ID = ID
+    FROM Category WITH (TABLOCKX)
+    WHERE UPPER(Name) = UPPER(@Name)
 
-    if @ID is not null
-    begin
-        rollback
-        raiserror ('Category %s already exists',16,1,@Name)
-        return
-    end
+    IF @ID IS NOT NULL
+    BEGIN
+        ROLLBACK
+        RAISERROR ('Category %s already exists', 16, 1, @Name)
+        RETURN
+    END
 
-    declare @ParentID int
-    if @ParentName is not null
-    begin
-        select @ParentID = ID
-        from Category
-        where upper(Name) = upper(@ParentName)
+    DECLARE @ParentID INT
+    IF @ParentName IS NOT NULL
+    BEGIN
+        SELECT @ParentID = ID
+        FROM Category
+        WHERE UPPER(Name) = UPPER(@ParentName)
 
-        if @ParentID is null
-        begin
-            rollback
-            raiserror ('Category %s does not exist',16,1,@ParentName)
-            return
-        end
-    end
+        IF @ParentID IS NULL
+        BEGIN
+            ROLLBACK
+            RAISERROR ('Category %s does not exist', 16, 1, @ParentName)
+            RETURN
+        END
+    END
 
-    insert into Category
-    values(@Name,@ParentID)
+    INSERT INTO Category
+    VALUES(@Name, @ParentID)
 
-    commit
+    COMMIT
     ```
 
     **Testing**
@@ -156,18 +156,18 @@ Create a trigger that updates the status of each item of an order when the statu
     **Trigger**
 
     ```sql
-    create or alter trigger UpdateOrderStatus
-    on [Order]
-    for update
-    as
+    CREATE OR ALTER TRIGGER UpdateOrderStatus
+    ON [Order]
+    FOR UPDATE
+    AS
 
-    update OrderItem
-    set StatusID = i.StatusID
-    from OrderItem oi
-    inner join inserted i on i.Id=oi.OrderID
-    inner join deleted d on d.ID=oi.OrderID
-    where i.StatusID != d.StatusID
-    and oi.StatusID=d.StatusID
+    UPDATE OrderItem
+    SET StatusID = i.StatusID
+    FROM OrderItem oi
+    INNER JOIN inserted i ON i.Id = oi.OrderID
+    INNER JOIN deleted d ON d.ID = oi.OrderID
+    WHERE i.StatusID != d.StatusID
+      AND oi.StatusID = d.StatusID
     ```
 
     Let us make sure we understand the `update ... from` syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual `update ... set...` format extended with a `from` part, which follows the same syntax as a `select from`, including the `join` to gather information from other tables. This allows us to use the joined records and their content in the `set` statement (that is, a value from a joined record can be on the right side of an assignment).
@@ -177,61 +177,61 @@ Create a trigger that updates the status of each item of an order when the statu
     Let us check the status of the order and each item in the order:
 
     ```sql
-    select OrderItem.StatusID, [Order].StatusID
-    from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
-    where OrderID = 1
+    SELECT OrderItem.StatusID, [Order].StatusID
+    FROM OrderItem JOIN [Order] ON OrderItem.OrderID = [Order].ID
+    WHERE OrderID = 1
     ```
 
     Let us change the status of the order:
 
     ```sql
-    update [Order]
-    set StatusID=4
-    where ID=1
+    UPDATE [Order]
+    SET StatusID = 4
+    WHERE ID = 1
     ```
 
     Check the status now (the update should have updated all stauses):
 
     ```sql
-    select OrderItem.StatusID, [Order].StatusID
-    from OrderItem join [Order] on OrderItem.OrderID=[Order].ID
-    where OrderID = 1
+    SELECT OrderItem.StatusID, [Order].StatusID
+    FROM OrderItem JOIN [Order] ON OrderItem.OrderID = [Order].ID
+    WHERE OrderID = 1
     ```
 
 ## Exercise 4: Summing the total purchases of a customer
 
 Let us calculate and store the value of all purchases made by a customer!
 
-1. Add a new column to the table: `alter table Customer add Total float`
+1. Add a new column to the table: `ALTER TABLE Customer ADD Total FLOAT`
 1. Calculate the current totals. Let us use a cursor for iterating through all customers.
 
 ??? example "Solution"
     ```sql
-    declare cur_customer cursor
-        for select ID from Customer
-    declare @CustomerId int
-    declare @Total float
+    DECLARE cur_customer CURSOR
+        FOR SELECT ID FROM Customer
+    DECLARE @CustomerId INT
+    DECLARE @Total FLOAT
 
-    open cur_customer
-    fetch next from cur_customer into @CustomerId
-    while @@FETCH_STATUS = 0
-    begin
+    OPEN cur_customer
+    FETCH NEXT FROM cur_customer INTO @CustomerId
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
 
-        select @Total = sum(oi.Amount * oi.Price)
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join OrderItem oi on oi.OrderID=o.ID
-        where s.CustomerID = @CustomerId
+        SELECT @Total = SUM(oi.Amount * oi.Price)
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN OrderItem oi ON oi.OrderID = o.ID
+        WHERE s.CustomerID = @CustomerId
 
-        update Customer
-        set Total = ISNULL(@Total, 0)
-        where ID = @CustomerId
+        UPDATE Customer
+        SET Total = ISNULL(@Total, 0)
+        WHERE ID = @CustomerId
 
-        fetch next from cur_customer into @CustomerId
-    end
+        FETCH NEXT FROM cur_customer INTO @CustomerId
+    END
 
-    close cur_customer
-    deallocate cur_customer
+    CLOSE cur_customer
+    DEALLOCATE cur_customer
     ```
 
     To verify check the contents of the `Customer` table.
@@ -248,30 +248,30 @@ The values calculated in the previous exercise contain the current state. Create
     **Trigger**
 
     ```sql
-    create or alter trigger CustomerTotalUpdate
-    on OrderItem
-    for insert, update, delete
-    as
+    CREATE OR ALTER TRIGGER CustomerTotalUpdate
+    ON OrderItem
+    FOR INSERT, UPDATE, DELETE
+    AS
 
-    update Customer
-    set Total=isnull(Total,0) + TotalChange
-    from Customer
-    inner join
-        (select s.CustomerId, sum(Amount * Price) as TotalChange
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join inserted i on i.OrderID=o.ID
-        group by s.CustomerId) CustomerChange on Customer.ID = CustomerChange.CustomerId
+    UPDATE Customer
+    SET Total = ISNULL(Total, 0) + TotalChange
+    FROM Customer
+    INNER JOIN
+        (SELECT s.CustomerId, SUM(Amount * Price) AS TotalChange
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN inserted i ON i.OrderID = o.ID
+        GROUP BY s.CustomerId) CustomerChange ON Customer.ID = CustomerChange.CustomerId
 
-    update Customer
-    set Total=isnull(Total,0) - TotalChange
-    from Customer
-    inner join
-        (select s.CustomerId, sum(Amount * Price) as TotalChange
-        from CustomerSite s
-        inner join [Order] o on o.CustomerSiteID=s.ID
-        inner join deleted d on d.OrderID=o.ID
-        group by s.CustomerID) CustomerChange on Customer.ID = CustomerChange.CustomerId
+    UPDATE Customer
+    SET Total = ISNULL(Total, 0) - TotalChange
+    FROM Customer
+    INNER JOIN
+        (SELECT s.CustomerId, SUM(Amount * Price) AS TotalChange
+        FROM CustomerSite s
+        INNER JOIN [Order] o ON o.CustomerSiteID = s.ID
+        INNER JOIN deleted d ON d.OrderID = o.ID
+        GROUP BY s.CustomerID) CustomerChange ON Customer.ID = CustomerChange.CustomerId
     ```
 
     **Testing**
@@ -279,21 +279,21 @@ The values calculated in the previous exercise contain the current state. Create
     Let us remember the total for the customers.
 
     ```sql
-    select ID, Total
-    from Customer
+    SELECT ID, Total
+    FROM Customer
     ```
 
     Change the ordered amount.
 
     ```sql
-    update OrderItem
-    set Amount=3
-    where ID=1
+    UPDATE OrderItem
+    SET Amount = 3
+    WHERE ID = 1
     ```
 
     Check the totals again, should have changed.
 
     ```sql
-    select ID, Total
-    from Customer
+    SELECT ID, Total
+    FROM Customer
     ```
