@@ -1644,9 +1644,9 @@
 
 <span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="k">BEGIN</span>
-<span class="w">    </span><span class="k">ROLLBACK</span>
-<span class="w">    </span><span class="n">RAISERROR</span><span class="w"> </span><span class="p">(</span><span class="s1">'Category %s already exists'</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Name</span><span class="p">)</span>
-<span class="w">    </span><span class="k">RETURN</span>
+<span class="w">    </span><span class="k">ROLLBACK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ErrorMessage</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Category '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">Name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">' already exists'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="k">END</span>
 
 <span class="c1">-- Szülő kategóriának léteznie kell</span>
@@ -1659,9 +1659,9 @@
 
 <span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 <span class="w">    </span><span class="k">BEGIN</span>
-<span class="w">        </span><span class="k">ROLLBACK</span>
-<span class="w">        </span><span class="n">RAISERROR</span><span class="w"> </span><span class="p">(</span><span class="s1">'Category %s does not exist'</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="p">)</span>
-<span class="w">        </span><span class="k">RETURN</span>
+<span class="w">        </span><span class="k">ROLLBACK</span><span class="p">;</span>
+<span class="w">        </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Category '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">' does not exist'</span><span class="p">;</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">END</span>
 <span class="k">END</span>
 
@@ -1807,8 +1807,8 @@
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 8. 16:39:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 16:39:54 CEST"><span class="timeago" datetime="2025-09-08T16:39:54+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 16:39:54 CEST">2025-09-08</span>
+      <span title="2025. szeptember 8. 20:00:54">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 20:00:54 CEST"><span class="timeago" datetime="2025-09-08T20:00:54+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 20:00:54 CEST">2025-09-08</span>
       </span>
     </span>
 
@@ -1824,6 +1824,8 @@
       <span>Szerzők</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/Csaba591" target="_blank" rel="noopener noreferrer" class="md-author" title="@Csaba Mészáros">
           <img src="https://avatars.githubusercontent.com/u/41907349?v=4?size=72" alt="@Csaba Mészáros">
         </a><a href="https://github.com/gergoradeczki" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Radeczki">
