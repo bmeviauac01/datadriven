@@ -108,9 +108,9 @@ Create a new stored procedure that helps inserting a new product category. The p
 
     IF @ID IS NOT NULL
     BEGIN
-        ROLLBACK
-        RAISERROR ('Category %s already exists', 16, 1, @Name)
-        RETURN
+        ROLLBACK;
+        DECLARE @ErrorMessage NVARCHAR(255) = 'Category ' + @Name + ' already exists';
+        THROW 51000, @ErrorMessage, 1;
     END
 
     DECLARE @ParentID INT
@@ -122,9 +122,9 @@ Create a new stored procedure that helps inserting a new product category. The p
 
         IF @ParentID IS NULL
         BEGIN
-            ROLLBACK
-            RAISERROR ('Category %s does not exist', 16, 1, @ParentName)
-            RETURN
+            ROLLBACK;
+            DECLARE @ParentErrorMessage NVARCHAR(255) = 'Category ' + @ParentName + ' does not exist';
+            THROW 51000, @ParentErrorMessage, 1;
         END
     END
 
