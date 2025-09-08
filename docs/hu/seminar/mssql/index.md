@@ -108,8 +108,8 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     IF @ID IS NOT NULL
     BEGIN
-        DECLARE @ErrorMessage NVARCHAR(255) = 'Category ' + @Name + ' already exists';
         ROLLBACK;
+        DECLARE @ErrorMessage NVARCHAR(255) = 'Category ' + @Name + ' already exists';
         THROW 51000, @ErrorMessage, 1;
     END
 
@@ -123,8 +123,8 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
         IF @ParentID IS NULL
         BEGIN
-            DECLARE @ParentErrorMessage NVARCHAR(255) = 'Category ' + @ParentName + ' does not exist';
             ROLLBACK;
+            DECLARE @ParentErrorMessage NVARCHAR(255) = 'Category ' + @ParentName + ' does not exist';
             THROW 51000, @ParentErrorMessage, 1;
         END
     END
