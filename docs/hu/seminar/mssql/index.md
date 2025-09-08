@@ -108,7 +108,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     IF @ID IS NOT NULL
     BEGIN
-        ROLLBACK
+        ROLLBACK;
         THROW 51000, 'Category ' + @Name + ' already exists', 1;
     END
 
@@ -122,7 +122,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
         IF @ParentID IS NULL
         BEGIN
-            ROLLBACK
+            ROLLBACK;
             THROW 51000, 'Category ' + @ParentName + ' does not exist', 1;
         END
     END

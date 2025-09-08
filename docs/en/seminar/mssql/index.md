@@ -108,7 +108,7 @@ Create a new stored procedure that helps inserting a new product category. The p
 
     IF @ID IS NOT NULL
     BEGIN
-        ROLLBACK
+        ROLLBACK;
         THROW 51000, 'Category ' + @Name + ' already exists', 1;
     END
 
@@ -121,7 +121,7 @@ Create a new stored procedure that helps inserting a new product category. The p
 
         IF @ParentID IS NULL
         BEGIN
-            ROLLBACK
+            ROLLBACK;
             THROW 51000, 'Category ' + @ParentName + ' does not exist', 1;
         END
     END
