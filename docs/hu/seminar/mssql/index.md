@@ -110,7 +110,6 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     BEGIN
         ROLLBACK
         THROW 51000, 'Category ' + @Name + ' already exists', 1;
-        RETURN
     END
 
     -- Szülő kategóriának léteznie kell
@@ -125,7 +124,6 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
         BEGIN
             ROLLBACK
             THROW 51000, 'Category ' + @ParentName + ' does not exist', 1;
-            RETURN
         END
     END
 

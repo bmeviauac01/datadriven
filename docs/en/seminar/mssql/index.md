@@ -110,7 +110,6 @@ Create a new stored procedure that helps inserting a new product category. The p
     BEGIN
         ROLLBACK
         THROW 51000, 'Category ' + @Name + ' already exists', 1;
-        RETURN
     END
 
     DECLARE @ParentID INT
@@ -124,7 +123,6 @@ Create a new stored procedure that helps inserting a new product category. The p
         BEGIN
             ROLLBACK
             THROW 51000, 'Category ' + @ParentName + ' does not exist', 1;
-            RETURN
         END
     END
 
