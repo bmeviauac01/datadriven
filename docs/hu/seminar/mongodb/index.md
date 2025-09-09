@@ -84,7 +84,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
 1. Készíts olyan lekérdezést, mely kilistázza azokat a megrendeléseket, melyek összértéke több mint 30000 Ft! Az eredményhalmaz kiírásakor a vevő ID-t követően soronként szerepeljenek az egyes tételek (Termék ID, mennyiség, nettó ár).
 
-1. Listázd ki a legdrágább termék adatait!
+1. Listázd ki a legdrágább termék adatait! Ha több ilyen termék is van (több terméknek is lehet ugyanaz az ára), mindegyik adatát ki kell listázni.
 
 1. Írj olyan lekérdezést, mely kilistázza azon termékeket, melyből legalább kétszer rendeltek!
 
