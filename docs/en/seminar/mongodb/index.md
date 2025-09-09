@@ -81,7 +81,7 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
 
 1. List the orders that have a total value of at least 30.000! For each order, print the customer name, and list all items of the order (with the product name, amount, and price).
 
-1. Find the most expensive product!
+1. Find the most expensive product(s)! If there are multiple products with the same highest price, list the details of all of them.
 
 1. List the products that have been ordered at least twice!
 
