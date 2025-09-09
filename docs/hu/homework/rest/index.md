@@ -1,5 +1,8 @@
 # 4. REST API Web API technológiával
 
+!!! danger "2025"
+    A feladat még nincs véglegesítve 2025-re. Még ne kezdd el a megoldást!
+
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
 GitHub Classroom segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
