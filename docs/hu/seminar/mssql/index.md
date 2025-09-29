@@ -101,10 +101,10 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     BEGIN TRAN;
 
     -- Létezik-e ilyen névvel már kategória
-    DECLARE @ID INT
+    DECLARE @ID INT;
     SELECT @ID = ID
     FROM Category WITH (TABLOCKX)
-    WHERE UPPER(Name) = UPPER(@Name)
+    WHERE UPPER(Name) = UPPER(@Name);
 
     IF @ID IS NOT NULL
     BEGIN
@@ -119,7 +119,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     BEGIN
         SELECT @ParentID = ID
         FROM Category
-        WHERE UPPER(Name) = UPPER(@ParentName)
+        WHERE UPPER(Name) = UPPER(@ParentName);
 
         IF @ParentID IS NULL
         BEGIN
@@ -130,9 +130,9 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     END
 
     INSERT INTO Category
-    VALUES(@Name, @ParentID)
+    VALUES(@Name, @ParentID);
 
-    COMMIT
+    COMMIT;
     ```
 
     **Tesztelés**
@@ -153,6 +153,11 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     EXEC AddNewCategory 'LEGO Star Wars', 'LEGO'
     ```
 
+    ??? tip "Kell-e pontosvessző MSSQL-ben?"
+        A Microsoft SQL Server-ben a pontosvessző nem kötelező, és a legtöbb esetben felesleges is. Azonban a fenti `AddNewCategory` tárolt eljárásban a `THROW` utasítás [**előtt kötelező**](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/throw-transact-sql?view=sql-server-ver17#remarks) a pontosvessző használata, így az egységes stílus érdekében érdemes minden utasítás végére pontosvesszőt tenni.
+
+        A pontosvessző használata egyébként is jó gyakorlat lehet, ha a kódolási stílus egységességére törekszünk.
+
 ## Feladat 3: Megrendeléstétel státuszának karbantartása
 
 Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
@@ -162,15 +167,15 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
     ```sql
     CREATE OR ALTER TRIGGER UpdateOrderStatus
-    ON [Order]
-    FOR UPDATE
+      ON [Order]
+      FOR UPDATE
     AS
 
     UPDATE OrderItem
     SET StatusID = i.StatusID
     FROM OrderItem oi
-    INNER JOIN inserted i ON i.Id = oi.OrderID
-    INNER JOIN deleted d ON d.ID = oi.OrderID
+      INNER JOIN inserted i ON i.Id = oi.OrderID
+      INNER JOIN deleted d ON d.ID = oi.OrderID
     WHERE i.StatusID != d.StatusID
       AND oi.StatusID = d.StatusID
     ```
@@ -217,7 +222,7 @@ Tároljuk el a vevő összes megrendelésének végösszegét a Vevő táblában
     DECLARE @CustomerId INT
     DECLARE @Total FLOAT
 
-    OPEN cur_customer;
+    OPEN cur_customer
     FETCH NEXT FROM cur_customer INTO @CustomerId
     WHILE @@FETCH_STATUS = 0
     BEGIN
