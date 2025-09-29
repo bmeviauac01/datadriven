@@ -1637,10 +1637,10 @@
 <span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
 
 <span class="c1">-- Létezik-e ilyen névvel már kategória</span>
-<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">);</span>
 
 <span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="k">BEGIN</span>
@@ -1655,7 +1655,7 @@
 <span class="k">BEGIN</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Category</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">)</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 <span class="w">    </span><span class="k">BEGIN</span>
@@ -1666,9 +1666,9 @@
 <span class="k">END</span>
 
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span>
-<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
 
-<span class="k">COMMIT</span>
+<span class="k">COMMIT</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>Tesztelés</strong></p>
 <p>Nyissunk egy új Query ablakot és adjuk ki az alábbi parancsot.</p>
@@ -1679,6 +1679,11 @@
 <p>Próbáljuk ki szülőkategóriával is.</p>
 <div class="highlight"><pre><span></span><code><span class="k">EXEC</span><span class="w"> </span><span class="n">AddNewCategory</span><span class="w"> </span><span class="s1">'LEGO Star Wars'</span><span class="p">,</span><span class="w"> </span><span class="s1">'LEGO'</span>
 </code></pre></div>
+<details class="tip">
+<summary>Kell-e pontosvessző MSSQL-ben?</summary>
+<p>A Microsoft SQL Server-ben a pontosvessző nem kötelező, és a legtöbb esetben felesleges is. Azonban a fenti <code>AddNewCategory</code> tárolt eljárásban a <code>THROW</code> utasítás <a href="https://learn.microsoft.com/en-us/sql/t-sql/language-elements/throw-transact-sql?view=sql-server-ver17#remarks"><strong>előtt kötelező</strong></a> a pontosvessző használata, így az egységes stílus érdekében érdemes minden utasítás végére pontosvesszőt tenni.</p>
+<p>A pontosvessző használata egyébként is jó gyakorlat lehet, ha a kódolási stílus egységességére törekszünk.</p>
+</details>
 </details>
 <h2 id="feladat-3-megrendelestetel-statuszanak-karbantartasa">Feladat 3: Megrendeléstétel státuszának karbantartása<a class="headerlink" href="#feladat-3-megrendelestetel-statuszanak-karbantartasa" title="Permanent link">¶</a></h2>
 <p>Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.</p>
@@ -1686,15 +1691,15 @@
 <summary>Megoldás</summary>
 <p><strong>Trigger</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">UpdateOrderStatus</span>
-<span class="k">ON</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
-<span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span>
 <span class="k">AS</span>
 
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">OrderItem</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span>
-<span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
-<span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="w">  </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="w">  </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 </code></pre></div>
@@ -1729,7 +1734,7 @@
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">CustomerId</span><span class="w"> </span><span class="nb">INT</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">Total</span><span class="w"> </span><span class="nb">FLOAT</span>
 
-<span class="k">OPEN</span><span class="w"> </span><span class="n">cur_customer</span><span class="p">;</span>
+<span class="k">OPEN</span><span class="w"> </span><span class="n">cur_customer</span>
 <span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">cur_customer</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">CustomerId</span>
 <span class="n">WHILE</span><span class="w"> </span><span class="o">@@</span><span class="n">FETCH_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
 <span class="k">BEGIN</span>
@@ -1807,8 +1812,8 @@
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 8. 20:00:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 20:00:54 CEST"><span class="timeago" datetime="2025-09-08T20:00:54+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 20:00:54 CEST">2025-09-08</span>
+      <span title="2025. szeptember 29. 10:04:10">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 29. 10:04:10 CEST"><span class="timeago" datetime="2025-09-29T10:04:10+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 29. 10:04:10 CEST">2025-09-29</span>
       </span>
     </span>
 
