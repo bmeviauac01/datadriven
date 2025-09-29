@@ -1594,13 +1594,13 @@
 <span class="w">    </span><span class="o">@</span><span class="n">ParentName</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
 <span class="k">AS</span>
 
-<span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
+<span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
 
 <span class="c1">-- Is there a category with identical name?</span>
-<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">);</span>
 
 <span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="k">BEGIN</span>
@@ -1609,12 +1609,12 @@
 <span class="w">    </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="k">END</span>
 
-<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 <span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="k">BEGIN</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Category</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">)</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 <span class="w">    </span><span class="k">BEGIN</span>
@@ -1625,9 +1625,9 @@
 <span class="k">END</span>
 
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span>
-<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
 
-<span class="k">COMMIT</span>
+<span class="k">COMMIT</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>Testing</strong></p>
 <p>Let us open a new <em>Query</em> window and execute the following testing instructions.</p>
@@ -1636,6 +1636,11 @@
 <p>Let us repeat the same command; it shall fail now.</p>
 <p>We can also try with a parent category.</p>
 <p><code>exec AddNewCategory 'LEGO Star Wars', 'LEGO'</code></p>
+<details class="tip">
+<summary>Do we need semicolons in MSSQL?</summary>
+<p>In Microsoft SQL Server, the semicolon is not mandatory, and in most cases, it's unnecessary. However, in the above <code>AddNewCategory</code> stored procedure, the use of a semicolon is <strong>mandatory before</strong> the THROW statement, so for consistent style, it's worth putting a semicolon at the end of every statement.</p>
+<p>Using semicolons can also be a good practice if we strive for consistency in coding style.</p>
+</details>
 </details>
 <h2 id="exercise-3-maintenance-of-order-status">Exercise 3: Maintenance of order status<a class="headerlink" href="#exercise-3-maintenance-of-order-status" title="Permanent link">¶</a></h2>
 <p>Create a trigger that updates the status of each item of an order when the status of the order changes. Do this only for those items of the order that have the same status the order had before the change. Other items in the order should not be affected.</p>
@@ -1643,15 +1648,15 @@
 <summary>Solution</summary>
 <p><strong>Trigger</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">UpdateOrderStatus</span>
-<span class="k">ON</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
-<span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span>
 <span class="k">AS</span>
 
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">OrderItem</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span>
-<span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
-<span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="w">  </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="w">  </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 </code></pre></div>
@@ -1764,8 +1769,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 8, 2025 20:00:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 8, 2025 20:00:54 CEST"><span class="timeago" datetime="2025-09-08T20:00:54+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 8, 2025 20:00:54 CEST">2025-09-08</span>
+      <span title="September 29, 2025 10:10:08">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 29, 2025 10:10:08 CEST"><span class="timeago" datetime="2025-09-29T10:10:08+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 29, 2025 10:10:08 CEST">2025-09-29</span>
       </span>
     </span>
 
