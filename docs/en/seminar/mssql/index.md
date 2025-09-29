@@ -98,13 +98,13 @@ Create a new stored procedure that helps inserting a new product category. The p
         @ParentName NVARCHAR(50)
     AS
 
-    BEGIN TRAN
+    BEGIN TRAN;
 
     -- Is there a category with identical name?
-    DECLARE @ID INT
+    DECLARE @ID INT;
     SELECT @ID = ID
     FROM Category WITH (TABLOCKX)
-    WHERE UPPER(Name) = UPPER(@Name)
+    WHERE UPPER(Name) = UPPER(@Name);
 
     IF @ID IS NOT NULL
     BEGIN
@@ -113,12 +113,12 @@ Create a new stored procedure that helps inserting a new product category. The p
         THROW 51000, @ErrorMessage, 1;
     END
 
-    DECLARE @ParentID INT
+    DECLARE @ParentID INT;
     IF @ParentName IS NOT NULL
     BEGIN
         SELECT @ParentID = ID
         FROM Category
-        WHERE UPPER(Name) = UPPER(@ParentName)
+        WHERE UPPER(Name) = UPPER(@ParentName);
 
         IF @ParentID IS NULL
         BEGIN
@@ -129,9 +129,9 @@ Create a new stored procedure that helps inserting a new product category. The p
     END
 
     INSERT INTO Category
-    VALUES(@Name, @ParentID)
+    VALUES(@Name, @ParentID);
 
-    COMMIT
+    COMMIT;
     ```
 
     **Testing**
@@ -148,6 +148,11 @@ Create a new stored procedure that helps inserting a new product category. The p
 
     `exec AddNewCategory 'LEGO Star Wars', 'LEGO'`
 
+    ??? tip "Do we need semicolons in MSSQL?"
+        In Microsoft SQL Server, the semicolon is not mandatory, and in most cases, it's unnecessary. However, in the above `AddNewCategory` stored procedure, the use of a semicolon is **mandatory before** the THROW statement, so for consistent style, it's worth putting a semicolon at the end of every statement.
+
+        Using semicolons can also be a good practice if we strive for consistency in coding style.
+
 ## Exercise 3: Maintenance of order status
 
 Create a trigger that updates the status of each item of an order when the status of the order changes. Do this only for those items of the order that have the same status the order had before the change. Other items in the order should not be affected.
@@ -157,15 +162,15 @@ Create a trigger that updates the status of each item of an order when the statu
 
     ```sql
     CREATE OR ALTER TRIGGER UpdateOrderStatus
-    ON [Order]
-    FOR UPDATE
+      ON [Order]
+      FOR UPDATE
     AS
 
     UPDATE OrderItem
     SET StatusID = i.StatusID
     FROM OrderItem oi
-    INNER JOIN inserted i ON i.Id = oi.OrderID
-    INNER JOIN deleted d ON d.ID = oi.OrderID
+      INNER JOIN inserted i ON i.Id = oi.OrderID
+      INNER JOIN deleted d ON d.ID = oi.OrderID
     WHERE i.StatusID != d.StatusID
       AND oi.StatusID = d.StatusID
     ```
