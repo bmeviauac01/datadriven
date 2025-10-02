@@ -40,7 +40,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
         WHERE s.Name != 'Delivered'
         ```
 
-        A `join` mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)
+        A `JOIN` mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)
 
 1. Melyek azok a fizetési módok, amit soha nem választottak a megrendelőink?
 
@@ -51,7 +51,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
         WHERE o.ID IS NULL
         ```
         
-        A megoldás kulcsa az `outer join`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
+        A megoldás kulcsa az `OUTER JOIN`, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz _nem_ tartozik egyetlen megrendelés se.
 
 1. Rögzítsünk be egy új vevőt! Kérdezzük le az újonnan létrejött rekord kulcsát!
 
@@ -63,7 +63,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
         SELECT @@IDENTITY
         ```
 
-        Az `insert` után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.
+        Az `INSERT` után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.
 
 1. A kategóriák között hibásan szerepel a _Tricycle_ kategória név. Javítsuk át a kategória nevét _Tricycles_-re!
 
@@ -104,7 +104,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     DECLARE @ID INT;
     SELECT @ID = ID
     FROM Category WITH (TABLOCKX)
-    WHERE UPPER(Name) = UPPER(@Name);
+    WHERE Name = @Name;
 
     IF @ID IS NOT NULL
     BEGIN
@@ -119,18 +119,18 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
     BEGIN
         SELECT @ParentID = ID
         FROM Category
-        WHERE UPPER(Name) = UPPER(@ParentName);
+        WHERE Name = @ParentName;
 
         IF @ParentID IS NULL
         BEGIN
             ROLLBACK;
             DECLARE @ParentErrorMessage NVARCHAR(255) = 'Category ' + @ParentName + ' does not exist';
-            THROW 51000, @ParentErrorMessage, 1;
+            THROW 51001, @ParentErrorMessage, 1;
         END
     END
 
-    INSERT INTO Category
-    VALUES(@Name, @ParentID);
+    INSERT INTO Category(Name, ParentCategoryID)
+    VALUES (@Name, @ParentID);
 
     COMMIT;
     ```
@@ -180,7 +180,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
       AND oi.StatusID = d.StatusID
     ```
 
-    Szánjunk egy kis időt az `update ... from` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `update ... set...` formát követi, kiegészítve egy `from` szakasszal, melyben már a `select from` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`join`) adatokat a módosítandó táblához. Így a `set` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).
+    Szánjunk egy kis időt az `UPDATE ... FROM` utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott `UPDATE ... SET ...` formát követi, kiegészítve egy `FROM` szakasszal, melyben már a `SELECT FROM` utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (`JOIN`) adatokat a módosítandó táblához. Így a `SET` szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).
 
     **Tesztelés**
 
