@@ -40,7 +40,7 @@ Write SQL commands/queries for the following exercises.
         WHERE s.Name != 'Delivered'
         ```
 
-        We see a `join` and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)
+        We see a `JOIN` and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)
 
 1. Which payment methods have _not_ been used at all?
 
@@ -51,7 +51,7 @@ Write SQL commands/queries for the following exercises.
         WHERE o.ID IS NULL
         ```
 
-        The key in the solution is the `outer join`, through which we can see the payment method records that have _no_ orders.
+        The key in the solution is the `OUTER JOIN`, through which we can see the payment method records that have _no_ orders.
 
 1. Let us insert a new customer and query the auto-assigned primary key!
 
@@ -63,7 +63,7 @@ Write SQL commands/queries for the following exercises.
         SELECT @@IDENTITY
         ```
 
-        It is recommended (though not required) to name the columns after `insert` to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.
+        It is recommended (though not required) to name the columns after `INSERT` to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.
 
 1. One of the categories has the wrong name. Let us change _Tricycle_ to _Tricycles_!
 
@@ -118,18 +118,18 @@ Create a new stored procedure that helps inserting a new product category. The p
     BEGIN
         SELECT @ParentID = ID
         FROM Category
-        WHERE UPPER(Name) = UPPER(@ParentName);
+        WHERE Name = @ParentName;
 
         IF @ParentID IS NULL
         BEGIN
             ROLLBACK;
             DECLARE @ParentErrorMessage NVARCHAR(255) = 'Category ' + @ParentName + ' does not exist';
-            THROW 51000, @ParentErrorMessage, 1;
+            THROW 51001, @ParentErrorMessage, 1;
         END
     END
 
-    INSERT INTO Category
-    VALUES(@Name, @ParentID);
+    INSERT INTO Category(Name, ParentCategoryID)
+    VALUES (@Name, @ParentID);
 
     COMMIT;
     ```
@@ -175,7 +175,7 @@ Create a trigger that updates the status of each item of an order when the statu
       AND oi.StatusID = d.StatusID
     ```
 
-    Let us make sure we understand the `update ... from` syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual `update ... set...` format extended with a `from` part, which follows the same syntax as a `select from`, including the `join` to gather information from other tables. This allows us to use the joined records and their content in the `set` statement (that is, a value from a joined record can be on the right side of an assignment).
+    Let us make sure we understand the `UPDATE ... FROM` syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual `UPDATE ... SET ...` format extended with a `FROM` part, which follows the same syntax as a `SELECT FROM`, including the `JOIN` to gather information from other tables. This allows us to use the joined records and their content in the `SET` statement (that is, a value from a joined record can be on the right side of an assignment).
 
     **Testing**
 
