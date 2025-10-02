@@ -1536,7 +1536,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">'Delivered'</span>
 </code></pre></div>
-<p>We see a <code>join</code> and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)</p>
+<p>We see a <code>JOIN</code> and an aggregation here. (There are other syntaxes for joining tables; refer to the lecture notes.)</p>
 </details>
 </li>
 <li>
@@ -1547,7 +1547,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">RIGHT</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">PaymentMethod</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">PaymentMethodID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
-<p>The key in the solution is the <code>outer join</code>, through which we can see the payment method records that have <em>no</em> orders.</p>
+<p>The key in the solution is the <code>OUTER JOIN</code>, through which we can see the payment method records that have <em>no</em> orders.</p>
 </details>
 </li>
 <li>
@@ -1559,7 +1559,7 @@
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">IDENTITY</span>
 </code></pre></div>
-<p>It is recommended (though not required) to name the columns after <code>insert</code> to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.</p>
+<p>It is recommended (though not required) to name the columns after <code>INSERT</code> to be unambiguous. No value was assigned to the ID column, as the definition of that column mandates that the database automatically assigns a new value upon insert. We can query this ID after the insert is completed.</p>
 </details>
 </li>
 <li>
@@ -1614,18 +1614,18 @@
 <span class="k">BEGIN</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Category</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">);</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 <span class="w">    </span><span class="k">BEGIN</span>
 <span class="w">        </span><span class="k">ROLLBACK</span><span class="p">;</span>
 <span class="w">        </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Category '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">' does not exist'</span><span class="p">;</span>
-<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51001</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">END</span>
 <span class="k">END</span>
 
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span>
-<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">ParentCategoryID</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
 
 <span class="k">COMMIT</span><span class="p">;</span>
 </code></pre></div>
@@ -1660,7 +1660,7 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 </code></pre></div>
-<p>Let us make sure we understand the <code>update ... from</code> syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual <code>update ... set...</code> format extended with a <code>from</code> part, which follows the same syntax as a <code>select from</code>, including the <code>join</code> to gather information from other tables. This allows us to use the joined records and their content in the <code>set</code> statement (that is, a value from a joined record can be on the right side of an assignment).</p>
+<p>Let us make sure we understand the <code>UPDATE ... FROM</code> syntax. The behavior is as follows. We use this command when some of the changes we want to make during the update require data from another table. The syntax is based on the usual <code>UPDATE ... SET ...</code> format extended with a <code>FROM</code> part, which follows the same syntax as a <code>SELECT FROM</code>, including the <code>JOIN</code> to gather information from other tables. This allows us to use the joined records and their content in the <code>SET</code> statement (that is, a value from a joined record can be on the right side of an assignment).</p>
 <p><strong>Testing</strong></p>
 <p>Let us check the status of the order and each item in the order:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">.</span><span class="n">StatusID</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">].</span><span class="n">StatusID</span>
@@ -1769,8 +1769,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 29, 2025 10:10:08">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 29, 2025 10:10:08 CEST"><span class="timeago" datetime="2025-09-29T10:10:08+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 29, 2025 10:10:08 CEST">2025-09-29</span>
+      <span title="October 2, 2025 10:10:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 2, 2025 10:10:48 CEST"><span class="timeago" datetime="2025-10-02T10:10:48+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 2, 2025 10:10:48 CEST">2025-10-02</span>
       </span>
     </span>
 
