@@ -1576,7 +1576,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">'Delivered'</span>
 </code></pre></div>
-<p>A <code>join</code> mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)</p>
+<p>A <code>JOIN</code> mellett az oszlopfüggvény (aggregáció) használatára látunk példát. (A táblák kapcsolására nem csak ez a szintaktika használható, előadáson szerepelt alternatív is.)</p>
 </details>
 </li>
 <li>
@@ -1587,7 +1587,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">RIGHT</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">PaymentMethod</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">PaymentMethodID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
-<p>A megoldás kulcsa az <code>outer join</code>, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz <em>nem</em> tartozik egyetlen megrendelés se.</p>
+<p>A megoldás kulcsa az <code>OUTER JOIN</code>, aminek köszönhetően láthatjuk, mely fizetési mód rekordhoz <em>nem</em> tartozik egyetlen megrendelés se.</p>
 </details>
 </li>
 <li>
@@ -1599,7 +1599,7 @@
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">IDENTITY</span>
 </code></pre></div>
-<p>Az <code>insert</code> után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.</p>
+<p>Az <code>INSERT</code> után javasolt kiírni az oszlopneveket az egyértelműség végett, bár nem kötelező. Vegyük észre, hogy az ID oszlopnak nem adunk értéket, mert azt a tábla definíciójakor meghatározva a szerver adja automatikusan. Ezért kell utána lekérdeznünk, hogy tudjuk, milyen ID-t adott.</p>
 </details>
 </li>
 <li>
@@ -1640,7 +1640,7 @@
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">);</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Name</span><span class="p">;</span>
 
 <span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="k">BEGIN</span>
@@ -1655,18 +1655,18 @@
 <span class="k">BEGIN</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span>
 <span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Category</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="o">@</span><span class="n">ParentName</span><span class="p">);</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 <span class="w">    </span><span class="k">BEGIN</span>
 <span class="w">        </span><span class="k">ROLLBACK</span><span class="p">;</span>
 <span class="w">        </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Category '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">ParentName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">' does not exist'</span><span class="p">;</span>
-<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51001</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentErrorMessage</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">END</span>
 <span class="k">END</span>
 
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span>
-<span class="k">VALUES</span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Category</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">ParentCategoryID</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ParentID</span><span class="p">);</span>
 
 <span class="k">COMMIT</span><span class="p">;</span>
 </code></pre></div>
@@ -1703,7 +1703,7 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 <span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">StatusID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">StatusID</span>
 </code></pre></div>
-<p>Szánjunk egy kis időt az <code>update ... from</code> utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott <code>update ... set...</code> formát követi, kiegészítve egy <code>from</code> szakasszal, melyben már a <code>select from</code> utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (<code>join</code>) adatokat a módosítandó táblához. Így a <code>set</code> szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).</p>
+<p>Szánjunk egy kis időt az <code>UPDATE ... FROM</code> utasítás működési elvének megértésére. Az alapelvek a következők. Akkor használjuk, ha a módosítandó tábla bizonyos mezőit más tábla vagy táblák tartalma alapján szeretnénk beállítani. A szintaktika alapvetően a már megszokott <code>UPDATE ... SET ...</code> formát követi, kiegészítve egy <code>FROM</code> szakasszal, melyben már a <code>SELECT FROM</code> utasításnál megismerttel azonos szintaktikával más táblákból illeszthetünk (<code>JOIN</code>) adatokat a módosítandó táblához. Így a <code>SET</code> szakaszban az illesztett táblák oszlopai is felhasználhatók adatforrásként (vagyis állhatnak az egyenlőség jobb oldalán).</p>
 <p><strong>Tesztelés</strong></p>
 <p>Ellenőrizzük a megrendelés és a tételek státuszát:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">.</span><span class="n">StatusID</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">].</span><span class="n">StatusID</span>
@@ -1812,8 +1812,8 @@
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 29. 10:04:10">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 29. 10:04:10 CEST"><span class="timeago" datetime="2025-09-29T10:04:10+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 29. 10:04:10 CEST">2025-09-29</span>
+      <span title="2025. október 2. 10:08:17">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 2. 10:08:17 CEST"><span class="timeago" datetime="2025-10-02T10:08:17+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 2. 10:08:17 CEST">2025-10-02</span>
       </span>
     </span>
 
