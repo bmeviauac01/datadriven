@@ -26,7 +26,7 @@ Feladatok:
 
 ### Egyszerű lekérdezés
 
-1. Add hozzá azt a maven dependency-t, amivel folyamatosan futtatásban tartod az alkalmazást:
+1. Add hozzá azt a maven függőséget, amely lehetővé teszi a Spring MVC használatát, és magával húz egy beágyazott Tomcat szervert is, ami a 8080-as porton fog by default figyelni. 
 
     ```xml
     <dependency>
@@ -34,6 +34,7 @@ Feladatok:
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     ```
+Valamint egy másikat, melynek segítségével openapi leírót tudunk generálni, és ahhoz kattintható webes felületet is biztosít:
 
     ```xml
         <dependency>
@@ -43,39 +44,35 @@ Feladatok:
         </dependency>
     ```
 
-2. A `hu.bme.aut.adatvezrestapiplushf.persistence.repositories.ProductRepository` osztályban a `Neptun` nevű mező értékében cseréld le a Neptun kódod. A string értéke a Neptun kódod 6 karaktere legyen.
+2. A ProductsController osztályon szereplő annotációk, a getAll metóduson lévő annotáció, valamint a hozzájuk tartozó import sor elől vedd ki a komment jelet!
+
+3. A `hu.bme.aut.adatvezrestapiplushf.persistence.repositories.ProductRepository` osztályban a `Neptun` nevű mező értékében cseréld le a Neptun kódod. A string értéke a Neptun kódod 6 karaktere legyen.
 
     !!! warning "FONTOS"
         Az így módosított adatokról kell képernyőképet készíteni, így ez a lépés fontos.
 
-3. Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy `HEAD` típusú HTTP kérést fogunk küldeni a `/api/product/{id}` URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).
+4. Készíts egy olyan API végpontot, amivel ellenőrizhető, hogy létezik-e egy adott id-jú termék. A lekérdezéshez egy `HEAD` típusú HTTP kérést fogunk küldeni a `/api/product/{id}` URL-re. A válasz HTTP 200 vagy 404 legyen (extra tartalom/body nélkül, csak a válaszkód szükséges).
+
     - **Tipp**: Használd a Spring Boot válasz osztályát (`ResponseEntity< *a válasz body-nak típusa* >, és return ResponseEntity.*válasz típus*.build(*body*)`).
 
 ### OpenAPI dokumentáció
 
-Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts OpenAPI specifikációt és dokumentációt a REST API leírásához.
+Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló az XML Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts OpenAPI specifikációt és dokumentációt a REST API leírásához.
 
-1. A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v3/swagger.json` címen elérhető alapból. Ezt állítsd át a `/neptun_code/swagger.json` címre.
+1. Az OpenAPI leírót az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/v3/api-docs` címen elérhető alapból. Ezt állítsd át a `/neptun_code/swagger.json` címre.
 
-    - **Tipp**: Ezt a Spring Boot-tal és a maven-nel egyszerűen megteheted, hozzá kell adnod a megfelelő dependency-t (ezt már korábban hozzáadtuk, mert ez felel az endpointokért is):
-
-    ```xml
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-openapi.version}</version>
-        </dependency>
-    ```
+    - **Tipp**: Az ehhez szükséges függőséget (springdoc-openapi-starter-webmvc-ui) már felvettük a pom.xml-be. A library dokumentációjában könnyen megtalálható, melyik propertyben konfigurálhatod ezt az útvonalat.
 
 2. Állítsd be a Swagger UI-t is, ez a `/neptun_code` címen legyen elérhető. Ezt, ahogyan az előzőt, az `application.properties`-ben a megfelelő property beállításával tudod megtenni. Ez is egy alias (proxy) lesz az eredeti elérési útvonalra. A saját Neptun kódod legyen a proxy csupa kisbetűvel.
 
 3. A Spring Boot alkalmazások alapból a 8080 porton mennek. Állítsd át a 8000-re.
-    - **Tipp**: itt is csak az `application.properties`-t kell állítanod).
-
+   
+- **Tipp**: itt is csak az `application.properties`-t kell állítanod).
+  
 4. Indítsd el a webalkalmazást, és nézd meg a `swagger.json`-t [http://localhost:8000/neptun_code/swagger.json](http://localhost:8000/neptun_code/swagger.json) címen, és próbáld ki a Swagger UI-t [http://localhost:8000/neptun_code](http://localhost:8000/swagger-ui/index.html) címen.
 
 5. Próbáld ki a SwaggerUI "Try it out" szolgáltatását: tényleg kiküldi a kérést a webalkalmazásnak, és látod a valódi választ.
-    
+   
 6. Készítd el azt az API végpontot, ami vissza is adja a kívánt terméket (`Product`) az id-ja alapján; a kérés `GET` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 200 legyen az adattal, vagy 404, ha nincs ilyen elem. Ellenőrizd a SwaggerUI segítségével vagy Postman-nel.
 
 !!! example "BEADANDÓ"
@@ -88,11 +85,12 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.
 
 1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen nevű elem.
-    - **Tipp:** Használd a Spring Boot válasz osztályát (`ResponseEntity< *a válasz body-nak típusa* >`, és `return ResponseEntity.*válasz típusok*.build(*body*)`).
+   
+- **Tipp:** Használd a Spring Boot válasz osztályát (`ResponseEntity< *a válasz body-nak típusa* >`, és `return ResponseEntity.*válasz típusok*.build(*body*)`).
+  
+2. Készíts egy olyan API végpontot, ami módosít egy terméket (`Product`) az id-ja alapján; a kérés `PUT` típusú legyen a `/api/product/{id}` címre, a kérés törzsében várja a változtatott `Product` értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem. Ha a törzsben felküldött id nem egyezik az URL-ben érkezővel, akkor pedig 400 legyen a válasz státusza.
 
-2. Készíts egy olyan API végpontot, ami módosít egy terméket (`Product`) az id-ja alapján; a kérés `PUT` típusú legyen a `/api/product/{id}` címre, a kérés törzsében várja a változtatott `Product` értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
-
-3. Készíts egy olyan API végpontot, ami töröl egy terméket (`Product`) az id-ja alapján; a kérés `DELETE` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
+3. Készíts egy olyan API végpontot, ami töröl egy terméket (`Product`) az id-ja alapján; a kérés `DELETE` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 204 legyen tartalom nélkül, akkor is, ha nincs ilyen elem.
 
 4. Készíts egy olyan API végpontot, amivel lekérdezhető, hány féle termék van összesen. (Például a lapozást elősegítendő kiszámolhatja a frontend, hogy hány lap lesz.) Ez is egy `GET` típusú kérés legyen a `/api/product/-/count` címre. A visszaadott adat a `CountResult` osztály példánya legyen kitöltve a darabszámmal (természetesen JSON formában).
 
