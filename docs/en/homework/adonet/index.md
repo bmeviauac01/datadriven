@@ -49,7 +49,7 @@ There are unit tests available in the solution. You can [run the unit tests in V
     The image does not need to show the exact same source code that you submit; there can be some minor changes. If the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
 !!! danger "YOU HAVE NOT FINISHED YET"
-    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
+    After pushing your code to the `solution` branch, create a PR and assign your lab instructor to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 2 optional: Optimistic concurrency handling (0 points)
 

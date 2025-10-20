@@ -50,7 +50,7 @@ Test the procedure to ensure it works correctly!
     Create a screenshot showing the execution of the stored procedure and its effects, as well as what happens when incorrect data is provided (you can use a window with two tabs, for example). The screenshot should display the name of your database (your Neptun code). Save the screenshot as `f2.png` and submit it as part of your solution!
 
 !!! danger "YOU HAVE NOT FINISHED YET"
-    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
+    After pushing your code to the `solution` branch, create a PR and assign your lab instructor to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Product recommended age (0 points)
 

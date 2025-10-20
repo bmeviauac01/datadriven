@@ -1,6 +1,6 @@
 ﻿# Submitting your work (GitHub)
 
-We are using GitHub to submit the solutions. Each homework is submitted in a GitHub repository. The repository is created through a link included in the exercise description. The solution of the exercises are created within these repositories, then committed and pushed to GitHub. The submission is finished with a _pull request_ assigned to the instructor (with GitHub username `akosdudas`).
+We are using GitHub to submit the solutions. Each homework is submitted in a GitHub repository. The repository is created through a link included in the exercise description. The solution of the exercises are created within these repositories, then committed and pushed to GitHub. The submission is finished with a _pull request_ assigned to your lab instructor.
 
 !!! important "IMPORTANT"
     The submission requirements detailed below and mandatory. Submissions not following these guidelines are not graded.
@@ -164,7 +164,7 @@ The detailed description below shows the entire procedure. This summary is an ov
 
 ## Questions and complaints regarding the final result
 
-If you have questions on concerns regarding the automated evaluation, use the pull request for communication with the instructor by asking questions via comments. To let the instructor know you have questions, please use `@akosdudas` [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) in the PR comment. This will automatically send an email notification.
+If you have questions on concerns regarding the automated evaluation, use the pull request for communication with the instructor by asking questions via comments. To let the instructor know you have questions, please use the instructors GitHub handle to [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) in the PR comment. This will automatically send an email notification.
 
 ![GitHub PR asking questions](github-question-in-pr.png)
 
