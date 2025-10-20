@@ -355,7 +355,7 @@ A `DbContext` nem csak lekérdezéshez használható, hanem rajta keresztül bes
         // 3.2
         Console.WriteLine("\t3.2:");
         var expensiveToysCategory = db.Categories
-            .Where(c => c.Name == "Expensive Toys")
+            .Where(c => c.Name == "Expensive toys")
             .SingleOrDefault();
 
         if (expensiveToysCategory == null)
