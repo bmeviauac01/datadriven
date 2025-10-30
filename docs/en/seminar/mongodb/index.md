@@ -188,11 +188,11 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         var pipeline = new[]
         {
             // Unwind the order items
-            new BsonDocument("$unwind", "$OrderItems"),
+            new BsonDocument("$unwind", "$orderItems"),
             // Group by product and count orders
             new BsonDocument("$group", new BsonDocument
             {
-                { "_id", "$OrderItems.ProductID" },
+                { "_id", "$orderItems.productID" },
                 { "orderCount", new BsonDocument("$sum", 1) }
             }),
             // Filter products ordered at least twice

@@ -191,11 +191,11 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         var pipeline = new[]
         {
             // Kibontjuk a megrendelési tételeket
-            new BsonDocument("$unwind", "$OrderItems"),
+            new BsonDocument("$unwind", "$orderItems"),
             // Csoportosítjuk termék szerint és megszámoljuk a megrendeléseket
             new BsonDocument("$group", new BsonDocument
             {
-                { "_id", "$OrderItems.ProductID" },
+                { "_id", "$orderItems.productID" },
                 { "orderCount", new BsonDocument("$sum", 1) }
             }),
             // Szűrjük azokat, amelyek legalább 2-szer szerepelnek
