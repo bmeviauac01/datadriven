@@ -210,8 +210,8 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
             // Project the fields we need
             new BsonDocument("$project", new BsonDocument
             {
-                { "productName", "$product.Name" },
-                { "stock", "$product.Stock" },
+                { "productName", "$product.name" },
+                { "stock", "$product.stock" },
                 { "orderCount", 1 }
             })
         };

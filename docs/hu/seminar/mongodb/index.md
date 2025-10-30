@@ -213,8 +213,8 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
             // Kiválasztjuk a szükséges mezőket
             new BsonDocument("$project", new BsonDocument
             {
-                { "productName", "$product.Name" },
-                { "stock", "$product.Stock" },
+                { "productName", "$product.name" },
+                { "stock", "$product.stock" },
                 { "orderCount", 1 }
             })
         };
