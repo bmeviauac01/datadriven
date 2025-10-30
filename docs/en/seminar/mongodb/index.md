@@ -185,38 +185,26 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         ```csharp
         // 1.5 - Recommended solution with aggregation pipeline
         Console.WriteLine("\t1.5:");
-        var pipeline = new[]
-        {
-            // Unwind the order items
-            new BsonDocument("$unwind", "$orderItems"),
-            // Group by product and count orders
-            new BsonDocument("$group", new BsonDocument
-            {
-                { "_id", "$orderItems.productID" },
-                { "orderCount", new BsonDocument("$sum", 1) }
-            }),
-            // Filter products ordered at least twice
-            new BsonDocument("$match", new BsonDocument("orderCount", new BsonDocument("$gte", 2))),
-            // Join with products collection
-            new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "products" },
-                { "localField", "_id" },
-                { "foreignField", "_id" },
-                { "as", "product" }
-            }),
-            // Unwind the product array
-            new BsonDocument("$unwind", "$product"),
-            // Project the fields we need
-            new BsonDocument("$project", new BsonDocument
-            {
-                { "productName", "$product.name" },
-                { "stock", "$product.stock" },
-                { "orderCount", 1 }
-            })
-        };
-
-        var results = ordersCollection.Aggregate<BsonDocument>(pipeline).ToList();
+        var results = ordersCollection
+            .Aggregate()
+            .Unwind(o => o.OrderItems)
+            .Group(
+                new BsonDocument
+                {
+                    { "_id", "$orderItems.productID" },
+                    { "orderCount", new BsonDocument("$sum", 1) }
+                })
+            .Match(new BsonDocument("orderCount", new BsonDocument("$gte", 2)))
+            .Lookup("products", "_id", "_id", @as: "product")
+            .Unwind<BsonDocument, BsonDocument>("product")
+            .Project(
+                new BsonDocument
+                {
+                    { "productName", "$product.name" },
+                    { "stock", "$product.stock" },
+                    { "orderCount", 1 }
+                })
+            .ToList();
 
         foreach (var result in results)
         {
