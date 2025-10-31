@@ -89,7 +89,7 @@ Implement the methods of class `ProductRepository.
     Upload the changed C# source code.
 
 !!! danger "YOU HAVE NOT FINISHED YET"
-    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
+    After pushing your code to the `solution` branch, create a PR and assign your lab instructor to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Logical Deletion with Entity Framework (0 points)
 

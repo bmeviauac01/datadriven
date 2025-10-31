@@ -85,7 +85,7 @@ The following conditions should be considered during insertion:
     Additionally, take a screenshot similar to the one in the first task, where you have run the relevant tests! Save the image as `f2.png` and upload it as part of your solution!
 
 !!! danger "YOU HAVE NOT FINISHED YET"
-    After pushing your code to the `solution` branch, create a PR and assign your instructor (github username: `akosdudas`) to it! (more details: on the [assignment submission](../GitHub.md) page)
+    After pushing your code to the `solution` branch, create a PR and assign your lab instructor to it! (more details: on the [assignment submission](../GitHub.md) page)
 
 ## Exercise 3 optional: Estimating storage space (0 points)
 
