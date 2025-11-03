@@ -256,11 +256,11 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
 ## Feladat 3: Adatmódosítások
 
-Az `IMongoColection<TEntity>` interfész nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
+Az `IMongoCollection<TEntity>` interfész nem csak lekérdezéshez használható, hanem rajta keresztül módosítások is végrehajthatóak.
 
 1. Írj olyan _MongoDB C#/.NET Driverre_ épülő C# kódot, mely a "LEGO" kategóriájú termékek árát megemeli 10 százalékkal!
 
-1. Hozz létre egy új kategóriát a _Expensive toys_ néven, és sorod át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
+1. Hozz létre egy új kategóriát a _Expensive toys_ néven, és sorold át ide az összes olyan terméket, melynek ára, nagyobb, mint 8000 Ft!
 
 1. Töröld ki az összes olyan kategóriát, amelyhez nem tartozik termék.
 
