@@ -44,7 +44,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
     ![Connection Settings](images/vscode-connect.png)
 
-1. Let us create a new database by right-clicking the connection (_localhost_). This opens a playground script window, where we paste our database creation script from [innen](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), and run it with the black “play” button found in the header. The name of the database should be `datadriven`. As a result, the collections should be created - open the elements of the database to check this.
+1. Let us create a new database by right-clicking the connection (_localhost_). This opens a playground script window, where we paste our database creation script from [here](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js), and run it with the black “play” button found in the header. The name of the database should be `datadriven`. As a result, the collections should be created - open the elements of the database to check this.
 
     ![Connection Settings](images/vscode-newdb.png)
 
