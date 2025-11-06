@@ -120,16 +120,17 @@ Nyissunk egy harmadik query ablakot (New Query gomb), és futtassuk le az alább
 ```sql
 -- Zárak lekérdezése
 SELECT 
-    resource_type,
-    DB_NAME(resource_database_id) AS database_name,
-    OBJECT_NAME(resource_associated_entity_id) AS object_name,
-    request_mode,
-    request_type,
-    request_status,
-    request_session_id
-FROM sys.dm_tran_locks
-WHERE resource_database_id = DB_ID()
-ORDER BY request_session_id
+    dtl.resource_type,
+    DB_NAME(dtl.resource_database_id) AS database_name,
+    OBJECT_NAME(P.object_id) AS object_name,
+    dtl.request_mode,
+    dtl.request_type,
+    dtl.request_status,
+    dtl.request_session_id
+FROM sys.dm_tran_locks dtl
+LEFT JOIN sys.partitions P ON dtl.resource_associated_entity_id = P.hobt_id
+WHERE dtl.resource_database_id = DB_ID()
+ORDER BY dtl.request_session_id
 ```
 
 Ez a lekérdezés megjeleníti az aktuális adatbázisban elhelyezett zárakat. A `resource_type` oszlop mutatja, hogy milyen típusú erőforráson van zár (pl. `OBJECT`, `PAGE`, `KEY`), a `request_mode` oszlop pedig a zár típusát (pl. `S` - shared/olvasási, `X` - exclusive/kizárólagos). A `request_session_id` segítségével azonosíthatjuk, hogy melyik munkamenet (session) tartja a zárat - ezt a Query ablak címsorában is megtaláljuk.
