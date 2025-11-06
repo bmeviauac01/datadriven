@@ -405,15 +405,14 @@ FROM tablename WITH(XLOCK)
          COMMIT
          ```
 
-## Exercise 9: Table locking
+!!! tip "Table locking"
 
-There is another option for manual locking by locking entire tables:
+    There is another option for manual locking by locking entire tables:
 
-```sql
-SELECT *
-FROM tablename WITH(TABLOCKX)
-...
-```
-
-??? question "This might seem a simple solution, but why is this a not recommended option?"
-    In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using _serializable_ isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.
+    ```sql
+    SELECT *
+    FROM tablename WITH(TABLOCKX)
+    ...
+    ```
+    
+    This might seem a simple solution, but why is this a not recommended option? In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using _serializable_ isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.
