@@ -106,6 +106,46 @@ Let us repeat the previous exercise so that the two modifications form a single 
 
     Let us remember that the default isolation level is _read committed_. This isolation level on this platform means that data under modification cannot be accessed, not even for reading. This is a matter of implementation; the SQL standard does not specify this (e.g., in Oracle Server the previously committed state of each record is available). In other isolation levels, MSSQL Server behaves differently; e.g., in the _snapshot_ isolation level, the version of the data before the modification is accessible.
 
+### Checking locks with SQL queries
+
+We can also check the state of locks in a third query window using SQL queries while the **T2** transaction is running (i.e., after `BEGIN TRAN` and `UPDATE`, but before `COMMIT` or `ROLLBACK`).
+
+Open a third query window (New Query button) and execute the following query while the **T2** transaction is active:
+
+```sql
+-- Query locks
+SELECT 
+    dtl.resource_type,
+    DB_NAME(dtl.resource_database_id) AS database_name,
+    OBJECT_NAME(P.object_id) AS object_name,
+    dtl.request_mode,
+    dtl.request_type,
+    dtl.request_status,
+    dtl.request_session_id
+FROM sys.dm_tran_locks dtl
+LEFT JOIN sys.partitions P ON dtl.resource_associated_entity_id = P.hobt_id
+WHERE dtl.resource_database_id = DB_ID()
+ORDER BY dtl.request_session_id
+```
+
+This query displays the locks placed in the current database. The `resource_type` column shows what type of resource is locked (e.g., `OBJECT`, `PAGE`, `KEY`), and the `request_mode` column shows the lock type (e.g., `S` - shared/read, `X` - exclusive/write). The `request_session_id` helps identify which session holds the lock - this can also be found in the Query window title.
+
+We can also get useful information about blocked transactions:
+
+```sql
+-- Query blocked sessions
+SELECT 
+    blocking_session_id AS 'Blocking Session ID',
+    session_id AS 'Blocked Session ID',
+    wait_type,
+    wait_time,
+    wait_resource
+FROM sys.dm_exec_requests
+WHERE blocking_session_id <> 0
+```
+
+This query shows if there is a session waiting for a lock held by another session.
+
 ## Exercise 4: aborting transactions (_rollback_) in _read committed_ isolation level
 
 Let us repeat the same command sequence, including the transaction, but let us abort the modification operation in the middle.
@@ -149,7 +189,39 @@ Let us repeat the same command sequence, including the transaction, but let us a
 
     Let us understand that we have just avoided the problem of dirty read. If the read query showed us the uncommitted modification, we would have seen values that would have been invalid after the `rollback`.
 
-## Exercise 5: Placing an order using _serializable_ isolation level
+## Exercise 5: _Read committed snapshot_ isolation level
+
+Before starting the exercise, abort any remaining transactions. Execute a few `rollback` statements in both windows to stop any potentially remaining transactions.
+
+SQL Server supports a special _read committed snapshot_ isolation level, which is a variation of the _read committed_ isolation level. In this mode, when reading records being modified, we don't wait but instead receive the last committed version. This behavior must be enabled at the database level.
+
+First, enable _read committed snapshot_ mode for our database. Execute the following command in a new query window (replace `NEPTUN` with your Neptun code):
+
+```sql
+ALTER DATABASE [NEPTUN]
+SET READ_COMMITTED_SNAPSHOT ON
+```
+
+!!! warning "Important"
+    This command only succeeds if there are no other active connections to the database. Close all other query windows or abort any active transactions before executing this command!
+
+Now repeat the steps from Exercise 4.
+
+??? question "What did you experience? How does the behavior differ from Exercise 4?"
+    Now the **T1** transaction does not wait but immediately receives the result, even while the **T2** transaction is modifying the data! This is possible because in _read committed snapshot_ mode, the system returns the last committed version, without having to wait for the modification transaction to complete.
+
+    This provides a significant performance advantage, as read transactions are not blocked by write transactions. However, it's important to understand that the data read reflects an earlier state that may have since changed.
+
+    The _read committed snapshot_ mode is particularly useful in applications with heavy read workloads where it's unacceptable for reads to be blocked by modifications. This is also the default behavior of Oracle databases.
+
+At the end of the exercise, we can switch back to the original setting (optional):
+
+```sql
+ALTER DATABASE [NEPTUN]
+SET READ_COMMITTED_SNAPSHOT OFF
+```
+
+## Exercise 6: Placing an order using _serializable_ isolation level
 
 Before we begin, let us get rid of any pending transactions we may have. Let us issue a few `rollback` statements in both windows.
 
@@ -239,7 +311,7 @@ Let us repeat the same sequence of steps, but this time, the products should be 
 
     In other words, the _serializable_ isolation level is too strict in this case. This is the reason that serializable is not frequently used in practice.
 
-## Exercise 6: Order registration with _read committed_ isolation level
+## Exercise 7: Order registration with _read committed_ isolation level
 
 Let us consider what would happen in the previous exercise if the isolation level was left at default? Would there be any deadlock? Would the result be correct?
 
@@ -248,7 +320,7 @@ Let us consider what would happen in the previous exercise if the isolation leve
 
     We can conclude thus that the _serializable_ isolation level was not unnecessary. It did in fact, protect us from a valid concurrency problem.
 
-## Exercise 7: Manual locking
+## Exercise 8: Manual locking
 
 Before we begin, let us get rid of any pending transactions we may have. Let us issue a few `rollback` statements in both windows.
 
@@ -333,7 +405,7 @@ FROM tablename WITH(XLOCK)
          COMMIT
          ```
 
-## Exercise 8: Table locking
+## Exercise 9: Table locking
 
 There is another option for manual locking by locking entire tables:
 
