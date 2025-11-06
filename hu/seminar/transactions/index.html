@@ -1051,6 +1051,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Feladat 3: Tranzakció indítása, read committed izolációs szint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zarak-ellenorzese-sql-lekerdezessel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zárak ellenőrzése SQL lekérdezéssel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1063,27 +1078,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-5-megrendeles-rogzitese-serializable-izolacios-szinten" class="md-nav__link">
+  <a href="#feladat-5-read-committed-snapshot-izolacios-szint" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 5: Megrendelés rögzítése serializable izolációs szinten
+      Feladat 5: Read committed snapshot izolációs szint
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-6-megrendeles-rogzitese-read-committed-izolacios-szinten" class="md-nav__link">
+  <a href="#feladat-6-megrendeles-rogzitese-serializable-izolacios-szinten" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 6: Megrendelés rögzítése read committed izolációs szinten
+      Feladat 6: Megrendelés rögzítése serializable izolációs szinten
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-7-manualis-zarolas" class="md-nav__link">
+  <a href="#feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 7: Manuális zárolás
+      Feladat 7: Megrendelés rögzítése read committed izolációs szinten
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-8-manualis-zarolas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat 8: Manuális zárolás
     </span>
   </a>
   
@@ -1500,6 +1524,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Feladat 3: Tranzakció indítása, read committed izolációs szint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zarak-ellenorzese-sql-lekerdezessel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zárak ellenőrzése SQL lekérdezéssel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1512,27 +1551,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-5-megrendeles-rogzitese-serializable-izolacios-szinten" class="md-nav__link">
+  <a href="#feladat-5-read-committed-snapshot-izolacios-szint" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 5: Megrendelés rögzítése serializable izolációs szinten
+      Feladat 5: Read committed snapshot izolációs szint
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-6-megrendeles-rogzitese-read-committed-izolacios-szinten" class="md-nav__link">
+  <a href="#feladat-6-megrendeles-rogzitese-serializable-izolacios-szinten" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 6: Megrendelés rögzítése read committed izolációs szinten
+      Feladat 6: Megrendelés rögzítése serializable izolációs szinten
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feladat-7-manualis-zarolas" class="md-nav__link">
+  <a href="#feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten" class="md-nav__link">
     <span class="md-ellipsis">
-      Feladat 7: Manuális zárolás
+      Feladat 7: Megrendelés rögzítése read committed izolációs szinten
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feladat-8-manualis-zarolas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat 8: Manuális zárolás
     </span>
   </a>
   
@@ -1668,6 +1716,36 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <p>Amint elkezdtük a státusz módosítását <strong>T2</strong>-ben, a lekérdező <strong>T1</strong>-es utasítás várni fog. Addig vár, amíg az adatmódosító tranzakció be nem fejeződik. Ez azért van, mert a <code>select</code> utasítás olvasási zárat akar elhelyezni, de másik tranzakció éppen módosítja az adott rekordot, így kizáró zárat helyezett el rajta.</p>
 <p>Jegyezzük meg, hogy az alap izolációs szint, a <em>read committed</em> ezen a platformon azt jelenti, hogy módosítás alatt levő adat nem olvasható. Ez egy implementációs kérdés, az SQL szabvány ezt nem rögzíti. Más adatbázis platform viselkedhet máshogy is (pl. az Oracle Server biztosítja, hogy a rekordok commitált képe mindenképpen olvasható marad). Más izolációs szinten az MSSQL szerver is máshogy viselkedik, a <em>snapshot</em> izolációs szint használata esetén a módosítás megkezdése előtti változat olvasható.</p>
 </details>
+<h3 id="zarak-ellenorzese-sql-lekerdezessel">Zárak ellenőrzése SQL lekérdezéssel<a class="headerlink" href="#zarak-ellenorzese-sql-lekerdezessel" title="Permanent link">¶</a></h3>
+<p>A zárak állapotát egy harmadik query ablakban is ellenőrizhetjük SQL lekérdezésekkel, amíg a <strong>T2</strong> tranzakció fut (azaz még nem került sor <code>commit</code> vagy <code>rollback</code> végrehajtására).</p>
+<p>Nyissunk egy harmadik query ablakot (New Query gomb), és futtassuk le az alábbi lekérdezést, miközben a <strong>T2</strong> tranzakció aktív (a <code>BEGIN TRAN</code> és az első <code>UPDATE</code> után, de még a <code>COMMIT</code> előtt):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Zárak lekérdezése</span>
+<span class="k">SELECT</span><span class="w"> </span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DB_NAME</span><span class="p">(</span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_database_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">database_name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">object_name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_mode</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_status</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_session_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">P</span><span class="p">.</span><span class="n">hobt_id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">()</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_session_id</span>
+</code></pre></div>
+<p>Ez a lekérdezés megjeleníti az aktuális adatbázisban elhelyezett zárakat. A <code>resource_type</code> oszlop mutatja, hogy milyen típusú erőforráson van zár (pl. <code>OBJECT</code>, <code>PAGE</code>, <code>KEY</code>), a <code>request_mode</code> oszlop pedig a zár típusát (pl. <code>S</code> - shared/olvasási, <code>X</code> - exclusive/kizárólagos). A <code>request_session_id</code> segítségével azonosíthatjuk, hogy melyik munkamenet (session) tartja a zárat - ezt a Query ablak címsorában is megtaláljuk.</p>
+<p>További hasznos információt kaphatunk a blokkolt tranzakciókról is:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Blokkolt session-ök lekérdezése</span>
+<span class="k">SELECT</span><span class="w"> </span>
+<span class="w">    </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'Blokkoló Session ID'</span><span class="p">,</span>
+<span class="w">    </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'Blokkolt Session ID'</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_time</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_resource</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>Ez a lekérdezés megmutatja, ha van olyan session, amelyik vár egy másik session által tartott zárra.</p>
 <h2 id="feladat-4-tranzakcio-megszakitasa-rollback-read-committed-izolacios-szinten">Feladat 4: Tranzakció megszakítása (<em>rollback</em>) <em>read committed</em> izolációs szinten<a class="headerlink" href="#feladat-4-tranzakcio-megszakitasa-rollback-read-committed-izolacios-szinten" title="Permanent link">¶</a></h2>
 <p>Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, de a módosító tranzakciót szakítsuk meg a közepén.</p>
 <ol>
@@ -1709,7 +1787,29 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <p>Az előzőekben tapasztaltakhoz hasonlóan a módosítás megkezdte után az olvasó utasítás várakozásra kényszerült. Amikor megszakítottuk a tranzakciót, akkor érkezett meg az eredmény. Mivel <em>read committed</em> izolációs szinten vagyunk, nem látjuk a módosítás alatt levő tartalmat. Amint a módosító tranzakció befejeződik, akár sikeres <code>commit</code>, akár <code>rollback</code> miatt, elérhetővé válnak a rekordok.</p>
 <p>Vegyük észre, hogy pont elkerültük a piszkos olvasás problémáját. Ha a módosítás futása közben megjelent volna a félkész eredmény, a <code>rollback</code> miatt az a tranzakció érvénytelen adattal dolgozna tovább.</p>
 </details>
-<h2 id="feladat-5-megrendeles-rogzitese-serializable-izolacios-szinten">Feladat 5: Megrendelés rögzítése <em>serializable</em> izolációs szinten<a class="headerlink" href="#feladat-5-megrendeles-rogzitese-serializable-izolacios-szinten" title="Permanent link">¶</a></h2>
+<h2 id="feladat-5-read-committed-snapshot-izolacios-szint">Feladat 5: <em>Read committed snapshot</em> izolációs szint<a class="headerlink" href="#feladat-5-read-committed-snapshot-izolacios-szint" title="Permanent link">¶</a></h2>
+<p>A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár <code>rollback</code> utasítást az esetleg ottmaradt tranzakciók leállításához.</p>
+<p>Az SQL Server támogat egy speciális <em>read committed snapshot</em> izolációs szintet is, amely a <em>read committed</em> izolációs szint egy változata. Ebben az üzemmódban a módosítás alatt levő rekordok olvasásakor nem várunk, hanem az utolsó commitált verzió kerül visszaadásra. Ezt a viselkedést az adatbázis szintjén kell bekapcsolni.</p>
+<p>Először kapcsoljuk be a <em>read committed snapshot</em> üzemmódot az adatbázisunkon. Ehhez egy új query ablakban futtassuk le az alábbi parancsot (a <code>NEPTUN</code> helyére a saját Neptun kódunkat írva):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">NEPTUN</span><span class="p">]</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">READ_COMMITTED_SNAPSHOT</span><span class="w"> </span><span class="k">ON</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Fontos</p>
+<p>Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárjuk be az összes többi query ablakot, vagy szakítsuk meg az esetleges aktív tranzakciókat, mielőtt lefuttatjuk!</p>
+</div>
+<p>Most ismételjük meg a 4. feladat lépéseit.</p>
+<details class="question">
+<summary>Mit tapasztalt? Miért különbözik a viselkedés a 4. feladatétól?</summary>
+<p>Most a <strong>T1</strong> tranzakció nem várakozik, hanem azonnal megkapja az eredményt, még akkor is, ha a <strong>T2</strong> tranzakció közben módosítja az adatokat! Ez azért lehetséges, mert <em>read committed snapshot</em> módban a rendszer az utolsó commitált verziót adja vissza, nem kell megvárni a módosító tranzakció befejezését.</p>
+<p>Ez jelentős teljesítménybeli előnyt jelent, mivel az olvasó tranzakciók nem blokkolódnak az író tranzakciók által. Azonban fontos megérteni, hogy az olvasott adatok egy korábbi állapotot tükröznek, amely időközben már megváltozott lehet.</p>
+<p>A <em>read committed snapshot</em> üzemmód különösen hasznos olyan alkalmazásokban, ahol sok olvasás történik, és nem elfogadható, hogy az olvasások blokkolódjanak a módosítások miatt. Ez az Oracle adatbázisok alapértelmezett viselkedése is.</p>
+</details>
+<p>A gyakorlat végén kapcsoljuk vissza az eredeti beállítást (opcionális):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">NEPTUN</span><span class="p">]</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">READ_COMMITTED_SNAPSHOT</span><span class="w"> </span><span class="k">OFF</span>
+</code></pre></div>
+<h2 id="feladat-6-megrendeles-rogzitese-serializable-izolacios-szinten">Feladat 6: Megrendelés rögzítése <em>serializable</em> izolációs szinten<a class="headerlink" href="#feladat-6-megrendeles-rogzitese-serializable-izolacios-szinten" title="Permanent link">¶</a></h2>
 <p>A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár <code>rollback</code> utasítást az esetleg ottmaradt tranzakciók leállításához.</p>
 <p>Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy termékre nem vehetünk fel több megrendelést, mint ami a raktárkészlet. Azért, hogy a tranzakciók egymásra hatását elkülönítsük, kapcsoljunk át <em>serializable</em> izolációs szintre.</p>
 <ol>
@@ -1790,14 +1890,14 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <p>Ha különböző termékre történik a rögzítés, akkor is holtpont fog kialakulni. Olyan a zárolási rendszer, hogy a <code>select sum</code> az egész táblát zárolja, mivel nem tudja megkülönböztetni <code>ProductID</code> szerint a rekordokat. Ez természetes is, mivel csak az üzleti logikából adódik, hogy ha két különböző termékre történik a megrendelés rögzítése, akkor azok történhetnének egyszerre is. Az adatbázis ezt nem tudhatja.</p>
 <p>Azaz a <em>serializable</em> izolációs szint túl szigorú, üzleti logikát figyelembe véve nagyobb párhuzamosítás engedhető meg. Ezért is ritkán használjuk a gyakorlatban.</p>
 </details>
-<h2 id="feladat-6-megrendeles-rogzitese-read-committed-izolacios-szinten">Feladat 6: Megrendelés rögzítése <em>read committed</em> izolációs szinten<a class="headerlink" href="#feladat-6-megrendeles-rogzitese-read-committed-izolacios-szinten" title="Permanent link">¶</a></h2>
+<h2 id="feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten">Feladat 7: Megrendelés rögzítése <em>read committed</em> izolációs szinten<a class="headerlink" href="#feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten" title="Permanent link">¶</a></h2>
 <p>Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?</p>
 <details class="question">
 <summary>Mit várunk? Miért?</summary>
 <p>Ha nem változtatunk izolációs szintet, akkor helytelen működés állhatna elő. Mivel a <em>read committed</em> izolációs szint nem biztosítja számunkra azt, hogy amíg fut a tranzakciónk, addig egy másik tranzakció berögzítsen rekordokat. Tehát lefuthatna az <code>insert</code>, ami miatt végeredményben több árut adnánk el, mint ami a raktárban van. Ez a nem megismételhető olvasás problémája.</p>
 <p>Erről az oldalról nézve tehát a <em>serializable</em> izolációs szint nem volt feleslegesen szigorú. Tényleg megvédett minket egy problémától.</p>
 </details>
-<h2 id="feladat-7-manualis-zarolas">Feladat 7: Manuális zárolás<a class="headerlink" href="#feladat-7-manualis-zarolas" title="Permanent link">¶</a></h2>
+<h2 id="feladat-8-manualis-zarolas">Feladat 8: Manuális zárolás<a class="headerlink" href="#feladat-8-manualis-zarolas" title="Permanent link">¶</a></h2>
 <p>A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár <code>rollback</code> utasítást az esetleg ottmaradt tranzakciók leállításához.</p>
 <p>Read committed izolációs szintet használva dolgozzon ki megoldást, amely csak az <em>azonos termékekre</em> történő párhuzamos adatrögzítéseket akadályozza meg. Természetesen feltételezheti hogy mindegyik párhuzamos folyamat ugyanazt a programlogikát követi.</p>
 <p>A megoldáshoz kihasználjuk, hogy lehetséges manuálisan zárakat elhelyezni. Ezek a zárak is, úgy, mint a többi zár, a tranzakció végéig élnek.</p>
@@ -1891,8 +1991,8 @@ Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb
           </path>
         </svg>
       </span>
-      <span title="2025. november 6. 10:39:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 10:39:12 CET"><span class="timeago" datetime="2025-11-06T10:39:12+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 10:39:12 CET">2025-11-06</span>
+      <span title="2025. november 6. 14:14:35">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 14:14:35 CET"><span class="timeago" datetime="2025-11-06T14:14:35+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 14:14:35 CET">2025-11-06</span>
       </span>
     </span>
 
@@ -1912,6 +2012,8 @@ Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/Csaba591" target="_blank" rel="noopener noreferrer" class="md-author" title="@Csaba Mészáros">
           <img src="https://avatars.githubusercontent.com/u/41907349?v=4?size=72" alt="@Csaba Mészáros">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">

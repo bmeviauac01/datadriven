@@ -1011,6 +1011,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Exercise 3: using transactions, read committed isolation level">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-locks-with-sql-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking locks with SQL queries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1023,36 +1038,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-5-placing-an-order-using-serializable-isolation-level" class="md-nav__link">
+  <a href="#exercise-5-read-committed-snapshot-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 5: Placing an order using serializable isolation level
+      Exercise 5: Read committed snapshot isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-6-order-registration-with-read-committed-isolation-level" class="md-nav__link">
+  <a href="#exercise-6-placing-an-order-using-serializable-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 6: Order registration with read committed isolation level
+      Exercise 6: Placing an order using serializable isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-7-manual-locking" class="md-nav__link">
+  <a href="#exercise-7-order-registration-with-read-committed-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 7: Manual locking
+      Exercise 7: Order registration with read committed isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-8-table-locking" class="md-nav__link">
+  <a href="#exercise-8-manual-locking" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 8: Table locking
+      Exercise 8: Manual locking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-9-table-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 9: Table locking
     </span>
   </a>
   
@@ -1469,6 +1493,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Exercise 3: using transactions, read committed isolation level">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-locks-with-sql-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking locks with SQL queries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1481,36 +1520,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-5-placing-an-order-using-serializable-isolation-level" class="md-nav__link">
+  <a href="#exercise-5-read-committed-snapshot-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 5: Placing an order using serializable isolation level
+      Exercise 5: Read committed snapshot isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-6-order-registration-with-read-committed-isolation-level" class="md-nav__link">
+  <a href="#exercise-6-placing-an-order-using-serializable-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 6: Order registration with read committed isolation level
+      Exercise 6: Placing an order using serializable isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-7-manual-locking" class="md-nav__link">
+  <a href="#exercise-7-order-registration-with-read-committed-isolation-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 7: Manual locking
+      Exercise 7: Order registration with read committed isolation level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-8-table-locking" class="md-nav__link">
+  <a href="#exercise-8-manual-locking" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 8: Table locking
+      Exercise 8: Manual locking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-9-table-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 9: Table locking
     </span>
   </a>
   
@@ -1641,6 +1689,36 @@
 <p>While data modification is underway in <strong>T2</strong>, the query statement in <strong>T1</strong> will wait. It will wait until the data modification transaction is completed. The <code>select</code> statement wants to place a reader lock on the records, but the other concurrent transaction is editing these records and has an exclusive writer lock on them.</p>
 <p>Let us remember that the default isolation level is <em>read committed</em>. This isolation level on this platform means that data under modification cannot be accessed, not even for reading. This is a matter of implementation; the SQL standard does not specify this (e.g., in Oracle Server the previously committed state of each record is available). In other isolation levels, MSSQL Server behaves differently; e.g., in the <em>snapshot</em> isolation level, the version of the data before the modification is accessible.</p>
 </details>
+<h3 id="checking-locks-with-sql-queries">Checking locks with SQL queries<a class="headerlink" href="#checking-locks-with-sql-queries" title="Permanent link">¶</a></h3>
+<p>We can also check the state of locks in a third query window using SQL queries while the <strong>T2</strong> transaction is running (i.e., after <code>BEGIN TRAN</code> and <code>UPDATE</code>, but before <code>COMMIT</code> or <code>ROLLBACK</code>).</p>
+<p>Open a third query window (New Query button) and execute the following query while the <strong>T2</strong> transaction is active:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Query locks</span>
+<span class="k">SELECT</span><span class="w"> </span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DB_NAME</span><span class="p">(</span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_database_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">database_name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">object_name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_mode</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_status</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_session_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">P</span><span class="p">.</span><span class="n">hobt_id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">()</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">request_session_id</span>
+</code></pre></div>
+<p>This query displays the locks placed in the current database. The <code>resource_type</code> column shows what type of resource is locked (e.g., <code>OBJECT</code>, <code>PAGE</code>, <code>KEY</code>), and the <code>request_mode</code> column shows the lock type (e.g., <code>S</code> - shared/read, <code>X</code> - exclusive/write). The <code>request_session_id</code> helps identify which session holds the lock - this can also be found in the Query window title.</p>
+<p>We can also get useful information about blocked transactions:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Query blocked sessions</span>
+<span class="k">SELECT</span><span class="w"> </span>
+<span class="w">    </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'Blocking Session ID'</span><span class="p">,</span>
+<span class="w">    </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'Blocked Session ID'</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_type</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_time</span><span class="p">,</span>
+<span class="w">    </span><span class="n">wait_resource</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>This query shows if there is a session waiting for a lock held by another session.</p>
 <h2 id="exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level">Exercise 4: aborting transactions (<em>rollback</em>) in <em>read committed</em> isolation level<a class="headerlink" href="#exercise-4-aborting-transactions-rollback-in-read-committed-isolation-level" title="Permanent link">¶</a></h2>
 <p>Let us repeat the same command sequence, including the transaction, but let us abort the modification operation in the middle.</p>
 <ol>
@@ -1682,7 +1760,29 @@
 <p>Similarly to the previous exercise, the read operation was forced to wait while the modification transaction was underway. When this modification was aborted, the result of the read query arrived immediately. We are still using <em>read committed</em> isolation level; hence we must not see data being modified. But once the modification transaction finished, either successfully with <code>commit</code> or with a <code>rollback</code>, the data records are once again available.</p>
 <p>Let us understand that we have just avoided the problem of dirty read. If the read query showed us the uncommitted modification, we would have seen values that would have been invalid after the <code>rollback</code>.</p>
 </details>
-<h2 id="exercise-5-placing-an-order-using-serializable-isolation-level">Exercise 5: Placing an order using <em>serializable</em> isolation level<a class="headerlink" href="#exercise-5-placing-an-order-using-serializable-isolation-level" title="Permanent link">¶</a></h2>
+<h2 id="exercise-5-read-committed-snapshot-isolation-level">Exercise 5: <em>Read committed snapshot</em> isolation level<a class="headerlink" href="#exercise-5-read-committed-snapshot-isolation-level" title="Permanent link">¶</a></h2>
+<p>Before starting the exercise, abort any remaining transactions. Execute a few <code>rollback</code> statements in both windows to stop any potentially remaining transactions.</p>
+<p>SQL Server supports a special <em>read committed snapshot</em> isolation level, which is a variation of the <em>read committed</em> isolation level. In this mode, when reading records being modified, we don't wait but instead receive the last committed version. This behavior must be enabled at the database level.</p>
+<p>First, enable <em>read committed snapshot</em> mode for our database. Execute the following command in a new query window (replace <code>NEPTUN</code> with your Neptun code):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">NEPTUN</span><span class="p">]</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">READ_COMMITTED_SNAPSHOT</span><span class="w"> </span><span class="k">ON</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Important</p>
+<p>This command only succeeds if there are no other active connections to the database. Close all other query windows or abort any active transactions before executing this command!</p>
+</div>
+<p>Now repeat the steps from Exercise 4.</p>
+<details class="question">
+<summary>What did you experience? How does the behavior differ from Exercise 4?</summary>
+<p>Now the <strong>T1</strong> transaction does not wait but immediately receives the result, even while the <strong>T2</strong> transaction is modifying the data! This is possible because in <em>read committed snapshot</em> mode, the system returns the last committed version, without having to wait for the modification transaction to complete.</p>
+<p>This provides a significant performance advantage, as read transactions are not blocked by write transactions. However, it's important to understand that the data read reflects an earlier state that may have since changed.</p>
+<p>The <em>read committed snapshot</em> mode is particularly useful in applications with heavy read workloads where it's unacceptable for reads to be blocked by modifications. This is also the default behavior of Oracle databases.</p>
+</details>
+<p>At the end of the exercise, we can switch back to the original setting (optional):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">NEPTUN</span><span class="p">]</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">READ_COMMITTED_SNAPSHOT</span><span class="w"> </span><span class="k">OFF</span>
+</code></pre></div>
+<h2 id="exercise-6-placing-an-order-using-serializable-isolation-level">Exercise 6: Placing an order using <em>serializable</em> isolation level<a class="headerlink" href="#exercise-6-placing-an-order-using-serializable-isolation-level" title="Permanent link">¶</a></h2>
 <p>Before we begin, let us get rid of any pending transactions we may have. Let us issue a few <code>rollback</code> statements in both windows.</p>
 <p>Let us have two concurrent transactions, both placing an order. We must allow an order for a product only if we have enough stock left. To properly isolate the effect of the transactions, let use <em>serializable</em> isolation level.</p>
 <ol>
@@ -1763,14 +1863,14 @@
 <p>Even when the two orders reference different products a deadlock occurs. The locking mechanism behind the statement <code>select sum</code> locks the entire table, because it is not able to distinguish the records by <code>ProductID</code>. This is not unexpected, as the fact that two concurrent orders referencing different products are allowed, is a business requirement; the database has no knowledge of this.</p>
 <p>In other words, the <em>serializable</em> isolation level is too strict in this case. This is the reason that serializable is not frequently used in practice.</p>
 </details>
-<h2 id="exercise-6-order-registration-with-read-committed-isolation-level">Exercise 6: Order registration with <em>read committed</em> isolation level<a class="headerlink" href="#exercise-6-order-registration-with-read-committed-isolation-level" title="Permanent link">¶</a></h2>
+<h2 id="exercise-7-order-registration-with-read-committed-isolation-level">Exercise 7: Order registration with <em>read committed</em> isolation level<a class="headerlink" href="#exercise-7-order-registration-with-read-committed-isolation-level" title="Permanent link">¶</a></h2>
 <p>Let us consider what would happen in the previous exercise if the isolation level was left at default? Would there be any deadlock? Would the result be correct?</p>
 <details class="question">
 <summary>What would we expect? Why?</summary>
 <p>If we used the default isolation level, the behavior would be incorrect. The <em>read committed</em> isolation level would not protect us from a concurrent transaction inserting a new record that could potentially result in selling more products than available. This would be a manifestation of the unrepeatable read concurrency problem.</p>
 <p>We can conclude thus that the <em>serializable</em> isolation level was not unnecessary. It did in fact, protect us from a valid concurrency problem.</p>
 </details>
-<h2 id="exercise-7-manual-locking">Exercise 7: Manual locking<a class="headerlink" href="#exercise-7-manual-locking" title="Permanent link">¶</a></h2>
+<h2 id="exercise-8-manual-locking">Exercise 8: Manual locking<a class="headerlink" href="#exercise-8-manual-locking" title="Permanent link">¶</a></h2>
 <p>Before we begin, let us get rid of any pending transactions we may have. Let us issue a few <code>rollback</code> statements in both windows.</p>
 <p>Using <em>read committed</em> isolation level, let us find a solution that only prohibits concurrent orders of the <em>same product</em>. You can assume that all copies of the concurrent program run the same logic.</p>
 <p>The solution is based on manual locks we can place on records. These locks |(similarly to the automatic ones) have a lifespan identical to the transaction.</p>
@@ -1843,7 +1943,7 @@
 </li>
 </ol>
 </details>
-<h2 id="exercise-8-table-locking">Exercise 8: Table locking<a class="headerlink" href="#exercise-8-table-locking" title="Permanent link">¶</a></h2>
+<h2 id="exercise-9-table-locking">Exercise 9: Table locking<a class="headerlink" href="#exercise-9-table-locking" title="Permanent link">¶</a></h2>
 <p>There is another option for manual locking by locking entire tables:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
@@ -1861,8 +1961,8 @@
           </path>
         </svg>
       </span>
-      <span title="September 8, 2025 16:39:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 8, 2025 16:39:54 CEST"><span class="timeago" datetime="2025-09-08T16:39:54+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 8, 2025 16:39:54 CEST">2025-09-08</span>
+      <span title="November 6, 2025 14:21:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:21:37 CET"><span class="timeago" datetime="2025-11-06T14:21:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:21:37 CET">2025-11-06</span>
       </span>
     </span>
 
@@ -1878,6 +1978,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/SubhanHakverdiyev" target="_blank" rel="noopener noreferrer" class="md-author" title="@Subhan Hagverdiyev">
           <img src="https://avatars.githubusercontent.com/u/32957204?u=16f5a659127c7bb71e2b327688c5972dbcb01305&amp;v=4?size=72" alt="@Subhan Hagverdiyev">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
