@@ -405,7 +405,7 @@ FROM tablename WITH(XLOCK)
          COMMIT
          ```
 
-!!! tip "Table locking"
+??? tip "Table locking"
 
     There is another option for manual locking by locking entire tables:
 
