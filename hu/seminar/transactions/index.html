@@ -1089,15 +1089,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#feladat-8-tabla-szintu-zarolas" class="md-nav__link">
-    <span class="md-ellipsis">
-      Feladat 8: Tábla szintű zárolás
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1547,15 +1538,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#feladat-8-tabla-szintu-zarolas" class="md-nav__link">
-    <span class="md-ellipsis">
-      Feladat 8: Tábla szintű zárolás
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1889,15 +1871,17 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </li>
 </ol>
 </details>
-<h2 id="feladat-8-tabla-szintu-zarolas">Feladat 8: Tábla szintű zárolás<a class="headerlink" href="#feladat-8-tabla-szintu-zarolas" title="Permanent link">¶</a></h2>
-<p>A sor szintű zárolás mellett lehetőségünk van tábla szinten is zárolni:</p>
+<details class="tip">
+<summary>Tábla szintű zárolás</summary>
+<p>A sor szintű zárolás mellett lehetőségünk van tábla szinten is zárolni a <code>WITH(TABLOCKX)</code> paranccsal:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">tablanev</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
-<span class="p">...</span>
+<span class="hll"><span class="k">FROM</span><span class="w"> </span><span class="n">tablanev</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
+</span><span class="p">...</span>
 </code></pre></div>
-<details class="question">
-<summary>Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?</summary>
-<p>Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni. De ez ugyanazzal az eredménnyel járna, mint a <em>serializable</em> izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné. Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.</p>
+<p>Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?</p>
+<p>Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni.
+De ez ugyanazzal az eredménnyel járna, mint a <em>serializable</em> izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné.
+Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.</p>
 </details>
 
     <hr>
@@ -1907,8 +1891,8 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 8. 16:39:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 16:39:54 CEST"><span class="timeago" datetime="2025-09-08T16:39:54+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 16:39:54 CEST">2025-09-08</span>
+      <span title="2025. november 6. 10:39:12">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 10:39:12 CET"><span class="timeago" datetime="2025-11-06T10:39:12+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 10:39:12 CET">2025-11-06</span>
       </span>
     </span>
 
