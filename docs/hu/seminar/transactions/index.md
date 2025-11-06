@@ -26,32 +26,32 @@ A gyakorlat vezetett. A szoftverekkel történő megismerkedés után a gyakorla
 
 Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan egy központi kiszolgálón helyezkedik el, de fejlesztés közben sokszor a saját gépünkön fut. Mi ez utóbbi opciót választjuk.
 
-1. Kapcsolódjon a Microsoft SQL Serverhez SQL Server Management Studio Segítségével. Indítsa el az alkalmazást, és az alábbi adatokkal kapcsolódjon.
+1. Kapcsolódj a Microsoft SQL Serverhez SQL Server Management Studio Segítségével. Indítsd el az alkalmazást, és az alábbi adatokkal kapcsolódj.
 
     - Server name: `(localdb)\mssqllocaldb`
     - Authentication: `Windows authentication`
 
-1. Hozzon létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódja: _Object Explorer_-ben Databases-en jobb kattintás, és _Create Database_.
+1. Hozz létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódod: _Object Explorer_-ben Databases-en jobb kattintás, és _Create Database_.
 
-1. Hozza létre a minta adatbázist a generáló script lefuttatásával. Nyisson egy új _Query_ ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
+1. Hozd létre a minta adatbázist a generáló script lefuttatásával. Nyiss egy új _Query_ ablakot, másold be a script tartalmát, és futtasd le. Ügyelj az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.
 
     ![Adatbázis kiválasztása](images/sql-management-database-dropdown.png)
 
-1. Ellenőrizze, hogy létrejöttek-e a táblák. Ha a _Tables_ mappa ki volt már nyitva, akkor frissíteni kell.
+1. Ellenőrizd, hogy létrejöttek-e a táblák. Ha a _Tables_ mappa ki volt már nyitva, akkor frissíteni kell.
 
     ![Adatbázis kiválasztása](images/sql-managment-tablak.png).
     
-1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítótárát frissítsük.
+1. Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az _Edit > IntelliSense > Refresh Local_ Cache menüpontot kiválasztva vagy a _Ctrl+Shift+R_ billentyűkombinációval az IntelliSense gyorsítótárát frissítsd.
 
     ![IntelliSense](images/intellisense.png).
 
 ## Feladat 2: Párhuzamos tranzakciók
 
-Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válaszd a _New Vertical Tab Group_ opciót:
+Nyiss két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válaszd a _New Vertical Tab Group_ opciót:
 
 ![Két tranzakció elhelyezése egymás mellé](images/sql-management-tab-group.png)
 
-Használja az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
+Használd az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
 megváltoztatja a státuszt csomagolváról szállítás alattira.
 
 1. **T1 tranzakció**
@@ -92,8 +92,8 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
 1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
 
-??? question "Mit tapasztalt? Miért?"
-    Kezdetben minden tétel "Packaged" státuszban van, ami így konzisztens (nem lehet egy darab tétel "in transit", azaz postázás alatt, ha a megrendelés nincs). Viszont, amint változatunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis **nem** inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.
+??? question "Mit tapasztaltál? Miért?"
+    Kezdetben minden tétel "Packaged" státuszban van, ami így konzisztens (nem lehet egy darab tétel "in transit", azaz postázás alatt, ha a megrendelés nincs). Viszont, amint változtattunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis **nem** inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.
 
     Az SQL Server alapértelmezésben auto commit üzemmódban fut, azaz egy utasítás az egy tranzakció, amit automatikusan lezár. Tehát a probléma, hogy a módosításaink nem egy tranzakciót képeznek.
 
@@ -101,12 +101,12 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.
 
 ## Feladat 3: Tranzakció indítása, _read committed_ izolációs szint
 
-Ismételje meg az előző feladatot úgy, hogy a két adatmódosítás egy tranzakciót képezzen:
+Ismételd meg az előző feladatot úgy, hogy a két adatmódosítás egy tranzakciót képezzen:
 
 - A **T2 tranzakció** kezdjen egy `begin tran`, és végződjön egy `commit` utasítással.
 - Az adatmódosításnál a státuszt ezúttal 3-asra állítsuk (hogy érdemi változás legyen az adatokban).
 
-??? question "Mit tapasztalt? Miért?"
+??? question "Mit tapasztaltál? Miért?"
     Amint elkezdtük a státusz módosítását **T2**-ben, a lekérdező **T1**-es utasítás várni fog. Addig vár, amíg az adatmódosító tranzakció be nem fejeződik. Ez azért van, mert a `select` utasítás olvasási zárat akar elhelyezni, de másik tranzakció éppen módosítja az adott rekordot, így kizáró zárat helyezett el rajta.
 
     Jegyezzük meg, hogy az alap izolációs szint, a *read committed* ezen a platformon azt jelenti, hogy módosítás alatt levő adat nem olvasható. Ez egy implementációs kérdés, az SQL szabvány ezt nem rögzíti. Más adatbázis platform viselkedhet máshogy is (pl. az Oracle Server biztosítja, hogy a rekordok commitált képe mindenképpen olvasható marad). Más izolációs szinten az MSSQL szerver is máshogy viselkedik, a *snapshot* izolációs szint használata esetén a módosítás megkezdése előtti változat olvasható.
@@ -189,7 +189,7 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
     ROLLBACK
     ```
 
-??? question "Mit tapasztalt? Miért?"
+??? question "Mit tapasztaltál? Miért?"
     Az előzőekben tapasztaltakhoz hasonlóan a módosítás megkezdte után az olvasó utasítás várakozásra kényszerült. Amikor megszakítottuk a tranzakciót, akkor érkezett meg az eredmény. Mivel _read committed_ izolációs szinten vagyunk, nem látjuk a módosítás alatt levő tartalmat. Amint a módosító tranzakció befejeződik, akár sikeres `commit`, akár `rollback` miatt, elérhetővé válnak a rekordok.
 
     Vegyük észre, hogy pont elkerültük a piszkos olvasás problémáját. Ha a módosítás futása közben megjelent volna a félkész eredmény, a `rollback` miatt az a tranzakció érvénytelen adattal dolgozna tovább.
@@ -208,11 +208,11 @@ SET READ_COMMITTED_SNAPSHOT ON
 ```
 
 !!! warning "Fontos"
-    Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárjuk be az összes többi query ablakot, vagy szakítsuk meg az esetleges aktív tranzakciókat, mielőtt lefuttatjuk!
+    Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárd be az összes többi query ablakot, vagy szakítsd meg az esetleges aktív tranzakciókat, mielőtt lefuttatod!
 
 Most ismételjük meg a 4. feladat lépéseit.
 
-??? question "Mit tapasztalt? Miért különbözik a viselkedés a 4. feladatétól?"
+??? question "Mit tapasztaltál? Miért különbözik a viselkedés a 4. feladatétól?"
     Most a **T1** tranzakció nem várakozik, hanem azonnal megkapja az eredményt, még akkor is, ha a **T2** tranzakció közben módosítja az adatokat! Ez azért lehetséges, mert _read committed snapshot_ módban a rendszer az utolsó commitált verziót adja vissza, nem kell megvárni a módosító tranzakció befejezését.
 
     Ez jelentős teljesítménybeli előnyt jelent, mivel az olvasó tranzakciók nem blokkolódnak az író tranzakciók által. Azonban fontos megérteni, hogy az olvasott adatok egy korábbi állapotot tükröznek, amely időközben már megváltozott lehet.
@@ -301,7 +301,7 @@ Legyen két párhuzamos tranzakciónk, melyek megrendelést rögzítenek. Egy te
     COMMIT
     ```
 
-??? question "Mit tapasztalt? Miért?"
+??? question "Mit tapasztaltál? Miért?"
     Holtpont fog kialakulni, mivel a *serializable* izolációs szint miatt mindkét tranzakció megtiltja a megrendeléstétel tábla módosítását. A `select sum` miatt, és a megismételhető olvasás elvárás miatt a rekordokat olvasó zárral látja el a rendszer. Viszont így nem futhat le a másik tranzakcióban az `insert`, amely kizárólagos zárat igényelne. Ez mindkét tranzakció esetén azt jelenti, hogy a másik által fogott zárra vár.
 
     A holtpont eredménye, hogy az egyik tranzakciót le fogja állítani a szerver. Ez elvárt és helyes működést eredményez, mivel megakadályozza, hogy a két tranzakció közt adat egymásrahatás legyen (így nem fordulhat elő, hogy több terméket adunk el, mint amennyi van).
@@ -311,14 +311,14 @@ Ismételjük meg a fenti műveletsort, csak a megrendelés rögzítésekor más-
 - A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
 - Ahol utasításban `ID` vagy `ProductID` szerepel, ott egyik tranzakcióban a 2-es, másikban a 3-as terméket használjuk.
 
-??? question "Mit tapasztalt? Miért?"
+??? question "Mit tapasztaltál? Miért?"
     Ha különböző termékre történik a rögzítés, akkor is holtpont fog kialakulni. Olyan a zárolási rendszer, hogy a `select sum` az egész táblát zárolja, mivel nem tudja megkülönböztetni `ProductID` szerint a rekordokat. Ez természetes is, mivel csak az üzleti logikából adódik, hogy ha két különböző termékre történik a megrendelés rögzítése, akkor azok történhetnének egyszerre is. Az adatbázis ezt nem tudhatja.
 
     Azaz a *serializable* izolációs szint túl szigorú, üzleti logikát figyelembe véve nagyobb párhuzamosítás engedhető meg. Ezért is ritkán használjuk a gyakorlatban.
 
 ## Feladat 7: Megrendelés rögzítése _read committed_ izolációs szinten
 
-Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?
+Gondold végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?
 
 ??? question "Mit várunk? Miért?"
     Ha nem változtatunk izolációs szintet, akkor helytelen működés állhatna elő. Mivel a *read committed* izolációs szint nem biztosítja számunkra azt, hogy amíg fut a tranzakciónk, addig egy másik tranzakció berögzítsen rekordokat. Tehát lefuthatna az `insert`, ami miatt végeredményben több árut adnánk el, mint ami a raktárban van. Ez a nem megismételhető olvasás problémája.
@@ -329,7 +329,7 @@ Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk 
 
 A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
 
-Read committed izolációs szintet használva dolgozzon ki megoldást, amely csak az _azonos termékekre_ történő párhuzamos adatrögzítéseket akadályozza meg. Természetesen feltételezheti hogy mindegyik párhuzamos folyamat ugyanazt a programlogikát követi.
+Read committed izolációs szintet használva dolgozz ki megoldást, amely csak az _azonos termékekre_ történő párhuzamos adatrögzítéseket akadályozza meg. Természetesen feltételezheted, hogy mindegyik párhuzamos folyamat ugyanazt a programlogikát követi.
 
 A megoldáshoz kihasználjuk, hogy lehetséges manuálisan zárakat elhelyezni. Ezek a zárak is, úgy, mint a többi zár, a tranzakció végéig élnek.
 
@@ -422,7 +422,7 @@ FROM tablename WITH(XLOCK)
     ...
     ```
     
-    Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?
+    Bár ez egyszerű megoldásnak tűnik, gondold végig, miért nem érdemes ezt használni?
     
     Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni.
     De ez ugyanazzal az eredménnyel járna, mint a *serializable* izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné.
