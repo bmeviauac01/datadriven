@@ -1530,7 +1530,9 @@
 <p class="admonition-title">BEADANDÓ</p>
 <p>A módosított C# forráskódot töltsd fel.</p>
 <p>Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár <code>dotnet cli</code> is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a <strong>DbContext kódja</strong> és a <strong>tesztek futásának eredménye</strong>! A képet <code>f1.png</code> néven mentsd el és add be a megoldásod részeként!</p>
-<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-v n</code> kapcsolót a részletesebb naplózáshoz.</p>
+<p>Ha <code>dotnet test</code>-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a <code>-l "console;verbosity=normal"</code> argumentumot a megtalált tesztek listázásához és futtatásához, valahogy így:</p>
+<div class="highlight"><pre><span></span><code>dotnet test -l "console;verbosity=normal"
+</code></pre></div>
 <p>A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban <strong>kisebb</strong> változtatást eszközölsz.</p>
 </div>
 <h2 id="feladat-2-repository-megvalositas-entity-framework-kel-2-pont">Feladat 2: Repository megvalósítás Entity Framework-kel (2 pont)<a class="headerlink" href="#feladat-2-repository-megvalositas-entity-framework-kel-2-pont" title="Permanent link">¶</a></h2>
@@ -1595,8 +1597,8 @@ Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, 
           </path>
         </svg>
       </span>
-      <span title="2025. november 6. 11:54:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 11:54:40 CET"><span class="timeago" datetime="2025-11-06T11:54:40+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 11:54:40 CET">2025-11-06</span>
+      <span title="2025. november 6. 14:06:13">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 14:06:13 CET"><span class="timeago" datetime="2025-11-06T14:06:13+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 14:06:13 CET">2025-11-06</span>
       </span>
     </span>
 
@@ -1618,6 +1620,8 @@ Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, 
           <img src="https://avatars.githubusercontent.com/u/68842928?u=96bdcb2aaee9e74ae0e95a5ad8647f194a98639f&amp;v=4?size=72" alt="@Lichter Bertalan Ede">
         </a><a href="https://github.com/MeIidon" target="_blank" rel="noopener noreferrer" class="md-author" title="@Zsombor Szommer">
           <img src="https://avatars.githubusercontent.com/u/56506014?u=77f2a2176a77f1e01f056fea187d20f94bafb779&amp;v=4?size=72" alt="@Zsombor Szommer">
+        </a><a href="https://github.com/MKKrisz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Magyari Krisztián">
+          <img src="https://avatars.githubusercontent.com/u/109154615?v=4?size=72" alt="@Magyari Krisztián">
         </a><a href="https://github.com/tbeni22" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/47601385?u=ab4558d48192115ad9680f9aedce3c2acdd4211e&amp;v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">

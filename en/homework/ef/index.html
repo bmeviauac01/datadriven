@@ -1490,7 +1490,9 @@
 <p class="admonition-title">SUBMISSION</p>
 <p>Upload the changed C# source code.</p>
 <p>Create a screenshot displaying the successfully executed unit tests. You can run the tests in Visual Studio or using <code>dotnet cli</code>. Make sure that the screenshot includes the <strong>source code of the DbContext</strong> and the <strong>test execution outcome</strong>! Save the screenshot as <code>f1.png</code> and upload as part of your submission!</p>
-<p>If you are using <code>dotnet cli</code> to run the tests, make sure to display the test names too. Use the <code>-v n</code> command line switch to set detailed logging.</p>
+<p>If you are using <code>dotnet cli</code> to run the tests, make sure to display the test names too. Use the <code>-l "console;verbosity=normal"</code> command line argument to set detailed logging. Something like this should work: </p>
+<div class="highlight"><pre><span></span><code>dotnet test -l "console;verbosity=normal"
+</code></pre></div>
 <p>The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some <strong>minor</strong> change to the source, there is no need for you to update the screenshot.</p>
 </div>
 <h2 id="exercise-2-repository-implementation-using-entity-framework-2-points">Exercise 2: Repository implementation using Entity Framework (2 points)<a class="headerlink" href="#exercise-2-repository-implementation-using-entity-framework-2-points" title="Permanent link">¶</a></h2>
@@ -1554,8 +1556,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 6, 2025 11:54:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 11:54:40 CET"><span class="timeago" datetime="2025-11-06T11:54:40+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 11:54:40 CET">2025-11-06</span>
+      <span title="November 6, 2025 14:06:13">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:06:13 CET"><span class="timeago" datetime="2025-11-06T14:06:13+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:06:13 CET">2025-11-06</span>
       </span>
     </span>
 
@@ -1575,6 +1577,8 @@
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/lichterberci" target="_blank" rel="noopener noreferrer" class="md-author" title="@Lichter Bertalan Ede">
           <img src="https://avatars.githubusercontent.com/u/68842928?u=96bdcb2aaee9e74ae0e95a5ad8647f194a98639f&amp;v=4?size=72" alt="@Lichter Bertalan Ede">
+        </a><a href="https://github.com/MKKrisz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Magyari Krisztián">
+          <img src="https://avatars.githubusercontent.com/u/109154615?v=4?size=72" alt="@Magyari Krisztián">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
