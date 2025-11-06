@@ -340,15 +340,18 @@ FROM tablename WITH(XLOCK)
          COMMIT
          ```
 
-## Feladat 8: Tábla szintű zárolás
+??? tip "Tábla szintű zárolás"
 
-A sor szintű zárolás mellett lehetőségünk van tábla szinten is zárolni:
+    A sor szintű zárolás mellett lehetőségünk van tábla szinten is zárolni a `WITH(TABLOCKX)` paranccsal:
 
-```sql
-SELECT *
-FROM tablanev WITH(TABLOCKX)
-...
-```
-
-??? question "Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?"
-    Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni. De ez ugyanazzal az eredménnyel járna, mint a *serializable* izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné. Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.
+    ```sql hl_lines="2"
+    SELECT *
+    FROM tablanev WITH(TABLOCKX)
+    ...
+    ```
+    
+    Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?
+    
+    Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni.
+    De ez ugyanazzal az eredménnyel járna, mint a *serializable* izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné.
+    Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.
