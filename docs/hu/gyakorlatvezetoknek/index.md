@@ -37,7 +37,7 @@ A TVSZ pár követelményt szab demonstrátoroknak: (lásd [aktuális TVSZ](http
 
     d) ne álljon fegyelmi büntetés hatálya alatt.
 
-Ha érdekel a lehetőség, megfelelsz a fenti követelményeknek, és az órarendedbe belefér a gyakorlat (lásd az időpontokat fentebb), keresd a [tárgyfelelőst](mailto:dudas.akos@vik.bme.hu).
+Ha érdekel a lehetőség, megfelelsz a fenti követelményeknek, és az órarendedbe belefér a gyakorlat (lásd az időpontokat fentebb), keresd meg a [tárgyfelelőst](mailto:albert.istvan@vik.bme.hu).
 
 ## Tudnivalók a gyakorlatok megtartásához
 

@@ -29,7 +29,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: SQL parancsok (emlékeztető)
 
-Írjon SQL lekérdezés/utasítást az alábbi feladatokhoz.
+Írj SQL lekérdezést/utasítást az alábbi feladatokhoz.
 
 1. Hány nem teljesített megrendelésünk van (a státusz alapján)?
 
@@ -87,7 +87,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 2: Termékkategória rögzítése
 
-Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóriát vehetünk fel. Az eljárás bemenő paramétere a felvételre kerülő kategória neve, és opcionálisan a szülőkategória neve. Dobjon hibát, ha a kategória létezik, vagy a szülőkategória nem létezik. A kategória elsődleges kulcsának generálását bízza az adatbázisra.
+Hozz létre egy tárolt eljárást, aminek a segítségével egy új kategóriát vehetünk fel. Az eljárás bemenő paramétere a felvételre kerülő kategória neve, és opcionálisan a szülőkategória neve. Dobjon hibát, ha a kategória létezik, vagy a szülőkategória nem létezik. A kategória elsődleges kulcsának generálását bízd az adatbázisra.
 
 ??? example "Megoldás"
     **Tárolt eljárás**
@@ -160,7 +160,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
 ## Feladat 3: Megrendeléstétel státuszának karbantartása
 
-Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
+Írj triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
 
 ??? example "Megoldás"
     **Trigger**
