@@ -1632,32 +1632,32 @@
 <p>Első lépésként szükségünk lesz egy adatbázisra. Az adatbázis tipikusan egy központi kiszolgálón helyezkedik el, de fejlesztés közben sokszor a saját gépünkön fut. Mi ez utóbbi opciót választjuk.</p>
 <ol>
 <li>
-<p>Kapcsolódjon a Microsoft SQL Serverhez SQL Server Management Studio Segítségével. Indítsa el az alkalmazást, és az alábbi adatokkal kapcsolódjon.</p>
+<p>Kapcsolódj a Microsoft SQL Serverhez SQL Server Management Studio Segítségével. Indítsd el az alkalmazást, és az alábbi adatokkal kapcsolódj.</p>
 <ul>
 <li>Server name: <code>(localdb)\mssqllocaldb</code></li>
 <li>Authentication: <code>Windows authentication</code></li>
 </ul>
 </li>
 <li>
-<p>Hozzon létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódja: <em>Object Explorer</em>-ben Databases-en jobb kattintás, és <em>Create Database</em>.</p>
+<p>Hozz létre egy új adatbázist (ha még nem létezik), az adatbázis neve legyen a Neptun kódod: <em>Object Explorer</em>-ben Databases-en jobb kattintás, és <em>Create Database</em>.</p>
 </li>
 <li>
-<p>Hozza létre a minta adatbázist a generáló script lefuttatásával. Nyisson egy új <em>Query</em> ablakot, másolja be a script tartalmát, és futtassa le. Ügyeljen az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.</p>
+<p>Hozd létre a minta adatbázist a generáló script lefuttatásával. Nyiss egy új <em>Query</em> ablakot, másold be a script tartalmát, és futtasd le. Ügyelj az eszköztáron levő legördülő menüben a megfelelő adatbázis kiválasztására.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/sql-management-database-dropdown.png" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-management-database-dropdown.png"></a></p>
 </li>
 <li>
-<p>Ellenőrizze, hogy létrejöttek-e a táblák. Ha a <em>Tables</em> mappa ki volt már nyitva, akkor frissíteni kell.</p>
+<p>Ellenőrizd, hogy létrejöttek-e a táblák. Ha a <em>Tables</em> mappa ki volt már nyitva, akkor frissíteni kell.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/sql-managment-tablak.png" data-desc-position="bottom"><img alt="Adatbázis kiválasztása" src="images/sql-managment-tablak.png"></a>.</p>
 </li>
 <li>
-<p>Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az <em>Edit &gt; IntelliSense &gt; Refresh Local</em> Cache menüpontot kiválasztva vagy a <em>Ctrl+Shift+R</em> billentyűkombinációval az IntelliSense gyorsítótárát frissítsük.</p>
+<p>Bár létrejöttek az új táblák, a Management Studio sokszor mégis pirosan aláhúzza amikor gépelünk. Ennek elkerülése érdekében az <em>Edit &gt; IntelliSense &gt; Refresh Local</em> Cache menüpontot kiválasztva vagy a <em>Ctrl+Shift+R</em> billentyűkombinációval az IntelliSense gyorsítótárát frissítsd.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/intellisense.png" data-desc-position="bottom"><img alt="IntelliSense" src="images/intellisense.png"></a>.</p>
 </li>
 </ol>
 <h2 id="feladat-2-parhuzamos-tranzakciok">Feladat 2: Párhuzamos tranzakciók<a class="headerlink" href="#feladat-2-parhuzamos-tranzakciok" title="Permanent link">¶</a></h2>
-<p>Nyisson két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válaszd a <em>New Vertical Tab Group</em> opciót:</p>
+<p>Nyiss két Query ablakot párhuzamos tranzakciók szimulálásához a New Query gomb kétszeri megnyomásával. Érdemes az ablakokat egymás mellé tenni: a Query fül fejlécére jobb egérrel kattintva válaszd a <em>New Vertical Tab Group</em> opciót:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/sql-management-tab-group.png" data-desc-position="bottom"><img alt="Két tranzakció elhelyezése egymás mellé" src="images/sql-management-tab-group.png"></a></p>
-<p>Használja az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
+<p>Használd az alábbi ütemezést a parancsok végrehajtására. A T1 tranzakció a 4-es megrendelés státuszát ellenőrzi, míg a T2 tranzakció
 megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <ol>
 <li>
@@ -1700,19 +1700,19 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </li>
 </ol>
 <details class="question">
-<summary>Mit tapasztalt? Miért?</summary>
-<p>Kezdetben minden tétel "Packaged" státuszban van, ami így konzisztens (nem lehet egy darab tétel "in transit", azaz postázás alatt, ha a megrendelés nincs). Viszont, amint változatunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis <strong>nem</strong> inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.</p>
+<summary>Mit tapasztaltál? Miért?</summary>
+<p>Kezdetben minden tétel "Packaged" státuszban van, ami így konzisztens (nem lehet egy darab tétel "in transit", azaz postázás alatt, ha a megrendelés nincs). Viszont, amint változtattunk a megrendelés állapotán, a csomag státusza ellentmondásosnak látszik a tételek státuszával. Az adatbázis <strong>nem</strong> inkonzisztens, mert a belső szabályai (integritási kritériumai) alapján nincs probléma. De üzleti értelemben ellentmondásos a tartalom.</p>
 <p>Az SQL Server alapértelmezésben auto commit üzemmódban fut, azaz egy utasítás az egy tranzakció, amit automatikusan lezár. Tehát a probléma, hogy a módosításaink nem egy tranzakciót képeznek.</p>
 <p>A helyes viselkedéshez össze kellene fogni a két adatmódosító utasítást egy tranzakcióba.</p>
 </details>
 <h2 id="feladat-3-tranzakcio-inditasa-read-committed-izolacios-szint">Feladat 3: Tranzakció indítása, <em>read committed</em> izolációs szint<a class="headerlink" href="#feladat-3-tranzakcio-inditasa-read-committed-izolacios-szint" title="Permanent link">¶</a></h2>
-<p>Ismételje meg az előző feladatot úgy, hogy a két adatmódosítás egy tranzakciót képezzen:</p>
+<p>Ismételd meg az előző feladatot úgy, hogy a két adatmódosítás egy tranzakciót képezzen:</p>
 <ul>
 <li>A <strong>T2 tranzakció</strong> kezdjen egy <code>begin tran</code>, és végződjön egy <code>commit</code> utasítással.</li>
 <li>Az adatmódosításnál a státuszt ezúttal 3-asra állítsuk (hogy érdemi változás legyen az adatokban).</li>
 </ul>
 <details class="question">
-<summary>Mit tapasztalt? Miért?</summary>
+<summary>Mit tapasztaltál? Miért?</summary>
 <p>Amint elkezdtük a státusz módosítását <strong>T2</strong>-ben, a lekérdező <strong>T1</strong>-es utasítás várni fog. Addig vár, amíg az adatmódosító tranzakció be nem fejeződik. Ez azért van, mert a <code>select</code> utasítás olvasási zárat akar elhelyezni, de másik tranzakció éppen módosítja az adott rekordot, így kizáró zárat helyezett el rajta.</p>
 <p>Jegyezzük meg, hogy az alap izolációs szint, a <em>read committed</em> ezen a platformon azt jelenti, hogy módosítás alatt levő adat nem olvasható. Ez egy implementációs kérdés, az SQL szabvány ezt nem rögzíti. Más adatbázis platform viselkedhet máshogy is (pl. az Oracle Server biztosítja, hogy a rekordok commitált képe mindenképpen olvasható marad). Más izolációs szinten az MSSQL szerver is máshogy viselkedik, a <em>snapshot</em> izolációs szint használata esetén a módosítás megkezdése előtti változat olvasható.</p>
 </details>
@@ -1783,7 +1783,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </li>
 </ol>
 <details class="question">
-<summary>Mit tapasztalt? Miért?</summary>
+<summary>Mit tapasztaltál? Miért?</summary>
 <p>Az előzőekben tapasztaltakhoz hasonlóan a módosítás megkezdte után az olvasó utasítás várakozásra kényszerült. Amikor megszakítottuk a tranzakciót, akkor érkezett meg az eredmény. Mivel <em>read committed</em> izolációs szinten vagyunk, nem látjuk a módosítás alatt levő tartalmat. Amint a módosító tranzakció befejeződik, akár sikeres <code>commit</code>, akár <code>rollback</code> miatt, elérhetővé válnak a rekordok.</p>
 <p>Vegyük észre, hogy pont elkerültük a piszkos olvasás problémáját. Ha a módosítás futása közben megjelent volna a félkész eredmény, a <code>rollback</code> miatt az a tranzakció érvénytelen adattal dolgozna tovább.</p>
 </details>
@@ -1796,11 +1796,11 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Fontos</p>
-<p>Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárjuk be az összes többi query ablakot, vagy szakítsuk meg az esetleges aktív tranzakciókat, mielőtt lefuttatjuk!</p>
+<p>Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárd be az összes többi query ablakot, vagy szakítsd meg az esetleges aktív tranzakciókat, mielőtt lefuttatod!</p>
 </div>
 <p>Most ismételjük meg a 4. feladat lépéseit.</p>
 <details class="question">
-<summary>Mit tapasztalt? Miért különbözik a viselkedés a 4. feladatétól?</summary>
+<summary>Mit tapasztaltál? Miért különbözik a viselkedés a 4. feladatétól?</summary>
 <p>Most a <strong>T1</strong> tranzakció nem várakozik, hanem azonnal megkapja az eredményt, még akkor is, ha a <strong>T2</strong> tranzakció közben módosítja az adatokat! Ez azért lehetséges, mert <em>read committed snapshot</em> módban a rendszer az utolsó commitált verziót adja vissza, nem kell megvárni a módosító tranzakció befejezését.</p>
 <p>Ez jelentős teljesítménybeli előnyt jelent, mivel az olvasó tranzakciók nem blokkolódnak az író tranzakciók által. Azonban fontos megérteni, hogy az olvasott adatok egy korábbi állapotot tükröznek, amely időközben már megváltozott lehet.</p>
 <p>A <em>read committed snapshot</em> üzemmód különösen hasznos olyan alkalmazásokban, ahol sok olvasás történik, és nem elfogadható, hogy az olvasások blokkolódjanak a módosítások miatt. Ez az Oracle adatbázisok alapértelmezett viselkedése is.</p>
@@ -1876,7 +1876,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </li>
 </ol>
 <details class="question">
-<summary>Mit tapasztalt? Miért?</summary>
+<summary>Mit tapasztaltál? Miért?</summary>
 <p>Holtpont fog kialakulni, mivel a <em>serializable</em> izolációs szint miatt mindkét tranzakció megtiltja a megrendeléstétel tábla módosítását. A <code>select sum</code> miatt, és a megismételhető olvasás elvárás miatt a rekordokat olvasó zárral látja el a rendszer. Viszont így nem futhat le a másik tranzakcióban az <code>insert</code>, amely kizárólagos zárat igényelne. Ez mindkét tranzakció esetén azt jelenti, hogy a másik által fogott zárra vár.</p>
 <p>A holtpont eredménye, hogy az egyik tranzakciót le fogja állítani a szerver. Ez elvárt és helyes működést eredményez, mivel megakadályozza, hogy a két tranzakció közt adat egymásrahatás legyen (így nem fordulhat elő, hogy több terméket adunk el, mint amennyi van).</p>
 </details>
@@ -1886,12 +1886,12 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <li>Ahol utasításban <code>ID</code> vagy <code>ProductID</code> szerepel, ott egyik tranzakcióban a 2-es, másikban a 3-as terméket használjuk.</li>
 </ul>
 <details class="question">
-<summary>Mit tapasztalt? Miért?</summary>
+<summary>Mit tapasztaltál? Miért?</summary>
 <p>Ha különböző termékre történik a rögzítés, akkor is holtpont fog kialakulni. Olyan a zárolási rendszer, hogy a <code>select sum</code> az egész táblát zárolja, mivel nem tudja megkülönböztetni <code>ProductID</code> szerint a rekordokat. Ez természetes is, mivel csak az üzleti logikából adódik, hogy ha két különböző termékre történik a megrendelés rögzítése, akkor azok történhetnének egyszerre is. Az adatbázis ezt nem tudhatja.</p>
 <p>Azaz a <em>serializable</em> izolációs szint túl szigorú, üzleti logikát figyelembe véve nagyobb párhuzamosítás engedhető meg. Ezért is ritkán használjuk a gyakorlatban.</p>
 </details>
 <h2 id="feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten">Feladat 7: Megrendelés rögzítése <em>read committed</em> izolációs szinten<a class="headerlink" href="#feladat-7-megrendeles-rogzitese-read-committed-izolacios-szinten" title="Permanent link">¶</a></h2>
-<p>Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?</p>
+<p>Gondold végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?</p>
 <details class="question">
 <summary>Mit várunk? Miért?</summary>
 <p>Ha nem változtatunk izolációs szintet, akkor helytelen működés állhatna elő. Mivel a <em>read committed</em> izolációs szint nem biztosítja számunkra azt, hogy amíg fut a tranzakciónk, addig egy másik tranzakció berögzítsen rekordokat. Tehát lefuthatna az <code>insert</code>, ami miatt végeredményben több árut adnánk el, mint ami a raktárban van. Ez a nem megismételhető olvasás problémája.</p>
@@ -1899,7 +1899,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 </details>
 <h2 id="feladat-8-manualis-zarolas">Feladat 8: Manuális zárolás<a class="headerlink" href="#feladat-8-manualis-zarolas" title="Permanent link">¶</a></h2>
 <p>A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár <code>rollback</code> utasítást az esetleg ottmaradt tranzakciók leállításához.</p>
-<p>Read committed izolációs szintet használva dolgozzon ki megoldást, amely csak az <em>azonos termékekre</em> történő párhuzamos adatrögzítéseket akadályozza meg. Természetesen feltételezheti hogy mindegyik párhuzamos folyamat ugyanazt a programlogikát követi.</p>
+<p>Read committed izolációs szintet használva dolgozz ki megoldást, amely csak az <em>azonos termékekre</em> történő párhuzamos adatrögzítéseket akadályozza meg. Természetesen feltételezheted, hogy mindegyik párhuzamos folyamat ugyanazt a programlogikát követi.</p>
 <p>A megoldáshoz kihasználjuk, hogy lehetséges manuálisan zárakat elhelyezni. Ezek a zárak is, úgy, mint a többi zár, a tranzakció végéig élnek.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">XLOCK</span><span class="p">)</span>
@@ -1978,7 +1978,7 @@ megváltoztatja a státuszt csomagolváról szállítás alattira.</p>
 <span class="hll"><span class="k">FROM</span><span class="w"> </span><span class="n">tablanev</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
 </span><span class="p">...</span>
 </code></pre></div>
-<p>Bár ez egyszerű megoldásnak tűnik, gondoljuk végig, miért nem érdemes ezt használni?</p>
+<p>Bár ez egyszerű megoldásnak tűnik, gondold végig, miért nem érdemes ezt használni?</p>
 <p>Jelen esetben a tábla szintű zárat a megrendelésekre kellene tennünk, hiszen a konkurens megrendeléseket akarjuk megakadályozni.
 De ez ugyanazzal az eredménnyel járna, mint a <em>serializable</em> izolációs szint használata. Ugyan holtpont nem lenne, de a párhuzamos végrehajtást lehetetlenné tenné.
 Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb párhuzamosság adódik.</p>
@@ -1991,8 +1991,8 @@ Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb
           </path>
         </svg>
       </span>
-      <span title="2025. november 6. 14:14:35">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 14:14:35 CET"><span class="timeago" datetime="2025-11-06T14:14:35+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 14:14:35 CET">2025-11-06</span>
+      <span title="2025. november 6. 15:05:25">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 15:05:25 CET"><span class="timeago" datetime="2025-11-06T15:05:25+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 15:05:25 CET">2025-11-06</span>
       </span>
     </span>
 
@@ -2006,16 +2006,12 @@ Tehát a tábla szintű zárolásra ugyanaz igaz: az üzleti logikából nagyobb
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/abdullahmusa" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
-        </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
+      <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
-        </a><a href="https://github.com/Csaba591" target="_blank" rel="noopener noreferrer" class="md-author" title="@Csaba Mészáros">
-          <img src="https://avatars.githubusercontent.com/u/41907349?v=4?size=72" alt="@Csaba Mészáros">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
