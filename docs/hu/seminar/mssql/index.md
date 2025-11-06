@@ -158,6 +158,44 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
 
         A pontosvessző használata egyébként is jó gyakorlat lehet, ha a kódolási stílus egységességére törekszünk.
 
+    **Aktív zárak listázása hibakereséshez**
+
+    A tárolt eljárásunk tranzakciót és zárolást használ (`TABLOCKX`), ami fontos a konkurens műveletek helyes kezeléséhez. Hibakeresés során hasznos lehet látni, hogy éppen milyen zárak vannak aktívak az adatbázisban.
+
+    Az aktív zárak lekérdezéséhez használhatjuk a következő SQL parancsot:
+
+    ```sql
+    SELECT
+        OBJECT_NAME(P.object_id) AS TableName,
+        resource_type, request_status, request_session_id
+    FROM
+        sys.dm_tran_locks dtl
+        JOIN sys.partitions P ON dtl.resource_associated_entity_id = p.hobt_id
+    ```
+
+    Ez a lekérdezés megmutatja:
+    
+    - **TableName**: Melyik táblán van a zár
+    - **resource_type**: A zár típusa (pl. KEY, PAGE, TABLE)
+    - **request_status**: A zár állapota (GRANT = megadva, WAIT = várakozik)
+    - **request_session_id**: Melyik session tartja a zárat
+
+    Ha szeretnénk tesztelni, hogy mit látunk zárak esetén, nyissunk két Query ablakot, és az egyikben indítsunk egy tranzakciót, ami nem fut le azonnal:
+
+    ```sql
+    -- 1. Query ablak
+    BEGIN TRAN
+    SELECT * FROM Category WITH (TABLOCKX)
+    -- NE COMMIT-oljuk még!
+    ```
+
+    Majd a másik Query ablakban futtassuk le a zárak listázását. Látni fogjuk, hogy az első session tart egy táblaszintű zárat a Category táblán. Ne felejtsük el lezárni a tranzakciót az első ablakban:
+
+    ```sql
+    -- 1. Query ablak
+    COMMIT
+    ```
+
 ## Feladat 3: Megrendeléstétel státuszának karbantartása
 
 Írjon triggert, ami a megrendelés státuszának változása esetén a hozzá tartozó egyes tételek státuszát a megfelelőre módosítja, ha azok régi státusza megegyezett a megrendelés régi státuszával. A többi tételt nem érinti a státusz változása.
