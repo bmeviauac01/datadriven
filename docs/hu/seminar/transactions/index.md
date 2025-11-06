@@ -111,6 +111,45 @@ Ismételje meg az előző feladatot úgy, hogy a két adatmódosítás egy tranz
 
     Jegyezzük meg, hogy az alap izolációs szint, a *read committed* ezen a platformon azt jelenti, hogy módosítás alatt levő adat nem olvasható. Ez egy implementációs kérdés, az SQL szabvány ezt nem rögzíti. Más adatbázis platform viselkedhet máshogy is (pl. az Oracle Server biztosítja, hogy a rekordok commitált képe mindenképpen olvasható marad). Más izolációs szinten az MSSQL szerver is máshogy viselkedik, a *snapshot* izolációs szint használata esetén a módosítás megkezdése előtti változat olvasható.
 
+### Zárak ellenőrzése SQL lekérdezéssel
+
+A zárak állapotát egy harmadik query ablakban is ellenőrizhetjük SQL lekérdezésekkel, amíg a **T2** tranzakció fut (azaz még nem került sor `commit` vagy `rollback` végrehajtására).
+
+Nyisson egy harmadik query ablakot (New Query gomb), és futtassa le az alábbi lekérdezést, miközben a **T2** tranzakció aktív (a `BEGIN TRAN` és az első `UPDATE` után, de még a `COMMIT` előtt):
+
+```sql
+-- Zárak lekérdezése
+SELECT 
+    resource_type,
+    resource_database_id,
+    resource_associated_entity_id,
+    request_mode,
+    request_type,
+    request_status,
+    request_session_id
+FROM sys.dm_tran_locks
+WHERE resource_database_id = DB_ID()
+ORDER BY request_session_id
+```
+
+Ez a lekérdezés megjeleníti az aktuális adatbázisban elhelyezett zárakat. A `resource_type` oszlop mutatja, hogy milyen típusú erőforráson van zár (pl. `OBJECT`, `PAGE`, `KEY`), a `request_mode` oszlop pedig a zár típusát (pl. `S` - shared/olvasási, `X` - exclusive/kizárólagos). A `request_session_id` segítségével azonosíthatjuk, hogy melyik munkamenet (session) tartja a zárat.
+
+További hasznos információt kaphatunk a blokkolt tranzakciókról is:
+
+```sql
+-- Blokkolt session-ök lekérdezése
+SELECT 
+    blocking_session_id AS 'Blokkoló Session ID',
+    session_id AS 'Blokkolt Session ID',
+    wait_type,
+    wait_time,
+    wait_resource
+FROM sys.dm_exec_requests
+WHERE blocking_session_id <> 0
+```
+
+Ez a lekérdezés megmutatja, ha van olyan session, amelyik vár egy másik session által tartott zárra.
+
 ## Feladat 4: Tranzakció megszakítása (_rollback_) _read committed_ izolációs szinten
 
 Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, de a módosító tranzakciót szakítsuk meg a közepén.
@@ -154,7 +193,73 @@ Kezdjük el lefuttatni az előző parancs sorozatot, a tranzakcióval együtt, d
 
     Vegyük észre, hogy pont elkerültük a piszkos olvasás problémáját. Ha a módosítás futása közben megjelent volna a félkész eredmény, a `rollback` miatt az a tranzakció érvénytelen adattal dolgozna tovább.
 
-## Feladat 5: Megrendelés rögzítése _serializable_ izolációs szinten
+## Feladat 5: _Read committed snapshot_ izolációs szint
+
+A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
+
+Az SQL Server támogat egy speciális _read committed snapshot_ izolációs szintet is, amely a _read committed_ izolációs szint egy változata. Ebben az üzemmódban a módosítás alatt levő rekordok olvasásakor nem várunk, hanem az utolsó commitált verzió kerül visszaadásra. Ezt a viselkedést az adatbázis szintjén kell bekapcsolni.
+
+Először kapcsoljuk be a _read committed snapshot_ üzemmódot az adatbázisunkon. Ehhez egy új query ablakban futtassuk le az alábbi parancsot (a `NEPTUN` helyére a saját Neptun kódunkat írva):
+
+```sql
+ALTER DATABASE [NEPTUN]
+SET READ_COMMITTED_SNAPSHOT ON
+```
+
+!!! warning "Fontos"
+    Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárjuk be az összes többi query ablakot, vagy szakítsuk meg az esetleges aktív tranzakciókat, mielőtt lefuttatjuk!
+
+Most ismételjük meg a 4. feladat lépéseit:
+
+1. **T1 tranzakció**
+
+    ```sql
+    -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
+    SELECT s1.Name, p.Name, s2.Name
+    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
+    WHERE o.Id = oi.OrderID
+      AND o.ID = 4
+      AND o.StatusID = s1.ID
+      AND oi.StatusID = s2.ID
+      AND p.ID = oi.ProductID
+    ```
+
+1. **T2 tranzakció**
+
+    ```sql
+    -- Új tranzakciót kezdünk
+    BEGIN TRAN
+
+    -- Állítsuk át a megrendelés állapotát
+    UPDATE [Order]
+    SET StatusID = 3
+    WHERE ID = 4
+    ```
+
+1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
+
+1. **T2 tranzakció**
+
+    ```sql
+    -- Szakítsuk meg a tranzakciót
+    ROLLBACK
+    ```
+
+??? question "Mit tapasztalt? Miért különbözik a viselkedés a 4. feladatétól?"
+    Most a **T1** tranzakció nem várakozik, hanem azonnal megkapja az eredményt, még akkor is, ha a **T2** tranzakció közben módosítja az adatokat! Ez azért lehetséges, mert _read committed snapshot_ módban a rendszer az utolsó commitált verziót adja vissza, nem kell megvárni a módosító tranzakció befejezését.
+
+    Ez jelentős teljesítménybeli előnyt jelent, mivel az olvasó tranzakciók nem blokkolódnak az író tranzakciók által. Azonban fontos megérteni, hogy az olvasott adatok egy korábbi állapotot tükröznek, amely időközben már megváltozott lehet.
+
+    A _read committed snapshot_ üzemmód különösen hasznos olyan alkalmazásokban, ahol sok olvasás történik, és nem elfogadható, hogy az olvasások blokkolódjanak a módosítások miatt. Ez az Oracle adatbázisok alapértelmezett viselkedése is.
+
+A gyakorlat végén kapcsoljuk vissza az eredeti beállítást (opcionális):
+
+```sql
+ALTER DATABASE [NEPTUN]
+SET READ_COMMITTED_SNAPSHOT OFF
+```
+
+## Feladat 6: Megrendelés rögzítése _serializable_ izolációs szinten
 
 A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
 
@@ -244,7 +349,7 @@ Ismételjük meg a fenti műveletsort, csak a megrendelés rögzítésekor más-
 
     Azaz a *serializable* izolációs szint túl szigorú, üzleti logikát figyelembe véve nagyobb párhuzamosítás engedhető meg. Ezért is ritkán használjuk a gyakorlatban.
 
-## Feladat 6: Megrendelés rögzítése _read committed_ izolációs szinten
+## Feladat 7: Megrendelés rögzítése _read committed_ izolációs szinten
 
 Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk át a tranzakciók izolációs szintjét? Lenne holtpont? És helyes lenne a működés?
 
@@ -253,7 +358,7 @@ Gondoljuk végig, az előző feladat esetén mi történne, ha a nem állítjuk 
 
     Erről az oldalról nézve tehát a *serializable* izolációs szint nem volt feleslegesen szigorú. Tényleg megvédett minket egy problémától.
 
-## Feladat 7: Manuális zárolás
+## Feladat 8: Manuális zárolás
 
 A feladat megkezdése előtt először is szakítsuk meg a félbemaradt tranzakciókat. Mindkét ablakban adjunk ki pár `rollback` utasítást az esetleg ottmaradt tranzakciók leállításához.
 
