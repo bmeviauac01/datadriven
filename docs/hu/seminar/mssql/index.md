@@ -170,7 +170,7 @@ Hozzon létre egy tárolt eljárást, aminek a segítségével egy új kategóri
         resource_type, request_status, request_session_id
     FROM
         sys.dm_tran_locks dtl
-        JOIN sys.partitions P ON dtl.resource_associated_entity_id = p.hobt_id
+        JOIN sys.partitions P ON dtl.resource_associated_entity_id = P.hobt_id
     ```
 
     Ez a lekérdezés megmutatja:
