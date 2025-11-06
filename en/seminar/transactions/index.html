@@ -1073,15 +1073,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#exercise-9-table-locking" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise 9: Table locking
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1555,15 +1546,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#exercise-9-table-locking" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise 9: Table locking
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1943,16 +1925,15 @@
 </li>
 </ol>
 </details>
-<h2 id="exercise-9-table-locking">Exercise 9: Table locking<a class="headerlink" href="#exercise-9-table-locking" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Table locking</p>
 <p>There is another option for manual locking by locking entire tables:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
 <span class="p">...</span>
 </code></pre></div>
-<details class="question">
-<summary>This might seem a simple solution, but why is this a not recommended option?</summary>
-<p>In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using <em>serializable</em> isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.</p>
-</details>
+<p>This might seem a simple solution, but why is this a not recommended option? In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using <em>serializable</em> isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.</p>
+</div>
 
     <hr>
   <div class="md-source-file">
@@ -1961,8 +1942,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 6, 2025 14:21:37">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:21:37 CET"><span class="timeago" datetime="2025-11-06T14:21:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:21:37 CET">2025-11-06</span>
+      <span title="November 6, 2025 14:31:14">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:31:14 CET"><span class="timeago" datetime="2025-11-06T14:31:14+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:31:14 CET">2025-11-06</span>
       </span>
     </span>
 
