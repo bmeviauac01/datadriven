@@ -66,7 +66,9 @@ A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van 
 
     Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-l "console;verbosity=normal"` argumentumot a megtalált tesztek listázásához és futtatásához, valahogy így:
 
-    `dotnet test -l "console;verbosity=normal"`
+    ```
+    dotnet test -l "console;verbosity=normal"
+    ```
 
     A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 

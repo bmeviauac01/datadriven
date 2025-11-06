@@ -66,7 +66,9 @@ There are unit tests available in the solution. The test codes are commented out
 
     If you are using `dotnet cli` to run the tests, make sure to display the test names too. Use the `-l "console;verbosity=normal"` command line argument to set detailed logging. Something like this should work: 
 
-    `dotnet test -l "console;verbosity=normal"`
+    ```cmd
+    dotnet test -l "console;verbosity=normal"
+    ```
 
     The image does not need to show the exact same source code that you submit; there can be some minor changes here and there. That is, if the tests run successfully and you create the screenshot, then later you make some **minor** change to the source, there is no need for you to update the screenshot.
 
