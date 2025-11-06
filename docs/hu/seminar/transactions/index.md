@@ -121,13 +121,12 @@ Nyissunk egy harmadik query ablakot (New Query gomb), és futtassuk le az alább
 -- Zárak lekérdezése
 SELECT 
     resource_type,
-    resource_database_id,
-    resource_associated_entity_id,
+    DB_NAME(resource_database_id) AS database_name,
+    OBJECT_NAME(resource_associated_entity_id) AS object_name,
     request_mode,
     request_type,
     request_status,
-    request_session_id,
-    DB_NAME(resource_database_id) AS database_name
+    request_session_id
 FROM sys.dm_tran_locks
 WHERE resource_database_id = DB_ID()
 ORDER BY request_session_id
