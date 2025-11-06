@@ -232,7 +232,7 @@ Most ismételjük meg a 4. feladat lépéseit:
 
     -- Állítsuk át a megrendelés állapotát
     UPDATE [Order]
-    SET StatusID = 3
+    SET StatusID = 4
     WHERE ID = 4
     ```
 
