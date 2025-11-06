@@ -64,9 +64,9 @@ A teszteléshez találsz unit teszteket a solution-ben. A tesztek kódja ki van 
 
     Emellett készíts egy képernyőképet Visual Studio-ból (vagy másik, a fejlesztéshez használt eszközből, ami akár `dotnet cli` is lehet), amelyben a vonatkozó teszteket lefuttattad. Látszódjon a **DbContext kódja** és a **tesztek futásának eredménye**! A képet `f1.png` néven mentsd el és add be a megoldásod részeként!
 
-    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-t` kapcsolót a megtalált tesztek listázásához, majd utána futtasd újból a parancsot, valahogy így:
+    Ha `dotnet test`-et használsz a teszt futtatásához, a képernyőképen látszódjon az összes teszt neve. Ehhez használd a `-l "console;verbosity=normal"` argumentumot a megtalált tesztek listázásához és futtatásához, valahogy így:
 
-    `dotnet test -t && dotnet test`
+    `dotnet test -l "console;verbosity=normal"`
 
     A képernyőképen levő forráskód tekintetében nem szükséges, hogy a végső megoldásban szereplő kód betűről betűre megegyezzen a képen és a feltöltött változatban. Tehát a tesztek sikeres lefutása után elkészített képernyőképet nem szükséges frissíteni, ha a forráskódban **kisebb** változtatást eszközölsz.
 
