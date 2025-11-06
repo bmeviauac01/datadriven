@@ -1925,15 +1925,15 @@
 </li>
 </ol>
 </details>
-<div class="admonition tip">
-<p class="admonition-title">Table locking</p>
+<details class="tip">
+<summary>Table locking</summary>
 <p>There is another option for manual locking by locking entire tables:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">WITH</span><span class="p">(</span><span class="n">TABLOCKX</span><span class="p">)</span>
 <span class="p">...</span>
 </code></pre></div>
 <p>This might seem a simple solution, but why is this a not recommended option? In our scenario, the table lock should be placed on the order item table. But effectively, this would mean the same thing as using <em>serializable</em> isolation level: there would be no deadlocks; however, there would be no concurrency allowed either.</p>
-</div>
+</details>
 
     <hr>
   <div class="md-source-file">
@@ -1942,8 +1942,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 6, 2025 14:31:14">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:31:14 CET"><span class="timeago" datetime="2025-11-06T14:31:14+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:31:14 CET">2025-11-06</span>
+      <span title="November 6, 2025 14:33:47">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 14:33:47 CET"><span class="timeago" datetime="2025-11-06T14:33:47+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 14:33:47 CET">2025-11-06</span>
       </span>
     </span>
 
