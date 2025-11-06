@@ -98,7 +98,7 @@ Implementáld a `ProductRepository` osztály függvényeit.
 
 Az adatbázisból való törlés egy olyan művelet, ami számos nemkívánt hatással rendelkezik. Egy törölt adatot visszaállítani sokkal nehezebb, néha nem is lehetséges következmények nélkül. Az adat törlésével akár a teljes adattörténet elveszhet, nem tudunk a törlés előtti állapotról, különböző statisztikákban nem tudjuk felhasználni. Ráadásul előfordulnak olyan esetek, például amikor olyan más táblákkal való kapcsolatok és külső kulcs kényszerek vannak, hogy a törlés kihatással van azokra a táblákra is.
 
-Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan `IsDeleted` névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így az megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.
+Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan `IsDeleted` névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így a rekord megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.
 
 A szűrés naiv implementációja azonban nem kényelmes. Képzeljük el, hogy minden lekérdezés vagy mentés esetén oda kell írni a kifejezésbe, hogy ne hasson ezekre a törölt elemekre.
 Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, a *Global Query Filter*-t. Ennek a segítségével olyan szűrőfeltételeket határozhatunk meg, amiket globálisan, minden egyes lekérdezésnél automatikusan alkalmaz az Entity Framework. 
@@ -108,7 +108,10 @@ Implementáld a logikai törlést az előbbiekben elkészített `DbProduct` oszt
 !!! important "Módosíthatóság"
     Bár az előző feladatban volt megkötés, hogy ne legyen az `OnConfiguring` függvény felüldefiniálva, amennyiben szükségesnek látod, itt nyugodtan lehet (illetve más függvényeket is felüldefiniálhatsz a DBContext megvalósításban)!
 
-1. Vegyél fel egy `IsDeleted` változót, ami jelzi az alkalmazásunk számára, hogy az adott entitás törölt állapotban van!
+1. Vegyél fel egy `IsDeleted` mezőt a `Product` táblába és hozzá egy tulajdonságot az entitásba, ami jelzi az alkalmazásunk számára, hogy az adott entitás törölt állapotban van!
+
+    !!! tip "Adatbázis séma módosítás"
+        Az adatbázis sémáját nem célszerű most EF migrációval módosítani, mert a kiinduló állapotot sem azzal hoztuk létre. Módosítsuk most kézzel SQL-ből vagy az SQL Management Studio felületéről az érintett táblát.
 
 1. Vegyél fel egy *QueryFilter*-t, ami minden lekérdezéskor kiszűri azokat a termékeket, amiket már töröltünk, így azokat nem kapjuk vissza! 
 

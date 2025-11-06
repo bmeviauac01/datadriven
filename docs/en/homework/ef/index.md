@@ -109,6 +109,9 @@ Implement soft deletion for the previously created `DbProduct` class (there are 
 
 1. Add an `IsDeleted` variable that indicates to our application whether the entity is in a deleted state!
 
+    !!! tip "Database Schema Modification"
+        It is not advisable to modify the database schema using EF migration at this time, since the initial state was not created that way. Let's manually modify the affected table now either through SQL or via the SQL Management Studio interface.
+
 1. Add a *QueryFilter* that filters out the products that have already been deleted in every query, so they are not returned!
 
 1. Modify the deletion behavior in the database **generally** by extending the `DbContext` save operations (EFCore provides several extension points for this) so that instead of performing a true deletion, it only changes the `IsDeleted` variable! Do not change the deletion operation in the repository for modification!
