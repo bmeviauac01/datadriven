@@ -1560,7 +1560,7 @@
 <p>A pont megszerzésére az első két feladat megoldásával együtt van lehetőség.</p>
 </div>
 <p>Az adatbázisból való törlés egy olyan művelet, ami számos nemkívánt hatással rendelkezik. Egy törölt adatot visszaállítani sokkal nehezebb, néha nem is lehetséges következmények nélkül. Az adat törlésével akár a teljes adattörténet elveszhet, nem tudunk a törlés előtti állapotról, különböző statisztikákban nem tudjuk felhasználni. Ráadásul előfordulnak olyan esetek, például amikor olyan más táblákkal való kapcsolatok és külső kulcs kényszerek vannak, hogy a törlés kihatással van azokra a táblákra is.</p>
-<p>Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan <code>IsDeleted</code> névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így az megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.</p>
+<p>Ezen problémák áthidalására a leggyakoribb megoldás, hogy egy nem végleges törlést, hanem egy úgynevezett logikai törlést (soft delete) vezetünk be. Ebben az esetben egy mező (tipikusan <code>IsDeleted</code> névvel) átállításával jelezzük, hogy az adott adat már törölve van. Így a rekord megmarad az adatbázisban is, de tudjuk szűrni, hogy töröltek-e.</p>
 <p>A szűrés naiv implementációja azonban nem kényelmes. Képzeljük el, hogy minden lekérdezés vagy mentés esetén oda kell írni a kifejezésbe, hogy ne hasson ezekre a törölt elemekre.
 Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, a <em>Global Query Filter</em>-t. Ennek a segítségével olyan szűrőfeltételeket határozhatunk meg, amiket globálisan, minden egyes lekérdezésnél automatikusan alkalmaz az Entity Framework. </p>
 <p>Implementáld a logikai törlést az előbbiekben elkészített <code>DbProduct</code> osztályhoz (több megoldási lehetőség is van, tetszőlegesen választhatod bármelyiket):</p>
@@ -1570,7 +1570,11 @@ Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, 
 </div>
 <ol>
 <li>
-<p>Vegyél fel egy <code>IsDeleted</code> változót, ami jelzi az alkalmazásunk számára, hogy az adott entitás törölt állapotban van!</p>
+<p>Vegyél fel egy <code>IsDeleted</code> mezőt a <code>Product</code> táblába és hozzá egy tulajdonságot az entitásba, ami jelzi az alkalmazásunk számára, hogy az adott entitás törölt állapotban van!</p>
+<div class="admonition tip">
+<p class="admonition-title">Adatbázis séma módosítás</p>
+<p>Az adatbázis sémáját nem célszerű most EF migrációval módosítani, mert a kiinduló állapotot sem azzal hoztuk létre. Módosítsuk most kézzel SQL-ből vagy az SQL Management Studio felületéről az érintett táblát.</p>
+</div>
 </li>
 <li>
 <p>Vegyél fel egy <em>QueryFilter</em>-t, ami minden lekérdezéskor kiszűri azokat a termékeket, amiket már töröltünk, így azokat nem kapjuk vissza! </p>
@@ -1591,8 +1595,8 @@ Ennek érdekében az Entity Framework egyik funkcióját érdemes kihasználni, 
           </path>
         </svg>
       </span>
-      <span title="2024. december 19. 15:30:30">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2024. december 19. 15:30:30 CET"><span class="timeago" datetime="2024-12-19T15:30:30+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2024. december 19. 15:30:30 CET">2024-12-19</span>
+      <span title="2025. november 6. 11:54:40">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 6. 11:54:40 CET"><span class="timeago" datetime="2025-11-06T11:54:40+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 6. 11:54:40 CET">2025-11-06</span>
       </span>
     </span>
 

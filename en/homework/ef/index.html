@@ -1530,6 +1530,10 @@
 <ol>
 <li>
 <p>Add an <code>IsDeleted</code> variable that indicates to our application whether the entity is in a deleted state!</p>
+<div class="admonition tip">
+<p class="admonition-title">Database Schema Modification</p>
+<p>It is not advisable to modify the database schema using EF migration at this time, since the initial state was not created that way. Let's manually modify the affected table now either through SQL or via the SQL Management Studio interface.</p>
+</div>
 </li>
 <li>
 <p>Add a <em>QueryFilter</em> that filters out the products that have already been deleted in every query, so they are not returned!</p>
@@ -1550,8 +1554,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 20, 2025 09:43:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 20, 2025 09:43:55 CEST"><span class="timeago" datetime="2025-10-20T09:43:55+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2025 09:43:55 CEST">2025-10-20</span>
+      <span title="November 6, 2025 11:54:40">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 6, 2025 11:54:40 CET"><span class="timeago" datetime="2025-11-06T11:54:40+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2025 11:54:40 CET">2025-11-06</span>
       </span>
     </span>
 
