@@ -115,7 +115,7 @@ Ismételje meg az előző feladatot úgy, hogy a két adatmódosítás egy tranz
 
 A zárak állapotát egy harmadik query ablakban is ellenőrizhetjük SQL lekérdezésekkel, amíg a **T2** tranzakció fut (azaz még nem került sor `commit` vagy `rollback` végrehajtására).
 
-Nyisson egy harmadik query ablakot (New Query gomb), és futtassa le az alábbi lekérdezést, miközben a **T2** tranzakció aktív (a `BEGIN TRAN` és az első `UPDATE` után, de még a `COMMIT` előtt):
+Nyissunk egy harmadik query ablakot (New Query gomb), és futtassuk le az alábbi lekérdezést, miközben a **T2** tranzakció aktív (a `BEGIN TRAN` és az első `UPDATE` után, de még a `COMMIT` előtt):
 
 ```sql
 -- Zárak lekérdezése
@@ -126,13 +126,14 @@ SELECT
     request_mode,
     request_type,
     request_status,
-    request_session_id
+    request_session_id,
+    DB_NAME(resource_database_id) AS database_name
 FROM sys.dm_tran_locks
 WHERE resource_database_id = DB_ID()
 ORDER BY request_session_id
 ```
 
-Ez a lekérdezés megjeleníti az aktuális adatbázisban elhelyezett zárakat. A `resource_type` oszlop mutatja, hogy milyen típusú erőforráson van zár (pl. `OBJECT`, `PAGE`, `KEY`), a `request_mode` oszlop pedig a zár típusát (pl. `S` - shared/olvasási, `X` - exclusive/kizárólagos). A `request_session_id` segítségével azonosíthatjuk, hogy melyik munkamenet (session) tartja a zárat.
+Ez a lekérdezés megjeleníti az aktuális adatbázisban elhelyezett zárakat. A `resource_type` oszlop mutatja, hogy milyen típusú erőforráson van zár (pl. `OBJECT`, `PAGE`, `KEY`), a `request_mode` oszlop pedig a zár típusát (pl. `S` - shared/olvasási, `X` - exclusive/kizárólagos). A `request_session_id` segítségével azonosíthatjuk, hogy melyik munkamenet (session) tartja a zárat - ezt a Query ablak címsorában is megtaláljuk.
 
 További hasznos információt kaphatunk a blokkolt tranzakciókról is:
 
@@ -209,41 +210,7 @@ SET READ_COMMITTED_SNAPSHOT ON
 !!! warning "Fontos"
     Ez a parancs csak akkor fut le sikeresen, ha nincs más aktív kapcsolat az adatbázishoz. Zárjuk be az összes többi query ablakot, vagy szakítsuk meg az esetleges aktív tranzakciókat, mielőtt lefuttatjuk!
 
-Most ismételjük meg a 4. feladat lépéseit:
-
-1. **T1 tranzakció**
-
-    ```sql
-    -- Listázzuk ki a megrendelés és a hozzá tartozó tételek státuszát
-    SELECT s1.Name, p.Name, s2.Name
-    FROM [Order] o, OrderItem oi, Status s1, Status s2, Product p
-    WHERE o.Id = oi.OrderID
-      AND o.ID = 4
-      AND o.StatusID = s1.ID
-      AND oi.StatusID = s2.ID
-      AND p.ID = oi.ProductID
-    ```
-
-1. **T2 tranzakció**
-
-    ```sql
-    -- Új tranzakciót kezdünk
-    BEGIN TRAN
-
-    -- Állítsuk át a megrendelés állapotát
-    UPDATE [Order]
-    SET StatusID = 4
-    WHERE ID = 4
-    ```
-
-1. **T1 tranzakció**: első lépésben kiadott parancs megismételve
-
-1. **T2 tranzakció**
-
-    ```sql
-    -- Szakítsuk meg a tranzakciót
-    ROLLBACK
-    ```
+Most ismételjük meg a 4. feladat lépéseit.
 
 ??? question "Mit tapasztalt? Miért különbözik a viselkedés a 4. feladatétól?"
     Most a **T1** tranzakció nem várakozik, hanem azonnal megkapja az eredményt, még akkor is, ha a **T2** tranzakció közben módosítja az adatokat! Ez azért lehetséges, mert _read committed snapshot_ módban a rendszer az utolsó commitált verziót adja vissza, nem kell megvárni a módosító tranzakció befejezését.
