@@ -115,7 +115,7 @@ public class EMailSender
     }
     public void SendMail(string to, string subject, string message)
     {
-        _logger.LogInformation($"Sendding e-mail. To: {to} Subject: {subject} Body: {message}");
+        _logger.LogInformation($"Sending e-mail. To: {to} Subject: {subject} Body: {message}");
 
         // ...
     }
