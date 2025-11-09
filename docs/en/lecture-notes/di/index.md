@@ -558,7 +558,7 @@ The particularities of the DI container built in ASP.NET Core:
 
 * It provides basic services required by most applications (e.g., does not support property injection).
     * If you need more DI related functionality, you can use another IoC container Asp.Net Core can work with.
-    * Several Dependecy Injection / IoC container class libraries exist that can be used with .NET, with .NET Framework, or with both. A few examples: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF, ...
+    * Several Dependency Injection / IoC container class libraries exist that can be used with .NET, with .NET Framework, or with both. A few examples: AutoFac, DryIoc, LightInject, Castle Windsor, Ninject, StructureMap, SimpleInjector, MEF, ...
 * It's implemented in the __Microsoft.Extensions.DependencyInjection__ NuGet package.
     * For Asp.Net Core applications, it is automatically installed when the Asp.Net project is created. In fact, as we have seen, Asp.Net Core middleware heavily relies on it, it's a key pillar of runtime configuration and extensibility.
     * For other .NET applications (e.g. a simple .NET Core based console app), you need to add it manually by installing the Microsoft.Extensions.DependencyInjection NuGet package for the project.
