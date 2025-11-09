@@ -448,7 +448,7 @@ public class TodoController : ControllerBase
         _context = context;
         _notificationService = notificationService;
 
-        // Fill wit some initial data
+        // Fill with some initial data
         if (_context.TodoItems.Count() == 0)
         {
             _context.TodoItems.Add(new TodoItem { Name = "Item1" });
