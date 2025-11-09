@@ -95,7 +95,7 @@ class NotificationService
     }
 }
 
-// Class supporting loggin
+// Class supporting logging
 public class Logger
 {
     public void LogInformation(string text) { /* ...*/ }
