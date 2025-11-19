@@ -408,9 +408,9 @@ The deadlock is soon eliminated automatically by the database. If we want to int
 - List the isolation levels. Which problems does each of the levels prohibit?
 - What are the basic properties of transactions?
 - Decide whether the following statements are true or false:
-    - The *serializable* isolation level executes the transactions one after the other.
+    - The *serializable* isolation level seemingly, logically executes the transactions one after the other.
     - Deadlock can be prevented by using the right isolation level.
     - The default isolation level is usually *read committed*.
-    - If we are not using explicit transactions, then we are protected from the issue of dirty read.
+    - If we are not using explicit transactions, then we are by default protected from the issue of dirty read.
     - The transaction log offers protection against all kinds of data losses.
     - In the *redo* transaction logging scheme, the transaction log starts with the *commit* mark.
