@@ -58,7 +58,7 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 
 ### For writing C# code (most homeworks, except the first one):
   - One of the following development environments:
-    - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md) (on Windows or macOS)
+    - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md) (on Windows)
     - Visual Studio Code with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) and the .NET SDK-installed [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/)
     - [JetBrains Rider](https://www.jetbrains.com/rider/download/) - available on Windows, macOS, and Linux, free for non-profit and educational use.
   - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)

@@ -58,7 +58,7 @@ A feladatok gyakran kérik, hogy készíts képernyőképet a megoldás egy-egy 
 
 ### Az első házi kivételével a C# programozós feladatokhoz
   - Fejlesztői eszközök egyike:
-    - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md) (Windows vagy MacOS rendszereken)
+    - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md) (Windows rendszereken)
     - [JetBrains Rider](https://www.jetbrains.com/rider/download/) - Windows, MacOS és Linux rendszereken is használható, ingyenes non-profit és oktatási célokra.
     - Visual Studio Code a [C# bővítménnyel](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) és a .NET SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/)
   - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
