@@ -41,7 +41,7 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
   - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
   - One of the following database management and developer tools:
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
-    - [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) - Platform-independent Microsoft tool.
+    - [Visual Studio Code](https://code.visualstudio.com/download) with the [SQL Server (mssql) extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
     - [JetBrains DataGrip](https://www.jetbrains.com/datagrip/download/) - Platform-independent, free for non-profit and educational use.
 
 ### For homework using a MongoDB database:

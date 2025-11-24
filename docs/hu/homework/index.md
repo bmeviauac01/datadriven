@@ -41,7 +41,7 @@ A feladatok gyakran kérik, hogy készíts képernyőképet a megoldás egy-egy 
   - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
   - Fejlesztői eszközök egyike:
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms) - Windows platform függő.
-    - [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download) - Platformfüggetlen Microsoft eszköz.
+    - [Visual Studio Code](https://code.visualstudio.com/download) az [SQL Server (mssql) bővítménnyel](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
     - [JetBrains DataGrip](https://www.jetbrains.com/datagrip/download/) - Platformfüggetlen, ingyenes non-profit és oktatási célokra.
 
 ### MongoDB adatbázist használó feladathoz
