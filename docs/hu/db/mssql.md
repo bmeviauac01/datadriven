@@ -4,12 +4,9 @@ A Microsoft SQL Server kiszolgálóhoz az SQL Server Management Studio szoftverr
 
 Letöltési linkek:
 
-- A LocalDB Visual Studio-val települ
+- A LocalDB Visual Studio-val települ az _SQL Server Express 2019 LocalDB_ komponens kiválasztásával a telepítés során
 - <https://www.microsoft.com/en-us/sql-server/sql-server-editions-express>
 - <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms>
-
-!!! example "Eszköz használata videó"
-    Az eszköz használatának bemutatása: <https://web.microsoftstream.com/video/e3a83d16-b5c4-4fe9-b027-703347951621>
 
 ## SQL Server Management Studio használata
 
