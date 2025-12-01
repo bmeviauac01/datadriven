@@ -420,7 +420,7 @@ WHERE ID = 23
 using (var db = new AdatvezDbContext())
 {
     var deleteThis = db.Products
-        .Select(p => p.ID == 23)
+        .Where(p => p.ID == 23)
         .SingleOrDefault();
     if(deleteThis is not null)
     {
