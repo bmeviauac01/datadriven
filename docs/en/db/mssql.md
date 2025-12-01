@@ -4,12 +4,9 @@ Microsoft SQL Server is accessed using SQL Server Management Studio. We are usin
 
 Download links:
 
-- LocalDB is installed with Visual Studio
+- LocalDB is installed with Visual Studio if you select _SQL Server Express 2019 LocalDB_ individual component in the installer
 - <https://www.microsoft.com/en-us/sql-server/sql-server-editions-express>
 - <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms>
-
-!!! example "Video guide of the tools"
-    How to use these tools: <https://web.microsoftstream.com/video/98a6697d-daec-4a5f-82b6-8e96f06302e8>
 
 ## Using SQL Server Management Studio
 
