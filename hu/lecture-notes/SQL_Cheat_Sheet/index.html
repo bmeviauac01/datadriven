@@ -1915,7 +1915,7 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">())</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">deleteThis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">23</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">23</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">();</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">deleteThis</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
@@ -2076,8 +2076,8 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
           </path>
         </svg>
       </span>
-      <span title="2023. december 13. 21:39:07">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2023. december 13. 21:39:07 CET"><span class="timeago" datetime="2023-12-13T21:39:07+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2023. december 13. 21:39:07 CET">2023-12-13</span>
+      <span title="2025. december 1. 13:14:34">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. december 1. 13:14:34 CET"><span class="timeago" datetime="2025-12-01T13:14:34+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. december 1. 13:14:34 CET">2025-12-01</span>
       </span>
     </span>
 
@@ -2097,6 +2097,8 @@ Alábbi lekérdezés kilistázza, hogy mely rendeléshez, mekkora összértékbe
           <img src="https://avatars.githubusercontent.com/u/127397856?v=4?size=72" alt="@Szendrey Máté">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
+        </a><a href="https://github.com/username-perverz-modon" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/u/181444467?u=6442780953280a28c4be06c0fe6450c0dbdf1c7f&amp;v=4?size=72" alt="@None">
         </a></nav>      
     </span>
   </div>
