@@ -1,8 +1,8 @@
-# BMEVIAUAC01 Adatvezérelt rendszerek
+[![Build docs](https://github.com/bmeviauac01/datadriven/actions/workflows/github-pages.yml/badge.svg)](https://github.com/bmeviauac01/datadriven/actions/workflows/github-pages.yml)
 
-![Build docs](https://github.com/bmeviauac01/datadriven/workflows/Build%20docs/badge.svg?branch=master)
+# BMEVIAUAC15 Adatvezérelt rendszerek
 
-[BMEVIAUAC01 Adatvezérelt rendszerek](https://www.aut.bme.hu/Course/VIAUAC01/) tárgy jegyzetei, gyakorlati anyagai, házi feladatai.
+[BMEVIAUAC15 Adatvezérelt rendszerek](https://portal.vik.bme.hu/kepzes/targyak/VIAUAC15/hu/) tárgy jegyzetei, gyakorlati anyagai, házi feladatai.
 
 A jegyzetek MkDocs segítségével készülnek és GitHub Pages-en kerülnek publikálásra: <https://bmeviauac01.github.io/datadriven/>
 
@@ -34,11 +34,9 @@ A repository tartalmaz egy Dockerfile-t, ami at MKDocs keretrendszer és függő
 4. Markdown szerkesztése és mentése után automatikusan frissül a weboldal.
 
 
-# BMEVIAUAC01 Data-driven systems
+# BMEVIAUAC15 Data-driven systems
 
-![Build docs](https://github.com/bmeviauac01/datadriven/workflows/Build%20docs/badge.svg?branch=master)
-
-[BMEVIAUAC01 Data-driven systems](https://www.aut.bme.hu/Course/ENVIAUAC01/) course lecture notes, seminar materials and homework exercises.
+[BMEVIAUAC15 Data-driven systems](https://portal.vik.bme.hu/kepzes/targyak/VIAUAC15/en/) course lecture notes, seminar materials and homework exercises.
 
 The content in built using MkDocs and is published to GitHub Pages at: <https://bmeviauac01.github.io/datadriven/en/>
 
