@@ -2041,11 +2041,11 @@
 <p>For example, Let us create a new tax percentage record in the <code>VAT</code> table, guaranteeing that only unique percentages can be added:</p>
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- create a stored procedure</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="c1">-- stored procedure parameters</span>
-<span class="k">as</span>
+<span class="k">as</span><span class="w"> </span><span class="c1">-- this is where the code begins, which the system executes when the procedure is called</span>
 <span class="w">  </span><span class="k">begin</span>
-<span class="w">  </span><span class="c1">-- this is where the code begins, which the system executes when the procedure is called</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span><span class="w"> </span><span class="c1">-- to avoid non-repeatable reading</span>
+<span class="w">  </span><span class="c1">-- to avoid non-repeatable reading</span>
 <span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
 
 <span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2126,8 +2126,8 @@
 <span class="k">as</span>
 <span class="k">begin</span>
 
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
 <span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
 
 <span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2343,8 +2343,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 9, 2023 13:00:12 CEST"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2023 13:00:12 CEST">2023-10-09</span>
+      <span title="December 8, 2025 15:05:40">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:05:40 CET"><span class="timeago" datetime="2025-12-08T15:05:40+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:05:40 CET">2025-12-08</span>
       </span>
     </span>
 
