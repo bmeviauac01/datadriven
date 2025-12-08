@@ -82,13 +82,13 @@ BEGIN
 END
 
 SELECT @num
--- Ez működik, a változó az utasítás blokkon kívül IS elérhető.
+-- Ez működik, a változó az utasítás blokkon kívül is elérhető.
 -- 3
 
 GO -- új batch-et kezd
 
 SELECT @num
--- Hiba: Must DECLARE the scalar variable "@num".
+-- Hiba: Must declare the scalar variable "@num".
 ```
 
 Változónak lekérdezéssel is adhatunk értéket:
@@ -108,7 +108,7 @@ DECLARE @name nvarchar(MAX)
 
 SELECT @name = Name
 FROM Customer
--- több illeszkedő sor IS lesz
+-- több illeszkedő sor is lesz
 -- SELECT utolsó eredménye kerül végül a változóba
 ```
 
@@ -234,7 +234,7 @@ SELECT CONVERT(int, '12')
 -- 12
 
 SELECT CONVERT(int, 'aa')
--- Hiba: Conversion failed WHEN converting the varchar value 'aa' to data type int.
+-- Hiba: Conversion failed when converting the varchar value 'aa' to data type int.
 
 SELECT TRY_CONVERT(int, 'aa')
 -- NULL
@@ -313,7 +313,7 @@ Azt, hogy a `FETCH` utasítás sikeres volt-e, a `@@FETCH_STATUS` implicit vált
 A teljes iteráció így **két** `FETCH` utasítást és egy `WHILE` ciklust igényel:
 
 ```sql
--- DECLARE, open ...
+-- declare, open ...
 FETCH NEXT FROM cur INTO @var1, @var2
 WHILE @@FETCH_STATUS = 0
 BEGIN
@@ -337,7 +337,7 @@ DECLARE @LastOrder datetime
 DECLARE products_cur CURSOR SCROLL SCROLL_LOCKS -- Zárolás hogy a módosítás garantáltan sikerüljön
 FOR
   SELECT Id, Name FROM Product WHERE Stock < 3 -- Kurzor lekérdezése
-FOR UPDATE OF Price -- Szeretnénk frissíteni IS a rekordokat
+FOR UPDATE OF Price -- Szeretnénk frissíteni is a rekordokat
 
 -- Tipikus megnyitás, fetch, ciklus
 OPEN products_cur
@@ -571,7 +571,7 @@ Nézzük is ennek a példának a kódját. Naplózzuk tehát bármely termékek 
 CREATE TABLE AuditLog([Description] [nvarchar](MAX) NULL)
 GO
 
--- Naplózó TRIGGER
+-- Naplózó trigger
 CREATE OR ALTER TRIGGER ProductDeleteLog
   ON Product
   FOR DELETE
@@ -623,7 +623,7 @@ CREATE FUNCTION [IsEmailValid](@email nvarchar(1000))
 RETURNS bit -- true/false visszatérési érték
 AS
 BEGIN
-  IF @email IS NULL RETURN 0 -- Nem lehet NULL
+  IF @email IS NULL RETURN 0 -- Nem lehet null
   IF @email = '' RETURN 0 -- Nem lehet üres string
   IF @email LIKE '%_@%_._%' RETURN 1 -- Kb. email kinézete van
   RETURN 0
@@ -634,7 +634,7 @@ END
 -- Definiáljuk a triggert
 CREATE OR ALTER TRIGGER CustomerEmailSyntaxCheck
   ON Customer
-  FOR INSERT, UPDATE -- beszúrás és módosítás IS érdekel
+  FOR INSERT, UPDATE -- beszúrás és módosítás is érdekel
 AS
 -- Mind a beszúrás mind módosítás esetén az inserted táblában lesz az új adat
 -- Létezik-e olyan elem ott, amire az új email cím nem érvényes
@@ -652,7 +652,7 @@ ALTER TABLE Customer
 add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
 GO
 
--- Használt email címet frissítő TRIGGER
+-- Használt email címet frissítő trigger
 CREATE OR ALTER TRIGGER CustomerEmailUpdate
   ON Customer
   FOR INSERT, UPDATE
@@ -702,12 +702,12 @@ A triggerek egy speciális fajtája az ún. _instead of trigger_. Ilyen triggert
 Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési feladatokon túl például, ha egy törlést valójában nem akarunk végrehajtani. Ezt szokás _soft delete_-nek hívni, amikor törlés _helyett_ csak töröltnek jelöljük a rekordokat:
 
 ```sql
--- Soft DELETE flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
+-- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
 ALTER TABLE Product
 add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
--- Instead of TRIGGER, azaz DELETE utasítás hatására a törlés nem hajtódik végre
+-- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre
 -- helyette az alábbi kód fut le
 CREATE OR ALTER TRIGGER ProductSoftDelete
   ON Product
@@ -727,7 +727,7 @@ AS
 SELECT p.Id, p.Name, p.Price, p.Stock, v.Percentage
 FROM Product p JOIN Vat v ON p.VATID=v.Id
 
--- Instead of TRIGGER a nézetre a beszúrás helyett
+-- Instead of trigger a nézetre a beszúrás helyett
 CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
 ON ProductWithVatPercentage
 instead of INSERT
@@ -739,7 +739,7 @@ AS
   SELECT i.Name, i.Price, i.Stock, v.ID, 1
     FROM inserted i JOIN Vat v ON v.Percentage = i.Percentage
 
--- A TRIGGER kipróbálható a nézetbe való beszúrással
+-- A trigger kipróbálható a nézetbe való beszúrással
 INSERT INTO ProductWithVatPercentage(Name, Price, Stock, Percentage)
 VALUES ('Red ball', 1234, 22, 27)
 ```

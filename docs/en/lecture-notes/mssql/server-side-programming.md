@@ -82,13 +82,13 @@ BEGIN
 END
 
 SELECT @num
--- This works, the variable IS also available outside the instruction block.
+-- This works, the variable is also available outside the instruction block.
 -- 3
 
 GO -- starts a new batch
 
 SELECT @num
--- Error: Must DECLARE the scalar variable "@num".
+-- Error: Must declare the scalar variable "@num".
 ```
 
 You can also assign value to a variable via a query:
@@ -109,7 +109,7 @@ DECLARE @name nvarchar (MAX)
 SELECT @name = Name
 FROM Customer
 -- there are multiple  matching rows
--- the last result of SELECT IS stored IN the variable
+-- the last result of SELECT is stored in the variable
 ```
 
 If the query does not yield any result, the value of the variable does not change:
@@ -147,7 +147,7 @@ SELECT @name = Name
 FROM Customer
 WHERE ID = 123
 
-IF @name IS NOT NULL -- IF the user EXISTS
+IF @name IS NOT NULL -- If the user exists
 BEGIN
   PRINT 'Updating email'
   UPDATE Customer
@@ -163,7 +163,7 @@ END
 We use the `WHILE` condition and a `BEGIN-END` statement block for looping:
 
 ```sql
--- Generate at least 1000 products (e.g., FOR testing)
+-- Generate at least 1000 products (e.g., for testing)
 WHILE (SELECT COUNT (*) FROM Product) <1000
 BEGIN
     INSERT INTO Product (Name, Price, Stock, VATID, CategoryID)
@@ -185,7 +185,7 @@ String functions:
 SELECT CONCAT('Happy ', 'Birthday!')
 -- Happy Birthday!
 
--- N characters FROM the LEFT
+-- N characters from the left
 SELECT LEFT('ABCDEF', 2)
 -- AB
 
@@ -205,7 +205,7 @@ SELECT LOWER('ABCDEF')
 Manage dates:
 
 ```sql
--- Current date AND time
+-- Current date and time
 SELECT GETDATE()
 -- 2021-09-28 10: 43: 59.120
 
@@ -219,7 +219,7 @@ SELECT DATEPART(month, '12 / 20/2021 ')
 -- 20
 -- 12
 
--- Difference BETWEEN dates measured IN a given unit (here: day)
+-- Difference between dates measured in a given unit (here: day)
 SELECT DATEDIFF(day, '2021-09-28 12:10:09', '2021-11-04 13:45:09')
 -- 37
 ```
@@ -234,7 +234,7 @@ SELECT CONVERT(int, '12')
 -- 12
 
 SELECT CONVERT(int, 'aa')
--- Error: Conversion failed WHEN converting the varchar value 'aa' to data type int.
+-- Error: Conversion failed when converting the varchar value 'aa' to data type int.
 
 SELECT TRY_CONVERT(int, 'aa')
 -- NULL
@@ -312,7 +312,7 @@ We can determine whether the `FETCH` statement was successful by querying the im
 The complete iteration thus requires **two** `FETCH` statements and one `WHILE` loop:
 
 ```sql
--- DECLARE, open ...
+-- declare, open ...
 FETCH NEXT FROM cur INTO @var1, @var2
 WHILE @@FETCH_STATUS = 0
 BEGIN
@@ -328,15 +328,15 @@ Note that the `FETCH` statement appears twice here. This is because the first on
 Let us see a complete example. Let us query products that have few items in stock left, and if the last sale was more than a year ago, discount the product price:
 
 ```sql
--- Extract the data FROM the cursor INTO these variables
+-- Extract the data from the cursor into these variables
 DECLARE @ProductName nvarchar(MAX)
 DECLARE @ProductID int
 DECLARE @LastOrder datetime
 
-DECLARE products_cur CURSOR SCROLL SCROLL_LOCKS -- Lock FOR guaranteed UPDATE
+DECLARE products_cur CURSOR SCROLL SCROLL_LOCKS -- Lock for guaranteed update
 FOR
   SELECT Id, Name FROM Product WHERE Stock < 3 -- Cursor query
-FOR UPDATE OF Price -- We also want to UPDATE the records
+FOR UPDATE OF Price -- We also want to update the records
 
 -- Typical opening, fetch, loop
 OPEN products_cur
@@ -344,7 +344,7 @@ FETCH FROM products_cur INTO @ProductID, @ProductName
 WHILE @@FETCH_STATUS = 0
 BEGIN
 
-  -- We can perform any operation IN the cycle
+  -- We can perform any operation in the cycle
   -- Find the time of the last purchase
   SELECT @LastOrder = MAX([Order].Date)
     FROM [Order] JOIN OrderItem ON [Order].Id = OrderItem.OrderId
@@ -358,11 +358,11 @@ BEGIN
     UPDATE Product
       SET Price = Price * 0.75
       WHERE CURRENT OF products_cur
-      -- UPDATE current cursor record
+      -- Update current cursor record
       -- Alternative: WHERE Id = @ProductID
   END
 
-  -- Query next record AND THEN GO to the WHILE loop to verify IF it was successful
+  -- Query next record and then go to the WHILE loop to verify if it was successful
   FETCH FROM products_cur INTO @ProductID, @ProductName
 END
 -- Stop using the cursor
@@ -394,9 +394,9 @@ The result of the `CREATE OR ALTER` statement is the creation of the stored proc
 For example, Let us create a new tax percentage record in the `VAT` table, guaranteeing that only unique percentages can be added:
 
 ```sql
-CREATE OR ALTER PROCEDURE InsertNewVAT -- CREATE a stored PROCEDURE
-    @Percentage int -- stored PROCEDURE parameters
-AS -- this IS WHERE the code begins, which the system executes WHEN the PROCEDURE IS called
+CREATE OR ALTER PROCEDURE InsertNewVAT -- create a stored procedure
+    @Percentage int -- stored procedure parameters
+AS -- this is where the code begins, which the system executes when the procedure is called
   BEGIN
   -- to avoid non-repeatable reading
   SET TRANSACTION isolation level repeatable read
@@ -456,10 +456,10 @@ Here's how to use this function:
 
 ```sql
 SELECT dbo.LargestVATPercentage()
--- The dbo prefix IS ​​the name of the schema, indicating that this IS NOT a built-IN FUNCTION
--- Without this, the FUNCTION IS NOT found
+-- The dbo prefix is ​​the name of the schema, indicating that this is not a built-in function
+-- Without this, the function is not found
 
--- OR FOR example
+-- or for example
 DECLARE @maxvat int = dbo.LargestVATPercentage()
 SELECT @maxvat
 ```
@@ -539,7 +539,7 @@ BEGIN TRY
   EXEC InsertNewVAT 27
 END TRY
 BEGIN CATCH
-  -- access the error details WITH the following functions (similar to stack trace IN other languages)
+  -- access the error details with the following functions (similar to stack trace in other languages)
   SELECT
     ERROR_NUMBER () AS ErrorNumber,
     ERROR_SEVERITY () AS ErrorSeverity,
@@ -565,11 +565,11 @@ Using triggers, we can solve several tasks that would be difficult otherwise. Co
 Let us look at this example: logging the deletion of any products in a dedicated table:
 
 ```sql
--- CREATE the auditing TABLE
+-- Create the auditing table
 CREATE TABLE AuditLog([Description] [nvarchar](MAX) NULL)
 GO
 
--- Logging TRIGGER
+-- Logging trigger
 CREATE OR ALTER TRIGGER ProductDeleteLog
   ON Product
   FOR DELETE
@@ -616,28 +616,28 @@ When inserting, the inserted records can be found in the database table (but the
 We have already seen an example of audit logging implemented with a trigger. Let us look at other use-cases. Let us have a table with an email address column. When inserting and modifying, we need to check the email address value, and we must not accept text that does not look like an email address. Here **we validate a rule of consistency** with the trigger.
 
 ```sql
--- CREATE a FUNCTION to check the email address
+-- Create a function to check the email address
 CREATE FUNCTION [IsEmailValid](@ email nvarchar(1000))
-RETURNS bit -- true / false RETURN value
+RETURNS bit -- true / false return value
 AS
 BEGIN
-  IF @email IS NULL RETURN 0 -- Cannot be NULL
+  IF @email IS NULL RETURN 0 -- Cannot be null
   IF @email = '' RETURN 0 -- Cannot be an empty string
-  IF @email LIKE '%_@%_._%' RETURN 1 -- Looks LIKE an email
+  IF @email LIKE '%_@%_._%' RETURN 1 -- Looks like an email
   RETURN 0
-  -- The same IN one line:
+  -- The same in one line:
   -- RETURN CASE WHEN ISNULL(@email, '') <> '' AND @email LIKE '%_@%_._%' THEN 1 ELSE 0 END
 END
 
--- The TRIGGER
+-- The trigger
 CREATE OR ALTER TRIGGER CustomerEmailSyntaxCheck
   ON Customer
-  FOR INSERT, UPDATE -- Check both inserting AND modifying
+  FOR INSERT, UPDATE -- Check both inserting and modifying
 AS
--- FOR both insertion AND modification, the new data IS IN the inserted TABLE
--- IS there an item there FOR which the new email address IS NOT valid?
+-- For both insertion and modification, the new data is in the inserted table
+-- Is there an item there for which the new email address is not valid?
 IF EXISTS(SELECT 1 FROM inserted i WHERE dbo.IsEmailValid(i.Email) = 0)
-  THROW 51234, 'invalid email address', 1 -- abort the TRANSACTION BY raising the error
+  THROW 51234, 'invalid email address', 1 -- abort the transaction by raising the error
 ```
 
 The above trigger runs after insertion or modification in the same transaction. So if we throw an error, the transaction will be aborted (unless handled by the caller). By running the trigger at the instruction level, a single faulty record interrupts the entire operation. Of course, this is what we expect due to atomicity: the indivisibility of the transaction is satisfied for the instruction as a whole, i.e., for inserting/modifying several records at once.
@@ -645,19 +645,19 @@ The above trigger runs after insertion or modification in the same transaction. 
 Another common use of triggers is **maintenance of denormalized data**. Although we try to avoid denormalization in a relational database, in practice, it may be necessary to store computed data for performance reasons. Let us look at an example of this as well. Suppose customers have two email addresses: one to sign in with, an optional second one to use for notifications. To avoid always having to query both email addresses and choosing between the two, let us make sure the _effective_ email address is available in the database "calculated" from the previous two:
 
 ```sql
--- Additional email address columns FOR customers
+-- Additional email address columns for customers
 ALTER TABLE Customer
 add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
 GO
 
--- TRIGGER to UPDATE the effective email address
+-- Trigger to update the effective email address
 CREATE OR ALTER TRIGGER CustomerEmailUpdate
   ON Customer
   FOR INSERT, UPDATE
 AS
-UPDATE Customer -- We modify the Customer TABLE, NOT the inserted implicit TABLE
-SET EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Copy one OR the other value to the EffectiveEmail column
-FROM Customer c JOIN inserted i ON c.ID = i.ID -- Records must be retrieved FROM the Customer TABLE based ON the inserted rows
+UPDATE Customer -- We modify the Customer table, not the inserted implicit table
+SET EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Copy one or the other value to the EffectiveEmail column
+FROM Customer c JOIN inserted i ON c.ID = i.ID -- Records must be retrieved from the Customer table based on the inserted rows
 ```
 
 !!! important "Trigger recursion"
@@ -700,12 +700,12 @@ A special type of trigger is the so-called _instead of trigger_. Such triggers c
 A typical use case for an _instead of_ trigger is, for example, when we do not want to perform a deletion. This is also called _soft delete_:,instead of deleting, we only mark the records as deleted:
 
 ```sql
--- Soft DELETE flag column IN the TABLE WITH a default value of 0 (i.e., false)
+-- Soft delete flag column in the table with a default value of 0 (i.e., false)
 ALTER TABLE Product
 add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
--- Instead of TRIGGER, the DELETE command does NOT perform the deletion
+-- Instead of trigger, the delete command does not perform the deletion
 -- the following code runs instead
 CREATE OR ALTER TRIGGER ProductSoftDelete
   ON Product
@@ -719,25 +719,25 @@ UPDATE Product
 Another typical use case for _instead of_ triggers is views. A view is the result of a query, so inserting new data into the view does not make sense. However, you can use an _instead of_ trigger to define what to do instead of "inserting into view." Let us look at an example. In the view below, we combine data from the product and VAT tables so that the VAT percentage is displayed in the view instead of the ID of the referenced VAT record. We can insert into this view by inserting the data into the product table instead:
 
 ```sql
--- Define the VIEW
+-- Define the view
 CREATE VIEW ProductWithVatPercentage
 AS
 SELECT p.Id, p.Name, p.Price, p.Stock, v.Percentage
 FROM Product p JOIN Vat v IS p.VATID = v.Id
 
--- Instead of TRIGGER FOR the VIEW
+-- Instead of trigger for the view
 CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
 ON ProductWithVatPercentage
 instead of INSERT
 AS
-  -- The insertion goes INTO the Product TABLE: a new row IS created FOR each inserted record
-  -- AND we find the VAT record corresponding to the provided percentage
-  -- The solution IS NOT complete because it does NOT handle IF there IS no matching VAT record
+  -- The insertion goes into the Product table: a new row is created for each inserted record
+  -- And we find the VAT record corresponding to the provided percentage
+  -- The solution is not complete because it does not handle if there is no matching VAT record
   INSERT INTO Product(Name, Price, Stock, VATID, CategoryID)
   SELECT i.Name, i.Price, i.Stock, v.ID, 1
     FROM inserted i JOIN VAT v ON v.Percentage = i.Percentage
 
--- The TRIGGER can be tested BY inserting data INTO the VIEW
+-- The trigger can be tested by inserting data into the view
 INSERT INTO ProductWithVatPercentage(Name, Price, Stock, Percentage)
 VALUES ('Red ball', 1234, 22, 27)
 ```
