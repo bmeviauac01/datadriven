@@ -397,11 +397,12 @@ Lássuk például az ÁFA kulcs rögzítését a `VAT` táblába annak garantál
 ```sql
 create or alter procedure InsertNewVAT -- tárolt eljárás létrehozása, neve
     @Percentage int                    -- tárolt eljárás paraméterei
-as
+as -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer
   begin
-  -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer
-  begin tran                            -- nem megismételhető olvasás elkerülése végett
+  
+  -- nem megismételhető olvasás elkerülése végett
   set transaction isolation level repeatable read
+  begin tran                            
 
   declare @Count int
 
@@ -515,8 +516,8 @@ create or alter procedure InsertNewVAT
 as
 begin
 
-  begin tran
   set transaction isolation level repeatable read
+  begin tran
 
   declare @Count int
 
