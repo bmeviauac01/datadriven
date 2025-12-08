@@ -509,27 +509,27 @@ In the stored procedure example, we wanted to prevent duplicate records from bei
 The updated procedure for recording the VAT key looks like this:
 
 ```sql hl_lines="18"
-create or alter procedure InsertNewVAT
+CREATE OR ALTER PROCEDURE InsertNewVAT
     @Percentage int
-as
-begin
+AS
+BEGIN
 
-  set transaction isolation level repeatable read
-  begin tran
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values ​​(@Percentage)
-  else
-      throw 51000, 'error', 1;
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES ​​(@Percentage)
+  ELSE
+      THROW 51000, 'error', 1;
 
-  commit
-end
+  COMMIT
+END
 ```
 
 To handle (catch) an error, you can use the following syntax:

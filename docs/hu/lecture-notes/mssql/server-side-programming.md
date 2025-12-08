@@ -511,27 +511,27 @@ A tárolt eljárást ismertető példában meg akartuk akadályozni a duplikált
 Ezzel kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:
 
 ```sql hl_lines="18"
-create or alter procedure InsertNewVAT
+CREATE OR ALTER PROCEDURE InsertNewVAT
     @Percentage int
-as
-begin
+AS
+BEGIN
 
-  set transaction isolation level repeatable read
-  begin tran
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values (@Percentage)
-  else
-      throw 51000, 'error', 1;
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES (@Percentage)
+  ELSE
+      THROW 51000, 'error', 1;
 
-  commit
-end
+  COMMIT
+END
 ```
 
 Hiba lekezelése (elkapására) az alábbi szintaktikát használhatjuk:
