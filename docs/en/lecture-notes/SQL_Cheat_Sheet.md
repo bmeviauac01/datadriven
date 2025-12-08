@@ -16,9 +16,9 @@ In this cheat sheet, the query syntax of various programming languages are compa
 
 **SQL:**
 
-```SQL
+```sql
 SELECT column1, column2
-FROM table
+FROM TABLE
 WHERE condition;
 ```
 
@@ -64,7 +64,7 @@ collection
 ## WHERE
 **SQL:**
 
-```SQL
+```sql
 SELECT *
 FROM table_name
 WHERE column_name = "Example";
@@ -72,7 +72,7 @@ WHERE column_name = "Example";
 
 Query where a field is `NULL`:
 
-```SQL
+```sql
 SELECT *
 FROM table_name
 WHERE column_name IS NULL;
@@ -81,14 +81,14 @@ WHERE column_name IS NULL;
 
 `ISNULL` function: If there is a value in the salary column, the query continues with that value. Otherwise, it uses the value provided as the second parameter (in this case, 0).
 
-```SQL
+```sql
 SELECT employee_id, employee_name, ISNULL(salary, 0) AS modified_salary
 FROM employees;
 ```
 
 Subqueries can be named, and their results can be referenced. The example below (from the Microsoft SQL seminar) finds the product category with the most items.
 
-```SQL
+```sql
 SELECT TOP 1 Name, (SELECT COUNT(*) FROM Product WHERE Product.CategoryID = c.ID) AS cnt
 FROM Category c
 ORDER BY cnt DESC
@@ -123,7 +123,7 @@ collection.Find(item => item.Column == value).ToList();
 **SQL:**
 
 In cases where you want to retrieve only one or just a few row from your queries.
-```SQL
+```sql
 SELECT TOP 1 *
 FROM Product
 ORDER BY Name
@@ -159,7 +159,7 @@ collection.Find(...).Skip(10).Limit(10);
 **SQL:**
 
 List the names of products starting with 'M' and their ordered quantities, including products with zero orders.
-```SQL
+```sql
 SELECT p.Name, SUM(oi.Amount)
 FROM Product p
      LEFT OUTER JOIN OrderItem oi ON p.id = oi.ProductID
@@ -237,7 +237,7 @@ var r=productsCollection
 
 **SQL:**
 
-```SQL
+```sql
 ORDER BY column1 ASC, column2 DESC;
 ```
 
@@ -262,7 +262,7 @@ itemcollection.Sort(Builders<CollectionItem>
 
 **SQL:**
 
-```SQL
+```sql
 SELECT table1.column, table2.column
 FROM table1
 JOIN table2 ON table1.column = table2.column;
@@ -293,7 +293,7 @@ var query = from item1 in context.Table1
 
 **SQL:**
 
-```SQL
+```sql
 SELECT DISTINCT p.Name
 FROM Product p
 ```
@@ -318,14 +318,14 @@ var xd = productsCollection
 
 **Task:** Price of the most expensive item.
 
-```SQL
+```sql
 SELECT MAX(Price)
 FROM Product
 ```
 
 **Task:** The most expensive items.
 
-```SQL
+```sql
 SELECT *
 FROM Product
 WHERE Price=(SELECT MAX(Price) FROM Product)
@@ -372,7 +372,7 @@ var q=ordersCollection.Aggregate()
 
 **SQL:**
 
-```SQL
+```sql
 DELETE
 FROM Product
 WHERE ID = 23
@@ -405,14 +405,14 @@ Use `DeleteMany` if you want to delete multiple records.
 
 **SQL:**
 
-```SQL
+```sql
 INSERT INTO Product
-VALUES ('aa', 100, 0, 3, 2, null)
+VALUES ('aa', 100, 0, 3, 2, NULL)
 ```
 
 When inserting the results of an other query:
 
-```SQL
+```sql
 INSERT INTO Product (Name, Price)
 SELECT Name, Price
 FROM InvoiceItem
@@ -447,7 +447,7 @@ collection.InsertOne(newProduct);
 
 **Task:** Increase the prices of products containing the word "Lego" in their names by 10%.
 
-```SQL
+```sql
 UPDATE Product
 SET Price = 1.1*Price
 WHERE Name LIKE '%Lego%'
@@ -456,7 +456,7 @@ WHERE Name LIKE '%Lego%'
 If you want to assign values from another table in the SET command, as shown in the example below (from the Microsoft SQL seminar):
 **Task:** Copy the status of order ID 9 to all corresponding OrderItems.
 
-```SQL
+```sql
 UPDATE OrderItem
 SET StatusID = o.StatusID
 FROM OrderItem oi
