@@ -2081,11 +2081,12 @@
 <p>Lássuk például az ÁFA kulcs rögzítését a <code>VAT</code> táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:</p>
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- tárolt eljárás létrehozása, neve</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span><span class="w">                    </span><span class="c1">-- tárolt eljárás paraméterei</span>
-<span class="k">as</span>
+<span class="k">as</span><span class="w"> </span><span class="c1">-- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer</span>
 <span class="w">  </span><span class="k">begin</span>
-<span class="w">  </span><span class="c1">-- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span><span class="w">                            </span><span class="c1">-- nem megismételhető olvasás elkerülése végett</span>
+
+<span class="w">  </span><span class="c1">-- nem megismételhető olvasás elkerülése végett</span>
 <span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span><span class="w">                            </span>
 
 <span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2166,8 +2167,8 @@
 <span class="k">as</span>
 <span class="k">begin</span>
 
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
 <span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
 
 <span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2383,8 +2384,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 17. 00:45:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2023. november 17. 00:45:36 CET"><span class="timeago" datetime="2023-11-17T00:45:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2023. november 17. 00:45:36 CET">2023-11-17</span>
+      <span title="2025. december 8. 15:03:28">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. december 8. 15:03:28 CET"><span class="timeago" datetime="2025-12-08T15:03:28+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. december 8. 15:03:28 CET">2025-12-08</span>
       </span>
     </span>
 
@@ -2408,8 +2409,6 @@
           <img src="https://avatars.githubusercontent.com/u/56506014?u=77f2a2176a77f1e01f056fea187d20f94bafb779&amp;v=4?size=72" alt="@Zsombor Szommer">
         </a><a href="https://github.com/MrPatesz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Patrik Ángyán">
           <img src="https://avatars.githubusercontent.com/u/58144458?u=ffe84f658d7c858325ccb38b2e6cda8ae065ceb7&amp;v=4?size=72" alt="@Patrik Ángyán">
-        </a><a href="https://github.com/Szofficsok" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/79463616?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tamasgal55" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gál Tamás">
           <img src="https://avatars.githubusercontent.com/u/79400429?v=4?size=72" alt="@Gál Tamás">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
