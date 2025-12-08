@@ -396,11 +396,11 @@ For example, Let us create a new tax percentage record in the `VAT` table, guara
 ```sql
 create or alter procedure InsertNewVAT -- create a stored procedure
     @Percentage int -- stored procedure parameters
-as
+as -- this is where the code begins, which the system executes when the procedure is called
   begin
-  -- this is where the code begins, which the system executes when the procedure is called
-  begin tran -- to avoid non-repeatable reading
+  -- to avoid non-repeatable reading
   set transaction isolation level repeatable read
+  begin tran
 
   declare @Count int
 
@@ -514,8 +514,8 @@ create or alter procedure InsertNewVAT
 as
 begin
 
-  begin tran
   set transaction isolation level repeatable read
+  begin tran
 
   declare @Count int
 
