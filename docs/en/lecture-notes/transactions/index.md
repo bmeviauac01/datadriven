@@ -367,7 +367,7 @@ SELECT
     Resource_type, request_status,  request_session_id
 FROM
     sys.dm_tran_locks dtl
-    join sys.partitions P
+    JOIN sys.partitions P
 ON dtl.resource_associated_entity_id = p.hobt_id
 ```
 

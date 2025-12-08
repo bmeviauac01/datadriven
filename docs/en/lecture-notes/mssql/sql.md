@@ -7,17 +7,17 @@ You can run these queries on the [sample database](../../db/index.md).
 Which product costs less than 2000 and have less than 50 in stock?
 
 ```sql
-select Name, Price, Stock
-from Product
-where Price<2000 and Stock<50
+SELECT Name, Price, Stock
+FROM Product
+WHERE Price<2000 AND Stock<50
 ```
 
 Which product has no description?
 
 ```sql
-select *
-from Product
-where Description is null
+SELECT *
+FROM Product
+WHERE Description IS NULL
 ```
 
 ## Joining tables
@@ -25,47 +25,47 @@ where Description is null
 Customers with a main site in Budapest (the two alternatives are equivalent).
 
 ```sql
-select *
-from Customer c, CustomerSite s
-where c.MainCustomerSiteID=s.ID and City='Budapest'
+SELECT *
+FROM Customer c, CustomerSite s
+WHERE c.MainCustomerSiteID=s.ID AND City='Budapest'
 
-select *
-from Customer c inner join CustomerSite s on c.MainCustomerSiteID=s.ID
-where City='Budapest'
+SELECT *
+FROM Customer c INNER JOIN CustomerSite s ON c.MainCustomerSiteID=s.ID
+WHERE City='Budapest'
 ```
 
 List the products that start with letter M, the ordered amounts and deadlines. Include the products that have not been ordered yet.
 
 ```sql
-select p.Name, sum(oi.Amount)
-from Product p
-     left outer join OrderItem oi on p.id=oi.ProductID
-where p.Name like 'M%'
-group by p.Name
+SELECT p.Name, SUM(oi.Amount)
+FROM Product p
+     LEFT OUTER JOIN OrderItem oi ON p.id=oi.ProductID
+WHERE p.Name LIKE 'M%'
+GROUP BY p.Name
 ```
 
 ## Sorting
 
 ```sql
-select *
-from Product
-order by Name
+SELECT *
+FROM Product
+ORDER BY Name
 ```
 
 Microsoft SQL Server specific: _collation_ specifies the rules for sorting
 
 ```sql
-select *
-from Product
-order by Name collate SQL_Latin1_General_Cp1_CI_AI
+SELECT *
+FROM Product
+ORDER BY Name collate SQL_Latin1_General_Cp1_CI_AI
 ```
 
 Sort by multiple fields
 
 ```sql
-select *
-from Product
-order by Stock desc, Price
+SELECT *
+FROM Product
+ORDER BY Stock DESC, Price
 ```
 
 ## Subqueries
@@ -73,18 +73,18 @@ order by Stock desc, Price
 List the order dates, deadlines and Statuses
 
 ```sql
-select o.Date, o.Deadline, s.Name
-from [Order] o inner join Status s on o.StatusId=s.ID
+SELECT o.Date, o.Deadline, s.Name
+FROM [Order] o INNER JOIN Status s ON o.StatusId=s.ID
 ```
 
 An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the inner join!
 
 ```sql
-select o.Date, o.Deadline,
-       (select s.Name
-        from Status s
-        where o.StatusId=s.ID)
-from [Order] o
+SELECT o.Date, o.Deadline,
+       (SELECT s.Name
+        FROM Status s
+        WHERE o.StatusId=s.ID)
+FROM [Order] o
 ```
 
 !!! info "`[Order]`"
@@ -95,9 +95,9 @@ from [Order] o
 Which products have been ordered in batches of more than 3? One product may have been ordered multiple times, but we want the name only once.
 
 ```sql
-select distinct p.Name
-from Product p inner join OrderItem oi on oi.ProductID=p.ID
-where oi.Amount>3
+SELECT DISTINCT p.Name
+FROM Product p INNER JOIN OrderItem oi ON oi.ProductID=p.ID
+WHERE oi.Amount>3
 ```
 
 ## Aggregate functions
@@ -105,28 +105,28 @@ where oi.Amount>3
 How much is the most expensive product?
 
 ```sql
-select max(Price)
-from Product
+SELECT MAX(Price)
+FROM Product
 ```
 
 Which are the most expensive products?
 
 ```sql
-select *
-from Product
-where Price=(select max(Price) from Product)
+SELECT *
+FROM Product
+WHERE Price=(SELECT MAX(Price) FROM Product)
 ```
 
 What was the min, max and average selling price of each product with name containing _Lego_ having an average selling price more than 10000
 
 ```sql
-select p.Id, p.Name, min(oi.Price), max(oi.Price), sum(oi.Price*oi.Amount)/sum(oi.Amount)
-from Product p
-     inner join OrderItem oi on p.ID=oi.ProductID
-Where p.Name like '%Lego%'
-group by p.Id, p.Name
-having avg(oi.Price)>10000
-order by 2
+SELECT p.Id, p.Name, MIN(oi.Price), MAX(oi.Price), SUM(oi.Price*oi.Amount)/SUM(oi.Amount)
+FROM Product p
+     INNER JOIN OrderItem oi ON p.ID=oi.ProductID
+WHERE p.Name LIKE '%Lego%'
+GROUP BY p.Id, p.Name
+HAVING AVG(oi.Price)>10000
+ORDER BY 2
 ```
 
 ## Inserting records
@@ -134,50 +134,50 @@ order by 2
 Inserting a single record by assigning value to all columns (except _identity_)
 
 ```sql
-insert into Product
-values ('aa', 100, 0, 3, 2, null)
+INSERT INTO Product
+VALUES ('aa', 100, 0, 3, 2, NULL)
 ```
 
 Set values of selected columns only
 
 ```sql
-insert into Product (Name,Price)
-values ('aa', 100)
+INSERT INTO Product (Name,Price)
+VALUES ('aa', 100)
 ```
 
 Insert the result of a query
 
 ```sql
-insert into Product (Name, Price)
-select Name, Price
-from InvoiceItem
-where Amount>2
+INSERT INTO Product (Name, Price)
+SELECT Name, Price
+FROM InvoiceItem
+WHERE Amount>2
 ```
 
 MSSQL specific: identity column
 
 ```sql
-create table VAT
+CREATE TABLE VAT
 (
-   ID int identity primary key,
+   ID int IDENTITY PRIMARY KEY,
    Percentage int
 )
 
-insert into VAT(Percentage)
-values (27)
+INSERT INTO VAT(Percentage)
+VALUES (27)
 
-select @@identity
+SELECT @@IDENTITY
 ```
 
 MSSQL specific: setting the value of _identity_ column
 
 ```sql
-set identity_insert VAT on
+SET identity_insert VAT ON
 
-insert into VAT (ID, Percentage)
-values (123, 27)
+INSERT INTO VAT (ID, Percentage)
+VALUES (123, 27)
 
-set identity_insert VAT off
+SET identity_insert VAT off
 ```
 
 ## Updating records
@@ -185,43 +185,43 @@ set identity_insert VAT off
 Raise the price of LEGOs by 10% and add 5 to stock
 
 ```sql
-update Product
-set Price=1.1*Price,
+UPDATE Product
+SET Price=1.1*Price,
     Stock=Stock+5
-where Name like '%Lego%'
+WHERE Name LIKE '%Lego%'
 ```
 
 Update based on filtering by referenced table content: raise the price by 10% for those products that are subject to 20% VAT, and have more then 10 pcs in stock
 
 ```sql
-update Product
-set Price=1.1*Price
-where Stock>10
-and VATID in
+UPDATE Product
+SET Price=1.1*Price
+WHERE Stock>10
+AND VATID IN
 (
-    select ID
-    from VAT
-    where Percentage=20
+    SELECT ID
+    FROM VAT
+    WHERE Percentage=20
 )
 ```
 
 MSSQL Server specific solution to the same task
 
 ```sql
-update Product
-set Price=1.1*Price
-from Product p
-     inner join VAT v on p.VATID=v.ID
-where Stock>10
-      and Percentage=20
+UPDATE Product
+SET Price=1.1*Price
+FROM Product p
+     INNER JOIN VAT v ON p.VATID=v.ID
+WHERE Stock>10
+      AND Percentage=20
 ```
 
 ## Deleting records
 
 ```sql
-delete
-from Product
-where ID>10
+DELETE
+FROM Product
+WHERE ID>10
 ```
 
 ## Assigning ranks
@@ -229,19 +229,19 @@ where ID>10
 Assigning ranks by ordering
 
 ```sql
-select p.*,
-       rank() over (order by Name) as r,
-       dense_rank() over (order by Name) as dr
-from Product p
+SELECT p.*,
+       rank() over (ORDER BY Name) AS r,
+       dense_rank() over (ORDER BY Name) AS dr
+FROM Product p
 ```
 
 Ranking within groups
 
 ```sql
-select p.*
-       ,rank() over (partition by CategoryID order by Name) as r
-       ,dense_rank() over (partition by CategoryID order by Name) as dr
-from Product p
+SELECT p.*
+       ,rank() over (partition BY CategoryID ORDER BY Name) AS r
+       ,dense_rank() over (partition BY CategoryID ORDER BY Name) AS dr
+FROM Product p
 ```
 
 !!! example "Rank and dense_rank"
@@ -254,77 +254,77 @@ Motivation: subqueries often make queries complex
 First three products sorted by name alphabetically
 
 ```sql
-select *
-from
+SELECT *
+FROM
 (
-    select p.*
-            ,rank() over (order by Name) as r
-            ,dense_rank() over (order by Name) as dr
-    from Product p
+    SELECT p.*
+            ,rank() over (ORDER BY Name) AS r
+            ,dense_rank() over (ORDER BY Name) AS dr
+    FROM Product p
 ) a
-where a.dr<=3
+WHERE a.dr<=3
 ```
 
 Same solution using CTE
 
 ```sql
-with q1
-as
+WITH q1
+AS
 (
-    select *
-           ,rank() over (order by Name) as r
-          ,dense_rank() over (order by Name) as dr
-    from Product
+    SELECT *
+           ,rank() over (ORDER BY Name) AS r
+          ,dense_rank() over (ORDER BY Name) AS dr
+    FROM Product
 )
-select *
-from q1
-where q1.dr<=3
+SELECT *
+FROM q1
+WHERE q1.dr<=3
 ```
 
 How many pieces have been sold from the second most expensive product?
 
 ```sql
-with q
-as
+WITH q
+AS
 (
-    select *
-            , dense_rank() over (order by Price desc) dr
-    from Product
+    SELECT *
+            , dense_rank() over (ORDER BY Price DESC) dr
+    FROM Product
 )
-select q.ID, q.Name, sum(Amount)
-from q
-     inner join OrderItem oi on oi.ProductID=q.ID
-where q.dr = 2
-group by q.ID, q.Name
+SELECT q.ID, q.Name, SUM(Amount)
+FROM q
+     INNER JOIN OrderItem oi ON oi.ProductID=q.ID
+WHERE q.dr = 2
+GROUP BY q.ID, q.Name
 ```
 
 Paging: list products alphabetically from 3. to 8. record
 
 ```sql
-with q
-as
+WITH q
+AS
 (
-    select *
-            , rank() over (order by Name) r
-    from Product
+    SELECT *
+            , rank() over (ORDER BY Name) r
+    FROM Product
 )
-select *
-from q
-where q.r between 3 and 8
+SELECT *
+FROM q
+WHERE q.r BETWEEN 3 AND 8
 ```
 
 Paging using MSSQL Server (2012+) specific syntax
 
 ```sql
-select *
-from Product
-order by Name
+SELECT *
+FROM Product
+ORDER BY Name
 offset 2 rows
 fetch next 6 rows only
 
-select top 3 *
-from Product
-order by Name
+SELECT TOP 3 *
+FROM Product
+ORDER BY Name
 ```
 
 ## Querying XML documents
@@ -362,8 +362,8 @@ Let us have a table with an XML column. In addition to querying the entire XML v
 Let us query how many packages the products consist of.
 
 ```sql
-select Description.query('/product/package_parameters/number_of_packages')
-from Product
+SELECT Description.query('/product/package_parameters/number_of_packages')
+FROM Product
 ```
 
 For example, this could yield:
@@ -375,8 +375,8 @@ For example, this could yield:
 The function `query()` returns XML; if it is only the value that is needed, we can use the `value()` function. The `value()` function must also specify the type of data queried as a string literal.
 
 ```sql
-select Description.value('(/product/package_parameters/number_of_packages)[1]', 'int')
-from Product
+SELECT Description.value('(/product/package_parameters/number_of_packages)[1]', 'int')
+FROM Product
 ```
 
 The result will be 1.
@@ -387,9 +387,9 @@ The result will be 1.
 Let us query the names of the recommended products for ages 0-18 months.
 
 ```sql
-select Name
-from Product
-where Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
+SELECT Name
+FROM Product
+WHERE Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
 ```
 
 Function `exist()` returns 1 if the _XQuery_ expression evaluation yields a non-empty result; or 0 if the query result is empty.
@@ -397,9 +397,9 @@ Function `exist()` returns 1 if the _XQuery_ expression evaluation yields a non-
 We can also use the `value()` method instead of `exist()` here.
 
 ```sql
-select Name
-from Product
-where Description.value('(/product/recommended_age)[1]', 'varchar(max)')='0-18 m'
+SELECT Name
+FROM Product
+WHERE Description.value('(/product/recommended_age)[1]', 'varchar(MAX)')='0-18 m'
 ```
 
 ### Manipulating queries
@@ -409,11 +409,11 @@ We can not only query XML data, but also modify it in place. The modification in
 In the product called Lego City harbor, let us change the recommended age to 6-99 years.
 
 ```sql
-update Product
-set Description.modify(
+UPDATE Product
+SET Description.modify(
 'replace value of (/product/recommended_age/text())[1]
-with "6-99 y"')
-where Name='Lego City harbour'
+WITH "6-99 y"')
+WHERE Name='Lego City harbour'
 ```
 
 The XML DML expression consists of two parts: in the first part (`replace value of`) the element to be modified is selected; in the second part (`with`) the new value is specified. Only one element can be modified within an XML, so the path must be specified to match only one element - thus the `[1]` at the end of the example.
@@ -421,11 +421,11 @@ The XML DML expression consists of two parts: in the first part (`replace value 
 Let us insert a `weigth` tag into the XML description of product Lego City harbor after the `package_size` tag.
 
 ```sql
-update Product
-set Description.modify(
-'insert <weight>2.28</weight>
+UPDATE Product
+SET Description.modify(
+'INSERT <weight>2.28</weight>
 after (/product/package_parameters/package_size)[1]')
-where Name='Lego City harbour'
+WHERE Name='Lego City harbour'
 ```
 
 The expression has of two parts here too: the first one (`insert`) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.
@@ -433,9 +433,9 @@ The expression has of two parts here too: the first one (`insert`) specifies the
 Let us remove the `description` tag(s) from the description of every product.
 
 ```sql
-update Product
-set Description.modify('delete /product/description')
-where Description is not null
+UPDATE Product
+SET Description.modify('DELETE /product/description')
+WHERE Description IS NOT NULL
 ```
 
 When deleting, we specify the path of the items to be deleted after `delete`.

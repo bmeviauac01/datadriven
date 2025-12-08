@@ -7,17 +7,17 @@ A példák a [minta adatbázison](../../db/index.md) futtathatóak.
 Melyik termék olcsóbb mint 2000 és kevesebb, mint 50 db van belőle?
 
 ```sql
-select Name, Price, Stock
-from Product
-where Price<2000 and Stock<50
+SELECT Name, Price, Stock
+FROM Product
+WHERE Price<2000 AND Stock<50
 ```
 
 Melyik termékhez nincs leírás?
 
 ```sql
-select *
-from Product
-where Description is null
+SELECT *
+FROM Product
+WHERE Description IS NULL
 ```
 
 ## Táblák összekapcsolása
@@ -25,47 +25,47 @@ where Description is null
 Budapesti központi telephellyel rendelkező vevők (a két megoldás ekvivalens)
 
 ```sql
-select *
-from Customer c, CustomerSite s
-where c.MainCustomerSiteID=s.ID and City='Budapest'
+SELECT *
+FROM Customer c, CustomerSite s
+WHERE c.MainCustomerSiteID=s.ID AND City='Budapest'
 
-select *
-from Customer c inner join CustomerSite s on c.MainCustomerSiteID=s.ID
-where City='Budapest'
+SELECT *
+FROM Customer c INNER JOIN CustomerSite s ON c.MainCustomerSiteID=s.ID
+WHERE City='Budapest'
 ```
 
 Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
 
 ```sql
-select p.Name, Sum(oi.Amount)
-from Product p
-     left outer join OrderItem oi on p.id=oi.ProductID
-where p.Name like 'M%'
-group by p.Name
+SELECT p.Name, SUM(oi.Amount)
+FROM Product p
+     LEFT OUTER JOIN OrderItem oi ON p.id=oi.ProductID
+WHERE p.Name LIKE 'M%'
+GROUP BY p.Name
 ```
 
 ## Rendezés
 
 ```sql
-select *
-from Product
-order by Name
+SELECT *
+FROM Product
+ORDER BY Name
 ```
 
 Microsoft SQL Server specifikus: _collation_ a rendezés szabályait adja meg
 
 ```sql
-select *
-from Product
-order by Name collate SQL_Latin1_General_Cp1_CI_AI
+SELECT *
+FROM Product
+ORDER BY Name collate SQL_Latin1_General_Cp1_CI_AI
 ```
 
 Több mező szerinti rendezés
 
 ```sql
-select *
-from Product
-order by Stock desc, Price
+SELECT *
+FROM Product
+ORDER BY Stock DESC, Price
 ```
 
 ## Allekérdezések
@@ -73,18 +73,18 @@ order by Stock desc, Price
 Listázzuk ki a megrendelések dátumát, határidejét és Status-át
 
 ```sql
-select o.Date, o.Deadline, s.Name
-from [Order] o inner join Status s on o.StatusId=s.ID
+SELECT o.Date, o.Deadline, s.Name
+FROM [Order] o INNER JOIN Status s ON o.StatusId=s.ID
 ```
 
 Alternatív, de nem ekvivalens megoldás: az allekérdezés az outer joinnak felel meg!
 
 ```sql
-select o.Date, o.Deadline,
-       (select s.Name
-        from Status s
-        where o.StatusId=s.ID)
-from [Order] o
+SELECT o.Date, o.Deadline,
+       (SELECT s.Name
+        FROM Status s
+        WHERE o.StatusId=s.ID)
+FROM [Order] o
 ```
 
 !!! info "`[Order]`"
@@ -95,9 +95,9 @@ from [Order] o
 Melyek azok a termékek, melyből egyszerre több, mint 3 db-ot rendeltek? Ugyanabból a termékből több alkalommal is előfordulhatott, de csak egyszer szeretnénk a nevét látni.
 
 ```sql
-select distinct p.Name
-from Product p inner join OrderItem oi on oi.ProductID=p.ID
-where oi.Amount>3
+SELECT DISTINCT p.Name
+FROM Product p INNER JOIN OrderItem oi ON oi.ProductID=p.ID
+WHERE oi.Amount>3
 ```
 
 ## Oszlopfüggvények
@@ -105,28 +105,28 @@ where oi.Amount>3
 Mennyibe kerül a legdrágább termék?
 
 ```sql
-select max(Price)
-from Product
+SELECT MAX(Price)
+FROM Product
 ```
 
 Melyek a legdrágább termékek?
 
 ```sql
-select *
-from Product
-where Price=(select max(Price) from Product)
+SELECT *
+FROM Product
+WHERE Price=(SELECT MAX(Price) FROM Product)
 ```
 
 Azon termékeket min, max és átlag mennyiért adták el, melyek nevében szerepel a Lego és az átlag eladási áruk 10.000-nél nagyobb
 
 ```sql
-select p.Id, p.Name, min(oi.Price), max(oi.Price), avg(oi.Price)
-from Product p
-     inner join OrderItem oi on p.ID=oi.ProductID
-Where p.Name like '%Lego%'
-group by p.Id, p.Name
-having avg(oi.Price)>10000
-order by 2
+SELECT p.Id, p.Name, MIN(oi.Price), MAX(oi.Price), AVG(oi.Price)
+FROM Product p
+     INNER JOIN OrderItem oi ON p.ID=oi.ProductID
+WHERE p.Name LIKE '%Lego%'
+GROUP BY p.Id, p.Name
+HAVING AVG(oi.Price)>10000
+ORDER BY 2
 ```
 
 ## Rekordok létrehozása
@@ -134,50 +134,50 @@ order by 2
 Egy rekord létrehozása minden oszlop (kivéve _identity_) adatának megadásával
 
 ```sql
-insert into Product
-values ('aa', 100, 0, 3, 2, null)
+INSERT INTO Product
+VALUES ('aa', 100, 0, 3, 2, NULL)
 ```
 
 Csak megnevezett oszlopok értékeinek kitöltése
 
 ```sql
-insert into Product (Name,Price)
-values ('aa', 100)
+INSERT INTO Product (Name,Price)
+VALUES ('aa', 100)
 ```
 
 Lekérdezés eredményeinek beszúrása
 
 ```sql
-insert into Product (Name, Price)
-select Name, Price
-from InvoiceItem
-where Amount>2
+INSERT INTO Product (Name, Price)
+SELECT Name, Price
+FROM InvoiceItem
+WHERE Amount>2
 ```
 
 MSSQL specifikus: identity oszlop
 
 ```sql
-create table VAT
+CREATE TABLE VAT
 (
-   ID int identity primary key,
+   ID int IDENTITY PRIMARY KEY,
    Percentage int
 )
 
-insert into VAT(Percentage)
-values (27)
+INSERT INTO VAT(Percentage)
+VALUES (27)
 
-select @@identity
+SELECT @@IDENTITY
 ```
 
 MSSQL specifikus: értékadás _identity_ oszlopnak
 
 ```sql
-set identity_insert VAT on
+SET identity_insert VAT ON
 
-insert into VAT (ID, Percentage)
-values (123, 27)
+INSERT INTO VAT (ID, Percentage)
+VALUES (123, 27)
 
-set identity_insert VAT off
+SET identity_insert VAT off
 ```
 
 ## Rekordok módosítása
@@ -185,43 +185,43 @@ set identity_insert VAT off
 A Legók árát emeljük meg 10%-kal és a raktárkészletünket 5 db-bal
 
 ```sql
-update Product
-set Price=1.1*Price,
+UPDATE Product
+SET Price=1.1*Price,
     Stock=Stock+5
-where Name like '%Lego%'
+WHERE Name LIKE '%Lego%'
 ```
 
 Módosítás, ha kapcsolódó tábla alapján kell szűrni: emeljük meg 10%-kal azon 20%-os ÁFA kulcsú termékek árát, melyből, több mint 10 db van raktáron
 
 ```sql
-update Product
-set Price=1.1*Price
-where Stock>10
-and VATID in
+UPDATE Product
+SET Price=1.1*Price
+WHERE Stock>10
+AND VATID IN
 (
-    select ID
-    from VAT
-    where Percentage=20
+    SELECT ID
+    FROM VAT
+    WHERE Percentage=20
 )
 ```
 
 MSSQL Server specifikus szintaktika az előzőre
 
 ```sql
-update Product
-set Price=1.1*Price
-from Product p
-     inner join VAT v on p.VATID=v.ID
-where Stock>10
-      and Percentage=20
+UPDATE Product
+SET Price=1.1*Price
+FROM Product p
+     INNER JOIN VAT v ON p.VATID=v.ID
+WHERE Stock>10
+      AND Percentage=20
 ```
 
 ## Rekordok törlése
 
 ```sql
-delete
-from Product
-where ID>10
+DELETE
+FROM Product
+WHERE ID>10
 ```
 
 ## Sorszámozás
@@ -229,19 +229,19 @@ where ID>10
 Sorszámozás egy adott rendezés szerint
 
 ```sql
-select p.*,
-       rank() over (order by Name) as r,
-       dense_rank() over (order by Name) as dr
-from Product p
+SELECT p.*,
+       rank() over (ORDER BY Name) AS r,
+       dense_rank() over (ORDER BY Name) AS dr
+FROM Product p
 ```
 
 Sorszámozás csoportosításonként
 
 ```sql
-select p.*
-       ,rank() over (partition by CategoryID order by Name) as r
-       ,dense_rank() over (partition by CategoryID order by Name) as dr
-from Product p
+SELECT p.*
+       ,rank() over (partition BY CategoryID ORDER BY Name) AS r
+       ,dense_rank() over (partition BY CategoryID ORDER BY Name) AS dr
+FROM Product p
 ```
 
 !!! example "Rank és dense_rank"
@@ -254,77 +254,77 @@ Motiváció: allekérdezéssel nehezen áttekinthetővé válnak a lekérdezése
 ABC sorrendben melyik az első három termék
 
 ```sql
-select *
-from
+SELECT *
+FROM
 (
-    select p.*
-            ,rank() over (order by Name) as r
-            ,dense_rank() over (order by Name) as dr
-    from Product p
+    SELECT p.*
+            ,rank() over (ORDER BY Name) AS r
+            ,dense_rank() over (ORDER BY Name) AS dr
+    FROM Product p
 ) a
-where a.dr<=3
+WHERE a.dr<=3
 ```
 
 Ugyan az a lekérdezés CTE használatával
 
 ```sql
-with q1
-as
+WITH q1
+AS
 (
-    select *
-            ,rank() over (order by Name) as r
-            ,dense_rank() over (order by Name) as dr
-    from Product
+    SELECT *
+            ,rank() over (ORDER BY Name) AS r
+            ,dense_rank() over (ORDER BY Name) AS dr
+    FROM Product
 )
-select *
-from q1
-where q1.dr<=3
+SELECT *
+FROM q1
+WHERE q1.dr<=3
 ```
 
 Hány darabot adtak el a második legdrágább termékből?
 
 ```sql
-with q
-as
+WITH q
+AS
 (
-    select *
-            , dense_rank() over (order by Price desc) as dr
-    from Product
+    SELECT *
+            , dense_rank() over (ORDER BY Price DESC) AS dr
+    FROM Product
 )
-select q.ID, q.Name, sum(Amount)
-from q
-     inner join OrderItem oi on oi.ProductID=q.ID
-where q.dr = 2
-group by q.ID, q.Name
+SELECT q.ID, q.Name, SUM(Amount)
+FROM q
+     INNER JOIN OrderItem oi ON oi.ProductID=q.ID
+WHERE q.dr = 2
+GROUP BY q.ID, q.Name
 ```
 
 Lapozás: termékek listázása ABC sorrendben a 3. rekordól a 8. rekordig
 
 ```sql
-with q
-as
+WITH q
+AS
 (
-    select *
-            , rank() over (order by Name) as r
-    from Product
+    SELECT *
+            , rank() over (ORDER BY Name) AS r
+    FROM Product
 )
-select *
-from q
-where q.r between 3 and 8
+SELECT *
+FROM q
+WHERE q.r BETWEEN 3 AND 8
 ```
 
 Lapozás: MSSQL Server (2012+) specifikus megoldás
 
 ```sql
-select *
-from Product
-order by Name
+SELECT *
+FROM Product
+ORDER BY Name
 offset 2 rows
 fetch next 6 rows only
 
-select top 3 *
-from Product
-order by Name
+SELECT TOP 3 *
+FROM Product
+ORDER BY Name
 ```
 
 ## XML dokumentumok lekérdezése
@@ -362,8 +362,8 @@ Adott tehát egy olyan tábla, amiben van egy XML típusú mező. Amellett, hogy
 Kérdezzük le, hogy hány csomagból állnak a termékek!
 
 ```sql
-select Description.query('/product/package_parameters/number_of_packages')
-from Product
+SELECT Description.query('/product/package_parameters/number_of_packages')
+FROM Product
 ```
 
 Ennek az eredménye például a következő lehet:
@@ -375,8 +375,8 @@ Ennek az eredménye például a következő lehet:
 A `query()` XML-lel tér vissza, ha csak az értékre van szükség, akkor a `value()` metódust használhatjuk. A `value()` metódusnak meg kell adni a lekérdezett adat típusát is string literálként.
 
 ```sql
-select Description.value('(/product/package_parameters/number_of_packages)[1]', 'int')
-from Product
+SELECT Description.value('(/product/package_parameters/number_of_packages)[1]', 'int')
+FROM Product
 ```
 
 Ennek az eredménye már az 1 lesz számként.
@@ -387,9 +387,9 @@ Ennek az eredménye már az 1 lesz számként.
 Kérdezzük le azoknak a termékeknek a nevét, amelyek a 0-18 hónapos korosztálynak ajánlottak.
 
 ```sql
-select Name
-from Product
-where Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
+SELECT Name
+FROM Product
+WHERE Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
 ```
 
 Az `exist()` 1-gyel tér vissza, ha a megadott _XQuery_ kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.
@@ -397,9 +397,9 @@ Az `exist()` 1-gyel tér vissza, ha a megadott _XQuery_ kifejezéssel futtatott 
 A lekérdezést `exist()` helyett `value()` metódus segítségével is megfogalmazhatjuk.
 
 ```sql
-select Name
-from Product
-where Description.value('(/product/recommended_age)[1]', 'varchar(max)')='0-18 m'
+SELECT Name
+FROM Product
+WHERE Description.value('(/product/recommended_age)[1]', 'varchar(MAX)')='0-18 m'
 ```
 
 ### Manipuláló lekérdezések
@@ -409,11 +409,11 @@ Nem csak lekérdezni tudunk XML adatokat, hanem módosítani is. A módosítás 
 Az Lego City harbour nevű terméknél az ajánlott életkort írjuk át 6-99 évre.
 
 ```sql
-update Product
-set Description.modify(
+UPDATE Product
+SET Description.modify(
 'replace value of (/product/recommended_age/text())[1]
-with "6-99 y"')
-where Name='Lego City harbour'
+WITH "6-99 y"')
+WHERE Name='Lego City harbour'
 ```
 
 A megadandó kifejezés két részből áll: az elsőben (`replace value of`) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (`with`) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, így az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen - ezért szerepel példában a végén az `[1]`.
@@ -421,11 +421,11 @@ A megadandó kifejezés két részből áll: az elsőben (`replace value of`) ke
 Szúrjunk be a Lego City harbour termékhez a `package_size` tag után egy `weight` tag-et a súly megadására.
 
 ```sql
-update Product
-set Description.modify(
-'insert <weight>2.28</weight>
+UPDATE Product
+SET Description.modify(
+'INSERT <weight>2.28</weight>
 after (/product/package_parameters/package_size)[1]')
-where Name='Lego City harbour'
+WHERE Name='Lego City harbour'
 ```
 
 A megadandó kifejezés itt is két részből áll: az elsőben (`insert`) kell megadni az új elemet, másodikban kell leírni azt, hogy hova szúrja be az új elemet. Az új elemet fel lehet venni a megadott elem testvéreként vagy gyerekeként.
@@ -433,9 +433,9 @@ A megadandó kifejezés itt is két részből áll: az elsőben (`insert`) kell 
 Töröljük minden termék leírásából a `description` tag(ek)-et.
 
 ```sql
-update Product
-set Description.modify('delete /product/description')
-where Description is not null
+UPDATE Product
+SET Description.modify('DELETE /product/description')
+WHERE Description IS NOT NULL
 ```
 
 A törlésnél a `delete` után meg kell adni a törlendő elemek útvonalát.

@@ -94,7 +94,7 @@ SELECT @num
 You can also assign value to a variable via a query:
 
 ```sql
-DECLARE @name nvarchar (max)
+DECLARE @name nvarchar (MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -104,7 +104,7 @@ WHERE ID = 1
 If the query returns more than one row, the _last_ value remains in the variable:
 
 ```sql
-DECLARE @name nvarchar (max)
+DECLARE @name nvarchar (MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -115,7 +115,7 @@ FROM Customer
 If the query does not yield any result, the value of the variable does not change:
 
 ```sql
-DECLARE @name nvarchar (max)
+DECLARE @name nvarchar (MAX)
 SET @name = 'aaa'
 
 SELECT @name = Name
@@ -141,7 +141,7 @@ END
 Branching is possible by using the `IF-ELSE` structure:
 
 ```sql
-DECLARE @name nvarchar (max)
+DECLARE @name nvarchar (MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -227,7 +227,7 @@ SELECT DATEDIFF(day, '2021-09-28 12:10:09', '2021-11-04 13:45:09')
 Data type conversion:
 
 ```sql
-SELECT CAST('12' as int)
+SELECT CAST('12' AS int)
 -- 12
 
 SELECT CONVERT(int, '12')
@@ -329,7 +329,7 @@ Let us see a complete example. Let us query products that have few items in stoc
 
 ```sql
 -- Extract the data from the cursor into these variables
-DECLARE @ProductName nvarchar(max)
+DECLARE @ProductName nvarchar(MAX)
 DECLARE @ProductID int
 DECLARE @LastOrder datetime
 
@@ -394,33 +394,33 @@ The result of the `CREATE OR ALTER` statement is the creation of the stored proc
 For example, Let us create a new tax percentage record in the `VAT` table, guaranteeing that only unique percentages can be added:
 
 ```sql
-create or alter procedure InsertNewVAT -- create a stored procedure
+CREATE OR ALTER PROCEDURE InsertNewVAT -- create a stored procedure
     @Percentage int -- stored procedure parameters
-as -- this is where the code begins, which the system executes when the procedure is called
-  begin
+AS -- this is where the code begins, which the system executes when the procedure is called
+  BEGIN
   -- to avoid non-repeatable reading
-  set transaction isolation level repeatable read
-  begin tran
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values ​​(@Percentage)
-  else
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES ​​(@Percentage)
+  ELSE
       print 'error';
 
-commit
-end
+COMMIT
+END
 ```
 
 The stored procedure is created by executing the former command, and then it can be called as follows:
 
 ```sql
-exec InsertNewVAT 27
+EXEC InsertNewVAT 27
 ```
 
 Stored procedures are part of our database. For example, in Microsoft SQL Server Management Studio, it is visible here:
@@ -455,13 +455,13 @@ END
 Here's how to use this function:
 
 ```sql
-select dbo.LargestVATPercentage()
+SELECT dbo.LargestVATPercentage()
 -- The dbo prefix is ​​the name of the schema, indicating that this is not a built-in function
 -- Without this, the function is not found
 
 -- or for example
 DECLARE @maxvat int = dbo.LargestVATPercentage()
-select @maxvat
+SELECT @maxvat
 ```
 
 ### Table functions
@@ -473,18 +473,18 @@ CREATE [OR ALTER] FUNCTION name
 ([{@ parameter data type}] [, ... n])
 RETURNS TABLE
 [ AS ]
-RETURN select statement
+RETURN SELECT statement
 ```
 
 For example, consider retrieving VAT rates above a certain percentage:
 
 ```sql
-CREATE FUNCTION VATPercentages(@min int)
+CREATE FUNCTION VATPercentages(@MIN int)
 RETURNS TABLE
 AS RETURN
 (
     SELECT ID, Percentage FROM VAT
-    WHERE Percentage > @min
+    WHERE Percentage > @MIN
 )
 ```
 
@@ -497,8 +497,8 @@ SELECT * FROM VATPercentages(20)
 Since the function returns a table, we can even `join` it:
 
 ```sql
-SELECT VAT.Percentage, count(*)
-FROM VAT JOIN VATPercentages(20) p on VAT.ID = p.Id
+SELECT VAT.Percentage, COUNT(*)
+FROM VAT JOIN VATPercentages(20) p ON VAT.ID = p.Id
 GROUP BY VAT.Percentage
 ```
 
@@ -509,36 +509,36 @@ In the stored procedure example, we wanted to prevent duplicate records from bei
 The updated procedure for recording the VAT key looks like this:
 
 ```sql hl_lines="18"
-create or alter procedure InsertNewVAT
+CREATE OR ALTER PROCEDURE InsertNewVAT
     @Percentage int
-as
-begin
+AS
+BEGIN
 
-  set transaction isolation level repeatable read
-  begin tran
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values ​​(@Percentage)
-  else
-      throw 51000, 'error', 1;
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES ​​(@Percentage)
+  ELSE
+      THROW 51000, 'error', 1;
 
-  commit
-end
+  COMMIT
+END
 ```
 
 To handle (catch) an error, you can use the following syntax:
 
 ```sql
-begin try
-  exec InsertNewVAT 27
-end try
-begin catch
+BEGIN TRY
+  EXEC InsertNewVAT 27
+END TRY
+BEGIN CATCH
   -- access the error details with the following functions (similar to stack trace in other languages)
   SELECT
     ERROR_NUMBER () AS ErrorNumber,
@@ -547,7 +547,7 @@ begin catch
     ERROR_PROCEDURE () AS ErrorProcedure,
     ERROR_LINE () AS ErrorLine,
     ERROR_MESSAGE () AS ErrorMessage;
-end catch
+END CATCH
 ```
 
 Of course, it's not just user code that can throw errors. The system also signals errors identically, and we can handle them using the same tools.
@@ -566,16 +566,16 @@ Let us look at this example: logging the deletion of any products in a dedicated
 
 ```sql
 -- Create the auditing table
-create table AuditLog([Description] [nvarchar](max) NULL)
-go
+CREATE TABLE AuditLog([Description] [nvarchar](MAX) NULL)
+GO
 
 -- Logging trigger
-create or alter trigger ProductDeleteLog
-  on Product
-  for delete
-as
-insert into AuditLog (Description)
-select 'Product deleted: ' + convert(nvarchar, d.Name) from deleted d
+CREATE OR ALTER TRIGGER ProductDeleteLog
+  ON Product
+  FOR DELETE
+AS
+INSERT INTO AuditLog (Description)
+SELECT 'Product deleted: ' + convert(nvarchar, d.Name) FROM deleted d
 ```
 
 Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the `DROP TRIGGER` statement). The trigger is linked to the table in the database:
@@ -586,7 +586,7 @@ The syntax for defining a DML trigger is as follows:
 
 ```sql
 CREATE TRIGGER trigger_name
-ON { table | view }
+ON { TABLE | VIEW }
  FOR {[DELETE] [,] [INSERT] [,] [UPDATE]}
 AS
 sql_instruction [... n]
@@ -621,7 +621,7 @@ CREATE FUNCTION [IsEmailValid](@ email nvarchar(1000))
 RETURNS bit -- true / false return value
 AS
 BEGIN
-  IF @email is null RETURN 0 -- Cannot be null
+  IF @email IS NULL RETURN 0 -- Cannot be null
   IF @email = '' RETURN 0 -- Cannot be an empty string
   IF @email LIKE '%_@%_._%' RETURN 1 -- Looks like an email
   RETURN 0
@@ -630,14 +630,14 @@ BEGIN
 END
 
 -- The trigger
-create or alter trigger CustomerEmailSyntaxCheck
-  on Customer
-  for insert, update -- Check both inserting and modifying
-as
+CREATE OR ALTER TRIGGER CustomerEmailSyntaxCheck
+  ON Customer
+  FOR INSERT, UPDATE -- Check both inserting and modifying
+AS
 -- For both insertion and modification, the new data is in the inserted table
 -- Is there an item there for which the new email address is not valid?
-if exists(select 1 from inserted i where dbo.IsEmailValid(i.Email) = 0)
-  throw 51234, 'invalid email address', 1 -- abort the transaction by raising the error
+IF EXISTS(SELECT 1 FROM inserted i WHERE dbo.IsEmailValid(i.Email) = 0)
+  THROW 51234, 'invalid email address', 1 -- abort the transaction by raising the error
 ```
 
 The above trigger runs after insertion or modification in the same transaction. So if we throw an error, the transaction will be aborted (unless handled by the caller). By running the trigger at the instruction level, a single faulty record interrupts the entire operation. Of course, this is what we expect due to atomicity: the indivisibility of the transaction is satisfied for the instruction as a whole, i.e., for inserting/modifying several records at once.
@@ -646,18 +646,18 @@ Another common use of triggers is **maintenance of denormalized data**. Although
 
 ```sql
 -- Additional email address columns for customers
-alter table Customer
-add [NotificationEmail] nvarchar(max), [EffectiveEmail] nvarchar(max)
-go
+ALTER TABLE Customer
+add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
+GO
 
 -- Trigger to update the effective email address
-create or alter trigger CustomerEmailUpdate
-  on Customer
-  for insert, update
-as
-update Customer -- We modify the Customer table, not the inserted implicit table
-set EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Copy one or the other value to the EffectiveEmail column
-from Customer c join inserted i on c.ID = i.ID -- Records must be retrieved from the Customer table based on the inserted rows
+CREATE OR ALTER TRIGGER CustomerEmailUpdate
+  ON Customer
+  FOR INSERT, UPDATE
+AS
+UPDATE Customer -- We modify the Customer table, not the inserted implicit table
+SET EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Copy one or the other value to the EffectiveEmail column
+FROM Customer c JOIN inserted i ON c.ID = i.ID -- Records must be retrieved from the Customer table based on the inserted rows
 ```
 
 !!! important "Trigger recursion"
@@ -666,26 +666,26 @@ from Customer c join inserted i on c.ID = i.ID -- Records must be retrieved from
 Let us look at another example of denormalized data maintenance. In the order table, let us add a grand total column, which is the total net price of the order. We need a trigger to keep the value updated automatically:
 
 ```sql
-create or alter trigger OrderTotalUpdateTrigger
-  on OrderItem
-  for insert, update, delete
-as
+CREATE OR ALTER TRIGGER OrderTotalUpdateTrigger
+  ON OrderItem
+  FOR INSERT, UPDATE, DELETE
+AS
 
-update Order
-set Total = isnull(Total,0) + TotalChange
-from Order inner join
-        (select i.OrderID, sum(Amount*Price) as TotalChange
-        from inserted i
-        group by i.OrderID) OrderChange
-    on Order.ID = OrderChange.OrderID
+UPDATE Order
+SET Total = isnull(Total,0) + TotalChange
+FROM Order INNER JOIN
+        (SELECT i.OrderID, SUM(Amount*Price) AS TotalChange
+        FROM inserted i
+        GROUP BY i.OrderID) OrderChange
+    ON Order.ID = OrderChange.OrderID
 
-update Order
-set Total = isnull(Total,0) – TotalChange
-from Order inner join
-        (select d.OrderID, sum(Amount*Price) as TotalChange
-        from deleted d
-        group by d.OrderID) OrderChange
-    on Order.ID = OrderChange.OrderID
+UPDATE Order
+SET Total = isnull(Total,0) – TotalChange
+FROM Order INNER JOIN
+        (SELECT d.OrderID, SUM(Amount*Price) AS TotalChange
+        FROM deleted d
+        GROUP BY d.OrderID) OrderChange
+    ON Order.ID = OrderChange.OrderID
 ```
 
 In this trigger, it is worth noting that while the event occurs in the `OrderItem` table, the content to be updated is in the `Order` table. This is fine, a trigger can read and write any part of the database, and all changes are executed in the same transaction. Furthermore, we do not recalculate the total amount in the trigger but alter it in response to the changes. Although this makes the trigger code more complex, it is more effective this way.
@@ -701,43 +701,43 @@ A typical use case for an _instead of_ trigger is, for example, when we do not w
 
 ```sql
 -- Soft delete flag column in the table with a default value of 0 (i.e., false)
-alter table Product
+ALTER TABLE Product
 add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
-go
+GO
 
 -- Instead of trigger, the delete command does not perform the deletion
 -- the following code runs instead
-create or alter trigger ProductSoftDelete
-  on Product
-  instead of delete
-as
-update Product
-  set IsDeleted = 1
-  where ID in (select ID from deleted)
+CREATE OR ALTER TRIGGER ProductSoftDelete
+  ON Product
+  instead of DELETE
+AS
+UPDATE Product
+  SET IsDeleted = 1
+  WHERE ID IN (SELECT ID FROM deleted)
 ```
 
 Another typical use case for _instead of_ triggers is views. A view is the result of a query, so inserting new data into the view does not make sense. However, you can use an _instead of_ trigger to define what to do instead of "inserting into view." Let us look at an example. In the view below, we combine data from the product and VAT tables so that the VAT percentage is displayed in the view instead of the ID of the referenced VAT record. We can insert into this view by inserting the data into the product table instead:
 
 ```sql
 -- Define the view
-create view ProductWithVatPercentage
-as
-select p.Id, p.Name, p.Price, p.Stock, v.Percentage
-from Product p join Vat v is p.VATID = v.Id
+CREATE VIEW ProductWithVatPercentage
+AS
+SELECT p.Id, p.Name, p.Price, p.Stock, v.Percentage
+FROM Product p JOIN Vat v IS p.VATID = v.Id
 
 -- Instead of trigger for the view
-create or alter trigger ProductWithVatPercentageInsert
-on ProductWithVatPercentage
-instead of insert
-as
+CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
+ON ProductWithVatPercentage
+instead of INSERT
+AS
   -- The insertion goes into the Product table: a new row is created for each inserted record
   -- And we find the VAT record corresponding to the provided percentage
   -- The solution is not complete because it does not handle if there is no matching VAT record
-  insert into Product(Name, Price, Stock, VATID, CategoryID)
-  select i.Name, i.Price, i.Stock, v.ID, 1
-    from inserted i join VAT v on v.Percentage = i.Percentage
+  INSERT INTO Product(Name, Price, Stock, VATID, CategoryID)
+  SELECT i.Name, i.Price, i.Stock, v.ID, 1
+    FROM inserted i JOIN VAT v ON v.Percentage = i.Percentage
 
 -- The trigger can be tested by inserting data into the view
-insert into ProductWithVatPercentage(Name, Price, Stock, Percentage)
-values ('Red ball', 1234, 22, 27)
+INSERT INTO ProductWithVatPercentage(Name, Price, Stock, Percentage)
+VALUES ('Red ball', 1234, 22, 27)
 ```

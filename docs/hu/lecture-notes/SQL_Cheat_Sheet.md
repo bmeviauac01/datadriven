@@ -16,9 +16,9 @@ Ebben a cheat-sheet-ben a különböző tanult nyelvek lekérdezési szintaktik�
 
 **SQL:**
 
-```SQL
+```sql
 SELECT column1, column2
-FROM table
+FROM TABLE
 WHERE condition;
 ```
 
@@ -72,7 +72,7 @@ collection
 
 **SQL:**
 
-```SQL
+```sql
 SELECT *
 FROM table_name
 WHERE column_name = "Example";
@@ -80,7 +80,7 @@ WHERE column_name = "Example";
 
 Lekérdezés melyben egy mező `NULL` értékű:
 
-```SQL
+```sql
 SELECT *
 FROM table_name
 WHERE column_name IS NULL;
@@ -89,7 +89,7 @@ WHERE column_name IS NULL;
 
 `ISNULL` függvény: Ha van érték a `salary` oszlopban, akkor annak az értékével dolgozik tovább a lekérdezés, ha nem akkor a második paraméterként kapott értékkel (ebben az esetben 0).
 
-```SQL
+```sql
 SELECT employee_id, employee_name, ISNULL(salary, 0) AS modified_salary
 FROM employees;
 ```
@@ -98,7 +98,7 @@ Allekérdezést el lehet nevezni, eredményeire lehet hivatkozni. Látható az a
 
 **Feladat:** Melyik termék kategóriában van a legtöbb termék?
 
-```SQL
+```sql
 SELECT TOP 1 Name, (SELECT COUNT(*) FROM Product WHERE Product.CategoryID = c.ID) AS cnt
 FROM Category c
 ORDER BY cnt DESC
@@ -139,7 +139,7 @@ collection.Find(item => item.Column == value).ToList();
 
 Azokban az esetekben, amikor csak egyetlen sort szeretnénk visszakapni lekérdezéseinkből.
 
-```SQL
+```sql
 SELECT TOP 1 *
 FROM Product
 ORDER BY Name
@@ -180,7 +180,7 @@ collection.Find(...).Skip(10).Limit(10);
 
 Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit
 
-```SQL
+```sql
 SELECT p.Name, SUM(oi.Amount)
 FROM Product p
      LEFT OUTER JOIN OrderItem oi ON p.id = oi.ProductID
@@ -265,7 +265,7 @@ var r = productsCollection
 
 **SQL:**
 
-```SQL
+```sql
 ORDER BY column1 ASC, column2 DESC;
 ```
 
@@ -289,7 +289,7 @@ itemcollection.Sort(
 
 **SQL:**
 
-```SQL
+```sql
 SELECT table1.column, table2.column
 FROM table1
 JOIN table2 ON table1.column = table2.column;
@@ -323,7 +323,7 @@ var query = from item1 in context.Table1
 
 **SQL:**
 
-```SQL
+```sql
 SELECT DISTINCT p.Name
 FROM Product p
 ```
@@ -351,14 +351,14 @@ var xd = productsCollection
 
 **Feladat:** Mennyibe kerül a legdrágább termék?
 
-```SQL
+```sql
 SELECT MAX(Price)
 FROM Product
 ```
 
 **Feladat:** Melyek a legdrágább termékek?
 
-```SQL
+```sql
 SELECT *
 FROM Product
 WHERE Price = (SELECT MAX(Price) FROM Product)
@@ -408,7 +408,7 @@ var q = ordersCollection
 
 **SQL:**
 
-```SQL
+```sql
 DELETE
 FROM Product
 WHERE ID = 23
@@ -442,14 +442,14 @@ Használd a `DeleteMany` parancsot ha több rekordot szeretnél törölni.
 
 **SQL:**
 
-```SQL
+```sql
 INSERT INTO Product
-VALUES ('aa', 100, 0, 3, 2, null)
+VALUES ('aa', 100, 0, 3, 2, NULL)
 ```
 
 Amikor másik lekérdezés eredményét szeretnénk beilleszteni:
 
-```SQL
+```sql
 INSERT INTO Product (Name, Price)
 SELECT Name, Price
 FROM InvoiceItem
@@ -484,7 +484,7 @@ collection.InsertOne(newProduct);
 
 **Feladat:** Emelje meg azon termékek árát 10%-al, melyek nevében szerepel a "Lego" szó!
 
-```SQL
+```sql
 UPDATE Product
 SET Price=1.1 * Price
 WHERE Name LIKE '%Lego%'
@@ -494,7 +494,7 @@ Ha olyan értékeket szeretnénk adni a `SET` parancsban, melyek másik táblák
 
 **Feladat:** A 9-es azonosítójú számú megrendelés státusz állapotát másoljuk be minden olyan `OrderItem`-be, mely hozzá tartozik.
 
-```SQL
+```sql
 UPDATE OrderItem
 SET StatusID = o.StatusID
 FROM OrderItem oi

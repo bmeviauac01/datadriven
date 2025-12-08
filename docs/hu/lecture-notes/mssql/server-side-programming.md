@@ -94,7 +94,7 @@ SELECT @num
 Változónak lekérdezéssel is adhatunk értéket:
 
 ```sql
-DECLARE @name nvarchar(max)
+DECLARE @name nvarchar(MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -104,7 +104,7 @@ WHERE ID = 1
 Ha a lekérdezés több sorral tér vissza, az _utolsó_ érték marad a változóban:
 
 ```sql
-DECLARE @name nvarchar(max)
+DECLARE @name nvarchar(MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -115,7 +115,7 @@ FROM Customer
 Ha a lekérdezés nem tér vissza eredménnyel, a változó értéke nem változik:
 
 ```sql
-DECLARE @name nvarchar(max)
+DECLARE @name nvarchar(MAX)
 SET @name = 'aaa'
 
 SELECT @name = Name
@@ -141,7 +141,7 @@ END
 Elágazást `IF-ELSE` szerkezettel készíthetünk:
 
 ```sql
-DECLARE @name nvarchar(max)
+DECLARE @name nvarchar(MAX)
 
 SELECT @name = Name
 FROM Customer
@@ -227,7 +227,7 @@ SELECT DATEDIFF(day, '2021-09-28 12:10:09', '2021-11-04 13:45:09')
 Adattípus konvertálás:
 
 ```sql
-SELECT CAST('12' as int)
+SELECT CAST('12' AS int)
 -- 12
 
 SELECT CONVERT(int, '12')
@@ -330,7 +330,7 @@ Lássunk egy komplett példát. Keressük meg azon termékeket, amiből alig van
 
 ```sql
 -- Ezekbe a változókba szedjük ki a kurzorból az adatokat
-DECLARE @ProductName nvarchar(max)
+DECLARE @ProductName nvarchar(MAX)
 DECLARE @ProductID int
 DECLARE @LastOrder datetime
 
@@ -395,34 +395,34 @@ A `CREATE OR ALTER` eredménye a tárolt eljárás létrehozása, ha nem léteze
 Lássuk például az ÁFA kulcs rögzítését a `VAT` táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:
 
 ```sql
-create or alter procedure InsertNewVAT -- tárolt eljárás létrehozása, neve
+CREATE OR ALTER PROCEDURE InsertNewVAT -- tárolt eljárás létrehozása, neve
     @Percentage int                    -- tárolt eljárás paraméterei
-as -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer
-  begin
+AS -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer
+  BEGIN
   
   -- nem megismételhető olvasás elkerülése végett
-  set transaction isolation level repeatable read
-  begin tran                            
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran                            
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values (@Percentage)
-  else
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES (@Percentage)
+  ELSE
       print 'error';
 
-commit
-end
+COMMIT
+END
 ```
 
 Tárolt eljárás az előbbi parancs hatására létrejön, és utána az alábbi módon hívhatjuk meg:
 
 ```sql
-exec InsertNewVAT 27
+EXEC InsertNewVAT 27
 ```
 
 A tárolt eljárások az adatbázisunk részei. Microsoft SQL Server Management Studio-ban például a képen látható helyen jelennek meg:
@@ -457,13 +457,13 @@ END
 Ezt a függvényt így használhatjuk:
 
 ```sql
-select dbo.LargestVATPercentage()
+SELECT dbo.LargestVATPercentage()
 -- A dbo előtag a séma azonosítása, amivel azt jelöljük, hogy ez nem egy beépített függvény
 -- Enélkül a függvényt nem találja meg a rendszer
 
 -- avagy például
 DECLARE @maxvat int = dbo.LargestVATPercentage()
-select @maxvat
+SELECT @maxvat
 ```
 
 ### Tábla függvény
@@ -475,18 +475,18 @@ CREATE [ OR ALTER ] FUNCTION név
 ( [ { @paraméter adattípus } ] [ ,...n ] )
 RETURNS TABLE
 [ AS ]
-RETURN select utasítás
+RETURN SELECT utasítás
 ```
 
 Nézzük például az áfakulcsok lekérését egy adott százalék felett:
 
 ```sql
-CREATE FUNCTION VATPercentages(@min int)
+CREATE FUNCTION VATPercentages(@MIN int)
 RETURNS TABLE
 AS RETURN
 (
     SELECT ID, Percentage FROM VAT
-    WHERE Percentage > @min
+    WHERE Percentage > @MIN
 )
 ```
 
@@ -499,8 +499,8 @@ SELECT * FROM VATPercentages(20)
 Mivel a függvény táblát ad vissza, akár `join`-olhatunk is rá:
 
 ```sql
-SELECT VAT.Percentage, count(*)
-FROM VAT JOIN VATPercentages(20) p on VAT.ID = p.Id
+SELECT VAT.Percentage, COUNT(*)
+FROM VAT JOIN VATPercentages(20) p ON VAT.ID = p.Id
 GROUP BY VAT.Percentage
 ```
 
@@ -511,36 +511,36 @@ A tárolt eljárást ismertető példában meg akartuk akadályozni a duplikált
 Ezzel kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:
 
 ```sql hl_lines="18"
-create or alter procedure InsertNewVAT
+CREATE OR ALTER PROCEDURE InsertNewVAT
     @Percentage int
-as
-begin
+AS
+BEGIN
 
-  set transaction isolation level repeatable read
-  begin tran
+  SET TRANSACTION isolation level repeatable read
+  BEGIN tran
 
-  declare @Count int
+  DECLARE @COUNT int
 
-  select @Count = count(*)
-  from VAT
-  where Percentage = @Percentage
+  SELECT @COUNT = COUNT(*)
+  FROM VAT
+  WHERE Percentage = @Percentage
 
-  if @Count = 0
-      insert into VAT values (@Percentage)
-  else
-      throw 51000, 'error', 1;
+  IF @COUNT = 0
+      INSERT INTO VAT VALUES (@Percentage)
+  ELSE
+      THROW 51000, 'error', 1;
 
-  commit
-end
+  COMMIT
+END
 ```
 
 Hiba lekezelése (elkapására) az alábbi szintaktikát használhatjuk:
 
 ```sql
-begin try
-  exec InsertNewVAT 27
-end try
-begin catch
+BEGIN TRY
+  EXEC InsertNewVAT 27
+END TRY
+BEGIN CATCH
   -- az alábbi függvényekkel hozzáférünk a hiba részleteihez (hasonlóan, mint a stack trace más nyelvekben)
   SELECT
     ERROR_NUMBER() AS ErrorNumber,
@@ -549,7 +549,7 @@ begin catch
     ERROR_PROCEDURE() AS ErrorProcedure,
     ERROR_LINE() AS ErrorLine,
     ERROR_MESSAGE() AS ErrorMessage;
-end catch
+END CATCH
 ```
 
 Hibát természetesen nem csak mi dobhatunk. A rendszer is analóg módon jelez hibákat, amelyeket ugyanezen eszközökkel kezelhetünk.
@@ -568,16 +568,16 @@ Nézzük is ennek a példának a kódját. Naplózzuk tehát bármely termékek 
 
 ```sql
 -- Napló tábla létrehozása
-create table AuditLog([Description] [nvarchar](max) NULL)
-go
+CREATE TABLE AuditLog([Description] [nvarchar](MAX) NULL)
+GO
 
 -- Naplózó trigger
-create or alter trigger ProductDeleteLog
-  on Product
-  for delete
-as
-insert into AuditLog(Description)
-select 'Product deleted: ' + convert(nvarchar, d.Name) from deleted d
+CREATE OR ALTER TRIGGER ProductDeleteLog
+  ON Product
+  FOR DELETE
+AS
+INSERT INTO AuditLog(Description)
+SELECT 'Product deleted: ' + convert(nvarchar, d.Name) FROM deleted d
 ```
 
 A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a `DROP TRIGGER` utasítással). A trigger az érintett táblához kötve látható az adatbázisban:
@@ -623,7 +623,7 @@ CREATE FUNCTION [IsEmailValid](@email nvarchar(1000))
 RETURNS bit -- true/false visszatérési érték
 AS
 BEGIN
-  IF @email is null RETURN 0 -- Nem lehet null
+  IF @email IS NULL RETURN 0 -- Nem lehet null
   IF @email = '' RETURN 0 -- Nem lehet üres string
   IF @email LIKE '%_@%_._%' RETURN 1 -- Kb. email kinézete van
   RETURN 0
@@ -632,14 +632,14 @@ BEGIN
 END
 
 -- Definiáljuk a triggert
-create or alter trigger CustomerEmailSyntaxCheck
-  on Customer
-  for insert, update -- beszúrás és módosítás is érdekel
-as
+CREATE OR ALTER TRIGGER CustomerEmailSyntaxCheck
+  ON Customer
+  FOR INSERT, UPDATE -- beszúrás és módosítás is érdekel
+AS
 -- Mind a beszúrás mind módosítás esetén az inserted táblában lesz az új adat
 -- Létezik-e olyan elem ott, amire az új email cím nem érvényes
-if exists(select 1 from inserted i where dbo.IsEmailValid(i.Email)=0)
-  throw 51234, 'invalid email address', 1 -- szakítsuk meg a tranzakciót a hiba eldobásával
+IF EXISTS(SELECT 1 FROM inserted i WHERE dbo.IsEmailValid(i.Email)=0)
+  THROW 51234, 'invalid email address', 1 -- szakítsuk meg a tranzakciót a hiba eldobásával
 ```
 
 A fenti trigger ugyan a beszúrás avagy módosítás után fut, de még ugyanabban a tranzakcióban. Tehát ha hibát dobunk, akkor a tranzakció meg fog szakadni (hacsak nem kezeli le a hívó). Azzal, hogy a trigger utasítás szinten fut, egyetlen hibás sor is az egész utasítást szakítja meg - természetesen ezt várjuk az atomiság miatt: az utasítás egészére, azaz több sor beszúrására/módosítására egyszerre teljesül az oszthatatlanság.
@@ -648,18 +648,18 @@ Triggerek további gyakori felhasználási esete a **denormalizált adat karbant
 
 ```sql
 -- Plusz email cím oszlopok a vevőknek
-alter table Customer
-add [NotificationEmail] nvarchar(max), [EffectiveEmail] nvarchar(max)
-go
+ALTER TABLE Customer
+add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
+GO
 
 -- Használt email címet frissítő trigger
-create or alter trigger CustomerEmailUpdate
-  on Customer
-  for insert, update
-as
-update Customer -- A Customer táblát módosítjuk, nem az inserted-et
-set EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Egyik vagy másik értéket másolja az EffectiveEmail oszlopba
-from Customer c join inserted i on c.ID = i.ID -- Az inserted-ek alapján kell a Customer-ben kikeresni a rekordokat
+CREATE OR ALTER TRIGGER CustomerEmailUpdate
+  ON Customer
+  FOR INSERT, UPDATE
+AS
+UPDATE Customer -- A Customer táblát módosítjuk, nem az inserted-et
+SET EffectiveEmail = ISNULL(i.NotificationEmail, i.Email) -- Egyik vagy másik értéket másolja az EffectiveEmail oszlopba
+FROM Customer c JOIN inserted i ON c.ID = i.ID -- Az inserted-ek alapján kell a Customer-ben kikeresni a rekordokat
 ```
 
 !!! important "Trigger rekurzió"
@@ -668,26 +668,26 @@ from Customer c join inserted i on c.ID = i.ID -- Az inserted-ek alapján kell a
 Nézzünk egy másik denormalizált adat karbantartás példát. A megrendelés táblába vegyünk fel egy végösszeg oszlopot, amely a megrendelés teljes nettó ára, és ezt automatikusan tartsuk karban:
 
 ```sql
-create or alter trigger OrderTotalUpdateTrigger
-  on OrderItem
-  for insert, update, delete
-as
+CREATE OR ALTER TRIGGER OrderTotalUpdateTrigger
+  ON OrderItem
+  FOR INSERT, UPDATE, DELETE
+AS
 
-update Order
-set Total = isnull(Total,0) + TotalChange
-from Order inner join
-        (select i.OrderID, sum(Amount*Price) as TotalChange
-        from inserted i
-        group by i.OrderID) OrderChange
-    on Order.ID = OrderChange.OrderID
+UPDATE Order
+SET Total = isnull(Total,0) + TotalChange
+FROM Order INNER JOIN
+        (SELECT i.OrderID, SUM(Amount*Price) AS TotalChange
+        FROM inserted i
+        GROUP BY i.OrderID) OrderChange
+    ON Order.ID = OrderChange.OrderID
 
-update Order
-set Total = isnull(Total,0) – TotalChange
-from Order inner join
-        (select d.OrderID, sum(Amount*Price) as TotalChange
-        from deleted d
-        group by d.OrderID) OrderChange
-    on Order.ID = OrderChange.OrderID
+UPDATE Order
+SET Total = isnull(Total,0) – TotalChange
+FROM Order INNER JOIN
+        (SELECT d.OrderID, SUM(Amount*Price) AS TotalChange
+        FROM deleted d
+        GROUP BY d.OrderID) OrderChange
+    ON Order.ID = OrderChange.OrderID
 ```
 
 Ebben a triggerben érdemes észrevenni, hogy míg az esemény az `OrderItem` táblában történik, a frissítendő tartalom az `Order` táblában van. Ez abszolút működőképes, egy trigger az adatbázis bármely részét olvashatja és írhatja, és továbbra is minden módosítás ugyanabban a tranzakcióban fut. Továbbá érdemes megérteni, hogy a triggerben nem újraszámoljuk az összeget, hanem kijavítjuk azt a változásokkal. Ez természetesen komplexebbé teszi a trigger kódját, de így lesz hatékony.
@@ -703,43 +703,43 @@ Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési felada
 
 ```sql
 -- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
-alter table Product
+ALTER TABLE Product
 add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
-go
+GO
 
 -- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre
 -- helyette az alábbi kód fut le
-create or alter trigger ProductSoftDelete
-  on Product
-  instead of delete
-as
-update Product
-  set IsDeleted=1
-  where ID in (select ID from deleted)
+CREATE OR ALTER TRIGGER ProductSoftDelete
+  ON Product
+  instead of DELETE
+AS
+UPDATE Product
+  SET IsDeleted=1
+  WHERE ID IN (SELECT ID FROM deleted)
 ```
 
 Az _instead of_ triggerek másik tipikus felhasználási esete a nézetek. Egy nézet egy lekérdezés eredménye, tehát nem értelmezhető az a művelet, hogy új adatot szúrunk be a nézetbe. Viszont egy _instead of_ triggerrel definiálhatjuk, mit kell a "nézetbe beszúrás" _helyett_ végrehajtani. Nézzünk erre egy példát. A nézetben a termék és áfa táblákból kapcsoljuk össze az adatokat úgy, hogy ne a hivatkozott áfa rekord azonosítója, hanem az áfa százaléka jelenjen meg a nézetben. Ebbe a nézetbe úgy tudunk beszúrni, ha a mögötte levő termékeket tároló táblába szúrunk be:
 
 ```sql
 -- Nézet definiálása
-create view ProductWithVatPercentage
-as
-select p.Id, p.Name, p.Price, p.Stock, v.Percentage
-from Product p join Vat v on p.VATID=v.Id
+CREATE VIEW ProductWithVatPercentage
+AS
+SELECT p.Id, p.Name, p.Price, p.Stock, v.Percentage
+FROM Product p JOIN Vat v ON p.VATID=v.Id
 
 -- Instead of trigger a nézetre a beszúrás helyett
-create or alter trigger ProductWithVatPercentageInsert
-on ProductWithVatPercentage
-instead of insert
-as
+CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
+ON ProductWithVatPercentage
+instead of INSERT
+AS
   -- A beszúrás a Product táblába kerül, minden inserted rekordnak egy új sora keletkezik
   -- És közben kikeressük a százaléknak megfelelő áfa rekordot
   -- A megoldás nem teljes, mert nem kezeli, ha nincs még ilyen áfa rekord
-  insert into Product(Name, Price, Stock, VATID, CategoryID)
-  select i.Name, i.Price, i.Stock, v.ID, 1
-    from inserted i join Vat v on v.Percentage = i.Percentage
+  INSERT INTO Product(Name, Price, Stock, VATID, CategoryID)
+  SELECT i.Name, i.Price, i.Stock, v.ID, 1
+    FROM inserted i JOIN Vat v ON v.Percentage = i.Percentage
 
 -- A trigger kipróbálható a nézetbe való beszúrással
-insert into ProductWithVatPercentage(Name, Price, Stock, Percentage)
-values ('Red ball', 1234, 22, 27)
+INSERT INTO ProductWithVatPercentage(Name, Price, Stock, Percentage)
+VALUES ('Red ball', 1234, 22, 27)
 ```
