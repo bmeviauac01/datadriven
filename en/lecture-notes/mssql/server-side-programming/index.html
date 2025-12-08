@@ -1799,14 +1799,14 @@
 <span class="c1">-- Error: Must declare the scalar variable "@num".</span>
 </code></pre></div>
 <p>You can also assign value to a variable via a query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 <p>If the query returns more than one row, the <em>last</em> value remains in the variable:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
@@ -1814,7 +1814,7 @@
 <span class="c1">-- the last result of SELECT is stored in the variable</span>
 </code></pre></div>
 <p>If the query does not yield any result, the value of the variable does not change:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 <span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'aaa'</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
@@ -1833,7 +1833,7 @@
 <span class="k">END</span>
 </code></pre></div>
 <p>Branching is possible by using the <code>IF-ELSE</code> structure:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="w"> </span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
@@ -1905,7 +1905,7 @@
 <span class="c1">-- 37</span>
 </code></pre></div>
 <p>Data type conversion:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'12'</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'12'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
 <span class="c1">-- 12</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="k">CONVERT</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="s1">'12'</span><span class="p">)</span>
@@ -1985,7 +1985,7 @@
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
 <p>Let us see a complete example. Let us query products that have few items in stock left, and if the last sale was more than a year ago, discount the product price:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Extract the data from the cursor into these variables</span>
-<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductName</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductName</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">int</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="w"> </span><span class="n">datetime</span>
 
@@ -2039,30 +2039,30 @@
 </code></pre></div>
 <p>The result of the <code>CREATE OR ALTER</code> statement is the creation of the stored procedure, if it does not exist, or else its update with the new contents. Prior to MSSQL Server 2016, there was no <code>CREATE OR ALTER</code>, only <code>CREATE PROC</code> and <code>ALTER PROC</code>. We can delete a stored procedure with the <code>DROP PROCECURE</code> statement, which removes the procedure from the server.</p>
 <p>For example, Let us create a new tax percentage record in the <code>VAT</code> table, guaranteeing that only unique percentages can be added:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- create a stored procedure</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- create a stored procedure</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="c1">-- stored procedure parameters</span>
-<span class="k">as</span><span class="w"> </span><span class="c1">-- this is where the code begins, which the system executes when the procedure is called</span>
-<span class="w">  </span><span class="k">begin</span>
+<span class="k">AS</span><span class="w"> </span><span class="c1">-- this is where the code begins, which the system executes when the procedure is called</span>
+<span class="w">  </span><span class="k">BEGIN</span>
 <span class="w">  </span><span class="c1">-- to avoid non-repeatable reading</span>
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span>
 
-<span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
+<span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="err">​​</span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="w">  </span><span class="k">else</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="err">​​</span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ELSE</span>
 <span class="w">      </span><span class="n">print</span><span class="w"> </span><span class="s1">'error'</span><span class="p">;</span>
 
-<span class="k">commit</span>
-<span class="k">end</span>
+<span class="k">COMMIT</span>
+<span class="k">END</span>
 </code></pre></div>
 <p>The stored procedure is created by executing the former command, and then it can be called as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
+<div class="highlight"><pre><span></span><code><span class="k">EXEC</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
 </code></pre></div>
 <p>Stored procedures are part of our database. For example, in Microsoft SQL Server Management Studio, it is visible here:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mssql-stored-proc-in-db.png" data-desc-position="bottom"><img alt="Stored procedure in database" src="../img/mssql-stored-proc-in-db.png"></a></p>
@@ -2085,13 +2085,13 @@
 <span class="k">END</span>
 </code></pre></div>
 <p>Here's how to use this function:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
 <span class="c1">-- The dbo prefix is ​​the name of the schema, indicating that this is not a built-in function</span>
 <span class="c1">-- Without this, the function is not found</span>
 
 <span class="c1">-- or for example</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
-<span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span>
 </code></pre></div>
 <h3 id="table-functions">Table functions<a class="headerlink" href="#table-functions" title="Permanent link">¶</a></h3>
 <p>A function can also yield a table as the result. In this case, the declaration looks like this:</p>
@@ -2099,55 +2099,55 @@
 <span class="p">([</span><span class="err">{</span><span class="o">@</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="k">type</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">n</span><span class="p">])</span>
 <span class="k">RETURNS</span><span class="w"> </span><span class="k">TABLE</span>
 <span class="p">[</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">]</span>
-<span class="k">RETURN</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">statement</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">statement</span>
 </code></pre></div>
 <p>For example, consider retrieving VAT rates above a certain percentage:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="o">@</span><span class="k">min</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="o">@</span><span class="k">MIN</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
 <span class="k">RETURNS</span><span class="w"> </span><span class="k">TABLE</span>
 <span class="k">AS</span><span class="w"> </span><span class="k">RETURN</span>
 <span class="p">(</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="k">min</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="k">MIN</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>This function returns a table, so you can use the function anywhere a table can appear, for example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </code></pre></div>
 <p>Since the function returns a table, we can even <code>join</code> it:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span>
 </code></pre></div>
 <h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">¶</a></h2>
 <p>In the stored procedure example, we wanted to prevent duplicate records from being inserted into a table. This was accomplished above by not executing the instruction. However, it would be more appropriate to report the error to the caller. This is what structured error handling is about. In case of an error, you can use the <code>throw</code> command to raise an error. This command interrupts code execution and returns control to the caller (where the error can be handled or passed on). The error has a number (between 50000 and 2147483647), a text, and an error status identifier between 0-255.</p>
 <p>The updated procedure for recording the VAT key looks like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">InsertNewVAT</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span>
-<span class="k">as</span>
-<span class="k">begin</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
 
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span>
 
-<span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
+<span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="err">​​</span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="w">  </span><span class="k">else</span>
-<span class="hll"><span class="w">      </span><span class="n">throw</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="err">​​</span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ELSE</span>
+<span class="hll"><span class="w">      </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </span>
-<span class="w">  </span><span class="k">commit</span>
-<span class="k">end</span>
+<span class="w">  </span><span class="k">COMMIT</span>
+<span class="k">END</span>
 </code></pre></div>
 <p>To handle (catch) an error, you can use the following syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="k">begin</span><span class="w"> </span><span class="n">try</span>
-<span class="w">  </span><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
-<span class="k">end</span><span class="w"> </span><span class="n">try</span>
-<span class="k">begin</span><span class="w"> </span><span class="n">catch</span>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRY</span>
+<span class="w">  </span><span class="k">EXEC</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
+<span class="k">END</span><span class="w"> </span><span class="n">TRY</span>
+<span class="k">BEGIN</span><span class="w"> </span><span class="n">CATCH</span>
 <span class="w">  </span><span class="c1">-- access the error details with the following functions (similar to stack trace in other languages)</span>
 <span class="w">  </span><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">ERROR_NUMBER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorNumber</span><span class="p">,</span>
@@ -2156,7 +2156,7 @@
 <span class="w">    </span><span class="n">ERROR_PROCEDURE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorProcedure</span><span class="p">,</span>
 <span class="w">    </span><span class="n">ERROR_LINE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorLine</span><span class="p">,</span>
 <span class="w">    </span><span class="n">ERROR_MESSAGE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorMessage</span><span class="p">;</span>
-<span class="k">end</span><span class="w"> </span><span class="n">catch</span>
+<span class="k">END</span><span class="w"> </span><span class="n">CATCH</span>
 </code></pre></div>
 <p>Of course, it's not just user code that can throw errors. The system also signals errors identically, and we can handle them using the same tools.</p>
 <h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">¶</a></h2>
@@ -2166,22 +2166,22 @@
 <p>Using triggers, we can solve several tasks that would be difficult otherwise. Consider, for example, an <strong>audit logging</strong> requirement: when a change is made to a particular table, let us record a log entry. We could solve this task in C#/Java/Python by creating a class or methods for accessing the database table in question. However, nothing prevents the programmer from "bypassing" this logic and accessing the database directly. We cannot prevent this with triggers, but we can create a trigger that performs the required logging instead of the C#/Java/Python code.</p>
 <p>Let us look at this example: logging the deletion of any products in a dedicated table:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Create the auditing table</span>
-<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">([</span><span class="n">Description</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">nvarchar</span><span class="p">](</span><span class="k">max</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
-<span class="k">go</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">([</span><span class="n">Description</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">nvarchar</span><span class="p">](</span><span class="k">MAX</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Logging trigger</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductDeleteLog</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">AuditLog</span><span class="w"> </span><span class="p">(</span><span class="n">Description</span><span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductDeleteLog</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">AuditLog</span><span class="w"> </span><span class="p">(</span><span class="n">Description</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
 </code></pre></div>
 <p>Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the <code>DROP TRIGGER</code> statement). The trigger is linked to the table in the database:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mssql-trigger-in-db.png" data-desc-position="bottom"><img alt="Trigger in the database" src="../img/mssql-trigger-in-db.png"></a></p>
 <p>The syntax for defining a DML trigger is as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">trigger_name</span>
-<span class="k">ON</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="err">}</span>
+<span class="k">ON</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="err">}</span>
 <span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="err">{</span><span class="p">[</span><span class="k">DELETE</span><span class="p">]</span><span class="w"> </span><span class="p">[,]</span><span class="w"> </span><span class="p">[</span><span class="k">INSERT</span><span class="p">]</span><span class="w"> </span><span class="p">[,]</span><span class="w"> </span><span class="p">[</span><span class="k">UPDATE</span><span class="p">]</span><span class="err">}</span>
 <span class="k">AS</span>
 <span class="n">sql_instruction</span><span class="w"> </span><span class="p">[...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
@@ -2229,7 +2229,7 @@
 <span class="k">RETURNS</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="c1">-- true / false return value</span>
 <span class="k">AS</span>
 <span class="k">BEGIN</span>
-<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Cannot be null</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Cannot be null</span>
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Cannot be an empty string</span>
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%_@%_._%'</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- Looks like an email</span>
 <span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span>
@@ -2238,56 +2238,56 @@
 <span class="k">END</span>
 
 <span class="c1">-- The trigger</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">CustomerEmailSyntaxCheck</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Customer</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="c1">-- Check both inserting and modifying</span>
-<span class="k">as</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CustomerEmailSyntaxCheck</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Customer</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="c1">-- Check both inserting and modifying</span>
+<span class="k">AS</span>
 <span class="c1">-- For both insertion and modification, the new data is in the inserted table</span>
 <span class="c1">-- Is there an item there for which the new email address is not valid?</span>
-<span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">IsEmailValid</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">  </span><span class="n">throw</span><span class="w"> </span><span class="mi">51234</span><span class="p">,</span><span class="w"> </span><span class="s1">'invalid email address'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- abort the transaction by raising the error</span>
+<span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">IsEmailValid</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51234</span><span class="p">,</span><span class="w"> </span><span class="s1">'invalid email address'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- abort the transaction by raising the error</span>
 </code></pre></div>
 <p>The above trigger runs after insertion or modification in the same transaction. So if we throw an error, the transaction will be aborted (unless handled by the caller). By running the trigger at the instruction level, a single faulty record interrupts the entire operation. Of course, this is what we expect due to atomicity: the indivisibility of the transaction is satisfied for the instruction as a whole, i.e., for inserting/modifying several records at once.</p>
 <p>Another common use of triggers is <strong>maintenance of denormalized data</strong>. Although we try to avoid denormalization in a relational database, in practice, it may be necessary to store computed data for performance reasons. Let us look at an example of this as well. Suppose customers have two email addresses: one to sign in with, an optional second one to use for notifications. To avoid always having to query both email addresses and choosing between the two, let us make sure the <em>effective</em> email address is available in the database "calculated" from the previous two:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Additional email address columns for customers</span>
-<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">Customer</span>
-<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
-<span class="k">go</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Customer</span>
+<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Trigger to update the effective email address</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">CustomerEmailUpdate</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Customer</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span>
-<span class="k">as</span>
-<span class="k">update</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="c1">-- We modify the Customer table, not the inserted implicit table</span>
-<span class="k">set</span><span class="w"> </span><span class="n">EffectiveEmail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">NotificationEmail</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Copy one or the other value to the EffectiveEmail column</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="c1">-- Records must be retrieved from the Customer table based on the inserted rows</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CustomerEmailUpdate</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Customer</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="k">AS</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="c1">-- We modify the Customer table, not the inserted implicit table</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">EffectiveEmail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">NotificationEmail</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Copy one or the other value to the EffectiveEmail column</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="c1">-- Records must be retrieved from the Customer table based on the inserted rows</span>
 </code></pre></div>
 <div class="admonition important">
 <p class="admonition-title">Trigger recursion</p>
 <p>Note that in this trigger, an update is executed in response to an update event. This is a recursion. Recursion of DML triggers is disabled by default, so the above example does not invoke trigger recursion. However, if trigger recursion were enabled in the database, we would need to handle it.</p>
 </div>
 <p>Let us look at another example of denormalized data maintenance. In the order table, let us add a grand total column, which is the total net price of the order. We need a trigger to keep the value updated automatically:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">OrderTotalUpdateTrigger</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">OrderItem</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="p">,</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">OrderTotalUpdateTrigger</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
 
-<span class="k">update</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="k">from</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span>
-<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span>
-<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
-<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
+<span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 
-<span class="k">update</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="k">from</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span>
-<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
-<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
-<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
+<span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 </code></pre></div>
 <p>In this trigger, it is worth noting that while the event occurs in the <code>OrderItem</code> table, the content to be updated is in the <code>Order</code> table. This is fine, a trigger can read and write any part of the database, and all changes are executed in the same transaction. Furthermore, we do not recalculate the total amount in the trigger but alter it in response to the changes. Although this makes the trigger code more complex, it is more effective this way.</p>
 <div class="admonition note">
@@ -2298,42 +2298,42 @@
 <p>A special type of trigger is the so-called <em>instead of trigger</em>. Such triggers can be defined for both tables and views. Let us look at using them on tables first. An <em>instead of</em> trigger defined on a table, as its name suggests, runs the instruction we define in the trigger instead of the actual operation's <code>insert / update / delete</code>. E.g., when inserting, the new rows are not added to the table, and when deleting, rows are not deleted. Instead, we can define in the trigger how to perform these operations. In the overridden process, we can access the table itself and execute the necessary actions in this table. These operations do not cause recursion in the trigger. These triggers can be considered as <em>before</em> triggers, i.e., we can perform checks before making the changes and abort the operation in case of an error.</p>
 <p>A typical use case for an <em>instead of</em> trigger is, for example, when we do not want to perform a deletion. This is also called <em>soft delete</em>:,instead of deleting, we only mark the records as deleted:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Soft delete flag column in the table with a default value of 0 (i.e., false)</span>
-<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">IsDeleted</span><span class="p">]</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">DF_Product_IsDeleted</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
-<span class="k">go</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Instead of trigger, the delete command does not perform the deletion</span>
 <span class="c1">-- the following code runs instead</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductSoftDelete</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
-<span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="n">IsDeleted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="p">)</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductSoftDelete</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="n">IsDeleted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="p">)</span>
 </code></pre></div>
 <p>Another typical use case for <em>instead of</em> triggers is views. A view is the result of a query, so inserting new data into the view does not make sense. However, you can use an <em>instead of</em> trigger to define what to do instead of "inserting into view." Let us look at an example. In the view below, we combine data from the product and VAT tables so that the VAT percentage is displayed in the view instead of the ID of the referenced VAT record. We can insert into this view by inserting the data into the product table instead:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Define the view</span>
-<span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
-<span class="k">as</span>
-<span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Id</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
+<span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Id</span>
 
 <span class="c1">-- Instead of trigger for the view</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductWithVatPercentageInsert</span>
-<span class="k">on</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
-<span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">insert</span>
-<span class="k">as</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductWithVatPercentageInsert</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
+<span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">INSERT</span>
+<span class="k">AS</span>
 <span class="w">  </span><span class="c1">-- The insertion goes into the Product table: a new row is created for each inserted record</span>
 <span class="w">  </span><span class="c1">-- And we find the VAT record corresponding to the provided percentage</span>
 <span class="w">  </span><span class="c1">-- The solution is not complete because it does not handle if there is no matching VAT record</span>
-<span class="w">  </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">VATID</span><span class="p">,</span><span class="w"> </span><span class="n">CategoryID</span><span class="p">)</span>
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">VATID</span><span class="p">,</span><span class="w"> </span><span class="n">CategoryID</span><span class="p">)</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Percentage</span>
 
 <span class="c1">-- The trigger can be tested by inserting data into the view</span>
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'Red ball'</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'Red ball'</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
 </code></pre></div>
 
     <hr>
@@ -2343,8 +2343,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 8, 2025 15:05:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:05:40 CET"><span class="timeago" datetime="2025-12-08T15:05:40+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:05:40 CET">2025-12-08</span>
+      <span title="December 8, 2025 16:19:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 16:19:37 CET"><span class="timeago" datetime="2025-12-08T16:19:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 16:19:37 CET">2025-12-08</span>
       </span>
     </span>
 
@@ -2360,8 +2360,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/almat-n" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/128299779?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      

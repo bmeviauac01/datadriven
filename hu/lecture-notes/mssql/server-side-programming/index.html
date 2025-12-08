@@ -1839,14 +1839,14 @@
 <span class="c1">-- Hiba: Must declare the scalar variable "@num".</span>
 </code></pre></div>
 <p>Változónak lekérdezéssel is adhatunk értéket:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 <p>Ha a lekérdezés több sorral tér vissza, az <em>utolsó</em> érték marad a változóban:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
@@ -1854,7 +1854,7 @@
 <span class="c1">-- SELECT utolsó eredménye kerül végül a változóba</span>
 </code></pre></div>
 <p>Ha a lekérdezés nem tér vissza eredménnyel, a változó értéke nem változik:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 <span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'aaa'</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
@@ -1873,7 +1873,7 @@
 <span class="k">END</span>
 </code></pre></div>
 <p>Elágazást <code>IF-ELSE</code> szerkezettel készíthetünk:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
@@ -1945,7 +1945,7 @@
 <span class="c1">-- 37</span>
 </code></pre></div>
 <p>Adattípus konvertálás:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'12'</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'12'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
 <span class="c1">-- 12</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="k">CONVERT</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="s1">'12'</span><span class="p">)</span>
@@ -2025,7 +2025,7 @@
 <h3 id="pelda">Példa<a class="headerlink" href="#pelda" title="Permanent link">¶</a></h3>
 <p>Lássunk egy komplett példát. Keressük meg azon termékeket, amiből alig van raktáron, és ha a legutolsó eladás több, mint egy éve volt, akkor adjunk kedvezményt a termékre:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Ezekbe a változókba szedjük ki a kurzorból az adatokat</span>
-<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductName</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductName</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">int</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="w"> </span><span class="n">datetime</span>
 
@@ -2079,31 +2079,31 @@
 </code></pre></div>
 <p>A <code>CREATE OR ALTER</code> eredménye a tárolt eljárás létrehozása, ha nem létezett, avagy ha már létezett ilyen névvel, akkor annak frissítése az új tartalommal. MSSQL Server 2016 előtt nem volt <code>CREATE OR ALTER</code>, csak <code>CREATE PROC</code> és <code>ALTER PROC</code>. Egy tárolt eljárást a <code>DROP PROCEDURE</code> utasítással lehet törölni, melynek hatására az eljárás eltávolításra kerül a szerverből és többet nem hívható meg.</p>
 <p>Lássuk például az ÁFA kulcs rögzítését a <code>VAT</code> táblába annak garantálásával, hogy olyan kulcs nem rögzíthető mely már létezik:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- tárolt eljárás létrehozása, neve</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- tárolt eljárás létrehozása, neve</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span><span class="w">                    </span><span class="c1">-- tárolt eljárás paraméterei</span>
-<span class="k">as</span><span class="w"> </span><span class="c1">-- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer</span>
-<span class="w">  </span><span class="k">begin</span>
+<span class="k">AS</span><span class="w"> </span><span class="c1">-- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rendszer</span>
+<span class="w">  </span><span class="k">BEGIN</span>
 
 <span class="w">  </span><span class="c1">-- nem megismételhető olvasás elkerülése végett</span>
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span><span class="w">                            </span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span><span class="w">                            </span>
 
-<span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
+<span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="w">  </span><span class="k">else</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ELSE</span>
 <span class="w">      </span><span class="n">print</span><span class="w"> </span><span class="s1">'error'</span><span class="p">;</span>
 
-<span class="k">commit</span>
-<span class="k">end</span>
+<span class="k">COMMIT</span>
+<span class="k">END</span>
 </code></pre></div>
 <p>Tárolt eljárás az előbbi parancs hatására létrejön, és utána az alábbi módon hívhatjuk meg:</p>
-<div class="highlight"><pre><span></span><code><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
+<div class="highlight"><pre><span></span><code><span class="k">EXEC</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
 </code></pre></div>
 <p>A tárolt eljárások az adatbázisunk részei. Microsoft SQL Server Management Studio-ban például a képen látható helyen jelennek meg:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mssql-stored-proc-in-db.png" data-desc-position="bottom"><img alt="Tárolt eljárás az adatbázisban" src="../img/mssql-stored-proc-in-db.png"></a></p>
@@ -2126,13 +2126,13 @@
 <span class="k">END</span>
 </code></pre></div>
 <p>Ezt a függvényt így használhatjuk:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
 <span class="c1">-- A dbo előtag a séma azonosítása, amivel azt jelöljük, hogy ez nem egy beépített függvény</span>
 <span class="c1">-- Enélkül a függvényt nem találja meg a rendszer</span>
 
 <span class="c1">-- avagy például</span>
 <span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LargestVATPercentage</span><span class="p">()</span>
-<span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">maxvat</span>
 </code></pre></div>
 <h3 id="tabla-fuggveny">Tábla függvény<a class="headerlink" href="#tabla-fuggveny" title="Permanent link">¶</a></h3>
 <p>Nem csak skalár értékkel térhet vissza egy függvény, az eredmény lehet tábla típusú is. Ilyenkor a deklaráció így néz ki:</p>
@@ -2140,55 +2140,55 @@
 <span class="p">(</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="o">@</span><span class="n">paraméter</span><span class="w"> </span><span class="n">adattípus</span><span class="w"> </span><span class="err">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">,...</span><span class="n">n</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
 <span class="k">RETURNS</span><span class="w"> </span><span class="k">TABLE</span>
 <span class="p">[</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">]</span>
-<span class="k">RETURN</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">utasítás</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">utasítás</span>
 </code></pre></div>
 <p>Nézzük például az áfakulcsok lekérését egy adott százalék felett:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="o">@</span><span class="k">min</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="o">@</span><span class="k">MIN</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
 <span class="k">RETURNS</span><span class="w"> </span><span class="k">TABLE</span>
 <span class="k">AS</span><span class="w"> </span><span class="k">RETURN</span>
 <span class="p">(</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="k">min</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="k">MIN</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Ezen függvény táblát ad vissza, tehát bárhol használhatjuk a függvényt, ahol tábla állhat, például:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </code></pre></div>
 <p>Mivel a függvény táblát ad vissza, akár <code>join</code>-olhatunk is rá:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VATPercentages</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span>
 </code></pre></div>
 <h2 id="hibakezeles">Hibakezelés<a class="headerlink" href="#hibakezeles" title="Permanent link">¶</a></h2>
 <p>A tárolt eljárást ismertető példában meg akartuk akadályozni a duplikált rekord beszúrását egy táblába. Ezt fentebb úgy értük el, hogy nem hajtottuk végre az utasítást. Azonban célszerűbb lenne jelezni a hibát a hívó számára. Erre szolgál a strukturált hibajelzés és kezelés. Hiba esetén a <code>throw</code> paranccsal dobhatunk hibát. Ezen parancs hatására a kód végrehajtása megszakad és a hívóhoz visszakerül a végrehajtás (ahol a hiba lekezelhető, avagy továbbdobható). A hibának van egy hibaszáma (50000 és 2147483647 között), egy szövege, és egy 0-255 közötti hiba állapot azonosító.</p>
 <p>Ezzel kiegészítve az ÁFA kulcs rögzítése az ÁFA táblába tárolt eljárásunk így néz ki:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">InsertNewVAT</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">InsertNewVAT</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span>
-<span class="k">as</span>
-<span class="k">begin</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
 
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">begin</span><span class="w"> </span><span class="n">tran</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span>
 
-<span class="w">  </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="nb">int</span>
+<span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Percentage</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">@</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="w">  </span><span class="k">else</span>
-<span class="hll"><span class="w">      </span><span class="n">throw</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ELSE</span>
+<span class="hll"><span class="w">      </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51000</span><span class="p">,</span><span class="w"> </span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </span>
-<span class="w">  </span><span class="k">commit</span>
-<span class="k">end</span>
+<span class="w">  </span><span class="k">COMMIT</span>
+<span class="k">END</span>
 </code></pre></div>
 <p>Hiba lekezelése (elkapására) az alábbi szintaktikát használhatjuk:</p>
-<div class="highlight"><pre><span></span><code><span class="k">begin</span><span class="w"> </span><span class="n">try</span>
-<span class="w">  </span><span class="k">exec</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
-<span class="k">end</span><span class="w"> </span><span class="n">try</span>
-<span class="k">begin</span><span class="w"> </span><span class="n">catch</span>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRY</span>
+<span class="w">  </span><span class="k">EXEC</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="mi">27</span>
+<span class="k">END</span><span class="w"> </span><span class="n">TRY</span>
+<span class="k">BEGIN</span><span class="w"> </span><span class="n">CATCH</span>
 <span class="w">  </span><span class="c1">-- az alábbi függvényekkel hozzáférünk a hiba részleteihez (hasonlóan, mint a stack trace más nyelvekben)</span>
 <span class="w">  </span><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">ERROR_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorNumber</span><span class="p">,</span>
@@ -2197,7 +2197,7 @@
 <span class="w">    </span><span class="n">ERROR_PROCEDURE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorProcedure</span><span class="p">,</span>
 <span class="w">    </span><span class="n">ERROR_LINE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorLine</span><span class="p">,</span>
 <span class="w">    </span><span class="n">ERROR_MESSAGE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorMessage</span><span class="p">;</span>
-<span class="k">end</span><span class="w"> </span><span class="n">catch</span>
+<span class="k">END</span><span class="w"> </span><span class="n">CATCH</span>
 </code></pre></div>
 <p>Hibát természetesen nem csak mi dobhatunk. A rendszer is analóg módon jelez hibákat, amelyeket ugyanezen eszközökkel kezelhetünk.</p>
 <h2 id="trigger">Trigger<a class="headerlink" href="#trigger" title="Permanent link">¶</a></h2>
@@ -2207,16 +2207,16 @@
 <p>Triggerek használatával több olyan feladatot is meg tudunk oldani, amely nélkülük nehéz lenne. Gondoljunk például egy <strong>audit naplózási</strong> feladatra: amikor egy adott táblában valamilyen módosítás történik, arról rögzítsünk egy rekordot egy napló táblába. Ezt a feladatot C#/Java/Python kódban is meg tudnánk oldani, csakhogy az érintett tábla tartalommódosítását így becsomagoló osztály vagy kódrészlet megkerülhető - semmi nem akadályozza meg a programozót abban, hogy "kikerülje" az így megírt logikát és az adatbázist direktben érje el. Ezt megakadályozni triggerekkel se tudjuk, azonban készíthetünk egy triggert, amely C#/Java/Python kód helyett elvégzi a szükséges naplózást.</p>
 <p>Nézzük is ennek a példának a kódját. Naplózzuk tehát bármely termékek törlését egy napló táblába:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Napló tábla létrehozása</span>
-<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">([</span><span class="n">Description</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">nvarchar</span><span class="p">](</span><span class="k">max</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
-<span class="k">go</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">([</span><span class="n">Description</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">nvarchar</span><span class="p">](</span><span class="k">MAX</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Naplózó trigger</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductDeleteLog</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">(</span><span class="n">Description</span><span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductDeleteLog</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">AuditLog</span><span class="p">(</span><span class="n">Description</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
 </code></pre></div>
 <p>A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a <code>DROP TRIGGER</code> utasítással). A trigger az érintett táblához kötve látható az adatbázisban:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mssql-trigger-in-db.png" data-desc-position="bottom"><img alt="Trigger az adatbázisban" src="../img/mssql-trigger-in-db.png"></a></p>
@@ -2270,7 +2270,7 @@
 <span class="k">RETURNS</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="c1">-- true/false visszatérési érték</span>
 <span class="k">AS</span>
 <span class="k">BEGIN</span>
-<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Nem lehet null</span>
+<span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Nem lehet null</span>
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Nem lehet üres string</span>
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%_@%_._%'</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- Kb. email kinézete van</span>
 <span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span>
@@ -2279,56 +2279,56 @@
 <span class="k">END</span>
 
 <span class="c1">-- Definiáljuk a triggert</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">CustomerEmailSyntaxCheck</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Customer</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="c1">-- beszúrás és módosítás is érdekel</span>
-<span class="k">as</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CustomerEmailSyntaxCheck</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Customer</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="c1">-- beszúrás és módosítás is érdekel</span>
+<span class="k">AS</span>
 <span class="c1">-- Mind a beszúrás mind módosítás esetén az inserted táblában lesz az új adat</span>
 <span class="c1">-- Létezik-e olyan elem ott, amire az új email cím nem érvényes</span>
-<span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">IsEmailValid</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">  </span><span class="n">throw</span><span class="w"> </span><span class="mi">51234</span><span class="p">,</span><span class="w"> </span><span class="s1">'invalid email address'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- szakítsuk meg a tranzakciót a hiba eldobásával</span>
+<span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">IsEmailValid</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51234</span><span class="p">,</span><span class="w"> </span><span class="s1">'invalid email address'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">-- szakítsuk meg a tranzakciót a hiba eldobásával</span>
 </code></pre></div>
 <p>A fenti trigger ugyan a beszúrás avagy módosítás után fut, de még ugyanabban a tranzakcióban. Tehát ha hibát dobunk, akkor a tranzakció meg fog szakadni (hacsak nem kezeli le a hívó). Azzal, hogy a trigger utasítás szinten fut, egyetlen hibás sor is az egész utasítást szakítja meg - természetesen ezt várjuk az atomiság miatt: az utasítás egészére, azaz több sor beszúrására/módosítására egyszerre teljesül az oszthatatlanság.</p>
 <p>Triggerek további gyakori felhasználási esete a <strong>denormalizált adat karbantartása</strong>. Ugyan egy relációs adatbázisban igyekszünk elkerülni a denormalizálást, a gyakorlatban teljesítmény okokból lehet mégis szükség számított adat külön eltárolására. Nézzünk egy példát erre is. Tegyük fel, hogy a vevőknek két email címe is van: egy a bejelentkezéshez, és megadhatnak egy másikat, amit az értesítésekhez használni akarnak. Hogy ne kelljen mindig mindkét email címet minden alkalommal lekérdezni, és választani a kettő közül, legyen elérhető adatbázisban a valóban használt email cím, amely az előző kettőből "számítható":</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Plusz email cím oszlopok a vevőknek</span>
-<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">Customer</span>
-<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">max</span><span class="p">)</span>
-<span class="k">go</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Customer</span>
+<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Használt email címet frissítő trigger</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">CustomerEmailUpdate</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Customer</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span>
-<span class="k">as</span>
-<span class="k">update</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="c1">-- A Customer táblát módosítjuk, nem az inserted-et</span>
-<span class="k">set</span><span class="w"> </span><span class="n">EffectiveEmail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">NotificationEmail</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Egyik vagy másik értéket másolja az EffectiveEmail oszlopba</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="c1">-- Az inserted-ek alapján kell a Customer-ben kikeresni a rekordokat</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">CustomerEmailUpdate</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Customer</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="k">AS</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="c1">-- A Customer táblát módosítjuk, nem az inserted-et</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">EffectiveEmail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">NotificationEmail</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Email</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Egyik vagy másik értéket másolja az EffectiveEmail oszlopba</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="c1">-- Az inserted-ek alapján kell a Customer-ben kikeresni a rekordokat</span>
 </code></pre></div>
 <div class="admonition important">
 <p class="admonition-title">Trigger rekurzió</p>
 <p>Vegyük észre az előbbi triggerben, hogy a módosítás reagálásaként egy újabb módosítást hajtunk végre. Ez tehát rekurzió. A DML triggerek rekurziója alapesetben ki van kapcsolva, így a fenti példa nem vált ki rekurziót. Amennyiben viszont engedélyezett az adatbázisban a trigger rekurzió, azt kezelnünk is kell.</p>
 </div>
 <p>Nézzünk egy másik denormalizált adat karbantartás példát. A megrendelés táblába vegyünk fel egy végösszeg oszlopot, amely a megrendelés teljes nettó ára, és ezt automatikusan tartsuk karban:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">OrderTotalUpdateTrigger</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">OrderItem</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="p">,</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">OrderTotalUpdateTrigger</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
 
-<span class="k">update</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="k">from</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span>
-<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span>
-<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
-<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
+<span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 
-<span class="k">update</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="k">from</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span>
-<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">TotalChange</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
-<span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
-<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
+<span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span><span class="w"> </span><span class="n">OrderChange</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 </code></pre></div>
 <p>Ebben a triggerben érdemes észrevenni, hogy míg az esemény az <code>OrderItem</code> táblában történik, a frissítendő tartalom az <code>Order</code> táblában van. Ez abszolút működőképes, egy trigger az adatbázis bármely részét olvashatja és írhatja, és továbbra is minden módosítás ugyanabban a tranzakcióban fut. Továbbá érdemes megérteni, hogy a triggerben nem újraszámoljuk az összeget, hanem kijavítjuk azt a változásokkal. Ez természetesen komplexebbé teszi a trigger kódját, de így lesz hatékony.</p>
 <div class="admonition note">
@@ -2339,42 +2339,42 @@
 <p>A triggerek egy speciális fajtája az ún. <em>instead of trigger</em>. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált <em>instead of</em> trigger, ahogy a neve sugallja, a végrehajtandó utasítás (<code>insert/update/delete</code>) <em>helyett</em> fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában <em>utasítás előtti</em> triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.</p>
 <p>Tipikus felhasználási esete az <em>instead of</em> triggernek az ellenőrzési feladatokon túl például, ha egy törlést valójában nem akarunk végrehajtani. Ezt szokás <em>soft delete</em>-nek hívni, amikor törlés <em>helyett</em> csak töröltnek jelöljük a rekordokat:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel</span>
-<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">IsDeleted</span><span class="p">]</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">DF_Product_IsDeleted</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
-<span class="k">go</span>
+<span class="k">GO</span>
 
 <span class="c1">-- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre</span>
 <span class="c1">-- helyette az alábbi kód fut le</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductSoftDelete</span>
-<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">delete</span>
-<span class="k">as</span>
-<span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">set</span><span class="w"> </span><span class="n">IsDeleted</span><span class="o">=</span><span class="mi">1</span>
-<span class="w">  </span><span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">deleted</span><span class="p">)</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductSoftDelete</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="k">AS</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="n">IsDeleted</span><span class="o">=</span><span class="mi">1</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="p">)</span>
 </code></pre></div>
 <p>Az <em>instead of</em> triggerek másik tipikus felhasználási esete a nézetek. Egy nézet egy lekérdezés eredménye, tehát nem értelmezhető az a művelet, hogy új adatot szúrunk be a nézetbe. Viszont egy <em>instead of</em> triggerrel definiálhatjuk, mit kell a "nézetbe beszúrás" <em>helyett</em> végrehajtani. Nézzünk erre egy példát. A nézetben a termék és áfa táblákból kapcsoljuk össze az adatokat úgy, hogy ne a hivatkozott áfa rekord azonosítója, hanem az áfa százaléka jelenjen meg a nézetben. Ebbe a nézetbe úgy tudunk beszúrni, ha a mögötte levő termékeket tároló táblába szúrunk be:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Nézet definiálása</span>
-<span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
-<span class="k">as</span>
-<span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">Id</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
+<span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">Id</span>
 
 <span class="c1">-- Instead of trigger a nézetre a beszúrás helyett</span>
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">ProductWithVatPercentageInsert</span>
-<span class="k">on</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
-<span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">insert</span>
-<span class="k">as</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductWithVatPercentageInsert</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
+<span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">INSERT</span>
+<span class="k">AS</span>
 <span class="w">  </span><span class="c1">-- A beszúrás a Product táblába kerül, minden inserted rekordnak egy új sora keletkezik</span>
 <span class="w">  </span><span class="c1">-- És közben kikeressük a százaléknak megfelelő áfa rekordot</span>
 <span class="w">  </span><span class="c1">-- A megoldás nem teljes, mert nem kezeli, ha nincs még ilyen áfa rekord</span>
-<span class="w">  </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">VATID</span><span class="p">,</span><span class="w"> </span><span class="n">CategoryID</span><span class="p">)</span>
-<span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Percentage</span>
+<span class="w">  </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">VATID</span><span class="p">,</span><span class="w"> </span><span class="n">CategoryID</span><span class="p">)</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Vat</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Percentage</span>
 
 <span class="c1">-- A trigger kipróbálható a nézetbe való beszúrással</span>
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'Red ball'</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'Red ball'</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
 </code></pre></div>
 
     <hr>
@@ -2384,8 +2384,8 @@
           </path>
         </svg>
       </span>
-      <span title="2025. december 8. 15:03:28">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. december 8. 15:03:28 CET"><span class="timeago" datetime="2025-12-08T15:03:28+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. december 8. 15:03:28 CET">2025-12-08</span>
+      <span title="2025. december 8. 16:19:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. december 8. 16:19:37 CET"><span class="timeago" datetime="2025-12-08T16:19:37+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. december 8. 16:19:37 CET">2025-12-08</span>
       </span>
     </span>
 
@@ -2403,8 +2403,8 @@
           <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
         </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/gergoradeczki" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Radeczki">
-          <img src="https://avatars.githubusercontent.com/u/4851436?u=6af920525ee593810b1e7973750e169c5f69b71c&amp;v=4?size=72" alt="@Gergő Radeczki">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/MeIidon" target="_blank" rel="noopener noreferrer" class="md-author" title="@Zsombor Szommer">
           <img src="https://avatars.githubusercontent.com/u/56506014?u=77f2a2176a77f1e01f056fea187d20f94bafb779&amp;v=4?size=72" alt="@Zsombor Szommer">
         </a><a href="https://github.com/MrPatesz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Patrik Ángyán">

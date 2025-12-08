@@ -1685,58 +1685,58 @@
 <p>A példák a <a href="../../../db/">minta adatbázison</a> futtathatóak.</p>
 <h2 id="egyszeru-lekerdezesek">Egyszerű lekérdezések<a class="headerlink" href="#egyszeru-lekerdezesek" title="Permanent link">¶</a></h2>
 <p>Melyik termék olcsóbb mint 2000 és kevesebb, mint 50 db van belőle?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Price</span><span class="o">&lt;</span><span class="mi">2000</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Stock</span><span class="o">&lt;</span><span class="mi">50</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">&lt;</span><span class="mi">2000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">Stock</span><span class="o">&lt;</span><span class="mi">50</span>
 </code></pre></div>
 <p>Melyik termékhez nincs leírás?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
 <h2 id="tablak-osszekapcsolasa">Táblák összekapcsolása<a class="headerlink" href="#tablak-osszekapcsolasa" title="Permanent link">¶</a></h2>
 <p>Budapesti központi telephellyel rendelkező vevők (a két megoldás ekvivalens)</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span>
-<span class="k">where</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
 
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
 </code></pre></div>
 <p>Listázza ki az M betűvel kezdődő termékek nevét és a megrendelt mennyiségeket úgy, hogy azok a termékek is benne legyenek a listában melyekből nem rendeltek meg semmit</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">Sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">left</span><span class="w"> </span><span class="k">outer</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'M%'</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'M%'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
 <h2 id="rendezes">Rendezés<a class="headerlink" href="#rendezes" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 </code></pre></div>
 <p>Microsoft SQL Server specifikus: <em>collation</em> a rendezés szabályait adja meg</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">SQL_Latin1_General_Cp1_CI_AI</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">SQL_Latin1_General_Cp1_CI_AI</span>
 </code></pre></div>
 <p>Több mező szerinti rendezés</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
 </code></pre></div>
 <h2 id="allekerdezesek">Allekérdezések<a class="headerlink" href="#allekerdezesek" title="Permanent link">¶</a></h2>
 <p>Listázzuk ki a megrendelések dátumát, határidejét és Status-át</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
 <p>Alternatív, de nem ekvivalens megoldás: az allekérdezés az outer joinnak felel meg!</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span>
-<span class="w">       </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span>
-<span class="w">        </span><span class="k">where</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span>
+<span class="w">       </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title"><code>[Order]</code></p>
@@ -1744,107 +1744,107 @@
 </div>
 <h2 id="duplikatum-szurese">Duplikátum szűrése<a class="headerlink" href="#duplikatum-szurese" title="Permanent link">¶</a></h2>
 <p>Melyek azok a termékek, melyből egyszerre több, mint 3 db-ot rendeltek? Ugyanabból a termékből több alkalommal is előfordulhatott, de csak egyszer szeretnénk a nevét látni.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">3</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">3</span>
 </code></pre></div>
 <h2 id="oszlopfuggvenyek">Oszlopfüggvények<a class="headerlink" href="#oszlopfuggvenyek" title="Permanent link">¶</a></h2>
 <p>Mennyibe kerül a legdrágább termék?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>Melyek a legdrágább termékek?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
 </code></pre></div>
 <p>Azon termékeket min, max és átlag mennyiért adták el, melyek nevében szerepel a Lego és az átlag eladási áruk 10.000-nél nagyobb</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
-<span class="k">Where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'%Lego%'</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">having</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10000</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%Lego%'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div>
 <h2 id="rekordok-letrehozasa">Rekordok létrehozása<a class="headerlink" href="#rekordok-letrehozasa" title="Permanent link">¶</a></h2>
 <p>Egy rekord létrehozása minden oszlop (kivéve <em>identity</em>) adatának megadásával</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
 </code></pre></div>
 <p>Csak megnevezett oszlopok értékeinek kitöltése</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="n">Price</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="n">Price</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <p>Lekérdezés eredményeinek beszúrása</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
-<span class="k">from</span><span class="w"> </span><span class="n">InvoiceItem</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">InvoiceItem</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">2</span>
 </code></pre></div>
 <p>MSSQL specifikus: identity oszlop</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">VAT</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">VAT</span>
 <span class="p">(</span>
-<span class="w">   </span><span class="n">ID</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">identity</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ID</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">IDENTITY</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">   </span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span>
 <span class="p">)</span>
 
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="p">(</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="p">(</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">27</span><span class="p">)</span>
 
-<span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="k">identity</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">IDENTITY</span>
 </code></pre></div>
 <p>MSSQL specifikus: értékadás <em>identity</em> oszlopnak</p>
-<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">on</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">ON</span>
 
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
 
-<span class="k">set</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">off</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">off</span>
 </code></pre></div>
 <h2 id="rekordok-modositasa">Rekordok módosítása<a class="headerlink" href="#rekordok-modositasa" title="Permanent link">¶</a></h2>
 <p>A Legók árát emeljük meg 10%-kal és a raktárkészletünket 5 db-bal</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span><span class="p">,</span>
 <span class="w">    </span><span class="n">Stock</span><span class="o">=</span><span class="n">Stock</span><span class="o">+</span><span class="mi">5</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'%Lego%'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%Lego%'</span>
 </code></pre></div>
 <p>Módosítás, ha kapcsolódó tábla alapján kell szűrni: emeljük meg 10%-kal azon 20%-os ÁFA kulcsú termékek árát, melyből, több mint 10 db van raktáron</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
-<span class="k">and</span><span class="w"> </span><span class="n">VATID</span><span class="w"> </span><span class="k">in</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">VATID</span><span class="w"> </span><span class="k">IN</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">ID</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>MSSQL Server specifikus szintaktika az előzőre</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
-<span class="w">      </span><span class="k">and</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
+<span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
 </code></pre></div>
 <h2 id="rekordok-torlese">Rekordok törlése<a class="headerlink" href="#rekordok-torlese" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">delete</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">&gt;</span><span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="o">&gt;</span><span class="mi">10</span>
 </code></pre></div>
 <h2 id="sorszamozas">Sorszámozás<a class="headerlink" href="#sorszamozas" title="Permanent link">¶</a></h2>
 <p>Sorszámozás egy adott rendezés szerint</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
-<span class="w">       </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
-<span class="w">       </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+<span class="w">       </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<span class="w">       </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 </code></pre></div>
 <p>Sorszámozás csoportosításonként</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
-<span class="w">       </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">       </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
+<span class="w">       </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">       </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 </code></pre></div>
 <div class="admonition example">
 <p class="admonition-title">Rank és dense_rank</p>
@@ -1853,65 +1853,65 @@
 <h2 id="cte-common-table-expression">CTE (Common Table Expression)<a class="headerlink" href="#cte-common-table-expression" title="Permanent link">¶</a></h2>
 <p>Motiváció: allekérdezéssel nehezen áttekinthetővé válnak a lekérdezések</p>
 <p>ABC sorrendben melyik az első három termék</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 <span class="p">)</span><span class="w"> </span><span class="n">a</span>
-<span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
 </code></pre></div>
 <p>Ugyan az a lekérdezés CTE használatával</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q1</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q1</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q1</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q1</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q1</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q1</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
 </code></pre></div>
 <p>Hány darabot adtak el a második legdrágább termékből?</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">q</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">q</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
 <p>Lapozás: termékek listázása ABC sorrendben a 3. rekordól a 8. rekordig</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">r</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="mi">8</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">r</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">8</span>
 </code></pre></div>
 <p>Lapozás: MSSQL Server (2012+) specifikus megoldás</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">offset</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">rows</span>
 <span class="k">fetch</span><span class="w"> </span><span class="k">next</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="k">only</span>
 
-<span class="k">select</span><span class="w"> </span><span class="n">top</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 </code></pre></div>
 <h2 id="xml-dokumentumok-lekerdezese">XML dokumentumok lekérdezése<a class="headerlink" href="#xml-dokumentumok-lekerdezese" title="Permanent link">¶</a></h2>
 <p>Egy relációs adatbázisban a relációs adatok mellett félig strukturált adatokat (pl.: XML) is eltárolhatunk, viszont a relációs a fő tartalom. A <a href="../../../db/">minta adatbázisban</a> a <code>Product</code> tábla <code>Description</code> mezője XML formátumú.</p>
@@ -1983,15 +1983,15 @@
 <h3 id="lekerdezesek">Lekérdezések<a class="headerlink" href="#lekerdezesek" title="Permanent link">¶</a></h3>
 <p>Adott tehát egy olyan tábla, amiben van egy XML típusú mező. Amellett, hogy a mező teljes értékét lekérdezhetjük, a tartalmára is képesek vagyunk lekérdezéseket megfogalmazni. Az XML dokumentumokban való lekérdezéshez az XML adattípuson definiált <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/query-method-xml-data-type"><code>query(XQuery)</code></a>, <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type"><code>value(XQuery, SQLType)</code></a> és <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/exist-method-xml-data-type"><code>exist(XQuery)</code></a> T-SQL függvényt használhatjuk. Nézzünk ezekre pár példát.</p>
 <p>Kérdezzük le, hogy hány csomagból állnak a termékek!</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'/product/package_parameters/number_of_packages'</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'/product/package_parameters/number_of_packages'</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>Ennek az eredménye például a következő lehet:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;number_of_packages&gt;</span>1<span class="nt">&lt;/number_of_packages&gt;</span>
 </code></pre></div>
 <p>A <code>query()</code> XML-lel tér vissza, ha csak az értékre van szükség, akkor a <code>value()</code> metódust használhatjuk. A <code>value()</code> metódusnak meg kell adni a lekérdezett adat típusát is string literálként.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>Ennek az eredménye már az 1 lesz számként.</p>
 <div class="admonition info">
@@ -1999,38 +1999,38 @@
 <p>A paraméterként átadott típus nem lehet xml. A megadott típusra való konvertálás T-SQL <a href="https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql"><code>CONVERT</code></a> függvénnyel történik.</p>
 </div>
 <p>Kérdezzük le azoknak a termékeknek a nevét, amelyek a 0-18 hónapos korosztálynak ajánlottak.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
 <p>Az <code>exist()</code> 1-gyel tér vissza, ha a megadott <em>XQuery</em> kifejezéssel futtatott lekérdezés nem üres eredménnyel tér vissza; vagy 0-val, amennyiben a lekérdezés eredménye üres.</p>
 <p>A lekérdezést <code>exist()</code> helyett <code>value()</code> metódus segítségével is megfogalmazhatjuk.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/recommended_age)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'varchar(max)'</span><span class="p">)</span><span class="o">=</span><span class="s1">'0-18 m'</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/recommended_age)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'varchar(MAX)'</span><span class="p">)</span><span class="o">=</span><span class="s1">'0-18 m'</span>
 </code></pre></div>
 <h3 id="manipulalo-lekerdezesek">Manipuláló lekérdezések<a class="headerlink" href="#manipulalo-lekerdezesek" title="Permanent link">¶</a></h3>
 <p>Nem csak lekérdezni tudunk XML adatokat, hanem módosítani is. A módosítás az adatbázisban atomi módon történik, azaz nem kell kliens oldalra letölteni az XML-t, módosítani, majd visszatölteni. Helyette a szerveroldali programozás filozófiáját követve a logikát (itt: módosítás) visszük az adatbázisba. Az adatmódosító lekérdezéseket a <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type"><code>modify(XML_DML)</code></a> függvénnyel hajthatjuk végre, ahol is az ún. <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml">XML DML</a> nyelven kell megfogalmaznunk a módosításunkat. Nézzünk erre is pár példát.</p>
 <p>Az Lego City harbour nevű terméknél az ajánlott életkort írjuk át 6-99 évre.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
 <span class="s1">'replace value of (/product/recommended_age/text())[1]</span>
-<span class="s1">with "6-99 y"'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
+<span class="s1">WITH "6-99 y"'</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
 <p>A megadandó kifejezés két részből áll: az elsőben (<code>replace value of</code>) kell a módosítani kívánt elemet kell kiválasztani, a másodikban (<code>with</code>) az új értéket kell megadni. Egy XML-en belül csak egy elem módosítható, így az útvonalat úgy kell megadni, hogy csak egy elemre illeszkedjen - ezért szerepel példában a végén az <code>[1]</code>.</p>
 <p>Szúrjunk be a Lego City harbour termékhez a <code>package_size</code> tag után egy <code>weight</code> tag-et a súly megadására.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
-<span class="s1">'insert &lt;weight&gt;2.28&lt;/weight&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<span class="s1">'INSERT &lt;weight&gt;2.28&lt;/weight&gt;</span>
 <span class="s1">after (/product/package_parameters/package_size)[1]'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
 <p>A megadandó kifejezés itt is két részből áll: az elsőben (<code>insert</code>) kell megadni az új elemet, másodikban kell leírni azt, hogy hova szúrja be az új elemet. Az új elemet fel lehet venni a megadott elem testvéreként vagy gyerekeként.</p>
 <p>Töröljük minden termék leírásából a <code>description</code> tag(ek)-et.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">'delete /product/description'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">'DELETE /product/description'</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
 <p>A törlésnél a <code>delete</code> után meg kell adni a törlendő elemek útvonalát.</p>
 
@@ -2041,8 +2041,8 @@
           </path>
         </svg>
       </span>
-      <span title="2023. november 17. 08:57:58">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2023. november 17. 08:57:58 CET"><span class="timeago" datetime="2023-11-17T08:57:58+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2023. november 17. 08:57:58 CET">2023-11-17</span>
+      <span title="2025. december 8. 15:15:15">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. december 8. 15:15:15 CET"><span class="timeago" datetime="2025-12-08T15:15:15+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. december 8. 15:15:15 CET">2025-12-08</span>
       </span>
     </span>
 
@@ -2060,16 +2060,14 @@
           <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
         </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
-        </a><a href="https://github.com/botondklenk" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/60361254?u=890a9fadbfa6aaeceef12c64716631bc0fa6f228&amp;v=4?size=72" alt="@None">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/gergoradeczki" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gergő Radeczki">
           <img src="https://avatars.githubusercontent.com/u/4851436?u=6af920525ee593810b1e7973750e169c5f69b71c&amp;v=4?size=72" alt="@Gergő Radeczki">
         </a><a href="https://github.com/MarcellHarmaci" target="_blank" rel="noopener noreferrer" class="md-author" title="@Marcell Harmaci">
           <img src="https://avatars.githubusercontent.com/u/47602777?u=6ff23ff3529eaeddc53503f2b80d53d028b800e2&amp;v=4?size=72" alt="@Marcell Harmaci">
         </a><a href="https://github.com/meszarosp" target="_blank" rel="noopener noreferrer" class="md-author" title="@Péter Mészáros">
           <img src="https://avatars.githubusercontent.com/u/57116193?v=4?size=72" alt="@Péter Mészáros">
-        </a><a href="https://github.com/Szofficsok" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/79463616?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
           <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@Ádám Tanai">
         </a></nav>      

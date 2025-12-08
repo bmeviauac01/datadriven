@@ -1645,58 +1645,58 @@
 <p>You can run these queries on the <a href="../../../db/">sample database</a>.</p>
 <h2 id="simple-queries">Simple queries<a class="headerlink" href="#simple-queries" title="Permanent link">¶</a></h2>
 <p>Which product costs less than 2000 and have less than 50 in stock?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Price</span><span class="o">&lt;</span><span class="mi">2000</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Stock</span><span class="o">&lt;</span><span class="mi">50</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">Stock</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">&lt;</span><span class="mi">2000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">Stock</span><span class="o">&lt;</span><span class="mi">50</span>
 </code></pre></div>
 <p>Which product has no description?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
 <h2 id="joining-tables">Joining tables<a class="headerlink" href="#joining-tables" title="Permanent link">¶</a></h2>
 <p>Customers with a main site in Budapest (the two alternatives are equivalent).</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span>
-<span class="k">where</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
 
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
 </code></pre></div>
 <p>List the products that start with letter M, the ordered amounts and deadlines. Include the products that have not been ordered yet.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">left</span><span class="w"> </span><span class="k">outer</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'M%'</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'M%'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
 <h2 id="sorting">Sorting<a class="headerlink" href="#sorting" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 </code></pre></div>
 <p>Microsoft SQL Server specific: <em>collation</em> specifies the rules for sorting</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">SQL_Latin1_General_Cp1_CI_AI</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">SQL_Latin1_General_Cp1_CI_AI</span>
 </code></pre></div>
 <p>Sort by multiple fields</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
 </code></pre></div>
 <h2 id="subqueries">Subqueries<a class="headerlink" href="#subqueries" title="Permanent link">¶</a></h2>
 <p>List the order dates, deadlines and Statuses</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
 <p>An alternative, but the two are not equivalent: the subquery is the equivalent of the left outer join and not the inner join!</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span>
-<span class="w">       </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span>
-<span class="w">        </span><span class="k">where</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span>
+<span class="w">       </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title"><code>[Order]</code></p>
@@ -1704,107 +1704,107 @@
 </div>
 <h2 id="filter-duplicates">Filter duplicates<a class="headerlink" href="#filter-duplicates" title="Permanent link">¶</a></h2>
 <p>Which products have been ordered in batches of more than 3? One product may have been ordered multiple times, but we want the name only once.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">3</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">3</span>
 </code></pre></div>
 <h2 id="aggregate-functions">Aggregate functions<a class="headerlink" href="#aggregate-functions" title="Permanent link">¶</a></h2>
 <p>How much is the most expensive product?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>Which are the most expensive products?</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
 </code></pre></div>
 <p>What was the min, max and average selling price of each product with name containing <em>Lego</em> having an average selling price more than 10000</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="o">*</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span><span class="o">/</span><span class="k">sum</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
-<span class="k">Where</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'%Lego%'</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
-<span class="k">having</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10000</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="o">*</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span><span class="o">/</span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%Lego%'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div>
 <h2 id="inserting-records">Inserting records<a class="headerlink" href="#inserting-records" title="Permanent link">¶</a></h2>
 <p>Inserting a single record by assigning value to all columns (except <em>identity</em>)</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
 </code></pre></div>
 <p>Set values of selected columns only</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="n">Price</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="n">Price</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 <p>Insert the result of a query</p>
-<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
-<span class="k">from</span><span class="w"> </span><span class="n">InvoiceItem</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">InvoiceItem</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">2</span>
 </code></pre></div>
 <p>MSSQL specific: identity column</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">VAT</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">VAT</span>
 <span class="p">(</span>
-<span class="w">   </span><span class="n">ID</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">identity</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ID</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">IDENTITY</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">   </span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span>
 <span class="p">)</span>
 
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="p">(</span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="p">(</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">27</span><span class="p">)</span>
 
-<span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="k">identity</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">IDENTITY</span>
 </code></pre></div>
 <p>MSSQL specific: setting the value of <em>identity</em> column</p>
-<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">on</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">ON</span>
 
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
-<span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
 
-<span class="k">set</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">off</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">off</span>
 </code></pre></div>
 <h2 id="updating-records">Updating records<a class="headerlink" href="#updating-records" title="Permanent link">¶</a></h2>
 <p>Raise the price of LEGOs by 10% and add 5 to stock</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span><span class="p">,</span>
 <span class="w">    </span><span class="n">Stock</span><span class="o">=</span><span class="n">Stock</span><span class="o">+</span><span class="mi">5</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'%Lego%'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%Lego%'</span>
 </code></pre></div>
 <p>Update based on filtering by referenced table content: raise the price by 10% for those products that are subject to 20% VAT, and have more then 10 pcs in stock</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
-<span class="k">and</span><span class="w"> </span><span class="n">VATID</span><span class="w"> </span><span class="k">in</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">VATID</span><span class="w"> </span><span class="k">IN</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">ID</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">VAT</span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">VAT</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>MSSQL Server specific solution to the same task</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
-<span class="w">      </span><span class="k">and</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="o">&gt;</span><span class="mi">10</span>
+<span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">Percentage</span><span class="o">=</span><span class="mi">20</span>
 </code></pre></div>
 <h2 id="deleting-records">Deleting records<a class="headerlink" href="#deleting-records" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">delete</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">ID</span><span class="o">&gt;</span><span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="o">&gt;</span><span class="mi">10</span>
 </code></pre></div>
 <h2 id="assigning-ranks">Assigning ranks<a class="headerlink" href="#assigning-ranks" title="Permanent link">¶</a></h2>
 <p>Assigning ranks by ordering</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
-<span class="w">       </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
-<span class="w">       </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+<span class="w">       </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<span class="w">       </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 </code></pre></div>
 <p>Ranking within groups</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
-<span class="w">       </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">       </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
+<span class="w">       </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">       </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 </code></pre></div>
 <div class="admonition example">
 <p class="admonition-title">Rank and dense_rank</p>
@@ -1813,65 +1813,65 @@
 <h2 id="cte-common-table-expression">CTE (Common Table Expression)<a class="headerlink" href="#cte-common-table-expression" title="Permanent link">¶</a></h2>
 <p>Motivation: subqueries often make queries complex</p>
 <p>First three products sorted by name alphabetically</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">            </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 <span class="p">)</span><span class="w"> </span><span class="n">a</span>
-<span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
 </code></pre></div>
 <p>Same solution using CTE</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q1</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q1</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">           </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span>
-<span class="w">          </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<span class="w">          </span><span class="p">,</span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q1</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q1</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q1</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q1</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
 </code></pre></div>
 <p>How many pieces have been sold from the second most expensive product?</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="n">dr</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q</span>
-<span class="w">     </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">q</span><span class="p">.</span><span class="n">ID</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
-<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="o">=</span><span class="n">q</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
 <p>Paging: list products alphabetically from 3. to 8. record</p>
-<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">q</span>
-<span class="k">as</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
+<span class="k">AS</span>
 <span class="p">(</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="n">r</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="n">r</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="p">)</span>
-<span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">q</span>
-<span class="k">where</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">r</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="mi">8</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">r</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">8</span>
 </code></pre></div>
 <p>Paging using MSSQL Server (2012+) specific syntax</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">offset</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">rows</span>
 <span class="k">fetch</span><span class="w"> </span><span class="k">next</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="k">only</span>
 
-<span class="k">select</span><span class="w"> </span><span class="n">top</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 </code></pre></div>
 <h2 id="querying-xml-documents">Querying XML documents<a class="headerlink" href="#querying-xml-documents" title="Permanent link">¶</a></h2>
 <p>In a relational database, in addition to relational data, semi-structured data (e.g., XML) can also be stored - but relational is the main content. For example, in the <a href="../../../db/">sample database</a>, the <code>Description</code> field of the <code>Product</code> table is XML.</p>
@@ -1943,15 +1943,15 @@
 <h3 id="queries">Queries<a class="headerlink" href="#queries" title="Permanent link">¶</a></h3>
 <p>Let us have a table with an XML column. In addition to querying the entire XML value, we can query content from within the XML document. In order to do this, we need to use T-SQL functions capable of working on the XML content: <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/query-method-xml-data-type"><code>query(XQuery)</code></a> , <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type"><code>value(XQuery, SQLType)</code></a> and <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/exist-method-xml-data-type"><code>exist(XQuery)</code></a>. Let's look at a few examples of these.</p>
 <p>Let us query how many packages the products consist of.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'/product/package_parameters/number_of_packages'</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'/product/package_parameters/number_of_packages'</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>For example, this could yield:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;number_of_packages&gt;</span>1<span class="nt">&lt;/number_of_packages&gt;</span>
 </code></pre></div>
 <p>The function <code>query()</code> returns XML; if it is only the value that is needed, we can use the <code>value()</code> function. The <code>value()</code> function must also specify the type of data queried as a string literal.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
 <p>The result will be 1.</p>
 <div class="admonition info">
@@ -1959,38 +1959,38 @@
 <p>The type passed as a parameter cannot be xml. Conversion to the specified type is performed with the T-SQL <a href="https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql"><code>CONVERT</code></a> function.</p>
 </div>
 <p>Let us query the names of the recommended products for ages 0-18 months.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
 <p>Function <code>exist()</code> returns 1 if the <em>XQuery</em> expression evaluation yields a non-empty result; or 0 if the query result is empty.</p>
 <p>We can also use the <code>value()</code> method instead of <code>exist()</code> here.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">Name</span>
-<span class="k">from</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/recommended_age)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'varchar(max)'</span><span class="p">)</span><span class="o">=</span><span class="s1">'0-18 m'</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/recommended_age)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'varchar(MAX)'</span><span class="p">)</span><span class="o">=</span><span class="s1">'0-18 m'</span>
 </code></pre></div>
 <h3 id="manipulating-queries">Manipulating queries<a class="headerlink" href="#manipulating-queries" title="Permanent link">¶</a></h3>
 <p>We can not only query XML data, but also modify it in place. The modification in the database is performed in an atomic way, i.e., there is no need to fetch the XML into a client application, modify it and then write it back. Instead, following the philosophy of server-side programming, we bring the logic (here: modification) into the database. Data modification queries can be performed with the <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type"><code>modify(XML_DML)</code></a> function, where we use the so-called <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml">XML DML</a> language to describe the desired change. Let's look at a few examples.</p>
 <p>In the product called Lego City harbor, let us change the recommended age to 6-99 years.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
 <span class="s1">'replace value of (/product/recommended_age/text())[1]</span>
-<span class="s1">with "6-99 y"'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
+<span class="s1">WITH "6-99 y"'</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
 <p>The XML DML expression consists of two parts: in the first part (<code>replace value of</code>) the element to be modified is selected; in the second part (<code>with</code>) the new value is specified. Only one element can be modified within an XML, so the path must be specified to match only one element - thus the <code>[1]</code> at the end of the example.</p>
 <p>Let us insert a <code>weigth</code> tag into the XML description of product Lego City harbor after the <code>package_size</code> tag.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
-<span class="s1">'insert &lt;weight&gt;2.28&lt;/weight&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
+<span class="s1">'INSERT &lt;weight&gt;2.28&lt;/weight&gt;</span>
 <span class="s1">after (/product/package_parameters/package_size)[1]'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
 <p>The expression has of two parts here too: the first one (<code>insert</code>) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.</p>
 <p>Let us remove the <code>description</code> tag(s) from the description of every product.</p>
-<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">set</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">'delete /product/description'</span><span class="p">)</span>
-<span class="k">where</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">'DELETE /product/description'</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
 <p>When deleting, we specify the path of the items to be deleted after <code>delete</code>.</p>
 
@@ -2001,8 +2001,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 6, 2024 19:37:54">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 6, 2024 19:37:54 CEST"><span class="timeago" datetime="2024-10-06T19:37:54+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 6, 2024 19:37:54 CEST">2024-10-06</span>
+      <span title="December 8, 2025 15:15:15">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:15:15 CET"><span class="timeago" datetime="2025-12-08T15:15:15+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:15:15 CET">2025-12-08</span>
       </span>
     </span>
 
@@ -2020,8 +2020,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almatn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Almat">
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&amp;v=4?size=72" alt="@Almat">
-        </a><a href="https://github.com/KlevisImeri" target="_blank" rel="noopener noreferrer" class="md-author" title="@Klevis">
-          <img src="https://avatars.githubusercontent.com/u/96891515?u=16dcd829daa499bb56b436d4f69151d777dd1634&amp;v=4?size=72" alt="@Klevis">
+        </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
           <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@Ádám Tanai">
         </a></nav>      
