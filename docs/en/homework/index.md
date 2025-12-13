@@ -1,4 +1,4 @@
-﻿# Homework
+# Homework
 
 With these exercises, you can earn **points** that are added to your exam score. In the exercises and the evaluation results, you will see a text “iMsc” for optional exercises; these iMsc points are not counted! (These are special points for the Hungarian curriculum). All non-iMsc exercises are available for points in this course, 5 homeworks, with a maximum of 4 points per homework, for a total of 20 points. Here you find the exercise descriptions; the submission of the solutions is expected via GitHub Classroom. If you fail to submit the exercises exactly as in the guide, or if it is submitted late, you get no points at all! Make sure to follow the guide and do **everything in time**!
 
@@ -34,6 +34,62 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 - Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.
 - A [GitHub](https://github.com/) account and a [git](https://git-scm.com/) client.
 
+### MAC OS / Apple Silicon Setup Guide
+
+If you are using a Mac with an Apple Silicon processor, because of the ARM processor incompatibility you cannot run SQL Server Management Studio (SSMS) or the Visual Studio natively on MacOS. Follow this specific workflow to set up your environment:
+
+1.  **Virtual Machine (Windows Environment):**
+    * Download and install **VMWare Fusion** (Free for Personal Use) by following the guide on [Broadcom Support](https://knowledge.broadcom.com/external/article/315638/download-and-install-vmware-fusion.html).
+    * Install **Windows 11 on ARM** inside VMWare Fusion with the following [Windows 11 ISO](https://www.microsoft.com/en-us/software-download/windows11arm64)
+    * Inside this Windows VM, install **Visual Studio 2022** (as listed in the standard tools below). This is where you will write your C# code.
+
+2.  **Database Engine (Native macOS):**
+    Instead of running the database in the VM, run it natively on macOS using **Docker** to save system resources.
+
+    **Step A: Install Docker Desktop**
+    You can install it using **one** of the following methods:
+    * **Option 1: Command Line (Homebrew):**
+        Open your Mac Terminal and run:
+        ```bash
+        brew install --cask docker
+        ```
+    * **Option 2: Manual Download:**
+        Download "Docker Desktop for Mac with Apple silicon" from the [Docker Website](https://www.docker.com/products/docker-desktop/).
+
+    **Step B: Start the Database**
+    Open your macOS Terminal and run the following command to download and start SQL Server 2022.
+    *(Note: You can change the password or name if necessary. The password must be strong!)*
+
+    ```bash
+    docker run -e "ACCEPT_EULA=Y" \
+    -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
+    -p 1433:1433 \
+    --name adatvez-sql \
+    -d [mcr.microsoft.com/mssql/server:2022-latest](https://mcr.microsoft.com/mssql/server:2022-latest)
+    ```
+
+3.  **Database Management (Native macOS):**
+    * Install [Azure Data Studio](https://azure.microsoft.com/en-us/products/data-studio/) on your Mac (not in the VM).
+    * Connect to your database using:
+        * **Server:** `localhost`
+        * **User:** `sa`
+        * **Password:** `YourStrong@Passw0rd` (or whatever you set in the command above)
+
+4.  **Connecting Visual Studio (VM) to Docker (Mac):**
+    * Since Visual Studio is running inside the VM, it cannot see `localhost`. You must use your Mac's IP address.
+    * Open macOS Terminal and find your IP:
+    ```bash
+    ipconfig getifaddr en0
+    ```
+    *(If that returns nothing, try `en1`).*
+    * **Crucial Step:** When updating the `ConnectionString` in your C# homework code (inside the VM), do **not** use `localhost` or `(localdb)`. Instead, use your Mac's IP address formatted like this:
+    ```json
+    "DefaultConnection": "Server=192.168.1.55;Database=MyDatabase;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+    ```
+    *(Replace `192.168.1.55` with the IP you found in the step above).*
+
+---
+
 ### For homework using the MSSQL platform:
   - Microsoft SQL Server. The free _Express_ version is sufficient, or you may also use the _localdb_ installed with Visual Studio. 
     - A [Ubuntu Linux 22.04 version](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup) is also available, or
@@ -43,6 +99,7 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
     - [Visual Studio Code](https://code.visualstudio.com/download) with the [SQL Server (mssql) extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
     - [JetBrains DataGrip](https://www.jetbrains.com/datagrip/download/) - Platform-independent, free for non-profit and educational use.
+    - **Mac Users:** Use [Azure Data Studio](https://azure.microsoft.com/en-us/products/data-studio/) or the VS Code extension.
 
 ### For homework using a MongoDB database:
   - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
