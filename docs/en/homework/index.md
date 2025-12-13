@@ -36,57 +36,40 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 
 ### MAC OS / Apple Silicon Setup Guide
 
-If you are using a Mac with an Apple Silicon processor, because of the ARM processor incompatibility you cannot run SQL Server Management Studio (SSMS) or the Visual Studio natively on MacOS. Follow this specific workflow to set up your environment:
+If you are using a Mac with an Apple Silicon processor, you cannot run the full Windows version of Visual Studio. Instead, you should use a **native** development workflow using VS Code and Docker.
 
-1.  **Virtual Machine (Windows Environment):**
-    * Download and install **VMWare Fusion** (Free for Personal Use) by following the guide on [Broadcom Support](https://knowledge.broadcom.com/external/article/315638/download-and-install-vmware-fusion.html).
-    * Install **Windows 11 on ARM** inside VMWare Fusion with the following [Windows 11 ISO](https://www.microsoft.com/en-us/software-download/windows11arm64)
-    * Inside this Windows VM, install **Visual Studio 2022** (as listed in the standard tools below). This is where you will write your C# code.
+1.  **Development Environment (Native macOS):**
+    * **Install .NET SDK:** Download and install the **.NET 8.0 SDK (Arm64)** from the [official Microsoft website](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+    * **Install VS Code:** Download [Visual Studio Code for macOS](https://code.visualstudio.com/download).
+    * **Install Extensions:** Open VS Code and install the following extensions to handle C#, SQL, and MongoDB homeworks:
+        * [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) (for writing the code)
+        * [SQL Server (mssql)](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql) (for managing the MSSQL database)
+        * [MongoDB for VS Code](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode) (for the MongoDB homework)
 
-2.  **Database Engine (Native macOS):**
-    Instead of running the database in the VM, run it natively on macOS using **Docker** to save system resources.
+2.  **SQL Server Database (Docker):**
+    You cannot install SQL Server directly on macOS, so you must use Docker.
 
     **Step A: Install Docker Desktop**
-    You can install it using **one** of the following methods:
-    * **Option 1: Command Line (Homebrew):**
-        Open your Mac Terminal and run:
-        ```bash
-        brew install --cask docker
-        ```
-    * **Option 2: Manual Download:**
-        Download "Docker Desktop for Mac with Apple silicon" from the [Docker Website](https://www.docker.com/products/docker-desktop/).
+    * Download "Docker Desktop for Mac with Apple silicon" from the [Docker Website](https://www.docker.com/products/docker-desktop/) or install via Homebrew (`brew install --cask docker`).
 
     **Step B: Start the Database**
-    Open your macOS Terminal and run the following command to download and start SQL Server 2022.
-    *(Note: You can change the password or name if necessary. The password must be strong!)*
+    Open your macOS Terminal and run the following command. This creates a container named `database-sql`.
 
     ```bash
     docker run -e "ACCEPT_EULA=Y" \
     -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
     -p 1433:1433 \
-    --name adatvez-sql \
+    --name database-sql \
     -d [mcr.microsoft.com/mssql/server:2022-latest](https://mcr.microsoft.com/mssql/server:2022-latest)
     ```
 
-3.  **Database Management (Native macOS):**
-    * Install [Azure Data Studio](https://azure.microsoft.com/en-us/products/data-studio/) on your Mac (not in the VM).
-    * Connect to your database using:
-        * **Server:** `localhost`
-        * **User:** `sa`
-        * **Password:** `YourStrong@Passw0rd` (or whatever you set in the command above)
-
-4.  **Connecting Visual Studio (VM) to Docker (Mac):**
-    * Since Visual Studio is running inside the VM, it cannot see `localhost`. You must use your Mac's IP address.
-    * Open macOS Terminal and find your IP:
-    ```bash
-    ipconfig getifaddr en0
-    ```
-    *(If that returns nothing, try `en1`).*
-    * **Crucial Step:** When updating the `ConnectionString` in your C# homework code (inside the VM), do **not** use `localhost` or `(localdb)`. Instead, use your Mac's IP address formatted like this:
+3.  **Connecting to the Database:**
+    * **From VS Code:** Use the SQL Server extension you installed. Connect to `localhost` with username `sa` and the password you defined above.
+    * **From C# Code:** Update your `ConnectionString` in `appsettings.json`.
     ```json
-    "DefaultConnection": "Server=192.168.1.55;Database=MyDatabase;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+    "DefaultConnection": "Server=localhost;Database=master;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
     ```
-    *(Replace `192.168.1.55` with the IP you found in the step above).*
+    *Note regarding the Database name: In the Docker command, `--name database-sql` names the container. In the connection string, `Database=master` refers to the logical database. You may need to change `master` to the specific database name created by the homework script (e.g., `mssql.sql`) once you run it.*
 
 ---
 
@@ -99,7 +82,6 @@ If you are using a Mac with an Apple Silicon processor, because of the ARM proce
     - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
     - [Visual Studio Code](https://code.visualstudio.com/download) with the [SQL Server (mssql) extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
     - [JetBrains DataGrip](https://www.jetbrains.com/datagrip/download/) - Platform-independent, free for non-profit and educational use.
-    - **Mac Users:** Use [Azure Data Studio](https://azure.microsoft.com/en-us/products/data-studio/) or the VS Code extension.
 
 ### For homework using a MongoDB database:
   - [MongoDB Community Server](https://www.mongodb.com/download-center/community)
