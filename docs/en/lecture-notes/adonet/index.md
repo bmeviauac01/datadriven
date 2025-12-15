@@ -32,7 +32,7 @@ The **ADO.NET** library provides the `IDbConnection` interface to represent data
 
 We need to know that setting up a new connection to a database is relatively expensive (opening a new network connection, negotiating protocols with the server, authentication, etc.). Therefore, we use **connection pooling**, where, after using and closing a connection, we do not discard it but put it back in a pool to reuse it later.
 
-The availability of _connection pool_ depends on the implementation; it supported by the *MS SQL Server* and *OleDD* implementations. _Connection pools_ are created for every _connection string_ (so not per database). This is important if the application does not use a single static _connection string_ (but connects on behalf of the user, for example).
+The availability of _connection pool_ depends on the implementation; it supported by the *MS SQL Server* and *OleDB* implementations. _Connection pools_ are created for every _connection string_ (so not per database). This is important if the application does not use a single static _connection string_ (but connects on behalf of the user, for example).
 
 We also have to understand the problem of [**connection leak**](# connection-leak), which means that a connection is left open after use (we do not call `Close()`), so it is not returned to the pool, which prohibits future reuse. If we do leak connections this way, the pool will soon run out of connections, and the application will stop working due to not being able to talk to the database. This problem must be avoided by closing or disposing of connections safely (see sample code later).
 
@@ -92,7 +92,7 @@ You can also reuse commands after calling `Command.Prepare()`. It prepares the c
 ...
 var command = new SqlCommand();
 command.Connection = connection;
-// setting command.Connection it not enecessary if we use the connection to instantiate
+// setting command.Connection is not necessary if we use the connection to instantiate
 // the command as: command = connection.CreateCommand()
 command.CommandType = CommandType.StoredProcedure;
 command.CommandText = "SalesByCategory"; // name of the stored procedure
@@ -134,7 +134,7 @@ using (var connection = new SqlConnection(connectionString))
         Connection = connection,
         CommandText = "INSERT into CarTable (Description) VALUES('...')",
         Transaction = transaction,
-    }
+    };
 
     try
     {
@@ -311,6 +311,9 @@ using(var conn = new SqlConnection(connectionString))
 ### SQL injection
 
 **SQL injection** is a **severe vulnerability** in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead `Monkey92); DROP TABLE Users; -` value is received. If we were to include this text and insert it into our SQL statement, we would also execute `drop table`, thereby deleting an entire table. This is a **serious mistake**!
+
+!!! warning "String Interpolation"
+    Do not use C# string interpolation (`$""`) to build SQL commands. Even if it looks cleaner than string concatenation, it is still vulnerable to SQL injection if the variables contain user input. Always use `SqlParameter`.
 
 !!! important "**SOLUTION**"
      Using parameters (see the [Command section](#command) for an example).
