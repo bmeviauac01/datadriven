@@ -271,7 +271,7 @@ public class EMailSender: IEMailSender
     }
     public void SendMail(string to, string subject, string message)
     {
-        _logger.LogInformation($"Sendding e-mail. To: {to} Subject: {subject} Body: {message}");
+        _logger.LogInformation($"Sending e-mail. To: {to} Subject: {subject} Body: {message}");
 
         // ...
     }
@@ -335,6 +335,14 @@ builder.Services.AddSingleton<IEMailSender, EMailSender>(
 ```
 
 The first line creates a `builder` object, whose `Services` property is an object implementing the `IServiceCollection`  interface. This represents the IoC container created by the framework, this can be used to register our dependency mappings as well, namely the  __AddSingleton__, __AddTransient__ and __AddScoped__ operations of `IServiceCollection` interface can be used to register them.
+
+### Service Lifetime Summary
+
+| Lifetime | Created | Disposed | Good for... |
+| :--- | :--- | :--- | :--- |
+| **Transient** | Every time it is requested. | End of request. | Lightweight, stateless services. |
+| **Scoped** | Once per Client Request (Connection). | End of request. | DbContexts, User Session info. |
+| **Singleton** | The first time it is requested. | App shutdown. | Caching, Configuration settings. |
 
 !!! note "Note"
     In .NET versions prior to .NET 6 the instead of `Program.cs` the `ConfigureServices` operation of the `Startup` class was used to register these dependencies.
@@ -566,7 +574,7 @@ The particularities of the DI container built in ASP.NET Core:
 
 ### The Service Locator antipattern
 
-Dependency injection is not the only way of using an IoC container. Another technique called __Service Locator__ exists. Dependency Injection is based on the mechanism of passing the dependencies of a class as constructor parameters. Service Locator uses another approach: the classes directly access the IoC container in their methods to resolve their dependencies. Keep in mind that this approach is considered an __anti-pattern__. The reason is simple: every time time a class needs a dependency, it has to turn to a container, so much of our code will depend on the container itself! In contrast, when dependency injection is used, dependency resolution is performed "once" at the application entry point for "root objects" (e.g. for the controller class in case of a Web API call), the rest of our code is completely independent of the container. Note that in our previous example, in our TodoController, NotificationService, EMailSender, Logger, and ContactRepository classes, we did not refer the container (neither via an IServiceProvider, nor by any other means).
+Dependency injection is not the only way of using an IoC container. Another technique called __Service Locator__ exists. Dependency Injection is based on the mechanism of passing the dependencies of a class as constructor parameters. Service Locator uses another approach: the classes directly access the IoC container in their methods to resolve their dependencies. Keep in mind that this approach is considered an __anti-pattern__. The reason is simple: **every time a class needs a dependency**, it has to turn to a container, so much of our code will depend on the container itself! In contrast, when dependency injection is used, dependency resolution is performed "once" at the application entry point for "root objects" (e.g. for the controller class in case of a Web API call), the rest of our code is completely independent of the container. Note that in our previous example, in our TodoController, NotificationService, EMailSender, Logger, and ContactRepository classes, we did not refer the container (neither via an IServiceProvider, nor by any other means).
 
 ### Asp.Net Core framework services
 
