@@ -1172,6 +1172,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mac-os-apple-silicon-setup-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAC OS / Apple Silicon Setup Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#for-homework-using-the-mssql-platform" class="md-nav__link">
     <span class="md-ellipsis">
       For homework using the MSSQL platform:
@@ -1461,6 +1470,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mac-os-apple-silicon-setup-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAC OS / Apple Silicon Setup Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#for-homework-using-the-mssql-platform" class="md-nav__link">
     <span class="md-ellipsis">
       For homework using the MSSQL platform:
@@ -1564,6 +1582,48 @@
 <li>Windows, Linux, or macOS: All tools are platform-independent, or a platform-independent alternative is available.</li>
 <li>A <a href="https://github.com/">GitHub</a> account and a <a href="https://git-scm.com/">git</a> client.</li>
 </ul>
+<h3 id="mac-os-apple-silicon-setup-guide">MAC OS / Apple Silicon Setup Guide<a class="headerlink" href="#mac-os-apple-silicon-setup-guide" title="Permanent link">¶</a></h3>
+<p>If you are using a Mac with an Apple Silicon processor, you cannot run the full Windows version of Visual Studio. Instead, you should use a <strong>native</strong> development workflow using VS Code and Docker.</p>
+<ol>
+<li>
+<p><strong>Development Environment (Native macOS):</strong></p>
+<ul>
+<li><strong>Install .NET SDK:</strong> Download and install the <strong>.NET 8.0 SDK (Arm64)</strong> from the <a href="https://dotnet.microsoft.com/en-us/download/dotnet/8.0">official Microsoft website</a>.</li>
+<li><strong>Install VS Code:</strong> Download <a href="https://code.visualstudio.com/download">Visual Studio Code for macOS</a>.</li>
+<li><strong>Install Extensions:</strong> Open VS Code and install the following extensions to handle C#, SQL, and MongoDB homeworks:<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">C# Dev Kit</a> (for writing the code)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql">SQL Server (mssql)</a> (for managing the MSSQL database)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode">MongoDB for VS Code</a> (for the MongoDB homework)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>SQL Server Database (Docker):</strong>
+    You cannot install SQL Server directly on macOS, so you must use Docker.</p>
+<p><strong>Step A: Install Docker Desktop</strong>
+* Download "Docker Desktop for Mac with Apple silicon" from the <a href="https://www.docker.com/products/docker-desktop/">Docker Website</a> or install via Homebrew (<code>brew install --cask docker</code>).</p>
+<p><strong>Step B: Start the Database</strong>
+Open your macOS Terminal and run the following command. This creates a container named <code>database-sql</code>.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="s2">"ACCEPT_EULA=Y"</span><span class="w"> </span><span class="se">\</span>
+-e<span class="w"> </span><span class="s2">"MSSQL_SA_PASSWORD=YourStrong@Passw0rd"</span><span class="w"> </span><span class="se">\</span>
+-p<span class="w"> </span><span class="m">1433</span>:1433<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span>database-sql<span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="o">[</span>mcr.microsoft.com/mssql/server:2022-latest<span class="o">](</span>https://mcr.microsoft.com/mssql/server:2022-latest<span class="o">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Connecting to the Database:</strong></p>
+<ul>
+<li><strong>From VS Code:</strong> Use the SQL Server extension you installed. Connect to <code>localhost</code> with username <code>sa</code> and the password you defined above.</li>
+<li><strong>From C# Code:</strong> Update your <code>ConnectionString</code> in <code>appsettings.json</code>.
+<div class="highlight"><pre><span></span><code><span class="nt">"DefaultConnection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=localhost;Database=master;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"</span>
+</code></pre></div>
+<em>Note regarding the Database name: In the Docker command, <code>--name database-sql</code> names the container. In the connection string, <code>Database=master</code> refers to the logical database. You may need to change <code>master</code> to the specific database name created by the homework script (e.g., <code>mssql.sql</code>) once you run it.</em></li>
+</ul>
+</li>
+</ol>
+<hr>
 <h3 id="for-homework-using-the-mssql-platform">For homework using the MSSQL platform:<a class="headerlink" href="#for-homework-using-the-mssql-platform" title="Permanent link">¶</a></h3>
 <ul>
 <li>Microsoft SQL Server. The free <em>Express</em> version is sufficient, or you may also use the <em>localdb</em> installed with Visual Studio. <ul>
@@ -1627,8 +1687,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 24, 2025 16:41:29">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 24, 2025 16:41:29 CET"><span class="timeago" datetime="2025-11-24T16:41:29+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 24, 2025 16:41:29 CET">2025-11-24</span>
+      <span title="December 13, 2025 11:12:24">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 13, 2025 11:12:24 CET"><span class="timeago" datetime="2025-12-13T11:12:24+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 13, 2025 11:12:24 CET">2025-12-13</span>
       </span>
     </span>
 
@@ -1646,6 +1706,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a><a href="https://github.com/zsotroav" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
