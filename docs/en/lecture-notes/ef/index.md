@@ -5,7 +5,7 @@ We store both entities and the relationships that connect them in relational dat
 ## Defining relationships
 
 !!! note "Convention-based mapping"
-    Entity Framework has [conventions](https://docs.microsoft.com/en-us/ef/core/modeling/relationships#conventions) that enable mapping relationships automatically without explicit configuration. We will not rely on this feature here; instead will define the relationships explicitly.
+    Entity Framework has [conventions](https://docs.microsoft.com/en-us/ef/core/modeling/relationships#conventions) that enable mapping relationships automatically without explicit configuration. We will not rely on this feature here; instead we will define the relationships explicitly.
 
 Let us look at our example classes and the relationship among them:
 
@@ -50,7 +50,7 @@ The connection between the two entities is provided by the foreign key of the `P
 
 ## Explicit joining
 
-The `DBContext` offers the tables as `DBSets`, on which we can perform LINQ operations. One such operation is the `join` function. Two `DBSets` can be joined via the appropriate foreign key. Similar to it's SQL equivalent, the following LINQ expression declaratively describes what we want to get.
+The `DBContext` offers the tables as `DBSets`, on which we can perform LINQ operations. One such operation is the `join` function. Two `DBSets` can be joined via the appropriate foreign key. Similar to its SQL equivalent, the following LINQ expression declaratively describes what we want to get.
 
 ```csharp
 var query = 
@@ -111,7 +111,7 @@ Console.WriteLine(prod.Name); // this works, it will print the name
 Console.WriteLine(prod.VAT.Percentage); // accessing the referenced entity via the navigation property
 ```
 
-In this example, we would get a runtime error in the last line. Why is that? Despite the _navigation property_ being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote `p.VAT.Percentage` in a previous query), but if we query a `Product` entity, it does not include the referenced `VAT` entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands or records to get a single entity and all of it's referenced data via navigation properties. This is unnecessary in most cases.
+In this example, we would get a runtime error in the last line. Why is that? Despite the _navigation property_ being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote `p.VAT.Percentage` in a previous query), but if we query a `Product` entity, it does not include the referenced `VAT` entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands of records to get a single entity and all of its referenced data via navigation properties. This is unnecessary in most cases.
 
 If we really need the referenced entities, then we need to specify this in the code using `Include` as follows:
 
@@ -138,5 +138,25 @@ LEFT JOIN [VAT] AS [v] ON [p].[VatId] = [v].[ID]
 WHERE [p].[Name] LIKE N'%test%'
 ```
 
+### Explicit Loading
+
+Sometimes you have an entity already loaded, and you want to load a related entity later, but without enabling Lazy Loading globally (which can be risky). You can use **Explicit Loading** via the `Entry` method.
+
+```csharp
+var product = dbContext.Products.First();
+
+// At this point product.VAT is null.
+// We can load it explicitly:
+dbContext.Entry(product).Reference(p => p.VAT).Load();
+
+Console.WriteLine(product.VAT.Percentage); // Now it works!
+```
+
 !!! note "Automatic _lazy loading_ of referenced entities"
     In Entity Framework, it is possible to turn on [_lazy loading_](https://docs.microsoft.com/en-us/ef/core/querying/related-data/lazy), which causes entities to be loaded through _navigation properties_ on demand. The loading is performed in a _lazy_ way (that is, only when needed) without an explicit `Include`. While this solution is convenient for the developer, it comes at a price: loading data when needed (when the code reaches a statement referencing the property) will typically result in several separate database queries. In the `Include` solution, you can see above that a single query loads both the `Product` and `VAT` data. If we used _lazy loading_, there would be a query for the `Product` data and another one for the referenced `VAT` properties at a later time. Thus, lazy loading is usually worse in terms of performance.
+
+!!! tip "Performance Tip: AsNoTracking"
+    If you are querying data only to display it (read-only) and do not intend to update it, use `.AsNoTracking()`. This disables change tracking for the query results, which makes execution significantly faster and uses less memory.
+    ```csharp
+    var products = dbContext.Products.AsNoTracking().ToList();
+    ```
