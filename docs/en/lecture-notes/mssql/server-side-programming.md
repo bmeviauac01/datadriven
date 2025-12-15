@@ -389,7 +389,7 @@ AS
 [END]
 ```
 
-The result of the `CREATE OR ALTER` statement is the creation of the stored procedure, if it does not exist, or else its update with the new contents. Prior to MSSQL Server 2016, there was no `CREATE OR ALTER`, only `CREATE PROC` and `ALTER PROC`. We can delete a stored procedure with the `DROP PROCECURE` statement, which removes the procedure from the server.
+The result of the `CREATE OR ALTER` statement is the creation of the stored procedure, if it does not exist, or else its update with the new contents. Prior to MSSQL Server 2016, there was no `CREATE OR ALTER`, only `CREATE PROC` and `ALTER PROC`. We can delete a stored procedure with the `DROP PROCEDURE` statement, which removes the procedure from the server.
 
 For example, Let us create a new tax percentage record in the `VAT` table, guaranteeing that only unique percentages can be added:
 
@@ -594,7 +594,15 @@ sql_instruction [... n]
 
 Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., `for update, insert`). Note that three possible options cover all types of changes; also note, that there is no `select` event — since it is not a change.
 
-The instructions defined in the trigger code are executed _after_ the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.
+The instructions defined in the trigger code are executed _after_ the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified easily otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.
+
+```mermaid
+graph LR
+    A[Original Table Row] -->|UPDATE Operation| B(Trigger Execution)
+    B --> C{Log Tables}
+    C -->|Old Values| D[deleted Table]
+    C -->|New Values| E[inserted Table]
+```
 
 Triggers are executed per _instruction_, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an `update` statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single insert command.
 

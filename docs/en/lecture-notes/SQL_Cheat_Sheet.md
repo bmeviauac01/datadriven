@@ -42,9 +42,11 @@ var query = from item in context.Table
 ```csharp
 var prod = db.Products
     .Include(p => p.VAT)
-    .Where(p => p.ID==23)
+    .Where(p => p.ID == 23)
     .SingleOrDefault();
-if(prodis not null){
+
+if(prod is not null)
+{
     Console.WriteLine(prod.VAT.ID);
 }
 ```
@@ -54,13 +56,14 @@ Similar to Select in LINQ, use it when we use `.Project()` to project to specifi
 
 ```csharp
 collection
-        Find(item=>item.Column1 == value)
+        .Find(item => item.Column1 == value)
         .Project(item => new
         {
-            Attr1 = item.Coloumn1,
-            Attr2 = item.Coloumn2
+            Attr1 = item.Column1,
+            Attr2 = item.Column2
         }).ToList();
 ```
+
 ## WHERE
 **SQL:**
 
@@ -111,10 +114,10 @@ where p.Price < 1000
     In MongoDB's `.Find()` operation, only conditions that apply to the document itself can be used; it is not possible to reference or join with another collection!
 
 !!! warning Important
-    In MongoDb, you must always include a `.Find()` in the commands (unless using `Aggregate()`). A common parameterization because od this constraint is `.Find(_ => true)` of the `Find()` command.
+    In MongoDb, you must always include a `.Find()` in the commands (unless using `Aggregate()`). A common parameterization because of this constraint is `.Find(_ => true)` of the `Find()` command.
 
 !!! warning Note
-    The result of the `Find()` function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use `.ToList()`. (If you want to return a single element of a query you should use an other command, see below.)
+    The result of the `Find()` function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use `.ToList()`. (If you want to return a single element of a query you should use another command, see below.)
 ```csharp
 collection.Find(item => item.Column == value).ToList();
 ```
@@ -122,18 +125,19 @@ collection.Find(item => item.Column == value).ToList();
 ## Limiting the result set count
 **SQL:**
 
-In cases where you want to retrieve only one or just a few row from your queries.
+In cases where you want to retrieve only one or just a few rows from your queries.
 ```sql
 SELECT TOP 1 *
 FROM Product
 ORDER BY Name
 ```
-**C#** (LINQ és MongoDb):
+**C#** (LINQ and MongoDb):
 
-If you need only the first element or know there will be only one element, you can use `.First()`, `.FirstOrDefault()`, `.Single()`, or .`SingleOrDefault()`. Ensure the preceding query indeed returns a single data element when using `.Single()` or `.SingleOrDefault()`. (Else the query will throw an exception)
+If you need only the first element or know there will be only one element, you can use `.First()`, `.FirstOrDefault()`, `.Single()`, or `.SingleOrDefault()`. Ensure the preceding query indeed returns a single data element when using `.Single()` or `.SingleOrDefault()`. (Else the query will throw an exception)
 
 We can also navigate through the results using Skip.
-`C# LINQ:`
+
+**C# LINQ:**
 
 Using `Take()` we can limit the number of results the query gives.
 ```csharp
@@ -150,7 +154,7 @@ Using `Limit()` we can limit the number of results the query gives.
 ```csharp
 // Take 10
 collection.Find(...).Limit(10);
-// /Skip 10 then take 10
+// Skip 10 then take 10
 collection.Find(...).Skip(10).Limit(10);
 ```
 
@@ -170,9 +174,9 @@ GROUP BY p.Name
 **C# LINQ:**
 Group elements by `VATID`.
 ```csharp
-// Fluent szintaktika
+// Fluent syntax
 db.products.GroupBy(p => p.VATID)
-// Query szintaktika
+// Query syntax
 from p in products
 group p by p.VATID
 ```
@@ -217,19 +221,19 @@ collection.Find(
 );
 ```
 
-In .Group(), you can specify projections similarly to the .Project() function.
+In `.Group()`, you can specify projections similarly to the `.Project()` function.
 
 ```csharp
-var r=productsCollection
+var r = productsCollection
     .Aggregate()
     .Group(
         //  grouping section
         p => p.VAT.Percentage,
         //  projection section
-        p => new{
-        vatp=p.Key
-        sumPrice=p.Sum(s=>s.Price)
-    })
+        p => new {
+            vatp = p.Key,
+            sumPrice = p.Sum(s => s.Price)
+        })
     .ToList();
 ```
 
@@ -255,7 +259,7 @@ items.OrderBy(item => item.Column1)
 ```csharp
 itemcollection.Sort(Builders<CollectionItem>
                     .Sort
-                    .Ascending(item=>item.Coloumn))
+                    .Ascending(item => item.Column))
 ```
 
 ## JOIN
@@ -287,7 +291,7 @@ var query = from item1 in context.Table1
 
 **C# MongoDb:**
 
-`A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.` After querying the data, typically, the matching is done client-side using dictionaries with .ToHashSet() and .Contains() methods (See MongoDB seminar excercise 1.5).
+`A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.` After querying the data, typically, the matching is done client-side using dictionaries with `.ToHashSet()` and `.Contains()` methods (See MongoDB seminar exercise 1.5).
 
 ## Distinct
 
@@ -305,14 +309,14 @@ db.products.Select(p => p.Name).Distinct();
 ```
 
 **C# MongoDb:**
-**Task:** All the categories of the products with larger price than 3000.
+**Task:** All the categories of the products with price larger than 3000.
 ```csharp
-var xd = productsCollection
-    .Distinct(p => p.CategoryID,p=>p.Price>3000)
+var distinctCategories = productsCollection
+    .Distinct(p => p.CategoryID, p => p.Price > 3000)
     .ToList();
 ```
 
-## Coloumn functions
+## Column functions
 
 **SQL:**
 
@@ -331,7 +335,7 @@ FROM Product
 WHERE Price=(SELECT MAX(Price) FROM Product)
 ```
 
-`C# LINQ:`
+**C# LINQ:**
 
 **Task:** Number of products in the "products" list.
 
@@ -352,13 +356,13 @@ Max function:
     Observe the constant grouping inside `Group`, which is done to calculate the column function over the entire collection.
 
 ```csharp
-collection.Aggregate().Group(p=>1,p=>p.Max(x=>x.Stock)).Single();
+collection.Aggregate().Group(p => 1, p => p.Max(x => x.Stock)).Single();
 ```
 
 Let's see this through the example of grouping. The following query lists the total values of OrderItem records related to an order if the total value exceeds 30,000.
 
 ```csharp
-var q=ordersCollection.Aggregate()
+var q = ordersCollection.Aggregate()
     .Project(order => new
     {
         CustomerID = order.CustomerID,
@@ -383,10 +387,11 @@ WHERE ID = 23
 ```csharp
 using (var db = new AdatvezDbContext())
 {
-    var deleteThis=db.Products
-        .Select(p=>p.ID == "23")
+    var deleteThis = db.Products
+        .Where(p => p.ID == "23")
         .SingleOrDefault();
-    if(deleteThis!=null)
+        
+    if(deleteThis != null)
     {
         db.Products.Remove(deleteThis);
         db.SaveChanges();
@@ -410,7 +415,7 @@ INSERT INTO Product
 VALUES ('aa', 100, 0, 3, 2, NULL)
 ```
 
-When inserting the results of an other query:
+When inserting the results of another query:
 
 ```sql
 INSERT INTO Product (Name, Price)
@@ -443,7 +448,7 @@ collection.InsertOne(newProduct);
 
 ## Update
 
-**6**
+**SQL:**
 
 **Task:** Increase the prices of products containing the word "Lego" in their names by 10%.
 
@@ -516,18 +521,15 @@ var catExpensiveToys = categoriesCollection.FindOneAndUpdate<Category>(
 
 ## Summary Table
 
-| SQL               | C# LINQ                 | C# MongoDb              |
-|-------------------|-------------------------|-------------------------|
-| `SELECT`        | `Select()`            | `Project()`              |
-| `WHERE`         | `Where()`             | `Find()`            |
-| `GROUP BY`      | `GroupBy()`           | `Group()`             |
-| `ORDER BY`      | `OrderBy()`           | `Sort()`              |
-| `JOIN`          | Use navigation properties if possible, else: `Join()`              | `Join()`              |
-| `DISTINCT`      | `Distinct()`          | `Distinct()`          |
-| `Count()`, `Max()`, `Average()` | `Count()`, `Max()`, `Average()` | Use after `Aggregate()`: `Count()`, `Max()`, `Average()` |
-| `DELETE FROM`        |`.Remove()`, and `db.SaveChanges()` to save|`.DeleteOne()`, `.DeleteMany()`|
-`UPDATE ... SET`| Modify the data and then `db.SaveChanges()`|`.UpdateOne()`, `.UpdateMany()`|
-`INSERT INTO`|`.Add()` and then `db.SaveChanges()`| `.InsertOne()`, `.InsertMany()`
-
-
-
+| SQL | C# LINQ | C# MongoDb |
+| :--- | :--- | :--- |
+| `SELECT` | `Select()` | `Project()` |
+| `WHERE` | `Where()` | `Find()` |
+| `GROUP BY` | `GroupBy()` | `Group()` |
+| `ORDER BY` | `OrderBy()` | `Sort()` |
+| `JOIN` | Use navigation properties if possible, else: `Join()` | `Join()` (or client-side) |
+| `DISTINCT` | `Distinct()` | `Distinct()` |
+| `Count()`, `Max()`, `Avg()` | `Count()`, `Max()`, `Average()` | Use after `Aggregate()`: `Count()`, `Max()` |
+| `DELETE FROM` | `.Remove()` then `db.SaveChanges()` | `.DeleteOne()`, `.DeleteMany()` |
+| `UPDATE ... SET` | Modify data then `db.SaveChanges()` | `.UpdateOne()`, `.UpdateMany()` |
+| `INSERT INTO` | `.Add()` then `db.SaveChanges()` | `.InsertOne()`, `.InsertMany()` |
