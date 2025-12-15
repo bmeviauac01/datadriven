@@ -2037,7 +2037,7 @@
 <span class="w">  </span><span class="n">sql_instructions</span><span class="w"> </span><span class="p">[...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
 <span class="p">[</span><span class="k">END</span><span class="p">]</span>
 </code></pre></div>
-<p>The result of the <code>CREATE OR ALTER</code> statement is the creation of the stored procedure, if it does not exist, or else its update with the new contents. Prior to MSSQL Server 2016, there was no <code>CREATE OR ALTER</code>, only <code>CREATE PROC</code> and <code>ALTER PROC</code>. We can delete a stored procedure with the <code>DROP PROCECURE</code> statement, which removes the procedure from the server.</p>
+<p>The result of the <code>CREATE OR ALTER</code> statement is the creation of the stored procedure, if it does not exist, or else its update with the new contents. Prior to MSSQL Server 2016, there was no <code>CREATE OR ALTER</code>, only <code>CREATE PROC</code> and <code>ALTER PROC</code>. We can delete a stored procedure with the <code>DROP PROCEDURE</code> statement, which removes the procedure from the server.</p>
 <p>For example, Let us create a new tax percentage record in the <code>VAT</code> table, guaranteeing that only unique percentages can be added:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">InsertNewVAT</span><span class="w"> </span><span class="c1">-- create a stored procedure</span>
 <span class="w">    </span><span class="o">@</span><span class="n">Percentage</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="c1">-- stored procedure parameters</span>
@@ -2187,7 +2187,13 @@
 <span class="n">sql_instruction</span><span class="w"> </span><span class="p">[...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
 </code></pre></div>
 <p>Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., <code>for update, insert</code>). Note that three possible options cover all types of changes; also note, that there is no <code>select</code> event — since it is not a change.</p>
-<p>The instructions defined in the trigger code are executed <em>after</em> the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.</p>
+<p>The instructions defined in the trigger code are executed <em>after</em> the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified easily otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.</p>
+<div class="highlight"><pre><span></span><code>graph LR
+    A[Original Table Row] --&gt;|UPDATE Operation| B(Trigger Execution)
+    B --&gt; C{Log Tables}
+    C --&gt;|Old Values| D[deleted Table]
+    C --&gt;|New Values| E[inserted Table]
+</code></pre></div>
 <p>Triggers are executed per <em>instruction</em>, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an <code>update</code> statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single insert command.</p>
 <div class="admonition warning">
 <p class="admonition-title">There is no row-level trigger</p>
@@ -2343,8 +2349,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 8, 2025 16:19:37">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 16:19:37 CET"><span class="timeago" datetime="2025-12-08T16:19:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 16:19:37 CET">2025-12-08</span>
+      <span title="December 15, 2025 11:31:22">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 15, 2025 11:31:22 CET"><span class="timeago" datetime="2025-12-15T11:31:22+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 15, 2025 11:31:22 CET">2025-12-15</span>
       </span>
     </span>
 
@@ -2362,6 +2368,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      

@@ -866,9 +866,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#coloumn-functions" class="md-nav__link">
+  <a href="#column-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Coloumn functions
+      Column functions
     </span>
   </a>
   
@@ -1508,9 +1508,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#coloumn-functions" class="md-nav__link">
+  <a href="#column-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Coloumn functions
+      Column functions
     </span>
   </a>
   
@@ -1613,20 +1613,22 @@
 </div>
 <p></p><div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">==</span><span class="m">23</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">23</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">();</span>
-<span class="k">if</span><span class="p">(</span><span class="n">prodis</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="k">null</span><span class="p">){</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">prod</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">ID</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <strong>C# MongoDb:</strong><p></p>
 <p>Similar to Select in LINQ, use it when we use <code>.Project()</code> to project to specific attributes.</p>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span>
-<span class="w">        </span><span class="nf">Find</span><span class="p">(</span><span class="n">item</span><span class="o">=&gt;</span><span class="n">item</span><span class="p">.</span><span class="n">Column1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">value</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Column1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">value</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Attr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Coloumn1</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Attr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Coloumn2</span>
+<span class="w">            </span><span class="n">Attr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Column1</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Attr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Column2</span>
 <span class="w">        </span><span class="p">}).</span><span class="n">ToList</span><span class="p">();</span>
 </code></pre></div>
 <h2 id="where">WHERE<a class="headerlink" href="#where" title="Permanent link">¶</a></h2>
@@ -1665,25 +1667,25 @@
 </div>
 <div class="admonition warning important">
 <p class="admonition-title">Warning</p>
-<p>In MongoDb, you must always include a <code>.Find()</code> in the commands (unless using <code>Aggregate()</code>). A common parameterization because od this constraint is <code>.Find(_ =&gt; true)</code> of the <code>Find()</code> command.</p>
+<p>In MongoDb, you must always include a <code>.Find()</code> in the commands (unless using <code>Aggregate()</code>). A common parameterization because of this constraint is <code>.Find(_ =&gt; true)</code> of the <code>Find()</code> command.</p>
 </div>
 <div class="admonition warning note">
 <p class="admonition-title">Warning</p>
-<p>The result of the <code>Find()</code> function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use <code>.ToList()</code>. (If you want to return a single element of a query you should use an other command, see below.)</p>
+<p>The result of the <code>Find()</code> function is not the result set; it is just a descriptor for executing the query. To fetch the entire result set as a list, use <code>.ToList()</code>. (If you want to return a single element of a query you should use another command, see below.)</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Column</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">value</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
 </code></pre></div>
 <h2 id="limiting-the-result-set-count">Limiting the result set count<a class="headerlink" href="#limiting-the-result-set-count" title="Permanent link">¶</a></h2>
 <p><strong>SQL:</strong></p>
-<p>In cases where you want to retrieve only one or just a few row from your queries.
+<p>In cases where you want to retrieve only one or just a few rows from your queries.
 </p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
 </code></pre></div>
-<strong>C#</strong> (LINQ és MongoDb):<p></p>
-<p>If you need only the first element or know there will be only one element, you can use <code>.First()</code>, <code>.FirstOrDefault()</code>, <code>.Single()</code>, or .<code>SingleOrDefault()</code>. Ensure the preceding query indeed returns a single data element when using <code>.Single()</code> or <code>.SingleOrDefault()</code>. (Else the query will throw an exception)</p>
-<p>We can also navigate through the results using Skip.
-<code>C# LINQ:</code></p>
+<strong>C#</strong> (LINQ and MongoDb):<p></p>
+<p>If you need only the first element or know there will be only one element, you can use <code>.First()</code>, <code>.FirstOrDefault()</code>, <code>.Single()</code>, or <code>.SingleOrDefault()</code>. Ensure the preceding query indeed returns a single data element when using <code>.Single()</code> or <code>.SingleOrDefault()</code>. (Else the query will throw an exception)</p>
+<p>We can also navigate through the results using Skip.</p>
+<p><strong>C# LINQ:</strong></p>
 <p>Using <code>Take()</code> we can limit the number of results the query gives.
 </p><div class="highlight"><pre><span></span><code><span class="c1">// Take 10</span>
 <span class="n">db</span><span class="p">.</span><span class="n">products</span><span class="p">.</span><span class="n">Take</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
@@ -1695,7 +1697,7 @@
 <p>Using <code>Limit()</code> we can limit the number of results the query gives.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Take 10</span>
 <span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Limit</span><span class="p">(</span><span class="m">10</span><span class="p">);</span>
-<span class="c1">// /Skip 10 then take 10</span>
+<span class="c1">// Skip 10 then take 10</span>
 <span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(...).</span><span class="n">Skip</span><span class="p">(</span><span class="m">10</span><span class="p">).</span><span class="n">Limit</span><span class="p">(</span><span class="m">10</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="group-by">Group By<a class="headerlink" href="#group-by" title="Permanent link">¶</a></h2>
@@ -1709,9 +1711,9 @@
 </code></pre></div><p></p>
 <p><strong>C# LINQ:</strong>
 Group elements by <code>VATID</code>.
-</p><div class="highlight"><pre><span></span><code><span class="c1">// Fluent szintaktika</span>
+</p><div class="highlight"><pre><span></span><code><span class="c1">// Fluent syntax</span>
 <span class="n">db</span><span class="p">.</span><span class="n">products</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="p">)</span>
-<span class="c1">// Query szintaktika</span>
+<span class="c1">// Query syntax</span>
 <span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span>
 <span class="k">group</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span>
 </code></pre></div>
@@ -1753,17 +1755,17 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <span class="w">    </span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div><p></p>
-<p>In .Group(), you can specify projections similarly to the .Project() function.</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">r</span><span class="o">=</span><span class="n">productsCollection</span>
+<p>In <code>.Group()</code>, you can specify projections similarly to the <code>.Project()</code> function.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productsCollection</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Group</span><span class="p">(</span>
 <span class="w">        </span><span class="c1">//  grouping section</span>
 <span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span>
 <span class="w">        </span><span class="c1">//  projection section</span>
-<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="p">{</span>
-<span class="w">        </span><span class="n">vatp</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">Key</span>
-<span class="w">        </span><span class="n">sumPrice</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">s</span><span class="o">=&gt;</span><span class="n">s</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
-<span class="w">    </span><span class="p">})</span>
+<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">vatp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span>
+<span class="w">            </span><span class="n">sumPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+<span class="w">        </span><span class="p">})</span>
 <span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
 </code></pre></div>
 <h2 id="order-by">Order By<a class="headerlink" href="#order-by" title="Permanent link">¶</a></h2>
@@ -1778,7 +1780,7 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <p><strong>C# MongoDb:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">itemcollection</span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">CollectionItem</span><span class="o">&gt;</span>
 <span class="w">                    </span><span class="p">.</span><span class="n">Sort</span>
-<span class="w">                    </span><span class="p">.</span><span class="n">Ascending</span><span class="p">(</span><span class="n">item</span><span class="o">=&gt;</span><span class="n">item</span><span class="p">.</span><span class="n">Coloumn</span><span class="p">))</span>
+<span class="w">                    </span><span class="p">.</span><span class="n">Ascending</span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Column</span><span class="p">))</span>
 </code></pre></div>
 <h2 id="join">JOIN<a class="headerlink" href="#join" title="Permanent link">¶</a></h2>
 <p><strong>SQL:</strong></p>
@@ -1801,7 +1803,7 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">item1</span><span class="p">.</span><span class="n">Column</span><span class="p">,</span><span class="w"> </span><span class="n">item2</span><span class="p">.</span><span class="n">Column</span><span class="w"> </span><span class="p">};</span>
 </code></pre></div><p></p>
 <p><strong>C# MongoDb:</strong></p>
-<p><code>A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.</code> After querying the data, typically, the matching is done client-side using dictionaries with .ToHashSet() and .Contains() methods (See MongoDB seminar excercise 1.5).</p>
+<p><code>A method for server-side joins in MongoDb was not covered. It's done via LINQ after retrieving the entire datasets from the database.</code> After querying the data, typically, the matching is done client-side using dictionaries with <code>.ToHashSet()</code> and <code>.Contains()</code> methods (See MongoDB seminar exercise 1.5).</p>
 <h2 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">¶</a></h2>
 <p><strong>SQL:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span>
@@ -1812,12 +1814,12 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 </p><div class="highlight"><pre><span></span><code><span class="n">db</span><span class="p">.</span><span class="n">products</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">).</span><span class="n">Distinct</span><span class="p">();</span>
 </code></pre></div><p></p>
 <p><strong>C# MongoDb:</strong>
-<strong>Task:</strong> All the categories of the products with larger price than 3000.
-</p><div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">xd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productsCollection</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Distinct</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">,</span><span class="n">p</span><span class="o">=&gt;</span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="o">&gt;</span><span class="m">3000</span><span class="p">)</span>
+<strong>Task:</strong> All the categories of the products with price larger than 3000.
+</p><div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">distinctCategories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productsCollection</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Distinct</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">3000</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
 </code></pre></div><p></p>
-<h2 id="coloumn-functions">Coloumn functions<a class="headerlink" href="#coloumn-functions" title="Permanent link">¶</a></h2>
+<h2 id="column-functions">Column functions<a class="headerlink" href="#column-functions" title="Permanent link">¶</a></h2>
 <p><strong>SQL:</strong></p>
 <p><strong>Task:</strong> Price of the most expensive item.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
@@ -1828,7 +1830,7 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
 </code></pre></div>
-<p><code>C# LINQ:</code></p>
+<p><strong>C# LINQ:</strong></p>
 <p><strong>Task:</strong> Number of products in the "products" list.</p>
 <div class="highlight"><pre><span></span><code><span class="n">db</span><span class="p">.</span><span class="n">products</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span>
 
@@ -1840,10 +1842,10 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <p>Max function:</p>
 <p>!!! tip Note:
     Observe the constant grouping inside <code>Group</code>, which is done to calculate the column function over the entire collection.</p>
-<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">().</span><span class="n">Group</span><span class="p">(</span><span class="n">p</span><span class="o">=&gt;</span><span class="m">1</span><span class="p">,</span><span class="n">p</span><span class="o">=&gt;</span><span class="n">p</span><span class="p">.</span><span class="n">Max</span><span class="p">(</span><span class="n">x</span><span class="o">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">)).</span><span class="n">Single</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">().</span><span class="n">Group</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Max</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Stock</span><span class="p">)).</span><span class="n">Single</span><span class="p">();</span>
 </code></pre></div>
 <p>Let's see this through the example of grouping. The following query lists the total values of OrderItem records related to an order if the total value exceeds 30,000.</p>
-<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="o">=</span><span class="n">ordersCollection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordersCollection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Project</span><span class="p">(</span><span class="n">order</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">.</span><span class="n">CustomerID</span><span class="p">,</span>
@@ -1861,10 +1863,11 @@ Within the <code>Match()</code>, an alternative approach to lambda can be seen. 
 <p><strong>C# LINQ:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">())</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">deleteThis</span><span class="o">=</span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="o">=&gt;</span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"23"</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">deleteThis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"23"</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">deleteThis</span><span class="o">!=</span><span class="k">null</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">deleteThis</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">deleteThis</span><span class="p">);</span>
 <span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
@@ -1880,7 +1883,7 @@ Use <code>DeleteMany</code> if you want to delete multiple records.<p></p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
 </code></pre></div>
-<p>When inserting the results of an other query:</p>
+<p>When inserting the results of another query:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">InvoiceItem</span>
@@ -1903,7 +1906,7 @@ Use <code>DeleteMany</code> if you want to delete multiple records.<p></p>
 <span class="n">collection</span><span class="p">.</span><span class="n">InsertOne</span><span class="p">(</span><span class="n">newProduct</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="update">Update<a class="headerlink" href="#update" title="Permanent link">¶</a></h2>
-<p><strong>6</strong></p>
+<p><strong>SQL:</strong></p>
 <p><strong>Task:</strong> Increase the prices of products containing the word "Lego" in their names by 10%.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="o">*</span><span class="n">Price</span>
@@ -1957,61 +1960,61 @@ Use <code>DeleteMany</code> if you want to delete multiple records.<p></p>
 <table>
 <thead>
 <tr>
-<th>SQL</th>
-<th>C# LINQ</th>
-<th>C# MongoDb</th>
+<th style="text-align: left;">SQL</th>
+<th style="text-align: left;">C# LINQ</th>
+<th style="text-align: left;">C# MongoDb</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>SELECT</code></td>
-<td><code>Select()</code></td>
-<td><code>Project()</code></td>
+<td style="text-align: left;"><code>SELECT</code></td>
+<td style="text-align: left;"><code>Select()</code></td>
+<td style="text-align: left;"><code>Project()</code></td>
 </tr>
 <tr>
-<td><code>WHERE</code></td>
-<td><code>Where()</code></td>
-<td><code>Find()</code></td>
+<td style="text-align: left;"><code>WHERE</code></td>
+<td style="text-align: left;"><code>Where()</code></td>
+<td style="text-align: left;"><code>Find()</code></td>
 </tr>
 <tr>
-<td><code>GROUP BY</code></td>
-<td><code>GroupBy()</code></td>
-<td><code>Group()</code></td>
+<td style="text-align: left;"><code>GROUP BY</code></td>
+<td style="text-align: left;"><code>GroupBy()</code></td>
+<td style="text-align: left;"><code>Group()</code></td>
 </tr>
 <tr>
-<td><code>ORDER BY</code></td>
-<td><code>OrderBy()</code></td>
-<td><code>Sort()</code></td>
+<td style="text-align: left;"><code>ORDER BY</code></td>
+<td style="text-align: left;"><code>OrderBy()</code></td>
+<td style="text-align: left;"><code>Sort()</code></td>
 </tr>
 <tr>
-<td><code>JOIN</code></td>
-<td>Use navigation properties if possible, else: <code>Join()</code></td>
-<td><code>Join()</code></td>
+<td style="text-align: left;"><code>JOIN</code></td>
+<td style="text-align: left;">Use navigation properties if possible, else: <code>Join()</code></td>
+<td style="text-align: left;"><code>Join()</code> (or client-side)</td>
 </tr>
 <tr>
-<td><code>DISTINCT</code></td>
-<td><code>Distinct()</code></td>
-<td><code>Distinct()</code></td>
+<td style="text-align: left;"><code>DISTINCT</code></td>
+<td style="text-align: left;"><code>Distinct()</code></td>
+<td style="text-align: left;"><code>Distinct()</code></td>
 </tr>
 <tr>
-<td><code>Count()</code>, <code>Max()</code>, <code>Average()</code></td>
-<td><code>Count()</code>, <code>Max()</code>, <code>Average()</code></td>
-<td>Use after <code>Aggregate()</code>: <code>Count()</code>, <code>Max()</code>, <code>Average()</code></td>
+<td style="text-align: left;"><code>Count()</code>, <code>Max()</code>, <code>Avg()</code></td>
+<td style="text-align: left;"><code>Count()</code>, <code>Max()</code>, <code>Average()</code></td>
+<td style="text-align: left;">Use after <code>Aggregate()</code>: <code>Count()</code>, <code>Max()</code></td>
 </tr>
 <tr>
-<td><code>DELETE FROM</code></td>
-<td><code>.Remove()</code>, and <code>db.SaveChanges()</code> to save</td>
-<td><code>.DeleteOne()</code>, <code>.DeleteMany()</code></td>
+<td style="text-align: left;"><code>DELETE FROM</code></td>
+<td style="text-align: left;"><code>.Remove()</code> then <code>db.SaveChanges()</code></td>
+<td style="text-align: left;"><code>.DeleteOne()</code>, <code>.DeleteMany()</code></td>
 </tr>
 <tr>
-<td><code>UPDATE ... SET</code></td>
-<td>Modify the data and then <code>db.SaveChanges()</code></td>
-<td><code>.UpdateOne()</code>, <code>.UpdateMany()</code></td>
+<td style="text-align: left;"><code>UPDATE ... SET</code></td>
+<td style="text-align: left;">Modify data then <code>db.SaveChanges()</code></td>
+<td style="text-align: left;"><code>.UpdateOne()</code>, <code>.UpdateMany()</code></td>
 </tr>
 <tr>
-<td><code>INSERT INTO</code></td>
-<td><code>.Add()</code> and then <code>db.SaveChanges()</code></td>
-<td><code>.InsertOne()</code>, <code>.InsertMany()</code></td>
+<td style="text-align: left;"><code>INSERT INTO</code></td>
+<td style="text-align: left;"><code>.Add()</code> then <code>db.SaveChanges()</code></td>
+<td style="text-align: left;"><code>.InsertOne()</code>, <code>.InsertMany()</code></td>
 </tr>
 </tbody>
 </table>
@@ -2023,8 +2026,8 @@ Use <code>DeleteMany</code> if you want to delete multiple records.<p></p>
           </path>
         </svg>
       </span>
-      <span title="December 8, 2025 15:15:15">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:15:15 CET"><span class="timeago" datetime="2025-12-08T15:15:15+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:15:15 CET">2025-12-08</span>
+      <span title="December 15, 2025 11:23:16">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 15, 2025 11:23:16 CET"><span class="timeago" datetime="2025-12-15T11:23:16+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 15, 2025 11:23:16 CET">2025-12-15</span>
       </span>
     </span>
 
@@ -2042,6 +2045,8 @@ Use <code>DeleteMany</code> if you want to delete multiple records.<p></p>
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
         </a><a href="https://github.com/matesze41" target="_blank" rel="noopener noreferrer" class="md-author" title="@Szendrey Máté">
           <img src="https://avatars.githubusercontent.com/u/127397856?v=4?size=72" alt="@Szendrey Máté">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a></nav>      
     </span>
   </div>

@@ -1681,7 +1681,7 @@
 <h2 id="connection">Connection<a class="headerlink" href="#connection" title="Permanent link">¶</a></h2>
 <p>The <strong>ADO.NET</strong> library provides the <code>IDbConnection</code> interface to represent database connections. It contains the functions needed to manage the connection to the database, such as <code>Open()</code>, <code>Close()</code>, or <code>BeginTransaction()</code>. This interface is implemented by database engine-specific connection classes, such as the <code>SqlConnection</code> class, which implements the connection to Microsoft SQL Server.</p>
 <p>We need to know that setting up a new connection to a database is relatively expensive (opening a new network connection, negotiating protocols with the server, authentication, etc.). Therefore, we use <strong>connection pooling</strong>, where, after using and closing a connection, we do not discard it but put it back in a pool to reuse it later.</p>
-<p>The availability of <em>connection pool</em> depends on the implementation; it supported by the <em>MS SQL Server</em> and <em>OleDD</em> implementations. <em>Connection pools</em> are created for every <em>connection string</em> (so not per database). This is important if the application does not use a single static <em>connection string</em> (but connects on behalf of the user, for example).</p>
+<p>The availability of <em>connection pool</em> depends on the implementation; it supported by the <em>MS SQL Server</em> and <em>OleDB</em> implementations. <em>Connection pools</em> are created for every <em>connection string</em> (so not per database). This is important if the application does not use a single static <em>connection string</em> (but connects on behalf of the user, for example).</p>
 <p>We also have to understand the problem of <a href="# connection-leak"><strong>connection leak</strong></a>, which means that a connection is left open after use (we do not call <code>Close()</code>), so it is not returned to the pool, which prohibits future reuse. If we do leak connections this way, the pool will soon run out of connections, and the application will stop working due to not being able to talk to the database. This problem must be avoided by closing or disposing of connections safely (see sample code later).</p>
 <p>We need the aforementioned <strong>connection string</strong> to connect to the database. It is a text variable that describes the parameters used to connect to the database, such as a username, password, or server address. <strong>Connection strings</strong> have <a href="https://www.connectionstrings.com/">database server-specific syntax</a> and may also be a point of <a href="#connection-string">attacks</a>.</p>
 <p>The <em>connection string</em> can be stored as text in the configuration file, or the application code can build it. Below is a <strong>sample code</strong> creating a connection and using a <code>ConnectionStringBuilder</code>:</p>
@@ -1729,7 +1729,7 @@
 <span class="p">...</span>
 <span class="kt">var</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SqlCommand</span><span class="p">();</span>
 <span class="n">command</span><span class="p">.</span><span class="n">Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">;</span>
-<span class="c1">// setting command.Connection it not enecessary if we use the connection to instantiate</span>
+<span class="c1">// setting command.Connection is not necessary if we use the connection to instantiate</span>
 <span class="c1">// the command as: command = connection.CreateCommand()</span>
 <span class="n">command</span><span class="p">.</span><span class="n">CommandType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CommandType</span><span class="p">.</span><span class="n">StoredProcedure</span><span class="p">;</span>
 <span class="n">command</span><span class="p">.</span><span class="n">CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SalesByCategory"</span><span class="p">;</span><span class="w"> </span><span class="c1">// name of the stored procedure</span>
@@ -1767,7 +1767,7 @@
 <span class="w">        </span><span class="n">Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">,</span>
 <span class="w">        </span><span class="n">CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"INSERT into CarTable (Description) VALUES('...')"</span><span class="p">,</span>
 <span class="w">        </span><span class="n">Transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">,</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
 
 <span class="w">    </span><span class="k">try</span>
 <span class="w">    </span><span class="p">{</span>
@@ -1925,6 +1925,10 @@
 <h2 id="risks">Risks<a class="headerlink" href="#risks" title="Permanent link">¶</a></h2>
 <h3 id="sql-injection">SQL injection<a class="headerlink" href="#sql-injection" title="Permanent link">¶</a></h3>
 <p><strong>SQL injection</strong> is a <strong>severe vulnerability</strong> in an application when a query is created without sanitizing the values of parameters. Parameter values can come from the client side, with user-selected or user-specified data. This can cause a problem if a malicious user writes an SQL command into a field from which we would expect something else. For example, we would expect a username, but instead <code>Monkey92); DROP TABLE Users; -</code> value is received. If we were to include this text and insert it into our SQL statement, we would also execute <code>drop table</code>, thereby deleting an entire table. This is a <strong>serious mistake</strong>!</p>
+<div class="admonition warning">
+<p class="admonition-title">String Interpolation</p>
+<p>Do not use C# string interpolation (<code>$""</code>) to build SQL commands. Even if it looks cleaner than string concatenation, it is still vulnerable to SQL injection if the variables contain user input. Always use <code>SqlParameter</code>.</p>
+</div>
 <div class="admonition important">
 <p class="admonition-title"><strong>SOLUTION</strong></p>
 <p>Using parameters (see the <a href="#command">Command section</a> for an example).</p>
@@ -1952,8 +1956,8 @@
           </path>
         </svg>
       </span>
-      <span title="January 10, 2025 00:22:56">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 10, 2025 00:22:56 CET"><span class="timeago" datetime="2025-01-10T00:22:56+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 10, 2025 00:22:56 CET">2025-01-10</span>
+      <span title="December 15, 2025 11:28:14">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 15, 2025 11:28:14 CET"><span class="timeago" datetime="2025-12-15T11:28:14+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 15, 2025 11:28:14 CET">2025-12-15</span>
       </span>
     </span>
 
@@ -1973,6 +1977,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almatn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Almat">
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&amp;v=4?size=72" alt="@Almat">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      
