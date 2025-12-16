@@ -401,7 +401,7 @@ AS -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rend
   BEGIN
   
   -- nem megismételhető olvasás elkerülése végett
- SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
   BEGIN TRAN                            
 
   DECLARE @COUNT int
@@ -516,7 +516,7 @@ CREATE OR ALTER PROCEDURE InsertNewVAT
 AS
 BEGIN
 
- SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
   BEGIN TRAN
 
   DECLARE @COUNT int
@@ -577,7 +577,7 @@ CREATE OR ALTER TRIGGER ProductDeleteLog
   FOR DELETE
 AS
 INSERT INTO AuditLog(Description)
-SELECT 'Product deleted: ' + CONVERTnvarchar, d.Name) FROM deleted d
+SELECT 'Product deleted: ' + CONVERT(nvarchar, d.Name) FROM deleted d
 ```
 
 A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a `DROP TRIGGER` utasítással). A trigger az érintett táblához kötve látható az adatbázisban:
@@ -682,7 +682,7 @@ FROM Order INNER JOIN
     ON Order.ID = OrderChange.OrderID
 
 UPDATE Order
-SET Total = ISNULL(Total,0) – TotalChange
+SET Total = ISNULL(Total,0) - TotalChange
 FROM Order INNER JOIN
         (SELECT d.OrderID, SUM(Amount*Price) AS TotalChange
         FROM deleted d
@@ -703,7 +703,7 @@ Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési felada
 
 ```sql
 -- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
-ADD TABLE Product
+ALTER TABLE Product
 add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
