@@ -1924,7 +1924,7 @@
 <span class="c1">-- 5</span>
 </code></pre></div>
 <div class="admonition important">
-<p>Not to be confused with the <code>is null</code> condition, e.g., <code>UPDATE Product SET Price = 111 WHERE Price is null</code></p>
+<p>Not to be confused with the <code>IS NULL</code> condition, e.g., <code>UPDATE Product SET Price = 111 WHERE Price IS NULL</code></p>
 </div>
 <h2 id="cursors">Cursors<a class="headerlink" href="#cursors" title="Permanent link">¶</a></h2>
 <p>A cursor is an iterator used to scroll through a set of records item by item. We use it when a query returns multiple items, and we want to process them individually.</p>
@@ -1936,12 +1936,12 @@
 </ol>
 <h3 id="declaration-and-opening">Declaration and opening<a class="headerlink" href="#declaration-and-opening" title="Permanent link">¶</a></h3>
 <p>A cursor is created with the <code>DECLARE</code> statement. We also provide the query yielding the results in the declaration. The full syntax is:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="k">cursor</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">CURSOR</span>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="k">cursor_name</span><span class="w"> </span><span class="k">CURSOR</span>
 <span class="w">  </span><span class="p">[</span><span class="n">FORWARD_ONLY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SCROLL</span><span class="p">]</span>
-<span class="w">  </span><span class="p">[</span><span class="k">STATIC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">KEYSET</span><span class="w"> </span><span class="k">DYNAMIC</span><span class="w"> </span><span class="n">FAST_FORWARD</span><span class="p">]</span>
+<span class="w">  </span><span class="p">[</span><span class="k">STATIC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">KEYSET</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DYNAMIC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FAST_FORWARD</span><span class="p">]</span>
 <span class="w">  </span><span class="p">[</span><span class="n">READ_ONLY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SCROLL_LOCKS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">OPTIMISTIC</span><span class="p">]</span>
 <span class="k">FOR</span><span class="w"> </span><span class="n">query</span>
-<span class="p">[</span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="p">[</span><span class="k">OF</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">n</span><span class="p">]]]</span>
+<span class="p">[</span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="p">[</span><span class="k">OF</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">n</span><span class="p">]]]</span>
 </code></pre></div>
 <p>The meaning of optional flags in the declaration are (for more details, see the <a href="https://docs.microsoft.com/en-us/sql/t-sql/language-elements/declare-cursor-transact-sql">documentation</a>):</p>
 <ul>
@@ -1973,7 +1973,7 @@
 <li>-2 if the requested row is missing (when using <code>KEYSET</code>).</li>
 </ul>
 <p>The complete iteration thus requires <strong>two</strong> <code>FETCH</code> statements and one <code>WHILE</code> loop:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">-- declare, open ...</span>
+<div class="highlight"><pre><span></span><code><span class="c1">-- DECLARE, OPEN ...</span>
 <span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">var2</span>
 <span class="n">WHILE</span><span class="w"> </span><span class="o">@@</span><span class="n">FETCH_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
 <span class="k">BEGIN</span>
@@ -2007,7 +2007,7 @@
 <span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">OrderItem</span><span class="p">.</span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductId</span>
 
 <span class="w">  </span><span class="c1">-- Diagnostic display</span>
-<span class="w">  </span><span class="n">PRINT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">'ProductID:'</span><span class="p">,</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">),</span><span class="w"> </span><span class="s1">'Last order:'</span><span class="p">,</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="p">),</span><span class="w"> </span><span class="s1">'No last order'</span><span class="p">))</span>
+<span class="w">  </span><span class="n">PRINT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">'ProductID:'</span><span class="p">,</span><span class="w"> </span><span class="k">CONVERT</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">),</span><span class="w"> </span><span class="s1">'Last order:'</span><span class="p">,</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="k">CONVERT</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="p">),</span><span class="w"> </span><span class="s1">'No last order'</span><span class="p">))</span>
 
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="o">@</span><span class="n">LastOrder</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">DATEADD</span><span class="p">(</span><span class="k">year</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">GETDATE</span><span class="p">())</span>
 <span class="w">  </span><span class="k">BEGIN</span>
@@ -2031,7 +2031,7 @@
 <h3 id="procedures">Procedures<a class="headerlink" href="#procedures" title="Permanent link">¶</a></h3>
 <p>You can create a stored procedure with the following syntax:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="p">]</span><span class="w"> </span><span class="n">PROC</span><span class="p">[</span><span class="n">EDURE</span><span class="p">]</span><span class="w"> </span><span class="n">procedure_name</span>
-<span class="w">  </span><span class="p">[</span><span class="err">{</span><span class="o">@</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">data_type</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
+<span class="w">  </span><span class="p">[</span><span class="err">{</span><span class="o">@</span><span class="k">parameter</span><span class="w"> </span><span class="n">data_type</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
 <span class="k">AS</span>
 <span class="p">[</span><span class="k">BEGIN</span><span class="p">]</span>
 <span class="w">  </span><span class="n">sql_instructions</span><span class="w"> </span><span class="p">[...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
@@ -2044,8 +2044,8 @@
 <span class="k">AS</span><span class="w"> </span><span class="c1">-- this is where the code begins, which the system executes when the procedure is called</span>
 <span class="w">  </span><span class="k">BEGIN</span>
 <span class="w">  </span><span class="c1">-- to avoid non-repeatable reading</span>
-<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
 
 <span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2056,7 +2056,7 @@
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">      </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="err">​​</span><span class="p">(</span><span class="o">@</span><span class="n">Percentage</span><span class="p">)</span>
 <span class="w">  </span><span class="k">ELSE</span>
-<span class="w">      </span><span class="n">print</span><span class="w"> </span><span class="s1">'error'</span><span class="p">;</span>
+<span class="w">      </span><span class="n">PRINT</span><span class="w"> </span><span class="s1">'error'</span><span class="p">;</span>
 
 <span class="k">COMMIT</span>
 <span class="k">END</span>
@@ -2126,8 +2126,8 @@
 <span class="k">AS</span>
 <span class="k">BEGIN</span>
 
-<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">repeatable</span><span class="w"> </span><span class="k">read</span>
-<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">tran</span>
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span>
+<span class="w">  </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span>
 
 <span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">COUNT</span><span class="w"> </span><span class="nb">int</span>
 
@@ -2150,18 +2150,18 @@
 <span class="k">BEGIN</span><span class="w"> </span><span class="n">CATCH</span>
 <span class="w">  </span><span class="c1">-- access the error details with the following functions (similar to stack trace in other languages)</span>
 <span class="w">  </span><span class="k">SELECT</span>
-<span class="w">    </span><span class="n">ERROR_NUMBER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorNumber</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ERROR_SEVERITY</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorSeverity</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ERROR_STATE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorState</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ERROR_PROCEDURE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorProcedure</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ERROR_LINE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorLine</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ERROR_MESSAGE</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorMessage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ERROR_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorNumber</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ERROR_SEVERITY</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorSeverity</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ERROR_STATE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorState</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ERROR_PROCEDURE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorProcedure</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ERROR_LINE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorLine</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ERROR_MESSAGE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrorMessage</span><span class="p">;</span>
 <span class="k">END</span><span class="w"> </span><span class="n">CATCH</span>
 </code></pre></div>
 <p>Of course, it's not just user code that can throw errors. The system also signals errors identically, and we can handle them using the same tools.</p>
 <h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">¶</a></h2>
 <p>The tools and language elements described so far have similar counterparts in other platforms. However, triggers are unique to databases. Triggers are event-handling stored procedures. We can subscribe to various events in the database, and when the event occurs, the system will execute our code defined in the trigger.</p>
-<p>We will only discuss DML triggers. These are triggers that run due to data modification (<code>insert</code>, <code>update</code>, <code>delete</code>) operations. There are other triggers as well; e.g., you can create triggers for system events. Check the <a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql">official documentation</a> for more details.</p>
+<p>We will only discuss DML triggers. These are triggers that run due to data modification (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>) operations. There are other triggers as well; e.g., you can create triggers for system events. Check the <a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql">official documentation</a> for more details.</p>
 <h3 id="dml-triggers">DML triggers<a class="headerlink" href="#dml-triggers" title="Permanent link">¶</a></h3>
 <p>Using triggers, we can solve several tasks that would be difficult otherwise. Consider, for example, an <strong>audit logging</strong> requirement: when a change is made to a particular table, let us record a log entry. We could solve this task in C#/Java/Python by creating a class or methods for accessing the database table in question. However, nothing prevents the programmer from "bypassing" this logic and accessing the database directly. We cannot prevent this with triggers, but we can create a trigger that performs the required logging instead of the C#/Java/Python code.</p>
 <p>Let us look at this example: logging the deletion of any products in a dedicated table:</p>
@@ -2175,7 +2175,7 @@
 <span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">DELETE</span>
 <span class="k">AS</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">AuditLog</span><span class="w"> </span><span class="p">(</span><span class="n">Description</span><span class="p">)</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">convert</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="s1">'Product deleted: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CONVERT</span><span class="p">(</span><span class="n">nvarchar</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
 </code></pre></div>
 <p>Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the <code>DROP TRIGGER</code> statement). The trigger is linked to the table in the database:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mssql-trigger-in-db.png" data-desc-position="bottom"><img alt="Trigger in the database" src="../img/mssql-trigger-in-db.png"></a></p>
@@ -2186,7 +2186,7 @@
 <span class="k">AS</span>
 <span class="n">sql_instruction</span><span class="w"> </span><span class="p">[...</span><span class="w"> </span><span class="n">n</span><span class="p">]</span>
 </code></pre></div>
-<p>Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., <code>for update, insert</code>). Note that three possible options cover all types of changes; also note, that there is no <code>select</code> event — since it is not a change.</p>
+<p>Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., <code>FOR UPDATE, INSERT</code>). Note that three possible options cover all types of changes; also note, that there is no <code>SELECT</code> event — since it is not a change.</p>
 <p>The instructions defined in the trigger code are executed <em>after</em> the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified easily otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.</p>
 <div class="highlight"><pre><span></span><code>graph LR
     A[Original Table Row] --&gt;|UPDATE Operation| B(Trigger Execution)
@@ -2194,7 +2194,7 @@
     C --&gt;|Old Values| D[deleted Table]
     C --&gt;|New Values| E[inserted Table]
 </code></pre></div>
-<p>Triggers are executed per <em>instruction</em>, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an <code>update</code> statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single insert command.</p>
+<p>Triggers are executed per <em>instruction</em>, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an <code>UPDATE</code> statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single <code>INSERT</code> command.</p>
 <div class="admonition warning">
 <p class="admonition-title">There is no row-level trigger</p>
 <p>Other database platforms have row-level triggers, where the trigger is called individually for all the modified rows. Microsoft SQL Server platform does not have such a trigger!</p>
@@ -2224,15 +2224,15 @@
 </tr>
 </tbody>
 </table>
-<p>When inserting, the inserted records can be found in the database table (but there, we do not "see" that they have been newly inserted), and they are also available in the <code>inserted</code> table. In the case of deletion, <code>deleted</code> contains the rows already deleted from the table. Finally, in the case of <code>update</code>, we see the states before and after the change in the two log tables. We need to work with these log tables as tables; we should always expect to have more than one record in them.</p>
+<p>When inserting, the inserted records can be found in the database table (but there, we do not "see" that they have been newly inserted), and they are also available in the <code>inserted</code> table. In the case of deletion, <code>deleted</code> contains the rows already deleted from the table. Finally, in the case of <code>UPDATE</code>, we see the states before and after the change in the two log tables. We need to work with these log tables as tables; we should always expect to have more than one record in them.</p>
 <div class="admonition warning">
 <p class="admonition-title">The <code>inserted</code> and <code>deleted</code> are tables</p>
-<p>The <code>inserted</code> and <code>deleted</code> tables can only be treated as tables! For example, it does not make sense to use <code>select @id=inserted.ID</code>; instead, we can use a cursor on these tables or <code>join</code> them.</p>
+<p>The <code>inserted</code> and <code>deleted</code> tables can only be treated as tables! For example, it does not make sense to use <code>select @id=inserted.ID</code>; instead, we can use a cursor on these tables or <code>JOIN</code> them.</p>
 </div>
 <p>We have already seen an example of audit logging implemented with a trigger. Let us look at other use-cases. Let us have a table with an email address column. When inserting and modifying, we need to check the email address value, and we must not accept text that does not look like an email address. Here <strong>we validate a rule of consistency</strong> with the trigger.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Create a function to check the email address</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="p">[</span><span class="n">IsEmailValid</span><span class="p">](</span><span class="o">@</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
-<span class="k">RETURNS</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="c1">-- true / false return value</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="p">[</span><span class="n">IsEmailValid</span><span class="p">](</span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+<span class="k">RETURNS</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="c1">-- TRUE / FALSE return value</span>
 <span class="k">AS</span>
 <span class="k">BEGIN</span>
 <span class="w">  </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">email</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">-- Cannot be null</span>
@@ -2257,7 +2257,7 @@
 <p>Another common use of triggers is <strong>maintenance of denormalized data</strong>. Although we try to avoid denormalization in a relational database, in practice, it may be necessary to store computed data for performance reasons. Let us look at an example of this as well. Suppose customers have two email addresses: one to sign in with, an optional second one to use for notifications. To avoid always having to query both email addresses and choosing between the two, let us make sure the <em>effective</em> email address is available in the database "calculated" from the previous two:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Additional email address columns for customers</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Customer</span>
-<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
+<span class="k">ADD</span><span class="w"> </span><span class="p">[</span><span class="n">NotificationEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">EffectiveEmail</span><span class="p">]</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="k">MAX</span><span class="p">)</span>
 <span class="k">GO</span>
 
 <span class="c1">-- Trigger to update the effective email address</span>
@@ -2280,7 +2280,7 @@
 <span class="k">AS</span>
 
 <span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TotalChange</span>
 <span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
 <span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
 <span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span><span class="w"> </span><span class="n">i</span>
@@ -2288,7 +2288,7 @@
 <span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="k">Order</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OrderChange</span><span class="p">.</span><span class="n">OrderID</span>
 
 <span class="k">UPDATE</span><span class="w"> </span><span class="k">Order</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">isnull</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">TotalChange</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">Total</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">TotalChange</span>
 <span class="k">FROM</span><span class="w"> </span><span class="k">Order</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span>
 <span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="o">*</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalChange</span>
 <span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="n">d</span>
@@ -2301,18 +2301,18 @@
 <p>We can define multiple triggers for an event. But the order of their execution cannot be specified. We can set the first and last triggers, but we cannot make assumptions regarding their sequence otherwise - it is considered ill-advised to design functionality where triggers need to build on each other.</p>
 </div>
 <h3 id="instead-of-triggers"><em>Instead of</em> triggers<a class="headerlink" href="#instead-of-triggers" title="Permanent link">¶</a></h3>
-<p>A special type of trigger is the so-called <em>instead of trigger</em>. Such triggers can be defined for both tables and views. Let us look at using them on tables first. An <em>instead of</em> trigger defined on a table, as its name suggests, runs the instruction we define in the trigger instead of the actual operation's <code>insert / update / delete</code>. E.g., when inserting, the new rows are not added to the table, and when deleting, rows are not deleted. Instead, we can define in the trigger how to perform these operations. In the overridden process, we can access the table itself and execute the necessary actions in this table. These operations do not cause recursion in the trigger. These triggers can be considered as <em>before</em> triggers, i.e., we can perform checks before making the changes and abort the operation in case of an error.</p>
+<p>A special type of trigger is the so-called <em>instead of trigger</em>. Such triggers can be defined for both tables and views. Let us look at using them on tables first. An <em>instead of</em> trigger defined on a table, as its name suggests, runs the instruction we define in the trigger instead of the actual operation's <code>INSERT / UPDATE / DELETE</code>. E.g., when inserting, the new rows are not added to the table, and when deleting, rows are not deleted. Instead, we can define in the trigger how to perform these operations. In the overridden process, we can access the table itself and execute the necessary actions in this table. These operations do not cause recursion in the trigger. These triggers can be considered as <em>before</em> triggers, i.e., we can perform checks before making the changes and abort the operation in case of an error.</p>
 <p>A typical use case for an <em>instead of</em> trigger is, for example, when we do not want to perform a deletion. This is also called <em>soft delete</em>:,instead of deleting, we only mark the records as deleted:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Soft delete flag column in the table with a default value of 0 (i.e., false)</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Product</span>
-<span class="k">add</span><span class="w"> </span><span class="p">[</span><span class="n">IsDeleted</span><span class="p">]</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">DF_Product_IsDeleted</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">ADD</span><span class="w"> </span><span class="p">[</span><span class="n">IsDeleted</span><span class="p">]</span><span class="w"> </span><span class="nb">bit</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">DF_Product_IsDeleted</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
 <span class="k">GO</span>
 
 <span class="c1">-- Instead of trigger, the delete command does not perform the deletion</span>
 <span class="c1">-- the following code runs instead</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductSoftDelete</span>
 <span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">Product</span>
-<span class="w">  </span><span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">DELETE</span>
+<span class="w">  </span><span class="k">INSTEAD</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="k">DELETE</span>
 <span class="k">AS</span>
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
 <span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="n">IsDeleted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
@@ -2328,7 +2328,7 @@
 <span class="c1">-- Instead of trigger for the view</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">ProductWithVatPercentageInsert</span>
 <span class="k">ON</span><span class="w"> </span><span class="n">ProductWithVatPercentage</span>
-<span class="k">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">INSERT</span>
+<span class="k">INSTEAD</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="k">INSERT</span>
 <span class="k">AS</span>
 <span class="w">  </span><span class="c1">-- The insertion goes into the Product table: a new row is created for each inserted record</span>
 <span class="w">  </span><span class="c1">-- And we find the VAT record corresponding to the provided percentage</span>
@@ -2349,8 +2349,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 15, 2025 11:31:22">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 15, 2025 11:31:22 CET"><span class="timeago" datetime="2025-12-15T11:31:22+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 15, 2025 11:31:22 CET">2025-12-15</span>
+      <span title="December 16, 2025 14:41:58">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 16, 2025 14:41:58 CET"><span class="timeago" datetime="2025-12-16T14:41:58+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 16, 2025 14:41:58 CET">2025-12-16</span>
       </span>
     </span>
 
@@ -2372,6 +2372,8 @@
           <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
+        </a><a href="https://github.com/zsotroav" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/u/49715074?u=69a8e472802fd39dc7117b1b2cad5eaf66f529c1&amp;v=4?size=72" alt="@None">
         </a></nav>      
     </span>
   </div>
