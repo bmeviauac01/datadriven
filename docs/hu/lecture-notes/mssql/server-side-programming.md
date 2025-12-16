@@ -352,7 +352,7 @@ BEGIN
     WHERE OrderItem.ProductID = @ProductId
   
   -- Diagnosztikai kiírás
-  PRINT CONCAT('ProductID: ', CONVERTnvarchar, @ProductID), ' Last order: ', ISNULL(CONVERTnvarchar, @LastOrder), 'No last order'))
+  PRINT CONCAT('ProductID: ', CONVERT(nvarchar, @ProductID), ' Last order: ', ISNULL(CONVERT(nvarchar, @LastOrder), 'No last order'))
 
   IF @LastOrder IS NULL OR @LastOrder < DATEADD(year, -1, GETDATE())
   BEGIN
@@ -704,7 +704,7 @@ Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési felada
 ```sql
 -- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
 ALTER TABLE Product
-add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
+ADD [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
 -- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre
