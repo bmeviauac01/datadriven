@@ -251,7 +251,7 @@ SELECT ISNULL(@a, @b)
 ```
 
 !!! important ""
-    Nem keverendő össze az `is null` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price is null`
+    Nem keverendő össze az `IS NULL` feltétellel, pl.: `UPDATE Product SET Price=111 WHERE Price IS NULL`
 
 ## Kurzor
 
@@ -313,7 +313,7 @@ Azt, hogy a `FETCH` utasítás sikeres volt-e, a `@@FETCH_STATUS` implicit vált
 A teljes iteráció így **két** `FETCH` utasítást és egy `WHILE` ciklust igényel:
 
 ```sql
--- declare, open ...
+-- DECLARE, OPEN ...
 FETCH NEXT FROM cur INTO @var1, @var2
 WHILE @@FETCH_STATUS = 0
 BEGIN
@@ -352,7 +352,7 @@ BEGIN
     WHERE OrderItem.ProductID = @ProductId
   
   -- Diagnosztikai kiírás
-  PRINT CONCAT('ProductID: ', convert(nvarchar, @ProductID), ' Last order: ', ISNULL(convert(nvarchar, @LastOrder), 'No last order'))
+  PRINT CONCAT('ProductID: ', CONVERT(nvarchar, @ProductID), ' Last order: ', ISNULL(CONVERT(nvarchar, @LastOrder), 'No last order'))
 
   IF @LastOrder IS NULL OR @LastOrder < DATEADD(year, -1, GETDATE())
   BEGIN
@@ -401,8 +401,8 @@ AS -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rend
   BEGIN
   
   -- nem megismételhető olvasás elkerülése végett
-  SET TRANSACTION isolation level repeatable read
-  BEGIN tran                            
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  BEGIN TRAN                            
 
   DECLARE @COUNT int
 
@@ -413,7 +413,7 @@ AS -- innen kezdődik a kód, amit az eljárás meghívásakor végrehajt a rend
   IF @COUNT = 0
       INSERT INTO VAT VALUES (@Percentage)
   ELSE
-      print 'error';
+      PRINT 'error';
 
 COMMIT
 END
@@ -516,8 +516,8 @@ CREATE OR ALTER PROCEDURE InsertNewVAT
 AS
 BEGIN
 
-  SET TRANSACTION isolation level repeatable read
-  BEGIN tran
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  BEGIN TRAN
 
   DECLARE @COUNT int
 
@@ -558,7 +558,7 @@ Hibát természetesen nem csak mi dobhatunk. A rendszer is analóg módon jelez 
 
 Az eddig ismertetett eszközök és nyelvi elemek hasonlók más platformokon elérhető lehetőségekhez. A triggerek azonban speciális eszközök, amelyekhez hasonlót máshol nem igen találunk. A triggerek eseménykezelő tárolt eljárások. Használatukkal az adatbázisban történő különböző eseményekre tudunk feliratkozni és az esemény bekövetkeztekor a rendszer a triggerben megadott kódunkat lefuttatja.
 
-Az alábbiakban kifejezetten DML triggerekkel foglalkozunk. Ezek az adatmódosítás (`insert`, `update`, `delete`) műveletek hatására lefutó triggerek. Léteznek más triggerek is, akár rendszereseményekre is lehet triggert készíteni, ezekkel kapcsolatban lásd a [hivatalos dokumentációt](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql).
+Az alábbiakban kifejezetten DML triggerekkel foglalkozunk. Ezek az adatmódosítás (`INSERT`, `UPDATE`, `DELETE`) műveletek hatására lefutó triggerek. Léteznek más triggerek is, akár rendszereseményekre is lehet triggert készíteni, ezekkel kapcsolatban lásd a [hivatalos dokumentációt](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql).
 
 ### DML trigger
 
@@ -577,7 +577,7 @@ CREATE OR ALTER TRIGGER ProductDeleteLog
   FOR DELETE
 AS
 INSERT INTO AuditLog(Description)
-SELECT 'Product deleted: ' + convert(nvarchar, d.Name) FROM deleted d
+SELECT 'Product deleted: ' + CONVERT(nvarchar, d.Name) FROM deleted d
 ```
 
 A fenti parancsok lefuttatásának hatására létrejön a trigger az adatbázisban (mint ahogy egy tárolt eljárás is létrejön), és a rendszer ezt a triggert minden érintett eseménynél lefuttatja. Tehát a triggert nem mi futtatjuk, hanem a rendszer. Ennek ellenére adunk nevet a triggernek, hogy hivatkozhassunk rá (pl., ha törölni akarjuk a `DROP TRIGGER` utasítással). A trigger az érintett táblához kötve látható az adatbázisban:
@@ -594,11 +594,11 @@ AS
 sql_utasítás [ ...n ]
 ```
 
-Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `for update, insert`). Vegyük észre, hogy a három lehetőség mindenféle módosítást lefed, és hogy `select` jellegű esemény nincs - hiszen az nem módosítás.
+Lássuk, hogy a trigger definiálásakor megadjuk a táblát avagy nézetet, amelyre a triggert definiáljuk. Egy trigger tehát egyetlen tábla eseményeire figyel. Azt, hogy milyen esemény, azt pedig úgy adjuk meg, hogy felsoroljuk a módosító eseményeket (pl. `FOR UPDATE, INSERT`). Vegyük észre, hogy a három lehetőség mindenféle módosítást lefed, és hogy `SELECT` jellegű esemény nincs - hiszen az nem módosítás.
 
 A trigger kódjában definiált utasításokat a rendszer az érintett tábla specifikált eseményei _után_ hajtja végre. Ez azt jelenti, hogy a módosításokat a rendszer elvégezte (például beszúrás esetén már szerepelnek az új sorok a táblában), azonban még a tranzakciót nem zárta le. Így tehát lehetőségünk van további módosításokat végezni a tranzakció részeként (és így egyben, atominak látva az "eredeti" utasítás és a trigger eredményét is), vagy akár megszakítani a tranzakciót. A triggerek egy speciális használati esete a (máshogy nem leírható) konzisztencia ellenőrzése és hiba esetén a módosítás megszakítása. Hamarosan látunk erre is példát.
 
-A triggerek _utasítás szintűek_, ami azt jelenti, hogy DML utasításonként egyszer hívódnak meg. A trigger nem egyetlen rekord változását kezeli le, hanem egyetlen utasítás összes módosítását. Tehát ha például egy `update` utasítás 15 sort módosít, akkor a trigger egyetlen alkalommal kerül meghívásra és abban az egyetlen alkalomban mind a 15 módosítást egyszerre látja. Ez természetesen igaz a beszúrásra és törlésre is - egy törlés művelet törölhet egyszerre több sort, és beszúrni is lehet egyetlen utasítással több rekordot.
+A triggerek _utasítás szintűek_, ami azt jelenti, hogy DML utasításonként egyszer hívódnak meg. A trigger nem egyetlen rekord változását kezeli le, hanem egyetlen utasítás összes módosítását. Tehát ha például egy `UPDATE` utasítás 15 sort módosít, akkor a trigger egyetlen alkalommal kerül meghívásra és abban az egyetlen alkalomban mind a 15 módosítást egyszerre látja. Ez természetesen igaz a beszúrásra és törlésre is - egy törlés művelet törölhet egyszerre több sort, és beszúrni is lehet egyetlen utasítással több rekordot.
 
 !!! warning "Nincs sor szintű trigger"
     Más adatbázis platformon létezik _sor szintű trigger_, ahol is a módosított sorokra egyenként hívódik meg a trigger. Microsoft SQL Server platformon ilyen nem létezik!
@@ -610,17 +610,17 @@ Honnan tudjuk meg a triggerben milyen módosítás történt? A trigger kódjáb
 | inserted | új rekordok | üres            | rekordok új értékei   |
 | deleted  | üres        | törölt rekordok | rekordok régi értékei |
 
-Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (de ott nem "látjuk", hogy újonnan kerültek beszúrásra), és emellett az `inserted` táblában érhetőek el. Törlés esetén analóg módon a `deleted` táblában van a törlés előtti állapotuk, de a táblából már törölve vannak. Végezetül `update` esetén a módosítás előtti és utáni állapotokat látjuk a két naplótáblában. Ezen napló táblákkal tábla módjára kell dolgozni, tehát mindig arra kell számítanunk, hogy több rekord van bennük.
+Beszúrás esetén tehát a beszúrt rekordok a táblában is megtalálhatóak (de ott nem "látjuk", hogy újonnan kerültek beszúrásra), és emellett az `inserted` táblában érhetőek el. Törlés esetén analóg módon a `deleted` táblában van a törlés előtti állapotuk, de a táblából már törölve vannak. Végezetül `UPDATE` esetén a módosítás előtti és utáni állapotokat látjuk a két naplótáblában. Ezen napló táblákkal tábla módjára kell dolgozni, tehát mindig arra kell számítanunk, hogy több rekord van bennük.
 
 !!! warning "Az `inserted` és `deleted` táblák"
-    Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: `select @id=inserted.ID`, viszont használhatjuk kurzorban vagy `join`-ban is ezen táblákat.
+    Az `inserted` és `deleted` tábla, csak táblaként kezelhetjük! Tehát nem használhatjuk mondjuk így: `select @id=inserted.ID`, viszont használhatjuk kurzorban vagy `JOIN`-ban is ezen táblákat.
 
 Láttunk már egy példát triggerrel megvalósított audit naplózásra. Nézzük más jellegű felhasználását. Legyen adott egy tábla egy email cím oszloppal. Ellenőrizzük beszúrásnál és módosításnál az email cím értéket és ne engedjünk biztosan nem email címnek kinéző szöveget beszúrni. Itt tehát **máshogy nem leírható konzisztencia szabályt** tartunk be a triggerrel.
 
 ```sql
 -- Az email cím ellenőrzéshez készítsünk egy függvényt
 CREATE FUNCTION [IsEmailValid](@email nvarchar(1000))   
-RETURNS bit -- true/false visszatérési érték
+RETURNS bit -- TRUE/FALSE visszatérési érték
 AS
 BEGIN
   IF @email IS NULL RETURN 0 -- Nem lehet null
@@ -649,7 +649,7 @@ Triggerek további gyakori felhasználási esete a **denormalizált adat karbant
 ```sql
 -- Plusz email cím oszlopok a vevőknek
 ALTER TABLE Customer
-add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
+ADD [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
 GO
 
 -- Használt email címet frissítő trigger
@@ -674,7 +674,7 @@ CREATE OR ALTER TRIGGER OrderTotalUpdateTrigger
 AS
 
 UPDATE Order
-SET Total = isnull(Total,0) + TotalChange
+SET Total = ISNULL(Total,0) + TotalChange
 FROM Order INNER JOIN
         (SELECT i.OrderID, SUM(Amount*Price) AS TotalChange
         FROM inserted i
@@ -682,7 +682,7 @@ FROM Order INNER JOIN
     ON Order.ID = OrderChange.OrderID
 
 UPDATE Order
-SET Total = isnull(Total,0) – TotalChange
+SET Total = ISNULL(Total,0) - TotalChange
 FROM Order INNER JOIN
         (SELECT d.OrderID, SUM(Amount*Price) AS TotalChange
         FROM deleted d
@@ -697,21 +697,21 @@ Ebben a triggerben érdemes észrevenni, hogy míg az esemény az `OrderItem` t�
 
 ### _Instead of_ trigger
 
-A triggerek egy speciális fajtája az ún. _instead of trigger_. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált _instead of_ trigger, ahogy a neve sugallja, a végrehajtandó utasítás (`insert/update/delete`) _helyett_ fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában _utasítás előtti_ triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.
+A triggerek egy speciális fajtája az ún. _instead of trigger_. Ilyen triggert táblára és nézetre is definiálhatunk. Nézzük előbb a tábla esetét. Táblára definiált _instead of_ trigger, ahogy a neve sugallja, a végrehajtandó utasítás (`INSERT/UPDATE/DELETE`) _helyett_ fut le. Tehát ilyenkor beszúrás esetén az új sorok nem kerültek be a táblába, törlésnél nem kerültek törlésre, módosításnál nem kerültek módosításra. Helyette a triggerben tudjuk definiálni, hogyan kell a műveletet végrehajtani. Az így felüldefiniált működésben hivatkozhatunk a táblára magára és végrehajthatjuk a szükséges utasítást a táblán, amely ebben az esetben nem okoz rekurziót. Ezen triggerek értelmezhetőek valójában _utasítás előtti_ triggerként, mivel a módosítások előtt végezhetünk ellenőrzéseket és szakíthatjuk meg a műveletet hiba esetén.
 
 Tipikus felhasználási esete az _instead of_ triggernek az ellenőrzési feladatokon túl például, ha egy törlést valójában nem akarunk végrehajtani. Ezt szokás _soft delete_-nek hívni, amikor törlés _helyett_ csak töröltnek jelöljük a rekordokat:
 
 ```sql
 -- Soft delete flag oszlop a táblába 0 (azaz false) alapértelmezett értékkel
 ALTER TABLE Product
-add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
+ADD [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
 -- Instead of trigger, azaz delete utasítás hatására a törlés nem hajtódik végre
 -- helyette az alábbi kód fut le
 CREATE OR ALTER TRIGGER ProductSoftDelete
   ON Product
-  instead of DELETE
+  INSTEAD OF DELETE
 AS
 UPDATE Product
   SET IsDeleted=1
@@ -730,7 +730,7 @@ FROM Product p JOIN Vat v ON p.VATID=v.Id
 -- Instead of trigger a nézetre a beszúrás helyett
 CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
 ON ProductWithVatPercentage
-instead of INSERT
+INSTEAD OF INSERT
 AS
   -- A beszúrás a Product táblába kerül, minden inserted rekordnak egy új sora keletkezik
   -- És közben kikeressük a százaléknak megfelelő áfa rekordot

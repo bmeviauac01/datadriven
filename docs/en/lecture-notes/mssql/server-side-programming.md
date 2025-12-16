@@ -250,7 +250,7 @@ SELECT ISNULL(@a, @b)
 ```
 
 !!! important ""
-    Not to be confused with the `is null` condition, e.g., `UPDATE Product SET Price = 111 WHERE Price is null`
+    Not to be confused with the `IS NULL` condition, e.g., `UPDATE Product SET Price = 111 WHERE Price IS NULL`
 
 ## Cursors
 
@@ -267,12 +267,12 @@ Using a cursor consists of the following steps:
 A cursor is created with the `DECLARE` statement. We also provide the query yielding the results in the declaration. The full syntax is:
 
 ```sql
-DECLARE cursor name CURSOR
+DECLARE cursor_name CURSOR
   [FORWARD_ONLY | SCROLL]
-  [STATIC | KEYSET DYNAMIC FAST_FORWARD]
+  [STATIC | KEYSET | DYNAMIC | FAST_FORWARD]
   [READ_ONLY | SCROLL_LOCKS | OPTIMISTIC]
 FOR query
-[FOR UPDATE [OF column name [, ... n]]]
+[FOR UPDATE [OF column_name [, ... n]]]
 ```
 
 The meaning of optional flags in the declaration are (for more details, see the [documentation](https://docs.microsoft.com/en-us/sql/t-sql/language-elements/declare-cursor-transact-sql)):
@@ -312,7 +312,7 @@ We can determine whether the `FETCH` statement was successful by querying the im
 The complete iteration thus requires **two** `FETCH` statements and one `WHILE` loop:
 
 ```sql
--- declare, open ...
+-- DECLARE, OPEN ...
 FETCH NEXT FROM cur INTO @var1, @var2
 WHILE @@FETCH_STATUS = 0
 BEGIN
@@ -351,7 +351,7 @@ BEGIN
     WHERE OrderItem.ProductID = @ProductId
   
   -- Diagnostic display
-  PRINT CONCAT('ProductID:', convert(nvarchar, @ProductID), 'Last order:', ISNULL(convert(nvarchar, @LastOrder), 'No last order'))
+  PRINT CONCAT('ProductID:', CONVERT(nvarchar, @ProductID), 'Last order:', ISNULL(CONVERT(nvarchar, @LastOrder), 'No last order'))
 
   IF @LastOrder IS NULL OR @LastOrder < DATEADD(year, -1, GETDATE())
   BEGIN
@@ -382,7 +382,7 @@ You can create a stored procedure with the following syntax:
 
 ```sql
 CREATE [OR ALTER] PROC[EDURE] procedure_name
-  [{@ parameter data_type}] [, ... n]
+  [{@parameter data_type}] [, ... n]
 AS
 [BEGIN]
   sql_instructions [... n]
@@ -399,8 +399,8 @@ CREATE OR ALTER PROCEDURE InsertNewVAT -- create a stored procedure
 AS -- this is where the code begins, which the system executes when the procedure is called
   BEGIN
   -- to avoid non-repeatable reading
-  SET TRANSACTION isolation level repeatable read
-  BEGIN tran
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  BEGIN TRAN
 
   DECLARE @COUNT int
 
@@ -411,7 +411,7 @@ AS -- this is where the code begins, which the system executes when the procedur
   IF @COUNT = 0
       INSERT INTO VAT VALUES ​​(@Percentage)
   ELSE
-      print 'error';
+      PRINT 'error';
 
 COMMIT
 END
@@ -514,8 +514,8 @@ CREATE OR ALTER PROCEDURE InsertNewVAT
 AS
 BEGIN
 
-  SET TRANSACTION isolation level repeatable read
-  BEGIN tran
+  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+  BEGIN TRAN
 
   DECLARE @COUNT int
 
@@ -541,12 +541,12 @@ END TRY
 BEGIN CATCH
   -- access the error details with the following functions (similar to stack trace in other languages)
   SELECT
-    ERROR_NUMBER () AS ErrorNumber,
-    ERROR_SEVERITY () AS ErrorSeverity,
-    ERROR_STATE () AS ErrorState,
-    ERROR_PROCEDURE () AS ErrorProcedure,
-    ERROR_LINE () AS ErrorLine,
-    ERROR_MESSAGE () AS ErrorMessage;
+    ERROR_NUMBER() AS ErrorNumber,
+    ERROR_SEVERITY() AS ErrorSeverity,
+    ERROR_STATE() AS ErrorState,
+    ERROR_PROCEDURE() AS ErrorProcedure,
+    ERROR_LINE() AS ErrorLine,
+    ERROR_MESSAGE() AS ErrorMessage;
 END CATCH
 ```
 
@@ -556,7 +556,7 @@ Of course, it's not just user code that can throw errors. The system also signal
 
 The tools and language elements described so far have similar counterparts in other platforms. However, triggers are unique to databases. Triggers are event-handling stored procedures. We can subscribe to various events in the database, and when the event occurs, the system will execute our code defined in the trigger.
 
-We will only discuss DML triggers. These are triggers that run due to data modification (`insert`, `update`, `delete`) operations. There are other triggers as well; e.g., you can create triggers for system events. Check the [official documentation](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql) for more details.
+We will only discuss DML triggers. These are triggers that run due to data modification (`INSERT`, `UPDATE`, `DELETE`) operations. There are other triggers as well; e.g., you can create triggers for system events. Check the [official documentation](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-trigger-transact-sql) for more details.
 
 ### DML triggers
 
@@ -575,7 +575,7 @@ CREATE OR ALTER TRIGGER ProductDeleteLog
   FOR DELETE
 AS
 INSERT INTO AuditLog (Description)
-SELECT 'Product deleted: ' + convert(nvarchar, d.Name) FROM deleted d
+SELECT 'Product deleted: ' + CONVERT(nvarchar, d.Name) FROM deleted d
 ```
 
 Executing the commands above creates a trigger in the database (just as a stored procedure is created). This trigger is then executed automatically. So the trigger is not called by us but by the system. Nevertheless, we give the trigger a name to reference it (e.g., if we want to delete it with the `DROP TRIGGER` statement). The trigger is linked to the table in the database:
@@ -592,7 +592,7 @@ AS
 sql_instruction [... n]
 ```
 
-Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., `for update, insert`). Note that three possible options cover all types of changes; also note, that there is no `select` event — since it is not a change.
+Note that in the trigger definition, we specify the table or view. So a trigger listens for events of a single table. The events are set by listing the requested modifying operations (e.g., `FOR UPDATE, INSERT`). Note that three possible options cover all types of changes; also note, that there is no `SELECT` event — since it is not a change.
 
 The instructions defined in the trigger code are executed _after_ the specified events occur. This means that the changes are already performed (for example, new rows are already inserted into the table), but the transaction of the operation is not yet finished. Thus, we can make further changes as part of the same transaction (and consequently, seeing the result of the "original" command and the trigger as an atomic change) or even aborting the transaction. A particular use case for triggers is to check the consistency of data (that cannot be verified easily otherwise) and to abort the modification in the event of a violation. We will see an example of this soon.
 
@@ -604,7 +604,7 @@ graph LR
     C -->|New Values| E[inserted Table]
 ```
 
-Triggers are executed per _instruction_, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an `update` statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single insert command.
+Triggers are executed per _instruction_, which means they are called once per DML operation. In other words, the trigger does not handle the changes per row; instead, all changes caused by a single operation are handled at once. So, for example, if an `UPDATE` statement changes 15 rows, the trigger is called once, and we will see all 15 changes. Of course, this is also true for inserting and deleting - a deletion operation can delete multiple rows, and we can insert multiple records with a single `INSERT` command.
 
 !!! warning "There is no row-level trigger"
     Other database platforms have row-level triggers, where the trigger is called individually for all the modified rows. Microsoft SQL Server platform does not have such a trigger!
@@ -616,17 +616,17 @@ How do we know what changes are handled in the trigger? Inside the trigger, we h
 | inserted | new records | empty           | new values of records |
 | deleted  | empty       | deleted records | old values ​​of records |
 
-When inserting, the inserted records can be found in the database table (but there, we do not "see" that they have been newly inserted), and they are also available in the `inserted` table. In the case of deletion, `deleted` contains the rows already deleted from the table. Finally, in the case of `update`, we see the states before and after the change in the two log tables. We need to work with these log tables as tables; we should always expect to have more than one record in them.
+When inserting, the inserted records can be found in the database table (but there, we do not "see" that they have been newly inserted), and they are also available in the `inserted` table. In the case of deletion, `deleted` contains the rows already deleted from the table. Finally, in the case of `UPDATE`, we see the states before and after the change in the two log tables. We need to work with these log tables as tables; we should always expect to have more than one record in them.
 
 !!! warning "The `inserted` and `deleted` are tables"
-    The `inserted` and `deleted` tables can only be treated as tables! For example, it does not make sense to use `select @id=inserted.ID`; instead, we can use a cursor on these tables or `join` them.
+    The `inserted` and `deleted` tables can only be treated as tables! For example, it does not make sense to use `select @id=inserted.ID`; instead, we can use a cursor on these tables or `JOIN` them.
 
 We have already seen an example of audit logging implemented with a trigger. Let us look at other use-cases. Let us have a table with an email address column. When inserting and modifying, we need to check the email address value, and we must not accept text that does not look like an email address. Here **we validate a rule of consistency** with the trigger.
 
 ```sql
 -- Create a function to check the email address
-CREATE FUNCTION [IsEmailValid](@ email nvarchar(1000))
-RETURNS bit -- true / false return value
+CREATE FUNCTION [IsEmailValid](@email nvarchar(1000))
+RETURNS bit -- TRUE / FALSE return value
 AS
 BEGIN
   IF @email IS NULL RETURN 0 -- Cannot be null
@@ -655,7 +655,7 @@ Another common use of triggers is **maintenance of denormalized data**. Although
 ```sql
 -- Additional email address columns for customers
 ALTER TABLE Customer
-add [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
+ADD [NotificationEmail] nvarchar(MAX), [EffectiveEmail] nvarchar(MAX)
 GO
 
 -- Trigger to update the effective email address
@@ -680,7 +680,7 @@ CREATE OR ALTER TRIGGER OrderTotalUpdateTrigger
 AS
 
 UPDATE Order
-SET Total = isnull(Total,0) + TotalChange
+SET Total = ISNULL(Total,0) + TotalChange
 FROM Order INNER JOIN
         (SELECT i.OrderID, SUM(Amount*Price) AS TotalChange
         FROM inserted i
@@ -688,7 +688,7 @@ FROM Order INNER JOIN
     ON Order.ID = OrderChange.OrderID
 
 UPDATE Order
-SET Total = isnull(Total,0) – TotalChange
+SET Total = ISNULL(Total,0) - TotalChange
 FROM Order INNER JOIN
         (SELECT d.OrderID, SUM(Amount*Price) AS TotalChange
         FROM deleted d
@@ -703,21 +703,21 @@ In this trigger, it is worth noting that while the event occurs in the `OrderIte
 
 ### _Instead of_ triggers
 
-A special type of trigger is the so-called _instead of trigger_. Such triggers can be defined for both tables and views. Let us look at using them on tables first. An _instead of_ trigger defined on a table, as its name suggests, runs the instruction we define in the trigger instead of the actual operation's `insert / update / delete`. E.g., when inserting, the new rows are not added to the table, and when deleting, rows are not deleted. Instead, we can define in the trigger how to perform these operations. In the overridden process, we can access the table itself and execute the necessary actions in this table. These operations do not cause recursion in the trigger. These triggers can be considered as _before_ triggers, i.e., we can perform checks before making the changes and abort the operation in case of an error.
+A special type of trigger is the so-called _instead of trigger_. Such triggers can be defined for both tables and views. Let us look at using them on tables first. An _instead of_ trigger defined on a table, as its name suggests, runs the instruction we define in the trigger instead of the actual operation's `INSERT / UPDATE / DELETE`. E.g., when inserting, the new rows are not added to the table, and when deleting, rows are not deleted. Instead, we can define in the trigger how to perform these operations. In the overridden process, we can access the table itself and execute the necessary actions in this table. These operations do not cause recursion in the trigger. These triggers can be considered as _before_ triggers, i.e., we can perform checks before making the changes and abort the operation in case of an error.
 
 A typical use case for an _instead of_ trigger is, for example, when we do not want to perform a deletion. This is also called _soft delete_:,instead of deleting, we only mark the records as deleted:
 
 ```sql
 -- Soft delete flag column in the table with a default value of 0 (i.e., false)
 ALTER TABLE Product
-add [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
+ADD [IsDeleted] bit NOT NULL CONSTRAINT DF_Product_IsDeleted DEFAULT 0
 GO
 
 -- Instead of trigger, the delete command does not perform the deletion
 -- the following code runs instead
 CREATE OR ALTER TRIGGER ProductSoftDelete
   ON Product
-  instead of DELETE
+  INSTEAD OF DELETE
 AS
 UPDATE Product
   SET IsDeleted = 1
@@ -736,7 +736,7 @@ FROM Product p JOIN Vat v IS p.VATID = v.Id
 -- Instead of trigger for the view
 CREATE OR ALTER TRIGGER ProductWithVatPercentageInsert
 ON ProductWithVatPercentage
-instead of INSERT
+INSTEAD OF INSERT
 AS
   -- The insertion goes into the Product table: a new row is created for each inserted record
   -- And we find the VAT record corresponding to the provided percentage
