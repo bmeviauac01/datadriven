@@ -336,13 +336,6 @@ builder.Services.AddSingleton<IEMailSender, EMailSender>(
 
 The first line creates a `builder` object, whose `Services` property is an object implementing the `IServiceCollection`  interface. This represents the IoC container created by the framework, this can be used to register our dependency mappings as well, namely the  __AddSingleton__, __AddTransient__ and __AddScoped__ operations of `IServiceCollection` interface can be used to register them.
 
-### Service Lifetime Summary
-
-| Lifetime | Created | Disposed | Good for... |
-| :--- | :--- | :--- | :--- |
-| **Transient** | Every time it is requested. | End of request. | Lightweight, stateless services. |
-| **Scoped** | Once per Client Request (Connection). | End of request. | DbContexts, User Session info. |
-| **Singleton** | The first time it is requested. | App shutdown. | Caching, Configuration settings. |
 
 !!! note "Note"
     In .NET versions prior to .NET 6 the instead of `Program.cs` the `ConfigureServices` operation of the `Startup` class was used to register these dependencies.
@@ -365,7 +358,20 @@ line registers an `INotificationService`-> `NotificationService` transient type 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 ```
 
+
+
 line registers an `IContactRepository`-> `ContactRepository` scoped type mapping, as we used the __AddScoped__ operation for registration. This means that if we later ask the container for an `IContactRepository` object (provide `IContactRepository` as key at the resolve step), we will get a `NotificationService` object, which will be the  __same instance for the same scope__, and a different instance for different scopes. For a Web API based application one web request is handled within one scope. Consequently, we receive the same instance of a class turning to the container multiple times within the same web request, but different ones when the web requests are different.
+
+
+**Service Lifetime Summary**
+
+| Lifetime | Created | Disposed | Good for... |
+| :--- | :--- | :--- | :--- |
+| **Transient** | Every time it is requested. | End of request. | Lightweight, stateless services. |
+| **Scoped** | Once per Client Request (Connection). | End of request. | DbContexts, User Session info. |
+| **Singleton** | The first time it is requested. | App shutdown. | Caching, Configuration settings. |
+
+
 
 We can see additional registrations in the sample application, which we will return to later.
 
