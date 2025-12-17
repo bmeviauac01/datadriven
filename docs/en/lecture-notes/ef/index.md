@@ -155,6 +155,19 @@ Console.WriteLine(product.VAT.Percentage); // Now it works!
 !!! note "Automatic _lazy loading_ of referenced entities"
     In Entity Framework, it is possible to turn on [_lazy loading_](https://docs.microsoft.com/en-us/ef/core/querying/related-data/lazy), which causes entities to be loaded through _navigation properties_ on demand. The loading is performed in a _lazy_ way (that is, only when needed) without an explicit `Include`. While this solution is convenient for the developer, it comes at a price: loading data when needed (when the code reaches a statement referencing the property) will typically result in several separate database queries. In the `Include` solution, you can see above that a single query loads both the `Product` and `VAT` data. If we used _lazy loading_, there would be a query for the `Product` data and another one for the referenced `VAT` properties at a later time. Thus, lazy loading is usually worse in terms of performance.
 
+!!! note "Explicit Loading"
+    Sometimes you have an entity already loaded, and you want to load a related entity later, but without enabling Lazy Loading globally (which can be risky). You can use **Explicit Loading** via the `Entry` method.
+
+    ```csharp
+    var product = dbContext.Products.First();
+
+    // At this point product.VAT is null.
+    // We can load it explicitly:
+    dbContext.Entry(product).Reference(p => p.VAT).Load();
+
+    Console.WriteLine(product.VAT.Percentage); // Now it works!
+    ```
+
 !!! tip "Performance Tip: AsNoTracking"
     If you are querying data only to display it (read-only) and do not intend to update it, use `.AsNoTracking()`. This disables change tracking for the query results, which makes execution significantly faster and uses less memory.
     ```csharp
