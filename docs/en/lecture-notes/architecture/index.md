@@ -86,16 +86,6 @@ Let us examine the layers in more detail. The following diagram represents the a
 
 ![The three-layered architecture](images/tobbretegu-architektura.png)
 
-### Layer Visualization
-
-```mermaid
-graph TD
-    User((End User)) <--> UI[Presentation Layer (UI)]
-    UI <--> BL[Business Logic Layer]
-    BL <--> DAL[Data Access Layer]
-    DAL <--> DB[(Database / Data Source)]
-```
-
 !!! cite "Source"
     Microsoft Application Architecture Guide, 2nd Edition, <https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ee658109%28v%3dpandp.10%29>
 
