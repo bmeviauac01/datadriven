@@ -168,8 +168,4 @@ Console.WriteLine(product.VAT.Percentage); // Now it works!
     Console.WriteLine(product.VAT.Percentage); // Now it works!
     ```
 
-!!! tip "Performance Tip: AsNoTracking"
-    If you are querying data only to display it (read-only) and do not intend to update it, use `.AsNoTracking()`. This disables change tracking for the query results, which makes execution significantly faster and uses less memory.
-    ```csharp
-    var products = dbContext.Products.AsNoTracking().ToList();
-    ```
+
