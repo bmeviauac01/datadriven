@@ -1,4 +1,4 @@
-FROM squidfunk/mkdocs-material:9.4.9
+FROM squidfunk/mkdocs-material:9.7.0
 
 # required for mkdocs-git-committers-plugin-2
 RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
