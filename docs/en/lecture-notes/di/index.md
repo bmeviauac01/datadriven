@@ -271,7 +271,7 @@ public class EMailSender: IEMailSender
     }
     public void SendMail(string to, string subject, string message)
     {
-        _logger.LogInformation($"Sendding e-mail. To: {to} Subject: {subject} Body: {message}");
+        _logger.LogInformation($"Sending e-mail. To: {to} Subject: {subject} Body: {message}");
 
         // ...
     }
@@ -336,6 +336,7 @@ builder.Services.AddSingleton<IEMailSender, EMailSender>(
 
 The first line creates a `builder` object, whose `Services` property is an object implementing the `IServiceCollection`  interface. This represents the IoC container created by the framework, this can be used to register our dependency mappings as well, namely the  __AddSingleton__, __AddTransient__ and __AddScoped__ operations of `IServiceCollection` interface can be used to register them.
 
+
 !!! note "Note"
     In .NET versions prior to .NET 6 the instead of `Program.cs` the `ConfigureServices` operation of the `Startup` class was used to register these dependencies.
 
@@ -357,7 +358,20 @@ line registers an `INotificationService`-> `NotificationService` transient type 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 ```
 
+
+
 line registers an `IContactRepository`-> `ContactRepository` scoped type mapping, as we used the __AddScoped__ operation for registration. This means that if we later ask the container for an `IContactRepository` object (provide `IContactRepository` as key at the resolve step), we will get a `NotificationService` object, which will be the  __same instance for the same scope__, and a different instance for different scopes. For a Web API based application one web request is handled within one scope. Consequently, we receive the same instance of a class turning to the container multiple times within the same web request, but different ones when the web requests are different.
+
+
+**Service Lifetime Summary**
+
+| Lifetime | Created | Disposed | Good for... |
+| :--- | :--- | :--- | :--- |
+| **Transient** | Every time it is requested. | End of request. | Lightweight, stateless services. |
+| **Scoped** | Once per Client Request (Connection). | End of request. | DbContexts, User Session info. |
+| **Singleton** | The first time it is requested. | App shutdown. | Caching, Configuration settings. |
+
+
 
 We can see additional registrations in the sample application, which we will return to later.
 
@@ -566,7 +580,7 @@ The particularities of the DI container built in ASP.NET Core:
 
 ### The Service Locator antipattern
 
-Dependency injection is not the only way of using an IoC container. Another technique called __Service Locator__ exists. Dependency Injection is based on the mechanism of passing the dependencies of a class as constructor parameters. Service Locator uses another approach: the classes directly access the IoC container in their methods to resolve their dependencies. Keep in mind that this approach is considered an __anti-pattern__. The reason is simple: every time time a class needs a dependency, it has to turn to a container, so much of our code will depend on the container itself! In contrast, when dependency injection is used, dependency resolution is performed "once" at the application entry point for "root objects" (e.g. for the controller class in case of a Web API call), the rest of our code is completely independent of the container. Note that in our previous example, in our TodoController, NotificationService, EMailSender, Logger, and ContactRepository classes, we did not refer the container (neither via an IServiceProvider, nor by any other means).
+Dependency injection is not the only way of using an IoC container. Another technique called __Service Locator__ exists. Dependency Injection is based on the mechanism of passing the dependencies of a class as constructor parameters. Service Locator uses another approach: the classes directly access the IoC container in their methods to resolve their dependencies. Keep in mind that this approach is considered an __anti-pattern__. The reason is simple: **every time a class needs a dependency**, it has to turn to a container, so much of our code will depend on the container itself! In contrast, when dependency injection is used, dependency resolution is performed "once" at the application entry point for "root objects" (e.g. for the controller class in case of a Web API call), the rest of our code is completely independent of the container. Note that in our previous example, in our TodoController, NotificationService, EMailSender, Logger, and ContactRepository classes, we did not refer the container (neither via an IServiceProvider, nor by any other means).
 
 ### Asp.Net Core framework services
 

@@ -1,4 +1,4 @@
-﻿# Data-driven systems and the three- or multi-tier architecture
+# Data-driven systems and the three- or multi-tier architecture
 
 ## What is a _data-driven_ system?
 
@@ -47,7 +47,7 @@ To summarize, we established that there are functionalities that the UI is respo
 
 ### The three- or multi-layered architecture
 
-Data-driven systems are usually built on the three- or multi-layered architecture. The two names are treaded as synonyms here. This architecture defines three main components:
+Data-driven systems are usually built on the three- or multi-layered architecture. The two names are treated as synonyms here. This architecture defines three main components:
 
 * the presentation layer (or UI),
 * the business layer,
@@ -146,7 +146,7 @@ The workflows are built on these basic services. The workflows represent the fun
 
 The architecture diagram above has a *services* sub-layer. This is considered to be part of the business layer. Its purpose is to provide an interface through which the business logic layer's services can be accessed.
 
-Generally, all layers have such interfaces towards the layer built on top of them. The business layer is not unique in this sense. However, it is common nowadays that a business layer has not one, but multiple such interfaces published. The reason for multiple service interfaces is the presence of multiple presentation layers. Just take Gmail as an example: it has a web frontend and mobile apps too. The UIs are similar, but they do not provide identical behavior; therefore, the services consumed by the presentation layers also vary.
+Generally, all layers have such interfaces published towards the layer built on top of them. The business layer is not unique in this sense. However, it is common nowadays that a business layer has not one, but multiple such interfaces published. The reason for multiple service interfaces is the presence of multiple presentation layers. Just take Gmail as an example: it has a web frontend and mobile apps too. The UIs are similar, but they do not provide identical behavior; therefore, the services consumed by the presentation layers also vary.
 
 It is equally common that our application offers a UI and has public API (application programming interface) for allowing third-party integration. These APIs often offer different functionalities than the user interface and also frequently use other transport technologies; hence the need for a dedicated service interface.
 
@@ -183,7 +183,7 @@ Cross-cutting services or cross-cutting concerns cover aspects of the applicatio
 
 #### Security
 
-Security-related services covert
+Security-related services cover
 
 * user authentication,
 * authorization,
@@ -197,7 +197,7 @@ We have various options. We can use custom authentication, directory-based authe
 
 Authorization is about access control: whether users can perform specific actions in the system. The UI usually performs some level of authorization (e.g., to hide unavailable functionality), but as discussed with input validation, the business layer must repeat this process. It is crucial, of course, that these two procedures use the same ruleset.
 
-Tracing and auditing make sure that we can check who made specific changes in the system. Its main goal is to keep malicious users from erasing their tracks. Recording the steps and operations of a user may be formed in the business login layer as well as in the database.
+Tracing and auditing make sure that we can check who made specific changes in the system. Its main goal is to keep malicious users from erasing their tracks. Recording the steps and operations of a user may be formed in the business logic layer as well as in the database.
 
 #### Operation
 

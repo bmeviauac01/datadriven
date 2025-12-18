@@ -27,7 +27,7 @@ The sample application presented here uses a simplified database structure as fo
 !!! note ""
     For simplicity, the _UserId_ of the carts is not a foreign key to a _Users_ table, but a fixed constant of 1. Obviously, in a real-life example, _UserId_ would be a foreign key.
 
-The _Products_ stores the things the webshop sells; the _Manufactureres_ contain the producers of these products; finally, _OrderItems_ stores the content of the cart.
+The _Products_ stores the things the webshop sells; the _Manufacturers_ contain the producers of these products; finally, _OrderItems_ stores the content of the cart.
 
 ## Server application
 
@@ -178,7 +178,7 @@ namespace WebshopApi.DTOs
 }
 ```
 
-The the matching Product DTO:
+The matching Product DTO:
 
 ```csharp
 namespace WebshopApi.DTOs
@@ -287,7 +287,7 @@ public async Task<ActionResult<UserCart>> GetCart(int id)
     // further operations are synchronous, as every result in in memory already
     
     // Find the products in the cart 
-    // match them to the order items and crate a CartItem DTO
+    // match them to the order items and create a CartItem DTO
     var cartitems = products.Join(orderitems, p => p.ID, oi => oi.ProductID,
                                   (p, v) => new CartItem(p, v.Pieces)).ToList();
 
