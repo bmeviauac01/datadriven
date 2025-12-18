@@ -1448,7 +1448,7 @@
 <h2 id="defining-relationships">Defining relationships<a class="headerlink" href="#defining-relationships" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Convention-based mapping</p>
-<p>Entity Framework has <a href="https://docs.microsoft.com/en-us/ef/core/modeling/relationships#conventions">conventions</a> that enable mapping relationships automatically without explicit configuration. We will not rely on this feature here; instead will define the relationships explicitly.</p>
+<p>Entity Framework has <a href="https://docs.microsoft.com/en-us/ef/core/modeling/relationships#conventions">conventions</a> that enable mapping relationships automatically without explicit configuration. We will not rely on this feature here; instead we will define the relationships explicitly.</p>
 </div>
 <p>Let us look at our example classes and the relationship among them:</p>
 <div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Product</span>
@@ -1481,7 +1481,7 @@
 </code></pre></div>
 <p>The connection between the two entities is provided by the foreign key of the <code>Product</code> table pointing to <code>VAT</code> table (which foreign key, naturally, also appears in the database as a column). In the C# code, a <code>VAT</code> object reference appears in class <code>Product</code>. Similarly, <code>VAT</code> objects have a list of connected <code>Product</code> instances. These C# properties are called <em>navigation properties</em>.</p>
 <h2 id="explicit-joining">Explicit joining<a class="headerlink" href="#explicit-joining" title="Permanent link">¶</a></h2>
-<p>The <code>DBContext</code> offers the tables as <code>DBSets</code>, on which we can perform LINQ operations. One such operation is the <code>join</code> function. Two <code>DBSets</code> can be joined via the appropriate foreign key. Similar to it's SQL equivalent, the following LINQ expression declaratively describes what we want to get.</p>
+<p>The <code>DBContext</code> offers the tables as <code>DBSets</code>, on which we can perform LINQ operations. One such operation is the <code>join</code> function. Two <code>DBSets</code> can be joined via the appropriate foreign key. Similar to its SQL equivalent, the following LINQ expression declaratively describes what we want to get.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dbContext</span><span class="p">.</span><span class="n">Product</span>
 <span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dbContext</span><span class="p">.</span><span class="n">Vat</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VatId</span><span class="w"> </span><span class="k">equals</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Id</span>
@@ -1525,7 +1525,7 @@
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span><span class="w"> </span><span class="c1">// this works, it will print the name</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span><span class="w"> </span><span class="c1">// accessing the referenced entity via the navigation property</span>
 </code></pre></div>
-<p>In this example, we would get a runtime error in the last line. Why is that? Despite the <em>navigation property</em> being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote <code>p.VAT.Percentage</code> in a previous query), but if we query a <code>Product</code> entity, it does not include the referenced <code>VAT</code> entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands or records to get a single entity and all of it's referenced data via navigation properties. This is unnecessary in most cases.</p>
+<p>In this example, we would get a runtime error in the last line. Why is that? Despite the <em>navigation property</em> being configured, EF does not load referenced entities by default. We can work with them in queries (as we wrote <code>p.VAT.Percentage</code> in a previous query), but if we query a <code>Product</code> entity, it does not include the referenced <code>VAT</code> entity. The referenced record(s) could be fetched. But it is up to the developer to decide if they really need them. Just consider, if all the referenced entities were fetched automatically (even transitively), the database would have to look up hundreds or thousands of records to get a single entity and all of its referenced data via navigation properties. This is unnecessary in most cases.</p>
 <p>If we really need the referenced entities, then we need to specify this in the code using <code>Include</code> as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dbContext</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">)</span>
@@ -1549,6 +1549,18 @@
 <p class="admonition-title">Automatic <em>lazy loading</em> of referenced entities</p>
 <p>In Entity Framework, it is possible to turn on <a href="https://docs.microsoft.com/en-us/ef/core/querying/related-data/lazy"><em>lazy loading</em></a>, which causes entities to be loaded through <em>navigation properties</em> on demand. The loading is performed in a <em>lazy</em> way (that is, only when needed) without an explicit <code>Include</code>. While this solution is convenient for the developer, it comes at a price: loading data when needed (when the code reaches a statement referencing the property) will typically result in several separate database queries. In the <code>Include</code> solution, you can see above that a single query loads both the <code>Product</code> and <code>VAT</code> data. If we used <em>lazy loading</em>, there would be a query for the <code>Product</code> data and another one for the referenced <code>VAT</code> properties at a later time. Thus, lazy loading is usually worse in terms of performance.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Explicit Loading</p>
+<p>Sometimes you have an entity already loaded, and you want to load a related entity later, but without enabling Lazy Loading globally (which can be risky). You can use <strong>Explicit Loading</strong> via the <code>Entry</code> method.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dbContext</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">First</span><span class="p">();</span>
+
+<span class="c1">// At this point product.VAT is null.</span>
+<span class="c1">// We can load it explicitly:</span>
+<span class="n">dbContext</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">product</span><span class="p">).</span><span class="n">Reference</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">).</span><span class="n">Load</span><span class="p">();</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span><span class="w"> </span><span class="c1">// Now it works!</span>
+</code></pre></div>
+</div>
 
     <hr>
   <div class="md-source-file">
@@ -1557,8 +1569,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 1, 2023 20:03:52">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 1, 2023 20:03:52 CET"><span class="timeago" datetime="2023-11-01T20:03:52+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 1, 2023 20:03:52 CET">2023-11-01</span>
+      <span title="December 17, 2025 18:18:38">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2025 18:18:38 CET"><span class="timeago" datetime="2025-12-17T18:18:38+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2025 18:18:38 CET">2025-12-17</span>
       </span>
     </span>
 
@@ -1576,6 +1588,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almatn" target="_blank" rel="noopener noreferrer" class="md-author" title="@Almat">
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&amp;v=4?size=72" alt="@Almat">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a></nav>      
     </span>
   </div>

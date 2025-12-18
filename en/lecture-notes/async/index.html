@@ -1539,7 +1539,7 @@
 <div class="admonition note">
 <p>For simplicity, the <em>UserId</em> of the carts is not a foreign key to a <em>Users</em> table, but a fixed constant of 1. Obviously, in a real-life example, <em>UserId</em> would be a foreign key.</p>
 </div>
-<p>The <em>Products</em> stores the things the webshop sells; the <em>Manufactureres</em> contain the producers of these products; finally, <em>OrderItems</em> stores the content of the cart.</p>
+<p>The <em>Products</em> stores the things the webshop sells; the <em>Manufacturers</em> contain the producers of these products; finally, <em>OrderItems</em> stores the content of the cart.</p>
 <h2 id="server-application">Server application<a class="headerlink" href="#server-application" title="Permanent link">¶</a></h2>
 <p>We would like to create a REST-compatible service for managing the webshop cart using ASP.NET Core WebApi and Entity Framework. Let us follow these steps:</p>
 <ol>
@@ -1663,7 +1663,7 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The the matching Product DTO:</p>
+<p>The matching Product DTO:</p>
 <div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">WebshopApi.DTOs</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Product</span>
@@ -1752,7 +1752,7 @@
 <span class="w">    </span><span class="c1">// further operations are synchronous, as every result in in memory already</span>
 
 <span class="w">    </span><span class="c1">// Find the products in the cart </span>
-<span class="w">    </span><span class="c1">// match them to the order items and crate a CartItem DTO</span>
+<span class="w">    </span><span class="c1">// match them to the order items and create a CartItem DTO</span>
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">cartitems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderitems</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">,</span>
 <span class="w">                                  </span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CartItem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Pieces</span><span class="p">)).</span><span class="n">ToList</span><span class="p">();</span>
 
@@ -1834,8 +1834,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 9, 2023 13:00:12 CEST"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2023 13:00:12 CEST">2023-10-09</span>
+      <span title="December 17, 2025 17:39:07">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2025 17:39:07 CET"><span class="timeago" datetime="2025-12-17T17:39:07+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2025 17:39:07 CET">2025-12-17</span>
       </span>
     </span>
 
@@ -1851,6 +1851,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
           <img src="https://avatars.githubusercontent.com/u/8333960?u=d26653213d265ecdceeaf20a896d74f479d35450&amp;v=4?size=72" alt="@Tibor Tóth">
         </a></nav>      

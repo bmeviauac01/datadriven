@@ -1742,7 +1742,7 @@
 <p>The received date of an email should be displayed to the user according to their preference, i.e., in Europe, 15:23 is the preferred date format, while other parts of the world might prefer 3:23 PM. Does this mean that the email as a data record has multiple received dates? Obviously not. The received date is a single date in a universal representation that is transformed by the UI to the appropriate format.</p>
 <p>To summarize, we established that there are functionalities that the UI is responsible for, and there are other functionalities that the UI has nothing to do with. Now we arrive at the three- or multi-layer architecture.</p>
 <h3 id="the-three-or-multi-layered-architecture">The three- or multi-layered architecture<a class="headerlink" href="#the-three-or-multi-layered-architecture" title="Permanent link">¶</a></h3>
-<p>Data-driven systems are usually built on the three- or multi-layered architecture. The two names are treaded as synonyms here. This architecture defines three main components:</p>
+<p>Data-driven systems are usually built on the three- or multi-layered architecture. The two names are treated as synonyms here. This architecture defines three main components:</p>
 <ul>
 <li>the presentation layer (or UI),</li>
 <li>the business layer,</li>
@@ -1816,7 +1816,7 @@
 <p>The workflows are built on these basic services. The workflows represent the functionalities that the end-users will carry out. A workflow may use multiple components. A classic example of a workflow is the checkout procedure in a webshop: check the products, finalize the order, produce an invoice, send a confirmation email, etc.</p>
 <h4 id="service-interfaces">Service interfaces<a class="headerlink" href="#service-interfaces" title="Permanent link">¶</a></h4>
 <p>The architecture diagram above has a <em>services</em> sub-layer. This is considered to be part of the business layer. Its purpose is to provide an interface through which the business logic layer's services can be accessed.</p>
-<p>Generally, all layers have such interfaces towards the layer built on top of them. The business layer is not unique in this sense. However, it is common nowadays that a business layer has not one, but multiple such interfaces published. The reason for multiple service interfaces is the presence of multiple presentation layers. Just take Gmail as an example: it has a web frontend and mobile apps too. The UIs are similar, but they do not provide identical behavior; therefore, the services consumed by the presentation layers also vary.</p>
+<p>Generally, all layers have such interfaces published towards the layer built on top of them. The business layer is not unique in this sense. However, it is common nowadays that a business layer has not one, but multiple such interfaces published. The reason for multiple service interfaces is the presence of multiple presentation layers. Just take Gmail as an example: it has a web frontend and mobile apps too. The UIs are similar, but they do not provide identical behavior; therefore, the services consumed by the presentation layers also vary.</p>
 <p>It is equally common that our application offers a UI and has public API (application programming interface) for allowing third-party integration. These APIs often offer different functionalities than the user interface and also frequently use other transport technologies; hence the need for a dedicated service interface.</p>
 <div class="admonition note">
 <p>By our application publishing an API, it can effectively act as a data source for third-party applications.</p>
@@ -1841,7 +1841,7 @@
 <h3 id="cross-cutting-services-cross-cutting-concerns">Cross-cutting services / Cross-cutting concerns<a class="headerlink" href="#cross-cutting-services-cross-cutting-concerns" title="Permanent link">¶</a></h3>
 <p>Cross-cutting services or cross-cutting concerns cover aspects of the application that are not specific to a single layer. When designing our system, we strive to have a unified solution to the problems raised here.</p>
 <h4 id="security">Security<a class="headerlink" href="#security" title="Permanent link">¶</a></h4>
-<p>Security-related services covert</p>
+<p>Security-related services cover</p>
 <ul>
 <li>user authentication,</li>
 <li>authorization,</li>
@@ -1851,7 +1851,7 @@
 <p>Authentication covers not only the authentication on the user interface. We need to authenticate ourselves in the database too, not to mention accessing a third-party external system. Therefore this aspect is present in multiple layers.</p>
 <p>We have various options. We can use custom authentication, directory-based authentication, or OAuth. After our system has authenticated a user, we can decide to use this identity in external services (e.g. Gmail fetches the user's files from Google Drive ) or use a central identity (e.g. sending an email notification in the name of a send-only central account).</p>
 <p>Authorization is about access control: whether users can perform specific actions in the system. The UI usually performs some level of authorization (e.g., to hide unavailable functionality), but as discussed with input validation, the business layer must repeat this process. It is crucial, of course, that these two procedures use the same ruleset.</p>
-<p>Tracing and auditing make sure that we can check who made specific changes in the system. Its main goal is to keep malicious users from erasing their tracks. Recording the steps and operations of a user may be formed in the business login layer as well as in the database.</p>
+<p>Tracing and auditing make sure that we can check who made specific changes in the system. Its main goal is to keep malicious users from erasing their tracks. Recording the steps and operations of a user may be formed in the business logic layer as well as in the database.</p>
 <h4 id="operation">Operation<a class="headerlink" href="#operation" title="Permanent link">¶</a></h4>
 <p>Keeping operational aspects in mind helps build maintainable software. The operational aspect usually covers error handling, logging, monitoring, and configuration management.</p>
 <p>Centralized error management should catch all types of errors that are raised in an application. These errors need to be recorded (e.g., by logging them), and usually, the end-user needs to be notified (e.g., whether she should retry or wait for something else). Recording all exceptions is vital because errors raised in the lower layers of the application are not "seen" by anyone (but the end-user probably) unless these are adequately treated and recorded.</p>
@@ -1890,8 +1890,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 9, 2023 13:00:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 9, 2023 13:00:12 CEST"><span class="timeago" datetime="2023-10-09T13:00:12+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2023 13:00:12 CEST">2023-10-09</span>
+      <span title="December 17, 2025 17:01:31">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2025 17:01:31 CET"><span class="timeago" datetime="2025-12-17T17:01:31+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2025 17:01:31 CET">2025-12-17</span>
       </span>
     </span>
 
@@ -1911,6 +1911,8 @@
           <img src="https://avatars.githubusercontent.com/u/128299779?v=4?size=72" alt="@None">
         </a><a href="https://github.com/kergongyi" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gygongyi">
           <img src="https://avatars.githubusercontent.com/u/81021745?u=7a8fbd19d88d8282a8cad7eb069f1274a203e160&amp;v=4?size=72" alt="@Gygongyi">
+        </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
+          <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/SABERGLOW" target="_blank" rel="noopener noreferrer" class="md-author" title="@Wali Ullah">
           <img src="https://avatars.githubusercontent.com/u/62393901?u=d61be9e827abfb1dc789f0debf66da7d2f735e86&amp;v=4?size=72" alt="@Wali Ullah">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
