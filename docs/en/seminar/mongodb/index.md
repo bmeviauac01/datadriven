@@ -178,11 +178,52 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
 
     1. This exercise is complicated with our current database scheme because we do not have everything at hand within one collection. We need the product information from one collection, and the order details from another one.
 
-        We will be doing a "join" in the client-side, that is, in C# code. The solution's outline is to query the orders, then in C# gather the orders by product, and finally, query the product details.
+        **Recommended solution: Using MongoDB aggregation pipeline**
+
+        The most efficient solution is to use MongoDB's aggregation pipeline with the `$lookup` operator, which performs the "join" operation on the server side. This scales well even for large databases since we don't need to load all data into memory.
 
         ```csharp
-        // 1.5
+        // 1.5 - Recommended solution with aggregation pipeline
         Console.WriteLine("\t1.5:");
+        var results = ordersCollection
+            .Aggregate()
+            .Unwind(o => o.OrderItems)
+            .Group(
+                new BsonDocument
+                {
+                    { "_id", "$orderItems.productID" },
+                    { "orderCount", new BsonDocument("$sum", 1) }
+                })
+            .Match(new BsonDocument("orderCount", new BsonDocument("$gte", 2)))
+            .Lookup("products", "_id", "_id", @as: "product")
+            .Unwind<BsonDocument, BsonDocument>("product")
+            .Project(
+                new BsonDocument
+                {
+                    { "productName", "$product.name" },
+                    { "stock", "$product.stock" },
+                    { "orderCount", 1 }
+                })
+            .ToList();
+
+        foreach (var result in results)
+        {
+            Console.WriteLine($"\t\tName={result["productName"]}\tStock={result["stock"]}\tOrders={result["orderCount"]}");
+        }
+        ```
+
+        Benefits of this solution:
+        - **Does not load all data into memory**, only the results
+        - **Runs on the server side**, leveraging MongoDB's indexes and optimization
+        - **Scalable**: efficient even for large databases
+
+        **Alternative solution: Client-side join (only recommended for small databases)**
+
+        If needed, the task can also be solved on the client side, but this is only recommended for small databases:
+
+        ```csharp
+        // 1.5 - Alternative solution (memory intensive!)
+        Console.WriteLine("\t1.5 (alternative):");
         var qOrders = ordersCollection
             .Find(_ => true)
             .ToList();
@@ -204,7 +245,7 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
         }
         ```
 
-        This solution is very elegant and works only for small databases. Suppose we face a similar task under real-life circumstances. We have two choices: denormalize the database scheme and copy product details into the orders, or create an aggregation pipeline executed by the server that does something similar to the code above (MongoDB can do that, but it will not be very fast).
+        **Warning:** The alternative solution loads all orders and products into memory, which can lead to performance issues and out-of-memory errors with large databases. Always use MongoDB's aggregation pipeline in production environments!
 
 ## Exercise 2: Create a new entity class
 

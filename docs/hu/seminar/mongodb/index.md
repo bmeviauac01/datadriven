@@ -181,11 +181,52 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
     1. Ez a feladat azért nehéz a jelenlegi adatbázissémánk mellett, mert itt már nem igaz az, hogy egyetlen kollekcióban rendelkezésre áll minden adat. Szükségünk van ugyanis a termék kollekcióból a termék nevére és raktárkészletére, a megrendelések kollekcióból pedig a termékhez tartozó megrendelések számára.
 
-        Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.
+        **Ajánlott megoldás: MongoDB aggregációs pipeline használata**
+
+        A leghatékonyabb megoldás a MongoDB aggregációs pipeline `$lookup` operátorának használata, amely szerver oldalon végzi el a "join" műveletet. Ez nagy adatbázisok esetén is jól skálázódik, mivel nem kell az összes adatot memóriába tölteni.
 
         ```csharp
-        // 1.5
+        // 1.5 - Ajánlott megoldás aggregációs pipeline-nal
         Console.WriteLine("\t1.5:");
+        var results = ordersCollection
+            .Aggregate()
+            .Unwind(o => o.OrderItems)
+            .Group(
+                new BsonDocument
+                {
+                    { "_id", "$orderItems.productID" },
+                    { "orderCount", new BsonDocument("$sum", 1) }
+                })
+            .Match(new BsonDocument("orderCount", new BsonDocument("$gte", 2)))
+            .Lookup("products", "_id", "_id", @as: "product")
+            .Unwind<BsonDocument, BsonDocument>("product")
+            .Project(
+                new BsonDocument
+                {
+                    { "productName", "$product.name" },
+                    { "stock", "$product.stock" },
+                    { "orderCount", 1 }
+                })
+            .ToList();
+
+        foreach (var result in results)
+        {
+            Console.WriteLine($"\t\tName={result["productName"]}\tStock={result["stock"]}\tOrders={result["orderCount"]}");
+        }
+        ```
+
+        Ez a megoldás előnyei:
+        - **Nem tölti be az összes adatot memóriába**, csak az eredményt
+        - **Szerver oldalon fut**, kihasználja a MongoDB indexeit és optimalizálását
+        - **Skálázható**: nagy adatbázisok esetén is hatékony
+
+        **Alternatív megoldás: Kliens oldali join (csak kis adatbázisokhoz ajánlott)**
+
+        Ha szükséges, kliens oldalon is megoldható a feladat, de ez csak kis adatbázisok esetén javasolt:
+
+        ```csharp
+        // 1.5 - Alternatív megoldás (memóriaigényes!)
+        Console.WriteLine("\t1.5 (alternatív):");
         var qOrders = ordersCollection
             .Find(_ => true)
             .ToList();
@@ -207,7 +248,7 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
         }
         ```
 
-        A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregációs pipeline-jának használatával a fenti módszerhez hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)
+        **Figyelem:** Az alternatív megoldás minden megrendelést és terméket memóriába tölt, ami nagy adatbázisok esetén teljesítményproblémákhoz és memóriahibákhoz vezethet. Éles környezetben mindig a MongoDB aggregációs pipeline-t használjuk!
 
 ## Feladat 2: Entitásosztály létrehozása
 
