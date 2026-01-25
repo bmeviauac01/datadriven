@@ -34,7 +34,7 @@ FROM Customer c INNER JOIN CustomerSite s ON c.MainCustomerSiteID=s.ID
 WHERE City='Budapest'
 ```
 
-List the products that start with letter M, the ordered amounts and deadlines. Include the products that have not been ordered yet.
+List the products that start with the letter M, the ordered amounts, and the deadlines. Include the products that have not been ordered yet.
 
 ```sql
 SELECT p.Name, SUM(oi.Amount)
@@ -70,7 +70,7 @@ ORDER BY Stock DESC, Price
 
 ## Subqueries
 
-List the order dates, deadlines and Statuses
+List the order dates, deadlines, and statuses.
 
 ```sql
 SELECT o.Date, o.Deadline, s.Name
@@ -88,7 +88,7 @@ FROM [Order] o
 ```
 
 !!! info "`[Order]`"
-    `[Order]` is in brackets, because this signals that this is a table name and not the beginning of the `order by` SQL language element.
+    `[Order]` is in brackets because this signals that this is a table name and not the beginning of the `order by` SQL language element.
 
 ## Filter duplicates
 
@@ -102,14 +102,14 @@ WHERE oi.Amount>3
 
 ## Aggregate functions
 
-How much is the most expensive product?
+How much does the most expensive product cost?
 
 ```sql
 SELECT MAX(Price)
 FROM Product
 ```
 
-Which are the most expensive products?
+Which products are the most expensive?
 
 ```sql
 SELECT *
@@ -117,7 +117,7 @@ FROM Product
 WHERE Price=(SELECT MAX(Price) FROM Product)
 ```
 
-What was the min, max and average selling price of each product with name containing _Lego_ having an average selling price more than 10000
+What were the minimum, maximum, and average selling prices of each product with a name containing “Lego” and an average selling price greater than 10000?
 
 ```sql
 SELECT p.Id, p.Name, MIN(oi.Price), MAX(oi.Price), SUM(oi.Price*oi.Amount)/SUM(oi.Amount)
@@ -131,7 +131,7 @@ ORDER BY 2
 
 ## Inserting records
 
-Inserting a single record by assigning value to all columns (except _identity_)
+Insert a single record by assigning values to all columns (except the identity column).
 
 ```sql
 INSERT INTO Product
@@ -169,7 +169,7 @@ VALUES (27)
 SELECT @@IDENTITY
 ```
 
-MSSQL specific: setting the value of _identity_ column
+MSSQL specific: setting the value of the _identity_ column.
 
 ```sql
 SET identity_insert VAT ON
@@ -245,13 +245,13 @@ FROM Product p
 ```
 
 !!! example "Rank and dense_rank"
-     Unlike dense_rank , Rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With Rank,  the next position is 3; with dense_rank, the next position is 2.
+     Unlike dense_rank, rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With rank, the next position is 3; with dense_rank, the next position is 2.
 
 ## CTE (Common Table Expression)
 
 Motivation: subqueries often make queries complex
 
-First three products sorted by name alphabetically
+The first three products, sorted alphabetically by name.
 
 ```sql
 SELECT *
@@ -281,7 +281,7 @@ FROM q1
 WHERE q1.dr<=3
 ```
 
-How many pieces have been sold from the second most expensive product?
+How many pieces of the second most expensive product have been sold?
 
 ```sql
 WITH q
@@ -298,7 +298,7 @@ WHERE q.dr = 2
 GROUP BY q.ID, q.Name
 ```
 
-Paging: list products alphabetically from 3. to 8. record
+Paging: list products alphabetically from the 3rd to the 8th record.
 
 ```sql
 WITH q
@@ -359,7 +359,7 @@ An XML document has a tree structure. The [**XPath**](https://www.w3schools.com/
 
 Let us have a table with an XML column. In addition to querying the entire XML value, we can query content from within the XML document. In order to do this, we need to use T-SQL functions capable of working on the XML content: [`query(XQuery)`](https://docs.microsoft.com/en-us/sql/t-sql/xml/query-method-xml-data-type) , [`value(XQuery, SQLType)`](https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type) and [`exist(XQuery)`](https://docs.microsoft.com/en-us/sql/t-sql/xml/exist-method-xml-data-type). Let's look at a few examples of these.
 
-Let us query how many packages the products consist of.
+Let us query how many packages each product consists of.
 
 ```sql
 SELECT Description.query('/product/package_parameters/number_of_packages')
@@ -392,7 +392,9 @@ FROM Product
 WHERE Description.exist('(/product)[(./recommended_age)[1] eq "0-18 m"]')=1
 ```
 
-Function `exist()` returns 1 if the _XQuery_ expression evaluation yields a non-empty result; or 0 if the query result is empty.
+The `exist()` function returns 1 if if evaluating the _XQuery_ expression yields a non-empty result, or 0 if the query result is empty.
+
+
 
 We can also use the `value()` method instead of `exist()` here.
 
@@ -404,7 +406,7 @@ WHERE Description.value('(/product/recommended_age)[1]', 'varchar(MAX)')='0-18 m
 
 ### Manipulating queries
 
-We can not only query XML data, but also modify it in place. The modification in the database is performed in an atomic way, i.e., there is no need to fetch the XML into a client application, modify it and then write it back. Instead, following the philosophy of server-side programming, we bring the logic (here: modification) into the database. Data modification queries can be performed with the [`modify(XML_DML)`](https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type) function, where we use the so-called [XML DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml) language to describe the desired change. Let's look at a few examples.
+We can not only query XML data but also modify it in place. The modification in the database is performed in an atomic way, i.e., there is no need to fetch the XML into a client application, modify it and then write it back. Instead, following the philosophy of server-side programming, we bring the logic (here: modification) into the database. Data modification queries can be performed with the [`modify(XML_DML)`](https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type) function, where we use the so-called [XML DML](https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml) language to describe the desired change. Let's look at a few examples.
 
 In the product called Lego City harbor, let us change the recommended age to 6-99 years.
 
@@ -418,7 +420,7 @@ WHERE Name='Lego City harbour'
 
 The XML DML expression consists of two parts: in the first part (`replace value of`) the element to be modified is selected; in the second part (`with`) the new value is specified. Only one element can be modified within an XML, so the path must be specified to match only one element - thus the `[1]` at the end of the example.
 
-Let us insert a `weigth` tag into the XML description of product Lego City harbor after the `package_size` tag.
+Let us insert a `weight` tag into the XML description of the product Lego City harbor after the `package_size` tag.
 
 ```sql
 UPDATE Product
@@ -428,7 +430,7 @@ after (/product/package_parameters/package_size)[1]')
 WHERE Name='Lego City harbour'
 ```
 
-The expression has of two parts here too: the first one (`insert`) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.
+The expression consists of two parts here too: the first one (`insert`) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.
 
 Let us remove the `description` tag(s) from the description of every product.
 

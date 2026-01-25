@@ -5,13 +5,13 @@
 
 ## Concurrent data access
 
-Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executes queries. We should always remember that there is a single database, but multiple clients involved here. The purpose of the database system is to serve as many requests as possible; consequently, it **executes the queries concurrently**. In such a concurrent system, data access can overlap in the following ways.
+Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executes queries. We should always remember that there is a single database, but multiple clients are involved here. The purpose of the database system is to serve as many requests as possible; consequently, it **executes the queries concurrently**. In such a concurrent system, data access can overlap in the following ways.
 
 - If the concurrent data access (either read or write) concerns independent data, there is no problem, and the operations may proceed concurrently.
 - If all operations only read data, there is no issue either; multiple readers can access the same data.
 - However, if **the same data is accessed simultaneously** and **there is at least one writer**, a concurrency problem may manifest itself.
 
-This concurrency issue is analogous to the mutual exclusion problem known in operating systems and the various programming languages and frameworks. Concurrent data access in these scenarios usually involve mutual access to shared memory space, and the solution is ensuring mutual exclusion using some kind of guard.
+This concurrency issue is analogous to the mutual exclusion problem known in operating systems and the various programming languages and frameworks. Concurrent data access in these scenarios usually involves mutual access to shared memory space, and the solution is to ensure mutual exclusion using some kind of guard.
 
 In database management systems, concurrency is related to the records (rows) of database tables, and the guards are transactions.
 
@@ -38,7 +38,7 @@ Let us examine these basic properties to understand how concurrent data access i
 
 Atomic execution means that we have a sequence of operations, and this sequence is meaningful only when all of it is executed. In other words, partial execution must be prohibited. In database systems, we often need multiple statements to achieve our goal, hence the sequence of steps.
 
-Let us imaging the checkout process in a webshop:
+Let us imagine the checkout process in a webshop:
 
 1. The order is recorded in the database with the provided data
 1. The amount of stock is decreased by one since one piece was sold
@@ -51,11 +51,11 @@ This is what atomicity guarantees: **if executing a sequence of steps has begun,
 
 The database's consistency rules are described by the integrity requirements, such as the record referenced by a foreign key must exist. There are other types of consistency requirements; e.g., there cannot be more students registered for an exam than the limit in the Neptun system.
 
-Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of the operation above. However, at the end of the transaction, consistency must be restored. In other words: **transactions enforce transition between consistent states**.
+Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of the operation above. However, at the end of the transaction, consistency must be restored. In other words, **transactions enforce transition between consistent states**.
 
 #### Durability
 
-Durability prescribes that the **effect of a transaction is durable**, that is, the results are not lost. Practically it means that the modifications performed by a transaction must be flushed to persistent storage (i.e., disk).
+Durability prescribes that the **effect of a transaction is durable**, that is, the results are not lost. Practically, it means that the modifications performed by a transaction must be flushed to persistent storage (i.e., disk).
 
 There are two types of errors in database systems that can lead to data corruption: soft crash and hard crash. **Soft crash** means the database process terminates, and the content of memory is lost. Transactions offer protection from these kinds of crashes. A **hard crash** means that the disk is also affected. Only a backup can provide protection here.
 
@@ -124,7 +124,7 @@ Should the deleted record be processed now? We can imagine a similar scenario wh
 
 ### Isolation levels
 
-The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a *compromise* between a suitable isolation level and performance.
+The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" the level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a *compromise* between a suitable isolation level and performance.
 
 The ANSI/ISO SQL standard defines the following isolation levels:
 
@@ -140,7 +140,7 @@ The ANSI/ISO SQL standard defines the following isolation levels:
 
 The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.
 
-These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.
+These locks, in effect, enforce the scheduling of the transactions. When a lock is not available because the record is used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.
 
 We know that when we use locks, **deadlock** can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.
 
@@ -169,7 +169,8 @@ A transaction combines a sequence of steps. It is, therefore, necessary to mark 
 
 So far, we have covered what transactions are used for. Let us understand how they work internally.
 
-**Transactional logging** is the process used by the database management system to track the pending modifications of running transactions allowing rolling back these changes in case of abort or soft crash.
+**Transactional logging** is the process used by the database management system to track the pending modifications of running transactions, allowing these changes to be rolled back in case of abort or soft crash.
+
 
 To understand transactional logging, let us consider the following system model.
 
@@ -184,11 +185,11 @@ This conceptual model includes the following operations:
 - Write(A): Transaction writes the data to the memory buffer
 - FLUSH_LOG: Write the transaction log to disk
 
-The process of transactional logging is demonstrated in the following example. In this example, a transaction modifies two data elements: A is decreases by 2, and B is increased by 2.
+The process of transactional logging is demonstrated in the following example. In this example, a transaction modifies two data elements: A is decreased by 2, and B is increased by 2.
 
 ### Undo transaction log
 
-We begin with an empty memory buffer. Every data is on disk. The process starts by reading the data from disk.
+We begin with an empty memory buffer. All data is on disk. The process starts by reading the data from disk.
 
 | Operation | A (database) | B (database) | A (buffer) | B (buffer) | Transactional log |
 |---|---|---|---|---|---|
@@ -328,7 +329,7 @@ Let us take the previous example and see how we can diagnose the deadlock once i
 1. The two transactions must run simultaneously for a deadlock to occur. If we test manually, this is difficult to achieve, so the order of execution is:
 
     1. Execute the first `UPDATE` statement from the first transaction
-    1. From the second transaction, executed both `UPDATE` statements
+    1. From the second transaction, execute both `UPDATE` statements
     1. Execute the second `UPDATE` statement from the first transaction
 
     First transaction:
@@ -404,7 +405,7 @@ The deadlock is soon eliminated automatically by the database. If we want to int
 
 ## Questions to test your knowledge
 
-- What type of concurrent data access problems do you know?
+- What types of concurrent data access problems do you know?
 - List the isolation levels. Which problems does each of the levels prohibit?
 - What are the basic properties of transactions?
 - Decide whether the following statements are true or false:

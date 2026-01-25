@@ -5,7 +5,7 @@
 Every software handles data in some sense since the computer memory stores data, and the software manipulates this data. But not all applications are data-driven. A system or an application is called data-driven if its  **main** purpose is to manage data.
 
 !!! example ""
-    In other words, the data-drive application is created to store, display, and manage data. The end-user uses this application to access the data within.
+    In other words, the data-driven application is created to store, display, and manage data. The end-user uses this application to access the data within.
 
 !!! note ""
     A chess game app also stores data in memory: the state of the chessboard. But the chess game app is not created to manipulate this data. The game is designed so that a user can play chess.
@@ -37,7 +37,7 @@ This might be a complicated question. Let us begin with a more straightforward q
 
 We could start a timer when the send button is clicked, and this timer, after a minute, sends the email. This will not work if the browser is closed before the countdown is over.
 
-We could add the scheduled date of sending to the email as data. We can translate this as an architectural decision: delayed sending is not the responsibility of the user interface. We did not decide yet, which part of the application will be responsible, but we already know it must not be the UI.
+We could add the scheduled date of sending to the email as data. We can translate this as an architectural decision: delayed sending is not the responsibility of the user interface. We have not decided yet, which part of the application will be responsible, but we already know it must not be the UI.
 
 Let us consider a similar question.
 
@@ -53,7 +53,7 @@ Data-driven systems are usually built on the three- or multi-layered architectur
 * the business layer,
 * and the data access layer.
 
-Besides, the  architecture also includes:
+Besides these, the architecture also includes:
 
 * a database or external data sources;
 * and the so-called cross-cutting concerns (see later).
@@ -63,7 +63,7 @@ The application components are organized such that each component belongs to a s
 !!! question "Why multi-layered when it only has three?"
     The multi-layered terminology enables each of the previously listed layers to be further decomposed into sub-layers depending on complexity. In other words, an architecture is multi-layered if it has more than two layers. (In the _two-layered_ architecture, the UI and the business logic are not separated.)
 
-The layers not only have their **responsibilities**, but also define their **interface** provided to the layers on top of them. The data access layer specifies the operations the business layer can use to retrieve data; similarly the business layer defines the functionalities the presentation layer can build upon. Each layer is allowed to **communicate only with the layer directly beneath**. For example, the presentation layer is not allowed to execute a SQL query in the database. At the same time, the **implementation behind the well-defined communication interface can change** enabling easier maintenance of the software codebase.
+The layers not only have their **responsibilities**, but also define their **interface** provided to the layers on top of them. The data access layer specifies the operations the business layer can use to retrieve data; similarly, the business layer defines the functionalities the presentation layer can build upon. Each layer is allowed to **communicate only with the layer directly beneath**. For example, the presentation layer is not allowed to execute a SQL query in the database. At the same time, the **implementation behind the well-defined communication interface can change**, enabling easier maintenance of the software codebase.
 
 By having the software split into layers, we can also move the layers to multiple servers (e.g., to handle larger loads). The simplest form is when the presentation layer runs in a browser on the user's machine, while the rest is hosted on a remote server. The database is also frequently offloaded to a dedicated server. Running the various layers on separate servers is usually motivated by performance reasons.
 
@@ -75,10 +75,10 @@ A system built on a well-designed architecture can be used and maintained over a
 !!! note ""
     The layered architecture does not mean that a functionality is present in a single layer. Most features offered to the end-user have some display in the presentation layer, handle data in the business logic layer, and store data in the database.
 
-The codebase of a three-layered architecture also reflects the separation of the layers. Depending on the capabilities and the conventions on the given platform, the layers all have a dedicated project or package. This structure also enforced one-way dependency, as the dependency-graph of projects/packages usually does not allow circles. That is, if the business layer uses the data access layer, the latter one cannot use the former one.
+The codebase of a three-layered architecture also reflects the separation of the layers. Depending on the capabilities and the conventions on the given platform, the layers all have a dedicated project or package. This structure also enforces one-way dependencies, as the dependency-graph of projects/packages usually does not allow cycles.  That is, if the business layer uses the data access layer, the latter one cannot use the former one.
 
 !!! tip ""
-    The three-layered architecture is not the only possibility for implementing a data-driven application. Small and simple applications can be build using the two-layered architecture, while larger and more complex applications usually need further separation (e.g., using the microservices architecture).
+    The three-layered architecture is not the only possibility for implementing a data-driven application. Small and simple applications can be built using the two-layered architecture, while larger and more complex applications usually need further separation (e.g., using the microservices architecture).
 
 ## The responsibilities of the layers
 
@@ -93,9 +93,9 @@ We will discuss the layers from bottom-to-top.
 
 ### Data sources
 
-The most common data source is a **database**. It can be a relational-, or a NoSQL database. Its main purpose is the stable, reliable and persistent storage of data. This database is usually a software from a well-known third-party. This component is often hosted on a dedicated server accessible through a local network.
+The most common data source is a **database**. It can be a relational-, or a NoSQL database. Its main purpose is the stable, reliable and persistent storage of data. These databases are usually software from a well-known third-party. This component is often hosted on a dedicated server accessible through a local network.
 
-Sometimes our application might also work with data outside of our database, hosted by **third-party services**, that we use similarly to databases. For example, you can attach files in Gmail from Google Drive. Gmail, in this example, fetches the list of available files from Google Drive for the user to select the attachment. Google drive is not a database, yet it is used as a data source.
+Sometimes our application might also work with data outside of our database, hosted by **third-party services**, that we use similarly to databases. For example, you can attach files in Gmail from Google Drive. Gmail, in this example, fetches the list of available files from Google Drive for the user to select the attachment. Google Drive is not a database, yet it is used as a data source.
 
 These kinds of external services are grouped with our database, in the architectural sense, because they provide data storage and retrieval services, just like a traditional database. We have no information about their internal operations, and there is no need for users to understand it either. Thus, these services are treated similarly in our architecture.
 
@@ -113,14 +113,14 @@ The *data access components* provide a bridge towards the databases. Their role 
 
 When the data is not inside our database, the *service agents* provide similar services and handle the communication aspects with the external service.
 
-This entire layer is often built on a particular technology used to communicate with the database, such as ADO.NET, Entity Framework, or JDBC, JPA, etc. The source code in this layer is often tightly coupled with these data access technologies. It is essential to keep these implementations inside this layer and not let it "leak" out of here.
+This entire layer is often built on a particular technology used to communicate with the database, such as ADO.NET, Entity Framework, or JDBC, JPA, etc. The source code in this layer is often tightly coupled with these data access technologies. It is essential to keep these implementations inside this layer and not let it "leak" out. 
 
 !!! warning "IMPORTANT"
     In well-designed systems SQL commands appear only in the data access layer; under no circumstances do other layers assemble or execute SQL queries.
 
-Since the data modeling scheme used in databases (i.e., the relational model) and the object-oriented modeling are based on different concepts, this layer is responsible for providing a **mapping** between the two worlds.  The foreign keys used by the relational scheme are transformed into associations and compositions, and we may even need to perform data conversion between data types supported by the various systems. We will re-visit these issues later.
+Since the data modeling scheme used in databases (i.e., the relational model) and the object-oriented modeling are based on different concepts, this layer is responsible for providing a **mapping** between the two worlds.  The foreign keys used by the relational scheme are transformed into associations and compositions, and we may even need to perform data conversion between data types supported by the various systems. We will revisit these issues later.
 
-Communication with an external system, whether is it is a database or a third-party service, requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore it is the responsibility of the data access layer to **manage these connections** and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.
+Communication with an external system, whether it is a database or a third-party service requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore, it is the responsibility of the data access layer to **manage these connections** and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.
 
 The management of **concurrent data accesses and related problems** is also the responsibility of this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent *modifications* can happen. We will discuss how this is handled and what type of issues we have to resolve.
 
@@ -173,7 +173,7 @@ And finally, the UI handles user interactions. When a button is clicked, the UI 
 User input must be validated. Validation covers filling required fields, accepting only valid email addresses, handling expected number ranges, etc.
 
 !!! important "Validation"
-    It is not enough to perform validation only in the user interface. Depending on the technology used, the UI can often be easily bypassed, and the services in the background can be called directly. If this happens and only the UI performs validation, invalid data can get into the system. Therefore the validation is repeated by the business layer too. Regardless, the UI should still perform validation to give instant feedback to the user.
+    It is not enough to perform validation only in the user interface. Depending on the technology used, the UI can often be easily bypassed, and the services in the background can be called directly. If this happens and only the UI performs validation, invalid data can get into the system. Therefore, the validation is repeated by the business layer too. Regardless, the UI should still perform validation to give instant feedback to the user.
 
 This layer is not discussed further in this course.
 
@@ -203,7 +203,7 @@ Tracing and auditing make sure that we can check who made specific changes in th
 
 Keeping operational aspects in mind helps build maintainable software. The operational aspect usually covers error handling, logging, monitoring, and configuration management.
 
-Centralized error management should catch all types of errors that are raised in an application. These errors need to be recorded (e.g., by logging them), and usually, the end-user needs to be notified (e.g., whether she should retry or wait for something else). Recording all exceptions is vital because errors raised in the lower layers of the application are not "seen" by anyone (but the end-user probably) unless these are adequately treated and recorded.
+Centralized error management should catch all types of errors that are raised in an application. These errors need to be recorded (e.g., by logging them), and usually, the end-user needs to be notified (e.g., whether they should retry or wait for something else). Recording all exceptions is vital because errors raised in the lower layers of the application are not "seen" by anyone (but the end-user probably) unless these are adequately treated and recorded.
 
 Logging and monitoring help both diagnostics and seeing whether a system behaves as intended. Logging is usually performed by writing a text log file. Monitoring, on the other hand, records so-called KPIs, key performance indicators. For example, KPIs are the memory usage, the number of errors, the number of pending requests, etc.
 
@@ -221,7 +221,7 @@ Encryption is also a factor in communication. Communication over public networks
 
 ## Backend and frontend
 
-When we are talking about data-driven systems we often speak about **backend** and **frontend**. The frontend is mostly the user interface, that is, the presentation layer (a web application hosted in a browser, a native mobile app, a thick-client desktop app, etc). This is what the user interacts with. The backend is the service that provides the data to the UI: the APIs, the business layer, the data access, and the databases.
+When we are talking about data-driven systems we often speak about **backend** and **frontend**. The frontend is mostly the user interface, that is, the presentation layer (a web application hosted in a browser, a native mobile app, a thick-client desktop app, etc). This is what the user interacts with. The backend is the service that provides the data to the UI: the APIs, the business layer, the data access layer, and the databases.
 
 Depending on the chosen frontend technology, parts of the user interface might be created by the backend, though. This is called *server-side rendering*.
 
