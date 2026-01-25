@@ -2,7 +2,6 @@
 
 We store both entities and the relationships that connect them in relational databases. This allows us to query related entities through joining tables, expressed with the `join` SQL command. Entity Framework, which is an ORM framework, provides us with built-in support for conveniently managing these relationships.
 
-
 ## Defining relationships
 
 !!! note "Convention-based mapping"
