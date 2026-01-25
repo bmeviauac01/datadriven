@@ -165,6 +165,38 @@ A transaction combines a sequence of steps. It is, therefore, necessary to mark 
     !!! note "Nested transactions"
         Some database management systems enable nested transactions too. Completing transactions follow the nesting: each level needs to be committed.
 
+## Distributed transactions
+
+Up to this point, we assumed a single database in which ACID transactions can be enforced locally. In practice, however, a single logical transaction can span multiple databases or services.
+
+### Two-phase commit (2PC)
+
+One classic approach is a distributed transaction manager coordinating participants with **two-phase commit**.
+
+1. **Prepare / vote (phase 1):** the coordinator asks each participant to prepare the transaction and vote.
+2. **Commit / abort (phase 2):** if everyone agrees, the coordinator instructs all participants to commit, otherwise it instructs all to abort.
+
+This preserves an **all-or-nothing** behavior across systems, but it typically increases latency and can hold resources longer.
+
+### Saga pattern
+
+For business workflows which are long running (often involving user input or external systems), the traditional mode of committing/rolling back becomes impractical. A common alternative is the **Saga** pattern.
+
+A saga splits the workflow into a sequence of local transactions, each with a compensating action. If a later step fails, the system runs compensations to semantically undo earlier steps. This trades immediate global atomicity for practicality as the system may be temporarily inconsistent while the saga is in progress, but it can still reach a correct final outcome.
+
+### CAP theorem and consistency
+
+When data is globally distributed and replicated, communication failures are inevitable. The **CAP theorem** highlights a core trade-off. Any distributed data store can provide only two of the following three guarantees:
+
+1. **Consistency:** every read receives the most recent write (or an error).
+2. **Availability:** every request receives a non-error response, without guaranteeing it contains the most recent write.
+3. **Partition tolerance:** the system continues to operate despite messages being dropped or delayed between nodes.
+
+Because failures are unavoidable at scale, systems often choose between:
+
+- **Strong consistency:** replicas synchronize before answering. During partitions the system may delay/stop some operations to avoid divergence.
+- **Eventual consistency:** the system prioritizes availability and allows replicas to diverge temporarily. They converge within a time window (the “inconsistency window”), depending on load and propagation delays.
+
 ## Transaction logging
 
 So far, we have covered what transactions are used for. Let us understand how they work internally.

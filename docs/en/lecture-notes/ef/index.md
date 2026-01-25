@@ -2,6 +2,123 @@
 
 We store both entities and the relationships that connect them in relational databases. This allows us to query related entities through joining tables, expressed with the `join` SQL command. Entity Framework, which is an ORM framework, provides us with built-in support for conveniently managing these relationships.
 
+## Entity Framework essentials 
+
+Before exploring the topic of Entity Framework (EF) and its relationships, it is imperative for one to understand its essentials. EF is an ORM that maps relational database structures to C# objects. Specifically, it maps:
+
+- Tables <-> C# classes (entities)
+- Rows <-> objects
+- Columns <-> properties
+
+It also lets us query with LINQ in a strongly typed way, reducing database-engine coupling. 
+
+### Mapping workflows
+
+In practice one will see different mapping workflows:
+- **Database First**: Database already exists -> generate entities + DbContext
+- **Model First**: Create a model diagram -> generate DB + code 
+- **Code First**: Write C# entity classes -> EF generates/updates the DB using migrations
+
+!!! note ""
+    EF Core is primarily **Code First**, but it can also do **Database First** via scaffolding.
+
+### DbContext and change tracking
+
+A central concept, important to understand, is DbContext. It acts as a short-lived unit of work, used to access the database, track entity changes, and write them back with `SaveChanges()`. 
+
+!!! important ""
+    `DbContext` is **not thread-safe** and typically represents an active database connection.
+    Create it for a small scope and dispose of it (either within Dependency Injection scope or utilizing`using`).
+
+For read-only queries, it’s often worth disabling tracking with `AsNoTracking()` to reduce overhead.
+
+```csharp
+var products = context.Products.AsNoTracking().ToList();
+```
+
+### Primary Keys
+
+EF can detect primary keys by convention or be configured explicitly:
+
+Convention (automatic):
+
+```csharp
+public string Id { get; set; }
+public string ProductId { get; set; }
+```
+
+Explicit configuration:
+- Data annotations:
+
+```csharp
+public class Product
+{
+    [Key]
+    public string UniqueName { get; set; }
+}
+```
+
+- Fluent API:
+
+```csharp
+modelBuilder.Entity<Product>().HasKey(c => c.UniqueName);
+```
+
+!!! note ""
+    Some schemas may contain tables/views without a primary key, however, classic EF can’t map these. EF Core, however, supports keyless entity types.
+
+### CRUD operation
+
+CRUD operations follow the same “track then save” pattern:
+
+```csharp 
+//Create
+context.Students.Add(new Student { Name = "Tamas" });
+context.SaveChanges();
+
+// Update
+var s = context.Students.First();
+s.Name = "Updated";
+context.SaveChanges();
+
+// Delete
+var s = context.Students.First();
+context.Students.Remove(s);
+context.SaveChanges();
+```
+
+### Transactions
+
+The main idea between all of these CRUD operations is that EF changes the database only when one calls `SaveChanges()`, but it is important to note that `SaveChanges()` is usually transactional for that single call. If one needs multiple `SaveChanges()` calls to succeed/fail together, then they can wrap them in an explicit transaction: 
+
+```csharp
+using var tx = context.Database.BeginTransaction();
+
+context.SaveChanges();
+// pretend some kind of operation occurs here
+context.SaveChanges();
+
+tx.Commit();
+```
+
+### Schema evolution and migrations
+
+EF applications must handle schema evolution. This means that when one's classes change, the database needs to change too. This can be done by:
+- `EnsureCreated` / `EnsureDeleted`: fast for demos/tests, but wipes DB, so it should not be used for real data
+- Migrations: tracks schema versions (“migration points”) and lets one upgrade/downgrade the schema safely
+
+ One can also include custom SQL in a migration if needed, for example:
+
+!!! important ""
+    Migrations are typically recommended, however, it is imperative that the generated migrations are always reviewed.  Always review generated migrations. EF may interpret a rename as “drop + create”, which can lose data. Use explicit operations when needed, an example being:
+
+    ```csharp
+    migrationBuilder.RenameColumn(
+    name: "Name",
+    table: "Customers",
+    newName: "FullName");
+    ```
+
 ## Defining relationships
 
 !!! note "Convention-based mapping"
