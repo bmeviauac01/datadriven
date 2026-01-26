@@ -127,6 +127,13 @@ SELECT @name
 -- aaa
 ```
 
+!!! note "String types and storage"
+    There are two main families of string data types in SQL Server. The key difference is how many bytes each character uses:
+    - `VARCHAR(n)`: non-Unicode text (typically 1 byte/character), `n` up to 8000
+    - `NVARCHAR(n)`: Unicode text (2 bytes/character), `n` up to 4000
+    If you need longer text, use `VARCHAR(MAX)` / `NVARCHAR(MAX)`, which can store very large strings (up to about 2 GB in bytes).
+    Keep in mind you should use `n` for normal fields to be validated, searched, or indexed. Use `MAX` for large text blobs which are to be displayed/stored, not heavily filtered/sorted by.
+
 ### Instruction blocks and control structures
 
 An instruction block is written between `BEGIN-END` commands:
@@ -251,6 +258,23 @@ SELECT ISNULL(@a, @b)
 
 !!! important ""
     Not to be confused with the `IS NULL` condition, e.g., `UPDATE Product SET Price = 111 WHERE Price IS NULL`
+
+#### IDENTITY values
+
+When inserting into a table that has an `IDENTITY` primary key, there are multiple ways to read back the last identity value.
+
+```sql
+CREATE TABLE Status(
+  ID int IDENTITY(1,1) PRIMARY KEY,
+  Name nvarchar(20)
+);
+
+INSERT INTO Status VALUES ('Ready')
+```
+After the insert, one can query the generated identity in three different ways, with different “scope/session/table” meanings:
+- `IDENT_CURRENT('Status')` - any session, any scope, specific table
+- `@@IDENTITY`  - current session, any scope, any table
+- `SCOPE_IDENTITY()` - current session, current scope, any table
 
 ## Cursors
 
