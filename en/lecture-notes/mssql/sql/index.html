@@ -2079,7 +2079,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">MainCustomerSiteID</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">City</span><span class="o">=</span><span class="s1">'Budapest'</span>
 </code></pre></div>
-<p>List the products that start with letter M, the ordered amounts and deadlines. Include the products that have not been ordered yet.</p>
+<p>List the products that start with the letter M, the ordered amounts, and the deadlines. Include the products that have not been ordered yet.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 <span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
@@ -2102,7 +2102,7 @@
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
 </code></pre></div>
 <h2 id="subqueries">Subqueries<a class="headerlink" href="#subqueries" title="Permanent link">¶</a></h2>
-<p>List the order dates, deadlines and Statuses</p>
+<p>List the order dates, deadlines, and statuses.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="nb">Date</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Deadline</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">StatusId</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">ID</span>
 </code></pre></div>
@@ -2115,7 +2115,7 @@
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title"><code>[Order]</code></p>
-<p><code>[Order]</code> is in brackets, because this signals that this is a table name and not the beginning of the <code>order by</code> SQL language element.</p>
+<p><code>[Order]</code> is in brackets because this signals that this is a table name and not the beginning of the <code>order by</code> SQL language element.</p>
 </div>
 <h2 id="filter-duplicates">Filter duplicates<a class="headerlink" href="#filter-duplicates" title="Permanent link">¶</a></h2>
 <p>Which products have been ordered in batches of more than 3? One product may have been ordered multiple times, but we want the name only once.</p>
@@ -2124,16 +2124,16 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="o">&gt;</span><span class="mi">3</span>
 </code></pre></div>
 <h2 id="aggregate-functions">Aggregate functions<a class="headerlink" href="#aggregate-functions" title="Permanent link">¶</a></h2>
-<p>How much is the most expensive product?</p>
+<p>How much does the most expensive product cost?</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
-<p>Which are the most expensive products?</p>
+<p>Which products are the most expensive?</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Price</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="p">)</span>
 </code></pre></div>
-<p>What was the min, max and average selling price of each product with name containing <em>Lego</em> having an average selling price more than 10000</p>
+<p>What were the minimum, maximum, and average selling prices of each product with a name containing “Lego” and an average selling price greater than 10000?</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">),</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="o">*</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span><span class="o">/</span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
 <span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
@@ -2143,7 +2143,7 @@
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div>
 <h2 id="inserting-records">Inserting records<a class="headerlink" href="#inserting-records" title="Permanent link">¶</a></h2>
-<p>Inserting a single record by assigning value to all columns (except <em>identity</em>)</p>
+<p>Insert a single record by assigning values to all columns (except the identity column).</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
 </code></pre></div>
@@ -2169,7 +2169,7 @@
 
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">IDENTITY</span>
 </code></pre></div>
-<p>MSSQL specific: setting the value of <em>identity</em> column</p>
+<p>MSSQL specific: setting the value of the <em>identity</em> column.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">identity_insert</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="k">ON</span>
 
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">VAT</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Percentage</span><span class="p">)</span>
@@ -2223,11 +2223,11 @@
 </code></pre></div>
 <div class="admonition example">
 <p class="admonition-title">Rank and dense_rank</p>
-<p>Unlike dense_rank , Rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With Rank,  the next position is 3; with dense_rank, the next position is 2.</p>
+<p>Unlike dense_rank, rank skips positions after equal rankings. The number of positions skipped depends on how many rows had an identical ranking. For example, Mary and Lisa sold the same number of products and are both ranked as 1. With rank, the next position is 3; with dense_rank, the next position is 2.</p>
 </div>
 <h2 id="cte-common-table-expression">CTE (Common Table Expression)<a class="headerlink" href="#cte-common-table-expression" title="Permanent link">¶</a></h2>
 <p>Motivation: subqueries often make queries complex</p>
-<p>First three products sorted by name alphabetically</p>
+<p>The first three products, sorted alphabetically by name.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span>
 <span class="p">(</span>
@@ -2251,7 +2251,7 @@
 <span class="k">FROM</span><span class="w"> </span><span class="n">q1</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">q1</span><span class="p">.</span><span class="n">dr</span><span class="o">&lt;=</span><span class="mi">3</span>
 </code></pre></div>
-<p>How many pieces have been sold from the second most expensive product?</p>
+<p>How many pieces of the second most expensive product have been sold?</p>
 <div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
 <span class="k">AS</span>
 <span class="p">(</span>
@@ -2265,7 +2265,7 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">Name</span>
 </code></pre></div>
-<p>Paging: list products alphabetically from 3. to 8. record</p>
+<p>Paging: list products alphabetically from the 3<sup>rd</sup> to the 8<sup>th</sup> record.</p>
 <div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">q</span>
 <span class="k">AS</span>
 <span class="p">(</span>
@@ -2357,7 +2357,7 @@
 </div>
 <h3 id="queries">Queries<a class="headerlink" href="#queries" title="Permanent link">¶</a></h3>
 <p>Let us have a table with an XML column. In addition to querying the entire XML value, we can query content from within the XML document. In order to do this, we need to use T-SQL functions capable of working on the XML content: <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/query-method-xml-data-type"><code>query(XQuery)</code></a> , <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/value-method-xml-data-type"><code>value(XQuery, SQLType)</code></a> and <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/exist-method-xml-data-type"><code>exist(XQuery)</code></a>. Let's look at a few examples of these.</p>
-<p>Let us query how many packages the products consist of.</p>
+<p>Let us query how many packages each product consists of.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'/product/package_parameters/number_of_packages'</span><span class="p">)</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 </code></pre></div>
@@ -2378,14 +2378,14 @@
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
-<p>Function <code>exist()</code> returns 1 if the <em>XQuery</em> expression evaluation yields a non-empty result; or 0 if the query result is empty.</p>
+<p>The <code>exist()</code> function returns 1 if if evaluating the <em>XQuery</em> expression yields a non-empty result, or 0 if the query result is empty.</p>
 <p>We can also use the <code>value()</code> method instead of <code>exist()</code> here.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/recommended_age)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'varchar(MAX)'</span><span class="p">)</span><span class="o">=</span><span class="s1">'0-18 m'</span>
 </code></pre></div>
 <h3 id="manipulating-queries">Manipulating queries<a class="headerlink" href="#manipulating-queries" title="Permanent link">¶</a></h3>
-<p>We can not only query XML data, but also modify it in place. The modification in the database is performed in an atomic way, i.e., there is no need to fetch the XML into a client application, modify it and then write it back. Instead, following the philosophy of server-side programming, we bring the logic (here: modification) into the database. Data modification queries can be performed with the <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type"><code>modify(XML_DML)</code></a> function, where we use the so-called <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml">XML DML</a> language to describe the desired change. Let's look at a few examples.</p>
+<p>We can not only query XML data but also modify it in place. The modification in the database is performed in an atomic way, i.e., there is no need to fetch the XML into a client application, modify it and then write it back. Instead, following the philosophy of server-side programming, we bring the logic (here: modification) into the database. Data modification queries can be performed with the <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/modify-method-xml-data-type"><code>modify(XML_DML)</code></a> function, where we use the so-called <a href="https://docs.microsoft.com/en-us/sql/t-sql/xml/xml-data-modification-language-xml-dml">XML DML</a> language to describe the desired change. Let's look at a few examples.</p>
 <p>In the product called Lego City harbor, let us change the recommended age to 6-99 years.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
@@ -2394,14 +2394,14 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
 <p>The XML DML expression consists of two parts: in the first part (<code>replace value of</code>) the element to be modified is selected; in the second part (<code>with</code>) the new value is specified. Only one element can be modified within an XML, so the path must be specified to match only one element - thus the <code>[1]</code> at the end of the example.</p>
-<p>Let us insert a <code>weigth</code> tag into the XML description of product Lego City harbor after the <code>package_size</code> tag.</p>
+<p>Let us insert a <code>weight</code> tag into the XML description of the product Lego City harbor after the <code>package_size</code> tag.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span>
 <span class="s1">'INSERT &lt;weight&gt;2.28&lt;/weight&gt;</span>
 <span class="s1">after (/product/package_parameters/package_size)[1]'</span><span class="p">)</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="o">=</span><span class="s1">'Lego City harbour'</span>
 </code></pre></div>
-<p>The expression has of two parts here too: the first one (<code>insert</code>) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.</p>
+<p>The expression consists of two parts here too: the first one (<code>insert</code>) specifies the new element, and the second one describes where to insert the new element. The new item can be added as a sibling or child of the specified item.</p>
 <p>Let us remove the <code>description</code> tag(s) from the description of every product.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="k">modify</span><span class="p">(</span><span class="s1">'DELETE /product/description'</span><span class="p">)</span>
@@ -2415,8 +2415,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 8, 2025 15:15:15">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:15:15 CET"><span class="timeago" datetime="2025-12-08T15:15:15+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:15:15 CET">2025-12-08</span>
+      <span title="January 25, 2026 16:02:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 25, 2026 16:02:37 CET"><span class="timeago" datetime="2026-01-25T16:02:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 25, 2026 16:02:37 CET">2026-01-25</span>
       </span>
     </span>
 
@@ -2436,6 +2436,8 @@
           <img src="https://avatars.githubusercontent.com/u/36095256?u=863f61f3b244c924ddd254f27c4c1d8c35af452c&amp;v=4?size=72" alt="@Almat">
         </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/KenTottszer" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tamas Tottszer">
+          <img src="https://avatars.githubusercontent.com/u/104754192?u=f0fbe3168f68a9e7619e39bf0fdecbbdb4500328&amp;v=4?size=72" alt="@Tamas Tottszer">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
           <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@Ádám Tanai">
         </a></nav>      

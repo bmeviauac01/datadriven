@@ -1050,6 +1050,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#distributed-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed transactions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cap-theorem-and-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CAP theorem and consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saga-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saga pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#questions-to-test-your-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2245,6 +2284,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#distributed-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed transactions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cap-theorem-and-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CAP theorem and consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saga-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saga pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#questions-to-test-your-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2286,13 +2364,13 @@
 <p>When we talk about transactions, we mean <strong>relational databases</strong>. The problem and the solutions, however, are generic and are not specific to relational databases.</p>
 </div>
 <h2 id="concurrent-data-access">Concurrent data access<a class="headerlink" href="#concurrent-data-access" title="Permanent link">¶</a></h2>
-<p>Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executes queries. We should always remember that there is a single database, but multiple clients involved here. The purpose of the database system is to serve as many requests as possible; consequently, it <strong>executes the queries concurrently</strong>. In such a concurrent system, data access can overlap in the following ways.</p>
+<p>Database management systems are based on a client-server architecture. The client (the software we write) connects to the database and executes queries. We should always remember that there is a single database, but multiple clients are involved here. The purpose of the database system is to serve as many requests as possible; consequently, it <strong>executes the queries concurrently</strong>. In such a concurrent system, data access can overlap in the following ways.</p>
 <ul>
 <li>If the concurrent data access (either read or write) concerns independent data, there is no problem, and the operations may proceed concurrently.</li>
 <li>If all operations only read data, there is no issue either; multiple readers can access the same data.</li>
 <li>However, if <strong>the same data is accessed simultaneously</strong> and <strong>there is at least one writer</strong>, a concurrency problem may manifest itself.</li>
 </ul>
-<p>This concurrency issue is analogous to the mutual exclusion problem known in operating systems and the various programming languages and frameworks. Concurrent data access in these scenarios usually involve mutual access to shared memory space, and the solution is ensuring mutual exclusion using some kind of guard.</p>
+<p>This concurrency issue is analogous to the mutual exclusion problem known in operating systems and the various programming languages and frameworks. Concurrent data access in these scenarios usually involves mutual access to shared memory space, and the solution is to ensure mutual exclusion using some kind of guard.</p>
 <p>In database management systems, concurrency is related to the records (rows) of database tables, and the guards are transactions.</p>
 <h2 id="transactions">Transactions<a class="headerlink" href="#transactions" title="Permanent link">¶</a></h2>
 <div class="admonition abstract">
@@ -2314,7 +2392,7 @@
 <h3 id="transactions-basic-properties">Transactions basic properties<a class="headerlink" href="#transactions-basic-properties" title="Permanent link">¶</a></h3>
 <h4 id="atomicity">Atomicity<a class="headerlink" href="#atomicity" title="Permanent link">¶</a></h4>
 <p>Atomic execution means that we have a sequence of operations, and this sequence is meaningful only when all of it is executed. In other words, partial execution must be prohibited. In database systems, we often need multiple statements to achieve our goal, hence the sequence of steps.</p>
-<p>Let us imaging the checkout process in a webshop:</p>
+<p>Let us imagine the checkout process in a webshop:</p>
 <ol>
 <li>The order is recorded in the database with the provided data</li>
 <li>The amount of stock is decreased by one since one piece was sold</li>
@@ -2323,9 +2401,9 @@
 <p>This is what atomicity guarantees: <strong>if executing a sequence of steps has begun, all steps have to complete successfully or the initial state before the modification must be restored</strong>.</p>
 <h4 id="consistency">Consistency<a class="headerlink" href="#consistency" title="Permanent link">¶</a></h4>
 <p>The database's consistency rules are described by the integrity requirements, such as the record referenced by a foreign key must exist. There are other types of consistency requirements; e.g., there cannot be more students registered for an exam than the limit in the Neptun system.</p>
-<p>Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of the operation above. However, at the end of the transaction, consistency must be restored. In other words: <strong>transactions enforce transition between consistent states</strong>.</p>
+<p>Transactions ensure that our database is always in a consistent state. While a transaction is in progress, temporary inconsistencies may arise, similarly to the interim state between the two steps of the sequence of the operation above. However, at the end of the transaction, consistency must be restored. In other words, <strong>transactions enforce transition between consistent states</strong>.</p>
 <h4 id="durability">Durability<a class="headerlink" href="#durability" title="Permanent link">¶</a></h4>
-<p>Durability prescribes that the <strong>effect of a transaction is durable</strong>, that is, the results are not lost. Practically it means that the modifications performed by a transaction must be flushed to persistent storage (i.e., disk).</p>
+<p>Durability prescribes that the <strong>effect of a transaction is durable</strong>, that is, the results are not lost. Practically, it means that the modifications performed by a transaction must be flushed to persistent storage (i.e., disk).</p>
 <p>There are two types of errors in database systems that can lead to data corruption: soft crash and hard crash. <strong>Soft crash</strong> means the database process terminates, and the content of memory is lost. Transactions offer protection from these kinds of crashes. A <strong>hard crash</strong> means that the disk is also affected. Only a backup can provide protection here.</p>
 <h4 id="isolation">Isolation<a class="headerlink" href="#isolation" title="Permanent link">¶</a></h4>
 <p>By isolation, we mean to isolate the effect of transactions from each other. That is, when writing our query, we do not need to concern ourselves with other concurrent transactions; the system will handle this aspect. The developer can write queries <em>as if</em> they were executed in the system alone, and the system will guarantee that it will <strong>prohibit those concurrency issues that we do not want to deal with</strong>.</p>
@@ -2376,7 +2454,7 @@
 <p>Should the deleted record be processed now? We can imagine a similar scenario when a record is altered in the second step. Which state should the reader transaction in step three see? The one before, or the one after the modification?</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/phantom-records.png" data-desc-position="bottom"><img alt="Phantom records" src="images/phantom-records.png"></a></p>
 <h3 id="isolation-levels">Isolation levels<a class="headerlink" href="#isolation-levels" title="Permanent link">¶</a></h3>
-<p>The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a <em>compromise</em> between a suitable isolation level and performance.</p>
+<p>The problems discussed before can be avoided by using the right isolation level. We should consider, though, that the "higher" the level of isolation we prescribe, the lower the throughput of the database system will be. Also, we might face deadlocks (see below). Our goal, thus, is a <em>compromise</em> between a suitable isolation level and performance.</p>
 <p>The ANSI/ISO SQL standard defines the following isolation levels:</p>
 <ul>
 <li>Read uncommitted: offers no protection.</li>
@@ -2390,7 +2468,7 @@
 </div>
 <h3 id="scheduling-enforced-with-locks">Scheduling enforced with locks<a class="headerlink" href="#scheduling-enforced-with-locks" title="Permanent link">¶</a></h3>
 <p>The database enforces isolation through locks: when a record is accessed (read or write), it is locked by the system. The lock is placed on the record when it is first accessed and is removed at the end of the transaction. The type of lock (e.g., shared lock or mutually exclusive) depends on the isolation level and the implementation of the database management system.</p>
-<p>These locks, in effect, enforce the scheduling of the transactions. When a lock is not available, because the record it used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.</p>
+<p>These locks, in effect, enforce the scheduling of the transactions. When a lock is not available because the record is used by another transaction and concurrent access is not allowed by the isolation level, the transaction will wait.</p>
 <p>We know that when we use locks, <strong>deadlock</strong> can occur. This is no different in databases. A deadlock may occur when two transactions are competing for the same locks. See the figure below; a continuous line represents an owned lock, while the dashed ones represent a lock the transaction would like to acquire. Neither of these requests can be fulfilled, resulting in both transactions being unable to move forward.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/holtpont-eroforras-graf.png" data-desc-position="bottom"><img alt="Deadlock" src="images/holtpont-eroforras-graf.png"></a></p>
 <p>Deadlocks cannot be prevented in database management systems, but they can be recognized and dealt with. The system monitors locks, and when a deadlock is detected <strong>one of the transactions is aborted</strong> and all its modifications are rolled back. All applications using a database must be prepared to handle this.</p>
@@ -2418,7 +2496,7 @@
 </ol>
 <h2 id="transaction-logging">Transaction logging<a class="headerlink" href="#transaction-logging" title="Permanent link">¶</a></h2>
 <p>So far, we have covered what transactions are used for. Let us understand how they work internally.</p>
-<p><strong>Transactional logging</strong> is the process used by the database management system to track the pending modifications of running transactions allowing rolling back these changes in case of abort or soft crash.</p>
+<p><strong>Transactional logging</strong> is the process used by the database management system to track the pending modifications of running transactions, allowing these changes to be rolled back in case of abort or soft crash.</p>
 <p>To understand transactional logging, let us consider the following system model.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/tranzakcios-naplozas-io-modell.png" data-desc-position="bottom"><img alt="Transactional logging conceptual model" src="images/tranzakcios-naplozas-io-modell.png"></a></p>
 <p>This conceptual model includes the following operations:</p>
@@ -2430,9 +2508,9 @@
 <li>Write(A): Transaction writes the data to the memory buffer</li>
 <li>FLUSH_LOG: Write the transaction log to disk</li>
 </ul>
-<p>The process of transactional logging is demonstrated in the following example. In this example, a transaction modifies two data elements: A is decreases by 2, and B is increased by 2.</p>
+<p>The process of transactional logging is demonstrated in the following example. In this example, a transaction modifies two data elements: A is decreased by 2, and B is increased by 2.</p>
 <h3 id="undo-transaction-log">Undo transaction log<a class="headerlink" href="#undo-transaction-log" title="Permanent link">¶</a></h3>
-<p>We begin with an empty memory buffer. Every data is on disk. The process starts by reading the data from disk.</p>
+<p>We begin with an empty memory buffer. All data is on disk. The process starts by reading the data from disk.</p>
 <table>
 <thead>
 <tr>
@@ -2831,7 +2909,7 @@
 <p>The two transactions must run simultaneously for a deadlock to occur. If we test manually, this is difficult to achieve, so the order of execution is:</p>
 <ol>
 <li>Execute the first <code>UPDATE</code> statement from the first transaction</li>
-<li>From the second transaction, executed both <code>UPDATE</code> statements</li>
+<li>From the second transaction, execute both <code>UPDATE</code> statements</li>
 <li>Execute the second <code>UPDATE</code> statement from the first transaction</li>
 </ol>
 <p>First transaction:</p>
@@ -2930,9 +3008,26 @@
 </table>
 <p>This means that the transaction with ID 53 waits for the transaction with ID 54, and the transaction with ID 54 waits for the transaction with ID 53.</p>
 <p>The deadlock is soon eliminated automatically by the database. If we want to intervene manually, we can do so with the <code>kill</code> command, selecting the transaction to stop (e.g., <code>kill 53</code>).</p>
+<h2 id="distributed-transactions">Distributed transactions<a class="headerlink" href="#distributed-transactions" title="Permanent link">¶</a></h2>
+<p>Up to this point, we assumed a single database in which ACID transactions can be enforced locally. In practice, however, a single logical transaction can span multiple databases or services.</p>
+<h3 id="cap-theorem-and-consistency">CAP theorem and consistency<a class="headerlink" href="#cap-theorem-and-consistency" title="Permanent link">¶</a></h3>
+<p>When data is globally distributed and replicated, communication failures are inevitable. The <strong>CAP theorem</strong> highlights a core trade-off. Any distributed data store can provide only two of the following three guarantees:</p>
+<ol>
+<li><strong>Consistency:</strong> every read receives the most recent write (or an error).</li>
+<li><strong>Availability:</strong> every request receives a non-error response, without guaranteeing it contains the most recent write.</li>
+<li><strong>Partition tolerance:</strong> the system continues to operate despite messages being dropped or delayed between nodes.</li>
+</ol>
+<p>Because failures are unavoidable at scale, systems often choose between:</p>
+<ul>
+<li><strong>Strong consistency:</strong> replicas synchronize before answering. During partitions the system may delay/stop some operations to avoid divergence.</li>
+<li><strong>Eventual consistency:</strong> the system prioritizes availability and allows replicas to diverge temporarily. They converge within a time window (the “inconsistency window”), depending on load and propagation delays.</li>
+</ul>
+<h3 id="saga-pattern">Saga pattern<a class="headerlink" href="#saga-pattern" title="Permanent link">¶</a></h3>
+<p>For business workflows which are long running (often involving user input or external systems), the traditional mode of committing/rolling back becomes impractical. A common alternative is the <strong>Saga</strong> pattern.</p>
+<p>A saga splits the workflow into a sequence of local transactions, each with a compensating action. If a later step fails, the system runs compensations to semantically undo earlier steps. This trades immediate global atomicity for practicality as the system may be temporarily inconsistent while the saga is in progress, but it can still reach a correct final outcome.</p>
 <h2 id="questions-to-test-your-knowledge">Questions to test your knowledge<a class="headerlink" href="#questions-to-test-your-knowledge" title="Permanent link">¶</a></h2>
 <ul>
-<li>What type of concurrent data access problems do you know?</li>
+<li>What types of concurrent data access problems do you know?</li>
 <li>List the isolation levels. Which problems does each of the levels prohibit?</li>
 <li>What are the basic properties of transactions?</li>
 <li>Decide whether the following statements are true or false:<ul>
@@ -2952,8 +3047,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 8, 2025 15:15:15">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 8, 2025 15:15:15 CET"><span class="timeago" datetime="2025-12-08T15:15:15+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 8, 2025 15:15:15 CET">2025-12-08</span>
+      <span title="January 25, 2026 18:31:52">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 25, 2026 18:31:52 CET"><span class="timeago" datetime="2026-01-25T18:31:52+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 25, 2026 18:31:52 CET">2026-01-25</span>
       </span>
     </span>
 
@@ -2975,6 +3070,8 @@
           <img src="https://avatars.githubusercontent.com/u/128299779?v=4?size=72" alt="@None">
         </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/KenTottszer" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tamas Tottszer">
+          <img src="https://avatars.githubusercontent.com/u/104754192?u=f0fbe3168f68a9e7619e39bf0fdecbbdb4500328&amp;v=4?size=72" alt="@Tamas Tottszer">
         </a><a href="https://github.com/SABERGLOW" target="_blank" rel="noopener noreferrer" class="md-author" title="@Wali Ullah">
           <img src="https://avatars.githubusercontent.com/u/62393901?u=d61be9e827abfb1dc789f0debf66da7d2f735e86&amp;v=4?size=72" alt="@Wali Ullah">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">

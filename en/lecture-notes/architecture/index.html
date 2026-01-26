@@ -2130,7 +2130,7 @@
 <h2 id="what-is-a-data-driven-system">What is a <em>data-driven</em> system?<a class="headerlink" href="#what-is-a-data-driven-system" title="Permanent link">¶</a></h2>
 <p>Every software handles data in some sense since the computer memory stores data, and the software manipulates this data. But not all applications are data-driven. A system or an application is called data-driven if its  <strong>main</strong> purpose is to manage data.</p>
 <div class="admonition example">
-<p>In other words, the data-drive application is created to store, display, and manage data. The end-user uses this application to access the data within.</p>
+<p>In other words, the data-driven application is created to store, display, and manage data. The end-user uses this application to access the data within.</p>
 </div>
 <div class="admonition note">
 <p>A chess game app also stores data in memory: the state of the chessboard. But the chess game app is not created to manipulate this data. The game is designed so that a user can play chess.</p>
@@ -2156,7 +2156,7 @@
 </div>
 <p>This might be a complicated question. Let us begin with a more straightforward question. Supposing that the system already works, and now we want to add the delayed sending feature. How do we do this?</p>
 <p>We could start a timer when the send button is clicked, and this timer, after a minute, sends the email. This will not work if the browser is closed before the countdown is over.</p>
-<p>We could add the scheduled date of sending to the email as data. We can translate this as an architectural decision: delayed sending is not the responsibility of the user interface. We did not decide yet, which part of the application will be responsible, but we already know it must not be the UI.</p>
+<p>We could add the scheduled date of sending to the email as data. We can translate this as an architectural decision: delayed sending is not the responsibility of the user interface. We have not decided yet, which part of the application will be responsible, but we already know it must not be the UI.</p>
 <p>Let us consider a similar question.</p>
 <p>The received date of an email should be displayed to the user according to their preference, i.e., in Europe, 15:23 is the preferred date format, while other parts of the world might prefer 3:23 PM. Does this mean that the email as a data record has multiple received dates? Obviously not. The received date is a single date in a universal representation that is transformed by the UI to the appropriate format.</p>
 <p>To summarize, we established that there are functionalities that the UI is responsible for, and there are other functionalities that the UI has nothing to do with. Now we arrive at the three- or multi-layer architecture.</p>
@@ -2167,7 +2167,7 @@
 <li>the business layer,</li>
 <li>and the data access layer.</li>
 </ul>
-<p>Besides, the  architecture also includes:</p>
+<p>Besides these, the architecture also includes:</p>
 <ul>
 <li>a database or external data sources;</li>
 <li>and the so-called cross-cutting concerns (see later).</li>
@@ -2177,7 +2177,7 @@
 <p class="admonition-title">Why multi-layered when it only has three?</p>
 <p>The multi-layered terminology enables each of the previously listed layers to be further decomposed into sub-layers depending on complexity. In other words, an architecture is multi-layered if it has more than two layers. (In the <em>two-layered</em> architecture, the UI and the business logic are not separated.)</p>
 </div>
-<p>The layers not only have their <strong>responsibilities</strong>, but also define their <strong>interface</strong> provided to the layers on top of them. The data access layer specifies the operations the business layer can use to retrieve data; similarly the business layer defines the functionalities the presentation layer can build upon. Each layer is allowed to <strong>communicate only with the layer directly beneath</strong>. For example, the presentation layer is not allowed to execute a SQL query in the database. At the same time, the <strong>implementation behind the well-defined communication interface can change</strong> enabling easier maintenance of the software codebase.</p>
+<p>The layers not only have their <strong>responsibilities</strong>, but also define their <strong>interface</strong> provided to the layers on top of them. The data access layer specifies the operations the business layer can use to retrieve data; similarly, the business layer defines the functionalities the presentation layer can build upon. Each layer is allowed to <strong>communicate only with the layer directly beneath</strong>. For example, the presentation layer is not allowed to execute a SQL query in the database. At the same time, the <strong>implementation behind the well-defined communication interface can change</strong>, enabling easier maintenance of the software codebase.</p>
 <p>By having the software split into layers, we can also move the layers to multiple servers (e.g., to handle larger loads). The simplest form is when the presentation layer runs in a browser on the user's machine, while the rest is hosted on a remote server. The database is also frequently offloaded to a dedicated server. Running the various layers on separate servers is usually motivated by performance reasons.</p>
 <div class="admonition info">
 <p class="admonition-title">Layer / tier</p>
@@ -2187,9 +2187,9 @@
 <div class="admonition note">
 <p>The layered architecture does not mean that a functionality is present in a single layer. Most features offered to the end-user have some display in the presentation layer, handle data in the business logic layer, and store data in the database.</p>
 </div>
-<p>The codebase of a three-layered architecture also reflects the separation of the layers. Depending on the capabilities and the conventions on the given platform, the layers all have a dedicated project or package. This structure also enforced one-way dependency, as the dependency-graph of projects/packages usually does not allow circles. That is, if the business layer uses the data access layer, the latter one cannot use the former one.</p>
+<p>The codebase of a three-layered architecture also reflects the separation of the layers. Depending on the capabilities and the conventions on the given platform, the layers all have a dedicated project or package. This structure also enforces one-way dependencies, as the dependency-graph of projects/packages usually does not allow cycles.  That is, if the business layer uses the data access layer, the latter one cannot use the former one.</p>
 <div class="admonition tip">
-<p>The three-layered architecture is not the only possibility for implementing a data-driven application. Small and simple applications can be build using the two-layered architecture, while larger and more complex applications usually need further separation (e.g., using the microservices architecture).</p>
+<p>The three-layered architecture is not the only possibility for implementing a data-driven application. Small and simple applications can be built using the two-layered architecture, while larger and more complex applications usually need further separation (e.g., using the microservices architecture).</p>
 </div>
 <h2 id="the-responsibilities-of-the-layers">The responsibilities of the layers<a class="headerlink" href="#the-responsibilities-of-the-layers" title="Permanent link">¶</a></h2>
 <p>Let us examine the layers in more detail. The following diagram represents the architecture.</p>
@@ -2200,8 +2200,8 @@
 </div>
 <p>We will discuss the layers from bottom-to-top.</p>
 <h3 id="data-sources">Data sources<a class="headerlink" href="#data-sources" title="Permanent link">¶</a></h3>
-<p>The most common data source is a <strong>database</strong>. It can be a relational-, or a NoSQL database. Its main purpose is the stable, reliable and persistent storage of data. This database is usually a software from a well-known third-party. This component is often hosted on a dedicated server accessible through a local network.</p>
-<p>Sometimes our application might also work with data outside of our database, hosted by <strong>third-party services</strong>, that we use similarly to databases. For example, you can attach files in Gmail from Google Drive. Gmail, in this example, fetches the list of available files from Google Drive for the user to select the attachment. Google drive is not a database, yet it is used as a data source.</p>
+<p>The most common data source is a <strong>database</strong>. It can be a relational-, or a NoSQL database. Its main purpose is the stable, reliable and persistent storage of data. These databases are usually software from a well-known third-party. This component is often hosted on a dedicated server accessible through a local network.</p>
+<p>Sometimes our application might also work with data outside of our database, hosted by <strong>third-party services</strong>, that we use similarly to databases. For example, you can attach files in Gmail from Google Drive. Gmail, in this example, fetches the list of available files from Google Drive for the user to select the attachment. Google Drive is not a database, yet it is used as a data source.</p>
 <p>These kinds of external services are grouped with our database, in the architectural sense, because they provide data storage and retrieval services, just like a traditional database. We have no information about their internal operations, and there is no need for users to understand it either. Thus, these services are treated similarly in our architecture.</p>
 <div class="admonition note">
 <p>Recently, more and more modern database management systems communicate over HTTP and often offer REST-like interfaces. These trends tend to blur the line between databases and external data sources.</p>
@@ -2213,13 +2213,13 @@
 </div>
 <p>The <em>data access components</em> provide a bridge towards the databases. Their role is to hide the inherent complexity of data management, and provide these as a <strong>convenient service</strong> to the upper layers. This includes working with SQL commands, as well as mapping the scheme of the database to a different scheme, consumed by the business layer.</p>
 <p>When the data is not inside our database, the <em>service agents</em> provide similar services and handle the communication aspects with the external service.</p>
-<p>This entire layer is often built on a particular technology used to communicate with the database, such as ADO.NET, Entity Framework, or JDBC, JPA, etc. The source code in this layer is often tightly coupled with these data access technologies. It is essential to keep these implementations inside this layer and not let it "leak" out of here.</p>
+<p>This entire layer is often built on a particular technology used to communicate with the database, such as ADO.NET, Entity Framework, or JDBC, JPA, etc. The source code in this layer is often tightly coupled with these data access technologies. It is essential to keep these implementations inside this layer and not let it "leak" out. </p>
 <div class="admonition warning">
 <p class="admonition-title">IMPORTANT</p>
 <p>In well-designed systems SQL commands appear only in the data access layer; under no circumstances do other layers assemble or execute SQL queries.</p>
 </div>
-<p>Since the data modeling scheme used in databases (i.e., the relational model) and the object-oriented modeling are based on different concepts, this layer is responsible for providing a <strong>mapping</strong> between the two worlds.  The foreign keys used by the relational scheme are transformed into associations and compositions, and we may even need to perform data conversion between data types supported by the various systems. We will re-visit these issues later.</p>
-<p>Communication with an external system, whether is it is a database or a third-party service, requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore it is the responsibility of the data access layer to <strong>manage these connections</strong> and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.</p>
+<p>Since the data modeling scheme used in databases (i.e., the relational model) and the object-oriented modeling are based on different concepts, this layer is responsible for providing a <strong>mapping</strong> between the two worlds.  The foreign keys used by the relational scheme are transformed into associations and compositions, and we may even need to perform data conversion between data types supported by the various systems. We will revisit these issues later.</p>
+<p>Communication with an external system, whether it is a database or a third-party service requires specific techniques. For example, establishing network connections, performing handshakes, and managing the lifetime of these connections is important for performance reasons. Establishing certain kinds of connections, such as HTTP, are usually simple; but connecting to a database server using proprietary protocols may be more complex. Therefore, it is the responsibility of the data access layer to <strong>manage these connections</strong> and use appropriate techniques, such as connection pooling, when necessary. These details are often automatically controlled by the libraries we use.</p>
 <p>The management of <strong>concurrent data accesses and related problems</strong> is also the responsibility of this layer. We will discuss this in detail later. We should keep in mind that multiple users usually use a three-layered application/system at the same time (just think of the Neptun system or a webshop), thus concurrent <em>modifications</em> can happen. We will discuss how this is handled and what type of issues we have to resolve.</p>
 <h3 id="business-layer">Business Layer<a class="headerlink" href="#business-layer" title="Permanent link">¶</a></h3>
 <p>The business layer is the "heart" of our application. The databases, the data access layer and the presentation layer are created so that the system can provide the services implemented in the business logic layer.</p>
@@ -2254,7 +2254,7 @@
 <p>User input must be validated. Validation covers filling required fields, accepting only valid email addresses, handling expected number ranges, etc.</p>
 <div class="admonition important">
 <p class="admonition-title">Validation</p>
-<p>It is not enough to perform validation only in the user interface. Depending on the technology used, the UI can often be easily bypassed, and the services in the background can be called directly. If this happens and only the UI performs validation, invalid data can get into the system. Therefore the validation is repeated by the business layer too. Regardless, the UI should still perform validation to give instant feedback to the user.</p>
+<p>It is not enough to perform validation only in the user interface. Depending on the technology used, the UI can often be easily bypassed, and the services in the background can be called directly. If this happens and only the UI performs validation, invalid data can get into the system. Therefore, the validation is repeated by the business layer too. Regardless, the UI should still perform validation to give instant feedback to the user.</p>
 </div>
 <p>This layer is not discussed further in this course.</p>
 <h3 id="cross-cutting-services-cross-cutting-concerns">Cross-cutting services / Cross-cutting concerns<a class="headerlink" href="#cross-cutting-services-cross-cutting-concerns" title="Permanent link">¶</a></h3>
@@ -2273,7 +2273,7 @@
 <p>Tracing and auditing make sure that we can check who made specific changes in the system. Its main goal is to keep malicious users from erasing their tracks. Recording the steps and operations of a user may be formed in the business logic layer as well as in the database.</p>
 <h4 id="operation">Operation<a class="headerlink" href="#operation" title="Permanent link">¶</a></h4>
 <p>Keeping operational aspects in mind helps build maintainable software. The operational aspect usually covers error handling, logging, monitoring, and configuration management.</p>
-<p>Centralized error management should catch all types of errors that are raised in an application. These errors need to be recorded (e.g., by logging them), and usually, the end-user needs to be notified (e.g., whether she should retry or wait for something else). Recording all exceptions is vital because errors raised in the lower layers of the application are not "seen" by anyone (but the end-user probably) unless these are adequately treated and recorded.</p>
+<p>Centralized error management should catch all types of errors that are raised in an application. These errors need to be recorded (e.g., by logging them), and usually, the end-user needs to be notified (e.g., whether they should retry or wait for something else). Recording all exceptions is vital because errors raised in the lower layers of the application are not "seen" by anyone (but the end-user probably) unless these are adequately treated and recorded.</p>
 <p>Logging and monitoring help both diagnostics and seeing whether a system behaves as intended. Logging is usually performed by writing a text log file. Monitoring, on the other hand, records so-called KPIs, key performance indicators. For example, KPIs are the memory usage, the number of errors, the number of pending requests, etc.</p>
 <p>And finally, configuration management is about the control of the system configuration. Such configuration is, for example, server addresses (e.g., the database IP). Or we may also want to configure and change the background color of our UI centrally. The standard approach regarding configuration is to not hard-code them but instead offer re-configuration without re-compiling the application when the operational circumstances change. This might involve configuration files or more complicated configuration management tools.</p>
 <p>We will not deal with these operational aspects in more detail. Often the chosen platform offers solutions to these problems.</p>
@@ -2282,7 +2282,7 @@
 <p>Today, most systems use network communication: most commonly to reach the database and other data sources, and frequently between the presentation layer and the service interfaces. Nowadays, most communication is HTTP-based, however when performance is a concern, TPC-based binary communication methods provide better alternatives. And in more complex systems where the layers themselves are distributed across servers too, messages queues are often used.</p>
 <p>Encryption is also a factor in communication. Communication over public networks must be encrypted. In case of the communication between the UI and the service interface, this typically means HTTPS/TLS.</p>
 <h2 id="backend-and-frontend">Backend and frontend<a class="headerlink" href="#backend-and-frontend" title="Permanent link">¶</a></h2>
-<p>When we are talking about data-driven systems we often speak about <strong>backend</strong> and <strong>frontend</strong>. The frontend is mostly the user interface, that is, the presentation layer (a web application hosted in a browser, a native mobile app, a thick-client desktop app, etc). This is what the user interacts with. The backend is the service that provides the data to the UI: the APIs, the business layer, the data access, and the databases.</p>
+<p>When we are talking about data-driven systems we often speak about <strong>backend</strong> and <strong>frontend</strong>. The frontend is mostly the user interface, that is, the presentation layer (a web application hosted in a browser, a native mobile app, a thick-client desktop app, etc). This is what the user interacts with. The backend is the service that provides the data to the UI: the APIs, the business layer, the data access layer, and the databases.</p>
 <p>Depending on the chosen frontend technology, parts of the user interface might be created by the backend, though. This is called <em>server-side rendering</em>.</p>
 <p>In this course, we will talk about backend technologies.</p>
 <hr>
@@ -2308,8 +2308,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 17, 2025 17:01:31">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2025 17:01:31 CET"><span class="timeago" datetime="2025-12-17T17:01:31+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2025 17:01:31 CET">2025-12-17</span>
+      <span title="January 25, 2026 16:02:37">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 25, 2026 16:02:37 CET"><span class="timeago" datetime="2026-01-25T16:02:37+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 25, 2026 16:02:37 CET">2026-01-25</span>
       </span>
     </span>
 
@@ -2327,6 +2327,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/almat-n" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/128299779?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/KenTottszer" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tamas Tottszer">
+          <img src="https://avatars.githubusercontent.com/u/104754192?u=f0fbe3168f68a9e7619e39bf0fdecbbdb4500328&amp;v=4?size=72" alt="@Tamas Tottszer">
         </a><a href="https://github.com/kergongyi" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gygongyi">
           <img src="https://avatars.githubusercontent.com/u/81021745?u=7a8fbd19d88d8282a8cad7eb069f1274a203e160&amp;v=4?size=72" alt="@Gygongyi">
         </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">

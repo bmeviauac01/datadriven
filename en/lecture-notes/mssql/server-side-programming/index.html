@@ -887,6 +887,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Built-in functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identity-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IDENTITY values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1954,6 +1971,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Built-in functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identity-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IDENTITY values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2248,6 +2282,14 @@
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">name</span>
 <span class="c1">-- aaa</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">String types and storage</p>
+<p>There are two main families of string data types in SQL Server. The key difference is how many bytes each character uses:
+- <code>VARCHAR(n)</code>: non-Unicode text (typically 1 byte/character), <code>n</code> up to 8000
+- <code>NVARCHAR(n)</code>: Unicode text (2 bytes/character), <code>n</code> up to 4000
+If you need longer text, use <code>VARCHAR(MAX)</code> / <code>NVARCHAR(MAX)</code>, which can store very large strings (up to about 2 GB in bytes).
+Keep in mind you should use <code>n</code> for normal fields to be validated, searched, or indexed. Use <code>MAX</code> for large text blobs which are to be displayed/stored, not heavily filtered/sorted by.</p>
+</div>
 <h3 id="instruction-blocks-and-control-structures">Instruction blocks and control structures<a class="headerlink" href="#instruction-blocks-and-control-structures" title="Permanent link">¶</a></h3>
 <p>An instruction block is written between <code>BEGIN-END</code> commands:</p>
 <div class="highlight"><pre><span></span><code><span class="k">BEGIN</span>
@@ -2349,6 +2391,19 @@
 <div class="admonition important">
 <p>Not to be confused with the <code>IS NULL</code> condition, e.g., <code>UPDATE Product SET Price = 111 WHERE Price IS NULL</code></p>
 </div>
+<h4 id="identity-values">IDENTITY values<a class="headerlink" href="#identity-values" title="Permanent link">¶</a></h4>
+<p>When inserting into a table that has an <code>IDENTITY</code> primary key, there are multiple ways to read back the last identity value.</p>
+<p></p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Status</span><span class="p">(</span>
+<span class="w">  </span><span class="n">ID</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">IDENTITY</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="n">nvarchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'Ready'</span><span class="p">)</span>
+</code></pre></div>
+After the insert, one can query the generated identity in three different ways, with different “scope/session/table” meanings:
+- <code>IDENT_CURRENT('Status')</code> - any session, any scope, specific table
+- <code>@@IDENTITY</code>  - current session, any scope, any table
+- <code>SCOPE_IDENTITY()</code> - current session, current scope, any table<p></p>
 <h2 id="cursors">Cursors<a class="headerlink" href="#cursors" title="Permanent link">¶</a></h2>
 <p>A cursor is an iterator used to scroll through a set of records item by item. We use it when a query returns multiple items, and we want to process them individually.</p>
 <p>Using a cursor consists of the following steps:</p>
@@ -2771,8 +2826,8 @@
           </path>
         </svg>
       </span>
-      <span title="December 16, 2025 14:41:58">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 16, 2025 14:41:58 CET"><span class="timeago" datetime="2025-12-16T14:41:58+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 16, 2025 14:41:58 CET">2025-12-16</span>
+      <span title="January 25, 2026 16:53:47">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 25, 2026 16:53:47 CET"><span class="timeago" datetime="2026-01-25T16:53:47+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 25, 2026 16:53:47 CET">2026-01-25</span>
       </span>
     </span>
 
@@ -2790,6 +2845,8 @@
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/Copilot" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/in/1143301?v=4?size=72" alt="@None">
+        </a><a href="https://github.com/KenTottszer" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tamas Tottszer">
+          <img src="https://avatars.githubusercontent.com/u/104754192?u=f0fbe3168f68a9e7619e39bf0fdecbbdb4500328&amp;v=4?size=72" alt="@Tamas Tottszer">
         </a><a href="https://github.com/MYRhouma" target="_blank" rel="noopener noreferrer" class="md-author" title="@Yassine Rhouma">
           <img src="https://avatars.githubusercontent.com/u/57076197?u=4217392fd498c60d79dd4e79fbfd7914d11fb114&amp;v=4?size=72" alt="@Yassine Rhouma">
         </a><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@Tibor Tóth">
