@@ -88,7 +88,7 @@ At the end, give me an overall evaluation.
 
 ### SQL Queries
 
-The following exercises relate to the `lecture-notes/mssql/sql.md` and `lecture-notes/transactions/index.md` topics, as well as the MSSQL seminar material.
+The following exercises relate to the `SQL` and `Transaction` topics, as well as the MSSQL seminar material.
 
 ??? example "Exercise 1 – Filtering and sorting"
     **Task:** List the name and price of all products whose price is between 1000 and 5000, and that have a description. Order the results by price in descending order.
@@ -156,7 +156,7 @@ The following exercises relate to the `lecture-notes/mssql/sql.md` and `lecture-
 
 ### LINQ Queries
 
-The following exercises relate to the `lecture-notes/linq/index.md` material.
+The following exercises relate to the `Linq` material.
 
 ??? example "Exercise 1 – Filtering and projection"
     **Task:** Using LINQ, retrieve the name and price of all products whose price is less than 2000.
@@ -202,7 +202,7 @@ The following exercises relate to the `lecture-notes/linq/index.md` material.
 
 ### Entity Framework Core
 
-The following exercises relate to the `lecture-notes/ef/index.md` material and the EF seminar.
+The following exercises relate to the `Entity Framework` material and the EF seminar.
 
 ??? example "Exercise 1 – Query with navigation property"
     **Task:** Using EF Core, retrieve the list of orders (including the customer name) whose status is "Delivered".
@@ -250,7 +250,7 @@ The following exercises relate to the `lecture-notes/ef/index.md` material and t
 
 ### MongoDB Operations
 
-The following exercises relate to the `lecture-notes/mongodb/index.md` material and the MongoDB seminar. Both MongoDB Shell and .NET Driver syntax are shown.
+The following exercises relate to the `MongoDB` material and the MongoDB seminar. Both MongoDB Shell and .NET Driver syntax are shown.
 
 ??? example "Exercise 1 – Filtering"
     **Task:** Retrieve all products whose price is greater than 1000 and whose category name is "Books".
@@ -305,7 +305,7 @@ The following exercises relate to the `lecture-notes/mongodb/index.md` material 
 
 ### Transaction Management
 
-The following exercises relate to the `lecture-notes/transactions/index.md` material.
+The following exercises relate to the `Transactions` material.
 
 ??? example "Exercise 1 – Isolation level comparison"
     **Task:** What is the difference between the `READ COMMITTED` and `REPEATABLE READ` isolation levels? When should each be used?
@@ -387,13 +387,8 @@ Ask me 3 questions in a row!
 
 ## Tips for Effective Exam Preparation
 
-!!! tip "Daily routine"
-    1. **Short, repeated sessions**: 30 minutes a day beats a single all-nighter.
-    2. **Run the code**: try every exercise in your own environment – MSSQL exercises in SQL Server Management Studio, .NET exercises in Visual Studio, MongoDB exercises in Compass or the shell.
-    3. **Debug with AI**: if code is broken, paste it into an AI chat together with the error message – you will get an explanation in seconds.
-    4. **Explain it out loud**: the "explain it to me" technique is very effective – ask the AI to explain a topic simply, then try to repeat it back in your own words.
-
 !!! tip "On exam day"
     - Read the question twice before writing anything.
     - Aim for simple solutions – readable and correct code beats clever tricks.
+    - Make a sketch and optimize it before writting it to the exam paper.
     - When unsure about a SQL query, work through the mental model: `FROM` → `WHERE` → `GROUP BY` → `HAVING` → `SELECT`.

@@ -88,7 +88,7 @@ A végén adj összesített értékelést.
 
 ### SQL lekérdezések
 
-Az alábbi feladatok a `lecture-notes/mssql/sql.md` és az `lecture-notes/transactions/index.md` témakörökhöz, valamint a tranzakciókezeléses és MSSQL gyakorlatokhoz kapcsolódnak.
+Az alábbi feladatok a `SQL` és az `Transactions` témakörökhöz, valamint a tranzakciókezeléses és MSSQL gyakorlatokhoz kapcsolódnak.
 
 ??? example "1. feladat – Szűrés, rendezés"
     **Feladat:** Listázd ki azon termékek nevét és árát, amelyek ára 1000 és 5000 Ft közé esik, és van leírásuk! Az eredményt ár szerint csökkenő sorrendben jelenítsd meg!
@@ -156,7 +156,7 @@ Az alábbi feladatok a `lecture-notes/mssql/sql.md` és az `lecture-notes/transa
 
 ### LINQ lekérdezések
 
-Az alábbi feladatok a `lecture-notes/linq/index.md` anyagához kapcsolódnak.
+Az alábbi feladatok a `LINQ` anyagához kapcsolódnak.
 
 ??? example "1. feladat – Szűrés és vetítés"
     **Feladat:** LINQ segítségével kérd le azon termékek nevét és árát, amelyek ára kevesebb, mint 2000 Ft!
@@ -202,7 +202,7 @@ Az alábbi feladatok a `lecture-notes/linq/index.md` anyagához kapcsolódnak.
 
 ### Entity Framework Core
 
-Az alábbi feladatok a `lecture-notes/ef/index.md` és az EF-gyakorlat anyagához kapcsolódnak.
+Az alábbi feladatok a `Entity Framework` és az EF-gyakorlat anyagához kapcsolódnak.
 
 ??? example "1. feladat – Lekérdezés navigation property-vel"
     **Feladat:** EF Core segítségével kérd le azon megrendelések listáját (beleértve a megrendelő nevét), amelyek státusza „Delivered"!
@@ -250,7 +250,7 @@ Az alábbi feladatok a `lecture-notes/ef/index.md` és az EF-gyakorlat anyagáho
 
 ### MongoDB műveletek
 
-Az alábbi feladatok a `lecture-notes/mongodb/index.md` és a MongoDB-gyakorlat anyagához kapcsolódnak. A minták a MongoDB .NET Driver-t és a MongoDB Shell szintaktikát egyaránt megmutatják.
+Az alábbi feladatok a `MongoDB` és a MongoDB-gyakorlat anyagához kapcsolódnak. A minták a MongoDB .NET Driver-t és a MongoDB Shell szintaktikát egyaránt megmutatják.
 
 ??? example "1. feladat – Szűrés"
     **Feladat:** Kérd le azon termékeket, amelyek ára nagyobb, mint 1000, és kategóriájuk neve „Könyvek"!
@@ -305,7 +305,7 @@ Az alábbi feladatok a `lecture-notes/mongodb/index.md` és a MongoDB-gyakorlat 
 
 ### Tranzakciókezelés
 
-Az alábbi feladatok a `lecture-notes/transactions/index.md` anyagához kapcsolódnak.
+Az alábbi feladatok a `Transactions` anyagához kapcsolódnak.
 
 ??? example "1. feladat – Izolációs szint megértése"
     **Feladat:** Mi a különbség a `READ COMMITTED` és a `REPEATABLE READ` izolációs szint között? Mikor melyiket érdemes használni?
@@ -338,7 +338,7 @@ Az alábbi promptokat főleg önálló tanuláskor, szóbeli kérdések szimulá
 ### SQL és MSSQL
 
 ```
-Kérdezz ki engem szóban az alábbi MSSQL témákból:
+Kérdezz ki engem az alábbi MSSQL témákból:
 - JOIN típusok (INNER, LEFT, RIGHT, FULL OUTER)
 - GROUP BY + HAVING különbsége WHERE-rel
 - Tárolt eljárások és triggerek
@@ -350,7 +350,7 @@ Tegyél fel egymás után 3 kérdést, és minden válaszom után értékeld azt
 ### Entity Framework
 
 ```
-Kérdezz ki az Entity Framework Core következő témáiból szóban:
+Kérdezz ki az Entity Framework Core következő témáiból:
 - Code-First megközelítés és migrációk
 - Navigation property-k és Include() szerepe
 - Change tracker és SaveChanges() működése
@@ -362,7 +362,7 @@ Tegyél fel egymás után 3 kérdést!
 ### MongoDB
 
 ```
-Kérdezz ki a MongoDB következő témáiból szóban:
+Kérdezz ki a MongoDB következő témáiból:
 - Dokumentum- vs. relációs adatmodell különbségei
 - Beágyazás vs. referencia – mikor melyiket?
 - Aggregációs pipeline főbb stage-jei ($match, $group, $sort, $lookup)
@@ -374,7 +374,7 @@ Tegyél fel egymás után 3 kérdést!
 ### Tranzakciókezelés
 
 ```
-Kérdezz ki a tranzakciókezelés következő témáiból szóban:
+Kérdezz ki a tranzakciókezelés következő témáiból:
 - ACID tulajdonságok magyarázata
 - Izolációs szintek és a köztük lévő anomáliák (dirty read, non-repeatable read, phantom read)
 - Holtpontok és megelőzésük
@@ -387,13 +387,8 @@ Tegyél fel egymás után 3 kérdést!
 
 ## Tippek a hatékony felkészüléshez
 
-!!! tip "Napi rutinhoz"
-    1. **Rövid, ismétlő munkamenetek**: inkább napi 30 perc, mint egyetlen maratoni éjszaka.
-    2. **Futtasd le a kódot**: minden feladatot próbálj ki a saját gépen – az MSSQL-eseket SQL Server Management Studio-ban, a .NET-eseket Visual Studio-ban, a MongoDB-seket Compass-ban vagy shell-ben.
-    3. **Hibakeresés AI-jal**: ha hibás a kód, másold be az AI-ba a hibaüzenettel együtt – pár másodperc alatt magyarázatot kapsz.
-    4. **Magyarázd el hangosan**: az "explain it to me" technika nagyon hatékony – kérd az AI-t, hogy magyarázza el a témát egyszerűen, majd te is próbáld meg visszamondani.
-
 !!! tip "Vizsganapon"
     - Olvasd végig a feladatot kétszer, mielőtt jelölnél bármit.
     - Egyszerűbb megoldásokat keress – vizsgán a bonyolult trükk helyett az olvasható és helyes kód a cél.
+    - Ha sszükséges, készíts előszőr vázlatot és a végső optimalizált megoldást vidd fel a feladatlapra.
     - Ha SQL-feladatban bizonytalan vagy, gondold végig a `FROM` → `WHERE` → `GROUP BY` → `HAVING` → `SELECT` sorrend modellt.
