@@ -1,0 +1,3061 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="István Albert, Tibor Tóth">
+      
+      
+        <link rel="canonical" href="https://bmeviauac01.github.io/datadriven/en/lecture-notes/exam-preparation/">
+      
+      
+        <link rel="prev" href="../async/">
+      
+      
+        <link rel="next" href="../../seminar/transactions/">
+      
+      
+        
+          <link rel="alternate" href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en">
+        
+          <link rel="alternate" href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Exam Preparation and AI-Assisted Practice - BMEVIAUAC01 Data-driven systems</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#exam-preparation-and-ai-assisted-practice" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BMEVIAUAC01 Data-driven systems" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Data-driven systems" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUAC01 Data-driven systems
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Exam Preparation and AI-Assisted Practice
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red" aria-label="Váltás sötét témára" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo" aria-label="Váltás világos témára" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu" class="md-select__link">
+              Magyar
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bmeviauac01/datadriven" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data-driven systems
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../db/" class="md-tabs__link">
+          
+  
+  
+  Database
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+  Lecture notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../seminar/transactions/" class="md-tabs__link">
+          
+  
+  
+  Seminars
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../homework/" class="md-tabs__link">
+          
+  
+  
+  Homework
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Data-driven systems" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Data-driven systems" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Data-driven systems
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bmeviauac01/datadriven" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-driven systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Database
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample database scheme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Microsoft SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample database: mssql.sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample database: mongo.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lecture notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data-driven systems and the three- or multi-tier architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions in databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL language, MSSQL platform-specific SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/server-side-programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft SQL Server programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adonet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADO.NET data access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LINQ: Language Integrated Query
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Defining relationships in Entity Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB basics, operations, and the MongoDB .NET Driver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_Cheat_Sheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Syntax Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../di/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency Injection ASP.NET Core environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous queries and DTOs (sample WebAPI application)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Preparation and AI-Assisted Practice
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Preparation and AI-Assisted Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-ai-for-exam-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use AI for Exam Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use AI for Exam Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-ai-prompts-template-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful AI prompts – template collection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful AI prompts – template collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-generation-general-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise generation – general template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targeted-practice-for-weak-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targeted practice for weak topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-exercises-by-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Exercises by Topic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sample Exercises by Topic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linq-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LINQ Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework Core
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-test-questions-ai-prompts-by-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Test Questions – AI Prompts by Topic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Test Questions – AI Prompts by Topic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-and-mssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL and MSSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-management_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-effective-exam-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips for Effective Exam Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST and WebAPI sample app (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ASP.NET Core DI sample app (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample three-tier webapp (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminars
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Seminars
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft SQL Server programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entity Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/jpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JPA &amp; Spring Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API &amp; ASP.NET Web API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. MSSQL server-side programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Entity Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. REST API with Web API Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Submitting your work (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/GitHub-Actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using GitHub Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/VisualStudio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Visual Studio &amp; .NET SDK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-ai-for-exam-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use AI for Exam Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use AI for Exam Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-ai-prompts-template-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful AI prompts – template collection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful AI prompts – template collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-generation-general-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise generation – general template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targeted-practice-for-weak-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targeted practice for weak topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-exercises-by-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Exercises by Topic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sample Exercises by Topic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linq-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LINQ Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework Core
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-test-questions-ai-prompts-by-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Test Questions – AI Prompts by Topic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Test Questions – AI Prompts by Topic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-and-mssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL and MSSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-management_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-effective-exam-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips for Effective Exam Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/bmeviauac01/datadriven/blob/master/docs/hu/lecture-notes/exam-preparation/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="exam-preparation-and-ai-assisted-practice">Exam Preparation and AI-Assisted Practice<a class="headerlink" href="#exam-preparation-and-ai-assisted-practice" title="Permanent link">¶</a></h1>
+<p>General rules and guidelines for using AI in the university context: <a href="https://vik.bme.hu/hallgatoknak/altalanos/mi-hasznalat-ajanlasok">https://vik.bme.hu/hallgatoknak/altalanos/mi-hasznalat-ajanlasok</a></p>
+<p>This page contains helper materials, sample exercises, and AI-based study strategies for the Data-driven Systems course exam. All examples can be run against the <a href="../../db/">sample database</a>; the main tables are summarised below.</p>
+<div class="admonition info">
+<p class="admonition-title">Sample database – main tables</p>
+<ul>
+<li><strong>Product</strong> (ID, Name, Price, Stock, VATID, CategoryID, Description)</li>
+<li><strong>Category</strong> (ID, Name, ParentCategoryID)</li>
+<li><strong>VAT</strong> (ID, Percentage)</li>
+<li><strong>Customer</strong> (ID, Name, Login, Password, Email, MainCustomerSiteID)</li>
+<li><strong>CustomerSite</strong> (ID, CustomerID, ZipCode, City, Street, Tel, Fax)</li>
+<li><strong>Order</strong> (ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)</li>
+<li><strong>OrderItem</strong> (ID, OrderID, ProductID, Amount, Price)</li>
+<li><strong>Status</strong> (ID, Name)</li>
+<li><strong>PaymentMethod</strong> (ID, Method, Deadline)</li>
+</ul>
+</div>
+<hr>
+<h2 id="how-to-use-ai-for-exam-preparation">How to Use AI for Exam Preparation<a class="headerlink" href="#how-to-use-ai-for-exam-preparation" title="Permanent link">¶</a></h2>
+<p>Large language models (ChatGPT, GitHub Copilot, Gemini, etc.) are excellent tools for <strong>generating exam-style exercises</strong> and getting <strong>instant feedback</strong> on your solutions. The following workflow is proven to be effective.</p>
+<h3 id="general-workflow">General workflow<a class="headerlink" href="#general-workflow" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>1.  Give the AI context (schema, technology, difficulty level).
+2.  Ask it for an exercise.
+3.  Solve the exercise ON YOUR OWN – do not look at the solution yet!
+4.  Ask the AI to evaluate your solution.
+5.  Ask it to show a better/alternative solution and explain it.
+6.  Repeat steps 2–5 for other topics.
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Important</p>
+<p>AI can sometimes generate incorrect code. Always run the output in your own environment, and if the result looks suspicious, question it!</p>
+</div>
+<h3 id="useful-ai-prompts-template-collection">Useful AI prompts – template collection<a class="headerlink" href="#useful-ai-prompts-template-collection" title="Permanent link">¶</a></h3>
+<p>Copy the prompts below into an AI chat (e.g. ChatGPT, Copilot). Replace the parts in <code>[ ]</code> with your own values.</p>
+<hr>
+<h4 id="exercise-generation-general-template">Exercise generation – general template<a class="headerlink" href="#exercise-generation-general-template" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>You are a database course examiner at BME (Budapest University of Technology).
+The database schema is:
+  Product(ID, Name, Price, Stock, VATID, CategoryID)
+  Category(ID, Name, ParentCategoryID)
+  VAT(ID, Percentage)
+  Customer(ID, Name, Login, Password, Email, MainCustomerSiteID)
+  CustomerSite(ID, CustomerID, ZipCode, City, Street)
+  Order(ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+  OrderItem(ID, OrderID, ProductID, Amount, Price)
+  Status(ID, Name)
+  PaymentMethod(ID, Method, Deadline)
+
+Give me a [DIFFICULTY: easy/medium/hard] [TOPIC] exercise.
+Do not provide the solution yet – only the problem statement!
+</code></pre></div>
+<hr>
+<h4 id="targeted-practice-for-weak-topics">Targeted practice for weak topics<a class="headerlink" href="#targeted-practice-for-weak-topics" title="Permanent link">¶</a></h4>
+<p>If you know which constructs you struggle with, <strong>tell the AI explicitly</strong> so it keeps drilling you on exactly those. This is much more effective than generic practice.</p>
+<div class="highlight"><pre><span></span><code>I am weak at [e.g. HAVING and GROUP BY, correlated subqueries, window
+functions, LEFT OUTER JOIN, EF Include, MongoDB aggregation pipeline].
+
+Give me 5 exercises, one at a time, that specifically require these
+constructs. Start easy and increase the difficulty after each correct
+answer. Do not provide the solution until I have answered.
+After each of my answers, tell me whether I used the targeted construct
+correctly, and if not, explain what I missed.
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Diagnose your weak spots first</p>
+<p>Not sure where you are weak? Ask the AI to find out: <em>"Give me a short mixed diagnostic quiz (one question per topic: joins, grouping/HAVING, subqueries, window functions, transactions). Based on my answers, tell me which topics I should practice more."</em> Then feed those topics back into the prompt above.</p>
+</div>
+<hr>
+<h4 id="solution-evaluation">Solution evaluation<a class="headerlink" href="#solution-evaluation" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>Evaluate my [SQL/C# LINQ/EF/MongoDB] solution to the previous exercise.
+Point out any mistakes and explain why. If it is correct, show an alternative solution.
+
+My solution:
+[PASTE YOUR SOLUTION HERE]
+</code></pre></div>
+<hr>
+<h4 id="exam-simulation">Exam simulation<a class="headerlink" href="#exam-simulation" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>Simulate an exam for the Data-driven Systems course!
+Ask me 5 exercises one at a time from the following topics:
+[e.g. SQL queries, transaction management, Entity Framework, MongoDB]
+Wait for my answer after each exercise before moving to the next.
+At the end, give me an overall evaluation.
+</code></pre></div>
+<hr>
+<h2 id="sample-exercises-by-topic">Sample Exercises by Topic<a class="headerlink" href="#sample-exercises-by-topic" title="Permanent link">¶</a></h2>
+<h3 id="sql-queries">SQL Queries<a class="headerlink" href="#sql-queries" title="Permanent link">¶</a></h3>
+<p>The following exercises relate to the <code>SQL</code>, <code>MSSQL server-side programming</code> and <code>Transaction</code> topics, as well as the MSSQL seminar material. They are intentionally harder and span the full range of the lecture notes (window functions, CTEs, correlated subqueries, conditional aggregation, XML/XQuery, server-side programming, triggers and cursors).</p>
+<details class="example">
+<summary>Exercise 1 – Window functions and per-group ranking</summary>
+<p><strong>Task:</strong> For every category, return the <strong>two most expensive products</strong> (category name, product name, price). If several products share the same price, all of the tied products must be included. Also show the product's rank within its category.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Use <code>DENSE_RANK()</code> so ties share a rank and the "top 2" is not cut off arbitrarily.</p>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">Ranked</span><span class="w"> </span><span class="k">AS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span>
+<span class="w">           </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rnk</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">         </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">rnk</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Ranked</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rnk</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 2 – CTE and paging</summary>
+<p><strong>Task:</strong> List products ordered alphabetically by name, returning <strong>only the second page of 10 rows</strong> (rows 11–20). Output the row position as well. Provide both a CTE-based and an <code>OFFSET/FETCH</code> solution.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">-- CTE + ROW_NUMBER</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="k">AS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">rn</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">20</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">rn</span>
+
+<span class="c1">-- MSSQL 2012+ paging syntax</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">OFFSET</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="k">ONLY</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 3 – Correlated subquery / anti-join</summary>
+<p><strong>Task:</strong> List the names of all customers who have <strong>never placed an order</strong>. Show a <code>NOT EXISTS</code> solution and explain why a <code>LEFT JOIN ... IS NULL</code> solution is equivalent.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Equivalent anti-join:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 4 – Multi-table aggregation with HAVING</summary>
+<p><strong>Task:</strong> Find the customers whose <strong>total amount spent</strong> (sum of <code>OrderItem.Amount * OrderItem.Price</code> across all their orders) exceeds 100000. Show the customer name and the total, in descending order of the total.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalSpent</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w">      </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w">   </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">TotalSpent</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 5 – Conditional aggregation (pivot-style)</summary>
+<p><strong>Task:</strong> Produce <strong>one row per category</strong> showing the category name, how many of its products are in stock (<code>Stock &gt; 0</code>) and how many are out of stock (<code>Stock = 0</code>).</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">InStock</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">OutOfStock</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 6 – Querying XML with XQuery</summary>
+<p><strong>Task:</strong> The <code>Description</code> column of <code>Product</code> stores XML. List the name of every product whose description specifies <strong>more than one package</strong> (<code>/product/package_parameters/number_of_packages</code>).</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+<p>An <code>exist()</code>-based alternative for "recommended for ages 0-18 months":</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 7 – Correlated UPDATE (MSSQL <code>UPDATE ... FROM</code>)</summary>
+<p><strong>Task:</strong> For every order item whose recorded price is <strong>lower</strong> than the product's current price, overwrite the recorded price with the product's current price.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">oi</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 8 – Stored procedure with transaction and error handling</summary>
+<p><strong>Task:</strong> Write a stored procedure <code>RecordSale @OrderID, @ProductID, @Amount</code> that, <strong>inside a single transaction</strong>, checks whether there is enough stock; if so it inserts an <code>OrderItem</code> (taking the price from <code>Product</code>) and decreases the product's stock; otherwise it raises an error and makes no change. Use an isolation level that prevents another transaction from changing the stock between the check and the update.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">RecordSale</span>
+<span class="w">    </span><span class="o">@</span><span class="n">OrderID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">@</span><span class="n">Amount</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
+<span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Price</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51001</span><span class="p">,</span><span class="w"> </span><span class="s1">'No such product'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51002</span><span class="p">,</span><span class="w"> </span><span class="s1">'Not enough stock'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
+<span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">COMMIT</span><span class="p">;</span>
+<span class="k">END</span>
+</code></pre></div>
+<p><code>REPEATABLE READ</code> guarantees the row read in the stock check cannot be modified by another transaction before the <code>UPDATE</code> completes, preventing a lost update / overselling.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 9 – DML trigger</summary>
+<p><strong>Task:</strong> Create an <code>AFTER INSERT</code> trigger on <code>OrderItem</code> that automatically decreases the corresponding product's stock by the inserted amount. Make sure it works correctly even when several rows are inserted at once.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>A trigger fires <strong>once per statement</strong>, and <code>inserted</code> may contain multiple rows, so aggregate it – do not assume a single row.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">OrderItemDecreaseStock</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">    </span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">p</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">TotalAmount</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">         </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalAmount</span>
+<span class="w">                     </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span>
+<span class="w">                     </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ProductID</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">END</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 10 – Cursor</summary>
+<p><strong>Task:</strong> Using a cursor, iterate over products with <code>Stock &lt; 5</code>. For each such product: if it has <strong>never</strong> been ordered, delete it; otherwise raise its price by 10%.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
+
+<span class="k">DECLARE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">CURSOR</span><span class="w"> </span><span class="k">FOR</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="k">OPEN</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+<span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="n">WHILE</span><span class="w"> </span><span class="o">@@</span><span class="n">FETCH_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="w">    </span><span class="k">ELSE</span>
+<span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="k">END</span>
+<span class="k">CLOSE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+<span class="k">DEALLOCATE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+</code></pre></div>
+<p>Note: this is a teaching example for cursors; in practice a set-based <code>DELETE</code> + <code>UPDATE</code> pair would be faster.</p>
+</details>
+</details>
+<hr>
+<h3 id="linq-queries">LINQ Queries<a class="headerlink" href="#linq-queries" title="Permanent link">¶</a></h3>
+<p>The following exercises relate to the <code>Linq</code> material. Assume in-memory lists such as <code>List&lt;Product&gt; products</code>, <code>List&lt;VAT&gt; vat</code>, <code>List&lt;Category&gt; categories</code>, <code>List&lt;OrderItem&gt; orderItems</code> are available (matching the schema fields).</p>
+<details class="example">
+<summary>Exercise 1 – Grouping with aggregation and HAVING-style filtering</summary>
+<p><strong>Task:</strong> Group products by <code>VATID</code>. For each group return the VAT id, the product count and the average price, but <strong>only for groups with at least 3 products</strong>, ordered by average price descending.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// Fluent syntax</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">VatID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span><span class="w"> </span><span class="n">AvgPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">OrderByDescending</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">AvgPrice</span><span class="p">);</span>
+
+<span class="c1">// Query syntax</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="k">group</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">g</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="k">orderby</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">descending</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">VatID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span><span class="w"> </span><span class="n">AvgPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 2 – Group join (left outer join in LINQ)</summary>
+<p><strong>Task:</strong> For every VAT category list the percentage and the <strong>number of products</strong> that use it, including VAT categories that have no products at all.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>A <code>join ... into</code> (group join) followed by <code>DefaultIfEmpty</code> realises a left outer join.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vat</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">equals</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">grp</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grp</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Fluent equivalent</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vat</span><span class="p">.</span><span class="n">GroupJoin</span><span class="p">(</span>
+<span class="w">    </span><span class="n">products</span><span class="p">,</span>
+<span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="p">,</span>
+<span class="w">    </span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grp</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 3 – Set operations</summary>
+<p><strong>Task:</strong> Produce the names of products that are <strong>either</strong> cheaper than 1000 <strong>or</strong> more expensive than 100000, with no duplicates, using a set operation.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">cheap</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">expensive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cheap</span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">expensive</span><span class="p">);</span><span class="w"> </span><span class="c1">// Union removes duplicates</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 4 – Correlated sub-select in a projection</summary>
+<p><strong>Task:</strong> For each product output its name and the <strong>total ordered amount</strong> (sum of <code>OrderItem.Amount</code> for that product), including products that were never ordered (total 0).</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TotalOrdered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderItems</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+<span class="w">                             </span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 5 – Deferred execution (conceptual)</summary>
+<p><strong>Task:</strong> What does the following code print, and why? When is the query actually executed?</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+<span class="n">products</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Cheap"</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">});</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">Count</span><span class="p">());</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<p>It prints the count <strong>including</strong> the newly added "Cheap" product. <code>Where</code> returns an <code>IEnumerable&lt;T&gt;</code> descriptor and uses <strong>deferred execution</strong> – nothing is evaluated when <code>q</code> is declared. The query is only executed when it is enumerated, here by <code>Count()</code>, by which time the new item is already in the list. To "freeze" the result you would call <code>.ToList()</code> immediately after the <code>Where</code>.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 6 – Projection into a named type with a computed field</summary>
+<p><strong>Task:</strong> Join <code>products</code> and <code>vat</code> and project into a class <code>PriceInfo(string Name, int GrossPrice)</code> where the gross price is <code>Price * (1 + Percentage/100)</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vat</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">equals</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">PriceInfo</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div>
+</details>
+</details>
+<hr>
+<h3 id="entity-framework-core">Entity Framework Core<a class="headerlink" href="#entity-framework-core" title="Permanent link">¶</a></h3>
+<p>The following exercises relate to the <code>Entity Framework</code> material and the EF seminar. Assume a configured <code>AdatvezDbContext</code> with <code>Products</code>, <code>Orders</code>, <code>OrderItems</code>, <code>Categories</code>, <code>Customers</code>, <code>VATs</code> <code>DbSet</code>s and the navigation properties from the lecture notes.</p>
+<details class="example">
+<summary>Exercise 1 – Eager loading across several levels</summary>
+<p><strong>Task:</strong> Using EF Core, list each "Delivered" order showing the <strong>customer name</strong> and the <strong>total value of the order</strong> (sum of <code>OrderItem.Amount * OrderItem.Price</code>). Load only what you need.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">();</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Orders</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Delivered"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Customer</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p>Because we <strong>project</strong> to exactly the columns we need, EF translates the navigation accesses into joins and a single SQL query – no <code>Include</code> is necessary when projecting.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 2 – The N+1 query problem</summary>
+<p><strong>Task:</strong> The code below runs one query for the products and then one extra query <strong>per product</strong> to fetch the category. Explain why, and rewrite it so a single round-trip loads everything.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{p.Name} - {p.Category.Name}"</span><span class="p">);</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<p>The first query loads the products only; the navigation property <code>Category</code> is <strong>not</strong> loaded eagerly, so each <code>p.Category.Name</code> access triggers a separate query (via lazy/explicit loading) – the classic <strong>N+1 problem</strong>. Fix it with eager loading:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{p.Name} - {p.Category.Name}"</span><span class="p">);</span>
+</code></pre></div>
+<p><code>Include</code> emits a single <code>LEFT JOIN</code> so both the product and category data arrive in one query.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 3 – Update through a navigation property</summary>
+<p><strong>Task:</strong> Move every product currently in the category named "Toys" into the category named "Games" (assume both exist).</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">();</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">games</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="n">Single</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Games"</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">toysProducts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Toys"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">toysProducts</span><span class="p">)</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">games</span><span class="p">.</span><span class="n">ID</span><span class="p">;</span><span class="w">   </span><span class="c1">// change tracker records the modification</span>
+
+<span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span><span class="w">              </span><span class="c1">// one UPDATE per changed row, in a transaction</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 4 – Explicit loading</summary>
+<p><strong>Task:</strong> You already have a single <code>Product</code> loaded and later decide you need its <code>VAT</code>. Load the related entity <strong>without</strong> enabling global lazy loading and <strong>without</strong> re-querying the product.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">First</span><span class="p">();</span>
+<span class="c1">// product.VAT is null here</span>
+
+<span class="n">db</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">product</span><span class="p">).</span><span class="n">Reference</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">).</span><span class="n">Load</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span><span class="w"> </span><span class="c1">// now populated</span>
+</code></pre></div>
+<p>For a collection navigation use <code>.Collection(...)</code> instead of <code>.Reference(...)</code>.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 5 – Configuring a relationship (Fluent API)</summary>
+<p><strong>Task:</strong> In <code>OnModelCreating</code>, configure the one-to-many relationship between <code>Category</code> (one) and <code>Product</code> (many) explicitly, with <code>Product.CategoryID</code> as the foreign key.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span><span class="w"> </span><span class="n">modelBuilder</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">HasOne</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WithMany</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Products</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">HasForeignKey</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 6 – Reasoning about the generated SQL</summary>
+<p><strong>Task:</strong> What is the difference between these two queries in terms of the SQL produced and the data returned?</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">"Lego"</span><span class="p">)).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">).</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">"Lego"</span><span class="p">));</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<ul>
+<li>Query <code>a</code> <strong>projects</strong> a single scalar (<code>Percentage</code>), so the SQL selects just that column with a <code>LEFT JOIN</code> to <code>VAT</code>; the result is <code>IQueryable&lt;int&gt;</code>.</li>
+<li>Query <code>b</code> returns whole <code>Product</code> entities <strong>with</strong> their <code>VAT</code> populated; the SQL selects all <code>Product</code> and <code>VAT</code> columns via a <code>LEFT JOIN</code>, returning <code>IQueryable&lt;Product&gt;</code>.</li>
+</ul>
+<p>Use <code>ToQueryString()</code> to inspect the generated SQL:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+</code></pre></div>
+</details>
+</details>
+<hr>
+<h3 id="mongodb-operations">MongoDB Operations<a class="headerlink" href="#mongodb-operations" title="Permanent link">¶</a></h3>
+<p>The following exercises relate to the <code>MongoDB</code> material and the MongoDB seminar. Assume the <code>Product</code> mapping from the lecture notes (<code>Name</code>, <code>Price</code>, <code>Stock</code>, <code>string[] Categories</code>, embedded <code>VAT { VATCategoryName, Percentage }</code>). Both MongoDB Shell and .NET Driver syntax are shown where relevant.</p>
+<details class="example">
+<summary>Exercise 1 – Composite filter with builders</summary>
+<p><strong>Task:</strong> Retrieve all products that are in the "Balls" category, cost between 500 and 1000 (inclusive), <strong>and</strong> have a VAT percentage that is not 27. Write the .NET Driver builder version.</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gte</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lte</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Ne</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">filter</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 2 – Array-field filtering</summary>
+<p><strong>Task:</strong> Find products that belong to <strong>at least one</strong> category other than "Balls" and "Rackets". Then find products that are in <strong>both</strong> "Balls" and "Outdoor".</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// at least one category not in the listed ones</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">notListed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyNin</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">,</span><span class="w"> </span><span class="s">"Rackets"</span><span class="w"> </span><span class="p">})).</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="c1">// contains all of the listed categories</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">All</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">,</span><span class="w"> </span><span class="s">"Outdoor"</span><span class="w"> </span><span class="p">})).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p>Shell equivalents use <code>$nin</code> (with <code>$elemMatch</code> semantics for arrays) and <code>$all</code>.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 3 – Embedded document and existence</summary>
+<p><strong>Task:</strong> List products that <strong>have</strong> an embedded <code>VAT</code> document whose percentage is less than 27. Remember that a missing embedded document must not cause an error.</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">filter</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 4 – Partial update with multiple operators</summary>
+<p><strong>Task:</strong> For every product in the "Clearance" category: decrease the price by 10% <strong>is not allowed via $inc</strong>, so instead reduce the stock by 1, set a new field <code>OnSale = true</code>, and add "Discounted" to the <code>Categories</code> array (without creating duplicates). Do it in a single <code>UpdateMany</code>.</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Clearance"</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Inc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"OnSale"</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">AddToSet</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Discounted"</span><span class="p">);</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">update</span><span class="p">);</span>
+</code></pre></div>
+<p><code>$inc</code> adds a (possibly negative) value; <code>$addToSet</code> avoids duplicate array entries (unlike <code>$push</code>).</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 5 – Aggregation pipeline</summary>
+<p><strong>Task:</strong> For products in the "Balls" category, group by VAT percentage and return, per group, the <strong>number of products</strong> and the <strong>total stock</strong>, sorted by total stock descending.</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Group</span><span class="p">(</span>
+<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span>
+<span class="w">        </span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">TotalStock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">)</span>
+<span class="w">        </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">SortByDescending</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">TotalStock</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<details class="success">
+<summary>Solution (MongoDB Shell)</summary>
+<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$match</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">categories</span><span class="o">:</span><span class="w"> </span><span class="s2">"Balls"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$group</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"$vat.percentage"</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$sum</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">totalStock</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$sum</span><span class="o">:</span><span class="w"> </span><span class="s2">"$stock"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$sort</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">totalStock</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 6 – Sorted paging</summary>
+<p><strong>Task:</strong> Return the third page of 20 products ordered by name ascending, then by price descending.</p>
+<details class="success">
+<summary>Solution (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Empty</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Ascending</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Descending</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span><span class="w">   </span><span class="c1">// pages 1 and 2 = 40 documents</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Limit</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p>Without a <code>Sort</code>, <code>Skip</code>/<code>Limit</code> are non-deterministic.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 7 – Replace vs. update (conceptual)</summary>
+<p><strong>Task:</strong> Explain the difference between <code>ReplaceOne</code> and <code>UpdateOne</code>/<code>$set</code>, and what happens to fields you do not mention in each case.</p>
+<details class="success">
+<summary>Solution</summary>
+<ul>
+<li><code>ReplaceOne</code> swaps the <strong>entire</strong> matched document for the new one (keeping the same <code>_id</code>). Any field not present in the replacement object is <strong>lost</strong>.</li>
+<li><code>UpdateOne</code> with <code>$set</code> (and other update operators) modifies <strong>only</strong> the specified fields and leaves all other fields untouched. This is the safe choice for partial modifications and is also more efficient on large documents.</li>
+</ul>
+</details>
+</details>
+<hr>
+<h3 id="transaction-management">Transaction Management<a class="headerlink" href="#transaction-management" title="Permanent link">¶</a></h3>
+<p>The following exercises relate to the <code>Transactions</code> material, covering isolation problems, isolation levels, locking/deadlocks and transaction logging.</p>
+<details class="example">
+<summary>Exercise 1 – Identify the anomaly</summary>
+<p><strong>Task:</strong> Two transactions run concurrently:</p>
+<ul>
+<li>T1: reads the stock of product #5 (gets 10).</li>
+<li>T2: reads the stock of product #5 (gets 10), sets it to 8, commits.</li>
+<li>T1: sets the stock to 9 (10 − 1), commits.</li>
+</ul>
+<p>Which isolation anomaly occurred, what is the final stock, and what should it have been?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>This is a <strong>lost update</strong>. The final stock is 9 (T1's write), but T2's decrement to 8 was overwritten as if it never happened. With both decrements applied the correct value should be 7 (or at least T2's committed 8 should not be silently lost). Prevent it with <code>REPEATABLE READ</code>/<code>SERIALIZABLE</code>, pessimistic locking, or optimistic concurrency (row version check on update).</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 2 – Choose the isolation level</summary>
+<p><strong>Task:</strong> A report sums the value of all orders, iterating the order items in several queries. During the report, money must not appear or disappear, i.e. <strong>no new order items may become visible and no read row may change</strong> while the report runs. Which isolation level is needed and why is the next-lower one insufficient?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Use <strong>SERIALIZABLE</strong>. <code>REPEATABLE READ</code> would prevent the already-read rows from changing (no dirty/non-repeatable read), but it still allows <strong>phantom rows</strong> – newly inserted order items matching the query could appear in a later query of the same transaction. Only <code>SERIALIZABLE</code> also prevents phantoms.</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 3 – Optimistic vs. pessimistic concurrency</summary>
+<p><strong>Task:</strong> Explain how you would prevent the lost update of Exercise 1 with (a) pessimistic and (b) optimistic concurrency control, and name a trade-off of each.</p>
+<details class="success">
+<summary>Solution</summary>
+<ul>
+<li><strong>Pessimistic:</strong> acquire a lock when reading the row (e.g. higher isolation level / <code>UPDLOCK</code> hint) so the other transaction blocks until the first finishes. Trade-off: reduced concurrency/throughput and risk of deadlocks.</li>
+<li><strong>Optimistic:</strong> do not lock; keep a version/timestamp column and, on update, verify the row has not changed since it was read (<code>WHERE Version = @readVersion</code>). If 0 rows are affected, someone else changed it – retry. Trade-off: wasted work and a retry loop under high contention.</li>
+</ul>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 4 – Transaction logging trace</summary>
+<p><strong>Task:</strong> A transaction decreases A by 2 (10→8) and increases B by 2 (20→22). Using <strong>undo logging</strong>, what is written to the log for the two writes, and in what order must the log flush and the database writes happen at commit?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Undo logging records the <strong>original</strong> values:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Log entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write(A)</td>
+<td><code>T1, A, 10</code></td>
+</tr>
+<tr>
+<td>Write(B)</td>
+<td><code>T1, B, 20</code></td>
+</tr>
+</tbody>
+</table>
+<p>At commit the order is: <strong>flush the log first</strong>, then write A and B to the database files, then write the <code>Commit T1</code> mark. On recovery, any transaction <strong>without</strong> a commit mark is undone using the original values from the log. (Contrast: redo logging stores the <em>final</em> values 8 and 22 and writes the commit mark <em>before</em> the database files.)</p>
+</details>
+</details>
+<details class="example">
+<summary>Exercise 5 – Deadlock diagnosis in MSSQL</summary>
+<p><strong>Task:</strong> Two transactions update tables <code>Lefty</code> and <code>Righty</code> in opposite order and deadlock. Which DMV queries let you see (a) the locks each session holds and (b) which session is blocking which? What does SQL Server do automatically?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>(a) Current locks and the tables they sit on:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TableName</span><span class="p">,</span>
+<span class="w">       </span><span class="n">Resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">request_status</span><span class="p">,</span><span class="w"> </span><span class="n">request_session_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="w">     </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
+</code></pre></div>
+<p>(b) Blocking relationships:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">BlockingSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">VictimSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">WaitDurationSecond</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>SQL Server's deadlock monitor detects the cycle and <strong>aborts one transaction (the deadlock victim)</strong>, rolling back all its changes. The application must catch this and <strong>retry</strong>. Deadlocks can be made less likely by always acquiring locks in the <strong>same order</strong>.</p>
+</details>
+</details>
+<hr>
+<h2 id="self-test-questions-ai-prompts-by-topic">Self-Test Questions – AI Prompts by Topic<a class="headerlink" href="#self-test-questions-ai-prompts-by-topic" title="Permanent link">¶</a></h2>
+<p>Use the prompts below mainly for solo study, to simulate oral exam questions. It is adviced to provide the slides for the agent, so it can work from a richer context.</p>
+<h3 id="sql-and-mssql">SQL and MSSQL<a class="headerlink" href="#sql-and-mssql" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Quiz me verbally on the following MSSQL topics:
+- JOIN types (INNER, LEFT, RIGHT, FULL OUTER)
+- Difference between WHERE and HAVING with GROUP BY
+- Stored procedures and triggers
+- Role and types of indexes
+
+Ask me 3 questions in a row and evaluate each of my answers!
+</code></pre></div>
+<h3 id="entity-framework">Entity Framework<a class="headerlink" href="#entity-framework" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Quiz me verbally on the following Entity Framework Core topics:
+- Code-First approach and migrations
+- Navigation properties and the role of Include()
+- Change tracker and how SaveChanges() works
+- The N+1 query problem and how to avoid it
+
+Ask me 3 questions in a row!
+</code></pre></div>
+<h3 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Quiz me verbally on the following MongoDB topics:
+- Differences between document and relational data models
+- Embedding vs. referencing – when to use which?
+- Main aggregation pipeline stages ($match, $group, $sort, $lookup)
+- Indexes in MongoDB
+
+Ask me 3 questions in a row!
+</code></pre></div>
+<h3 id="transaction-management_1">Transaction Management<a class="headerlink" href="#transaction-management_1" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Quiz me verbally on the following transaction management topics:
+- ACID properties explained
+- Isolation levels and their anomalies (dirty read, non-repeatable read, phantom read)
+- Deadlocks and how to prevent them
+- Optimistic vs. pessimistic concurrency control
+
+Ask me 3 questions in a row!
+</code></pre></div>
+<hr>
+<h2 id="tips-for-effective-exam-preparation">Tips for Effective Exam Preparation<a class="headerlink" href="#tips-for-effective-exam-preparation" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">On exam day</p>
+<ul>
+<li>Read the question twice before writing anything.</li>
+<li>Aim for simple solutions – readable and correct code beats clever tricks.</li>
+<li>Make a sketch and optimize it before writting it to the exam paper.</li>
+<li>When unsure about a SQL query, work through the mental model: <code>FROM</code> → <code>WHERE</code> → <code>GROUP BY</code> → <code>HAVING</code> → <code>SELECT</code>.</li>
+</ul>
+</div>
+  <hr>
+  <div class="md-source-file">
+    <span class="md-source-file__fact"> <span class="md-icon" title="Last update"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+          </path>
+        </svg>
+      </span>
+      <span title="June 23, 2026 20:23:03">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 23, 2026 20:23:03 CEST"><span class="timeago" datetime="2026-06-23T20:23:03+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 23, 2026 20:23:03 CEST">2026-06-23</span>
+      </span>
+    </span>
+
+    
+
+    <span class="md-source-file__fact">
+      <span class="md-icon" title="Szerzők">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+          </path>
+        </svg>
+      </span>
+      <span>Contributors</span>
+      <nav><a href="https://github.com/LorinczAlexandra12" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/u/79525652?v=4?size=72" alt="@None">
+        </a></nav>      
+    </span>
+  </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

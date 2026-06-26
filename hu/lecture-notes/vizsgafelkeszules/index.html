@@ -1,0 +1,3119 @@
+<!DOCTYPE html><html lang="hu" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Albert István, Tóth Tibor">
+      
+      
+        <link rel="canonical" href="https://bmeviauac01.github.io/datadriven/hu/lecture-notes/vizsgafelkeszules/">
+      
+      
+        <link rel="prev" href="../restapi/">
+      
+      
+        <link rel="next" href="../../seminar/transactions/">
+      
+      
+        
+          <link rel="alternate" href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en">
+        
+          <link rel="alternate" href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Vizsgafelkészülés és AI-asszisztált gyakorlás - BMEVIAUAC01 Adatvezérelt rendszerek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vizsgafelkeszules-es-ai-asszisztalt-gyakorlas" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Élőfej">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-header__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUAC01 Adatvezérelt rendszerek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vizsgafelkészülés és AI-asszisztált gyakorlás
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red" aria-label="Váltás sötét témára" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo" aria-label="Váltás világos témára" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Nyelvváltás">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://bmeviauac01.github.io/datadriven/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://bmeviauac01.github.io/datadriven/hu/" hreflang="hu" class="md-select__link">
+              Magyar
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Keresés">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Törlés" aria-label="Törlés" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bmeviauac01/datadriven" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Adatvezérelt rendszerek
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../db/" class="md-tabs__link">
+          
+  
+  
+  Adatbázis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+  Jegyzetek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../seminar/transactions/" class="md-tabs__link">
+          
+  
+  
+  Gyakorlatok
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../homework/" class="md-tabs__link">
+          
+  
+  
+  Házi feladatok
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUAC01 Adatvezérelt rendszerek" class="md-nav__button md-logo" aria-label="BMEVIAUAC01 Adatvezérelt rendszerek" data-md-component="logo">
+      
+  <img src="../../img/logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUAC01 Adatvezérelt rendszerek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bmeviauac01/datadriven" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviauac01/datadriven
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adatvezérelt rendszerek
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adatbázis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Adatbázis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minta adatbázis sémája
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft SQL Server használata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB használata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minta adatbázis: mssql.sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minta adatbázis: mongo.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jegyzetek
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Jegyzetek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adatvezérelt rendszerek és a többrétegű (háromrétegű) architektúra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tranzakciókezelés adatbázisokban
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL nyelv, MSSQL platformfüggő SQL utasítások
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mssql/server-side-programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft SQL Server programozása
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adonet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADO.NET adatelérés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LINQ: Language Integrated Query
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kapcsolatok definiálása Entity Framework-ben
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB alapok, műveletek, és a MongoDB .NET Driver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_Cheat_Sheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lekérdezés szintaktitka cheat-sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../di/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Függőséginjektálás ASP.NET Core környezetben
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aszinkron kérések és DTO-k (példa WebAPI alkalmazás)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAPI 3 és a Swagger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../restapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API (Gyakorló példák)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vizsgafelkészülés és AI-asszisztált gyakorlás
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vizsgafelkészülés és AI-asszisztált gyakorlás
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#hogyan-hasznalj-ai-t-a-felkeszuleshez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hogyan használj AI-t a felkészüléshez?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hogyan használj AI-t a felkészüléshez?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#altalanos-munkafolyamat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Általános munkafolyamat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasznos-ai-promptok-sablon-gyujtemeny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hasznos AI-promptok – sablon gyűjtemény
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hasznos AI-promptok – sablon gyűjtemény">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feladatgeneralas-altalanos-sablon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feladatgenerálás – általános sablon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#celzott-gyakorlas-gyenge-temakorokre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Célzott gyakorlás gyenge témakörökre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#megoldas-ertekeles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Megoldás-értékelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vizsga-szimulalasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vizsga szimulálása
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mintafeladatok-temakoronkent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mintafeladatok témakörönként
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mintafeladatok témakörönként">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL lekérdezések
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linq-lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LINQ lekérdezések
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework Core
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb-muveletek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB műveletek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tranzakciokezeles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tranzakciókezelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onellenorzo-kerdesek-ai-promptok-temakoronkent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Önellenőrző kérdések – AI-promptok témakörönként
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Önellenőrző kérdések – AI-promptok témakörönként">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-es-mssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL és MSSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tranzakciokezeles_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tranzakciókezelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tippek-a-hatekony-felkeszuleshez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tippek a hatékony felkészüléshez
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/rest-webapi-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST és WebAPI demó alkalmazás (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/todoapi-di-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ASP.NET Core DI demó alkalmazás (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/bmeviauac01/threelayered-aspnetcore-sample" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minta többrétegű webalkalmazás (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gyakorlatok
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gyakorlatok
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tranzakciókezelés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft SQL Server programozása
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entity Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/jpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JPA &amp; Spring Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seminar/rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API &amp; ASP.NET Web API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Házi feladatok
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Házi feladatok
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kis házi feladatok
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. MSSQL szerveroldali programozás
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/ef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Entity Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. REST API Web API technológiával
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feladatok beadása (GitHub)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/GitHub-Actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Actions ismertető
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homework/VisualStudio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Studio &amp; .NET SDK telepítése
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#hogyan-hasznalj-ai-t-a-felkeszuleshez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hogyan használj AI-t a felkészüléshez?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hogyan használj AI-t a felkészüléshez?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#altalanos-munkafolyamat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Általános munkafolyamat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasznos-ai-promptok-sablon-gyujtemeny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hasznos AI-promptok – sablon gyűjtemény
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hasznos AI-promptok – sablon gyűjtemény">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feladatgeneralas-altalanos-sablon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feladatgenerálás – általános sablon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#celzott-gyakorlas-gyenge-temakorokre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Célzott gyakorlás gyenge témakörökre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#megoldas-ertekeles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Megoldás-értékelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vizsga-szimulalasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vizsga szimulálása
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mintafeladatok-temakoronkent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mintafeladatok témakörönként
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mintafeladatok témakörönként">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL lekérdezések
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linq-lekerdezesek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LINQ lekérdezések
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework Core
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb-muveletek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB műveletek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tranzakciokezeles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tranzakciókezelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onellenorzo-kerdesek-ai-promptok-temakoronkent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Önellenőrző kérdések – AI-promptok témakörönként
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Önellenőrző kérdések – AI-promptok témakörönként">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-es-mssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL és MSSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tranzakciokezeles_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tranzakciókezelés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tippek-a-hatekony-felkeszuleshez" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tippek a hatékony felkészüléshez
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/bmeviauac01/datadriven/blob/master/docs/hu/lecture-notes/vizsgafelkeszules/index.md" title="Oldal szerkesztése" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="vizsgafelkeszules-es-ai-asszisztalt-gyakorlas">Vizsgafelkészülés és AI-asszisztált gyakorlás<a class="headerlink" href="#vizsgafelkeszules-es-ai-asszisztalt-gyakorlas" title="Permanent link">¶</a></h1>
+<p>Az AI egyetemi környezetben való használatának általános szabályai és ajánlásai: <a href="https://vik.bme.hu/hallgatoknak/altalanos/mi-hasznalat-ajanlasok">https://vik.bme.hu/hallgatoknak/altalanos/mi-hasznalat-ajanlasok</a></p>
+<p>Ez az oldal segédanyagokat, mintafeladatokat és AI-alapú gyakorlási stratégiákat tartalmaz az Adatvezérelt rendszerek tárgy vizsgájára való felkészüléshez. A minták a <a href="../../db/">minta adatbázison</a> futtathatóak, amelynek sémáját az alábbi táblázat foglalja össze.</p>
+<div class="admonition info">
+<p class="admonition-title">Minta adatbázis főbb táblái</p>
+<ul>
+<li><strong>Product</strong> (ID, Name, Price, Stock, VATID, CategoryID, Description)</li>
+<li><strong>Category</strong> (ID, Name, ParentCategoryID)</li>
+<li><strong>VAT</strong> (ID, Percentage)</li>
+<li><strong>Customer</strong> (ID, Name, Login, Password, Email, MainCustomerSiteID)</li>
+<li><strong>CustomerSite</strong> (ID, CustomerID, ZipCode, City, Street, Tel, Fax)</li>
+<li><strong>Order</strong> (ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)</li>
+<li><strong>OrderItem</strong> (ID, OrderID, ProductID, Amount, Price)</li>
+<li><strong>Status</strong> (ID, Name)</li>
+<li><strong>PaymentMethod</strong> (ID, Method, Deadline)</li>
+</ul>
+</div>
+<hr>
+<h2 id="hogyan-hasznalj-ai-t-a-felkeszuleshez">Hogyan használj AI-t a felkészüléshez?<a class="headerlink" href="#hogyan-hasznalj-ai-t-a-felkeszuleshez" title="Permanent link">¶</a></h2>
+<p>A nagy nyelvi modellek (ChatGPT, GitHub Copilot, Gemini stb.) kiváló eszközök arra, hogy <strong>vizsgaszerű feladatokat generálj magadnak</strong> és <strong>azonnali visszajelzést kapj</strong> a megoldásaidra. Az alábbi stratégia bizonyítottan hatékony:</p>
+<h3 id="altalanos-munkafolyamat">Általános munkafolyamat<a class="headerlink" href="#altalanos-munkafolyamat" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>1.  Add meg az AI-nak a kontextust (séma, technológia, nehézségi szint).
+2.  Kérj tőle feladatot.
+3.  Oldd meg a feladatot ÖNÁLLÓAN – ne nézz megoldásra!
+4.  Kérd az AI-t, hogy értékelje a megoldásod.
+5.  Kérd, hogy mutassa meg a jobb/alternatív megoldást és magyarázza el.
+6.  Ismételd 2–5-öt más témákra.
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Fontos</p>
+<p>Az AI néha hibás kódot generál. Mindig futtasd le a saját környezetedben, és ha az eredmény gyanús, kérdőjelezd meg!</p>
+</div>
+<h3 id="hasznos-ai-promptok-sablon-gyujtemeny">Hasznos AI-promptok – sablon gyűjtemény<a class="headerlink" href="#hasznos-ai-promptok-sablon-gyujtemeny" title="Permanent link">¶</a></h3>
+<p>Az alábbi promptokat másold be egy AI-csevegőbe (pl. ChatGPT, Copilot). A <code>[ ]</code>-ben lévő részeket írd felül.</p>
+<hr>
+<h4 id="feladatgeneralas-altalanos-sablon">Feladatgenerálás – általános sablon<a class="headerlink" href="#feladatgeneralas-altalanos-sablon" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>Te egy adatbázis-tárgy vizsgáztató professzor vagy a BME-n.
+Az adatbázis sémája:
+  Product(ID, Name, Price, Stock, VATID, CategoryID)
+  Category(ID, Name, ParentCategoryID)
+  VAT(ID, Percentage)
+  Customer(ID, Name, Login, Password, Email, MainCustomerSiteID)
+  CustomerSite(ID, CustomerID, ZipCode, City, Street)
+  Order(ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+  OrderItem(ID, OrderID, ProductID, Amount, Price)
+  Status(ID, Name)
+  PaymentMethod(ID, Method, Deadline)
+
+Adj nekem egy [NEHÉZSÉG: könnyű/közepes/nehéz] szintű [TÉMAKÖR] feladatot.
+Ne adj megoldást, csak a feladatleírást!
+</code></pre></div>
+<hr>
+<h4 id="celzott-gyakorlas-gyenge-temakorokre">Célzott gyakorlás gyenge témakörökre<a class="headerlink" href="#celzott-gyakorlas-gyenge-temakorokre" title="Permanent link">¶</a></h4>
+<p>Ha tudod, mely nyelvi elemekkel küzdesz, <strong>mondd meg az AI-nak kifejezetten</strong>, hogy pontosan azokat gyakoroltassa veled. Ez sokkal hatékonyabb az általános gyakorlásnál.</p>
+<div class="highlight"><pre><span></span><code>Gyenge vagyok a következőkből: [pl. HAVING és GROUP BY, korrelált
+al-lekérdezések, ablakfüggvények, LEFT OUTER JOIN, EF Include,
+MongoDB aggregációs pipeline].
+
+Adj nekem 5 feladatot, egyesével, amelyek kifejezetten ezeket a
+nyelvi elemeket igénylik. Kezdd könnyűvel, és minden helyes válasz
+után növeld a nehézséget. Ne add meg a megoldást, amíg nem válaszoltam.
+Minden válaszom után mondd meg, helyesen használtam-e a célzott
+nyelvi elemet, és ha nem, magyarázd el, mit hibáztam.
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Először mérd fel a gyenge pontjaidat</p>
+<p>Nem tudod, miben vagy gyenge? Kérdezd meg az AI-t: <em>„Adj egy rövid, vegyes felmérő kvízt (témánként egy kérdés: join-ok, csoportosítás/HAVING, al-lekérdezések, ablakfüggvények, tranzakciók). A válaszaim alapján mondd meg, mely témákat kellene többet gyakorolnom.”</em> Aztán ezeket a témákat add vissza a fenti promptba.</p>
+</div>
+<hr>
+<h4 id="megoldas-ertekeles">Megoldás-értékelés<a class="headerlink" href="#megoldas-ertekeles" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>Értékeld az alábbi [SQL/C# LINQ/EF/MongoDB] megoldásomat az előző feladatra.
+Jelezd, ha hibás, és magyarázd el, miért. Ha helyes, mutass alternatív megoldást.
+
+Az én megoldásom:
+[IDE MÁSOLD A MEGOLDÁSOD]
+</code></pre></div>
+<hr>
+<h4 id="vizsga-szimulalasa">Vizsga szimulálása<a class="headerlink" href="#vizsga-szimulalasa" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code>Szimuláld az Adatvezérelt rendszerek tárgy vizsgáját!
+Tegyél fel nekem egymás után 5 feladatot a következő témákból:
+[pl. SQL lekérdezések, tranzakciókezelés, Entity Framework, MongoDB]
+Minden feladat után várd meg a válaszomat, mielőtt a következőre térsz.
+A végén adj összesített értékelést.
+</code></pre></div>
+<hr>
+<h2 id="mintafeladatok-temakoronkent">Mintafeladatok témakörönként<a class="headerlink" href="#mintafeladatok-temakoronkent" title="Permanent link">¶</a></h2>
+<h3 id="sql-lekerdezesek">SQL lekérdezések<a class="headerlink" href="#sql-lekerdezesek" title="Permanent link">¶</a></h3>
+<p>Az alábbi feladatok a <code>SQL</code>, az <code>MSSQL szerveroldali programozás</code> és a <code>Transactions</code> témakörökhöz, valamint az MSSQL gyakorlat anyagához kapcsolódnak. Szándékosan nehezebbek, és lefedik a jegyzet teljes spektrumát (ablakfüggvények, CTE-k, korrelált al-lekérdezések, feltételes aggregáció, XML/XQuery, szerveroldali programozás, triggerek és kurzorok).</p>
+<details class="example">
+<summary>1. feladat – Ablakfüggvények és csoporton belüli rangsorolás</summary>
+<p><strong>Feladat:</strong> Minden kategóriához add vissza a <strong>két legdrágább terméket</strong> (kategórianév, terméknév, ár)! Ha több termék ára azonos, az összes holtversenyben lévő termék szerepeljen. Add meg a termék kategórián belüli rangsorát is!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Használj <code>DENSE_RANK()</code>-et, hogy a holtverseny azonos rangot kapjon, és a „top 2” ne csorbuljon önkényesen.</p>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">Ranked</span><span class="w"> </span><span class="k">AS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span>
+<span class="w">           </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rnk</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">         </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">rnk</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Ranked</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rnk</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>2. feladat – CTE és lapozás</summary>
+<p><strong>Feladat:</strong> Listázd a termékeket név szerint ábécé sorrendben, de <strong>csak a második 10-es oldalt</strong> (11–20. sor)! Jelenítsd meg a sorszámot is! Adj CTE-alapú és <code>OFFSET/FETCH</code> megoldást is!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">-- CTE + ROW_NUMBER</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="k">AS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">rn</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">q</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">20</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">rn</span>
+
+<span class="c1">-- MSSQL 2012+ lapozási szintaktika</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">OFFSET</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="k">ONLY</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>3. feladat – Korrelált al-lekérdezés / anti-join</summary>
+<p><strong>Feladat:</strong> Listázd azon vevők nevét, akik <strong>még soha nem adtak le rendelést</strong>! Mutass <code>NOT EXISTS</code> megoldást, és magyarázd el, miért egyenértékű a <code>LEFT JOIN ... IS NULL</code> megoldással!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Egyenértékű anti-join:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div>
+<p>A <code>NOT IN</code> is működne, de nem biztonságos, ha az al-lekérdezés <code>NULL</code>-t adhat vissza (ekkor az egész feltétel <code>UNKNOWN</code> lesz, és nem ad sort).</p>
+</details>
+</details>
+<details class="example">
+<summary>4. feladat – Több táblát érintő aggregáció HAVING-gel</summary>
+<p><strong>Feladat:</strong> Keresd meg azokat a vevőket, akiknek a <strong>teljes elköltött összege</strong> (az <code>OrderItem.Amount * OrderItem.Price</code> szorzatok összege az összes rendelésükön) meghaladja a 100000-et! Add meg a vevő nevét és az összeget, az összeg szerint csökkenő sorrendben!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalSpent</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w">      </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w">   </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">TotalSpent</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>5. feladat – Feltételes aggregáció (pivot-szerű)</summary>
+<p><strong>Feladat:</strong> Készíts <strong>kategóriánként egy sort</strong>, amely megmutatja a kategória nevét, hány terméke van raktáron (<code>Stock &gt; 0</code>) és hány nincs (<code>Stock = 0</code>)!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">InStock</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">OutOfStock</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="k">c</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>6. feladat – XML lekérdezése XQuery-vel</summary>
+<p><strong>Feladat:</strong> A <code>Product</code> tábla <code>Description</code> oszlopa XML-t tárol. Listázd minden olyan termék nevét, amelynek a leírása <strong>egynél több csomagot</strong> ad meg (<code>/product/package_parameters/number_of_packages</code>)!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'(/product/package_parameters/number_of_packages)[1]'</span><span class="p">,</span><span class="w"> </span><span class="s1">'int'</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+<p><code>exist()</code>-alapú alternatíva a „0-18 hónapos korra ajánlott” termékekre:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">Description</span><span class="p">.</span><span class="n">exist</span><span class="p">(</span><span class="s1">'(/product)[(./recommended_age)[1] eq "0-18 m"]'</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>7. feladat – Korrelált UPDATE (MSSQL <code>UPDATE ... FROM</code>)</summary>
+<p><strong>Feladat:</strong> Minden olyan rendelési tételnél, ahol a rögzített ár <strong>alacsonyabb</strong> a termék aktuális áránál, írd felül a rögzített árat a termék aktuális árával!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">oi</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>8. feladat – Tárolt eljárás tranzakcióval és hibakezeléssel</summary>
+<p><strong>Feladat:</strong> Írj egy <code>RecordSale @OrderID, @ProductID, @Amount</code> tárolt eljárást, amely <strong>egyetlen tranzakción belül</strong> ellenőrzi, van-e elég készlet; ha igen, beszúr egy <code>OrderItem</code>-et (az árat a <code>Product</code>-ból véve) és csökkenti a termék készletét; egyébként hibát dob, és nem módosít semmit! Olyan izolációs szintet használj, amely megakadályozza, hogy egy másik tranzakció megváltoztassa a készletet az ellenőrzés és a módosítás között!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">RecordSale</span>
+<span class="w">    </span><span class="o">@</span><span class="n">OrderID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">@</span><span class="n">Amount</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
+<span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Price</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51001</span><span class="p">,</span><span class="w"> </span><span class="s1">'No such product'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span>
+<span class="w">        </span><span class="n">THROW</span><span class="w"> </span><span class="mi">51002</span><span class="p">,</span><span class="w"> </span><span class="s1">'Not enough stock'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="p">(</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="p">)</span>
+<span class="w">    </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">OrderID</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Price</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">@</span><span class="n">Amount</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">COMMIT</span><span class="p">;</span>
+<span class="k">END</span>
+</code></pre></div>
+<p>A <code>REPEATABLE READ</code> garantálja, hogy a készletellenőrzéskor olvasott sort más tranzakció nem módosíthatja az <code>UPDATE</code> befejezése előtt, ezzel megakadályozva az elveszett módosítást / túlrendelést.</p>
+</details>
+</details>
+<details class="example">
+<summary>9. feladat – DML trigger</summary>
+<p><strong>Feladat:</strong> Hozz létre egy <code>AFTER INSERT</code> triggert az <code>OrderItem</code> táblán, amely automatikusan csökkenti a megfelelő termék készletét a beszúrt mennyiséggel! Ügyelj rá, hogy akkor is helyesen működjön, ha egyszerre több sort szúrnak be!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Egy trigger <strong>utasításonként egyszer</strong> fut le, és az <code>inserted</code> több sort is tartalmazhat, ezért aggregálj – ne feltételezz egyetlen sort.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">OrderItemDecreaseStock</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">    </span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">p</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">TotalAmount</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">p</span>
+<span class="w">         </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">ProductID</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">Amount</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalAmount</span>
+<span class="w">                     </span><span class="k">FROM</span><span class="w"> </span><span class="n">inserted</span>
+<span class="w">                     </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ProductID</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span>
+<span class="k">END</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>10. feladat – Kurzor</summary>
+<p><strong>Feladat:</strong> Kurzor segítségével járd be a <code>Stock &lt; 5</code> készletű termékeket! Minden ilyen terméknél: ha még <strong>soha</strong> nem rendelték, töröld; egyébként emeld meg az árát 10%-kal!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
+
+<span class="k">DECLARE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">CURSOR</span><span class="w"> </span><span class="k">FOR</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Stock</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="k">OPEN</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+<span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="n">WHILE</span><span class="w"> </span><span class="o">@@</span><span class="n">FETCH_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">OrderItem</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">OrderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="w">    </span><span class="k">ELSE</span>
+<span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">FETCH</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">ProductID</span><span class="p">;</span>
+<span class="k">END</span>
+<span class="k">CLOSE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+<span class="k">DEALLOCATE</span><span class="w"> </span><span class="n">lowstock_cur</span><span class="p">;</span>
+</code></pre></div>
+<p>Megjegyzés: ez egy oktató példa a kurzorokra; a gyakorlatban egy halmazalapú <code>DELETE</code> + <code>UPDATE</code> páros gyorsabb lenne.</p>
+</details>
+</details>
+<hr>
+<h3 id="linq-lekerdezesek">LINQ lekérdezések<a class="headerlink" href="#linq-lekerdezesek" title="Permanent link">¶</a></h3>
+<p>Az alábbi feladatok a <code>LINQ</code> anyagához kapcsolódnak. Tételezz fel memóriabeli listákat, mint <code>List&lt;Product&gt; products</code>, <code>List&lt;VAT&gt; vat</code>, <code>List&lt;Category&gt; categories</code>, <code>List&lt;OrderItem&gt; orderItems</code> (a séma mezőivel összhangban).</p>
+<details class="example">
+<summary>1. feladat – Csoportosítás aggregációval és HAVING-szerű szűréssel</summary>
+<p><strong>Feladat:</strong> Csoportosítsd a termékeket <code>VATID</code> szerint! Minden csoporthoz add vissza az ÁFA-azonosítót, a termékszámot és az átlagárat, de <strong>csak azoknál a csoportoknál, ahol legalább 3 termék van</strong>, átlagár szerint csökkenő sorrendben!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// Fluent szintaktika</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">VatID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span><span class="w"> </span><span class="n">AvgPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">OrderByDescending</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">AvgPrice</span><span class="p">);</span>
+
+<span class="c1">// Query szintaktika</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="k">group</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">g</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="k">orderby</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">descending</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">VatID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span><span class="w"> </span><span class="n">AvgPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Average</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>2. feladat – Csoportos join (bal oldali külső join LINQ-ben)</summary>
+<p><strong>Feladat:</strong> Minden ÁFA-kategóriához listázd a százalékot és az azt <strong>használó termékek számát</strong>, beleértve azokat az ÁFA-kategóriákat is, amelyekhez egyetlen termék sem tartozik!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Egy <code>join ... into</code> (csoportos join), amelyet <code>DefaultIfEmpty</code> követ, valósít meg bal oldali külső joint.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vat</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">equals</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">grp</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grp</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Fluent megfelelő</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vat</span><span class="p">.</span><span class="n">GroupJoin</span><span class="p">(</span>
+<span class="w">    </span><span class="n">products</span><span class="p">,</span>
+<span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="p">,</span>
+<span class="w">    </span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grp</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>3. feladat – Halmazműveletek</summary>
+<p><strong>Feladat:</strong> Állítsd elő azon termékek nevét, amelyek <strong>vagy</strong> olcsóbbak 1000-nél, <strong>vagy</strong> drágábbak 100000-nél, duplikációk nélkül, halmazművelettel!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">cheap</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">expensive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cheap</span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">expensive</span><span class="p">);</span><span class="w"> </span><span class="c1">// a Union eltávolítja a duplikációkat</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>4. feladat – Korrelált al-lekérdezés vetítésben</summary>
+<p><strong>Feladat:</strong> Minden termékhez add ki a nevét és a <strong>megrendelt összmennyiséget</strong> (az <code>OrderItem.Amount</code> összege az adott termékre), beleértve a soha nem rendelt termékeket is (összeg 0)!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TotalOrdered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderItems</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">)</span>
+<span class="w">                             </span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>5. feladat – Késleltetett kiértékelés (elméleti)</summary>
+<p><strong>Feladat:</strong> Mit ír ki az alábbi kód, és miért? Mikor hajtódik végre ténylegesen a lekérdezés?</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+<span class="n">products</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Cheap"</span><span class="p">,</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">});</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">Count</span><span class="p">());</span>
+</code></pre></div>
+<details class="success">
+<summary>Megoldás</summary>
+<p>A kiírt darabszám <strong>tartalmazza</strong> az újonnan hozzáadott „Cheap" terméket is. A <code>Where</code> egy <code>IEnumerable&lt;T&gt;</code> leírót ad vissza, és <strong>késleltetett kiértékelést</strong> használ – a <code>q</code> deklarálásakor semmi nem értékelődik ki. A lekérdezés csak akkor fut le, amikor bejárjuk, itt a <code>Count()</code> hívásakor, addigra az új elem már a listában van. Az eredmény „befagyasztásához" közvetlenül a <code>Where</code> után <code>.ToList()</code>-et hívnánk.</p>
+</details>
+</details>
+<details class="example">
+<summary>6. feladat – Vetítés nevesített típusba számított mezővel</summary>
+<p><strong>Feladat:</strong> Kapcsold össze a <code>products</code> és <code>vat</code> listákat, és vetítsd egy <code>PriceInfo(string Name, int GrossPrice)</code> osztályba, ahol a bruttó ár <code>Price * (1 + Percentage/100)</code>!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vat</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VATID</span><span class="w"> </span><span class="k">equals</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">PriceInfo</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Percentage</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div>
+</details>
+</details>
+<hr>
+<h3 id="entity-framework-core">Entity Framework Core<a class="headerlink" href="#entity-framework-core" title="Permanent link">¶</a></h3>
+<p>Az alábbi feladatok a <code>Entity Framework</code> anyagához és az EF-gyakorlathoz kapcsolódnak. Tételezz fel egy konfigurált <code>AdatvezDbContext</code>-et <code>Products</code>, <code>Orders</code>, <code>OrderItems</code>, <code>Categories</code>, <code>Customers</code>, <code>VATs</code> <code>DbSet</code>-ekkel és a jegyzetből ismert navigation property-kkel.</p>
+<details class="example">
+<summary>1. feladat – Eager loading több szinten át</summary>
+<p><strong>Feladat:</strong> EF Core segítségével listázd minden „Delivered" rendeléshez a <strong>vevő nevét</strong> és a <strong>rendelés összértékét</strong> (az <code>OrderItem.Amount * OrderItem.Price</code> összege)! Csak azt töltsd be, amire szükség van!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">();</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Orders</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Delivered"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Customer</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p>Mivel pontosan a szükséges oszlopokra <strong>vetítünk</strong>, az EF a navigation property eléréseket joinokká alakítja, egyetlen SQL lekérdezésben – vetítéskor nincs szükség <code>Include</code>-ra.</p>
+</details>
+</details>
+<details class="example">
+<summary>2. feladat – Az N+1 lekérdezés probléma</summary>
+<p><strong>Feladat:</strong> Az alábbi kód egy lekérdezést futtat a termékekért, majd <strong>termékenként egy további</strong> lekérdezést a kategóriáért. Magyarázd el, miért, és írd át úgy, hogy egyetlen körfordulóban töltsön be mindent!</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{p.Name} - {p.Category.Name}"</span><span class="p">);</span>
+</code></pre></div>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Az első lekérdezés csak a termékeket tölti be; a <code>Category</code> navigation property <strong>nem</strong> töltődik be eagerly, így minden <code>p.Category.Name</code> elérés külön lekérdezést indít (lazy/explicit betöltéssel) – ez a klasszikus <strong>N+1 probléma</strong>. Eager loadinggal javítható:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">products</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{p.Name} - {p.Category.Name}"</span><span class="p">);</span>
+</code></pre></div>
+<p>Az <code>Include</code> egyetlen <code>LEFT JOIN</code>-t generál, így a termék és a kategória adat egyetlen lekérdezésben érkezik.</p>
+</details>
+</details>
+<details class="example">
+<summary>3. feladat – Módosítás navigation property-n keresztül</summary>
+<p><strong>Feladat:</strong> Helyezz át minden terméket a „Toys" nevű kategóriából a „Games" nevű kategóriába (tételezd fel, hogy mindkettő létezik)!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdatvezDbContext</span><span class="p">();</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">games</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="n">Single</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Games"</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">toysProducts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Toys"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">toysProducts</span><span class="p">)</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">games</span><span class="p">.</span><span class="n">ID</span><span class="p">;</span><span class="w">   </span><span class="c1">// a change tracker rögzíti a módosítást</span>
+
+<span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span><span class="w">              </span><span class="c1">// soronként egy UPDATE, egy tranzakcióban</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>4. feladat – Explicit betöltés</summary>
+<p><strong>Feladat:</strong> Már betöltöttél egy <code>Product</code>-ot, és később úgy döntesz, szükséged van a <code>VAT</code>-jára. Töltsd be a kapcsolódó entitást globális lazy loading <strong>bekapcsolása nélkül</strong> és a termék <strong>újra-lekérdezése nélkül</strong>!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">First</span><span class="p">();</span>
+<span class="c1">// product.VAT itt még null</span>
+
+<span class="n">db</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">product</span><span class="p">).</span><span class="n">Reference</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">).</span><span class="n">Load</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span><span class="w"> </span><span class="c1">// most már betöltve</span>
+</code></pre></div>
+<p>Gyűjtemény-navigációhoz <code>.Reference(...)</code> helyett <code>.Collection(...)</code>-t használj.</p>
+</details>
+</details>
+<details class="example">
+<summary>5. feladat – Kapcsolat konfigurálása (Fluent API)</summary>
+<p><strong>Feladat:</strong> Az <code>OnModelCreating</code>-ben konfiguráld explicit módon az egy-a-többhöz kapcsolatot a <code>Category</code> (egy) és a <code>Product</code> (több) között, <code>Product.CategoryID</code> idegen kulccsal!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<div class="highlight"><pre><span></span><code><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span><span class="w"> </span><span class="n">modelBuilder</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">HasOne</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Category</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WithMany</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Products</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">HasForeignKey</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CategoryID</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>6. feladat – A generált SQL átgondolása</summary>
+<p><strong>Feladat:</strong> Mi a különbség az alábbi két lekérdezés között a generált SQL és a visszaadott adat szempontjából?</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">"Lego"</span><span class="p">)).</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">Products</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">).</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">"Lego"</span><span class="p">));</span>
+</code></pre></div>
+<details class="success">
+<summary>Megoldás</summary>
+<ul>
+<li>Az <code>a</code> lekérdezés egyetlen skalárt (<code>Percentage</code>) <strong>vetít</strong>, így az SQL csak ezt az oszlopot választja ki egy <code>LEFT JOIN</code>-nal a <code>VAT</code>-ra; az eredmény <code>IQueryable&lt;int&gt;</code>.</li>
+<li>A <code>b</code> lekérdezés teljes <code>Product</code> entitásokat ad vissza, a <code>VAT</code>-juk <strong>betöltve</strong>; az SQL minden <code>Product</code> és <code>VAT</code> oszlopot kiválaszt <code>LEFT JOIN</code>-nal, <code>IQueryable&lt;Product&gt;</code>-et adva vissza.</li>
+</ul>
+<p>A generált SQL megtekintéséhez használd a <code>ToQueryString()</code>-et:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">ToQueryString</span><span class="p">());</span>
+</code></pre></div>
+</details>
+</details>
+<hr>
+<h3 id="mongodb-muveletek">MongoDB műveletek<a class="headerlink" href="#mongodb-muveletek" title="Permanent link">¶</a></h3>
+<p>Az alábbi feladatok a <code>MongoDB</code> anyagához és a MongoDB-gyakorlathoz kapcsolódnak. A <code>Product</code> leképezést a jegyzetből feltételezzük (<code>Name</code>, <code>Price</code>, <code>Stock</code>, <code>string[] Categories</code>, beágyazott <code>VAT { VATCategoryName, Percentage }</code>). Ahol releváns, a MongoDB Shell és a .NET Driver szintaktika is szerepel.</p>
+<details class="example">
+<summary>1. feladat – Összetett szűrő builderrel</summary>
+<p><strong>Feladat:</strong> Kérd le az összes olyan terméket, amely a „Balls" kategóriában van, ára 500 és 1000 közé esik (beleértve), <strong>és</strong> az ÁFA-százaléka nem 27! Írd meg a .NET Driver builder verziót!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Gte</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lte</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Ne</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">filter</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>2. feladat – Tömbmező szűrése</summary>
+<p><strong>Feladat:</strong> Találd meg azokat a termékeket, amelyek <strong>legalább egy</strong> kategóriába tartoznak a „Balls" és „Rackets" körén kívül! Majd találd meg azokat, amelyek <strong>egyszerre</strong> a „Balls" és az „Outdoor" kategóriában is benne vannak!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// legalább egy kategória, amely nem szerepel a listán</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">notListed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyNin</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">,</span><span class="w"> </span><span class="s">"Rackets"</span><span class="w"> </span><span class="p">})).</span><span class="n">ToList</span><span class="p">();</span>
+
+<span class="c1">// mindkét kategóriát tartalmazza</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">All</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">,</span><span class="w"> </span><span class="s">"Outdoor"</span><span class="w"> </span><span class="p">})).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p>A Shell megfelelők <code>$nin</code> (tömbökre <code>$elemMatch</code> szemantikával) és <code>$all</code>.</p>
+</details>
+</details>
+<details class="example">
+<summary>3. feladat – Beágyazott dokumentum és létezés vizsgálata</summary>
+<p><strong>Feladat:</strong> Listázd azokat a termékeket, amelyekhez <strong>van</strong> beágyazott <code>VAT</code> dokumentum, amelynek százaléka kisebb, mint 27! Ügyelj arra, hogy a hiányzó beágyazott dokumentum ne okozzon hibát!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">And</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">filter</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>4. feladat – Részleges frissítés több operátorral</summary>
+<p><strong>Feladat:</strong> A „Clearance" kategóriában lévő minden terméknél: csökkentsd a készletet 1-gyel, állíts be egy új <code>OnSale = true</code> mezőt, és add hozzá a „Discounted" elemet a <code>Categories</code> tömbhöz (duplikáció nélkül)! Tedd ezt egyetlen <code>UpdateMany</code> hívásban!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Clearance"</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Inc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"OnSale"</span><span class="p">,</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">AddToSet</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Discounted"</span><span class="p">);</span>
+
+<span class="n">collection</span><span class="p">.</span><span class="n">UpdateMany</span><span class="p">(</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">update</span><span class="p">);</span>
+</code></pre></div>
+<p>Az <code>$inc</code> egy (esetleg negatív) értékkel növeli a mezőt; az <code>$addToSet</code> elkerüli a tömb-duplikációkat (ellentétben a <code>$push</code>-sal).</p>
+</details>
+</details>
+<details class="example">
+<summary>5. feladat – Aggregációs pipeline</summary>
+<p><strong>Feladat:</strong> A „Balls" kategóriában lévő termékekre csoportosíts ÁFA-százalék szerint, és add vissza csoportonként a <strong>termékek számát</strong> és a <strong>teljes készletet</strong>, a teljes készlet szerint csökkenő sorrendben!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">AnyEq</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Categories</span><span class="p">,</span><span class="w"> </span><span class="s">"Balls"</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Group</span><span class="p">(</span>
+<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">VAT</span><span class="p">.</span><span class="n">Percentage</span><span class="p">,</span>
+<span class="w">        </span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">TotalStock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">)</span>
+<span class="w">        </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">SortByDescending</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">TotalStock</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<details class="success">
+<summary>Megoldás (MongoDB Shell)</summary>
+<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$match</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">categories</span><span class="o">:</span><span class="w"> </span><span class="s2">"Balls"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$group</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"$vat.percentage"</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$sum</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">totalStock</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$sum</span><span class="o">:</span><span class="w"> </span><span class="s2">"$stock"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">$sort</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">totalStock</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+</code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>6. feladat – Rendezett lapozás</summary>
+<p><strong>Feladat:</strong> Add vissza a termékek harmadik oldalát (20-as oldalméret), név szerint növekvő, majd ár szerint csökkenő sorrendben!</p>
+<details class="success">
+<summary>Megoldás (.NET Driver)</summary>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Filter</span><span class="p">.</span><span class="n">Empty</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Ascending</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Sort</span><span class="p">.</span><span class="n">Descending</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span><span class="w">   </span><span class="c1">// az 1. és 2. oldal = 40 dokumentum</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Limit</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</code></pre></div>
+<p><code>Sort</code> nélkül a <code>Skip</code>/<code>Limit</code> nem determinisztikus.</p>
+</details>
+</details>
+<details class="example">
+<summary>7. feladat – ReplaceOne vs. UpdateOne (elméleti)</summary>
+<p><strong>Feladat:</strong> Magyarázd el a különbséget a <code>ReplaceOne</code> és az <code>UpdateOne</code>/<code>$set</code> között! Mi történik azokkal a mezőkkel, amelyeket nem adsz meg?</p>
+<details class="success">
+<summary>Megoldás</summary>
+<ul>
+<li>A <code>ReplaceOne</code> a teljes egyező dokumentumot lecseréli az újra (megőrzi az <code>_id</code>-t). Minden mező, amely nem szerepel a csere-dokumentumban, <strong>elveszik</strong>.</li>
+<li>Az <code>UpdateOne</code> <code>$set</code>-tel (és más frissítési operátorokkal) <strong>csak</strong> a megadott mezőket módosítja, az összes többit érintetlenül hagyja. Ez a biztonságos választás részleges módosításhoz, és nagy dokumentumokon hatékonyabb is.</li>
+</ul>
+</details>
+</details>
+<hr>
+<h3 id="tranzakciokezeles">Tranzakciókezelés<a class="headerlink" href="#tranzakciokezeles" title="Permanent link">¶</a></h3>
+<p>Az alábbi feladatok a <code>Transactions</code> anyagához kapcsolódnak, lefedve az izolációs problémákat, izolációs szinteket, zárolást/holtpontokat és tranzakció-naplózást.</p>
+<details class="example">
+<summary>1. feladat – Az anomália azonosítása</summary>
+<p><strong>Feladat:</strong> Két tranzakció párhuzamosan fut:</p>
+<ul>
+<li>T1: olvassa az 5. termék készletét (10-et kap).</li>
+<li>T2: olvassa az 5. termék készletét (10-et kap), 8-ra állítja, véglegesít.</li>
+<li>T1: 9-re állítja a készletet (10 − 1), véglegesít.</li>
+</ul>
+<p>Melyik izolációs anomália lépett fel? Mi a végső készletérték, és mi lett volna a helyes érték?</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Ez egy <strong>elveszett módosítás (lost update)</strong>. A végső készlet 9 (T1 írása), de T2 8-ra való csökkentése felülíródott, mintha meg sem történt volna. Mindkét csökkentéssel a helyes érték 7 lenne (vagy legalább T2 véglegesített 8-a nem tűnhetett volna el csendben). Megelőzése: <code>REPEATABLE READ</code>/<code>SERIALIZABLE</code>, pesszimista zárolás vagy optimista egyidejűség-kezelés (sorverzió-ellenőrzés frissítéskor).</p>
+</details>
+</details>
+<details class="example">
+<summary>2. feladat – Izolációs szint kiválasztása</summary>
+<p><strong>Feladat:</strong> Egy riport összegzi az összes rendelés értékét, több lekérdezésben iterálva a rendelési tételeken. A riport futása közben pénz nem tűnhet el és nem jelenhet meg, tehát <strong>sem új rendelési tételek nem válhatnak láthatóvá, sem az egyszer már olvasott sorok nem változhatnak</strong>. Melyik izolációs szint szükséges, és miért nem elegendő az eggyel alacsonyabb?</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>A <strong>SERIALIZABLE</strong> szint szükséges. A <code>REPEATABLE READ</code> megakadályozná, hogy a már olvasott sorok változzanak (nincs dirty/non-repeatable read), de még mindig lehetővé teszi <strong>fantomsorokat</strong> – a lekérdezésnek megfelelő, újonnan beszúrt rendelési tételek megjelenhetnek az ugyanazon tranzakción belüli egy későbbi lekérdezésben. Csak a <code>SERIALIZABLE</code> véd a fantomok ellen is.</p>
+</details>
+</details>
+<details class="example">
+<summary>3. feladat – Optimista vs. pesszimista egyidejűség-kezelés</summary>
+<p><strong>Feladat:</strong> Magyarázd el, hogyan akadályoznád meg az 1. feladat elveszett módosítását (a) pesszimista és (b) optimista egyidejűség-kezeléssel! Mindkettőhöz nevezz meg egy kompromisszumot!</p>
+<details class="success">
+<summary>Megoldás</summary>
+<ul>
+<li><strong>Pesszimista:</strong> olvasáskor zárolj (<code>UPDLOCK</code> hint vagy magasabb izolációs szint), hogy a másik tranzakció várjon, amíg az első befejeződik. Kompromisszum: csökkentett párhuzamosság/áteresztőképesség és holtpont-kockázat.</li>
+<li><strong>Optimista:</strong> ne zárolj; tarts fenn egy verzió/időbélyeg oszlopot, és frissítéskor ellenőrizd, hogy a sor nem változott az olvasás óta (<code>WHERE Version = @readVersion</code>). Ha 0 sor módosult, valaki más változtatta meg – próbáld újra. Kompromisszum: felesleges munka és újrapróbálási ciklus magas versenyfeltételek esetén.</li>
+</ul>
+</details>
+</details>
+<details class="example">
+<summary>4. feladat – Tranzakciónaplózás nyomkövetése</summary>
+<p><strong>Feladat:</strong> Egy tranzakció A-t 2-vel csökkenti (10→8), B-t 2-vel növeli (20→22). <strong>Undo naplózással</strong> mit írnak a naplóba a két íráshoz, és milyen sorrendben kell a napló kiürítésének és az adatbázis-írásoknak megtörténniük a véglegesítéskor?</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>Az undo naplózás az <strong>eredeti</strong> értékeket rögzíti:</p>
+<table>
+<thead>
+<tr>
+<th>Művelet</th>
+<th>Naplóbejegyzés</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write(A)</td>
+<td><code>T1, A, 10</code></td>
+</tr>
+<tr>
+<td>Write(B)</td>
+<td><code>T1, B, 20</code></td>
+</tr>
+</tbody>
+</table>
+<p>A véglegesítés sorrendje: <strong>először a napló kiürítése</strong>, majd A és B kiírása az adatbázisfájlokba, végül a <code>Commit T1</code> jelzés írása. Visszaállításkor minden tranzakció, amelynek nincs commit jelzése, a naplóban tárolt eredeti értékekkel visszavonódik. (Összehasonlításképpen: a redo naplózás a végső értékeket, 8-at és 22-t tárolja, és a commit jelzést az adatbázisfájlok írása <em>előtt</em> rögzíti.)</p>
+</details>
+</details>
+<details class="example">
+<summary>5. feladat – Holtpont diagnózis MSSQL-ben</summary>
+<p><strong>Feladat:</strong> Két tranzakció ellentétes sorrendben frissíti a <code>Lefty</code> és <code>Righty</code> táblákat, és holtpontba kerülnek. Melyik DMV-lekérdezések mutatják meg (a) az egyes munkamenetek által tartott zárolásokat, és (b) melyik munkamenet blokkolja a másikat? Mit csinál az SQL Server automatikusan?</p>
+<details class="success">
+<summary>Megoldás</summary>
+<p>(a) Aktuális zárolások és a táblák, amelyeken ülnek:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">object_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TableName</span><span class="p">,</span>
+<span class="w">       </span><span class="n">Resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">request_status</span><span class="p">,</span><span class="w"> </span><span class="n">request_session_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> </span><span class="n">dtl</span>
+<span class="w">     </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">partitions</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">dtl</span><span class="p">.</span><span class="n">resource_associated_entity_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">hobt_id</span>
+</code></pre></div>
+<p>(b) Blokkolási kapcsolatok:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">BlockingSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">session_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">VictimSessionID</span><span class="p">,</span>
+<span class="w">       </span><span class="n">wait_time</span><span class="o">/</span><span class="mi">1000</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">WaitDurationSecond</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>Az SQL Server holtpont-monitora detektálja a ciklust, és <strong>megszakítja az egyik tranzakciót (a holtpont áldozatát)</strong>, visszagörgetvén minden módosítását. Az alkalmazásnak el kell kapnia ezt a hibát, és <strong>újra kell próbálkoznia</strong>. A holtpontok valószínűsége csökkenthető, ha mindig <strong>ugyanolyan sorrendben</strong> zárolunk erőforrásokat.</p>
+</details>
+</details>
+<hr>
+<h2 id="onellenorzo-kerdesek-ai-promptok-temakoronkent">Önellenőrző kérdések – AI-promptok témakörönként<a class="headerlink" href="#onellenorzo-kerdesek-ai-promptok-temakoronkent" title="Permanent link">¶</a></h2>
+<p>Az alábbi promptokat főleg önálló tanuláskor, szóbeli kérdések szimulálásához használd.</p>
+<h3 id="sql-es-mssql">SQL és MSSQL<a class="headerlink" href="#sql-es-mssql" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Kérdezz ki engem az alábbi MSSQL témákból:
+- JOIN típusok (INNER, LEFT, RIGHT, FULL OUTER)
+- GROUP BY + HAVING különbsége WHERE-rel
+- Tárolt eljárások és triggerek
+- Indexek szerepe és típusai
+
+Tegyél fel egymás után 3 kérdést, és minden válaszom után értékeld azt!
+</code></pre></div>
+<h3 id="entity-framework">Entity Framework<a class="headerlink" href="#entity-framework" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Kérdezz ki az Entity Framework Core következő témáiból:
+- Code-First megközelítés és migrációk
+- Navigation property-k és Include() szerepe
+- Change tracker és SaveChanges() működése
+- N+1 query probléma és hogyan kerülhető el
+
+Tegyél fel egymás után 3 kérdést!
+</code></pre></div>
+<h3 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Kérdezz ki a MongoDB következő témáiból:
+- Dokumentum- vs. relációs adatmodell különbségei
+- Beágyazás vs. referencia – mikor melyiket?
+- Aggregációs pipeline főbb stage-jei ($match, $group, $sort, $lookup)
+- Indexek MongoDB-ben
+
+Tegyél fel egymás után 3 kérdést!
+</code></pre></div>
+<h3 id="tranzakciokezeles_1">Tranzakciókezelés<a class="headerlink" href="#tranzakciokezeles_1" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Kérdezz ki a tranzakciókezelés következő témáiból:
+- ACID tulajdonságok magyarázata
+- Izolációs szintek és a köztük lévő anomáliák (dirty read, non-repeatable read, phantom read)
+- Holtpontok és megelőzésük
+- Optimista vs. pesszimista konkurenciakezelés
+
+Tegyél fel egymás után 3 kérdést!
+</code></pre></div>
+<hr>
+<h2 id="tippek-a-hatekony-felkeszuleshez">Tippek a hatékony felkészüléshez<a class="headerlink" href="#tippek-a-hatekony-felkeszuleshez" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Vizsganapon</p>
+<ul>
+<li>Olvasd végig a feladatot kétszer, mielőtt jelölnél bármit.</li>
+<li>Egyszerűbb megoldásokat keress – vizsgán a bonyolult trükk helyett az olvasható és helyes kód a cél.</li>
+<li>Ha sszükséges, készíts előszőr vázlatot és a végső optimalizált megoldást vidd fel a feladatlapra.</li>
+<li>Ha SQL-feladatban bizonytalan vagy, gondold végig a <code>FROM</code> → <code>WHERE</code> → <code>GROUP BY</code> → <code>HAVING</code> → <code>SELECT</code> sorrend modellt.</li>
+</ul>
+</div>
+  <hr>
+  <div class="md-source-file">
+    <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+          </path>
+        </svg>
+      </span>
+      <span title="2026. június 23. 20:23:03">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. június 23. 20:23:03 CEST"><span class="timeago" datetime="2026-06-23T20:23:03+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. június 23. 20:23:03 CEST">2026-06-23</span>
+      </span>
+    </span>
+
+    
+
+    <span class="md-source-file__fact">
+      <span class="md-icon" title="Szerzők">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+          </path>
+        </svg>
+      </span>
+      <span>Szerzők</span>
+      <nav><a href="https://github.com/LorinczAlexandra12" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
+          <img src="https://avatars.githubusercontent.com/u/79525652?v=4?size=72" alt="@None">
+        </a></nav>      
+    </span>
+  </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Vissza a tetejére
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
