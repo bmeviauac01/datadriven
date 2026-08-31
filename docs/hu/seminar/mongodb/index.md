@@ -10,7 +10,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a _MongoDB_ általános cél�
 A labor elvégzéséhez szükséges eszközök:
 
 - MongoDB Community Edition
-- Microsoft Visual Studio 2022
+- Microsoft Visual Studio 2026
 - VSCode
 - MongoDB for VSCode kiegészítő
 - Adatbázis létrehozó script: [mongo.js](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mongo.js)
@@ -38,7 +38,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
     ```powershell
     Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
     New-Item -Type Directory c:\work\mongodatabase
-    c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
+    & 'C:\Program Files\MongoDB\Server\8.3\bin\mongod.exe' --dbpath c:\work\mongodatabase
     ```
 
     Ezt az ablakot hagyjuk nyitva, mert ebben fut a szerver. Leállítani ++ctrl+c++ billentyűkombinációval lehet majd a végén.
