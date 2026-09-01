@@ -46,7 +46,7 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 ## Feladat 1: IDE indítása
 
-1. Indítsuk el a Spring Tool Suite-ot innen: `C:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe`.
+1. Indítsuk el a Spring Tool Suite-ot innen: `C:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite.exe`.
 1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: `C:\Tools\hatteralkalmazasok\workspaces\adatvez`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 
