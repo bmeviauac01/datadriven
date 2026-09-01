@@ -60,7 +60,7 @@ Valósítsd meg a **TransportPlanService** osztály alábbi metódusait!
 
    * Ha nem létezik a szállítási terv, vagy a mérföldkövek közül bármelyik, kivételt kell dobni. (IllegalArgumentException-t)
 
-   * Az új szakasz sorszáma 0 és MAX között lehet, ahol MAX a tervhez tartozó szakaszok beszúrás előtti darabszáma. Ha ez nem teljesül, dobódjon IllegalArgumentException.
+   * Az új szakasz sorszáma 0 és MAX között lehet inkluzív, ahol MAX a tervhez tartozó szakaszok beszúrás előtti darabszáma. Ha ez nem teljesül, dobódjon IllegalArgumentException.
 
    * Ha helyes a sorszám és létezik a szállítási terv és mindkét mérföldkő, mindenképpen új szakaszt kell létrehozni, nem kell azzal foglalkozni, hogy a megadott milestone-ok között esetleg már létezik egy másik szakasz. 
 
