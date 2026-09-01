@@ -68,7 +68,7 @@ Valósítsd meg a **TransportPlanService** osztály alábbi metódusait!
 
    * Az új szakasz előtti vagy utáni szakaszok (ha léteznek ilyenek) mérföldköveit módosítani kell: ha pl. a 0-s szakasz A->B-be vitt, az 1-es szakasz pedig B->C volt, és 1-es helyre szúrjuk be a D->E szakaszt, akkor a 0-s szakasznak A->D, a korábbi 1-es (most már 2-es) szakasznak E->C mérföldköveket kell tartalmaznia.
 
-Mindhárom metódushoz készen állnak tesztesetek az F1a_TransportPlanServiceGetFirstAndLastMilestoneIT, F1b_TransportPlanServiceRegisterDelayIT, F1c_TransportPlanServiceAddSectionIT osztályokban. Ezeket nem szabad módosítanod.
+Mindhárom metódushoz készen állnak tesztesetek az F2a_TransportPlanServiceGetFirstAndLastMilestoneIT, F2b_TransportPlanServiceRegisterDelayIT, F2c_TransportPlanServiceAddSectionIT osztályokban. Ezeket nem szabad módosítanod.
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
