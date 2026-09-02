@@ -1,6 +1,6 @@
 # 2. Java Persistence API, Spring
 
-A házi feladat teljesítésével **TODO pont és TODO iMsc pont** szerezhető.
+A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
 A tanszék AHK rendszerének segítségével hozz létre magadnak egy repository-t. A **meghívó URL-t Moodle-ben találod**. Klónozd le az így elkészült repository-t. Ez tartalmazni fogja a megoldás elvárt szerkezetét. Hozz létre egy `megoldas` nevű branchet, és **arra dolgozz**. A feladatok elkészítése után kommitold és pushold a megoldásod.
 
@@ -24,7 +24,7 @@ A kiinduló projekt teszteket is tartalmaz. A tesztek jellegzetessége, hogy egy
 
 Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Neptun kódodat!
 
-## Feladat 1: Új lekérdezések
+## Feladat 1: Új lekérdezések (2 pont)
 
 Bővítsd az AddressRepository interfészt az alábbi metódusokkal: 
 
@@ -41,7 +41,7 @@ A lekérdezések tesztelésére célszerű az F1_AddressRepositoryIT (IT = Integ
 
 
 
-## Feladat 2: Üzleti logikai réteg bővítése
+## Feladat 2: Üzleti logikai réteg bővítése (2 pont)
 
 Valósítsd meg a **TransportPlanService** osztály alábbi metódusait!
 
@@ -56,19 +56,26 @@ Valósítsd meg a **TransportPlanService** osztály alábbi metódusait!
    
    * Ha a mérföldkő egy szakaszon belüli végmérföldkő, akkor a következő szakasz kezdő mérföldkövének tervezett idejét növeld a késés hosszával!
    
-1. **addSection**: Ezzel egy létező szállítási terv szakaszai közé tudunk egy új szakaszt beszúrni, adott sorszámmal (number), két adott id-jű milestone között. A következő szabályokat kell betartani: 
+
+Mindkét metódushoz készen állnak tesztesetek az F2a_TransportPlanServiceGetFirstAndLastMilestoneIT, F2b_TransportPlanServiceRegisterDelayITosztályokban. Ezeket nem szabad módosítanod.
+
+## Feladat 3: Új szakasz hozzáadása (3 iMSc pont)
+
+!!! note ""
+    A pont megszerzésére az első két feladat megoldásával együtt van lehetőség.
+
+Valósítsd meg a TransportPlanService **addSection** metódusát. Ezzel egy létező szállítási terv szakaszai közé tudunk egy új szakaszt beszúrni, adott sorszámmal (number), két adott id-jű milestone között. A következő szabályokat kell betartani: 
 
    * Ha nem létezik a szállítási terv, vagy a mérföldkövek közül bármelyik, kivételt kell dobni. (IllegalArgumentException-t)
-
    * Az új szakasz sorszáma 0 és MAX között lehet inkluzív, ahol MAX a tervhez tartozó szakaszok beszúrás előtti darabszáma. Ha ez nem teljesül, dobódjon IllegalArgumentException.
-
-   * Ha helyes a sorszám és létezik a szállítási terv és mindkét mérföldkő, mindenképpen új szakaszt kell létrehozni, nem kell azzal foglalkozni, hogy a megadott milestone-ok között esetleg már létezik egy másik szakasz. 
-
    * A szakasz beszúrása történhet a meglévő szakaszok elé, után, és közé is. Minden esetben meg kell tartani a szakaszok folyamatos sorszámozását. Pl. ha eddig 0, 1, 2-es szakaszok voltak, és az 1-es numberrel szúrunk be, akkor a korábbi 1-es, 2-es numberű szakasz új sorszáma 2-es és 3-as legyen. (Shifteljük a későbbi szakaszokat.) 
-
    * Az új szakasz előtti vagy utáni szakaszok (ha léteznek ilyenek) mérföldköveit módosítani kell: ha pl. a 0-s szakasz A->B-be vitt, az 1-es szakasz pedig B->C volt, és 1-es helyre szúrjuk be a D->E szakaszt, akkor a 0-s szakasznak A->D, a korábbi 1-es (most már 2-es) szakasznak E->C mérföldköveket kell tartalmaznia.
+   * Az új szakasz végmérföldkövéhez tartozó tervezett időpont nem lehet korábbi a startmérföldkőhöz tartozó tervezett időpontnál.
+   * Ha az új szakasz előtt van már meglévő szakasz, akkor ezen megelőző szakasz végmérföldkövéhez tartozó tervezett időpont nem lehet az új szakasz startmérföldkövének tervezett időpontja után. Ellenkező esetben dobódjon IllegalArgumentException.
+   * Ha az új szakasz után van már meglévő szakasz, akkor ezen következő szakasz startmérföldkövéhez tartozó tervezett időpont nem lehet az új szakasz végmérföldkövének tervezett időpontja előtt. Ellenkező esetben dobódjon IllegalArgumentException.
+   * Ha a fenti feltételek teljesülnek, mindenképpen új szakaszt kell létrehozni, akkor is, ha a megadott milestone-ok között esetleg már létezik egy másik szakasz. 
 
-Mindhárom metódushoz készen állnak tesztesetek az F2a_TransportPlanServiceGetFirstAndLastMilestoneIT, F2b_TransportPlanServiceRegisterDelayIT, F2c_TransportPlanServiceAddSectionIT osztályokban. Ezeket nem szabad módosítanod.
+A metódushoz készen állnak tesztesetek az F3_TransportPlanServiceAddSectionIT osztályban. Ezeket nem szabad módosítanod.
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
