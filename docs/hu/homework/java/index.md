@@ -14,7 +14,7 @@ Importáld be tetszőleges Java-s IDE-be a repositoryban található Maven alap�
 
 - **Milestone**: egy mérföldkő a szállítás során. Hivatkozik egy címre (Address) és tartalmazza, hogy a terv szerint mikor kell elérni az adott mérföldkövet (plannedTime). Az időpont mindig helyi idő, az időzónát nem kell eltárolni. 
 
-- **Address**: egy cím adatait (ország 2 betűs ISO kódja, város, utca, irányítószám, házszám, szélesség, hosszúság) tárolja.
+- **Address**: egy cím adatait (ország 2 betűs ISO kódja, város, utca, irányítószám, házszám, szélesség, hosszúság fokokban) tárolja.
 
 A kiinduló projekt teszteket is tartalmaz. A tesztek jellegzetessége, hogy egyáltalán nem szükséges hozzá adatbázist beállítani, mert egy beágyazott in-memory H2 adatbázist használnak. A feladatok megoldása és tesztelése így perzisztens adatbázis nélkül is megoldható. Ha mégis szeretnéd az alkalmazást (LogisticsApplication) önmagában, tesztesetektől függetlenül futtatni, és mögötte egy perzisztens adatbázis tartalmát megtekinteni, akkor az application.properties-ben kell beállítanod a DB elérését, és a pom.xml-ben felvenni a JDBC driver függőségét. A kiinduló projektben az MSSQL driver függősége már benne van, és az application.properties-ben is MSSQL-es példa JDBC URL található. De ez nem lesz hatással a tesztekre, azok mindenképpen az in-memory H2 adatbázissal fognak dolgozni.
 
@@ -69,7 +69,9 @@ Valósítsd meg a TransportPlanService **addSection** metódusát. Ezzel egy lé
    * Ha nem létezik a szállítási terv, vagy a mérföldkövek közül bármelyik, kivételt kell dobni. (IllegalArgumentException-t)
    * Az új szakasz sorszáma 0 és MAX között lehet inkluzív, ahol MAX a tervhez tartozó szakaszok beszúrás előtti darabszáma. Ha ez nem teljesül, dobódjon IllegalArgumentException.
    * A szakasz beszúrása történhet a meglévő szakaszok elé, után, és közé is. Minden esetben meg kell tartani a szakaszok folyamatos sorszámozását. Pl. ha eddig 0, 1, 2-es szakaszok voltak, és az 1-es numberrel szúrunk be, akkor a korábbi 1-es, 2-es numberű szakasz új sorszáma 2-es és 3-as legyen. (Shifteljük a későbbi szakaszokat.) 
-   * Az új szakasz előtti vagy utáni szakaszok (ha léteznek ilyenek) mérföldköveit módosítani kell: ha pl. a 0-s szakasz A->B-be vitt, az 1-es szakasz pedig B->C volt, és 1-es helyre szúrjuk be a D->E szakaszt, akkor a 0-s szakasznak A->D, a korábbi 1-es (most már 2-es) szakasznak E->C mérföldköveket kell tartalmaznia.
+   * Az új szakaszt közvetlenül megelőző vagy követő szakasz (ha léteznek ilyenek) mérföldköveinél ellenőrizni kell a címeket: A megelőző szakasz végmérföldkövénél lévő cím és az új szakasz kezdőmérföldkövénél lévő cím közötti távolság 500 méteren belül kell legyen. A következő szakasz startmérföldkövéhez és az új szakasz végmérföldkövéhez tartozó címek között szintén legfeljebb 500 méter lehet a távolság.  A távolságot a szélesség/hosszúság koordinátákból a Haversine formulával számítsd ki.
+   * 
+   *   módosítani kell: ha pl. a 0-s szakasz A->B-be vitt, az 1-es szakasz pedig B->C volt, és 1-es helyre szúrjuk be a D->E szakaszt, akkor a 0-s szakasznak A->D, a korábbi 1-es (most már 2-es) szakasznak E->C mérföldköveket kell tartalmaznia.
    * Az új szakasz végmérföldkövéhez tartozó tervezett időpont nem lehet korábbi a startmérföldkőhöz tartozó tervezett időpontnál.
    * Ha az új szakasz előtt van már meglévő szakasz, akkor ezen megelőző szakasz végmérföldkövéhez tartozó tervezett időpont nem lehet az új szakasz startmérföldkövének tervezett időpontja után. Ellenkező esetben dobódjon IllegalArgumentException.
    * Ha az új szakasz után van már meglévő szakasz, akkor ezen következő szakasz startmérföldkövéhez tartozó tervezett időpont nem lehet az új szakasz végmérföldkövének tervezett időpontja előtt. Ellenkező esetben dobódjon IllegalArgumentException.
