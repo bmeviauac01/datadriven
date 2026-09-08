@@ -3,7 +3,7 @@
 A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések használatát, valamint az Entity Framework Core ORM keretrendszer alapvető működését.
 
 !!! important "Entity Framework Core"
-    A gyakorlat során a .NET 8-ot (régebben .NET Core) és Entity Framework Core 8-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
+    A gyakorlat során a .NET 10-ot (régebben .NET Core) és Entity Framework Core 10-ot használjuk, amely már 2016 óta platformfüggetlen, és Linuxos és Mac-en is használható.
 
     A régebbi Entity Framework 6 (**nem a Core**) alapvetően a régebbi .NET Frameworkhöz készült, és ott bevett gyakorlat volt az entitás modellt egy vizuális modell szerkesztő eszközben lehetett karbantartani (EDMX), és ebből C# kódot generálni. Az EF 6-ban az EDMX mellett már támogatott volt a Code-First megközelítés is, ahol EDMX szerkesztés helyett már közvetlenül a C# osztályokat írhattuk. Ezt az EF Core továbbvitte, és most már ez az egyedüli lehetőség (és nem mellesleg kényelmesebb is).
     
@@ -13,7 +13,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a LINQ lekérdezések haszná
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Microsoft Visual Studio 2022
+- Microsoft Visual Studio 2026
 - Microsoft SQL Server (LocalDB vagy Express edition)
 - SQL Server Management Studio
 - Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
@@ -24,7 +24,7 @@ Amit érdemes átnézned:
 - Entity Framework Core és LINQ
 
 !!! note "Windows mentes fejlesztés"
-    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 8 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
+    A labor alapvetően elvégezhető open-source eszközökkel is (VSCode, .NET 10 SDK, MSSQL Linux alapú verziója akár dockerből), de a labor nem ezeket az eszközöket használja.
 
 ## Gyakorlat menete
 
@@ -39,7 +39,7 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
 
 ## Feladat 1: Projekt létrehozása, adatbázis leképzése
 
-Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 8 keretrendszer felett (tehát ne a régi .NET Framework alapút).
+Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 10 keretrendszer felett (tehát ne a régi .NET Framework alapút).
 
 ![VS projekt típus](images/vs-create-project.png)
 
@@ -52,12 +52,12 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 
     ```xml
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -154,7 +154,7 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
                     entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
 
                     // ...
-                }
+                });
 
                 // ...
             }

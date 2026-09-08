@@ -3,13 +3,13 @@
 The goal of the seminar is to practice writing Linq queries and working with Entity Framework.
 
 !!! important "Entity Framework Core"
-    In this seminar, we are using .NET 8 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.
+    In this seminar, we are using .NET 10 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.
 
 ## Pre-requisites
 
 Required tools to complete the tasks: 
 
-- Microsoft Visual Studio 2022
+- Microsoft Visual Studio 2026
 - Microsoft SQL Server (LocalDB or Express edition)
 - SQL Server Management Studio
 - Database initialization script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql)
@@ -44,12 +44,12 @@ Create a new project; you may work in directory `c:\work`.
 
     ```xml
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -144,7 +144,7 @@ Create a new project; you may work in directory `c:\work`.
                     entity.Property(e => e.Price).HasPrecision(18, 2).IsRequired();
 
                     // ...
-                }
+                });
 
                 // ...
             }
