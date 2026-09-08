@@ -1900,12 +1900,12 @@
 <p>The goal of the seminar is to practice writing Linq queries and working with Entity Framework.</p>
 <div class="admonition important">
 <p class="admonition-title">Entity Framework Core</p>
-<p>In this seminar, we are using .NET 8 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.</p>
+<p>In this seminar, we are using .NET 10 (former .NET Core) available as a cross-platform .NET version for Windows, Linux and Mac.</p>
 </div>
 <h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">¶</a></h2>
 <p>Required tools to complete the tasks: </p>
 <ul>
-<li>Microsoft Visual Studio 2022</li>
+<li>Microsoft Visual Studio 2026</li>
 <li>Microsoft SQL Server (LocalDB or Express edition)</li>
 <li>SQL Server Management Studio</li>
 <li>Database initialization script: <a href="https://raw.githubusercontent.com/bmeviauac01/datadriven/master/overrides/db/mssql.sql">mssql.sql</a></li>
@@ -1933,12 +1933,12 @@
 <li>Install the EF Core NuGet package from the UI or copy these lines in the project file:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;ItemGroup&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.SqlServer"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"6.0.8"</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Design"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"6.0.8"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.SqlServer"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.11"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Design"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.11"</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
 <span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
-<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Tools"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"6.0.8"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Tools"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.11"</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
 <span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
@@ -2027,7 +2027,7 @@ EF keeps track of which migrations are already applied to the database in a spec
 <span class="w">        </span><span class="n">entity</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">Price</span><span class="p">).</span><span class="n">HasPrecision</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">).</span><span class="n">IsRequired</span><span class="p">();</span>
 
 <span class="w">        </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
 
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="p">}</span>
@@ -2337,8 +2337,8 @@ using (var db = new DatavezDbContext())
           </path>
         </svg>
       </span>
-      <span title="October 22, 2024 11:08:20">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 22, 2024 11:08:20 CEST"><span class="timeago" datetime="2024-10-22T11:08:20+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 22, 2024 11:08:20 CEST">2024-10-22</span>
+      <span title="September 8, 2026 09:06:34">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 8, 2026 09:06:34 CEST"><span class="timeago" datetime="2026-09-08T09:06:34+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 8, 2026 09:06:34 CEST">2026-09-08</span>
       </span>
     </span>
 
@@ -2354,6 +2354,8 @@ using (var db = new DatavezDbContext())
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/EngHus515" target="_blank" rel="noopener noreferrer" class="md-author" title="@Husam Kareem">
           <img src="https://avatars.githubusercontent.com/u/88036472?u=cbecb47ff536a07512e662f71d1a6e1e5006b548&amp;v=4?size=72" alt="@Husam Kareem">
         </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
