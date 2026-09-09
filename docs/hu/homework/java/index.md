@@ -1,4 +1,4 @@
-# 2. Java Persistence API, Spring
+# 4. Java Persistence API, Spring
 
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
