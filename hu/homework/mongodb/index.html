@@ -1895,7 +1895,7 @@
 <p>Első lépésként a gyökérben található <code>neptun.txt</code> fájlba írd bele a Neptun kódodat!</p>
 <h2 id="feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont">Feladat 1: Legnagyobb összértékű termék a raktárban (2 pont)<a class="headerlink" href="#feladat-1-legnagyobb-osszerteku-termek-a-raktarban-2-pont" title="Permanent link">¶</a></h2>
 <p>A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó termékek közül melyik képviseli a legnagyobb összértéket — tehát melyik termék az, amelyiknek az <strong>ára szorozva a raktárban lévő mennyiségével a legnagyobb</strong>. Ehhez a <code>ProductRepository</code> osztályban a következő metódust kell implementálnunk.</p>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">double?</span><span class="p">)</span><span class="w"> </span><span class="n">ProductWithLargestTotalValue</span><span class="p">(</span><span class="n">ObjectId</span><span class="w"> </span><span class="n">categoryId</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">ProductValueResult</span><span class="w"> </span><span class="nf">ProductWithLargestTotalValue</span><span class="p">(</span><span class="n">ObjectId</span><span class="w"> </span><span class="n">categoryId</span><span class="p">)</span>
 </code></pre></div>
 <ol>
 <li>
@@ -1923,12 +1923,6 @@
 <p>A legnagyobb értékre vagyunk kíváncsiak, azaz az eredmények közül csupán az első érdekel minket. Azonban akkor sem szeretnénk hibát kapni, ha egyáltalán nem tartozott termék ehhez a kategóriához. Ezért a <code>FirstOrDefault</code> kiértékelő utasítást érdemes használni.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p>Ha esetleg ismeretlen lenne a <code>(string, double?)</code> szintaktika:</p>
-<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="s">"test"</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
-</code></pre></div>
-<p>utasítás segítségével egyszerre két visszatérési értéket tudunk adni a függvénynek.</p>
-</div>
 </li>
 <li>
 <p>Készítsd el a függvény implementációját. A repository osztály konstruktorban megkapja az adatbázist és elmenti magának a használandó gyűjteményt, ezen keresztül érheted el az adatbázist.</p>
@@ -2005,8 +1999,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. december 19. 15:30:30">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2024. december 19. 15:30:30 CET"><span class="timeago" datetime="2024-12-19T15:30:30+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2024. december 19. 15:30:30 CET">2024-12-19</span>
+      <span title="2026. szeptember 10. 11:40:53">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. szeptember 10. 11:40:53 CEST"><span class="timeago" datetime="2026-09-10T11:40:53+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. szeptember 10. 11:40:53 CEST">2026-09-10</span>
       </span>
     </span>
 

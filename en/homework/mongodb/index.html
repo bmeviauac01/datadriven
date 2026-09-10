@@ -1839,7 +1839,7 @@
 <p>Your very first task is to type your Neptun code into <code>neptun.txt</code> in the root of the repository.</p>
 <h2 id="exercise-1-product-with-the-largest-total-value-2-points">Exercise 1: Product with the largest total value (2 points)<a class="headerlink" href="#exercise-1-product-with-the-largest-total-value-2-points" title="Permanent link">¶</a></h2>
 <p>The task is to find the product that has the largest total value within a product category. The total value is the <strong>price of the product multiplied by the amount of the product in stock</strong>. You need to implement the following method in class <code>ProductRepository</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">double?</span><span class="p">)</span><span class="w"> </span><span class="n">ProductWithLargestTotalValue</span><span class="p">(</span><span class="n">ObjectId</span><span class="w"> </span><span class="n">categoryId</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">ProductValueResult</span><span class="w"> </span><span class="nf">ProductWithLargestTotalValue</span><span class="p">(</span><span class="n">ObjectId</span><span class="w"> </span><span class="n">categoryId</span><span class="p">)</span>
 </code></pre></div>
 <ol>
 <li>
@@ -1867,12 +1867,6 @@
 <p>Since it is the largest value that we need, take the first item after sorting. Do not forget that there might not be any product in the specified category. Therefore you should use <code>FirstOrDefault</code> to fetch this item.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p>If the syntax <code>(string, double?)</code> is unfamiliar:</p>
-<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="s">"test"</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
-</code></pre></div>
-<p>The function will return with these two values.</p>
-</div>
 </li>
 <li>
 <p>Implement the repository method. The repository class receives the database as a parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.</p>
@@ -1951,8 +1945,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 20, 2025 09:43:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 20, 2025 09:43:55 CEST"><span class="timeago" datetime="2025-10-20T09:43:55+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2025 09:43:55 CEST">2025-10-20</span>
+      <span title="September 10, 2026 11:40:53">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 10, 2026 11:40:53 CEST"><span class="timeago" datetime="2026-09-10T11:40:53+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 10, 2026 11:40:53 CEST">2026-09-10</span>
       </span>
     </span>
 
