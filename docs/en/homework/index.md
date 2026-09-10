@@ -10,6 +10,7 @@ With these exercises, you can earn **points** that are added to your exam score.
 1. [MSSQL server-side programming](mssql/index.md)
 1. [Entity Framework](ef/index.md)
 1. [MongoDB](mongodb/index.md)
+1. [Java](java/index.md)
 1. [REST API and Web API](rest/index.md)
 1. [GraphQL](graphql/index.md)
 

@@ -1,4 +1,4 @@
-# 5. GraphQL
+# 6. GraphQL
 
 You may earn **4 points** by completing this exercise.
 
