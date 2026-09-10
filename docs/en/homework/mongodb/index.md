@@ -17,7 +17,7 @@ Your very first task is to type your Neptun code into `neptun.txt` in the root o
 The task is to find the product that has the largest total value within a product category. The total value is the **price of the product multiplied by the amount of the product in stock**. You need to implement the following method in class `ProductRepository`.
 
 ```csharp
-(string, double?) ProductWithLargestTotalValue(ObjectId categoryId)
+ProductValueResult ProductWithLargestTotalValue(ObjectId categoryId)
 ```
 
 1. Let us check the test related to this exercise in file `TestExercise1.cs` to understand what is expected here.
@@ -37,15 +37,6 @@ The task is to find the product that has the largest total value within a produc
     - Order the items based on this calculated total value descending. Use a [$sort](https://docs.mongodb.com/manual/reference/operator/aggregation/sort/) (`SortByDescending`) stage.
 
     - Since it is the largest value that we need, take the first item after sorting. Do not forget that there might not be any product in the specified category. Therefore you should use `FirstOrDefault` to fetch this item.
-
-    !!! note ""
-        If the syntax `(string, double?)` is unfamiliar:
-
-        ```csharp
-        return ("test", 0.0);
-        ```
-        
-        The function will return with these two values.
 
 1. Implement the repository method. The repository class receives the database as a parameter and saves the collection as a local variable in the class; use this field to manipulate the collection.
 

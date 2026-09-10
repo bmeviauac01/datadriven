@@ -17,7 +17,7 @@ Első lépésként a gyökérben található `neptun.txt` fájlba írd bele a Ne
 A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó termékek közül melyik képviseli a legnagyobb összértéket — tehát melyik termék az, amelyiknek az **ára szorozva a raktárban lévő mennyiségével a legnagyobb**. Ehhez a `ProductRepository` osztályban a következő metódust kell implementálnunk.
 
 ```csharp
-(string, double?) ProductWithLargestTotalValue(ObjectId categoryId)
+ProductValueResult ProductWithLargestTotalValue(ObjectId categoryId)
 ```
 
 1. A pontos specifikáció megértéséhez vizsgáljuk meg először a feladathoz tartozó teszteket a `TestExercise1.cs` fájlban.
@@ -38,14 +38,6 @@ A feladat meghatározni, hogy a raktárunkban egy adott kategóriába tartozó t
 
     - A legnagyobb értékre vagyunk kíváncsiak, azaz az eredmények közül csupán az első érdekel minket. Azonban akkor sem szeretnénk hibát kapni, ha egyáltalán nem tartozott termék ehhez a kategóriához. Ezért a `FirstOrDefault` kiértékelő utasítást érdemes használni.
 
-    !!! note ""
-        Ha esetleg ismeretlen lenne a `(string, double?)` szintaktika:
-
-        ```csharp
-        return ("test", 0.0);
-        ```
-        
-        utasítás segítségével egyszerre két visszatérési értéket tudunk adni a függvénynek.
 
 1. Készítsd el a függvény implementációját. A repository osztály konstruktorban megkapja az adatbázist és elmenti magának a használandó gyűjteményt, ezen keresztül érheted el az adatbázist.
 
