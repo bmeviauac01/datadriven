@@ -52,15 +52,24 @@ Hozd létre a projektet, a neve legyen a neptun kódod és a `c:\work` mappába 
 
     ```xml
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.13">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+    </ItemGroup>
+    ```
+
+    - Előfordulhat, hogy hibára fut a Scaffold egy tranzitív csomag sérülékenysége miatt, mondva, hogy _The running command stopped because the preference variable "ErrorActionPreference"_, vegyük fel ezt a csomagot explicit is:
+
+    ```xml
+    <ItemGroup>
+        ...
+        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
     </ItemGroup>
     ```
 

@@ -44,18 +44,28 @@ Create a new project; you may work in directory `c:\work`.
 
     ```xml
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.13">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
     ```
     
+    - If there is a problem stating _The running command stopped because the preference variable "ErrorActionPreference"_, paste this package reference as well:
+
+    ```xml
+    <ItemGroup>
+        ...
+        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+    </ItemGroup>
+    ```
+
+
     - Run this EF Core PowerShell script in VS in the _Package Manager Console_ which generates the database context and entity model:
 
     ```powershell
