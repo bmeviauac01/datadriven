@@ -1,4 +1,4 @@
-# 5. GraphQL
+# 6. GraphQL
 
 GraphQL házi feladat, a teljesítéssel **4 pont és 3 iMsc pont** szerezhető.
 

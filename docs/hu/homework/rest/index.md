@@ -1,4 +1,4 @@
-# 4. REST API Web API technológiával
+# 5. REST API Web API technológiával
 
 A házi feladat teljesítésével **4 pont és 3 iMsc pont** szerezhető.
 
