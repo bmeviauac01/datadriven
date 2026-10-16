@@ -60,7 +60,7 @@ If you are using a Mac with an Apple Silicon processor, you cannot run the full 
     -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
     -p 1433:1433 \
     --name database-sql \
-    -d [mcr.microsoft.com/mssql/server:2022-latest](https://mcr.microsoft.com/mssql/server:2022-latest)
+    -d mcr.microsoft.com/mssql/server:2022-latest
     ```
 
 3.  **Connecting to the Database:**
