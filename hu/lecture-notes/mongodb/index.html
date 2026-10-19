@@ -2053,7 +2053,7 @@
   <span class="md-ellipsis">
     
   
-    4. REST API Web API technológiával
+    5. REST API Web API technológiával
   
 
     
@@ -2081,7 +2081,7 @@
   <span class="md-ellipsis">
     
   
-    5. GraphQL
+    6. GraphQL
   
 
     
@@ -2691,7 +2691,7 @@
 <p>Ezekre a problémákra a NoSQL adatbázisok nyújtanak megoldást, azonban használatuk magával <strong>hoz új kihívásokat</strong> is. Ebben a világban <strong>elhagyjuk a szigorú sémákat, helyette egy flexibilis sémát fogunk alkalmazni</strong>. Azaz nem lesznek erős elvárásaink az adatbázisban tárolt adatokkal szemben. Ez komoly hatással van az üzleti logikára: milyen osztályokat hozunk létre, a logika milyen adatok kitöltöttségére számít és a felhasználói felületre, ott milyen adatokat hogyan jelenítünk meg, kérünk be és validálunk.</p>
 <h2 id="a-mongodb-alap-koncepcioi">A MongoDB alap koncepciói<a class="headerlink" href="#a-mongodb-alap-koncepcioi" title="Permanent link">¶</a></h2>
 <p>A MongoDB egy kliens-szerver architektúrájú nem-relációs adatbázis. A kép jobb oldalán látható a <em>mongod</em>, azaz Mongo démon, vagyis az a processz, ami az adatbázis elérését biztosítja. A másik oldal a mi alkalmazásunk, ahonnan a kliens kapcsolódik a szerverhez egy hálózati kapcsolaton keresztül. Ez a hálózati kapcsolat az ún. <em>wire protocol</em>-on keresztül történik, ez a MongoDB saját protokollja. Ebben a protokollban JSON formájú adat kommunikáció zajlik binárisan (azaz BSON).</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/mongodb_architecture.png" data-desc-position="bottom"><img alt="A MongoDb architektúrája" src="images/mongodb_architecture.png"></a></p>
+<p></p>
 <h3 id="logikai-felepites">Logikai felépítés<a class="headerlink" href="#logikai-felepites" title="Permanent link">¶</a></h3>
 <p>Egy MongoDB-alapú adatbázis rendszer legfelső rétege az ún. <em>klaszter</em>, ebbe szervezzük a szervereket. Mi klaszterekkel ebben a tárgyban nem foglalkozunk, azok a skálázás eszközei. A második szint a szerver szintje (a <em>mongod</em> processz), ami alatt az adatbázis foglal helyet. Egy szerver/klaszter több adatbázist tárolhat. Az adatbázisok pedig gyűjteményekből (<em>collection</em>) épülnek fel. Ha a relációs adatbázisokkal meg akarjuk feleltetni, akkor a gyűjtemények a táblák megfelelői, ezen belül a sorok/rekordok pedig a gyűjteményben tárolt <em>dokumentumok</em> lesznek.</p>
 <p>Nézzük ezeket pontosabban.</p>
@@ -2978,7 +2978,7 @@
 </ul>
 <p>A MongoDB 5.0 verziója óta a <strong>Map-reduce</strong> elavult módszernek számít, mivel az aggregációs pipeline használhatóság és sebesség szempontjából is kedvezőbb nála.</p>
 <p>Az egycélú aggregációs műveletek (<strong>Single Purpose Aggregation Operations</strong>) terén a MongoDB biztosítja számunkra a <code>IMongoCollection&lt;TDocument&gt;.EstimatedDocumentCount()</code>, <code>IMongoCollection&lt;TDocument&gt;.Count()</code> és <code>IMongoCollection&lt;TDocument&gt;.Distinct()</code> függvényeket, melyeknek közös jellemzőjük, hogy mindegyik egy darab gyűjteményen végez műveletet.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/mongodb_spao.svg" data-desc-position="bottom"><img alt="Single Purpose Aggregation Operation" src="images/mongodb_spao.svg"></a></p>
+<p></p>
 <div class="admonition cite">
 <p class="admonition-title">Forrás</p>
 <p><a href="https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg">https://docs.mongodb.com/manual/images/distinct.bakedsvg.svg</a></p>
