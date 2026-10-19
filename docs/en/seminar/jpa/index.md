@@ -46,7 +46,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
 
 ## Exercise 1: Start the IDE
 
-1. Start Spring Tool Suite from here: `c:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite4.exe`.
+1. Start Spring Tool Suite from here: `c:\Tools\hatteralkalmazasok\eclipse\SpringToolSuite.exe`.
 1. It will ask for a workspace, select: `c:\Tools\hatteralkalmazasok\workspaces\adatvez`
 1. If there is a **webshop** project in the Project Explorer already, delete it: right-click the project / _Delete_, and check _Delete project contents on disk_
 
