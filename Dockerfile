@@ -9,7 +9,8 @@ RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
 RUN pip install --no-cache-dir \
   mkdocs-git-revision-date-localized-plugin \
   git+https://github.com/tibitoth/mkdocs-git-committers-plugin-2.git@master \
-  mkdocs-glightbox
+  mkdocs-glightbox \
+  "selectolax<1.0"
 
 RUN git config --global --add safe.directory /github/workspace
 
