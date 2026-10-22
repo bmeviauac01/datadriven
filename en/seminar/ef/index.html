@@ -1976,7 +1976,16 @@
 <li>If there is a problem stating <em>The running command stopped because the preference variable "ErrorActionPreference"</em>, paste this package reference as well:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;ItemGroup&gt;</span>
-<span class="w">    </span>...
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.SqlServer"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.13"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Design"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.13"</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
+<span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"Microsoft.EntityFrameworkCore.Tools"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.13"</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PrivateAssets&gt;</span>all<span class="nt">&lt;/PrivateAssets&gt;</span>
+<span class="w">        </span><span class="nt">&lt;IncludeAssets&gt;</span>runtime;<span class="w"> </span>build;<span class="w"> </span>native;<span class="w"> </span>contentfiles;<span class="w"> </span>analyzers;<span class="w"> </span>buildtransitive<span class="nt">&lt;/IncludeAssets&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/PackageReference&gt;</span>
+<span class="w">    </span>//COPY<span class="w"> </span>THIS<span class="w"> </span>LINE:
 <span class="w">    </span><span class="nt">&lt;PackageReference</span><span class="w"> </span><span class="na">Include=</span><span class="s">"System.Security.Cryptography.Pkcs"</span><span class="w"> </span><span class="na">Version=</span><span class="s">"10.0.13"</span><span class="w"> </span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/ItemGroup&gt;</span>
 </code></pre></div>
@@ -2373,8 +2382,8 @@ using (var db = new DatavezDbContext())
           </path>
         </svg>
       </span>
-      <span title="October 15, 2026 10:36:10">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 15, 2026 10:36:10 CEST"><span class="timeago" datetime="2026-10-15T10:36:10+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 15, 2026 10:36:10 CEST">2026-10-15</span>
+      <span title="October 22, 2026 13:00:02">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 22, 2026 13:00:02 CEST"><span class="timeago" datetime="2026-10-22T13:00:02+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 22, 2026 13:00:02 CEST">2026-10-22</span>
       </span>
     </span>
 
