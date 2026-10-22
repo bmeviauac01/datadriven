@@ -2014,7 +2014,7 @@
 <p>Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban létrehozott adatbázis most is létezik. Ezért először ellenőrizzük, és ha nem találjuk, akkor hozzuk létre újra az adatbázist. (Ennek mikéntjét lásd az <a href="../transactions/">első gyakorlat anyagában</a>.)</p>
 <h2 id="feladat-1-projekt-letrehozasa-adatbazis-lekepzese">Feladat 1: Projekt létrehozása, adatbázis leképzése<a class="headerlink" href="#feladat-1-projekt-letrehozasa-adatbazis-lekepzese" title="Permanent link">¶</a></h2>
 <p>Hozz létre Visual Studio segítségével egy C# konzolalkalmazást .NET 10 keretrendszer felett (tehát ne a régi .NET Framework alapút).</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/vs-create-project.png" data-desc-position="bottom"><img alt="VS projekt típus" src="images/vs-create-project.png"></a></p>
 <p>Hozd létre a projektet, a neve legyen a neptun kódod és a <code>c:\work</code> mappába dolgozz.</p>
 <ol>
 <li>
@@ -2103,8 +2103,8 @@ Az EF egy speciális táblában az <code>__EFMigrationHitory</code>-ban követi 
 </li>
 <li>
 <p>Vegyük fel most kézzel ebbe a táblába az <code>Init</code> migrációt, amivel jelezzük az EF-nek, hogy ez már lényegében lefutott. Figyeljünk oda a migráció nevére, aminek a dátumot is tartalmaznia kell, <strong>ezért a Solution Explorerből a fájl nevét másoljuk ki</strong>!</p>
-<p></p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/migration_codefile.png" data-desc-position="bottom"><img alt="VS Solution Explorer, migration file" src="images/migration_codefile.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/vs-migration-history_new.png" data-desc-position="bottom"><img alt="VS Migration History" src="images/vs-migration-history_new.png"></a></p>
 </li>
 <li>
 <p>Módosítsunk az adatbázis sémán a code-first modellünkben.</p>
@@ -2151,9 +2151,9 @@ Az EF egy speciális táblában az <code>__EFMigrationHitory</code>-ban követi 
 <h2 id="feladat-2-lekerdezesek">Feladat 2: Lekérdezések<a class="headerlink" href="#feladat-2-lekerdezesek" title="Permanent link">¶</a></h2>
 <p>A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket LINQ használatával. Írd ki konzolra az eredményeket.</p>
 <p>Debugger segítségével nézd meg, hogy milyen SQL utasítás generálódik: az <code>IQueryable</code> típusú változóra húzva az egeret látható a generált SQL, amint az eredményhalmaz iterálása elkezdődik.
-
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/View_SQL_in_Debugger.png" data-desc-position="bottom"><img alt="SQL megnézése Debuggerben" src="images/View_SQL_in_Debugger.png"></a>
 A naplózás is bekapcsolható az alábbi paranccsal:
-</p>
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/EFlogging.png" data-desc-position="bottom"><img alt="SQL naplózás bekapcsolása" src="images/EFlogging.png"></a></p>
 <p>Feladatok:</p>
 <ol>
 <li>

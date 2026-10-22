@@ -2453,7 +2453,7 @@
 <li>Az első tranzakció megszakításra kerül, és a rendszer visszaállítja a módosítás előtti értéket.</li>
 </ol>
 <p>A 2. lépésben felhasznált érték tehát érvénytelen azt nem lett volna szabad felhasználni.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/dirty-read.png" data-desc-position="bottom"><img alt="Piszkos olvasás" src="images/dirty-read.png"></a></p>
 <div class="admonition quote">
 <p class="admonition-title">Forrás</p>
 <p>A képek forrása: <a href="https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/">https://vladmihalcea.com/2014/01/05/a-beginners-guide-to-acid-and-database-transactions/</a></p>
@@ -2469,7 +2469,7 @@
 <li>Egy másik tranzakció ugyanazon értéket felülírja.</li>
 </ol>
 <p>Végeredményben csak a második írás eredménye marad meg, mintha az első módosítás nem is történt volna meg.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/lost-update.png" data-desc-position="bottom"><img alt="Elveszett módosítás" src="images/lost-update.png"></a></p>
 <h4 id="nem-megismetelheto-olvasas-nonrepeatable-read">Nem megismételhető olvasás (<em>nonrepeatable read</em>)<a class="headerlink" href="#nem-megismetelheto-olvasas-nonrepeatable-read" title="Permanent link">¶</a></h4>
 <p>A nem megismételhető olvasás során a lekérdezés eredménye függ attól, hogy időben mikor adták ki egy tranzakcióban:</p>
 <ol>
@@ -2477,7 +2477,7 @@
 <li>Egy másik tranzakció módosítja ugyanazt az adatelemet.</li>
 <li>Ha az első tranzakció megismétli a korábbi lekérdezést, más eredményt kap.</li>
 </ol>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/nonrepeatable-read.png" data-desc-position="bottom"><img alt="Nem megismételhető olvasás" src="images/nonrepeatable-read.png"></a></p>
 <h4 id="fantom-rekordok-phantom-recordsphantom-read">Fantom rekordok (<em>phantom records</em>/<em>phantom read</em>)<a class="headerlink" href="#fantom-rekordok-phantom-recordsphantom-read" title="Permanent link">¶</a></h4>
 <p>A fantom rekordok problémája akkor jelentkezik, amikor rekord halmazokkal dolgozunk:</p>
 <ol>
@@ -2486,7 +2486,7 @@
 <li>Az első tranzakció elkezdi feldolgozni az eredményhalmazt, például iterátor-szerűen egyesével megy végig a rekordhalmazon.</li>
 </ol>
 <p>A törölt rekord ilyenkor része a lekérdezett eredményhalmaznak, vagy sem? Hasonlóan elképzelhető az is, hogy egy rekord módosul a 2. lépésben. Ilyenkor a 3. lépésben a korábbi, vagy a módosult állapotát kellene látni?</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/phantom-records.png" data-desc-position="bottom"><img alt="Fantom rekordok" src="images/phantom-records.png"></a></p>
 <h3 id="izolacios-szintek">Izolációs szintek<a class="headerlink" href="#izolacios-szintek" title="Permanent link">¶</a></h3>
 <p>A fenti problémák mindegyike elkerülhető a megfelelő izolációs szint megválasztásával. Azonban minél "magasabb" izolációs szintet választunk, annál kisebb az adatbázis-kezelő rendszer átbocsátóképessége, és annál nagyobb a lehetősége a holtpont kialakulásának (lásd alább). Ezért a cél egy megfelelő <em>kompromisszum</em> megtalálása a lehetséges problémák és a teljesítmény között.</p>
 <p>Az ANSI/ISO SQL szabvány az alábbi izolációs szinteket különbözteti meg.</p>
@@ -2504,7 +2504,7 @@
 <p>Az izoláció biztosításának módja a zárolás: az adatbázis-kezelő rendszer a rekordok olvasása és írása során megjelöli (zárolja) az érintett elemeket. A zár elhelyezése a hozzáférés idejében történik, míg az elengedése a tranzakció végeztével. Azt, hogy milyen művelet esetében milyen zárolásra van szükség (kizárólagos, vagy megosztott zár), az izolációs szint és az adott adatbázis-kezelő rendszer implementációja határozza meg.</p>
 <p>A zárak segítségével valójában a tranzakciókat ütemezi a rendszer. Amikor egy zár nem érhető el, mert a mögöttes adatelemet más tranzakció használja és a konkurens elérés a választott izolációs szint szerint nem engedhető meg, a tranzakció várakoztatásra kerül.</p>
 <p>Ha egy rendszerben zárak vannak, akkor tudjuk, hogy <strong>holtpontok</strong> (<em>deadlock</em>) is előfordulhatnak. Holtpont akkor alakulhat ki, ha egy időben legalább két tranzakció szeretné ugyanazon zárakat megszerezni. Az alábbi ábrán a folytonos nyíl jelöli a megszerzett zárat, a szaggatott vonal pedig a megszerzendő zárat. A megszerzendő zárak egyike se adható ki, így mind a két tranzakció megáll, várakozásra kényszerül, de egyik se fog tudni ebből az állapotból kilépni.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/holtpont-eroforras-graf.png" data-desc-position="bottom"><img alt="Holtpont kialakulása" src="images/holtpont-eroforras-graf.png"></a></p>
 <p>Adatbázis-kezelő rendszerekben a holtpontok nem előzhetőek meg, viszont kezelni szükséges az előfordulásukat. A megoldás, hogy a rendszer aktívan figyeli a zárakat, és amikor holtpontot érzékel, akkor az <strong>egyik érintett tranzakciót megszakítja</strong> és módosításait érvényteleníti. Egy adatbázist használó alkalmazásnak erre az eshetőségre fel kell készülnie.</p>
 <div class="admonition fatal">
 <p class="admonition-title">Holtpontok kezelése</p>
@@ -2532,7 +2532,7 @@
 <p>Eddigiekben csak arról beszéltünk, mit biztosít az adatbázis-kezelő rendszer a tranzakciók használatával. Ismerjük meg ennek működését is.</p>
 <p>A <strong>tranzakciós naplózás</strong> segítségével az adatbázis rendszer nyomon tudja követni a futó tranzakciók által végzett módosításokat, vissza tudja állítani a tranzakció megkezdése előtti állapotot, és soft crash esetén a félbeszakadt tranzakciókat visszagörgeti (rollback).</p>
 <p>Ahhoz, hogy megértsük a tranzakciós naplózást, az alábbi koncepcionális rendszermodellel dolgozunk.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/tranzakcios-naplozas-io-modell.png" data-desc-position="bottom"><img alt="Tranzakciós naplózás koncepcionális modellje" src="images/tranzakcios-naplozas-io-modell.png"></a></p>
 <p>Ebben a modellben a következő műveletek vannak:</p>
 <ul>
 <li>Begin T(x): Tranzakció kezdete</li>
