@@ -2207,7 +2207,7 @@
 <p>MongoDB can execute the following sequence of steps in a single atomic step: "Get me category <code>Expensive toys</code>. If it does not exist, create it." We will use <code>FindOneAndUpdate</code> to achieve this.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//3.2</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"\t3.2:"</span><span class="p">);</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">catExpensiveToys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">categoriesCollection</span><span class="p">.</span><span class="n">FindOneAndUpdate</span><span class="o">&lt;</span><span class="n">Category</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">catExpensiveToys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">categoriesCollection</span><span class="p">.</span><span class="n">FindOneAndUpdate</span><span class="p">(</span>
 <span class="w">    </span><span class="n">filter</span><span class="p">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Expensive toys"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">update</span><span class="p">:</span><span class="w"> </span><span class="n">Builders</span><span class="o">&lt;</span><span class="n">Category</span><span class="o">&gt;</span><span class="p">.</span><span class="n">Update</span><span class="p">.</span><span class="n">SetOnInsert</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="s">"Expensive toys"</span><span class="p">),</span>
 <span class="w">    </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FindOneAndUpdateOptions</span><span class="o">&lt;</span><span class="n">Category</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IsUpsert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span><span class="w"> </span><span class="n">ReturnDocument</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReturnDocument</span><span class="p">.</span><span class="n">After</span><span class="w"> </span><span class="p">});</span>
@@ -2250,8 +2250,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 5, 2025 22:53:40">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 5, 2025 22:53:40 CET"><span class="timeago" datetime="2025-11-05T22:53:40+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 5, 2025 22:53:40 CET">2025-11-05</span>
+      <span title="October 26, 2026 09:15:19">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 26, 2026 09:15:19 CET"><span class="timeago" datetime="2026-10-26T09:15:19+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 26, 2026 09:15:19 CET">2026-10-26</span>
       </span>
     </span>
 
@@ -2267,6 +2267,8 @@
       <span>Contributors</span>
       <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
+        </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
+          <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
         </a><a href="https://github.com/balazskvancz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Kvancz Balázs">
           <img src="https://avatars.githubusercontent.com/u/79531867?u=208971dbc2362d63c84db24d3963ebe796d46686&amp;v=4?size=72" alt="@Kvancz Balázs">
         </a><a href="https://github.com/ialbert-AUT" target="_blank" rel="noopener noreferrer" class="md-author" title="@István Albert">
