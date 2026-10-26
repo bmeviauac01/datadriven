@@ -298,7 +298,7 @@ The collection classes `IMongoColection<TEntity>` can also be used to execute mo
         ```csharp
         //3.2
         Console.WriteLine("\t3.2:");
-        var catExpensiveToys = categoriesCollection.FindOneAndUpdate<Category>(
+        var catExpensiveToys = categoriesCollection.FindOneAndUpdate(
             filter: c => c.Name == "Expensive toys",
             update: Builders<Category>.Update.SetOnInsert(c => c.Name, "Expensive toys"),
             options: new FindOneAndUpdateOptions<Category, Category> { IsUpsert = true, ReturnDocument = ReturnDocument.After });
