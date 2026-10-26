@@ -2087,30 +2087,30 @@
 </li>
 <li>
 <p>This exercise is complicated with our current database scheme because we do not have everything at hand within one collection. We need the product information from one collection, and the order details from another one.</p>
-<p>We will be doing a "join" in the client-side, that is, in C# code. The solution's outline is to query the orders, then in C# gather the orders by product, and finally, query the product details.</p>
+<p>An obvious approach would be to "join" on the client side, that is, in C# code: query all orders and all products, then match them with LINQ. However, this only works for small databases, since we would have to transfer the entire <code>orders</code> and <code>products</code> collections over the network and process them in memory. MongoDB can also join on the server side using the <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/"><code>$lookup</code></a> stage of the aggregation pipeline, so we can leave the whole operation to the database.</p>
+<p>This time we write the query using LINQ. The LINQ operators written after <code>AsQueryable()</code> are not executed in memory: the driver translates them into an aggregation pipeline, which is then executed by the server. Detailed explanations:</p>
+<ul>
+<li><code>SelectMany</code> → <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/"><code>$unwind</code></a>: "unwinds" the <code>OrderItems</code> array of the orders, so each order item becomes a separate document.</li>
+<li><code>GroupBy</code> + <code>Select</code> → <code>$group</code>: counts the order items per product.</li>
+<li><code>Where</code> → <code>$match</code>: keeps only the products ordered at least twice.</li>
+<li><code>Join</code> → <code>$lookup</code>: attaches the matching document of the <code>products</code> collection to the remaining product IDs.</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="c1">// 1.5</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"\t1.5:"</span><span class="p">);</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">qOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordersCollection</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">qProductOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordersCollection</span><span class="p">.</span><span class="n">AsQueryable</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span><span class="w"> </span><span class="c1">// $unwind: each item becomes a separate document</span>
+<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span><span class="w">   </span><span class="c1">// $group: group by product</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">      </span><span class="c1">// $match</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">productsCollection</span><span class="p">.</span><span class="n">AsQueryable</span><span class="p">(),</span><span class="w"> </span><span class="c1">// $lookup: join with the products collection</span>
+<span class="w">          </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">ProductID</span><span class="p">,</span>
+<span class="w">          </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span>
+<span class="w">          </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="p">});</span>
 
-<span class="kt">var</span><span class="w"> </span><span class="n">productOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qOrders</span>
-<span class="w">    </span><span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span><span class="w"> </span><span class="c1">// All order items into one list</span>
-<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-
-<span class="kt">var</span><span class="w"> </span><span class="n">qProducts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productsCollection</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">productLookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qProducts</span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">);</span>
-
-<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">productOrders</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productLookup</span><span class="p">.</span><span class="n">GetValueOrDefault</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">);</span>
-<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\t\tName={product?.Name}\tStock={product?.Stock}\tOrders={p.Count()}"</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">qProductOrders</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\t\tName={p.Name}\tStock={p.Stock}\tOrders={p.Orders}"</span><span class="p">);</span>
 </code></pre></div>
-<p>This solution is very elegant and works only for small databases. Suppose we face a similar task under real-life circumstances. We have two choices: denormalize the database scheme and copy product details into the orders, or create an aggregation pipeline executed by the server that does something similar to the code above (MongoDB can do that, but it will not be very fast).</p>
+<p>Another possible solution is to redesign the database schema: if we copy the required product details into the orders (denormalization), no join is needed at all. The price is that, for example, renaming a product requires updating the orders as well.</p>
 </li>
 </ol>
 </details>
@@ -2250,8 +2250,8 @@
           </path>
         </svg>
       </span>
-      <span title="October 26, 2026 09:15:19">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 26, 2026 09:15:19 CET"><span class="timeago" datetime="2026-10-26T09:15:19+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 26, 2026 09:15:19 CET">2026-10-26</span>
+      <span title="October 26, 2026 09:51:36">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 26, 2026 09:51:36 CET"><span class="timeago" datetime="2026-10-26T09:51:36+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 26, 2026 09:51:36 CET">2026-10-26</span>
       </span>
     </span>
 

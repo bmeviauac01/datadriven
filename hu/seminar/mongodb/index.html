@@ -2147,30 +2147,30 @@
 </li>
 <li>
 <p>Ez a feladat azért nehéz a jelenlegi adatbázissémánk mellett, mert itt már nem igaz az, hogy egyetlen kollekcióban rendelkezésre áll minden adat. Szükségünk van ugyanis a termék kollekcióból a termék nevére és raktárkészletére, a megrendelések kollekcióból pedig a termékhez tartozó megrendelések számára.</p>
-<p>Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.</p>
+<p>Kézenfekvő lenne kliensoldalon (értsd: C# kódból) "joinolni": lekérdezni az összes megrendelést és az összes terméket, majd C# kóddal, LINQ segítségével összepárosítani őket. Ez azonban csak kis adatbázisok esetén működik, hiszen a teljes <code>orders</code> és <code>products</code> gyűjteményt át kellene vinnünk a hálózaton és a memóriában feldolgoznunk. A MongoDB az aggregációs pipeline <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/"><code>$lookup</code></a> lépésével szerveroldalon is képes joinolni, így a teljes műveletet rábízhatjuk az adatbázisra.</p>
+<p>A lekérdezést ezúttal LINQ segítségével írjuk meg. Az <code>AsQueryable()</code> hívás után írt LINQ operátorokat a driver nem a memóriában hajtja végre, hanem az aggregációs pipeline segítségével készíti el, és azt a szerver futtatja. Bővebb magyarázat:</p>
+<ul>
+<li><code>SelectMany</code> → <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/"><code>$unwind</code></a>: a megrendelések <code>OrderItems</code> tömbjét "kibontja", minden megrendeléstételből külön dokumentum lesz.</li>
+<li><code>GroupBy</code> + <code>Select</code> → <code>$group</code>: termékenként megszámoljuk a megrendeléstételeket.</li>
+<li><code>Where</code> → <code>$match</code>: csak a legalább kétszer megrendelt termékek maradnak.</li>
+<li><code>Join</code> → <code>$lookup</code>: a megmaradt termékazonosítókhoz hozzákapcsoljuk a <code>products</code> gyűjtemény megfelelő dokumentumát.</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="c1">// 1.5</span>
 <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"\t1.5:"</span><span class="p">);</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">qOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordersCollection</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">qProductOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordersCollection</span><span class="p">.</span><span class="n">AsQueryable</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span><span class="w">   </span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ProductID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">      </span>
+<span class="w">    </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">productsCollection</span><span class="p">.</span><span class="n">AsQueryable</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">          </span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">ProductID</span><span class="p">,</span>
+<span class="w">          </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span>
+<span class="w">          </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Stock</span><span class="p">,</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="p">});</span>
 
-<span class="kt">var</span><span class="w"> </span><span class="n">productOrders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qOrders</span>
-<span class="w">    </span><span class="p">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">)</span><span class="w"> </span><span class="c1">// Egyetlen listába gyűjti a tételeket</span>
-<span class="w">    </span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-
-<span class="kt">var</span><span class="w"> </span><span class="n">qProducts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productsCollection</span>
-<span class="w">    </span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">productLookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qProducts</span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ID</span><span class="p">);</span>
-
-<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">productOrders</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">productLookup</span><span class="p">.</span><span class="n">GetValueOrDefault</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">Key</span><span class="p">);</span>
-<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\t\tName={product?.Name}\tStock={product?.Stock}\tOrders={p.Count()}"</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">qProductOrders</span><span class="p">.</span><span class="n">ToList</span><span class="p">())</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\t\tName={p.Name}\tStock={p.Stock}\tOrders={p.Orders}"</span><span class="p">);</span>
 </code></pre></div>
-<p>A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregációs pipeline-jának használatával a fenti módszerhez hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)</p>
+<p>Egy másik lehetséges megoldás az adatbázisséma átdolgozása: ha a megrendelésekbe belementjük a termék szükséges adatait (denormalizáció), akkor joinra sincs szükség. Ennek ára, hogy például egy termék átnevezésekor a megrendeléseket is frissíteni kell.</p>
 </li>
 </ol>
 </details>
@@ -2310,8 +2310,8 @@
           </path>
         </svg>
       </span>
-      <span title="2026. október 26. 09:15:19">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. október 26. 09:15:19 CET"><span class="timeago" datetime="2026-10-26T09:15:19+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. október 26. 09:15:19 CET">2026-10-26</span>
+      <span title="2026. október 26. 09:51:36">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. október 26. 09:51:36 CET"><span class="timeago" datetime="2026-10-26T09:51:36+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. október 26. 09:51:36 CET">2026-10-26</span>
       </span>
     </span>
 
@@ -2325,9 +2325,7 @@
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/abdullahmusa" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
-          <img src="https://avatars.githubusercontent.com/u/63659188?v=4?size=72" alt="@None">
-        </a><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
+      <nav><a href="https://github.com/akosdudas" target="_blank" rel="noopener noreferrer" class="md-author" title="@Akos Dudas">
           <img src="https://avatars.githubusercontent.com/u/11335181?u=9971512094b94810046de53f5c1dee78e9776a4f&amp;v=4?size=72" alt="@Akos Dudas">
         </a><a href="https://github.com/AttilaHideg" target="_blank" rel="noopener noreferrer" class="md-author" title="@Solisar AUT">
           <img src="https://avatars.githubusercontent.com/u/18716114?v=4?size=72" alt="@Solisar AUT">
