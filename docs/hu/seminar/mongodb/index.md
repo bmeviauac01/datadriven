@@ -181,33 +181,33 @@ A leképzett adatmodellen fogalmazd meg az alábbi lekérdezéseket a _MongoDB C
 
     1. Ez a feladat azért nehéz a jelenlegi adatbázissémánk mellett, mert itt már nem igaz az, hogy egyetlen kollekcióban rendelkezésre áll minden adat. Szükségünk van ugyanis a termék kollekcióból a termék nevére és raktárkészletére, a megrendelések kollekcióból pedig a termékhez tartozó megrendelések számára.
 
-        Ilyen helyzetben MongoDB esetén kénytelenek vagyunk kliensoldalon (értsd: C# kódból) "joinolni". A megoldás itt tehát hogy lekérdezzük az összes megrendelést, majd pedig C#-ból, LINQ segítségével összegyűjtjük az adott termékhez tartozó megrendeléstételeket. Ezután lekérdezzük az adatbázisból a termékeket is, hogy azok adatai is rendelkezésünkre álljanak.
+        Kézenfekvő lenne kliensoldalon (értsd: C# kódból) "joinolni": lekérdezni az összes megrendelést és az összes terméket, majd C# kóddal, LINQ segítségével összepárosítani őket. Ez azonban csak kis adatbázisok esetén működik, hiszen a teljes `orders` és `products` gyűjteményt át kellene vinnünk a hálózaton és a memóriában feldolgoznunk. A MongoDB az aggregációs pipeline [`$lookup`](https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/) lépésével szerveroldalon is képes joinolni, így a teljes műveletet rábízhatjuk az adatbázisra.
+
+        A lekérdezést ezúttal LINQ segítségével írjuk meg. Az `AsQueryable()` hívás után írt LINQ operátorokat a driver nem a memóriában hajtja végre, hanem az aggregációs pipeline segítségével készíti el, és azt a szerver futtatja. Bővebb magyarázat:
+
+        - `SelectMany` → [`$unwind`](https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/): a megrendelések `OrderItems` tömbjét "kibontja", minden megrendeléstételből külön dokumentum lesz.
+        - `GroupBy` + `Select` → `$group`: termékenként megszámoljuk a megrendeléstételeket.
+        - `Where` → `$match`: csak a legalább kétszer megrendelt termékek maradnak.
+        - `Join` → `$lookup`: a megmaradt termékazonosítókhoz hozzákapcsoljuk a `products` gyűjtemény megfelelő dokumentumát.
 
         ```csharp
         // 1.5
         Console.WriteLine("\t1.5:");
-        var qOrders = ordersCollection
-            .Find(_ => true)
-            .ToList();
+        var qProductOrders = ordersCollection.AsQueryable()
+            .SelectMany(o => o.OrderItems) 
+            .GroupBy(oi => oi.ProductID)   
+            .Select(g => new { ProductID = g.Key, Count = g.Count() })
+            .Where(x => x.Count >= 2)      
+            .Join(productsCollection.AsQueryable(), 
+                  x => x.ProductID,
+                  p => p.ID,
+                  (x, p) => new { p.Name, p.Stock, Orders = x.Count });
 
-        var productOrders = qOrders
-            .SelectMany(o => o.OrderItems) // Egyetlen listába gyűjti a tételeket
-            .GroupBy(oi => oi.ProductID)
-            .Where(p => p.Count() >= 2);
-
-        var qProducts = productsCollection
-            .Find(_ => true)
-            .ToList();
-        var productLookup = qProducts.ToDictionary(p => p.ID);
-
-        foreach (var p in productOrders)
-        {
-            var product = productLookup.GetValueOrDefault(p.Key);
-            Console.WriteLine($"\t\tName={product?.Name}\tStock={product?.Stock}\tOrders={p.Count()}");
-        }
+        foreach (var p in qProductOrders.ToList())
+            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}\tOrders={p.Orders}");
         ```
 
-        A fenti nem túl elegáns megoldás, és csak kis adatbázisok esetén működik. Ha valódi körülmények között szembesülünk ezzel a feladattal, két lehetőségünk van: átdolgozni az adatbázis sémát (pl. a megrendelésbe belementeni a termék adatait - denormalizáció), avagy a MongoDB aggregációs pipeline-jának használatával a fenti módszerhez hasonlóra "rávenni" a MongoDB szervert (amire képes ugyan, de le fogja terhelni)
+        Egy másik lehetséges megoldás az adatbázisséma átdolgozása: ha a megrendelésekbe belementjük a termék szükséges adatait (denormalizáció), akkor joinra sincs szükség. Ennek ára, hogy például egy termék átnevezésekor a megrendeléseket is frissíteni kell.
 
 ## Feladat 2: Entitásosztály létrehozása
 

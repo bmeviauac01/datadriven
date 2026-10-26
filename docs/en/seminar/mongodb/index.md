@@ -178,33 +178,33 @@ Write C# code using the _MongoDB C#/.NET Driver_ in the following exercises. Pri
 
     1. This exercise is complicated with our current database scheme because we do not have everything at hand within one collection. We need the product information from one collection, and the order details from another one.
 
-        We will be doing a "join" in the client-side, that is, in C# code. The solution's outline is to query the orders, then in C# gather the orders by product, and finally, query the product details.
+        An obvious approach would be to "join" on the client side, that is, in C# code: query all orders and all products, then match them with LINQ. However, this only works for small databases, since we would have to transfer the entire `orders` and `products` collections over the network and process them in memory. MongoDB can also join on the server side using the [`$lookup`](https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/) stage of the aggregation pipeline, so we can leave the whole operation to the database.
+
+        This time we write the query using LINQ. The LINQ operators written after `AsQueryable()` are not executed in memory: the driver translates them into an aggregation pipeline, which is then executed by the server. Detailed explanations:
+
+        - `SelectMany` → [`$unwind`](https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/): "unwinds" the `OrderItems` array of the orders, so each order item becomes a separate document.
+        - `GroupBy` + `Select` → `$group`: counts the order items per product.
+        - `Where` → `$match`: keeps only the products ordered at least twice.
+        - `Join` → `$lookup`: attaches the matching document of the `products` collection to the remaining product IDs.
 
         ```csharp
         // 1.5
         Console.WriteLine("\t1.5:");
-        var qOrders = ordersCollection
-            .Find(_ => true)
-            .ToList();
+        var qProductOrders = ordersCollection.AsQueryable()
+            .SelectMany(o => o.OrderItems) // $unwind: each item becomes a separate document
+            .GroupBy(oi => oi.ProductID)   // $group: group by product
+            .Select(g => new { ProductID = g.Key, Count = g.Count() })
+            .Where(x => x.Count >= 2)      // $match
+            .Join(productsCollection.AsQueryable(), // $lookup: join with the products collection
+                  x => x.ProductID,
+                  p => p.ID,
+                  (x, p) => new { p.Name, p.Stock, Orders = x.Count });
 
-        var productOrders = qOrders
-            .SelectMany(o => o.OrderItems) // All order items into one list
-            .GroupBy(oi => oi.ProductID)
-            .Where(p => p.Count() >= 2);
-
-        var qProducts = productsCollection
-            .Find(_ => true)
-            .ToList();
-        var productLookup = qProducts.ToDictionary(p => p.ID);
-
-        foreach (var p in productOrders)
-        {
-            var product = productLookup.GetValueOrDefault(p.Key);
-            Console.WriteLine($"\t\tName={product?.Name}\tStock={product?.Stock}\tOrders={p.Count()}");
-        }
+        foreach (var p in qProductOrders.ToList())
+            Console.WriteLine($"\t\tName={p.Name}\tStock={p.Stock}\tOrders={p.Orders}");
         ```
 
-        This solution is very elegant and works only for small databases. Suppose we face a similar task under real-life circumstances. We have two choices: denormalize the database scheme and copy product details into the orders, or create an aggregation pipeline executed by the server that does something similar to the code above (MongoDB can do that, but it will not be very fast).
+        Another possible solution is to redesign the database schema: if we copy the required product details into the orders (denormalization), no join is needed at all. The price is that, for example, renaming a product requires updating the orders as well.
 
 ## Exercise 2: Create a new entity class
 
