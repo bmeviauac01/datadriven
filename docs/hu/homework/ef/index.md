@@ -22,7 +22,7 @@ Készítsd el az adatbázisunk (egy részének) Entity Framework leképzését _
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace ef
+    namespace DataDriven.HW.EF
     {
         [Table("Product")]
         public class DbProduct

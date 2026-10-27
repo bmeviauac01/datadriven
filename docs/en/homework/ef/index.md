@@ -22,7 +22,7 @@ Prepare the (partial) mapping of the database using Entity Framework _Code First
     ```C#
     using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace ef
+    namespace DataDriven.HW.EF
     {
         [Table("Product")]
         public class DbProduct
