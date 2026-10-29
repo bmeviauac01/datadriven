@@ -35,7 +35,7 @@ The exercises are solved together with the instructor. A few exercises we can tr
     ```powershell
     Remove-Item c:\work\mongodatabase -Recurse -ErrorAction Ignore
     New-Item -Type Directory c:\work\mongodatabase
-    c:\tools\mongodb\bin\mongod.exe --dbpath c:\work\mongodatabase
+    & "C:\Program Files\MongoDB\Server\8.3\bin\mongod.exe" --dbpath C:\work\mongodatabase --bind_ip 127.0.0.1
     ```
 
     Keep this window open because the server is running here. You can stop it by pressing ++ctrl+c++ at the end of the class.
