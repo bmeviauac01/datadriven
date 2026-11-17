@@ -45,19 +45,20 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
     - Nézzük meg a `Program.cs` tartalmát. Lényegében két részből áll:
         - Létrehoz egy `WebApplicationBuilder` objektumot, amelynek a `Services` tulajdonságán keresztül tudjuk konfigurálni a Dependency Injection konténert.
         - `Build` után az ASP.NET Core middleware pipeline-t tudjuk konfigurálni, ahol jelenleg csak a controllerek támogatását találhatjuk. Majd futtatjuk ezt az alkalmazást egy beágyazott webszerver (Kestrel) segítségével.
-    - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya. - A _connection string_ az alkalmazás konfigurációs állományában az `appsettings.json`-ben található.
+    - Az adatbázisunk Entity Framework leképzése (_Code First_ modellel) megtalálható a `Dal` mappában. Az `DataDrivenDbContext` lesz az elérés központi osztálya.
+    - A _connection string_ az alkalmazás konfigurációs állományában az `appsettings.json`-ben található.
     - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
 
-1. Írjuk át az `appsettings.json` állományban az adatbázisunk nevét a connection string-ben a neptun kódunkra.
+1. Írjuk át az az adatbázisunk nevét az `appsettings.json` állományban a connection string-ben.
 
-1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy ++ctrl+c++_ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
+1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy ++ctrl+c++ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
 
 ## 2. Feladat: Első Controller és metódus, tesztelés `.http` fájllal
 
 Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget. Próbáljuk ki a működést a Visual Studio beépített HTTP kliensével, egy `.http` fájl segítségével.
 
 !!! tip "`.http` fájlok Visual Studio-ban"
-    Visual Studio 2022 (17.8-as verziótól kezdve) natívan támogatja a `.http` fájlokat: ezekben egyszerű szöveges formában írhatunk HTTP kéréseket, amiket a kérés fölött megjelenő _Send Request_ linkre kattintva futtathatunk le, a választ pedig egy külön panelen látjuk. Ez egy könnyű, külön telepítést nem igénylő alternatívája az olyan önálló alkalmazásoknak, mint a Postman - és mivel a fájl a projekt része, git-tel is verziózható.
+    A Visual Studio a 2022-es verzió 17.8-as kiadásától kezdve (így a 2026-os verzió is) natívan támogatja a `.http` fájlokat: ezekben egyszerű szöveges formában írhatunk HTTP kéréseket, amiket a kérés fölött megjelenő _Send Request_ linkre kattintva futtathatunk le, a választ pedig egy külön panelen látjuk. Ez egy könnyű, külön telepítést nem igénylő alternatívája az olyan önálló alkalmazásoknak, mint a Postman - és mivel a fájl a projekt része, git-tel is verziózható.
 
     Hozzunk létre egy `Hello.http` fájlt a projektben: a _Solution Explorer_-ben a projektre jobb egérrel kattintva _Add / New Item..._, majd keressük meg a _HTTP File_ sablont.
 
@@ -108,7 +109,7 @@ Készítsünk egy új Web API controllert, ami visszaad egy üdvözlő szöveget
     Foglaljuk össze, mi kell ahhoz, hogy egy WebAPI végpontot készítsünk:
 
     - Leszármazni a `ControllerBase`-ből és az `[ApiController]` attribútumot rátenni az osztályra.
-        - Ebben a példában nem lenne fontos leszármazni a `CotrollerBase`-ből, mert a keretrendszer nem követeli meg, és nem használjuk az ősben lévő függvényeket sem itt.
+        - Ebben a példában nem lenne fontos leszármazni a `ControllerBase`-ből, mert a keretrendszer nem követeli meg, és nem használjuk az ősben lévő függvényeket sem itt.
     - Megadni, milyen http kérésre válaszol a végpont a megfelelő `[Http*]` attribútummal.
     - Megadni a route-ot, akár az osztályon, akár a metóduson (vagy mindkettőn) a `[Route]` vagy a `[HttpXXX]` attribútummal.
     - Megfelelő formájú metódust készíteni (pl. visszatérési érték, paraméterek).
@@ -197,7 +198,7 @@ A metódus eredménye a `ToList`-et megelőzően egy `IQueryable<T>`. Emlékezz�
 
 Egészítsük ki a termékek kereséséhez született API-t az alábbi funkciókkal:
 
-- Lehessen egy adott termék adatait lekérdezni a termék id-ja alapján a `/api/products/id` url-en.
+- Lehessen egy adott termék adatait lekérdezni a termék id-ja alapján a `/api/product/{id}` url-en.
 - Tudjunk módosítani meglevő terméket (nevet, árat, raktárkészletet).
 - Lehessen felvenni új terméket (ehhez készítsünk egy új DTO osztályt, amiben csak a név, raktárkészlet és ár van).
 - Lehessen törölni egy terméket az id-ja alapján.
@@ -296,7 +297,7 @@ A lekérés során gondoljuk arra is, ha a kérésben olyan ID érkezik, amely n
     }
     ```
 
-Új termék beszúrásához vegyünk fel egy `POST` kérést a `.http` fájlba. A JSON body-t egy üres sorral válasszuk el a fejlécektől, és ne felejtsük el a `Content-Type` fejlécet sem:
+A termék végpontok teszteléséhez hozzunk létre egy új, `Product.http` fájlt a projektben (ugyanúgy, mint a `Hello.http`-t). Új termék beszúrásához vegyünk fel benne egy `POST` kérést. A JSON body-t egy üres sorral válasszuk el a fejlécektől, és ne felejtsük el a `Content-Type` fejlécet sem:
 
 ```http
 POST http://localhost:5000/api/product
@@ -347,7 +348,7 @@ A tesztelés során nézzük meg a kapott válasz fejléceit is, ezek a válasz 
     }
     ```
 
-A módosítás teszteléséhez vegyünk fel egy `PUT` kérést a `.http` fájlba:
+A módosítás teszteléséhez vegyünk fel egy `PUT` kérést a `Product.http` fájlba (`###`-tal elválasztva az előző kéréstől):
 
 ```http
 PUT http://localhost:5000/api/product/10
@@ -442,7 +443,7 @@ Az új termék létrehozása során meg kellene adnunk még a kategóriát és a
     }
     ```
 
-## Feladat 6 (opcionális): Aszinkron kontroller metódus
+## 6. Feladat (opcionális): Aszinkron kontroller metódus
 
 Az előbbi feladatot írjuk át [**aszinkronra**](../../lecture-notes/async/index.md), azaz használjunk `async-await`-et. Az aszinkron végrehajtással a kiszolgáló hatékonyabban használja a rendelkezésre álló szálainkat amikor az adatbázis műveletekre várunk. Azért tudjuk ezt könnyedén megtenni, mert az Entity Framework alapból biztosít számunkra aszinkron végrehajtást, így a kontroller metódusunkban ezt fel tudjuk használni.
 
