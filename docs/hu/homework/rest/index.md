@@ -40,7 +40,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
     - Mindenképpen a **Swashbuckle** opciót használd (`Swashbuckle.AspNetCore` NuGet csomag).
 
         !!! warning "Beépített OpenAPI támogatás"
-            A .NET 9 óta az ASP.NET Core projektsablonok már nem tartalmazzák a Swashbuckle-t, helyette beépített OpenAPI támogatás érhető el (`AddOpenApi()` / `MapOpenApi()`). Ezt **ne** használd: a beépített megoldás a `/openapi/v1.json` címen szolgálja ki a leírást, és nem ad Swagger UI-t, az automata ellenőrző viszont a lent megadott címeket várja. A Swashbuckle beállítása (`AddSwaggerGen`, `UseSwagger`, `UseSwaggerUI`) .NET 10 alatt is a dokumentációban leírt módon működik.
+            A .NET 9 óta az ASP.NET Core projektsablonok már nem tartalmazzák a Swashbuckle-t, helyette beépített OpenAPI támogatás érhető el (`AddOpenApi()` / `MapOpenApi()`). Viszont nem ezt kell használni, mert a beépített megoldás a `/openapi/v1.json` címen ajánlja ki a leírást, és nem készül Swagger UI (az automata ellenőrző viszont a lent megadott címeket várja). A Swashbuckle beállítása (`AddSwaggerGen`, `UseSwagger`, `UseSwaggerUI`) .NET 10 alatt is a dokumentációban leírt módon működik.
 
     - A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v1/swagger.json` címen legyen elérhető.
     - Állítsd be a _Swagger UI_-t is, ez a `/neptun` címen legyen elérhető. Ezt a `UseSwaggerUI` beállításánál a `RoutePrefix` konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix **csupa kisbetűvel**.
