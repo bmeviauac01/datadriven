@@ -2176,7 +2176,10 @@
 </ul>
 </li>
 <li>
-<p>In <code>appsettings.json</code>, change the database name in the connection string.</p>
+<p>In <code>appsettings.json</code>, adjust the connection string to your environment: after <code>Database=</code>, set the name of your database, and after <code>Server=</code>, the SQL Server instance you use. For LocalDB, the server is <code>(localdb)\MSSQLLocalDB</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"DefaultConnection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=(localdb)\\MSSQLLocalDB;Database=NEPTUN;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=Yes"</span>
+</code></pre></div>
+<p>In JSON, the <code>\</code> character must be written twice (<code>\\</code>).</p>
 </li>
 <li>
 <p>Start the application. After building, a console application starts (this time no browser is opened automatically), where we can see the logs. Open a browser and navigate to <a href="http://localhost:5000/api/values">http://localhost:5000/api/values</a>. We should receive a JSON response. Stop the application either by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in the console application, or stop it in Visual Studio.</p>
@@ -2652,8 +2655,8 @@
           </path>
         </svg>
       </span>
-      <span title="November 17, 2026 14:52:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 17, 2026 14:52:55 CET"><span class="timeago" datetime="2026-11-17T14:52:55+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 17, 2026 14:52:55 CET">2026-11-17</span>
+      <span title="November 18, 2026 20:23:58">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 18, 2026 20:23:58 CET"><span class="timeago" datetime="2026-11-18T20:23:58+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 18, 2026 20:23:58 CET">2026-11-18</span>
       </span>
     </span>
 

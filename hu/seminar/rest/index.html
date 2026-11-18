@@ -2232,7 +2232,10 @@
 </ul>
 </li>
 <li>
-<p>Írjuk át az az adatbázisunk nevét az <code>appsettings.json</code> állományban a connection string-ben.</p>
+<p>Írjuk át az <code>appsettings.json</code> állományban a connection string-et a saját környezetünknek megfelelően: a <code>Database=</code> után az adatbázisunk nevét, a <code>Server=</code> után pedig a használt SQL Server példányt. LocalDB esetén a szerver <code>(localdb)\MSSQLLocalDB</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"DefaultConnection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=(localdb)\\MSSQLLocalDB;Database=NEPTUN;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=Yes"</span>
+</code></pre></div>
+<p>JSON-ben a <code>\</code> karaktert duplán kell írni (<code>\\</code>).</p>
 </li>
 <li>
 <p>Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <a href="http://localhost:5000/api/values">http://localhost:5000/api/values</a> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.</p>
@@ -2708,8 +2711,8 @@
           </path>
         </svg>
       </span>
-      <span title="2026. november 17. 14:52:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 17. 14:52:55 CET"><span class="timeago" datetime="2026-11-17T14:52:55+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 17. 14:52:55 CET">2026-11-17</span>
+      <span title="2026. november 18. 20:23:58">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 18. 20:23:58 CET"><span class="timeago" datetime="2026-11-18T20:23:58+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 18. 20:23:58 CET">2026-11-18</span>
       </span>
     </span>
 
