@@ -33,11 +33,15 @@ Feladatok:
 
 ### OpenAPI dokumentáció
 
-Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts [OpenAPI specifikációt és dokumentációt](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger) a REST API leírásához.
+Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célja hasonló a Web Service-ek esetében használt WSDL-hez: leírni az API szolgáltatásait egy standardizált formában. A korábbi feladatok megoldása után készíts [OpenAPI specifikációt és dokumentációt](https://learn.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger) a REST API leírásához.
 
-1. A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle>
+1. A megoldáshoz kövesd a Microsoft hivatalos dokumentációját: <https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle>, illetve a Swashbuckle saját leírását: <https://github.com/domaindrivendev/Swashbuckle.AspNetCore>
 
-    - Mindenképpen a **Swashbuckle** opciót használd.
+    - Mindenképpen a **Swashbuckle** opciót használd (`Swashbuckle.AspNetCore` NuGet csomag).
+
+        !!! warning "Beépített OpenAPI támogatás"
+            A .NET 9 óta az ASP.NET Core projektsablonok már nem tartalmazzák a Swashbuckle-t, helyette beépített OpenAPI támogatás érhető el (`AddOpenApi()` / `MapOpenApi()`). Ezt **ne** használd: a beépített megoldás a `/openapi/v1.json` címen szolgálja ki a leírást, és nem ad Swagger UI-t, az automata ellenőrző viszont a lent megadott címeket várja. A Swashbuckle beállítása (`AddSwaggerGen`, `UseSwagger`, `UseSwaggerUI`) .NET 10 alatt is a dokumentációban leírt módon működik.
+
     - A `swagger.json`-t az alkalmazás maga generálja (nem kézzel kell megírnod), és a `/swagger/v1/swagger.json` címen legyen elérhető.
     - Állítsd be a _Swagger UI_-t is, ez a `/neptun` címen legyen elérhető. Ezt a `UseSwaggerUI` beállításánál a `RoutePrefix` konfigurálásával fogod tudni elérni. A saját Neptun kódod legyen a prefix **csupa kisbetűvel**.
     - Figyelj oda, hogy esetünkben nem csak Development módban indítva kell a swagger komponens az automata ellenőrző miatt.
@@ -60,7 +64,7 @@ Az OpenAPI (korábbi nevén Swagger) egy REST API dokumentációs eszköz. Célj
 
 A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása, meglévő termék lekérdezése, módosítása vagy törlése, vagyis a CRUD (create, read, update és delete) műveletek. Ezekhez dedikált végpontokat készítünk, amiken keresztül a műveletek végrehajtását el tudja végezni az API használója. Ebben a feladatban a leggyakoribb végpontokat kell implementálni a már meglévő lekérdezés mellé.
 
-1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`) az id-ja alapján; a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen nevű elem.
+1. Készíts egy olyan API végpontot, ami beszúr egy új terméket (`Product`); a kérés `POST` típusú legyen a `/api/product` címre, a kérés törzsében várja az új `Product` értéket, és a válasz vagy 201 legyen, vagy 409, ha már van ilyen nevű elem.
 
 1. Készíts egy olyan API végpontot, ami módosít egy terméket (`Product`) az id-ja alapján; a kérés `PUT` típusú legyen a `/api/product/{id}` címre, a kérés törzsében várja a változtatott `Product` értéket, és a válasz vagy 204 legyen tartalom nélkül, vagy 404, ha nincs ilyen elem.
 
@@ -71,12 +75,12 @@ A termékekkel kapcsolatos leggyakoribb adatbázisműveletek az új beszúrása,
     ??? question "Miért van a `/-` rész az URL-ben?"
         Ahhoz, hogy ezt megértsük, gondoljuk át, mi lehetne az URL: termékek darabszámára vagyunk kíváncsiak, tehát `/api/product/`, de utána mi? Lehetne `/api/product/count`. Viszont ez "összekeveredik" a `/api/product/123` jellegű URL-lel, ami egy konkrét termék lekérdezésére szolgál. A gyakorlatban a két URL együtt tudna működni, mert a termék azonosító most szám, így a keretrendszer felismeri, hogy ha `/123` az URL vége, akkor a termék ID-t váró végpontot kell végrehajtani, ha pedig `/count` az URL vége, akkor a számosságot megadót. De ez csak akkor működik, ha az ID int. Ha szöveg lenne a termék azonosítója, probléma lenne. Ilyen esetekben olyan URL-t kell "kitalálni", ami nem ütközik. A `/-` rész azt jelzi, hogy ott _nem_ termék azonosító utazik.
 
-        Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
+        Megjegyzés: az URL - controller metódus azonosítás a fent leírtaknál bonyolultabb a valóságban. Az ASP.NET Core keretrendszer prioritás sorrendben illeszti a controller metódusokat a beérkező kérések URL-jeire. Ezt a prioritást lehetőségünk van befolyásolni a [`[Http*]` attribútumok `Order` tulajdonságával](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute).
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
+    Emellett készíts egy képernyőképet a Visual Studio `.http` fájljáról és a válasz panelről (vagy más teszteléshez használt eszközből, pl. Postman), amely egy sikeres termék lekérés eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f2.png` néven mentsd el és add be a megoldásod részeként!
 
 !!! danger "MÉG NEM VÉGEZTÉL"
     Ha push-oltad a kódodat, készíts egy PR-t, amihez rendeld hozzá a gyakorlatvezetődet! (részletek: [a házi feladat leadása](../GitHub.md) oldalon)
@@ -93,14 +97,28 @@ Ebben a feladatban létre kell hoznod egy végpontot, ami biztosítja a terméke
 
 1. A kérés `PATCH` típusú legyen a `/api/product/{id}` címre, és a válasz vagy 204 legyen, ha sikerül, vagy 404, ha nincs ilyen elem.
 
-1. A `ProductController` osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést.
+1. A `ProductsController` osztályban valósítsd meg a végpontot, ami elvégzi a részleges frissítést.
 A végpont által kapott paraméter típusa `JsonPatchDocument` erősen típusos változata legyen.
 Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg (például, ha nincs felküldött objektumban raktárkészlet, az ne változzon).
 
-!!! tip "JsonPatchDocument"
-    A `JsonPatchDocument` az ASP.NET Core által nyújtott osztály és tartozik hozzá beépített mechanizmus is.
+!!! tip "JsonPatchDocument .NET 10-ben"
+    .NET 10-től a JSON Patch támogatás System.Text.Json alapú: ehhez a [`Microsoft.AspNetCore.JsonPatch.SystemTextJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.JsonPatch.SystemTextJson) NuGet csomagot kell hozzáadni a projekthez, a `JsonPatchDocument<T>` osztály pedig a `Microsoft.AspNetCore.JsonPatch.SystemTextJson` névtérben található. Részletek: [JSON Patch in ASP.NET Core web API](https://learn.microsoft.com/en-us/aspnet/core/web-api/jsonpatch?view=aspnetcore-10.0).
+
+    A korábbi, Newtonsoft.Json alapú megoldás (`Microsoft.AspNetCore.Mvc.NewtonsoftJson` csomag és `AddNewtonsoftJson()`) is elfogadott, de ez az alkalmazás teljes JSON kezelését lecseréli, nem csak a PATCH kérésekét.
+
+!!! warning "Content-Type: `application/json-patch+json`"
+    A JSON Patch kérések szabványos média típusa az `application/json-patch+json`, és a System.Text.Json alapú `JsonPatchDocument` csak ezt fogadja el: sima `application/json` fejléccel küldve `415 Unsupported Media Type` választ kapsz. Az automata ellenőrző is ezzel a fejléccel küldi a kérést. A törzs a módosító műveletek listája, például a `.http` fájlban:
+
+    ```http
+    PATCH http://localhost:5000/api/product/1
+    Content-Type: application/json-patch+json
+
+    [
+        { "op": "replace", "path": "/Name", "value": "NEPTUN új név" }
+    ]
+    ```
 
 !!! example "BEADANDÓ"
     A módosított forráskódot töltsd fel.
 
-    Emellett készíts egy képernyőképet Postman-ből (vagy más teszteléshez használt eszközből), amely egy sikeres részleges módosítás eredményét mutatja. A képen legyen látható a kérés és a válasz minden részlete (kérés típusa, URL, válasz kódja, válasz tartalma). A válaszban a névben szerepelnie kell a **Neptun kódodnak**. A képet `f3.png` néven mentsd el és add be a megoldásod részeként!
+    Emellett készíts egy képernyőképet a Visual Studio `.http` fájljáról és a válasz panelről (vagy más teszteléshez használt eszközből, pl. Postman), amely egy sikeres részleges módosítás eredményét mutatja. A képen legyen látható a kérés minden részlete (kérés típusa, URL, `Content-Type` fejléc, a kérés törzse) és a válasz kódja (`204 No Content`). A kérés törzsében a módosított névben szerepelnie kell a **Neptun kódodnak**. A képet `f3.png` néven mentsd el és add be a megoldásod részeként!

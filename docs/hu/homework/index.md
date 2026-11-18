@@ -54,18 +54,19 @@ A feladatok gyakran kérik, hogy készíts képernyőképet a megoldás egy-egy 
 
 ### REST API feladatokhoz
   - Fejlesztői eszközök egyike:
+    - A Visual Studio beépített HTTP kliense (`.http` fájlok), ahogy a gyakorlaton is használtuk
     - [Postman](https://www.getpostman.com/)
     - [Hoppscotch](https://docs.hoppscotch.io/) - Nyílt forráskódú, böngészőben is futtatható alternatíva.
 
 ### Az első házi kivételével a C# programozós feladatokhoz
   - Fejlesztői eszközök egyike:
-    - Microsoft Visual Studio 2022 [az itt található beállításokkal](VisualStudio.md) (Windows rendszereken)
+    - Microsoft Visual Studio 2026 [az itt található beállításokkal](VisualStudio.md) (Windows rendszereken)
     - [JetBrains Rider](https://www.jetbrains.com/rider/download/) - Windows, MacOS és Linux rendszereken is használható, ingyenes non-profit és oktatási célokra.
-    - Visual Studio Code a [C# bővítménnyel](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) és a .NET SDK-val települő [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/)
-  - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+    - Visual Studio Code a [C# bővítménnyel](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) és a .NET SDK-val települő [dotnet CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/)
+  - [.NET **10.0** SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 
-    !!! warning ".NET 8.0"
-        A feladat megoldásához **8.0** .NET SDK telepítése szükséges.
+    !!! warning ".NET 10.0"
+        A feladat megoldásához **10.0** .NET SDK telepítése szükséges.
 
         Windowson a Visual Studio telepített verziójától függően előfordulhat, hogy már telepítve van (lásd [itt](VisualStudio.md#net-sdk-ellenorzese-es-telepitese) az ellenőrzés módját); ha nincs, a fenti linkről kell telepíteni az SDK-t (_nem_ a runtime-ot). Linux és MacOS esetén külön szükséges telepíteni.
 

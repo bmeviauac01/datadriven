@@ -49,7 +49,13 @@ The database resides on each machine; thus, the database you created previously 
     - The _connection string_ is in the application's configuration file, `appsettings.json`.
     - There is a test controller in the `Controllers` folder. Let us open and examine it. Let us note the `[ApiController]` and `[Route]` attributes and the inheritance. These make a class a _Web API controller_. Everything else works automatically: the controller's methods are invoked for the matching requests (depending on the route and the http method), so no additional configuration is needed.
 
-1. In `appsettings.json`, change the database name in the connection string.
+1. In `appsettings.json`, adjust the connection string to your environment: after `Database=`, set the name of your database, and after `Server=`, the SQL Server instance you use. For LocalDB, the server is `(localdb)\MSSQLLocalDB`:
+
+    ```json
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=NEPTUN;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=Yes"
+    ```
+
+    In JSON, the `\` character must be written twice (`\\`).
 
 1. Start the application. After building, a console application starts (this time no browser is opened automatically), where we can see the logs. Open a browser and navigate to <http://localhost:5000/api/values>. We should receive a JSON response. Stop the application either by pressing ++ctrl+c++ in the console application, or stop it in Visual Studio.
 

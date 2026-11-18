@@ -49,7 +49,13 @@ Az adatbázis az adott géphez kötött, ezért nem biztos, hogy a korábban lé
     - A _connection string_ az alkalmazás konfigurációs állományában az `appsettings.json`-ben található.
     - A `Controllers` mappában már van egy teszt controller. Nyissuk meg és vizsgáljuk meg. Vegyük észre az `[ApiController]` és `[Route]` attribútumokat, valamint a leszármazást. Ettől lesz egy osztály _Web API controller_. Minden további automatikusan működik, a controller metódusai a megadott kérésekre (az útvonal és http metódus függvényében) meg fognak hívódni (tehát nincs további konfigurációra szükség).
 
-1. Írjuk át az az adatbázisunk nevét az `appsettings.json` állományban a connection string-ben.
+1. Írjuk át az `appsettings.json` állományban a connection string-et a saját környezetünknek megfelelően: a `Database=` után az adatbázisunk nevét, a `Server=` után pedig a használt SQL Server példányt. LocalDB esetén a szerver `(localdb)\MSSQLLocalDB`:
+
+    ```json
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=NEPTUN;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=Yes"
+    ```
+
+    JSON-ben a `\` karaktert duplán kell írni (`\\`).
 
 1. Indítsuk el az alkalmazást. Fordítás után egy konzol alkalmazás indul el (böngészőt most nem indít automatikusan), ahol látjuk a logokat. Nyissunk egy böngészőt, és a <http://localhost:5000/api/values> címet írjuk be. Kapnunk kell egy JSON választ. Állítsuk le az alkalmazást: vagy ++ctrl+c++ a konzol alkalmazásban, vagy Visual Studio-ban állítsuk le.
 

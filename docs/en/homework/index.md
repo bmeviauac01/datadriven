@@ -40,12 +40,13 @@ Some of the exercises require you to create a screenshot. This screenshot is pro
 If you are using a Mac with an Apple Silicon processor, you cannot run the full Windows version of Visual Studio. Instead, you should use a **native** development workflow using VS Code and Docker.
 
 1.  **Development Environment (Native macOS):**
-    * **Install .NET SDK:** Download and install the **.NET 8.0 SDK (Arm64)** from the [official Microsoft website](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+    * **Install .NET SDK:** Download and install the **.NET 10.0 SDK (Arm64)** from the [official Microsoft website](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
     * **Install VS Code:** Download [Visual Studio Code for macOS](https://code.visualstudio.com/download).
     * **Install Extensions:** Open VS Code and install the following extensions to handle C#, SQL, and MongoDB homeworks:
         * [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) (for writing the code)
         * [SQL Server (mssql)](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql) (for managing the MSSQL database)
         * [MongoDB for VS Code](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode) (for the MongoDB homework)
+        * [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) (for the REST API homework: runs the same `.http` files as Visual Studio)
 
 2.  **SQL Server Database (Docker):**
     You cannot install SQL Server directly on macOS, so you must use Docker.
@@ -93,18 +94,19 @@ If you are using a Mac with an Apple Silicon processor, you cannot run the full 
 
 ### For homeworks using REST API:
 - One of the following developer tools:
+  - The built-in HTTP client of Visual Studio (`.http` files), as used in the seminar
   - [Postman](https://www.getpostman.com/)
   - [Hoppscotch](https://docs.hoppscotch.io/) - An open-source, browser-based alternative.
 
 ### For writing C# code (most homeworks, except the first one):
   - One of the following development environments:
-    - Microsoft Visual Studio 2022 [with the settings here](VisualStudio.md) (on Windows)
-    - Visual Studio Code with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) and the .NET SDK-installed [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/tools/)
+    - Microsoft Visual Studio 2026 [with the settings here](VisualStudio.md) (on Windows)
+    - Visual Studio Code with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) and the .NET SDK-installed [dotnet CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/)
     - [JetBrains Rider](https://www.jetbrains.com/rider/download/) - available on Windows, macOS, and Linux, free for non-profit and educational use.
-  - [.NET **8.0** SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+  - [.NET **10.0** SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 
-    !!! warning ".NET 8.0"
-        Mind the version! You need .NET SDK version **8.0** for these exercises.
+    !!! warning ".NET 10.0"
+        Mind the version! You need .NET SDK version **10.0** for these exercises.
 
         On Windows, it might already be installed along with Visual Studio (see [here](VisualStudio.md#check-and-install-net-sdk) how to check it); if not, use the link above to install the SDK (_not_ the runtime). You may need to install it manually when using Linux or macOS.
 
