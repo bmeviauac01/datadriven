@@ -2008,7 +2008,7 @@
 <p>Mindenképpen a <strong>Swashbuckle</strong> opciót használd (<code>Swashbuckle.AspNetCore</code> NuGet csomag).</p>
 <div class="admonition warning">
 <p class="admonition-title">Beépített OpenAPI támogatás</p>
-<p>A .NET 9 óta az ASP.NET Core projektsablonok már nem tartalmazzák a Swashbuckle-t, helyette beépített OpenAPI támogatás érhető el (<code>AddOpenApi()</code> / <code>MapOpenApi()</code>). Ezt <strong>ne</strong> használd: a beépített megoldás a <code>/openapi/v1.json</code> címen szolgálja ki a leírást, és nem ad Swagger UI-t, az automata ellenőrző viszont a lent megadott címeket várja. A Swashbuckle beállítása (<code>AddSwaggerGen</code>, <code>UseSwagger</code>, <code>UseSwaggerUI</code>) .NET 10 alatt is a dokumentációban leírt módon működik.</p>
+<p>A .NET 9 óta az ASP.NET Core projektsablonok már nem tartalmazzák a Swashbuckle-t, helyette beépített OpenAPI támogatás érhető el (<code>AddOpenApi()</code> / <code>MapOpenApi()</code>). Viszont nem ezt kell használni, mert a beépített megoldás a <code>/openapi/v1.json</code> címen ajánlja ki a leírást, és nem készül Swagger UI (az automata ellenőrző viszont a lent megadott címeket várja). A Swashbuckle beállítása (<code>AddSwaggerGen</code>, <code>UseSwagger</code>, <code>UseSwaggerUI</code>) .NET 10 alatt is a dokumentációban leírt módon működik.</p>
 </div>
 </li>
 <li>
@@ -2109,8 +2109,8 @@ Tesztelés során figyelj rá, hogy csak a küldött értékek változzanak meg 
           </path>
         </svg>
       </span>
-      <span title="2026. november 18. 20:23:58">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 18. 20:23:58 CET"><span class="timeago" datetime="2026-11-18T20:23:58+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 18. 20:23:58 CET">2026-11-18</span>
+      <span title="2026. november 18. 21:43:24">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 18. 21:43:24 CET"><span class="timeago" datetime="2026-11-18T21:43:24+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 18. 21:43:24 CET">2026-11-18</span>
       </span>
     </span>
 
