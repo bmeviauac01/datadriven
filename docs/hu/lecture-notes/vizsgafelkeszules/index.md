@@ -10,7 +10,7 @@ Ez az oldal segédanyagokat, mintafeladatokat és AI-alapú gyakorlási stratég
     - **VAT** (ID, Percentage)
     - **Customer** (ID, Name, Login, Password, Email, MainCustomerSiteID)
     - **CustomerSite** (ID, CustomerID, ZipCode, City, Street, Tel, Fax)
-    - **Order** (ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+    - **Order** (ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)
     - **OrderItem** (ID, OrderID, ProductID, Amount, Price)
     - **Status** (ID, Name)
     - **PaymentMethod** (ID, Method, Deadline)
@@ -51,7 +51,7 @@ Az adatbázis sémája:
   VAT(ID, Percentage)
   Customer(ID, Name, Login, Password, Email, MainCustomerSiteID)
   CustomerSite(ID, CustomerID, ZipCode, City, Street)
-  Order(ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+  Order(ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)
   OrderItem(ID, OrderID, ProductID, Amount, Price)
   Status(ID, Name)
   PaymentMethod(ID, Method, Deadline)
@@ -166,8 +166,9 @@ Az alábbi feladatok a `SQL`, az `MSSQL szerveroldali programozás` és a `Trans
         WHERE NOT EXISTS
         (
             SELECT 1
-            FROM [Order] o
-            WHERE o.CustomerID = c.ID
+            FROM CustomerSite cs
+                 INNER JOIN [Order] o ON o.CustomersiteID = cs.ID
+            WHERE cs.CustomerID = c.ID
         )
         ```
 
@@ -176,7 +177,8 @@ Az alábbi feladatok a `SQL`, az `MSSQL szerveroldali programozás` és a `Trans
         ```sql
         SELECT c.Name
         FROM Customer c
-             LEFT JOIN [Order] o ON o.CustomerID = c.ID
+             LEFT JOIN CustomerSite cs ON cs.CustomerID = c.ID
+             LEFT JOIN [Order] o ON o.CustomersiteID = cs.ID
         WHERE o.ID IS NULL
         ```
 
@@ -189,7 +191,8 @@ Az alábbi feladatok a `SQL`, az `MSSQL szerveroldali programozás` és a `Trans
         ```sql
         SELECT c.Name, SUM(oi.Amount * oi.Price) AS TotalSpent
         FROM Customer c
-             INNER JOIN [Order] o      ON o.CustomerID = c.ID
+             INNER JOIN CustomerSite cs ON cs.CustomerID = c.ID
+             INNER JOIN [Order] o      ON o.CustomersiteID = cs.ID
              INNER JOIN OrderItem oi   ON oi.OrderID = o.ID
         GROUP BY c.ID, c.Name
         HAVING SUM(oi.Amount * oi.Price) > 100000
@@ -442,7 +445,7 @@ Az alábbi feladatok a `Entity Framework` anyagához és az EF-gyakorlathoz kapc
             .Where(o => o.Status.Name == "Delivered")
             .Select(o => new
             {
-                Customer = o.Customer.Name,
+                Customer = o.CustomerSite.Customer.Name,
                 Total = o.OrderItems.Sum(oi => oi.Amount * oi.Price)
             })
             .ToList();
