@@ -10,7 +10,7 @@ This page contains helper materials, sample exercises, and AI-based study strate
     - **VAT** (ID, Percentage)
     - **Customer** (ID, Name, Login, Password, Email, MainCustomerSiteID)
     - **CustomerSite** (ID, CustomerID, ZipCode, City, Street, Tel, Fax)
-    - **Order** (ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+    - **Order** (ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)
     - **OrderItem** (ID, OrderID, ProductID, Amount, Price)
     - **Status** (ID, Name)
     - **PaymentMethod** (ID, Method, Deadline)
@@ -51,7 +51,7 @@ The database schema is:
   VAT(ID, Percentage)
   Customer(ID, Name, Login, Password, Email, MainCustomerSiteID)
   CustomerSite(ID, CustomerID, ZipCode, City, Street)
-  Order(ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+  Order(ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)
   OrderItem(ID, OrderID, ProductID, Amount, Price)
   Status(ID, Name)
   PaymentMethod(ID, Method, Deadline)
@@ -165,8 +165,9 @@ The following exercises relate to the `SQL`, `MSSQL server-side programming` and
         WHERE NOT EXISTS
         (
             SELECT 1
-            FROM [Order] o
-            WHERE o.CustomerID = c.ID
+            FROM CustomerSite cs
+                 INNER JOIN [Order] o ON o.CustomersiteID = cs.ID
+            WHERE cs.CustomerID = c.ID
         )
         ```
 
@@ -175,7 +176,8 @@ The following exercises relate to the `SQL`, `MSSQL server-side programming` and
         ```sql
         SELECT c.Name
         FROM Customer c
-             LEFT JOIN [Order] o ON o.CustomerID = c.ID
+             LEFT JOIN CustomerSite cs ON cs.CustomerID = c.ID
+             LEFT JOIN [Order] o ON o.CustomersiteID = cs.ID
         WHERE o.ID IS NULL
         ```
 
@@ -186,7 +188,8 @@ The following exercises relate to the `SQL`, `MSSQL server-side programming` and
         ```sql
         SELECT c.Name, SUM(oi.Amount * oi.Price) AS TotalSpent
         FROM Customer c
-             INNER JOIN [Order] o      ON o.CustomerID = c.ID
+             INNER JOIN CustomerSite cs ON cs.CustomerID = c.ID
+             INNER JOIN [Order] o      ON o.CustomersiteID = cs.ID
              INNER JOIN OrderItem oi   ON oi.OrderID = o.ID
         GROUP BY c.ID, c.Name
         HAVING SUM(oi.Amount * oi.Price) > 100000
@@ -439,7 +442,7 @@ The following exercises relate to the `Entity Framework` material and the EF sem
             .Where(o => o.Status.Name == "Delivered")
             .Select(o => new
             {
-                Customer = o.Customer.Name,
+                Customer = o.CustomerSite.Customer.Name,
                 Total = o.OrderItems.Sum(oi => oi.Amount * oi.Price)
             })
             .ToList();
