@@ -2247,7 +2247,7 @@
 <li><strong>VAT</strong> (ID, Percentage)</li>
 <li><strong>Customer</strong> (ID, Name, Login, Password, Email, MainCustomerSiteID)</li>
 <li><strong>CustomerSite</strong> (ID, CustomerID, ZipCode, City, Street, Tel, Fax)</li>
-<li><strong>Order</strong> (ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)</li>
+<li><strong>Order</strong> (ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)</li>
 <li><strong>OrderItem</strong> (ID, OrderID, ProductID, Amount, Price)</li>
 <li><strong>Status</strong> (ID, Name)</li>
 <li><strong>PaymentMethod</strong> (ID, Method, Deadline)</li>
@@ -2279,7 +2279,7 @@ The database schema is:
   VAT(ID, Percentage)
   Customer(ID, Name, Login, Password, Email, MainCustomerSiteID)
   CustomerSite(ID, CustomerID, ZipCode, City, Street)
-  Order(ID, CustomerID, Date, DeadLine, StatusID, PaymentMethodID, SiteID)
+  Order(ID, CustomersiteID, Date, DeadLine, StatusID, PaymentMethodID)
   OrderItem(ID, OrderID, ProductID, Amount, Price)
   Status(ID, Name)
   PaymentMethod(ID, Method, Deadline)
@@ -2377,14 +2377,16 @@ At the end, give me an overall evaluation.
 <span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
 <span class="p">(</span>
 <span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">cs</span>
+<span class="w">         </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomersiteID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Equivalent anti-join:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
-<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomersiteID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
 </code></pre></div>
 </details>
@@ -2396,7 +2398,8 @@ At the end, give me an overall evaluation.
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalSpent</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span><span class="w"> </span><span class="k">c</span>
-<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w">      </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">CustomerSite</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">[</span><span class="k">Order</span><span class="p">]</span><span class="w"> </span><span class="n">o</span><span class="w">      </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomersiteID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">ID</span>
 <span class="w">     </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">OrderItem</span><span class="w"> </span><span class="n">oi</span><span class="w">   </span><span class="k">ON</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">OrderID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ID</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span>
 <span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span>
@@ -2648,7 +2651,7 @@ At the end, give me an overall evaluation.
 <span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"Delivered"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Customer</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">CustomerSite</span><span class="p">.</span><span class="n">Customer</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
 <span class="w">        </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">OrderItems</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">oi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oi</span><span class="p">.</span><span class="n">Price</span><span class="p">)</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">    </span><span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
@@ -3002,8 +3005,8 @@ Ask me 3 questions in a row!
           </path>
         </svg>
       </span>
-      <span title="June 23, 2026 20:23:03">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 23, 2026 20:23:03 CEST"><span class="timeago" datetime="2026-06-23T20:23:03+02:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 23, 2026 20:23:03 CEST">2026-06-23</span>
+      <span title="November 21, 2026 10:09:50">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 21, 2026 10:09:50 CET"><span class="timeago" datetime="2026-11-21T10:09:50+01:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 21, 2026 10:09:50 CET">2026-11-21</span>
       </span>
     </span>
 
